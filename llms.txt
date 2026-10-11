@@ -25,6 +25,15 @@ From $0 to a multi-million-dollar creator company.
 ## Reference
 - [Reference: 2026 Rate Card](rate-card.html) — 3 min read
 
+## Case Files — documented creator-business deconstructions
+- [Case File: The Budget-Grocery Newsletter](case-budget-grocery.html) — 3 min read
+- [Case File: Ben's Bites](case-bens-bites.html) — 4 min read
+- [Case File: The Sleep-Channel Network](case-sleep-channels.html) — 4 min read
+- [Case File: Mavwicks on TikTok Shop](case-mavwicks.html) — 4 min read
+- [Case File: The Cohort Course](case-ptya.html) — 4 min read
+- api/v1/case-files.json — machine-readable case-file index
+
+
 ## API
 - api/v1/index.json
 - api/v1/chapters.json

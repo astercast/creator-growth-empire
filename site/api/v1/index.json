@@ -6,6 +6,7 @@
     "glossary": "api/v1/glossary.json",
     "calculators": "api/v1/calculators.json",
     "skills": "api/v1/skills.json",
+    "case-files": "api/v1/case-files.json",
     "references": [
       "rate-card"
     ],

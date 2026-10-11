@@ -19,6 +19,9 @@ Calculator config: `youtube_longform_rpm_bands` (per-niche RPM ranges), `shorts_
 ### `GET api/v1/skills.json`
 Skill index: `name`, `description`, `path` for all ten skills. Full skill content lives in `skills/<name>/SKILL.md`.
 
+### `GET api/v1/case-files.json`
+Case-file index: `id`, `badge`, `title`, `path`, `words`, `read_minutes` for all five documented creator-business deconstructions (budget-grocery newsletter, Ben's Bites, faceless sleep-channel network, Mavwicks on TikTok Shop, cohort course). Full text on the `case-*.html` pages. Figures are source-reported, not audited — never present as promises.
+
 ### API Explorer (`api-explorer.html`)
 
 A client-side playground: browses every `api/v1` endpoint (discovered from
@@ -36,6 +39,7 @@ deployed, offline-safe, no server required.
 
 - `chapter.json` — validates chapter entries
 - `glossary.json` — validates glossary entries
+- `case-file.json` — validates case-file entries
 
 ## llms.txt
 

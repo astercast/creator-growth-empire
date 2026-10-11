@@ -135,3 +135,51 @@ internal link check across site/: 706 refs, 0 broken; skills/index.json = 10.
 
 Commit: a489b8d3ed9e493d26406e113245f316778c39b6 (pushed 2026-10-11, base 23b5ecf;
 remote main ref confirmed via GitHub API; parallel pipeline commits carried over via base_tree).
+
+---
+
+## Wave 5 — Empire Case Files (2026-10-11)
+
+5 documented creator-business deconstructions as `pages/case-*.md` → `site/case-*.html`
+(new entries in the `MARKDOWN_PAGES` renderer; chained end-nav case→case→agents; violet
+"Case File" badge). Each file: the arc (0 → scale), a revenue-stack breakdown table, the 3
+decisions that mattered, what to steal (actionable), what NOT to copy (context), and
+sources with URLs. Every figure is source-reported (interviews, Fortune-verified records,
+founder statements) and flagged where self-reported — framed as "what happened," never
+as income promises.
+
+What shipped:
+1. `case-budget-grocery` — The Budget-Grocery Newsletter: viral 2023 grocery video → 3M+
+   followers → seven-figure stack; paid newsletter ~$670K/yr as the primary line on a
+   2-person team (source: the creator's own "5 Revenue Streams of a $1M+ Creator Business"
+   interview + transcript).
+2. `case-bens-bites` — Ben Tossell: 7-figure AI-education business, 10,000+ students in
+   <9 months; newsletter top-of-funnel → paid education products; honest note that the
+   "one person" core had a small team behind it (sources: Behind the Craft interview,
+   creatoreconomy.so takeaways, bensbites.com/about).
+3. `case-sleep-channels` — Adavia Davis: Fortune-verified (Dec 2025) faceless network,
+   $40K–$60K/mo (~$700K/yr), 5 channels, "Boring History" 6-hour sleep documentaries,
+   Claude + ElevenLabs pipeline (~$60/video, ~85% margins); "what NOT to copy" centers
+   YouTube's 2025–2026 AI-content enforcement (sources: Fortune profile via UNILAD Tech
+   and Newsy Today write-ups).
+4. `case-mavwicks` — Mavwicks Fragrances on TikTok Shop: Megan Reep, ~$300–400K/yr
+   before → $32M in the first year on TikTok Shop; founder-on-camera lives as
+   entertainment events (sources: Modern Retail + Digiday, Jun 2026).
+5. `case-ptya` — Ali Abdaal's Part-Time YouTuber Academy: cohort course as the primary
+   line ($1.3M maker revenue 2021; $5M combined with the Kit email engine; $528K in 4
+   days from one automation); the list, not the platform, as the business (sources:
+   Digiday 2021, Kit case study 2026).
+6. **Discovery**: "Empire Case Files" card section on the index (violet phase-cards),
+   hero sticker, footer CASE FILES nav, cross-links from Phase 5 ("The 7-figure pattern")
+   and Phase 8 ("Empire patterns").
+7. **API**: new `case-files` endpoint (`api/v1/case-files.json`) in the index manifest,
+   + `api/v1/schema/case-file.json`; `API.md` documents the endpoint and schema;
+   `pages/agents.md` surface table gained the Case Files row; `llms.txt` gained a
+   ## Case Files section (+ api reference) and `llms-full.txt` picked up all five case
+   pages automatically.
+
+Validation: `scripts/build.py` clean (9 chapters, 6 tools, 10 skills, 5 case files,
+14,848 words); `node --check` on all JS files PASS; all api/v1 JSON + schemas valid;
+internal link check across site/: 986 refs, 0 broken; 0 broken anchors.
+
+Commit: <pending push>

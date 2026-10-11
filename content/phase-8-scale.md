@@ -86,6 +86,8 @@ Study the trajectories and the same shapes appear:
 
 The pattern underneath: **attention → trust → owned products → equity.** Every empire climbs the same ladder; they just start on different rungs.
 
+For the full deconstructions — arc, revenue stack, the three decisions that mattered, what to steal, and what *not* to copy — read the Empire Case Files: [The Sleep-Channel Network](case-sleep-channels.html) (Fortune-verified faceless portfolio, ~$700K/yr), [Mavwicks on TikTok Shop](case-mavwicks.html) ($300K → $32M in year one), and [The Cohort Course](case-ptya.html) (Ali Abdaal's $5M email-driven education business).
+
 ## Building in public vs. stealth
 
 Two valid strategies:

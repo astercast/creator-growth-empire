@@ -59,6 +59,8 @@ The creators who hit seven figures don't do it with one stream — they stack **
 
 The pattern, not the personalities: (1) a breakout content format that validates demand *before* product investment, (2) an owned-audience channel (newsletter/list) as the largest line, (3) small teams + contractors, (4) pre-selling offers before building them. Case-study revenue figures are self-reported — treat as directional, never as promises.
 
+Want the full deconstructions? See [Case File: The Budget-Grocery Newsletter](case-budget-grocery.html), [Case File: Ben's Bites](case-bens-bites.html), and [Case File: The Cohort Course](case-ptya.html) — each with the arc, the revenue stack, the three decisions that mattered, and what *not* to copy.
+
 ## The revenue calculator is honest; use it
 
 The calculator on this site shows *ranges* because ranges are the truth. Two creators with identical views can earn 5x differently based on niche, geography, and how many layers they've built. If your projection disappoints you, the answer is never "get more views" first — it's "add the next layer."

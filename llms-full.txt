@@ -731,6 +731,8 @@ The creators who hit seven figures don't do it with one stream — they stack **
 
 The pattern, not the personalities: (1) a breakout content format that validates demand *before* product investment, (2) an owned-audience channel (newsletter/list) as the largest line, (3) small teams + contractors, (4) pre-selling offers before building them. Case-study revenue figures are self-reported — treat as directional, never as promises.
 
+Want the full deconstructions? See [Case File: The Budget-Grocery Newsletter](case-budget-grocery.html), [Case File: Ben's Bites](case-bens-bites.html), and [Case File: The Cohort Course](case-ptya.html) — each with the arc, the revenue stack, the three decisions that mattered, and what *not* to copy.
+
 ## The revenue calculator is honest; use it
 
 The calculator on this site shows *ranges* because ranges are the truth. Two creators with identical views can earn 5x differently based on niche, geography, and how many layers they've built. If your projection disappoints you, the answer is never "get more views" first — it's "add the next layer."
@@ -1194,6 +1196,8 @@ Study the trajectories and the same shapes appear:
 
 The pattern underneath: **attention → trust → owned products → equity.** Every empire climbs the same ladder; they just start on different rungs.
 
+For the full deconstructions — arc, revenue stack, the three decisions that mattered, what to steal, and what *not* to copy — read the Empire Case Files: [The Sleep-Channel Network](case-sleep-channels.html) (Fortune-verified faceless portfolio, ~$700K/yr), [Mavwicks on TikTok Shop](case-mavwicks.html) ($300K → $32M in year one), and [The Cohort Course](case-ptya.html) (Ali Abdaal's $5M email-driven education business).
+
 ## Building in public vs. stealth
 
 Two valid strategies:
@@ -1320,6 +1324,7 @@ When a brand re-runs your $300 video as paid ads for a year, they're capturing *
 | Glossary | `api/v1/glossary.json` | Creator-economy terms + definitions |
 | Calculators data | `api/v1/calculators.json` | RPM bands, thresholds, splits, 2026 rate card, usage-rights notes |
 | Skill index | `api/v1/skills.json` | 10 skills: name, description, path |
+| Case files | `api/v1/case-files.json` + `case-*.html` | 5 documented creator-business deconstructions: budget-grocery newsletter, Ben's Bites, faceless sleep-channel network, Mavwicks on TikTok Shop, cohort course — figures source-reported, never promises |
 | Reference | `rate-card.html` + `api/v1/calculators.json` | The 2026 sponsorship rate card |
 | Interactive tools | `quiz.html`, `calculator.html`, `planner.html`, `deal-analyzer.html`, `repurpose.html`, `api-explorer.html` | Human-facing; agents should use the API data behind them |
 | API explorer | `api-explorer.html` | Browse every `api/v1` endpoint and preview JSON in-browser |
@@ -1385,3 +1390,272 @@ Goal: turn "I tested 5 budget mics" into five platform-native posts.
 - API `version` follows semver: minor on content changes, major on breaking shape changes.
 - All monetary figures are USD unless noted.
 - Full API reference: `API.md` at the repo root.
+
+
+---
+
+# Case File: The Budget-Grocery Newsletter
+
+# The Budget-Grocery Newsletter Empire
+
+> A budget-grocery creator turned one viral 2023 grocery video into 3M+ followers, then made a paid newsletter — not ads, not sponsors — the primary income line of a seven-figure business run by two full-time employees.
+
+## The arc: 0 → scale
+
+She posted budget-grocery content for a long stretch without much traction. The format was simple: what to buy, what it costs, what it becomes. In 2023 one grocery-list video crossed a million views fast, and she has said she was genuinely shocked — nothing like it had happened before. The audience arrived all at once: over 3 million followers across platforms, per the interview.
+
+What happened next is the case: instead of riding rented reach, she stacked owned and diversified lines one at a time. Brand partnerships came first. Then a cookbook. Then affiliate income. Then her own website. Then a paid newsletter — which she calls "the primary primary thing" in the business. Today it is a seven-figure operation with two full-time employees and several contractors.
+
+## The revenue stack
+
+| Stream | Role in the stack | What was reported |
+|---|---|---|
+| Paid newsletter | Primary income line | ~$670,000/year |
+| Brand partnerships | First money in; recurring | Undisclosed |
+| Cookbook | Authority asset + margin | Undisclosed |
+| Affiliate income | Long tail | "A small piece of it" |
+| Own website | Owned distribution + commerce | Undisclosed |
+
+The newsletter figure is the one that matters and the one most people misread: $670K a year from a newsletter does not happen without the audience, the trust, and the niche. Grocery and meal-planning buyers are among the highest-intent audiences on the internet — advertisers and subscribers both pay for access to a kitchen that is actively being planned.
+
+## The 3 decisions that mattered
+
+1. **She built a repeatable series, not a viral moment.** "Budget grocery lists" is a format that never runs out: prices change, weeks change, families change. Every video is a new episode of the same promise. One viral video is luck; a format that absorbs luck is a system.
+
+2. **She made audience ownership the primary line.** Sponsors and affiliates pay rent; a paid newsletter is a mortgage she collects. The transition to paid subscriptions also created a more direct relationship with readers — the community she owns, not the feed that owns her.
+
+3. **She professionalized early.** A content calendar planned months ahead. Two full-time employees plus contractors. Strategic relationships with other creators, deliberately and professionally. Most creators hire at the burnout point; she hired at the growth point, which is why the growth survived.
+
+## What to steal
+
+- **Pick a format with infinite episodes.** "What I buy + what it costs + what I cook" has a thousand installments. If your concept can't survive 100 episodes, it's a gimmick, not a business.
+- **Convert attention into ownership.** Every viral spike should end somewhere you control: an email list, a paid tier, a community. Rented reach decays; owned lists compound.
+- **Plan months ahead.** A structured content calendar is what separates a creator business from a creator hobby. Her edge was operational, not just creative.
+- **Hire before the breakdown.** Two full-time people and contractors let her keep shipping while the newsletter scaled. Margin spent on capacity buys the next revenue line.
+
+## What NOT to copy
+
+- **Don't expect $670K/yr newsletter math from a cold start.** That line sits on top of 3M+ followers and years of trust in a niche with extreme purchase intent. Newsletters convert a small fraction of readers to paid — the math only works at real scale.
+- **Don't copy the category blindly.** Grocery/meal-planning is advertiser-friendly and affiliate-friendly in a way most niches aren't. Your niche's purchase intent sets your ceiling.
+- **The figures are self-reported.** Every number here comes from the creator's own interview, not audited financials. Treat the structure as proven and the figures as directional.
+
+## Sources
+
+- YouTube interview, "The 5 Revenue Streams of a $1M+ Creator Business" — the creator's own account of the arc, the stack, and the ~$670K/year newsletter figure: https://www.youtube.com/watch?v=1rzdlMHZDx8
+- Full transcript of that interview: https://www.usetranscribe.io/yt/1rzdlMHZDx8/transcript.pdf
+
+
+---
+
+# Case File: Ben's Bites
+
+# Ben's Bites: 7 Figures in 9 Months
+
+> Ben Tossell built a seven-figure AI-education business that taught 10,000+ people — in under nine months, with himself at the center and AI as his co-pilot.
+
+## The arc: 0 → scale
+
+Ben Tossell arrived with an unfair head start: he had founded Makerpad, a no-code education company, and sold it to Zapier in 2021. Instead of retiring into silence, he started the first AI daily newsletter, Ben's Bites, in October 2022 — right as large language models were about to eat the news cycle.
+
+The newsletter grew fast, but the business came from education: teaching professionals how to use AI to save time and automate their work. In less than a year the business crossed seven figures — reportedly making more than his Makerpad exit — with 10,000+ students taught. The team around him stayed tiny: a one-person core with a handful of collaborators (content and publishing help, operations, and his brother building products, including their in-house ads engine, Grizzly Ads).
+
+## The revenue stack
+
+| Stream | Role in the stack | What was reported |
+|---|---|---|
+| AI courses / education products | Primary growth engine | 10,000+ students taught |
+| Newsletter | Audience + acquisition | Daily AI roundup, one of the earliest in the space |
+| Newsletter advertising (Grizzly Ads) | Monetized attention | In-house ad platform built by his team |
+| Angel investing (Ben's Bites Fund) | Optionality, not core revenue | Reported on the company about page |
+
+The pattern: free daily signal (the newsletter) → paid depth (education products). The newsletter wasn't the business; it was the top of the funnel the business was built under.
+
+## The 3 decisions that mattered
+
+1. **He rode a wave he was already standing in.** Launching the first AI daily newsletter in October 2022 — weeks before ChatGPT launched — meant the biggest story in tech marketed his product for him. Timing isn't everything, but being early in a real category is the closest thing to a cheat code that exists.
+
+2. **He designed the business around his life, not the other way around.** In his own telling, the operating principle was avoiding things he hated doing: AI handled the grind, contractors and a tiny team handled the rest. The constraint — a business that fits one person — became the architecture. Small teams move fast when everything is automated or delegated on purpose.
+
+3. **He monetized expertise, not attention.** Most newsletters sell ads and stop. Ben's Bites turned 10,000+ readers into students — education products with real prices beat ad inventory every time, because transformation is worth more than impressions.
+
+## What to steal
+
+- **Be early in a category, not just early on a platform.** The newsletter mattered because AI was about to explode. Find the wave that hasn't crested yet.
+- **Build the business you actually want to run.** "Avoid the things I hate doing" is a strategy: design roles, tools, and hires around your energy, not around what a business is supposed to look like.
+- **Sell the outcome, not the attention.** Ads rent eyeballs; education sells transformation. The highest-margin line in this business came from teaching, not publishing.
+- **Keep the core tiny, automate the rest.** One decision-maker, AI as co-pilot, targeted hires for the rest. Every employee you don't need is margin you keep.
+
+## What NOT to copy
+
+- **He didn't start from zero.** A startup exit, operator credibility, and a network came first. The "9 months" clock started after years of building the person who could move that fast.
+- **The AI-newsletter window of 2022–2023 was a once-a-cycle moment.** Launching "another AI newsletter" today means competing with everyone, including incumbents with distribution. The category timing can't be repeated — find yours instead.
+- **"One person" had a small team behind it.** The about page lists content/publishing help, an operations lead, and a builder. Solo in spirit, staffed in practice. Don't run a 7-figure education business with literally no support and expect his results.
+- **The figures are self-reported.** Seven figures, 10,000+ students, "more than my exit" — all from Ben's own interviews and the company site, not audited statements.
+
+## Sources
+
+- "How I Built a 7-Figure Business in Less than A Year with AI | Ben Tossell (Ben's Bites)" — video interview with the 7-figure/10,000-student claims and the operating playbook: https://www.youtube.com/watch?v=9v5_Go3nUWg
+- Written takeaways from that interview: https://creatoreconomy.so/p/how-i-built-a-7-figure-business-with-ai-ben-tossell
+- Ben's Bites company about page (team, fund, newsletter origins): https://catalog.bensbites.com/about
+
+
+---
+
+# Case File: The Sleep-Channel Network
+
+# The Sleep-Channel Network: Fortune-Verified Faceless YouTube
+
+> Adavia Davis, a 22-year-old Mississippi State dropout, runs five faceless YouTube channels generating $40,000–$60,000 a month — roughly $700,000 a year — on about two hours of oversight a day. Fortune verified the AdSense records.
+
+## The arc: 0 → scale
+
+Davis dropped out of Mississippi State in 2020 and started building faceless YouTube channels — no face, no camera, no personality-driven content. The flagship is "Boring History": six-hour "history to sleep to" documentaries narrated by an Attenborough-style AI voice. His viewers are, by his own telling, often asleep.
+
+The engine is a proprietary production pipeline called TubeGen, built by his business partner, that automates nearly every step: scripts and visuals generated with Claude, narration through ElevenLabs, assembled into long-form videos. A six-hour video can cost as little as $60 to produce. Across the network he averages roughly two million views a day on about two hours of his own time, with operating costs around $6,500 a month and margins estimated at 85–89%.
+
+## The revenue stack
+
+| Stream | Role in the stack | What was reported |
+|---|---|---|
+| YouTube ad revenue (5 channels) | The entire core business | $40K–$60K/month (~$700K/yr), verified by Fortune from AdSense records |
+| Watch-time arbitrage | The mechanism | 6-hour ambient/sleep videos harvest session length — the metric the algorithm rewards most |
+
+That's the whole stack. No merch, no courses, no sponsors reported. It's a pure distribution-and-ad-revenue machine — which is both its power and its fragility.
+
+## The 3 decisions that mattered
+
+1. **He designed for the job, not the viewer.** Nobody "watches" a six-hour sleep documentary. They fall asleep to it. YouTube's algorithm rewards watch time above almost everything, and ambient content is the purest form of watch time. He didn't compete for attention; he occupied it.
+
+2. **He built a portfolio, not a channel.** Five active channels (plus kids' Minecraft channels, animal compilations, prank, anime, Bollywood, and celebrity-gossip experiments in the broader portfolio) means no single demonetization or flop can kill the business. It's a network with shared tooling, not one bet.
+
+3. **He owned the pipeline.** TubeGen — the proprietary automation built with his partner — is the actual moat. Claude and ElevenLabs are commodities anyone can rent; the repeatable system that turns them into six-hour videos at $60 a unit is not.
+
+## What to steal
+
+- **Sell the outcome the algorithm wants.** Watch time is YouTube's currency. Content designed for passive consumption — sleep, study, ambient — earns more session length per unit of effort than anything fighting for attention.
+- **Long-form over long hours.** A 6-hour video is dozens of monetizable minutes from one production run. Runtime is leverage if the format fits.
+- **Portfolio thinking beats channel thinking.** Multiple channels with shared tooling spread risk and let winners fund experiments.
+- **Systematize before you scale.** The money is in the pipeline, not in any single video. Build the machine, then feed it.
+
+## What NOT to copy
+
+- **Platform risk is the whole ballgame.** YouTube tightened the rules against mass-produced, template-style AI content (July 2025), required AI-content labeling (May 2026), and in December 2025 permanently deleted a billion-view channel; in January 2026, sixteen of the world's 100 biggest AI channels disappeared. Davis himself said the window for solo operators like him closes around 2027. The enforcement regime he operated under is not the one you'd enter today.
+- **"Slop" has a half-life.** Kapwing research has estimated that over 20% of videos shown to new YouTube users are now AI-generated "slop," pulling ~63 billion views and ~$117M in annual ad revenue. When a category gets that crowded, the platform corrects — and it has.
+- **The median outcome is not Davis.** For every Fortune-verified $700K network there are thousands of faceless channels earning under $100 a month. Outlier economics are real, and replicability is the exception, not the rule.
+- **$60-a-video hides the real cost.** The reported cost excludes his partner's engineering time building TubeGen and years of accumulated channel authority. Your first video costs far more than his thousandth.
+
+## Sources
+
+- Fortune profile of Adavia Davis (Dec 30, 2025) — the original verification of the AdSense records. Coverage and quotes from that profile:
+- UNILAD Tech write-up of the Fortune report (Mar 2026): https://www.uniladtech.com/news/ai/student-700-000-two-hour-day-ai-reveal-deadline-corporation-control-556581-20260326
+- Newsy Today breakdown of the economics: https://www.newsy-today.com/ai-slop-king-how-a-22-year-old-makes-60k-month-with-youtubes-low-effort-videos/
+- Lipstick Alley thread quoting the full Fortune piece: https://www.lipstickalley.com/threads/this-22-year-old-college-dropout-with-an-ai-powered-youtube-empire-makes-700-000-a-year-and-works-just-2-hours-a-day.6051322/
+
+
+---
+
+# Case File: Mavwicks on TikTok Shop
+
+# Mavwicks on TikTok Shop: $32M in Year One
+
+> Megan Reep's fragrance brand did roughly $300,000–$400,000 in annual sales before TikTok Shop. In its first year on the platform, it did $32 million.
+
+## The arc: 0 → scale
+
+Mavwicks Fragrances was a small fragrance business doing low-six-figure annual sales through conventional channels. Then it joined TikTok Shop — and, per founder Megan Reep in a Modern Retail interview, jumped to $32 million in sales in its first year on the platform.
+
+The mechanism was not a better website. It was founder-led video and live selling, treated as entertainment. Mavwicks runs livestreams like events — one session featured a dunk tank where every bundle purchase dumped her husband into the tank — because "keeping exciting things happening on screen" keeps people watching, and watching people buy. She has credited the platform with taking her small business "to the moon."
+
+The backdrop matters: TikTok Shop shared with Modern Retail that U.S. small businesses on the platform increased sales 66% in 2025, with 215,000+ small businesses actively selling. Mavwicks is the extreme end of a real, platform-wide pattern — not a lone miracle.
+
+## The revenue stack
+
+| Stream | Role in the stack | What was reported |
+|---|---|---|
+| TikTok Shop product sales | Essentially the whole business | $32M in year one on the platform |
+| Livestream commerce | The conversion engine | Event-style lives (dunk-tank session as an example) |
+| Short-form video | Discovery + affiliates | Founder-on-camera storytelling feeding the shop |
+
+Note what's absent from the reporting: affiliate-driven discovery and any pre-existing retail or DTC lines. This was a creator-commerce business where the shop IS the business.
+
+## The 3 decisions that mattered
+
+1. **The founder is the talent.** Smaller brands win on TikTok Shop when founders appear in their own videos and speak directly to customers. Reep didn't hire a spokesperson; she became one. Authenticity is the algorithm's native language, and a founder telling her own story out-converts polished creative.
+
+2. **Livestreams as entertainment events, not infomercials.** A dunk tank isn't a sales tactic — it's a show that happens to sell. The session stays alive because something is always happening, and purchases become part of the entertainment. This is the QVC-to-TikTok leap: commerce as content.
+
+3. **She moved onto the rail early and committed.** Mavwicks didn't dabble — it went all-in on a channel where U.S. GMV was growing explosively. New distribution rails reward the early: lower competition, subsidized traffic, platform promotion. Being there in force during the growth window mattered as much as the tactics.
+
+## What to steal
+
+- **Founder-on-camera beats hired creative.** If you sell something, you are the best ad. Talk to the camera like a person, not a brand.
+- **Make the live a show.** Give viewers a reason to stay beyond the product: games, stakes, guests, spectacle. Every extra minute of watch time is extra chances to convert.
+- **Bundle for the impulse.** Bundle purchases drove the dunk-tank moment — packaging products into deal bundles raises average order value and gives the live a call-to-action with urgency.
+- **Treat new rails as land grabs.** When a platform is growing 60%+ a year, presence compounds. The worst time to start was yesterday; the second-worst time is after the subsidies end.
+
+## What NOT to copy
+
+- **$32M in sales is not $32M in profit.** TikTok Shop's subsidy era meant heavy discounting, free-shipping expectations, and affiliate commissions that eat margin. Gross merchandise value is a revenue number, not a business number — the profit story is undisclosed.
+- **Fragrance is an impulse category.** Low price, emotional purchase, low return rate, repeat buying. Your category's return rate and price point set your ceiling — apparel and electronics live in a harsher margin world.
+- **The subsidy window is closing.** Platform incentives, cheap acquisition, and low competition were 2024–2025 conditions. Entering today means a different, harder game.
+- **TikTok-shared figures aren't audited.** The $32M figure comes from the founder via a TikTok-supplied data story; Modern Retail notes the underlying platform data was shared by TikTok itself. Directionally real, precisely unverified.
+
+## Sources
+
+- Modern Retail, "TikTok Shop sales from U.S. small businesses rose 66% in 2025" — the Megan Reep interview with the $300–400K → $32M figures and the livestream playbook: https://www.modernretail.co/operations/tiktok-shop-says-sales-from-u-s-small-businesses-climbed-66-in-2025/
+- Digiday's version of the same TikTok Shop data story: https://digiday.com/marketing/tiktok-shop-says-sales-from-u-s-small-businesses-climbed-66-in-2025/
+- Retail TouchPoints' platform-wide GMV context ($15.1M → $1.1B monthly U.S. GMV, Jul 2023 → Jul 2025): https://www.retailtouchpoints.com/features/two-years-in-tiktok-shop-is-a-commercial-powerhouse-a-look-at-the-numbers/154300/
+
+
+---
+
+# Case File: The Cohort Course
+
+# The Cohort Course: Ali Abdaal's Part-Time YouTuber Academy
+
+> Ali Abdaal turned a YouTube channel into a course business where, in his own words, "if 400 people join a cohort, I can make a million dollars in just a few days." The course made more money than everything else in his business combined.
+
+## The arc: 0 → scale
+
+Abdaal started his YouTube channel in 2017 while studying medicine at Cambridge — a phone, a bed, a vlog. He reinvested 100% of his early YouTube income into an editor, posted 100 videos to reach 58,000 subscribers, and taught productivity and studying — things he was genuinely expert in.
+
+During the pandemic he launched the Part-Time YouTuber Academy (PTYA), a live cohort course teaching professionals to build YouTube channels as a side project. The first cohort in November 2020 drew about 400 people and generated roughly £220,000. The course then compounded: his maker business generated over $1.3 million in revenue in 2021 (Digiday), with the course "significantly more money than anything" else he ran. A later final cohort reportedly generated $2 million. And in a 2026 Kit case study, Abdaal reports $5 million in revenue from the combined Kit email engine + YouTube funnel — including $528,000 in four days from a single automated Black Friday email sequence.
+
+## The revenue stack
+
+| Stream | Role in the stack | What was reported |
+|---|---|---|
+| PTYA cohort course ($1,000–$4,000 price points) | Primary income line | $1.3M+ maker revenue (2021); $2M final cohort (reported); $5M combined with Kit email engine |
+| Skillshare classes | Early scale + discovery | ~£350,000 in 2020 alone |
+| YouTube ads + sponsorships | Top of funnel | ~£136,000 in sponsorships (2020) |
+| Email list (Kit) | The actual business asset | $528K in 4 days from one automated sequence (Black Friday) |
+
+The stack's real structure: free YouTube content → email list → cohort launches. Abdaal's own hierarchy: he'd rather have a 500,000-person email list than 5 million YouTube subscribers.
+
+## The 3 decisions that mattered
+
+1. **He taught what he was two steps ahead in.** Studying, productivity, then YouTube itself — each course topic was something he had just figured out, with receipts. Students pay for the shortcut through a path someone credibly walked. Expertise you can prove beats expertise you claim.
+
+2. **He chose the cohort model, not the evergreen course.** Live lectures, Q&As, community, deadlines — and premium pricing ($1,000–$4,000) justified by accountability and access. High prices meant students had skin in the game, which drove the completion and success stories that sold the next cohort. The format WAS the product strategy.
+
+3. **He made the email list the business.** The $528K-in-4-days Black Friday sequence — run while his team was on vacation — is the whole lesson in one anecdote. Social platforms are discovery; the list is destiny. Every subscriber is an asset he can contact on his own schedule, with no brand, algorithm, or deadline in between.
+
+## What to steal
+
+- **Sell the transformation you just achieved.** The course came from his own recent climb (doctor → creator). Teach the last two years of your life, not the last twenty — proximity is credibility.
+- **Cohorts beat catalogs.** Live accountability commands premium prices and produces the success stories that market the next launch. Deadlines are a feature, not a bug.
+- **Own the list before you need it.** The email engine printed $528K while nobody was working. Build the list when you don't need the money, so it's there when you do.
+- **Reinvest early revenue into capacity.** 100% of his first YouTube income went to an editor. Capacity buys consistency; consistency buys the audience that buys the course.
+
+## What NOT to copy
+
+- **He launched to a multi-year audience.** Years of free videos, a Cambridge medicine background, and hundreds of thousands of viewers preceded the first cohort. A $2,000 course with no audience is a product with no customers — the funnel came first.
+- **Cohort-course economics are harder now.** 2020–2021 was peak cohort-course appetite (pandemic + creator-education boom). The format still works, but the market is crowded and price-sensitive. The pricing power he had was partly era-specific.
+- **High-ticket needs high trust.** $1,000–$4,000 price tags work when the teacher's results are public and documented. Without visible receipts, premium pricing reads as presumption.
+- **"A million dollars in a few days" is launch math, not recurring math.** Cohort revenue comes in bursts between launches; the business between them is content, list-building, and iteration. Don't budget the spike as the baseline.
+
+## Sources
+
+- Digiday, "Influencers are creating million-dollar incomes selling their expertise via online courses" — the $1.3M revenue figure and the "400 people join a cohort, I can make a million dollars in just a few days" quote: https://digiday.com/marketing/influencers-are-creating-million-dollar-incomes-selling-their-expertise-via-online-courses/
+- Kit case study, "Ali Abdaal's Kit Playbook" — the $5M combined revenue figure and the $528K Black Friday email automation: https://kit.com/resources/blog/ali-abdaal-case-study
+- Abdaal's own 2020 income breakdown (first cohort ~£220K, Skillshare ~£350K): covered in his annual revenue videos and cited in creator-economy coverage

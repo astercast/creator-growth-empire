@@ -13,6 +13,7 @@
 | Glossary | `api/v1/glossary.json` | Creator-economy terms + definitions |
 | Calculators data | `api/v1/calculators.json` | RPM bands, thresholds, splits, 2026 rate card, usage-rights notes |
 | Skill index | `api/v1/skills.json` | 10 skills: name, description, path |
+| Case files | `api/v1/case-files.json` + `case-*.html` | 5 documented creator-business deconstructions: budget-grocery newsletter, Ben's Bites, faceless sleep-channel network, Mavwicks on TikTok Shop, cohort course — figures source-reported, never promises |
 | Reference | `rate-card.html` + `api/v1/calculators.json` | The 2026 sponsorship rate card |
 | Interactive tools | `quiz.html`, `calculator.html`, `planner.html`, `deal-analyzer.html`, `repurpose.html`, `api-explorer.html` | Human-facing; agents should use the API data behind them |
 | API explorer | `api-explorer.html` | Browse every `api/v1` endpoint and preview JSON in-browser |

@@ -51,9 +51,21 @@ TOOLS = [
     ("api-explorer", "API Explorer", "Browse every api/v1 endpoint and preview JSON responses live in your browser — no key, no server."),
 ]
 
-# Markdown landing pages rendered like chapters (pages/*.md -> site/*.html)
+# Markdown landing pages rendered like chapters (pages/*.md -> site/*.html).
+# Optional 5th element: (next_slug, next_label) for the end-nav next link.
 MARKDOWN_PAGES = [
-    ("agents", "pages/agents.md", "Agents", "The Agent Surface"),
+    ("agents", "pages/agents.md", "Agents", "The Agent Surface",
+     ("api-explorer", "Try the API Explorer")),
+    ("case-budget-grocery", "pages/case-budget-grocery.md", "The Budget-Grocery Newsletter", "Case File",
+     ("case-bens-bites", "Ben's Bites")),
+    ("case-bens-bites", "pages/case-bens-bites.md", "Ben's Bites", "Case File",
+     ("case-sleep-channels", "The Sleep-Channel Network")),
+    ("case-sleep-channels", "pages/case-sleep-channels.md", "The Sleep-Channel Network", "Case File",
+     ("case-mavwicks", "Mavwicks on TikTok Shop")),
+    ("case-mavwicks", "pages/case-mavwicks.md", "Mavwicks on TikTok Shop", "Case File",
+     ("case-ptya", "The Cohort Course")),
+    ("case-ptya", "pages/case-ptya.md", "The Cohort Course", "Case File",
+     ("agents", "The Agent Surface")),
 ]
 
 # ---------- minimal markdown -> html ----------
@@ -202,6 +214,14 @@ def page_template(title, body, active="", extra_head=""):
       <a href="glossary.html">Glossary</a>
       <a href="agents.html">Agents</a>
     </nav>
+    <nav aria-label="Case Files">
+      <strong class="muted" style="font-size:.78rem;letter-spacing:.12em">CASE FILES</strong>
+      <a href="case-budget-grocery.html">The Budget-Grocery Newsletter</a>
+      <a href="case-bens-bites.html">Ben's Bites</a>
+      <a href="case-sleep-channels.html">The Sleep-Channel Network</a>
+      <a href="case-mavwicks.html">Mavwicks on TikTok Shop</a>
+      <a href="case-ptya.html">The Cohort Course</a>
+    </nav>
   </div>
   <div class="footer-fine">PRIVATE RESEARCH ARCHIVE · PLATFORM FACTS VERIFIED OCT 2026 — VERIFY LIVE BEFORE ACTING · NOT FINANCIAL, LEGAL, OR TAX ADVICE</div>
 </footer>
@@ -310,7 +330,9 @@ def build():
 
     # ---- markdown landing pages (agents etc.): rendered like chapters, linked from nav/footer ----
     mdpage_meta = []
-    for slug, src, short, badge in MARKDOWN_PAGES:
+    for entry in MARKDOWN_PAGES:
+        slug, src, short, badge = entry[:4]
+        nxt = entry[4] if len(entry) > 4 else ("api-explorer", "Try the API Explorer")
         md = (ROOT / src).read_text(encoding="utf-8")
         body_html = md_to_html(md)
         wc = word_count(md)
@@ -333,8 +355,8 @@ def build():
                 f'<span>{wc:,} words</span></p></header>')
         cnav = ('<nav class="chapter-nav" aria-label="Phases">'
                 '<a href="index.html"><span class="nav-dir">← Back to</span><span class="nav-title">The Empire Map</span></a>'
-                '<a class="nav-next" href="api-explorer.html"><span class="nav-dir">Next →</span>'
-                '<span class="nav-title">Try the API Explorer</span></a></nav>')
+                f'<a class="nav-next" href="{nxt[0]}.html"><span class="nav-dir">Next →</span>'
+                f'<span class="nav-title">{esc(nxt[1])}</span></a></nav>')
         page = page_template(short, f'<article class="chapter">{hero}{body_html}{cnav}</article>', active=f"{slug}.html")
         (SITE / f"{slug}.html").write_text(page, encoding="utf-8")
         mdpage_meta.append({"id": slug, "badge": badge, "title": short,
@@ -389,6 +411,16 @@ def build():
         f'<span>{esc(desc)}</span><span class="tool-go">Launch →</span></a>'
         for i, (slug, title, desc) in enumerate(TOOLS))
     total_words = sum(m["words"] for m in chapters_meta)
+    case_cards = "".join(
+        f'<a class="phase-card reveal" style="--i:{i};--card-accent: var(--violet);" href="{m["path"]}">'
+        f'<span class="phase-lvl">CASE FILE {i + 1:02d}</span>'
+        f'<span class="phase-num">{i + 1:02d}</span>'
+        f'<span class="phase-name">{esc(m["title"])}</span>'
+        f'<span class="phase-meta">{m["read_minutes"]} min · {m["words"]:,} words</span></a>'
+        for i, m in enumerate(m for m in mdpage_meta if m["badge"] == "Case File"))
+    case_section = (f'<section class="section"><div class="section-head"><h2>Empire Case Files</h2>'
+                    f'<span class="section-tag">documented deconstructions // no guru hype</span></div>'
+                    f'<div class="phase-grid reveal-stagger">{case_cards}</div></section>')
     index_body = f"""
 <section class="hero">
   <p class="hero-eyebrow">Field manual // Creator division</p>
@@ -398,6 +430,7 @@ def build():
   <div class="sticker-row reveal">
     <span class="sticker">9 phases</span>
     <span class="sticker sticker-coral">6 power tools</span>
+    <span class="sticker sticker-violet">5 case files</span>
     <span class="sticker sticker-gold">2026 verified</span>
     <span class="sticker sticker-violet">Zero → empire</span>
   </div>
@@ -418,6 +451,7 @@ def build():
 </div></section>
 <section class="section"><div class="section-head"><h2>The Empire Map</h2><span class="section-tag">9 levels // clear them all</span></div><div class="phase-grid reveal-stagger">{cards}</div></section>
 <section class="section"><div class="section-head"><h2>Command Center</h2><span class="section-tag">weapons free</span></div><div class="tool-grid reveal-stagger">{tools_html}</div></section>
+{case_section}
 <section class="section"><div class="section-head"><h2>Hottest topics right now</h2><span class="section-tag">live feed // trend-machine</span></div>
 <div class="hud-panel trends-hud reveal">
   <div class="hud-head"><span>INTEL // WHAT TO COVER TODAY</span><span class="hud-status">SCANNING</span></div>
@@ -440,12 +474,22 @@ def build():
             "glossary": "api/v1/glossary.json",
             "calculators": "api/v1/calculators.json",
             "skills": "api/v1/skills.json",
+            "case-files": "api/v1/case-files.json",
             "references": [m["path"].replace(".html", "") for m in reference_meta],
             "tools": [f"{slug}.html" for slug, _, _ in TOOLS],
         },
     }
     (API / "index.json").write_text(json.dumps(api_index, indent=2), encoding="utf-8")
     (API / "chapters.json").write_text(json.dumps({"chapters": chapters_meta}, indent=2), encoding="utf-8")
+    (API / "case-files.json").write_text(json.dumps({
+        "version": "1.0.0", "updated": "2026-10-11",
+        "note": "Documented creator-business deconstructions. Figures are reported by the cited sources, not audited — never present as promises.",
+        "case_files": [
+            {"id": m["id"], "badge": m["badge"], "title": m["title"],
+             "path": m["path"], "words": m["words"], "read_minutes": m["read_minutes"]}
+            for m in mdpage_meta if m["badge"] == "Case File"
+        ],
+    }, indent=2), encoding="utf-8")
     shutil.copy(DATA / "glossary.json", API / "glossary.json")
     shutil.copy(DATA / "calculators.json", API / "calculators.json")
 
@@ -480,6 +524,19 @@ def build():
         }}},
     }
     (API / "schema" / "glossary.json").write_text(json.dumps(glossary_schema, indent=2), encoding="utf-8")
+    case_file_schema = {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "title": "CaseFile",
+        "type": "object",
+        "required": ["id", "badge", "title", "path", "words", "read_minutes"],
+        "properties": {
+            "id": {"type": "string"}, "badge": {"type": "string"},
+            "title": {"type": "string"}, "path": {"type": "string"},
+            "words": {"type": "integer", "minimum": 1},
+            "read_minutes": {"type": "integer", "minimum": 1},
+        },
+    }
+    (API / "schema" / "case-file.json").write_text(json.dumps(case_file_schema, indent=2), encoding="utf-8")
 
     # ---- skills index (skills/<name>/SKILL.md directory format) ----
     skill_files = sorted((ROOT / "skills").glob("*/SKILL.md"))
@@ -507,6 +564,10 @@ def build():
     llms += ["- [Glossary](glossary.html)", "", "## Reference"]
     for m in reference_meta:
         llms.append(f"- [{m['badge']}: {m['title']}]({m['path']}) — {m['read_minutes']} min read")
+    llms += ["", "## Case Files — documented creator-business deconstructions"]
+    for m in (m for m in mdpage_meta if m["badge"] == "Case File"):
+        llms.append(f"- [Case File: {m['title']}]({m['path']}) — {m['read_minutes']} min read")
+    llms += ["- api/v1/case-files.json — machine-readable case-file index", ""]
     llms += ["", "## API", "- api/v1/index.json", "- api/v1/chapters.json",
              "- api/v1/glossary.json", "- api/v1/calculators.json",
              "- api/v1/skills.json",
@@ -521,7 +582,8 @@ def build():
     (ROOT / "llms.txt").write_text("\n".join(llms) + "\n", encoding="utf-8")
     (ROOT / "llms-full.txt").write_text("\n\n---\n\n".join(llms_full_parts), encoding="utf-8")
 
-    print(f"Built {len(chapters_meta)} chapters, {len(TOOLS)} tools, {len(skill_files)} skills, {total_words:,} words.")
+    print(f"Built {len(chapters_meta)} chapters, {len(TOOLS)} tools, {len(skill_files)} skills, "
+          f"{sum(1 for m in mdpage_meta if m['badge'] == 'Case File')} case files, {total_words:,} words.")
 
 if __name__ == "__main__":
     build()
