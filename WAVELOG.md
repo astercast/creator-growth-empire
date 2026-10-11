@@ -133,4 +133,5 @@ Validation: `scripts/build.py` clean (9 chapters, 6 tools, 10 skills,
 14,734 words); `node --check` on all 8 JS files PASS; all 11 JSON files valid;
 internal link check across site/: 706 refs, 0 broken; skills/index.json = 10.
 
-Commit: PENDING PUSH (2026-10-11).
+Commit: a489b8d3ed9e493d26406e113245f316778c39b6 (pushed 2026-10-11, base 23b5ecf;
+remote main ref confirmed via GitHub API; parallel pipeline commits carried over via base_tree).
