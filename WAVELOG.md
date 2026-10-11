@@ -45,3 +45,46 @@ What shipped:
    llms.txt/llms-full.txt now list the Reference page; API index exposes `references`.
 
 Commit: 1f87d372d9c669addb9aa1ea398aa0084ebf3bfa (pushed 2026-10-11, base 1d3f82a; parallel pipeline commits carried over via base_tree).
+
+---
+
+## Wave 3 — interactive tools (2026-10-11)
+
+Two new interactive tools (vanilla JS, ARIA + keyboard support, print styles,
+Empire Briefing v2 design language). Now 5 tools total.
+
+What shipped:
+1. **Sponsor Deal Analyzer** (`pages/deal-analyzer.html` + `assets/js/deal-analyzer.js`
+   → `site/deal-analyzer.html`) — input: platform, follower count, deliverable type
+   (integrated slot / dedicated video / short-form), offered pay, usage-rights terms,
+   whitelisting, exclusivity, payment terms. Output: verdict against the
+   `sponsorship_rate_card_2026` ranges in `data/calculators.json` (tier lookup +
+   implied-CPM check vs sponsored-CPM benchmarks; underpaid / fair / strong),
+   red-flag checklist (unlimited/perpetual usage, perpetual whitelisting, broad
+   exclusivity, net-60+), and a counter-offer worksheet (quote at top of range,
+   usage rights priced separately +50–100%, exclusivity +25%+, ~23% negotiation
+   buffer). Framed as a negotiation aid, not financial advice.
+2. **Repurposing Planner** (`pages/repurpose.html` + `assets/js/repurpose.js` →
+   `site/repurpose.html`) — input: one content idea + source format (long video /
+   stream / podcast). Output: atom-test self-score (run the full SOP vs pillar-only),
+   pillar-prep card adapted to source format, and five mission-card checklists
+   (YouTube Day 0, Short Day +1, TikTok Day +2, IG Reel Day +3, Facebook Day +4)
+   with per-platform hook adaptations generated from the idea text, native-grammar
+   format notes from the Phase 3 SOP, and staggered posting order. Checkboxes toggle
+   done-state; print button for the mission cards.
+3. **Build wiring made tool-agnostic** — `build.py` nav / tool pages / script tags /
+   API index `tools` / `llms.txt` Tools section are now all generated from the single
+   `TOOLS` list (all three were hardcoded for the original 3 tools); index hero stats
+   and footer nav updated to 5 tools.
+4. **Cross-links** — Phase 3 (repurposing SOP → Repurposing Planner), Phase 5
+   (negotiation section → Sponsor Deal Analyzer), rate-card page → Deal Analyzer.
+
+Validation: `scripts/build.py` rebuilds clean (9 chapters, 5 tools, 6 skills,
+14,734 words); `node --check` passes on all 6 JS files; local link check on the
+built site: 561 refs, 0 broken; all JSON valid. One build-time bug caught by
+`node --check` (mismatched quotes in deal-analyzer.js) and fixed before push.
+JS logic smoke-tested under node with a stubbed DOM (verdicts, red flags,
+counter-offer math, mission cards, atom test all PASS).
+
+Commit: d20903862dfb3dda932c497c0c615a3b24eac1a4 (pushed 2026-10-11, base 3b1ec58;
+parallel pipeline commits carried over via base_tree).
