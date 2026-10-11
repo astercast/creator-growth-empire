@@ -1,16 +1,44 @@
+/* Design tokens — "Empire Briefing" system.
+   Dark mission-control base, flat high-voltage accents, hard sticker shadows.
+   No gradients-as-decoration: color does the work. */
 :root {
+  /* surfaces */
   --bg: #0b0b0d;
   --bg-2: #121214;
   --bg-3: #1a1a1e;
+  --bg-4: #222228;
+  /* ink */
   --ink: #f2f0ea;
   --muted: #a7a59c;
+  --faint: #6f6e66;
   --line: #26262b;
+  --line-strong: #3a3a42;
+  /* accents — flat, loud, never gradient-blended */
   --acid: #c8ff2e;
   --acid-dim: #9bcc1f;
+  --acid-ink: #101500;
   --coral: #ff4d2e;
   --gold: #ffc42e;
+  --violet: #b79cff;
+  --cyan: #6ff2ff;
+  /* type */
   --font-display: "Archivo", "Arial Black", system-ui, sans-serif;
   --font-body: "Space Grotesk", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  /* shape */
+  --radius-sm: 8px;
   --radius: 14px;
+  --radius-lg: 22px;
   --max-w: 1100px;
+  /* sticker shadows — hard offsets, the system's signature depth cue */
+  --shadow-pop: 5px 5px 0 var(--acid);
+  --shadow-pop-coral: 5px 5px 0 var(--coral);
+  --shadow-pop-gold: 5px 5px 0 var(--gold);
+  --shadow-pop-violet: 5px 5px 0 var(--violet);
+  --shadow-deep: 8px 8px 0 rgba(0, 0, 0, 0.6);
+  /* motion */
+  --ease-snap: cubic-bezier(0.2, 0.9, 0.25, 1.15);
+  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur-fast: 0.15s;
+  --dur-med: 0.35s;
 }

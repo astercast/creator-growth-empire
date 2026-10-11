@@ -1,27 +1,164 @@
-/* Components: badges, callouts, checklist, planner grid, calculator outputs */
+/* Components — the Empire Briefing kit.
+   Stickers, XP meters, HUD panels, stat callouts, chapter heroes, tags. */
+
+/* ---------- stickers: rotated achievement badges ---------- */
+.sticker {
+  display: inline-block;
+  font-family: var(--font-display); font-weight: 900; font-size: 0.78rem;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 0.45rem 0.9rem; border-radius: 999px;
+  background: var(--acid); color: var(--acid-ink);
+  border: 2px solid #000;
+  box-shadow: 3px 3px 0 #000;
+  transform: rotate(-2deg);
+  white-space: nowrap;
+}
+.sticker:nth-of-type(even) { transform: rotate(1.6deg); }
+.sticker-coral { background: var(--coral); color: #14060a; }
+.sticker-gold { background: var(--gold); color: #171106; }
+.sticker-violet { background: var(--violet); color: #150f2a; }
+.sticker-ghost { background: var(--bg-3); color: var(--ink); border-color: var(--line-strong); box-shadow: 3px 3px 0 rgba(0,0,0,.5); }
+.sticker-row { display: flex; flex-wrap: wrap; gap: 0.9rem; margin: 1.8rem 0; }
+
+/* ---------- badges (small inline labels) ---------- */
 .badge {
   display: inline-block; font-family: var(--font-display); font-weight: 800; font-size: 0.72rem;
   letter-spacing: 0.1em; text-transform: uppercase; padding: 0.28rem 0.7rem; border-radius: 999px;
-  background: var(--bg-3); border: 1px solid var(--line); color: var(--muted); margin-right: 0.4rem;
+  background: var(--bg-3); border: 1px solid var(--line-strong); color: var(--muted); margin-right: 0.4rem;
 }
-.badge.hot { background: var(--coral); border-color: var(--coral); color: #000; }
-.badge.money { background: var(--acid); border-color: var(--acid); color: #000; }
-.badge.warn { background: var(--gold); border-color: var(--gold); color: #000; }
+.badge.hot { background: var(--coral); border-color: var(--coral); color: #14060a; }
+.badge.money { background: var(--acid); border-color: var(--acid); color: var(--acid-ink); }
+.badge.warn { background: var(--gold); border-color: var(--gold); color: #171106; }
+.badge.info { background: var(--violet); border-color: var(--violet); color: #150f2a; }
 
+/* ---------- XP meter: game-HUD progress bar ---------- */
+.meter-wrap { margin: 1.2rem 0; }
+.meter {
+  height: 16px; background: var(--bg-3); border: 1px solid var(--line-strong);
+  border-radius: 999px; overflow: hidden; position: relative;
+}
+.meter-fill {
+  height: 100%; width: 0%;
+  background: repeating-linear-gradient(-55deg, var(--acid) 0 10px, var(--acid-dim) 10px 20px);
+  border-radius: 999px;
+  transition: width var(--dur-med) var(--ease-out);
+}
+.meter-label {
+  display: inline-block; margin-top: 0.45rem;
+  font-family: var(--font-mono); font-size: 0.8rem; color: var(--muted);
+  letter-spacing: 0.06em; text-transform: uppercase;
+}
+.meter-label strong { color: var(--acid); font-weight: 700; }
+
+/* ---------- HUD panel: tool chrome with corner brackets ---------- */
+.hud-panel {
+  position: relative;
+  background: var(--bg-2);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  padding: 0;
+  margin: 1.6rem 0;
+  overflow: hidden;
+}
+.hud-panel::before, .hud-panel::after {
+  content: ""; position: absolute; width: 18px; height: 18px; z-index: 2;
+  border: 3px solid var(--acid);
+}
+.hud-panel::before { top: 10px; left: 10px; border-right: none; border-bottom: none; }
+.hud-panel::after { bottom: 10px; right: 10px; border-left: none; border-top: none; }
+.hud-head {
+  display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+  padding: 0.7rem 1.4rem;
+  background: var(--bg-3);
+  border-bottom: 1px solid var(--line-strong);
+  font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--muted);
+}
+.hud-head .hud-status { color: var(--acid); }
+.hud-head .hud-status::before { content: "● "; }
+.hud-body { padding: 1.6rem 1.6rem 1.8rem; }
+.hud-body > h1:first-child, .hud-body > h2:first-child { margin-top: 0; }
+
+/* ---------- stat callouts: big mono numbers ---------- */
+.stat-callout {
+  display: inline-flex; flex-direction: column; gap: 0.15rem;
+  background: var(--bg-3); border: 1px solid var(--line-strong);
+  border-left: 5px solid var(--gold);
+  padding: 0.9rem 1.2rem; border-radius: var(--radius-sm);
+  margin: 0.4rem 0.6rem 0.4rem 0; min-width: 150px;
+}
+.stat-callout .stat-num {
+  font-family: var(--font-mono); font-weight: 700; font-size: 1.7rem; color: var(--gold);
+}
+.stat-callout .stat-lbl {
+  font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted);
+}
+.stat-callout.acid { border-left-color: var(--acid); }
+.stat-callout.acid .stat-num { color: var(--acid); }
+.stat-callout.coral { border-left-color: var(--coral); }
+.stat-callout.coral .stat-num { color: var(--coral); }
+
+/* ---------- callouts ---------- */
 .callout {
-  border: 1px solid var(--line); border-left: 5px solid var(--acid);
+  border: 1px solid var(--line-strong); border-left: 5px solid var(--acid);
   background: var(--bg-2); border-radius: 0 var(--radius) var(--radius) 0;
   padding: 1.2rem 1.4rem; margin: 1.6rem 0; max-width: 72ch;
 }
 .callout.warn { border-left-color: var(--gold); }
 .callout.danger { border-left-color: var(--coral); }
+.callout.info { border-left-color: var(--violet); }
 .callout strong:first-child { display: block; font-family: var(--font-display); margin-bottom: 0.3rem; }
+/* mission briefing: the "orders" variant */
+.callout.mission {
+  border: 2px solid var(--acid); border-radius: var(--radius);
+  background: var(--bg-2);
+  box-shadow: var(--shadow-pop);
+}
+.callout.mission strong:first-child { color: var(--acid); letter-spacing: 0.08em; }
 
+/* ---------- chapter hero: mega-type opener ---------- */
+.chapter-hero {
+  position: relative;
+  margin: 0 -1.5rem 2.5rem; padding: 3.5rem 1.5rem 2.5rem;
+  border-bottom: 1px solid var(--line);
+  overflow: hidden;
+  background: var(--bg-2);
+}
+.chapter-num {
+  position: absolute; right: 0.5rem; top: -2.2rem;
+  font-family: var(--font-display); font-weight: 900;
+  font-size: clamp(9rem, 30vw, 22rem); line-height: 1;
+  color: transparent; -webkit-text-stroke: 2px var(--phase-accent, var(--acid));
+  opacity: 0.35; pointer-events: none; user-select: none;
+}
+.chapter-hero .chapter-kicker { position: relative; margin-bottom: 0.8rem; }
+.chapter-hero h1 {
+  position: relative; margin: 0 0 1rem; max-width: 14ch;
+  font-size: clamp(2.6rem, 8vw, 5.5rem);
+}
+.chapter-hero h1 .accent-word { color: var(--phase-accent, var(--acid)); }
+.chapter-meta-strip {
+  position: relative; display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center;
+  font-family: var(--font-mono); font-size: 0.8rem; color: var(--muted);
+  letter-spacing: 0.06em; text-transform: uppercase;
+}
+.chapter-meta-strip .sep { color: var(--faint); }
+
+/* ---------- tags / hashtag chips ---------- */
+.tag {
+  display: inline-block; font-family: var(--font-mono); font-size: 0.78rem;
+  background: var(--bg-3); border: 1px solid var(--line-strong);
+  color: var(--cyan); border-radius: 6px; padding: 0.15rem 0.55rem; margin: 0.15rem 0.25rem 0.15rem 0;
+}
+
+/* ---------- checklist ---------- */
 .checklist { list-style: none; padding: 0; max-width: 72ch; }
 .checklist li {
-  background: var(--bg-2); border: 1px solid var(--line); border-radius: 10px;
+  background: var(--bg-2); border: 1px solid var(--line-strong); border-radius: 10px;
   padding: 0.9rem 1.1rem 0.9rem 3rem; margin-bottom: 0.6rem; position: relative; cursor: pointer;
+  transition: border-color var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
 }
+.checklist li:hover { border-color: var(--acid); }
 .checklist li::before {
   content: ""; position: absolute; left: 1rem; top: 1rem; width: 1.1rem; height: 1.1rem;
   border: 2px solid var(--muted); border-radius: 4px;
@@ -30,23 +167,70 @@
 .checklist li.done::before { background: var(--acid); border-color: var(--acid); }
 .checklist li.done .check-text { text-decoration: line-through; }
 
+/* ---------- calculator HUD readouts ---------- */
 .calc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
 .calc-out {
-  background: var(--bg-2); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.4rem;
+  background: var(--bg-2); border: 1px solid var(--line-strong); border-radius: var(--radius); padding: 1.4rem;
+  position: relative; overflow: hidden;
 }
-.calc-out .big { font-family: var(--font-display); font-weight: 900; font-size: 2rem; color: var(--acid); }
-.calc-out .lbl { color: var(--muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.08em; }
+.calc-out::before {
+  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--acid);
+}
+.calc-out .big { font-family: var(--font-mono); font-weight: 700; font-size: 2rem; color: var(--acid); }
+.calc-out .lbl { color: var(--muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; font-family: var(--font-mono); }
 .calc-out .range { font-size: 0.9rem; color: var(--muted); }
 
-.plan-week { background: var(--bg-2); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.2rem 1.4rem; margin-bottom: 1rem; }
-.plan-week h3 { margin: 0 0 0.6rem; color: var(--acid); }
-.plan-days { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 0.5rem; }
-.plan-day { background: var(--bg-3); border-radius: 8px; padding: 0.6rem 0.8rem; font-size: 0.85rem; }
-.plan-day strong { display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+/* ---------- planner mission cards ---------- */
+.plan-week {
+  background: var(--bg-2); border: 1px solid var(--line-strong); border-radius: var(--radius);
+  padding: 0; margin-bottom: 1.2rem; overflow: hidden;
+}
+.plan-week > h3 {
+  margin: 0; padding: 0.9rem 1.4rem; color: #000; background: var(--acid);
+  font-size: 1rem; letter-spacing: 0.06em; text-transform: uppercase;
+  display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+}
+.plan-week > h3 .week-lvl { font-family: var(--font-mono); font-size: 0.78rem; }
+.plan-days { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 0.5rem; padding: 1.2rem 1.4rem; }
+.plan-day { background: var(--bg-3); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 0.6rem 0.8rem; font-size: 0.85rem; }
+.plan-day strong { display: block; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--acid); font-family: var(--font-mono); }
 
-.progress-bar { height: 10px; background: var(--bg-3); border-radius: 999px; overflow: hidden; margin: 0.6rem 0; }
+/* ---------- progress bar (generic) ---------- */
+.progress-bar { height: 10px; background: var(--bg-3); border: 1px solid var(--line); border-radius: 999px; overflow: hidden; margin: 0.6rem 0; }
 .progress-bar > div { height: 100%; background: var(--acid); border-radius: 999px; transition: width 0.3s ease; }
 
-details.faq { background: var(--bg-2); border: 1px solid var(--line); border-radius: 10px; padding: 1rem 1.2rem; margin-bottom: 0.7rem; max-width: 72ch; }
+/* ---------- faq ---------- */
+details.faq { background: var(--bg-2); border: 1px solid var(--line-strong); border-radius: 10px; padding: 1rem 1.2rem; margin-bottom: 0.7rem; max-width: 72ch; }
 details.faq summary { font-weight: 700; cursor: pointer; font-family: var(--font-display); }
 details.faq summary:hover { color: var(--acid); }
+
+/* ---------- trends widget theme ---------- */
+.tw-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; }
+.tw-card {
+  background: var(--bg-3); border: 1px solid var(--line-strong); border-radius: var(--radius-sm);
+  padding: 1.1rem 1.2rem; border-left: 4px solid var(--coral);
+  transition: transform var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
+}
+.tw-card:hover { transform: translateX(4px); border-color: var(--coral); }
+.tw-title { font-family: var(--font-display); font-weight: 800; font-size: 1.05rem; margin: 0 0 0.3rem; }
+.tw-title a { color: var(--ink); text-decoration: none; }
+.tw-title a:hover { color: var(--coral); }
+.tw-summary { font-size: 0.9rem; color: var(--muted); margin: 0 0 0.6rem; }
+.tw-meta { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; font-family: var(--font-mono); font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+.tw-opp { color: var(--acid); font-weight: 700; }
+.tw-meter-bar { height: 6px; background: var(--bg-4); border-radius: 3px; overflow: hidden; flex: 1 1 90px; min-width: 90px; }
+.tw-meter-fill { display: block; height: 100%; background: var(--coral); border-radius: 3px; }
+.tw-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.5rem; }
+.tw-tag { font-family: var(--font-mono); font-size: 0.75rem; background: var(--bg-4); color: var(--cyan); border-radius: 4px; padding: 0.1rem 0.45rem; }
+.tw-empty { color: var(--muted); font-size: 0.9rem; }
+.tw-meters { display: grid; gap: 0.4rem; margin: 0.7rem 0 0.2rem; }
+.tw-meter-top { display: flex; justify-content: space-between; align-items: baseline; font-family: var(--font-mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); }
+.tw-meter-value { color: var(--acid); font-weight: 700; }
+.tw-source, .tw-category { color: var(--muted); }
+.tw-category { color: var(--violet); }
+
+kbd, .kbd {
+  font-family: var(--font-mono); font-size: 0.82em;
+  background: var(--bg-4); border: 1px solid var(--line-strong); border-bottom-width: 3px;
+  border-radius: 6px; padding: 0.1em 0.5em;
+}

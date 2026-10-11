@@ -20,6 +20,11 @@ API = ROOT / "api" / "v1"
 
 SITE_NAME = "Creator Growth Empire"
 TAGLINE = "From $0 to a multi-million-dollar creator company."
+FONT_URL = ("https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,600;0,800;0,900;1,900"
+           "&family=Space+Grotesk:wght@400;500;700"
+           "&family=JetBrains+Mono:wght@400;700&display=swap")
+
+PHASE_ACCENTS = ["acid", "coral", "gold", "violet", "acid", "coral", "gold", "violet", "acid"]
 
 CHAPTERS = [
     ("phase-0-start-from-nothing",  "content/phase-0-start-from-nothing.md",  "Phase 0", "Start From Nothing"),
@@ -138,7 +143,7 @@ def page_template(title, body, active="", extra_head=""):
 <meta name="description" content="{esc(TAGLINE)}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,600;0,800;0,900;1,900&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="{FONT_URL}" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/tokens.css">
 <link rel="stylesheet" href="assets/css/base.css">
 <link rel="stylesheet" href="assets/css/layout.css">
@@ -156,9 +161,30 @@ def page_template(title, body, active="", extra_head=""):
 <main id="main">{body}</main>
 <footer class="site-footer">
   <div class="footer-grid">
-    <div><strong>{SITE_NAME}</strong><br><span class="muted">{esc(TAGLINE)}</span></div>
-    <div class="muted">Private research archive. Platform facts verified Oct 2026 — verify live before acting. Not financial, legal, or tax advice.</div>
+    <div>
+      <div class="foot-brand"><span class="brand-mark">▲</span> {SITE_NAME}</div>
+      <p class="muted">{esc(TAGLINE)}</p>
+      <div class="sticker-row" style="margin:1rem 0 0">
+        <span class="sticker sticker-ghost">No guru hype</span>
+        <span class="sticker sticker-ghost">2026 verified</span>
+      </div>
+    </div>
+    <nav aria-label="Phases">
+      <strong class="muted" style="font-size:.78rem;letter-spacing:.12em">PHASES</strong>
+      <a href="phase-0-start-from-nothing.html">Phase 0 — Start From Nothing</a>
+      <a href="phase-2-youtube-mastery.html">Phase 2 — YouTube Mastery</a>
+      <a href="phase-5-monetization-stack.html">Phase 5 — Monetization Stack</a>
+      <a href="phase-7-the-business.html">Phase 7 — The Business</a>
+    </nav>
+    <nav aria-label="Tools">
+      <strong class="muted" style="font-size:.78rem;letter-spacing:.12em">TOOLS</strong>
+      <a href="quiz.html">Niche Picker</a>
+      <a href="calculator.html">Revenue Calculator</a>
+      <a href="planner.html">90-Day Planner</a>
+      <a href="glossary.html">Glossary</a>
+    </nav>
   </div>
+  <div class="footer-fine">PRIVATE RESEARCH ARCHIVE · PLATFORM FACTS VERIFIED OCT 2026 — VERIFY LIVE BEFORE ACTING · NOT FINANCIAL, LEGAL, OR TAX ADVICE</div>
 </footer>
 <script src="assets/js/site.js"></script>
 </body>
@@ -186,18 +212,43 @@ def build():
         body_html = md_to_html(md)
         wc = word_count(md)
         read_min = max(1, round(wc / 200))
-        # chapter pager
         idx = [c[0] for c in CHAPTERS].index(slug)
-        pager = '<nav class="pager" aria-label="Phases">'
+        # --- chapter hero: strip the markdown H1 + lead blockquote into a mega-type opener ---
+        briefing = ""
+        m_h1 = re.search(r"<h1>.*?</h1>", body_html)
+        if m_h1:
+            body_html = body_html[:m_h1.start()] + body_html[m_h1.end():]
+        m_bq = re.search(r"<blockquote>(.*?)</blockquote>", body_html, re.S)
+        if m_bq:
+            briefing = m_bq.group(1)
+            body_html = body_html[:m_bq.start()] + body_html[m_bq.end():]
+        accent = PHASE_ACCENTS[idx % len(PHASE_ACCENTS)]
+        words = short.split()
+        hero_title = (" ".join(esc(w) for w in words[:-1]) + ' <span class="accent-word">' + esc(words[-1]) + "</span>") if len(words) > 1 else esc(short)
+        lvl = f"{idx + 1:02d}"
+        hero = (f'<header class="chapter-hero" style="--phase-accent: var(--{accent});">'
+                f'<span class="chapter-num" aria-hidden="true">{idx}</span>'
+                f'<p class="chapter-kicker"><span class="phase-badge" style="background: var(--{accent});">{phase}</span></p>'
+                f"<h1>{hero_title}</h1>"
+                + (f'<p class="lede">{briefing}</p>' if briefing else "")
+                + f'<p class="chapter-meta-strip"><span>{read_min} min read</span><span class="sep">/</span>'
+                f'<span>{wc:,} words</span><span class="sep">/</span><span>LVL {lvl}</span></p></header>')
+        # chapter end-nav: next-phase mission cards
+        cnav = '<nav class="chapter-nav" aria-label="Phases">'
         if idx > 0:
             ps, _, pphase, pshort = CHAPTERS[idx-1]
-            pager += f'<a class="pager-prev" href="{ps}.html">← {pphase}: {esc(pshort)}</a>'
+            cnav += (f'<a href="{ps}.html"><span class="nav-dir">← Previous phase</span>'
+                     f'<span class="nav-title">{pphase}: {esc(pshort)}</span></a>')
+        else:
+            cnav += '<a href="index.html"><span class="nav-dir">← Back to</span><span class="nav-title">The Empire Map</span></a>'
         if idx < len(CHAPTERS) - 1:
             ns, _, nphase, nshort = CHAPTERS[idx+1]
-            pager += f'<a class="pager-next" href="{ns}.html">{nphase}: {esc(nshort)} →</a>'
-        pager += "</nav>"
-        meta = f'<p class="chapter-meta"><span class="phase-badge">{phase}</span> {read_min} min read · {wc:,} words</p>'
-        page = page_template(f"{phase}: {short}", f'<article class="chapter">{meta}{body_html}{pager}</article>', active="")
+            cnav += (f'<a class="nav-next" href="{ns}.html"><span class="nav-dir">Next phase →</span>'
+                     f'<span class="nav-title">{nphase}: {esc(nshort)}</span></a>')
+        else:
+            cnav += '<a class="nav-next" href="quiz.html"><span class="nav-dir">Next step →</span><span class="nav-title">Pick your niche</span></a>'
+        cnav += "</nav>"
+        page = page_template(f"{phase}: {short}", f'<article class="chapter">{hero}{body_html}{cnav}</article>', active="")
         (SITE / f"{slug}.html").write_text(page, encoding="utf-8")
         chapters_meta.append({
             "id": slug, "phase": phase, "title": short,
@@ -216,7 +267,12 @@ def build():
             extra = '<script src="assets/js/calculator.js"></script>'
         elif slug == "planner":
             extra = '<script src="assets/js/planner.js"></script>'
-        page = page_template(title, f'<div class="tool-page"><h1>{esc(title)}</h1><p class="lede">{esc(desc)}</p>{tool_body}</div>',
+        tool_idx = [t[0] for t in TOOLS].index(slug)
+        hud_open = (f'<div class="tool-page"><div class="hud-panel"><div class="hud-head">'
+                    f'<span>TOOL // 0{tool_idx + 1} — {esc(title).upper()}</span>'
+                    f'<span class="hud-status">SYSTEMS ONLINE</span></div>'
+                    f'<div class="hud-body"><h1>{esc(title)}</h1><p class="lede">{esc(desc)}</p></div></div>')
+        page = page_template(title, f'{hud_open}{tool_body}</div>',
                              active=f"{slug}.html", extra_head=extra)
         (SITE / f"{slug}.html").write_text(page, encoding="utf-8")
 
@@ -230,24 +286,37 @@ def build():
 
     # index
     cards = ""
-    for m in chapters_meta:
-        cards += (f'<a class="phase-card" href="{m["path"]}">'
+    for i, m in enumerate(chapters_meta):
+        accent = PHASE_ACCENTS[i % len(PHASE_ACCENTS)]
+        lvl = f"{i + 1:02d}"
+        cards += (f'<a class="phase-card reveal" style="--i:{i};--card-accent: var(--{accent});" href="{m["path"]}">'
+                  f'<span class="phase-lvl">LVL {lvl}</span>'
                   f'<span class="phase-num">{m["phase"].split()[-1]}</span>'
                   f'<span class="phase-name">{esc(m["title"])}</span>'
                   f'<span class="phase-meta">{m["read_minutes"]} min · {m["words"]:,} words</span></a>')
     tools_html = "".join(
-        f'<a class="tool-card" href="{slug}.html"><strong>{esc(title)}</strong><span>{esc(desc)}</span></a>'
-        for slug, title, desc in TOOLS)
+        f'<a class="tool-card reveal" style="--i:{i}" href="{slug}.html">'
+        f'<span class="tool-id">TOOL // 0{i + 1}</span><strong>{esc(title)}</strong>'
+        f'<span>{esc(desc)}</span><span class="tool-go">Launch →</span></a>'
+        for i, (slug, title, desc) in enumerate(TOOLS))
     total_words = sum(m["words"] for m in chapters_meta)
     index_body = f"""
 <section class="hero">
+  <p class="hero-eyebrow">Field manual // Creator division</p>
   <p class="kicker">THE COMPLETE PLAYBOOK</p>
-  <h1 class="mega">BUILD YOUR<br><span class="accent">EMPIRE</span></h1>
+  <h1 class="mega">BUILD YOUR<br><span class="mega-outline outline-text">EMPIRE</span></h1>
   <p class="lede">Nine phases. Zero to multi-million-dollar creator company — YouTube, TikTok, Facebook, merch, brand deals, LLC, taxes, scale. No guru hype. Just the playbook.</p>
+  <div class="sticker-row reveal">
+    <span class="sticker">9 phases</span>
+    <span class="sticker sticker-coral">3 power tools</span>
+    <span class="sticker sticker-gold">2026 verified</span>
+    <span class="sticker sticker-violet">Zero → empire</span>
+  </div>
   <div class="hero-stats">
-    <div><strong>9</strong><span>phases</span></div>
-    <div><strong>{total_words:,}</strong><span>words</span></div>
-    <div><strong>3</strong><span>interactive tools</span></div>
+    <div class="hero-stat reveal" style="--i:0"><strong>9</strong><span>phases</span></div>
+    <div class="hero-stat reveal" style="--i:1"><strong>{total_words:,}</strong><span>words</span></div>
+    <div class="hero-stat reveal" style="--i:2"><strong>3</strong><span>interactive tools</span></div>
+    <div class="hero-stat reveal" style="--i:3"><strong>LVL 01–09</strong><span>your climb</span></div>
   </div>
   <div class="hero-cta"><a class="btn btn-primary" href="phase-0-start-from-nothing.html">Start at Phase 0 →</a>
   <a class="btn btn-ghost" href="quiz.html">Find your niche</a></div>
@@ -255,10 +324,21 @@ def build():
 <section class="ticker" aria-hidden="true"><div class="ticker-track">
   <span>POST CONSISTENTLY</span><span>PACKAGING IS EVERYTHING</span><span>OWN YOUR AUDIENCE</span>
   <span>DIVERSIFY REVENUE</span><span>SEPARATE THE MONEY</span><span>SYSTEMS BEAT HUSTLE</span>
+  <span>POST CONSISTENTLY</span><span>PACKAGING IS EVERYTHING</span><span>OWN YOUR AUDIENCE</span>
+  <span>DIVERSIFY REVENUE</span><span>SEPARATE THE MONEY</span><span>SYSTEMS BEAT HUSTLE</span>
 </div></section>
-<section class="section"><h2>The Empire Map</h2><div class="phase-grid">{cards}</div></section>
-<section class="section"><h2>Command Center</h2><div class="tool-grid">{tools_html}</div></section>
-<section class="section honesty"><h2>The honesty policy</h2>
+<section class="section"><div class="section-head"><h2>The Empire Map</h2><span class="section-tag">9 levels // clear them all</span></div><div class="phase-grid reveal-stagger">{cards}</div></section>
+<section class="section"><div class="section-head"><h2>Command Center</h2><span class="section-tag">weapons free</span></div><div class="tool-grid reveal-stagger">{tools_html}</div></section>
+<section class="section"><div class="section-head"><h2>Hottest topics right now</h2><span class="section-tag">live feed // trend-machine</span></div>
+<div class="hud-panel trends-hud reveal">
+  <div class="hud-head"><span>INTEL // WHAT TO COVER TODAY</span><span class="hud-status">SCANNING</span></div>
+  <div class="hud-body">
+    <div data-trends-widget data-trends-limit="6"></div>
+    <script src="assets/js/trends-widget.js"></script>
+    <noscript><p class="muted">The live trend feed needs JavaScript. The trend playbooks are in Phase 3.</p></noscript>
+  </div>
+</div></section>
+<section class="section honesty reveal"><h2>The honesty policy</h2>
 <p>Every platform number on this site was verified against 2026 sources or is flagged <strong>verify live</strong>. Income ranges are illustrative, never promises. The LLC/tax phase is educational — <strong>not legal or tax advice</strong>. Platforms change rules constantly; the most dangerous number on the internet is a stale one.</p></section>
 """
     (SITE / "index.html").write_text(page_template(SITE_NAME, index_body, active="index.html"), encoding="utf-8")

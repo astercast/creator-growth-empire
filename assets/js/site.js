@@ -57,4 +57,63 @@
       }
     });
   });
+
+  // Scroll-reveal: .reveal elements animate in via IntersectionObserver.
+  // Reduced-motion users and no-IO browsers get everything visible immediately.
+  var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function revealize(scope) {
+    (scope || document).querySelectorAll(".chapter h2, .chapter .callout, .chapter blockquote, .chapter .table-wrap").forEach(function (el) {
+      el.classList.add("reveal");
+    });
+  }
+  revealize(document);
+  var revealEls = document.querySelectorAll(".reveal");
+  if (reduceMotion || !("IntersectionObserver" in window)) {
+    revealEls.forEach(function (el) { el.classList.add("visible"); });
+  } else {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add("visible"); io.unobserve(en.target); }
+      });
+    }, { rootMargin: "0px 0px -8% 0px", threshold: 0.08 });
+    revealEls.forEach(function (el) { io.observe(el); });
+  }
+
+  // Quiz XP meter: tracks answered questions, marks answered fieldsets.
+  var quizWrap = document.getElementById("quiz-questions");
+  var meterFill = document.getElementById("quiz-meter-fill");
+  var meter = document.getElementById("quiz-meter");
+  var meterLabel = document.getElementById("quiz-meter-label");
+  if (quizWrap && meterFill) {
+    var TOTAL_Q = 6;
+    var updateMeter = function () {
+      var answered = quizWrap.querySelectorAll(".quiz-q.answered").length;
+      // fallback: count checked radios in case classes aren't set yet
+      if (!answered) {
+        var names = {};
+        quizWrap.querySelectorAll('input[type="radio"]:checked').forEach(function (r) { names[r.name] = 1; });
+        answered = Object.keys(names).length;
+      }
+      var pct = Math.round((answered / TOTAL_Q) * 100);
+      meterFill.style.width = pct + "%";
+      if (meter) meter.setAttribute("aria-valuenow", String(answered));
+      if (meterLabel) {
+        var words = ["keep going, commander", "warming up", "halfway to intel", "almost there", "one more", "intel complete — hit the button"];
+        meterLabel.innerHTML = "<strong>" + answered + "/" + TOTAL_Q + "</strong> answered — " + (words[Math.min(answered, 5)] || words[0]);
+      }
+    };
+    quizWrap.addEventListener("change", function (e) {
+      var fs = e.target.closest ? e.target.closest(".quiz-q") : null;
+      if (fs) fs.classList.add("answered");
+      updateMeter();
+    });
+    var resetBtn = document.getElementById("quiz-reset");
+    if (resetBtn) resetBtn.addEventListener("click", function () {
+      setTimeout(function () {
+        quizWrap.querySelectorAll(".quiz-q").forEach(function (fs) { fs.classList.remove("answered"); });
+        updateMeter();
+      }, 0);
+    });
+    updateMeter();
+  }
 })();
