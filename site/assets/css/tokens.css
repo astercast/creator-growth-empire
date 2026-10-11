@@ -1,0 +1,16 @@
+:root {
+  --bg: #0b0b0d;
+  --bg-2: #121214;
+  --bg-3: #1a1a1e;
+  --ink: #f2f0ea;
+  --muted: #a7a59c;
+  --line: #26262b;
+  --acid: #c8ff2e;
+  --acid-dim: #9bcc1f;
+  --coral: #ff4d2e;
+  --gold: #ffc42e;
+  --font-display: "Archivo", "Arial Black", system-ui, sans-serif;
+  --font-body: "Space Grotesk", system-ui, -apple-system, sans-serif;
+  --radius: 14px;
+  --max-w: 1100px;
+}

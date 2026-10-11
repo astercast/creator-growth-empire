@@ -1,0 +1,20 @@
+<form id="plan-form" aria-label="90-day planner">
+  <div class="calc-grid">
+    <label>Long-form videos / week
+      <input type="number" id="p-long" min="0" max="7" value="1"></label>
+    <label>Short-form posts / week
+      <input type="number" id="p-short" min="0" max="21" value="3"></label>
+    <label>Short-form platforms (comma separated)
+      <input type="text" id="p-platforms" value="TikTok, Shorts, Reels"></label>
+    <label>Rest day
+      <select id="p-rest">
+        <option value="6">Sunday</option><option value="0">Monday</option><option value="1">Tuesday</option>
+        <option value="2">Wednesday</option><option value="3">Thursday</option><option value="4">Friday</option>
+        <option value="5">Saturday</option>
+      </select></label>
+  </div>
+  <button type="submit" class="btn btn-primary">Generate my 90 days →</button>
+  <button type="button" class="btn btn-ghost" id="plan-print">Print</button>
+</form>
+<div id="plan-results" aria-live="polite" style="margin-top:1.5rem"></div>
+<p class="muted">A plan is a hypothesis. If a format isn't working by day 45, the plan changes — see <a href="phase-1-content-engine.html">Phase 1</a>.</p>

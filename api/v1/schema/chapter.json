@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Chapter",
+  "type": "object",
+  "required": [
+    "id",
+    "phase",
+    "title",
+    "path",
+    "words",
+    "read_minutes"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "phase": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "path": {
+      "type": "string"
+    },
+    "words": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "read_minutes": {
+      "type": "integer",
+      "minimum": 1
+    }
+  }
+}

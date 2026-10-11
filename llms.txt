@@ -1,0 +1,34 @@
+# Creator Growth Empire
+
+From $0 to a multi-million-dollar creator company.
+
+## Phases
+- [Phase 0: Start From Nothing](phase-0-start-from-nothing.html) — 8 min read
+- [Phase 1: The Content Engine](phase-1-content-engine.html) — 8 min read
+- [Phase 2: YouTube Mastery](phase-2-youtube-mastery.html) — 8 min read
+- [Phase 3: The Everywhere Engine](phase-3-everywhere-engine.html) — 8 min read
+- [Phase 4: Audience to Community](phase-4-audience-to-community.html) — 8 min read
+- [Phase 5: The Monetization Stack](phase-5-monetization-stack.html) — 8 min read
+- [Phase 6: Merch & Brand](phase-6-merch-and-brand.html) — 8 min read
+- [Phase 7: The Business](phase-7-the-business.html) — 8 min read
+- [Phase 8: Scale](phase-8-scale.html) — 8 min read
+
+## Tools
+- [Niche Picker](quiz.html)
+- [Revenue Calculator](calculator.html)
+- [90-Day Planner](planner.html)
+- [Glossary](glossary.html)
+
+## API
+- api/v1/index.json
+- api/v1/chapters.json
+- api/v1/glossary.json
+- api/v1/calculators.json
+
+## Skills
+- analytics-review: Run the monthly analytics ritual — find outliers, diagnose retention, and decide what to make more of.
+- content-repurposing: Turn one long-form video into a five-platform distribution package with the pillar-to-everywhere SOP.
+- hook-writing: Write and stress-test video hooks — the first 30 seconds (long-form) or first 2 seconds (short-form) that decide everything.
+- niche-validation: Validate a creator niche before committing — demand, competition, monetization, and winnability scored in one pass.
+- sponsorship-pitch: Build a complete sponsor outreach system — targeting, email, pricing, and negotiation for creator brand deals.
+- thumbnail-teardown: Systematically diagnose why a thumbnail underperforms and produce a concrete redesign brief.

@@ -1,0 +1,34 @@
+{
+  "skills": [
+    {
+      "name": "analytics-review",
+      "description": "Run the monthly analytics ritual \u2014 find outliers, diagnose retention, and decide what to make more of.",
+      "path": "skills/analytics-review/SKILL.md"
+    },
+    {
+      "name": "content-repurposing",
+      "description": "Turn one long-form video into a five-platform distribution package with the pillar-to-everywhere SOP.",
+      "path": "skills/content-repurposing/SKILL.md"
+    },
+    {
+      "name": "hook-writing",
+      "description": "Write and stress-test video hooks \u2014 the first 30 seconds (long-form) or first 2 seconds (short-form) that decide everything.",
+      "path": "skills/hook-writing/SKILL.md"
+    },
+    {
+      "name": "niche-validation",
+      "description": "Validate a creator niche before committing \u2014 demand, competition, monetization, and winnability scored in one pass.",
+      "path": "skills/niche-validation/SKILL.md"
+    },
+    {
+      "name": "sponsorship-pitch",
+      "description": "Build a complete sponsor outreach system \u2014 targeting, email, pricing, and negotiation for creator brand deals.",
+      "path": "skills/sponsorship-pitch/SKILL.md"
+    },
+    {
+      "name": "thumbnail-teardown",
+      "description": "Systematically diagnose why a thumbnail underperforms and produce a concrete redesign brief.",
+      "path": "skills/thumbnail-teardown/SKILL.md"
+    }
+  ]
+}

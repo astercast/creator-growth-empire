@@ -1,0 +1,27 @@
+<form id="calc-form" aria-label="Revenue calculator">
+  <div class="calc-grid">
+    <label>Monthly long-form views
+      <input type="number" id="c-views" min="0" value="100000" step="1000"></label>
+    <label>Niche (RPM band)
+      <select id="c-niche">
+        <option value="finance_investing">Finance / Investing</option>
+        <option value="tech_software">Tech / Software</option>
+        <option value="education" selected>Education</option>
+        <option value="health_fitness">Health / Fitness</option>
+        <option value="lifestyle">Lifestyle</option>
+        <option value="gaming">Gaming</option>
+        <option value="comedy_entertainment">Comedy / Entertainment</option>
+      </select></label>
+    <label>Monthly Shorts views
+      <input type="number" id="c-shorts" min="0" value="500000" step="1000"></label>
+    <label>Sponsored videos / month
+      <input type="number" id="c-sponsors" min="0" value="1" step="1"></label>
+    <label>Avg. views per sponsored video
+      <input type="number" id="c-sviews" min="0" value="50000" step="1000"></label>
+    <label>Affiliate / digital product revenue / month ($)
+      <input type="number" id="c-aff" min="0" value="200" step="50"></label>
+  </div>
+  <button type="submit" class="btn btn-primary">Calculate →</button>
+</form>
+<div id="calc-results" class="calc-grid" aria-live="polite" style="margin-top:1.5rem"></div>
+<p class="muted">Ranges use 2026 third-party RPM data and the $20–$50 sponsor CPM rule of thumb. Illustrative only — verify live. See <a href="phase-5-monetization-stack.html">Phase 5</a> for the full breakdown.</p>
