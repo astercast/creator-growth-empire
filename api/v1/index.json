@@ -5,6 +5,9 @@
     "chapters": "api/v1/chapters.json",
     "glossary": "api/v1/glossary.json",
     "calculators": "api/v1/calculators.json",
+    "references": [
+      "rate-card"
+    ],
     "tools": [
       "quiz.html",
       "calculator.html",

@@ -21,7 +21,7 @@
       "phase": "Phase 2",
       "title": "YouTube Mastery",
       "path": "phase-2-youtube-mastery.html",
-      "words": 1534,
+      "words": 1544,
       "read_minutes": 8
     },
     {
@@ -45,15 +45,15 @@
       "phase": "Phase 5",
       "title": "The Monetization Stack",
       "path": "phase-5-monetization-stack.html",
-      "words": 1514,
-      "read_minutes": 8
+      "words": 2165,
+      "read_minutes": 11
     },
     {
       "id": "phase-6-merch-and-brand",
       "phase": "Phase 6",
       "title": "Merch & Brand",
       "path": "phase-6-merch-and-brand.html",
-      "words": 1501,
+      "words": 1573,
       "read_minutes": 8
     },
     {
@@ -61,8 +61,8 @@
       "phase": "Phase 7",
       "title": "The Business",
       "path": "phase-7-the-business.html",
-      "words": 1528,
-      "read_minutes": 8
+      "words": 1798,
+      "read_minutes": 9
     },
     {
       "id": "phase-8-scale",

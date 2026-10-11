@@ -26,7 +26,15 @@ The typical US path (other countries: research your local equivalent — Ltd, Gm
 6. **EIN** — free from the IRS website. Your business's Social Security number; needed for bank accounts and tax filings.
 7. **Business bank account** — open it the week the LLC is approved. This is the wall. All business money flows here.
 
-**S-corp election (later):** once profit is consistently high (often cited around $60k+/year net, varies), electing S-corp taxation can reduce self-employment tax. This is CPA territory — the savings are real but the paperwork is not DIY.
+**S-corp election — the tax play at ~$50–75K net profit:** a default single-member LLC is a disregarded entity for tax purposes, which means *identical* treatment to a sole proprietor: all net earnings reported on Schedule C and hit with **15.3% self-employment tax on everything**. The LLC gives you liability protection, not tax savings. The savings come only from electing S-corp taxation (Form 2553): you split earnings into a reasonable W-2 salary (subject to payroll tax) plus distributions (not subject to SE tax). The rule of thumb from creator-focused tax analysis: the election starts paying off at **~$50–60K net profit** ($75K per one analysis). S-corp overhead — payroll service + a second tax return — runs **$1,000–$4,000/year**, so below the threshold it's net-negative.
+
+The math, worked: on **$120K net profit** with a **60% salary split** ($72K salary, $48K distributions), the election saves roughly **$5,939/year** in self-employment tax (2026 analysis figures). The numbers behind it:
+
+- **2026 Social Security wage base: $184,500** — the 15.3% SE tax applies up to that; 2.9% Medicare above.
+- **20% QBI deduction is permanent under OBBBA** (One Big Beautiful Bill Act) — phase-outs from $201,750 single / $403,500 MFJ. This interacts with the election math; another reason it's CPA territory.
+- **Sole prop vs. LLC for tax is a tie** — both pay SE tax on all profit. The LLC's advantage is liability, period.
+
+**Not tax advice.** This is a map, not a territory: the reasonable-salary rule, state-level S-corp rules, QBI phase-outs, and payroll obligations are all "sit down with a CPA for one strategy meeting" material. The election's deadline (March 15 for a current-year election) is another detail a CPA earns their fee on. DIY until ~$50K profit; get the CPA for the strategy from there.
 
 ## Taxes: the system that prevents disasters
 

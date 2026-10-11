@@ -17,7 +17,8 @@ Launching "MY CHANNEL NAME in Arial on a Gildan" to 200 subscribers isn't a busi
 POD is the right first step because the economics are forgiving:
 
 - **How it works:** you upload designs; a third party prints and ships per order. You never touch inventory.
-- **Margins:** expect $5–$15 profit per item on a $25–$35 shirt. Thin, but risk-free.
+- **Margins:** expect $5–$15 profit per item on a $25–$35 shirt — 30–60% on POD staples per the 2026 playbook (e.g. Bella + Canvas 3001 base ~$11.92). Thin, but risk-free. Order **samples** before launch (~20% sample discounts are standard) so what arrives matches what you post.
+- **The 2026 content flywheel:** 7–12 second product-first clips posted 1–5x/day, 1-hour+ lives with flash sales and giveaways, and a Shopify store to own your customer data (don't let a marketplace own your buyer list).
 - **Platforms:** the big POD providers integrate with Shopify, Etsy, or standalone stores. Compare base costs + shipping times, not just features.
 - **Design rules:** 1–3 designs max at launch. Bold, simple, readable at 10 feet. Your inside joke > your logo. Test designs as community posts before printing anything.
 

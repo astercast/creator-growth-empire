@@ -321,7 +321,7 @@ They're different businesses sharing a channel:
 
 **The winning structure:** Shorts as trailers and standalone micro-content that funnel toward long-form. A Short that teases the long-form video ("full breakdown on my channel") converts discovery into durable watch time. Channels that *only* do Shorts grow fast and monetize slowly; channels that *only* do long-form grow slowly and monetize well. Do both, with long-form as the business and Shorts as the marketing department.
 
-**Monetization reality check (2026, verify live):** YPP Tier 1 at 500 subscribers unlocks fan funding (memberships, Supers, Shopping). Tier 2 at 1,000 subscribers + 4,000 watch hours *or* 10M Shorts views unlocks ad revenue. Note: thresholds for new applicants are reported to rise in February 2027 — check YouTube's official page before planning around these numbers.
+**Monetization reality check (2026, verified Oct 2026):** YPP Tier 1 at 500 subscribers unlocks fan funding (memberships, Supers, Shopping). Tier 2 at 1,000 subscribers + 4,000 watch hours *or* 10M Shorts views unlocks ad revenue. **From February 1, 2027, Tier 2 thresholds double for new applicants** (8,000 watch hours or 20M Shorts views; confirmed by YouTube, Aug 2026 — existing partners grandfathered, Tier 1 unchanged).
 
 ## Consistency systems: the unglamorous multiplier
 
@@ -678,12 +678,14 @@ Most creators monetize backwards: they chase ad revenue (slow, small) and ignore
 
 ### Layer 1 — Platform ad revenue (the foundation, not the house)
 
-**YouTube long-form:** you keep 55%. Typical RPM $2–$10 per 1,000 views; finance/tech $12–$30, comedy/gaming $2–$8. (2026 third-party data — verify live.)
-**YouTube Shorts:** you keep 45% of your pool allocation. RPM roughly $0.04–$0.15. Discovery gold, revenue bronze.
-**TikTok Rewards:** ~$0.40–$1.00 per 1,000 qualified views (1min+ videos only).
-**Facebook CMP:** roughly $1–$10 per 1,000 views, wide range by niche and geography.
+**YouTube long-form:** you keep 55%. RPMs by niche (2026 third-party data, verify live): low-CPM niches (gaming, entertainment) **$1.50–$4** per 1,000 views; mid (education, lifestyle) **$4–$10**; high (finance, business) **$8–$20**; music sits at **$0.75–$1.65**. Q4 pays 40–80% more than Q1 — calendar effects are real.
+**YouTube Shorts:** you keep 45% of your pool allocation. RPM **$0.04–$0.50** per 1,000 engaged views: typical $0.04–$0.08, healthy $0.10–$0.25, strong niches $0.25–$0.50. So 1M engaged Shorts views ≈ $50–$500. Discovery gold, revenue bronze.
+**TikTok Creator Rewards:** **$0.40–$2.00** per 1,000 qualified views — 5–10x YouTube Shorts. Finance/tech sits at the top ($1.20–$2.40), comedy/memes at the floor ($0.30–$0.80). Only videos **over 1 minute** with original content qualify; earning starts after 1,000 qualified For You views. Eligibility: 10K followers + 100K views in 30 days + 18+ (country availability varies — verify live). TikTok Shop affiliates pay 5–20% commissions.
+**Meta (Facebook + Instagram):** Facebook merged In-Stream Ads, Ads on Reels, and Performance Bonus into **one Facebook Content Monetization program** (roughly $1–$10 per 1,000 views, wide range). Meta's **Creator Fast Track** (March 2026) paid a guaranteed "salary" — $1,000/mo at 100K+ followers or $3,000/mo at 1M+ for 15 Reels/month, US/Canada, 3-month cap. Meta paid ~$3B to creators in 2025 (+35%). **Instagram has no standing Reels bonus** (ended 2023) — the IG money stack is brand deals, affiliates, subscriptions, and occasional invite-only bonuses.
 
 **The truth:** ad revenue alone rarely pays rent until you're at 500k+ monthly views in a decent niche. Its real value is *baseline* — money that arrives while you sleep, funding the higher layers.
+
+**Watch-time is the real gate:** followers unlock eligibility, watch minutes unlock money. Creators hit 10K followers and still get rejected with ~300K watch minutes against ~600K-minute thresholds. And YouTube's **January 2026 enforcement wave** reportedly stripped tens of millions of subscribers from mass-produced/AI-content channels — thresholds are entry fees, not guarantees (single-source report — treat as caution, not fact). Also note: from **February 1, 2027, YPP thresholds double** for new applicants (8,000 watch hours or 20M Shorts views — confirmed via YouTube, Aug 2026). See the calculator's data for details.
 
 ### Layer 2 — Affiliates (the first real money)
 
@@ -693,9 +695,11 @@ Promote products you actually use; earn 5–30% per sale. Why first: zero audien
 - Disclosure on every single placement — it's the law (FTC) and it's good business.
 - Track with unique links per video. After 90 days you'll know exactly which content sells — make more of it.
 
+**Live selling is the 2026 affiliate engine:** TikTok live shopping sessions grew **+60% YoY in H1 2026** (live hours +80%), and affiliate links hit **5.2% engagement** — 160% above Instagram. The playbook: 7–12 second product-first clips, 1-hour+ lives with flash sales, and seed free samples to micro-creators via TikTok Shop Affiliate. TikTok Shop affiliates take 5–20% commissions with no follower minimum for basic links.
+
 ### Layer 3 — Sponsorships (where the money actually is)
 
-For most mid-size creators, sponsors are **50–80% of income**. The math: a common starting point is $20–$50 per 1,000 expected views for a dedicated integration (finance/tech 2–3x higher, entertainment lower). A channel doing 50k views/video doing 2 sponsors/month at $30 CPM = $3,000/month — from *two* videos.
+For most mid-size creators, sponsors are **50–80% of income**. Here's why: an integrated YouTube sponsor slot pays **$20–$35 per 1,000 views** vs ~$2.30 median ad RPM — 9–15x the platform payout. An Instagram sponsored Reel at a **median $22.40 CPM** is often the only income those views produce. Sponsorships don't supplement ad revenue; they dwarf it. The math: a common starting point is $20–$50 per 1,000 expected views for a dedicated integration (finance/tech 2–3x higher, entertainment lower). A channel doing 50k views/video doing 2 sponsors/month at $30 CPM = $3,000/month — from *two* videos.
 
 **Getting them:**
 - At 5k–50k subs: outbound. Email 20 brands/week with a one-page pitch: who your audience is, your numbers, what the integration looks like, your rate. Expect a 5% reply rate. That's the game.
@@ -715,6 +719,15 @@ Make once, sell forever: templates, presets, guides, courses, tools. 90%+ margin
 ### Layer 5 — Services & consulting (the cash accelerator)
 
 Coaching, audits, done-for-you work. Highest dollars-per-hour, lowest leverage — use it for cash flow while building leveraged layers, not as the destination.
+
+## The 7-figure pattern (documented)
+
+The creators who hit seven figures don't do it with one stream — they stack **5+ revenue streams** and **own the audience**. The recurring mechanics across documented cases:
+
+- A **budget-grocery creator** went viral in 2023 (past 3M followers cross-platform), then stacked brand deals + a cookbook + affiliates + her own website + a paid newsletter. The newsletter — ~$670K/year — became the **primary** income line, with direct audience ownership a 2-person team could run.
+- **Ben Tossell (Ben's Bites)** built a 7-figure AI-education business with 10,000+ students in under 9 months as essentially a one-person operation, with AI as his co-pilot.
+
+The pattern, not the personalities: (1) a breakout content format that validates demand *before* product investment, (2) an owned-audience channel (newsletter/list) as the largest line, (3) small teams + contractors, (4) pre-selling offers before building them. Case-study revenue figures are self-reported — treat as directional, never as promises.
 
 ## The revenue calculator is honest; use it
 
@@ -777,7 +790,9 @@ Total invested: time + ~$100 in tools. Total learned: which layer responds to *y
 >
 > [Name] · [channel link] · [media kit link]
 
-**Rate math:** start at $20–$50 per 1,000 *expected* views (use your last-10-video average, not your best). Raise 20% every 3 sponsors until someone says no — that's how you find your price.
+**Rate math:** start at $20–$50 per 1,000 *expected* views (use your last-10-video average, not your best). Raise 20% every 3 sponsors until someone says no — that's how you find your price. Check the [2026 rate card](rate-card.html) for tier-by-tier negotiation ranges across YouTube, TikTok, and Instagram — and remember creators list rates ~23% above what they actually accept, so expect to be negotiated down and price accordingly.
+
+**Usage rights — the most-neglected line item:** when a brand re-runs your $300 video as paid ads for a year, they're capturing thousands in value. Price paid-ad usage **separately** from the post fee, every time. This is the single most common money left on the table in creator deals.
 
 ## The digital product ladder
 
@@ -841,7 +856,8 @@ Launching "MY CHANNEL NAME in Arial on a Gildan" to 200 subscribers isn't a busi
 POD is the right first step because the economics are forgiving:
 
 - **How it works:** you upload designs; a third party prints and ships per order. You never touch inventory.
-- **Margins:** expect $5–$15 profit per item on a $25–$35 shirt. Thin, but risk-free.
+- **Margins:** expect $5–$15 profit per item on a $25–$35 shirt — 30–60% on POD staples per the 2026 playbook (e.g. Bella + Canvas 3001 base ~$11.92). Thin, but risk-free. Order **samples** before launch (~20% sample discounts are standard) so what arrives matches what you post.
+- **The 2026 content flywheel:** 7–12 second product-first clips posted 1–5x/day, 1-hour+ lives with flash sales and giveaways, and a Shopify store to own your customer data (don't let a marketplace own your buyer list).
 - **Platforms:** the big POD providers integrate with Shopify, Etsy, or standalone stores. Compare base costs + shipping times, not just features.
 - **Design rules:** 1–3 designs max at launch. Bold, simple, readable at 10 feet. Your inside joke > your logo. Test designs as community posts before printing anything.
 
@@ -977,7 +993,15 @@ The typical US path (other countries: research your local equivalent — Ltd, Gm
 6. **EIN** — free from the IRS website. Your business's Social Security number; needed for bank accounts and tax filings.
 7. **Business bank account** — open it the week the LLC is approved. This is the wall. All business money flows here.
 
-**S-corp election (later):** once profit is consistently high (often cited around $60k+/year net, varies), electing S-corp taxation can reduce self-employment tax. This is CPA territory — the savings are real but the paperwork is not DIY.
+**S-corp election — the tax play at ~$50–75K net profit:** a default single-member LLC is a disregarded entity for tax purposes, which means *identical* treatment to a sole proprietor: all net earnings reported on Schedule C and hit with **15.3% self-employment tax on everything**. The LLC gives you liability protection, not tax savings. The savings come only from electing S-corp taxation (Form 2553): you split earnings into a reasonable W-2 salary (subject to payroll tax) plus distributions (not subject to SE tax). The rule of thumb from creator-focused tax analysis: the election starts paying off at **~$50–60K net profit** ($75K per one analysis). S-corp overhead — payroll service + a second tax return — runs **$1,000–$4,000/year**, so below the threshold it's net-negative.
+
+The math, worked: on **$120K net profit** with a **60% salary split** ($72K salary, $48K distributions), the election saves roughly **$5,939/year** in self-employment tax (2026 analysis figures). The numbers behind it:
+
+- **2026 Social Security wage base: $184,500** — the 15.3% SE tax applies up to that; 2.9% Medicare above.
+- **20% QBI deduction is permanent under OBBBA** (One Big Beautiful Bill Act) — phase-outs from $201,750 single / $403,500 MFJ. This interacts with the election math; another reason it's CPA territory.
+- **Sole prop vs. LLC for tax is a tie** — both pay SE tax on all profit. The LLC's advantage is liability, period.
+
+**Not tax advice.** This is a map, not a territory: the reasonable-salary rule, state-level S-corp rules, QBI phase-outs, and payroll obligations are all "sit down with a CPA for one strategy meeting" material. The election's deadline (March 15 for a current-year election) is another detail a CPA earns their fee on. DIY until ~$50K profit; get the CPA for the strategy from there.
 
 ## Taxes: the system that prevents disasters
 
@@ -1210,3 +1234,62 @@ Phase 0 started with one person and a phone. The empire ends with a company that
 Start at Phase 0. Build the engine. Own the audience. Stack the revenue. Formalize the business. Scale the machine.
 
 The empire is built one upload at a time. Go.
+
+
+---
+
+# Reference: 2026 Rate Card
+
+# The 2026 Rate Card — Sponsorship Rates by Tier
+
+> What brands pay creators in 2026, by follower tier and platform. Compiled from 2026 agency benchmarks (air.io, projectcasting, creatorsjet, talentir, Elev8or). These are **negotiation ranges, not quotes** — benchmarks disagree 2–3x within tiers, and niche, engagement, format, and usage rights move numbers as much as follower count. Rates change; verify against current creator rate reports before you quote.
+
+## The tier table (per video / per post)
+
+| Tier | Followers | YouTube (per video) | TikTok (per video) | Instagram (per post) |
+|---|---|---|---|---|
+| Nano | 1K–10K | $25–$1K | $50–$300 | $25–$150 |
+| Micro | 10K–100K | $1K–$10K | $150–$2.5K | $200–$3.2K |
+| Macro | 100K–1M | $10K–$50K | $3.5K–$9K | $4.5K–$12K |
+| Mega | 1M+ | $50K–$300K+ | $20K–$100K+ | $10K–$100K+ |
+
+Some reports run lower at the bottom ends (e.g. nano IG $10–$100 per projectcasting). Treat the low end as "small brands, simple deliverables" and the high end as "proven engagement, competitive niche."
+
+## Platform multipliers (at equal follower counts)
+
+YouTube costs **1.7x** Instagram. TikTok costs **0.85x** Instagram. (Elev8or 2026, micro creators, lifestyle baseline: e.g. a $250–$1,500 IG feed post maps to $425–$2,550 on YouTube, $213–$1,275 on TikTok.) LinkedIn runs 1.4x, Snapchat 0.7x, X 0.6x.
+
+Per-follower rates fall as accounts grow: nano runs ~$25–$50 per 1K followers; macro runs ~$10–$12 per 1K. Follower count is the weakest pricing variable — engagement and expected views are what you're actually selling.
+
+## Sponsored CPMs (per 1,000 views)
+
+- **YouTube integrated mid-roll slot:** $20–$35 (dedicated video: $50–$90)
+- **YouTube general:** $15–$40
+- **Instagram sponsored Reel (median):** $22.40 CPM
+- **Instagram/TikTok general:** $10–$30
+- By YouTube category: finance/real estate ~$58, B2B SaaS & AI ~$46.50, health/fitness ~$28, beauty/fashion ~$24.50, gaming/tech ~$18.50, entertainment/comedy ~$14
+
+The context that matters: a YouTube integrated slot pays **9–15x the median ad RPM** (~$2.30). For mid-size creators, sponsors are typically 50–80% of income. That's why pricing this right is the highest-leverage negotiation of your year.
+
+## The negotiation data
+
+- Creators **list rates ~23% above what they accept** (28% gap for nano) — so quote high and expect to be negotiated down.
+- **41% offer package discounts** on 3+ posts — build this into your bundles, don't let brands discover it.
+- **Video commands a 20–40% premium** over static formats.
+- **Multi-platform bundles add 30–50%** — selling the same concept across YT + TikTok + IG is more than the sum.
+- Macro creators cost ~45% more per authentic engagement than nano — small creators are the value buy, and brands know it.
+- Quoted medians from 2,356 rate-card lines (Sep 2026): IG Reel $1,800, TikTok video $2,000, video integration $3,000, UGC without posting $500.
+
+## The most-neglected line item: usage rights
+
+When a brand re-runs your $300 video as paid ads for a year, they're capturing **thousands** in value. Price paid-ad usage **separately** from the post fee — every time. This is the single most common money left on the table in creator deals. See Phase 5's negotiation section for the full lever list (exclusivity +25%, usage +50–100%, whitelisting premium, bundles −15%).
+
+## How to use this card
+
+1. Find your tier and platform — that's your starting *range*.
+2. Anchor on **expected views** (last-10-video average), not followers: $20–$50 per 1,000 expected views is the common starting point (finance/tech 2–3x, entertainment lower).
+3. Quote at the top of the range — you'll be negotiated down ~23%.
+4. Add usage rights as a separate line item. Always.
+5. Re-price every 3 closed deals: raise 20% until your close rate drops to ~1 in 3.
+
+*Reference page — updated 2026-10-11 from the wave-2 research pass. Not financial advice. Platform rates change constantly; the most dangerous number on the internet is a stale one.*

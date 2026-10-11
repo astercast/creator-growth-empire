@@ -8,12 +8,14 @@ Most creators monetize backwards: they chase ad revenue (slow, small) and ignore
 
 ### Layer 1 — Platform ad revenue (the foundation, not the house)
 
-**YouTube long-form:** you keep 55%. Typical RPM $2–$10 per 1,000 views; finance/tech $12–$30, comedy/gaming $2–$8. (2026 third-party data — verify live.)
-**YouTube Shorts:** you keep 45% of your pool allocation. RPM roughly $0.04–$0.15. Discovery gold, revenue bronze.
-**TikTok Rewards:** ~$0.40–$1.00 per 1,000 qualified views (1min+ videos only).
-**Facebook CMP:** roughly $1–$10 per 1,000 views, wide range by niche and geography.
+**YouTube long-form:** you keep 55%. RPMs by niche (2026 third-party data, verify live): low-CPM niches (gaming, entertainment) **$1.50–$4** per 1,000 views; mid (education, lifestyle) **$4–$10**; high (finance, business) **$8–$20**; music sits at **$0.75–$1.65**. Q4 pays 40–80% more than Q1 — calendar effects are real.
+**YouTube Shorts:** you keep 45% of your pool allocation. RPM **$0.04–$0.50** per 1,000 engaged views: typical $0.04–$0.08, healthy $0.10–$0.25, strong niches $0.25–$0.50. So 1M engaged Shorts views ≈ $50–$500. Discovery gold, revenue bronze.
+**TikTok Creator Rewards:** **$0.40–$2.00** per 1,000 qualified views — 5–10x YouTube Shorts. Finance/tech sits at the top ($1.20–$2.40), comedy/memes at the floor ($0.30–$0.80). Only videos **over 1 minute** with original content qualify; earning starts after 1,000 qualified For You views. Eligibility: 10K followers + 100K views in 30 days + 18+ (country availability varies — verify live). TikTok Shop affiliates pay 5–20% commissions.
+**Meta (Facebook + Instagram):** Facebook merged In-Stream Ads, Ads on Reels, and Performance Bonus into **one Facebook Content Monetization program** (roughly $1–$10 per 1,000 views, wide range). Meta's **Creator Fast Track** (March 2026) paid a guaranteed "salary" — $1,000/mo at 100K+ followers or $3,000/mo at 1M+ for 15 Reels/month, US/Canada, 3-month cap. Meta paid ~$3B to creators in 2025 (+35%). **Instagram has no standing Reels bonus** (ended 2023) — the IG money stack is brand deals, affiliates, subscriptions, and occasional invite-only bonuses.
 
 **The truth:** ad revenue alone rarely pays rent until you're at 500k+ monthly views in a decent niche. Its real value is *baseline* — money that arrives while you sleep, funding the higher layers.
+
+**Watch-time is the real gate:** followers unlock eligibility, watch minutes unlock money. Creators hit 10K followers and still get rejected with ~300K watch minutes against ~600K-minute thresholds. And YouTube's **January 2026 enforcement wave** reportedly stripped tens of millions of subscribers from mass-produced/AI-content channels — thresholds are entry fees, not guarantees (single-source report — treat as caution, not fact). Also note: from **February 1, 2027, YPP thresholds double** for new applicants (8,000 watch hours or 20M Shorts views — confirmed via YouTube, Aug 2026). See the calculator's data for details.
 
 ### Layer 2 — Affiliates (the first real money)
 
@@ -23,9 +25,11 @@ Promote products you actually use; earn 5–30% per sale. Why first: zero audien
 - Disclosure on every single placement — it's the law (FTC) and it's good business.
 - Track with unique links per video. After 90 days you'll know exactly which content sells — make more of it.
 
+**Live selling is the 2026 affiliate engine:** TikTok live shopping sessions grew **+60% YoY in H1 2026** (live hours +80%), and affiliate links hit **5.2% engagement** — 160% above Instagram. The playbook: 7–12 second product-first clips, 1-hour+ lives with flash sales, and seed free samples to micro-creators via TikTok Shop Affiliate. TikTok Shop affiliates take 5–20% commissions with no follower minimum for basic links.
+
 ### Layer 3 — Sponsorships (where the money actually is)
 
-For most mid-size creators, sponsors are **50–80% of income**. The math: a common starting point is $20–$50 per 1,000 expected views for a dedicated integration (finance/tech 2–3x higher, entertainment lower). A channel doing 50k views/video doing 2 sponsors/month at $30 CPM = $3,000/month — from *two* videos.
+For most mid-size creators, sponsors are **50–80% of income**. Here's why: an integrated YouTube sponsor slot pays **$20–$35 per 1,000 views** vs ~$2.30 median ad RPM — 9–15x the platform payout. An Instagram sponsored Reel at a **median $22.40 CPM** is often the only income those views produce. Sponsorships don't supplement ad revenue; they dwarf it. The math: a common starting point is $20–$50 per 1,000 expected views for a dedicated integration (finance/tech 2–3x higher, entertainment lower). A channel doing 50k views/video doing 2 sponsors/month at $30 CPM = $3,000/month — from *two* videos.
 
 **Getting them:**
 - At 5k–50k subs: outbound. Email 20 brands/week with a one-page pitch: who your audience is, your numbers, what the integration looks like, your rate. Expect a 5% reply rate. That's the game.
@@ -45,6 +49,15 @@ Make once, sell forever: templates, presets, guides, courses, tools. 90%+ margin
 ### Layer 5 — Services & consulting (the cash accelerator)
 
 Coaching, audits, done-for-you work. Highest dollars-per-hour, lowest leverage — use it for cash flow while building leveraged layers, not as the destination.
+
+## The 7-figure pattern (documented)
+
+The creators who hit seven figures don't do it with one stream — they stack **5+ revenue streams** and **own the audience**. The recurring mechanics across documented cases:
+
+- A **budget-grocery creator** went viral in 2023 (past 3M followers cross-platform), then stacked brand deals + a cookbook + affiliates + her own website + a paid newsletter. The newsletter — ~$670K/year — became the **primary** income line, with direct audience ownership a 2-person team could run.
+- **Ben Tossell (Ben's Bites)** built a 7-figure AI-education business with 10,000+ students in under 9 months as essentially a one-person operation, with AI as his co-pilot.
+
+The pattern, not the personalities: (1) a breakout content format that validates demand *before* product investment, (2) an owned-audience channel (newsletter/list) as the largest line, (3) small teams + contractors, (4) pre-selling offers before building them. Case-study revenue figures are self-reported — treat as directional, never as promises.
 
 ## The revenue calculator is honest; use it
 
@@ -107,7 +120,9 @@ Total invested: time + ~$100 in tools. Total learned: which layer responds to *y
 >
 > [Name] · [channel link] · [media kit link]
 
-**Rate math:** start at $20–$50 per 1,000 *expected* views (use your last-10-video average, not your best). Raise 20% every 3 sponsors until someone says no — that's how you find your price.
+**Rate math:** start at $20–$50 per 1,000 *expected* views (use your last-10-video average, not your best). Raise 20% every 3 sponsors until someone says no — that's how you find your price. Check the [2026 rate card](rate-card.html) for tier-by-tier negotiation ranges across YouTube, TikTok, and Instagram — and remember creators list rates ~23% above what they actually accept, so expect to be negotiated down and price accordingly.
+
+**Usage rights — the most-neglected line item:** when a brand re-runs your $300 video as paid ads for a year, they're capturing thousands in value. Price paid-ad usage **separately** from the post fee, every time. This is the single most common money left on the table in creator deals.
 
 ## The digital product ladder
 

@@ -26,6 +26,10 @@ FONT_URL = ("https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,
 
 PHASE_ACCENTS = ["acid", "coral", "gold", "violet", "acid", "coral", "gold", "violet", "acid"]
 
+REFERENCE_PAGES = [
+    ("rate-card", "content/rate-card.md", "Reference", "2026 Rate Card"),
+]
+
 CHAPTERS = [
     ("phase-0-start-from-nothing",  "content/phase-0-start-from-nothing.md",  "Phase 0", "Start From Nothing"),
     ("phase-1-content-engine",      "content/phase-1-content-engine.md",      "Phase 1", "The Content Engine"),
@@ -256,6 +260,39 @@ def build():
         })
         llms_full_parts.append(f"# {phase}: {short}\n\n{md}")
 
+    # ---- reference pages (not phases; rendered like chapters, linked from llms/API) ----
+    reference_meta = []
+    for slug, src, badge, short in REFERENCE_PAGES:
+        md = (ROOT / src).read_text(encoding="utf-8")
+        body_html = md_to_html(md)
+        wc = word_count(md)
+        read_min = max(1, round(wc / 200))
+        briefing = ""
+        m_h1 = re.search(r"<h1>.*?</h1>", body_html)
+        if m_h1:
+            body_html = body_html[:m_h1.start()] + body_html[m_h1.end():]
+        m_bq = re.search(r"<blockquote>(.*?)</blockquote>", body_html, re.S)
+        if m_bq:
+            briefing = m_bq.group(1)
+            body_html = body_html[:m_bq.start()] + body_html[m_bq.end():]
+        words = short.split()
+        hero_title = (" ".join(esc(w) for w in words[:-1]) + ' <span class="accent-word">' + esc(words[-1]) + "</span>") if len(words) > 1 else esc(short)
+        hero = (f'<header class="chapter-hero" style="--phase-accent: var(--gold);">'
+                f'<p class="chapter-kicker"><span class="phase-badge" style="background: var(--gold);">{badge}</span></p>'
+                f"<h1>{hero_title}</h1>"
+                + (f'<p class="lede">{briefing}</p>' if briefing else "")
+                + f'<p class="chapter-meta-strip"><span>{read_min} min read</span><span class="sep">/</span>'
+                f'<span>{wc:,} words</span></p></header>')
+        cnav = ('<nav class="chapter-nav" aria-label="Phases">'
+                '<a href="index.html"><span class="nav-dir">← Back to</span><span class="nav-title">The Empire Map</span></a>'
+                '<a class="nav-next" href="phase-5-monetization-stack.html"><span class="nav-dir">Next phase →</span>'
+                '<span class="nav-title">Phase 5: The Monetization Stack</span></a></nav>')
+        page = page_template(f"{short}", f'<article class="chapter">{hero}{body_html}{cnav}</article>', active="")
+        (SITE / f"{slug}.html").write_text(page, encoding="utf-8")
+        reference_meta.append({"id": slug, "badge": badge, "title": short,
+                               "path": f"{slug}.html", "words": wc, "read_minutes": read_min})
+        llms_full_parts.append(f"# {badge}: {short}\n\n{md}")
+
     # tool pages
     for slug, title, desc in TOOLS:
         body_src = PAGES / f"{slug}.html"
@@ -350,6 +387,7 @@ def build():
             "chapters": "api/v1/chapters.json",
             "glossary": "api/v1/glossary.json",
             "calculators": "api/v1/calculators.json",
+            "references": [m["path"].replace(".html", "") for m in reference_meta],
             "tools": ["quiz.html", "calculator.html", "planner.html"],
         },
     }
@@ -406,7 +444,10 @@ def build():
     llms += ["", "## Tools",
              "- [Niche Picker](quiz.html)", "- [Revenue Calculator](calculator.html)",
              "- [90-Day Planner](planner.html)", "- [Glossary](glossary.html)",
-             "", "## API", "- api/v1/index.json", "- api/v1/chapters.json",
+             "", "## Reference"]
+    for m in reference_meta:
+        llms.append(f"- [{m['badge']}: {m['title']}]({m['path']}) — {m['read_minutes']} min read")
+    llms += ["", "## API", "- api/v1/index.json", "- api/v1/chapters.json",
              "- api/v1/glossary.json", "- api/v1/calculators.json",
              "", "## Skills"]
     for s in skills_idx:

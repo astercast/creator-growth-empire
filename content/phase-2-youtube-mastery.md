@@ -48,7 +48,7 @@ They're different businesses sharing a channel:
 
 **The winning structure:** Shorts as trailers and standalone micro-content that funnel toward long-form. A Short that teases the long-form video ("full breakdown on my channel") converts discovery into durable watch time. Channels that *only* do Shorts grow fast and monetize slowly; channels that *only* do long-form grow slowly and monetize well. Do both, with long-form as the business and Shorts as the marketing department.
 
-**Monetization reality check (2026, verify live):** YPP Tier 1 at 500 subscribers unlocks fan funding (memberships, Supers, Shopping). Tier 2 at 1,000 subscribers + 4,000 watch hours *or* 10M Shorts views unlocks ad revenue. Note: thresholds for new applicants are reported to rise in February 2027 — check YouTube's official page before planning around these numbers.
+**Monetization reality check (2026, verified Oct 2026):** YPP Tier 1 at 500 subscribers unlocks fan funding (memberships, Supers, Shopping). Tier 2 at 1,000 subscribers + 4,000 watch hours *or* 10M Shorts views unlocks ad revenue. **From February 1, 2027, Tier 2 thresholds double for new applicants** (8,000 watch hours or 20M Shorts views; confirmed by YouTube, Aug 2026 — existing partners grandfathered, Tier 1 unchanged).
 
 ## Consistency systems: the unglamorous multiplier
 

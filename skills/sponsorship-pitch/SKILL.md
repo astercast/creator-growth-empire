@@ -21,6 +21,7 @@ description: Build a complete sponsor outreach system — targeting, email, pric
 3. **Write the email (under 120 words).** Subject: "[Channel] x [Brand] — 60-second integration idea". Body: who you are (one line), your numbers (one line: avg views + audience descriptor), one specific integration concept tied to *their* product, your rate, one call to action.
 4. **Price it.** Start at $20–$50 per 1,000 expected views (last-10-video average, not your best). Finance/tech 2–3x. Raise 20% every 3 closed deals until close rate drops to ~1 in 3.
 5. **Negotiate.** Levers: exclusivity (+25%), usage rights (+50–100%), whitelisting (premium), bundles (3 videos, 15% off). Red lines: talking points not scripts, 50% upfront for new brands, kill fee, mandatory disclosure.
+6. **Price usage rights separately — the most-neglected line item.** When a brand re-runs your $300 video as paid ads for a year, they're capturing thousands in value. Never fold paid-ad usage into the post fee; quote it as its own line item, every deal.
 6. **Track the pipeline.** Simple CRM: brand, contact, date sent, follow-up date (7 days), status. Follow up exactly once — then move on. 5% reply rate is normal; the system works on volume.
 
 ## Worked example
