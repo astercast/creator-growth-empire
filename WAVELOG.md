@@ -44,4 +44,4 @@ What shipped:
 5. Rebuilt via `scripts/build.py` (9 chapters, 3 tools, 6 skills, ~14.6K words);
    llms.txt/llms-full.txt now list the Reference page; API index exposes `references`.
 
-Commit: TBD (pushed after pull-merge).
+Commit: 1f87d372d9c669addb9aa1ea398aa0084ebf3bfa (pushed 2026-10-11, base 1d3f82a; parallel pipeline commits carried over via base_tree).
