@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>API Explorer — Creator Growth Empire</title>
+<meta name="description" content="From $0 to a multi-million-dollar creator company.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,600;0,800;0,900;1,900&family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/layout.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<script src="assets/js/api-explorer.js"></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <a class="brand" href="index.html"><span class="brand-mark">▲</span> Creator Growth Empire</a>
+  <nav class="site-nav" aria-label="Primary"><a href="index.html" class="nav-link">Empire Map</a><a href="quiz.html" class="nav-link">Niche Picker</a><a href="calculator.html" class="nav-link">Revenue Calc</a><a href="planner.html" class="nav-link">90-Day Plan</a><a href="deal-analyzer.html" class="nav-link">Deal Analyzer</a><a href="repurpose.html" class="nav-link">Repurpose Plan</a><a href="glossary.html" class="nav-link">Glossary</a><a href="agents.html" class="nav-link">Agents</a></nav>
+  <button class="nav-toggle" aria-expanded="false" aria-controls="mobileNav" aria-label="Menu">☰</button>
+</header>
+<nav id="mobileNav" class="mobile-nav" aria-label="Mobile"><a href="index.html" class="nav-link">Empire Map</a><a href="quiz.html" class="nav-link">Niche Picker</a><a href="calculator.html" class="nav-link">Revenue Calc</a><a href="planner.html" class="nav-link">90-Day Plan</a><a href="deal-analyzer.html" class="nav-link">Deal Analyzer</a><a href="repurpose.html" class="nav-link">Repurpose Plan</a><a href="glossary.html" class="nav-link">Glossary</a><a href="agents.html" class="nav-link">Agents</a></nav>
+<main id="main"><div class="tool-page"><div class="hud-panel"><div class="hud-head"><span>TOOL // 06 — API EXPLORER</span><span class="hud-status">SYSTEMS ONLINE</span></div><div class="hud-body"><h1>API Explorer</h1><p class="lede">Browse every api/v1 endpoint and preview JSON responses live in your browser — no key, no server.</p></div></div><p class="muted" style="max-width:44rem">Every <code>api/v1</code> endpoint, previewed live in your browser. Responses are static JSON — no key, no server, no auth. Select an endpoint to fetch and inspect it.</p>
+<div class="explorer" style="display:grid;gap:1.25rem;margin-top:1rem">
+  <div>
+    <h2 style="font-size:1rem;letter-spacing:.08em">Endpoints</h2>
+    <ul id="explorer-list" class="checklist" aria-label="API endpoints"></ul>
+    <p id="explorer-error" class="muted" role="alert" hidden></p>
+  </div>
+  <div>
+    <h2 style="font-size:1rem;letter-spacing:.08em">Response preview</h2>
+    <p id="explorer-meta" class="muted" aria-live="polite">Pick an endpoint to load its JSON.</p>
+    <pre id="explorer-out" tabindex="0" aria-live="polite" style="max-height:32rem;overflow:auto;white-space:pre-wrap;word-break:break-word"><code id="explorer-code">// Nothing loaded yet.</code></pre>
+  </div>
+</div>
+<p class="muted" style="margin-top:1rem">Base path: <code>api/v1/</code> · Full reference: repo-root <code>API.md</code> · Machine orientation: <a href="agents.html">Agents</a> · <code>llms.txt</code></p>
+</div></main>
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <div class="foot-brand"><span class="brand-mark">▲</span> Creator Growth Empire</div>
+      <p class="muted">From $0 to a multi-million-dollar creator company.</p>
+      <div class="sticker-row" style="margin:1rem 0 0">
+        <span class="sticker sticker-ghost">No guru hype</span>
+        <span class="sticker sticker-ghost">2026 verified</span>
+      </div>
+    </div>
+    <nav aria-label="Phases">
+      <strong class="muted" style="font-size:.78rem;letter-spacing:.12em">PHASES</strong>
+      <a href="phase-0-start-from-nothing.html">Phase 0 — Start From Nothing</a>
+      <a href="phase-2-youtube-mastery.html">Phase 2 — YouTube Mastery</a>
+      <a href="phase-5-monetization-stack.html">Phase 5 — Monetization Stack</a>
+      <a href="phase-7-the-business.html">Phase 7 — The Business</a>
+    </nav>
+    <nav aria-label="Tools">
+      <strong class="muted" style="font-size:.78rem;letter-spacing:.12em">TOOLS</strong>
+      <a href="quiz.html">Niche Picker</a>
+      <a href="calculator.html">Revenue Calculator</a>
+      <a href="planner.html">90-Day Planner</a>
+      <a href="deal-analyzer.html">Sponsor Deal Analyzer</a>
+      <a href="repurpose.html">Repurposing Planner</a>
+      <a href="api-explorer.html">API Explorer</a>
+      <a href="glossary.html">Glossary</a>
+      <a href="agents.html">Agents</a>
+    </nav>
+  </div>
+  <div class="footer-fine">PRIVATE RESEARCH ARCHIVE · PLATFORM FACTS VERIFIED OCT 2026 — VERIFY LIVE BEFORE ACTING · NOT FINANCIAL, LEGAL, OR TAX ADVICE</div>
+</footer>
+<script src="assets/js/site.js"></script>
+</body>
+</html>

@@ -5,6 +5,7 @@
     "chapters": "api/v1/chapters.json",
     "glossary": "api/v1/glossary.json",
     "calculators": "api/v1/calculators.json",
+    "skills": "api/v1/skills.json",
     "references": [
       "rate-card"
     ],
@@ -13,7 +14,8 @@
       "calculator.html",
       "planner.html",
       "deal-analyzer.html",
-      "repurpose.html"
+      "repurpose.html",
+      "api-explorer.html"
     ]
   }
 }

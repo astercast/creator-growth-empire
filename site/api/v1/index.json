@@ -1,0 +1,21 @@
+{
+  "name": "Creator Growth Empire",
+  "version": "1.0.0",
+  "endpoints": {
+    "chapters": "api/v1/chapters.json",
+    "glossary": "api/v1/glossary.json",
+    "calculators": "api/v1/calculators.json",
+    "skills": "api/v1/skills.json",
+    "references": [
+      "rate-card"
+    ],
+    "tools": [
+      "quiz.html",
+      "calculator.html",
+      "planner.html",
+      "deal-analyzer.html",
+      "repurpose.html",
+      "api-explorer.html"
+    ]
+  }
+}

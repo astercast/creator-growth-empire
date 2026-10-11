@@ -17,7 +17,18 @@ All nine chapters: `slug`, `title`, `phase`, `word_count`, `url` (relative to si
 Calculator config: `youtube_longform_rpm_bands` (per-niche RPM ranges), `shorts_rpm_per_1000`, `platform_thresholds` (YPP tiers, TikTok Rewards, Facebook CMP — with sources and dates), `revenue_splits`, `sponsorship_rule_of_thumb`. **Verify platform figures live before acting on them** — see `updated` field.
 
 ### `GET api/v1/skills.json`
-Skill index: `name`, `description`, `path` for all six skills. Full skill content lives in `skills/<name>/SKILL.md`.
+Skill index: `name`, `description`, `path` for all ten skills. Full skill content lives in `skills/<name>/SKILL.md`.
+
+### API Explorer (`api-explorer.html`)
+
+A client-side playground: browses every `api/v1` endpoint (discovered from
+`api/v1/index.json`, static fallback if unreachable), fetches relative to the
+site root, and pretty-prints JSON in-browser. Graceful failure states —
+failed fetches surface a status message instead of breaking.
+
+**Deploy note:** the build mirrors `api/v1/` into `site/api/v1/` so the
+deployed site serves its own API — the explorer works wherever the site is
+deployed, offline-safe, no server required.
 
 ## Schemas
 

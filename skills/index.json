@@ -11,14 +11,34 @@
       "path": "skills/content-repurposing/SKILL.md"
     },
     {
+      "name": "deal-negotiation",
+      "description": "Evaluate a sponsorship offer against the 2026 rate card \u2014 benchmark the price, flag contract traps, and build a defensible counter-offer.",
+      "path": "skills/deal-negotiation/SKILL.md"
+    },
+    {
       "name": "hook-writing",
       "description": "Write and stress-test video hooks \u2014 the first 30 seconds (long-form) or first 2 seconds (short-form) that decide everything.",
       "path": "skills/hook-writing/SKILL.md"
     },
     {
+      "name": "live-shopping-playbook",
+      "description": "Plan a TikTok live selling session from the Phase 6 POD research \u2014 format, timing, and the unit economics of selling live.",
+      "path": "skills/live-shopping-playbook/SKILL.md"
+    },
+    {
       "name": "niche-validation",
       "description": "Validate a creator niche before committing \u2014 demand, competition, monetization, and winnability scored in one pass.",
       "path": "skills/niche-validation/SKILL.md"
+    },
+    {
+      "name": "rate-card-reader",
+      "description": "Look up fair 2026 sponsorship price ranges for any follower tier, platform, and deliverable \u2014 straight from the site's rate-card data.",
+      "path": "skills/rate-card-reader/SKILL.md"
+    },
+    {
+      "name": "repurposing-sprint",
+      "description": "Execute the 5-platform pillar-to-everywhere SOP from the Phase 3 playbook \u2014 one pillar video becomes five native posts on a staggered schedule.",
+      "path": "skills/repurposing-sprint/SKILL.md"
     },
     {
       "name": "sponsorship-pitch",

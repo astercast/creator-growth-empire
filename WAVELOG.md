@@ -88,3 +88,49 @@ counter-offer math, mission cards, atom test all PASS).
 
 Commit: d20903862dfb3dda932c497c0c615a3b24eac1a4 (pushed 2026-10-11, base 3b1ec58;
 parallel pipeline commits carried over via base_tree).
+
+---
+
+## Wave 4 — agentic/API/skills expansion (2026-10-11)
+
+The site is now agent-actionable end to end: data, executable skills, an agent
+landing page, and an in-browser API playground. All platform figures come from
+existing 2026 research — nothing new invented; income figures stay illustrative,
+never promises; "not financial/legal/tax advice" intact.
+
+What shipped:
+1. **4 new skills** (same Use when / Inputs / Procedure / Worked example / API
+   references / Pitfalls format; all reference real `api/v1` endpoints):
+   `deal-negotiation` (benchmark an offer vs the rate card, red-flag checklist,
+   counter-offer worksheet — drives the deal-analyzer logic),
+   `rate-card-reader` (tier/platform/deliverable range lookup from
+   `calculators.json`, ~23% listing buffer, package-discount layer),
+   `live-shopping-playbook` (TikTok live selling from the Phase 6 POD research:
+   60-min run of show, flash-sale margin math, own-the-customer-data loop),
+   `repurposing-sprint` (execute the 5-platform SOP: atom test, pillar prep,
+   YouTube Day 0 → Short Day +1 → TikTok Day +2 → Reel Day +3 → Facebook Day +4).
+   Skills index regenerated: **10 skills**.
+2. **Agents landing page** (`pages/agents.md` → `site/agents.html`, new
+   `MARKDOWN_PAGES` renderer in build.py): full agentic surface — `api/v1`
+   endpoint table (chapters, glossary, calculators, skills, tools, references),
+   `llms.txt`/`llms-full.txt`, all 10 skills with use-when summaries, data
+   freshness policy (`updated`/`version` fields, verify-live flags, rate-card
+   caveats), and 3 worked agent workflows (evaluate a $5K sponsorship offer,
+   plan a 90-day launch, build a repurposing sprint for one video idea).
+   Linked from nav + footer.
+3. **API explorer** (`pages/api-explorer.html` + `assets/js/api-explorer.js`,
+   new 6th tool): browses `api/v1` endpoints (self-discovered from
+   `index.json`, static fallback), fetches relative paths, pretty-prints JSON
+   in-browser; client-side only, graceful failure states. Build now mirrors
+   `api/v1/` into `site/api/v1/` so the deployed site serves its own API —
+   the explorer works live with no server. Hero/index stats updated 5→6 tools.
+4. **API index** gained the `skills` endpoint key; `API.md` updated (ten
+   skills, explorer + deploy-mirror docs); `GO_LIVE.md` documents the
+   site-side api mirror; `llms.txt`/`llms-full.txt` regenerated with an
+   ## Agents section (agents page, explorer, llms files).
+
+Validation: `scripts/build.py` clean (9 chapters, 6 tools, 10 skills,
+14,734 words); `node --check` on all 8 JS files PASS; all 11 JSON files valid;
+internal link check across site/: 706 refs, 0 broken; skills/index.json = 10.
+
+Commit: PENDING PUSH (2026-10-11).

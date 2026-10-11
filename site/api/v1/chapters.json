@@ -1,0 +1,76 @@
+{
+  "chapters": [
+    {
+      "id": "phase-0-start-from-nothing",
+      "phase": "Phase 0",
+      "title": "Start From Nothing",
+      "path": "phase-0-start-from-nothing.html",
+      "words": 1513,
+      "read_minutes": 8
+    },
+    {
+      "id": "phase-1-content-engine",
+      "phase": "Phase 1",
+      "title": "The Content Engine",
+      "path": "phase-1-content-engine.html",
+      "words": 1504,
+      "read_minutes": 8
+    },
+    {
+      "id": "phase-2-youtube-mastery",
+      "phase": "Phase 2",
+      "title": "YouTube Mastery",
+      "path": "phase-2-youtube-mastery.html",
+      "words": 1544,
+      "read_minutes": 8
+    },
+    {
+      "id": "phase-3-everywhere-engine",
+      "phase": "Phase 3",
+      "title": "The Everywhere Engine",
+      "path": "phase-3-everywhere-engine.html",
+      "words": 1546,
+      "read_minutes": 8
+    },
+    {
+      "id": "phase-4-audience-to-community",
+      "phase": "Phase 4",
+      "title": "Audience to Community",
+      "path": "phase-4-audience-to-community.html",
+      "words": 1532,
+      "read_minutes": 8
+    },
+    {
+      "id": "phase-5-monetization-stack",
+      "phase": "Phase 5",
+      "title": "The Monetization Stack",
+      "path": "phase-5-monetization-stack.html",
+      "words": 2220,
+      "read_minutes": 11
+    },
+    {
+      "id": "phase-6-merch-and-brand",
+      "phase": "Phase 6",
+      "title": "Merch & Brand",
+      "path": "phase-6-merch-and-brand.html",
+      "words": 1573,
+      "read_minutes": 8
+    },
+    {
+      "id": "phase-7-the-business",
+      "phase": "Phase 7",
+      "title": "The Business",
+      "path": "phase-7-the-business.html",
+      "words": 1798,
+      "read_minutes": 9
+    },
+    {
+      "id": "phase-8-scale",
+      "phase": "Phase 8",
+      "title": "Scale",
+      "path": "phase-8-scale.html",
+      "words": 1504,
+      "read_minutes": 8
+    }
+  ]
+}

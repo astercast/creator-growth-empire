@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agents — Creator Growth Empire</title>
+<meta name="description" content="From $0 to a multi-million-dollar creator company.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,600;0,800;0,900;1,900&family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/layout.css">
+<link rel="stylesheet" href="assets/css/components.css">
+
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <a class="brand" href="index.html"><span class="brand-mark">▲</span> Creator Growth Empire</a>
+  <nav class="site-nav" aria-label="Primary"><a href="index.html" class="nav-link">Empire Map</a><a href="quiz.html" class="nav-link">Niche Picker</a><a href="calculator.html" class="nav-link">Revenue Calc</a><a href="planner.html" class="nav-link">90-Day Plan</a><a href="deal-analyzer.html" class="nav-link">Deal Analyzer</a><a href="repurpose.html" class="nav-link">Repurpose Plan</a><a href="glossary.html" class="nav-link">Glossary</a><a href="agents.html" class="nav-link active">Agents</a></nav>
+  <button class="nav-toggle" aria-expanded="false" aria-controls="mobileNav" aria-label="Menu">☰</button>
+</header>
+<nav id="mobileNav" class="mobile-nav" aria-label="Mobile"><a href="index.html" class="nav-link">Empire Map</a><a href="quiz.html" class="nav-link">Niche Picker</a><a href="calculator.html" class="nav-link">Revenue Calc</a><a href="planner.html" class="nav-link">90-Day Plan</a><a href="deal-analyzer.html" class="nav-link">Deal Analyzer</a><a href="repurpose.html" class="nav-link">Repurpose Plan</a><a href="glossary.html" class="nav-link">Glossary</a><a href="agents.html" class="nav-link active">Agents</a></nav>
+<main id="main"><article class="chapter"><header class="chapter-hero" style="--phase-accent: var(--violet);"><p class="chapter-kicker"><span class="phase-badge" style="background: var(--violet);">The Agent Surface</span></p><h1>Agents</h1><p class="lede">This site is built to be used by agents, not just read by humans. Everything below — data, skills, tools, and full text — is machine-readable from static files. No API key, no server, no auth. Fetch and act.</p><p class="chapter-meta-strip"><span>5 min read</span><span class="sep">/</span><span>984 words</span></p></header>
+
+<h2>The surface at a glance</h2>
+<div class='table-wrap'><table><thead><tr><th>What</th><th>Where</th><th>Format</th></tr></thead><tbody>
+<tr><td>Orientation</td><td><code>llms.txt</code></td><td>Chapters, tools, skills, reference — one screen</td></tr>
+<tr><td>Full guide text</td><td><code>llms-full.txt</code></td><td>All 9 phases + reference, complete</td></tr>
+<tr><td>API index</td><td><code>api/v1/index.json</code></td><td>Manifest: endpoints, version</td></tr>
+<tr><td>Chapters</td><td><code>api/v1/chapters.json</code></td><td>9 phases: id, title, word count, read time, path</td></tr>
+<tr><td>Glossary</td><td><code>api/v1/glossary.json</code></td><td>Creator-economy terms + definitions</td></tr>
+<tr><td>Calculators data</td><td><code>api/v1/calculators.json</code></td><td>RPM bands, thresholds, splits, 2026 rate card, usage-rights notes</td></tr>
+<tr><td>Skill index</td><td><code>api/v1/skills.json</code></td><td>10 skills: name, description, path</td></tr>
+<tr><td>Reference</td><td><code>rate-card.html</code> + <code>api/v1/calculators.json</code></td><td>The 2026 sponsorship rate card</td></tr>
+<tr><td>Interactive tools</td><td><code>quiz.html</code>, <code>calculator.html</code>, <code>planner.html</code>, <code>deal-analyzer.html</code>, <code>repurpose.html</code>, <code>api-explorer.html</code></td><td>Human-facing; agents should use the API data behind them</td></tr>
+<tr><td>API explorer</td><td><code>api-explorer.html</code></td><td>Browse every <code>api/v1</code> endpoint and preview JSON in-browser</td></tr>
+</tbody></table></div>
+<p>All endpoints are <code>GET</code> on static JSON. Base path: <code>api/v1/</code> (relative to the site root; the deployed site ships its own <code>api/</code> mirror, so the explorer works live too). Schemas: <code>api/v1/schema/</code> (JSON Schema draft-07).</p>
+<h2>Skills — the executable layer</h2>
+<p>Ten skills live in <code>skills/&lt;name&gt;/SKILL.md</code>, indexed by <code>api/v1/skills.json</code>. Each skill has the same structure: Use when / Inputs / Procedure / Worked example / API references / Pitfalls.</p>
+<div class='table-wrap'><table><thead><tr><th>Skill</th><th>Use when</th></tr></thead><tbody>
+<tr><td><code>niche-validation</code></td><td>Validating a creator niche before committing — demand, competition, monetization, winnability scored in one pass</td></tr>
+<tr><td><code>hook-writing</code></td><td>Writing and stress-testing video hooks — first 30 seconds (long-form) or first 2 seconds (short-form)</td></tr>
+<tr><td><code>thumbnail-teardown</code></td><td>Diagnosing why a thumbnail underperforms and producing a redesign brief</td></tr>
+<tr><td><code>content-repurposing</code></td><td>Turning one long-form video into a five-platform distribution package</td></tr>
+<tr><td><code>repurposing-sprint</code></td><td>Executing the 5-platform SOP: one pillar → 5 mission cards (YouTube Day 0, Short Day +1, TikTok Day +2, Reel Day +3, Facebook Day +4)</td></tr>
+<tr><td><code>analytics-review</code></td><td>Running the monthly analytics ritual — outliers, retention diagnosis, what to make more of</td></tr>
+<tr><td><code>sponsorship-pitch</code></td><td>Building a sponsor outreach system — targeting, email, pricing, negotiation</td></tr>
+<tr><td><code>deal-negotiation</code></td><td>Evaluating an offer against the 2026 rate card — benchmark, red-flag checklist, counter-offer worksheet</td></tr>
+<tr><td><code>rate-card-reader</code></td><td>Looking up fair 2026 ranges for any tier/platform/deliverable from the rate-card data</td></tr>
+<tr><td><code>live-shopping-playbook</code></td><td>Planning a TikTok live selling session — 60-minute run of show, flash-sale math, unit economics</td></tr>
+</tbody></table></div>
+<h2>Data freshness policy</h2>
+<ul><li><code>api/v1/calculators.json</code> carries <code>version</code> (currently 1.1.0) and <code>updated</code> (currently 2026-10-11). Check these before quoting any platform number.</li><li>Platform thresholds include their source and observation date — treat as <strong>verify live</strong>, not gospel. Platforms change rules constantly; the most dangerous number on the internet is a stale one.</li><li>Rate-card figures are negotiation ranges compiled from 2026 agency benchmarks that disagree 2–3x within tiers — never present them as quotes.</li><li>The guide&#x27;s honesty policy: platform facts verified October 2026. Income ranges are illustrative, never promises. Business/tax content is educational — <strong>not financial, legal, or tax advice</strong>.</li></ul>
+<h2>Worked agent workflows</h2>
+<h3>1. Evaluate a $5K sponsorship offer</h3>
+<p>Goal: give a creator a go/no-go with a counter-offer, in one pass.</p>
+<ol><li><code>GET api/v1/calculators.json</code> → <code>sponsorship_rate_card_2026</code>. Creator: 60K YouTube subs → micro tier (10K–100K) → YouTube range <strong>$1,000–$10,000</strong>.</li><li>$5,000 is inside the band → fair, not strong. Implied CPM check: $5,000 ÷ 85K expected views × 1000 = <strong>$58.82</strong> vs the integrated-slot benchmark ($20–$35) — priced like a dedication, so the counter is justified.</li><li>Red flags from the offer&#x27;s terms (perpetual usage? broad exclusivity? net-60?): price paid-ad usage +50–100% and exclusivity +25%+ as separate line items; counter net-30 with 50% upfront.</li><li>Build the counter per the <code>deal-negotiation</code> skill: base = top of range ($10,000) + line items. The interactive <a href="deal-analyzer.html">Sponsor Deal Analyzer</a> runs the identical logic for humans.</li><li>Return: verdict (fair), the two checks that produced it, the red-flag list, and a counter-offer worksheet. Never present benchmark ranges as quotes; never give financial advice.</li></ol>
+<h3>2. Plan a 90-day launch</h3>
+<p>Goal: a new creator gets niche → content plan → launch schedule.</p>
+<ol><li><code>GET api/v1/chapters.json</code> → read the Phase 0 and Phase 1 chapters from <code>llms-full.txt</code> for the start-from-nothing system and the content engine.</li><li>Run the <code>niche-validation</code> skill: score demand, competition, monetization, winnability. Feed the result into the human-facing <a href="quiz.html">Niche Picker</a> or the <a href="planner.html">90-Day Planner</a>.</li><li><code>GET api/v1/calculators.json</code> → <code>youtube_longform_rpm_bands</code> and <code>platform_thresholds</code> to set realistic monetization expectations (bands, not promises).</li><li>Output: validated niche + 90-day posting schedule + the monetization thresholds to watch for. All platform numbers carry the verify-live flag.</li></ol>
+<h3>3. Build a repurposing sprint for one video idea</h3>
+<p>Goal: turn &quot;I tested 5 budget mics&quot; into five platform-native posts.</p>
+<ol><li>Read the Phase 3 chapter (<code>api/v1/chapters.json</code> → <code>llms-full.txt</code>) for the pillar-to-everywhere SOP and native-grammar rules.</li><li>Run the <code>repurposing-sprint</code> skill: atom test (does the insight survive standalone?), pillar prep (hook in first 15 seconds), then the five mission cards — YouTube Day 0, Short Day +1, TikTok Day +2, Reel Day +3, Facebook Day +4 — each with its hook rewrite from the idea line.</li><li>The <a href="repurpose.html">Repurposing Planner</a> generates the same mission cards interactively (checkboxes, printable) for the human.</li><li>Output: the five mission cards with per-platform hook adaptations and the staggered posting order. Enforce native grammar — no watermarks, no copy-paste.</li></ol>
+<h2>Conventions</h2>
+<ul><li>API <code>version</code> follows semver: minor on content changes, major on breaking shape changes.</li><li>All monetary figures are USD unless noted.</li><li>Full API reference: <code>API.md</code> at the repo root.</li></ul><nav class="chapter-nav" aria-label="Phases"><a href="index.html"><span class="nav-dir">← Back to</span><span class="nav-title">The Empire Map</span></a><a class="nav-next" href="api-explorer.html"><span class="nav-dir">Next →</span><span class="nav-title">Try the API Explorer</span></a></nav></article></main>
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <div class="foot-brand"><span class="brand-mark">▲</span> Creator Growth Empire</div>
+      <p class="muted">From $0 to a multi-million-dollar creator company.</p>
+      <div class="sticker-row" style="margin:1rem 0 0">
+        <span class="sticker sticker-ghost">No guru hype</span>
+        <span class="sticker sticker-ghost">2026 verified</span>
+      </div>
+    </div>
+    <nav aria-label="Phases">
+      <strong class="muted" style="font-size:.78rem;letter-spacing:.12em">PHASES</strong>
+      <a href="phase-0-start-from-nothing.html">Phase 0 — Start From Nothing</a>
+      <a href="phase-2-youtube-mastery.html">Phase 2 — YouTube Mastery</a>
+      <a href="phase-5-monetization-stack.html">Phase 5 — Monetization Stack</a>
+      <a href="phase-7-the-business.html">Phase 7 — The Business</a>
+    </nav>
+    <nav aria-label="Tools">
+      <strong class="muted" style="font-size:.78rem;letter-spacing:.12em">TOOLS</strong>
+      <a href="quiz.html">Niche Picker</a>
+      <a href="calculator.html">Revenue Calculator</a>
+      <a href="planner.html">90-Day Planner</a>
+      <a href="deal-analyzer.html">Sponsor Deal Analyzer</a>
+      <a href="repurpose.html">Repurposing Planner</a>
+      <a href="api-explorer.html">API Explorer</a>
+      <a href="glossary.html">Glossary</a>
+      <a href="agents.html">Agents</a>
+    </nav>
+  </div>
+  <div class="footer-fine">PRIVATE RESEARCH ARCHIVE · PLATFORM FACTS VERIFIED OCT 2026 — VERIFY LIVE BEFORE ACTING · NOT FINANCIAL, LEGAL, OR TAX ADVICE</div>
+</footer>
+<script src="assets/js/site.js"></script>
+</body>
+</html>

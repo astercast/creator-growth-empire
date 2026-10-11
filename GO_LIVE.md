@@ -22,6 +22,7 @@
 |---|---|---|
 | Trend widget ("Hottest topics to cover") | Live client-side fetch | Refreshes every page load from trend-machine's API; hides silently if the API is down |
 | Calculators, quiz, planner | Client-side, live by design | Pure JS in `assets/js/`; no backend needed |
+| API explorer | Client-side fetch, static fallback | Fetches `api/v1/*.json` relative to the site root; the build mirrors `api/v1/` into `site/api/v1/`, so the deployed site serves its own API — no server required |
 | Chapters / guide content | Static | Baked into the pages at build time |
 
 ## 3. Integration contract

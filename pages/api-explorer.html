@@ -1,0 +1,14 @@
+<p class="muted" style="max-width:44rem">Every <code>api/v1</code> endpoint, previewed live in your browser. Responses are static JSON — no key, no server, no auth. Select an endpoint to fetch and inspect it.</p>
+<div class="explorer" style="display:grid;gap:1.25rem;margin-top:1rem">
+  <div>
+    <h2 style="font-size:1rem;letter-spacing:.08em">Endpoints</h2>
+    <ul id="explorer-list" class="checklist" aria-label="API endpoints"></ul>
+    <p id="explorer-error" class="muted" role="alert" hidden></p>
+  </div>
+  <div>
+    <h2 style="font-size:1rem;letter-spacing:.08em">Response preview</h2>
+    <p id="explorer-meta" class="muted" aria-live="polite">Pick an endpoint to load its JSON.</p>
+    <pre id="explorer-out" tabindex="0" aria-live="polite" style="max-height:32rem;overflow:auto;white-space:pre-wrap;word-break:break-word"><code id="explorer-code">// Nothing loaded yet.</code></pre>
+  </div>
+</div>
+<p class="muted" style="margin-top:1rem">Base path: <code>api/v1/</code> · Full reference: repo-root <code>API.md</code> · Machine orientation: <a href="agents.html">Agents</a> · <code>llms.txt</code></p>

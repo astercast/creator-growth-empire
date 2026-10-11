@@ -48,6 +48,12 @@ TOOLS = [
     ("planner", "90-Day Planner", "Generate a posting schedule from your platforms and cadence. Printable."),
     ("deal-analyzer", "Sponsor Deal Analyzer", "Benchmark a sponsor offer against the 2026 rate card — verdict, red-flag checklist, counter-offer worksheet."),
     ("repurpose", "Repurposing Planner", "Turn one idea into a 5-platform mission-card checklist from the Phase 3 repurposing SOP."),
+    ("api-explorer", "API Explorer", "Browse every api/v1 endpoint and preview JSON responses live in your browser — no key, no server."),
+]
+
+# Markdown landing pages rendered like chapters (pages/*.md -> site/*.html)
+MARKDOWN_PAGES = [
+    ("agents", "pages/agents.md", "Agents", "The Agent Surface"),
 ]
 
 # ---------- minimal markdown -> html ----------
@@ -135,6 +141,7 @@ NAV_LINKS = [
     ("deal-analyzer.html", "Deal Analyzer"),
     ("repurpose.html", "Repurpose Plan"),
     ("glossary.html", "Glossary"),
+    ("agents.html", "Agents"),
 ]
 
 def page_template(title, body, active="", extra_head=""):
@@ -191,7 +198,9 @@ def page_template(title, body, active="", extra_head=""):
       <a href="planner.html">90-Day Planner</a>
       <a href="deal-analyzer.html">Sponsor Deal Analyzer</a>
       <a href="repurpose.html">Repurposing Planner</a>
+      <a href="api-explorer.html">API Explorer</a>
       <a href="glossary.html">Glossary</a>
+      <a href="agents.html">Agents</a>
     </nav>
   </div>
   <div class="footer-fine">PRIVATE RESEARCH ARCHIVE · PLATFORM FACTS VERIFIED OCT 2026 — VERIFY LIVE BEFORE ACTING · NOT FINANCIAL, LEGAL, OR TAX ADVICE</div>
@@ -299,6 +308,39 @@ def build():
                                "path": f"{slug}.html", "words": wc, "read_minutes": read_min})
         llms_full_parts.append(f"# {badge}: {short}\n\n{md}")
 
+    # ---- markdown landing pages (agents etc.): rendered like chapters, linked from nav/footer ----
+    mdpage_meta = []
+    for slug, src, short, badge in MARKDOWN_PAGES:
+        md = (ROOT / src).read_text(encoding="utf-8")
+        body_html = md_to_html(md)
+        wc = word_count(md)
+        read_min = max(1, round(wc / 200))
+        briefing = ""
+        m_h1 = re.search(r"<h1>.*?</h1>", body_html)
+        if m_h1:
+            body_html = body_html[:m_h1.start()] + body_html[m_h1.end():]
+        m_bq = re.search(r"<blockquote>(.*?)</blockquote>", body_html, re.S)
+        if m_bq:
+            briefing = m_bq.group(1)
+            body_html = body_html[:m_bq.start()] + body_html[m_bq.end():]
+        words = short.split()
+        hero_title = (" ".join(esc(w) for w in words[:-1]) + ' <span class="accent-word">' + esc(words[-1]) + "</span>") if len(words) > 1 else esc(short)
+        hero = (f'<header class="chapter-hero" style="--phase-accent: var(--violet);">'
+                f'<p class="chapter-kicker"><span class="phase-badge" style="background: var(--violet);">{esc(badge)}</span></p>'
+                f"<h1>{hero_title}</h1>"
+                + (f'<p class="lede">{briefing}</p>' if briefing else "")
+                + f'<p class="chapter-meta-strip"><span>{read_min} min read</span><span class="sep">/</span>'
+                f'<span>{wc:,} words</span></p></header>')
+        cnav = ('<nav class="chapter-nav" aria-label="Phases">'
+                '<a href="index.html"><span class="nav-dir">← Back to</span><span class="nav-title">The Empire Map</span></a>'
+                '<a class="nav-next" href="api-explorer.html"><span class="nav-dir">Next →</span>'
+                '<span class="nav-title">Try the API Explorer</span></a></nav>')
+        page = page_template(short, f'<article class="chapter">{hero}{body_html}{cnav}</article>', active=f"{slug}.html")
+        (SITE / f"{slug}.html").write_text(page, encoding="utf-8")
+        mdpage_meta.append({"id": slug, "badge": badge, "title": short,
+                            "path": f"{slug}.html", "words": wc, "read_minutes": read_min})
+        llms_full_parts.append(f"# {badge}: {short}\n\n{md}")
+
     # tool pages
     TOOL_SCRIPTS = {
         "quiz": "assets/js/quiz.js",
@@ -306,6 +348,7 @@ def build():
         "planner": "assets/js/planner.js",
         "deal-analyzer": "assets/js/deal-analyzer.js",
         "repurpose": "assets/js/repurpose.js",
+        "api-explorer": "assets/js/api-explorer.js",
     }
     for slug, title, desc in TOOLS:
         body_src = PAGES / f"{slug}.html"
@@ -354,14 +397,14 @@ def build():
   <p class="lede">Nine phases. Zero to multi-million-dollar creator company — YouTube, TikTok, Facebook, merch, brand deals, LLC, taxes, scale. No guru hype. Just the playbook.</p>
   <div class="sticker-row reveal">
     <span class="sticker">9 phases</span>
-    <span class="sticker sticker-coral">5 power tools</span>
+    <span class="sticker sticker-coral">6 power tools</span>
     <span class="sticker sticker-gold">2026 verified</span>
     <span class="sticker sticker-violet">Zero → empire</span>
   </div>
   <div class="hero-stats">
     <div class="hero-stat reveal" style="--i:0"><strong>9</strong><span>phases</span></div>
     <div class="hero-stat reveal" style="--i:1"><strong>{total_words:,}</strong><span>words</span></div>
-    <div class="hero-stat reveal" style="--i:2"><strong>5</strong><span>interactive tools</span></div>
+    <div class="hero-stat reveal" style="--i:2"><strong>6</strong><span>interactive tools</span></div>
     <div class="hero-stat reveal" style="--i:3"><strong>LVL 01–09</strong><span>your climb</span></div>
   </div>
   <div class="hero-cta"><a class="btn btn-primary" href="phase-0-start-from-nothing.html">Start at Phase 0 →</a>
@@ -396,6 +439,7 @@ def build():
             "chapters": "api/v1/chapters.json",
             "glossary": "api/v1/glossary.json",
             "calculators": "api/v1/calculators.json",
+            "skills": "api/v1/skills.json",
             "references": [m["path"].replace(".html", "") for m in reference_meta],
             "tools": [f"{slug}.html" for slug, _, _ in TOOLS],
         },
@@ -404,6 +448,13 @@ def build():
     (API / "chapters.json").write_text(json.dumps({"chapters": chapters_meta}, indent=2), encoding="utf-8")
     shutil.copy(DATA / "glossary.json", API / "glossary.json")
     shutil.copy(DATA / "calculators.json", API / "calculators.json")
+
+    # ---- ship an api/ mirror inside site/ so the deployed site serves its own
+    #      API (the API explorer fetches relative paths) ----
+    site_api = SITE / "api" / "v1"
+    if site_api.exists():
+        shutil.rmtree(site_api)
+    shutil.copytree(API, site_api)
 
     chapter_schema = {
         "$schema": "http://json-schema.org/draft-07/schema#",
@@ -458,6 +509,12 @@ def build():
         llms.append(f"- [{m['badge']}: {m['title']}]({m['path']}) — {m['read_minutes']} min read")
     llms += ["", "## API", "- api/v1/index.json", "- api/v1/chapters.json",
              "- api/v1/glossary.json", "- api/v1/calculators.json",
+             "- api/v1/skills.json",
+             "", "## Agents",
+             "- [Agents](agents.html) — the agent surface: endpoint table, all skills, data freshness policy, 3 worked agent workflows",
+             "- [API Explorer](api-explorer.html) — browse api/v1 endpoints, preview JSON in-browser",
+             "- llms.txt (this file) — quick agent orientation",
+             "- llms-full.txt — complete guide text, all chapters + reference + agents",
              "", "## Skills"]
     for s in skills_idx:
         llms.append(f"- {s['name']}: {s['description']}")
