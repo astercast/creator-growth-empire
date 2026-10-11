@@ -17,6 +17,8 @@ From $0 to a multi-million-dollar creator company.
 - [Niche Picker](quiz.html)
 - [Revenue Calculator](calculator.html)
 - [90-Day Planner](planner.html)
+- [Sponsor Deal Analyzer](deal-analyzer.html)
+- [Repurposing Planner](repurpose.html)
 - [Glossary](glossary.html)
 
 ## Reference

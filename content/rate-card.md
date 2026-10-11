@@ -50,4 +50,6 @@ When a brand re-runs your $300 video as paid ads for a year, they're capturing *
 4. Add usage rights as a separate line item. Always.
 5. Re-price every 3 closed deals: raise 20% until your close rate drops to ~1 in 3.
 
+**Working a real offer?** Feed it to the [Sponsor Deal Analyzer](deal-analyzer.html) — it checks your offer against these ranges, scores the usage-rights and exclusivity terms, and generates a counter-offer worksheet with usage rights priced as separate line items.
+
 *Reference page — updated 2026-10-11 from the wave-2 research pass. Not financial advice. Platform rates change constantly; the most dangerous number on the internet is a stale one.*

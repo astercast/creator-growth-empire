@@ -46,6 +46,8 @@ TOOLS = [
     ("quiz", "Niche Picker", "Answer 6 questions, get ranked niche suggestions with reasoning."),
     ("calculator", "Revenue Calculator", "Project revenue from views, niche, sponsors, and affiliates — with honest ranges."),
     ("planner", "90-Day Planner", "Generate a posting schedule from your platforms and cadence. Printable."),
+    ("deal-analyzer", "Sponsor Deal Analyzer", "Benchmark a sponsor offer against the 2026 rate card — verdict, red-flag checklist, counter-offer worksheet."),
+    ("repurpose", "Repurposing Planner", "Turn one idea into a 5-platform mission-card checklist from the Phase 3 repurposing SOP."),
 ]
 
 # ---------- minimal markdown -> html ----------
@@ -130,6 +132,8 @@ NAV_LINKS = [
     ("quiz.html", "Niche Picker"),
     ("calculator.html", "Revenue Calc"),
     ("planner.html", "90-Day Plan"),
+    ("deal-analyzer.html", "Deal Analyzer"),
+    ("repurpose.html", "Repurpose Plan"),
     ("glossary.html", "Glossary"),
 ]
 
@@ -185,6 +189,8 @@ def page_template(title, body, active="", extra_head=""):
       <a href="quiz.html">Niche Picker</a>
       <a href="calculator.html">Revenue Calculator</a>
       <a href="planner.html">90-Day Planner</a>
+      <a href="deal-analyzer.html">Sponsor Deal Analyzer</a>
+      <a href="repurpose.html">Repurposing Planner</a>
       <a href="glossary.html">Glossary</a>
     </nav>
   </div>
@@ -294,16 +300,19 @@ def build():
         llms_full_parts.append(f"# {badge}: {short}\n\n{md}")
 
     # tool pages
+    TOOL_SCRIPTS = {
+        "quiz": "assets/js/quiz.js",
+        "calculator": "assets/js/calculator.js",
+        "planner": "assets/js/planner.js",
+        "deal-analyzer": "assets/js/deal-analyzer.js",
+        "repurpose": "assets/js/repurpose.js",
+    }
     for slug, title, desc in TOOLS:
         body_src = PAGES / f"{slug}.html"
         tool_body = body_src.read_text(encoding="utf-8") if body_src.exists() else f"<p>{esc(desc)}</p>"
         extra = ""
-        if slug == "quiz":
-            extra = '<script src="assets/js/quiz.js"></script>'
-        elif slug == "calculator":
-            extra = '<script src="assets/js/calculator.js"></script>'
-        elif slug == "planner":
-            extra = '<script src="assets/js/planner.js"></script>'
+        if slug in TOOL_SCRIPTS:
+            extra = f'<script src="{TOOL_SCRIPTS[slug]}"></script>'
         tool_idx = [t[0] for t in TOOLS].index(slug)
         hud_open = (f'<div class="tool-page"><div class="hud-panel"><div class="hud-head">'
                     f'<span>TOOL // 0{tool_idx + 1} — {esc(title).upper()}</span>'
@@ -345,14 +354,14 @@ def build():
   <p class="lede">Nine phases. Zero to multi-million-dollar creator company — YouTube, TikTok, Facebook, merch, brand deals, LLC, taxes, scale. No guru hype. Just the playbook.</p>
   <div class="sticker-row reveal">
     <span class="sticker">9 phases</span>
-    <span class="sticker sticker-coral">3 power tools</span>
+    <span class="sticker sticker-coral">5 power tools</span>
     <span class="sticker sticker-gold">2026 verified</span>
     <span class="sticker sticker-violet">Zero → empire</span>
   </div>
   <div class="hero-stats">
     <div class="hero-stat reveal" style="--i:0"><strong>9</strong><span>phases</span></div>
     <div class="hero-stat reveal" style="--i:1"><strong>{total_words:,}</strong><span>words</span></div>
-    <div class="hero-stat reveal" style="--i:2"><strong>3</strong><span>interactive tools</span></div>
+    <div class="hero-stat reveal" style="--i:2"><strong>5</strong><span>interactive tools</span></div>
     <div class="hero-stat reveal" style="--i:3"><strong>LVL 01–09</strong><span>your climb</span></div>
   </div>
   <div class="hero-cta"><a class="btn btn-primary" href="phase-0-start-from-nothing.html">Start at Phase 0 →</a>
@@ -388,7 +397,7 @@ def build():
             "glossary": "api/v1/glossary.json",
             "calculators": "api/v1/calculators.json",
             "references": [m["path"].replace(".html", "") for m in reference_meta],
-            "tools": ["quiz.html", "calculator.html", "planner.html"],
+            "tools": [f"{slug}.html" for slug, _, _ in TOOLS],
         },
     }
     (API / "index.json").write_text(json.dumps(api_index, indent=2), encoding="utf-8")
@@ -441,10 +450,10 @@ def build():
             "## Phases"]
     for m in chapters_meta:
         llms.append(f"- [{m['phase']}: {m['title']}]({m['path']}) — {m['read_minutes']} min read")
-    llms += ["", "## Tools",
-             "- [Niche Picker](quiz.html)", "- [Revenue Calculator](calculator.html)",
-             "- [90-Day Planner](planner.html)", "- [Glossary](glossary.html)",
-             "", "## Reference"]
+    llms += ["", "## Tools"]
+    for slug, title, desc in TOOLS:
+        llms.append(f"- [{title}]({slug}.html)")
+    llms += ["- [Glossary](glossary.html)", "", "## Reference"]
     for m in reference_meta:
         llms.append(f"- [{m['badge']}: {m['title']}]({m['path']}) — {m['read_minutes']} min read")
     llms += ["", "## API", "- api/v1/index.json", "- api/v1/chapters.json",

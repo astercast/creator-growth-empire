@@ -101,6 +101,8 @@ Total invested: time + ~$100 in tools. Total learned: which layer responds to *y
 
 **Red lines:** no script approval that kills authenticity (talking points, not scripts), 50% upfront for new brands, kill fee if they cancel after you've filmed, and *always* the right to disclose the sponsorship (non-negotiable, legally and ethically).
 
+**Got an offer on the table?** Run it through the [Sponsor Deal Analyzer](deal-analyzer.html) — it benchmarks the offer against the 2026 rate card, flags the red-line terms (unlimited usage rights, perpetual whitelisting, broad exclusivity, net-60+ payment), and builds you a counter-offer worksheet with usage rights priced as separate line items.
+
 ## The sponsor outreach system
 
 **The numbers game:** 20 personalized emails/week → ~5% reply rate → 1 conversation → and 1 in 4 conversations closes. So ~80 emails per sponsor. That's not discouraging — it's a *system*. Two hours a week, every week, compounds into a sponsor pipeline.

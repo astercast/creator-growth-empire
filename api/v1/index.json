@@ -11,7 +11,9 @@
     "tools": [
       "quiz.html",
       "calculator.html",
-      "planner.html"
+      "planner.html",
+      "deal-analyzer.html",
+      "repurpose.html"
     ]
   }
 }

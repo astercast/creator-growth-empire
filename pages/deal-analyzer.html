@@ -1,0 +1,54 @@
+<form id="deal-form" aria-label="Sponsor deal analyzer">
+  <div class="calc-grid">
+    <label>Platform
+      <select id="d-platform">
+        <option value="youtube" selected>YouTube</option>
+        <option value="tiktok">TikTok</option>
+        <option value="instagram">Instagram</option>
+      </select></label>
+    <label>Follower count
+      <input type="number" id="d-followers" min="0" value="50000" step="1000"></label>
+    <label>Deliverable
+      <select id="d-deliverable">
+        <option value="integrated" selected>Integrated slot (mid-roll mention)</option>
+        <option value="dedicated">Dedicated video (brand is the video)</option>
+        <option value="short">Short-form video (Short / TikTok / Reel)</option>
+      </select></label>
+    <label>Avg. views per video (last 10)
+      <input type="number" id="d-views" min="0" value="25000" step="1000"></label>
+    <label>Offered pay ($)
+      <input type="number" id="d-offer" min="0" value="1200" step="50"></label>
+    <label>Usage rights
+      <select id="d-usage">
+        <option value="organic" selected>Organic only — stays on my channel</option>
+        <option value="paid30">Paid ads, 30 days</option>
+        <option value="paid180">Paid ads, 6 months</option>
+        <option value="paid365">Paid ads, 12 months</option>
+        <option value="perpetual">Unlimited / perpetual</option>
+      </select></label>
+    <label>Whitelisting (ads from <em>your</em> account)
+      <select id="d-white">
+        <option value="none" selected>None</option>
+        <option value="30">Up to 30 days</option>
+        <option value="90">31–90 days</option>
+        <option value="perpetual">Perpetual</option>
+      </select></label>
+    <label>Exclusivity
+      <select id="d-excl">
+        <option value="none" selected>None</option>
+        <option value="30">No competitor sponsors, 30 days</option>
+        <option value="90">No competitor sponsors, 60–90 days</option>
+        <option value="broad">Broad / category lock, 6+ months</option>
+      </select></label>
+    <label>Payment terms
+      <select id="d-pay">
+        <option value="15">Net 15 or better</option>
+        <option value="30" selected>Net 30</option>
+        <option value="60">Net 60</option>
+        <option value="90">Net 90+</option>
+      </select></label>
+  </div>
+  <button type="submit" class="btn btn-primary">Analyze the deal →</button>
+</form>
+<div id="deal-results" aria-live="polite" style="margin-top:1.5rem"></div>
+<p class="muted">A negotiation aid, not financial advice. Ranges come from the <a href="rate-card.html">2026 rate card</a> — compiled third-party benchmarks, not quotes. See <a href="phase-5-monetization-stack.html">Phase 5</a> for the full negotiation playbook.</p>

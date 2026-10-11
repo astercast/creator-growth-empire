@@ -87,6 +87,8 @@ Run this every time a long-form video ships. Total: ~2 hours.
 
 Save this as a template. When you hire an editor (Phase 7), this SOP is their first assignment.
 
+> **Make it automatic:** the [Repurposing Planner](repurpose.html) turns any single idea into the full 5-platform mission-card checklist above — hook adaptations, native-format notes, and staggered posting order, ready to print.
+
 ## The weekly everywhere schedule (worked example)
 
 For a creator doing 1 long-form + 3 shorts per week:

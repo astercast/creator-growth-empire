@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sponsor Deal Analyzer — Creator Growth Empire</title>
+<meta name="description" content="From $0 to a multi-million-dollar creator company.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,600;0,800;0,900;1,900&family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/layout.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<script src="assets/js/deal-analyzer.js"></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <a class="brand" href="index.html"><span class="brand-mark">▲</span> Creator Growth Empire</a>
+  <nav class="site-nav" aria-label="Primary"><a href="index.html" class="nav-link">Empire Map</a><a href="quiz.html" class="nav-link">Niche Picker</a><a href="calculator.html" class="nav-link">Revenue Calc</a><a href="planner.html" class="nav-link">90-Day Plan</a><a href="deal-analyzer.html" class="nav-link active">Deal Analyzer</a><a href="repurpose.html" class="nav-link">Repurpose Plan</a><a href="glossary.html" class="nav-link">Glossary</a></nav>
+  <button class="nav-toggle" aria-expanded="false" aria-controls="mobileNav" aria-label="Menu">☰</button>
+</header>
+<nav id="mobileNav" class="mobile-nav" aria-label="Mobile"><a href="index.html" class="nav-link">Empire Map</a><a href="quiz.html" class="nav-link">Niche Picker</a><a href="calculator.html" class="nav-link">Revenue Calc</a><a href="planner.html" class="nav-link">90-Day Plan</a><a href="deal-analyzer.html" class="nav-link active">Deal Analyzer</a><a href="repurpose.html" class="nav-link">Repurpose Plan</a><a href="glossary.html" class="nav-link">Glossary</a></nav>
+<main id="main"><div class="tool-page"><div class="hud-panel"><div class="hud-head"><span>TOOL // 04 — SPONSOR DEAL ANALYZER</span><span class="hud-status">SYSTEMS ONLINE</span></div><div class="hud-body"><h1>Sponsor Deal Analyzer</h1><p class="lede">Benchmark a sponsor offer against the 2026 rate card — verdict, red-flag checklist, counter-offer worksheet.</p></div></div><form id="deal-form" aria-label="Sponsor deal analyzer">
+  <div class="calc-grid">
+    <label>Platform
+      <select id="d-platform">
+        <option value="youtube" selected>YouTube</option>
+        <option value="tiktok">TikTok</option>
+        <option value="instagram">Instagram</option>
+      </select></label>
+    <label>Follower count
+      <input type="number" id="d-followers" min="0" value="50000" step="1000"></label>
+    <label>Deliverable
+      <select id="d-deliverable">
+        <option value="integrated" selected>Integrated slot (mid-roll mention)</option>
+        <option value="dedicated">Dedicated video (brand is the video)</option>
+        <option value="short">Short-form video (Short / TikTok / Reel)</option>
+      </select></label>
+    <label>Avg. views per video (last 10)
+      <input type="number" id="d-views" min="0" value="25000" step="1000"></label>
+    <label>Offered pay ($)
+      <input type="number" id="d-offer" min="0" value="1200" step="50"></label>
+    <label>Usage rights
+      <select id="d-usage">
+        <option value="organic" selected>Organic only — stays on my channel</option>
+        <option value="paid30">Paid ads, 30 days</option>
+        <option value="paid180">Paid ads, 6 months</option>
+        <option value="paid365">Paid ads, 12 months</option>
+        <option value="perpetual">Unlimited / perpetual</option>
+      </select></label>
+    <label>Whitelisting (ads from <em>your</em> account)
+      <select id="d-white">
+        <option value="none" selected>None</option>
+        <option value="30">Up to 30 days</option>
+        <option value="90">31–90 days</option>
+        <option value="perpetual">Perpetual</option>
+      </select></label>
+    <label>Exclusivity
+      <select id="d-excl">
+        <option value="none" selected>None</option>
+        <option value="30">No competitor sponsors, 30 days</option>
+        <option value="90">No competitor sponsors, 60–90 days</option>
+        <option value="broad">Broad / category lock, 6+ months</option>
+      </select></label>
+    <label>Payment terms
+      <select id="d-pay">
+        <option value="15">Net 15 or better</option>
+        <option value="30" selected>Net 30</option>
+        <option value="60">Net 60</option>
+        <option value="90">Net 90+</option>
+      </select></label>
+  </div>
+  <button type="submit" class="btn btn-primary">Analyze the deal →</button>
+</form>
+<div id="deal-results" aria-live="polite" style="margin-top:1.5rem"></div>
+<p class="muted">A negotiation aid, not financial advice. Ranges come from the <a href="rate-card.html">2026 rate card</a> — compiled third-party benchmarks, not quotes. See <a href="phase-5-monetization-stack.html">Phase 5</a> for the full negotiation playbook.</p>
+</div></main>
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <div class="foot-brand"><span class="brand-mark">▲</span> Creator Growth Empire</div>
+      <p class="muted">From $0 to a multi-million-dollar creator company.</p>
+      <div class="sticker-row" style="margin:1rem 0 0">
+        <span class="sticker sticker-ghost">No guru hype</span>
+        <span class="sticker sticker-ghost">2026 verified</span>
+      </div>
+    </div>
+    <nav aria-label="Phases">
+      <strong class="muted" style="font-size:.78rem;letter-spacing:.12em">PHASES</strong>
+      <a href="phase-0-start-from-nothing.html">Phase 0 — Start From Nothing</a>
+      <a href="phase-2-youtube-mastery.html">Phase 2 — YouTube Mastery</a>
+      <a href="phase-5-monetization-stack.html">Phase 5 — Monetization Stack</a>
+      <a href="phase-7-the-business.html">Phase 7 — The Business</a>
+    </nav>
+    <nav aria-label="Tools">
+      <strong class="muted" style="font-size:.78rem;letter-spacing:.12em">TOOLS</strong>
+      <a href="quiz.html">Niche Picker</a>
+      <a href="calculator.html">Revenue Calculator</a>
+      <a href="planner.html">90-Day Planner</a>
+      <a href="deal-analyzer.html">Sponsor Deal Analyzer</a>
+      <a href="repurpose.html">Repurposing Planner</a>
+      <a href="glossary.html">Glossary</a>
+    </nav>
+  </div>
+  <div class="footer-fine">PRIVATE RESEARCH ARCHIVE · PLATFORM FACTS VERIFIED OCT 2026 — VERIFY LIVE BEFORE ACTING · NOT FINANCIAL, LEGAL, OR TAX ADVICE</div>
+</footer>
+<script src="assets/js/site.js"></script>
+</body>
+</html>

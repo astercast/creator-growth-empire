@@ -487,6 +487,8 @@ Run this every time a long-form video ships. Total: ~2 hours.
 
 Save this as a template. When you hire an editor (Phase 7), this SOP is their first assignment.
 
+> **Make it automatic:** the [Repurposing Planner](repurpose.html) turns any single idea into the full 5-platform mission-card checklist above — hook adaptations, native-format notes, and staggered posting order, ready to print.
+
 ## The weekly everywhere schedule (worked example)
 
 For a creator doing 1 long-form + 3 shorts per week:
@@ -770,6 +772,8 @@ Total invested: time + ~$100 in tools. Total learned: which layer responds to *y
 **Pricing levers beyond CPM:** exclusivity (no competitor sponsors for 30 days = +25%), usage rights (them reusing your content in ads = +50–100%), whitelisting (running ads from *your* account = premium), and bundles (3-video package at 15% off locks in revenue).
 
 **Red lines:** no script approval that kills authenticity (talking points, not scripts), 50% upfront for new brands, kill fee if they cancel after you've filmed, and *always* the right to disclose the sponsorship (non-negotiable, legally and ethically).
+
+**Got an offer on the table?** Run it through the [Sponsor Deal Analyzer](deal-analyzer.html) — it benchmarks the offer against the 2026 rate card, flags the red-line terms (unlimited usage rights, perpetual whitelisting, broad exclusivity, net-60+ payment), and builds you a counter-offer worksheet with usage rights priced as separate line items.
 
 ## The sponsor outreach system
 
@@ -1291,5 +1295,7 @@ When a brand re-runs your $300 video as paid ads for a year, they're capturing *
 3. Quote at the top of the range — you'll be negotiated down ~23%.
 4. Add usage rights as a separate line item. Always.
 5. Re-price every 3 closed deals: raise 20% until your close rate drops to ~1 in 3.
+
+**Working a real offer?** Feed it to the [Sponsor Deal Analyzer](deal-analyzer.html) — it checks your offer against these ranges, scores the usage-rights and exclusivity terms, and generates a counter-offer worksheet with usage rights priced as separate line items.
 
 *Reference page — updated 2026-10-11 from the wave-2 research pass. Not financial advice. Platform rates change constantly; the most dangerous number on the internet is a stale one.*
