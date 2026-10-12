@@ -393,7 +393,7 @@
     {
       "id": "simulator",
       "title": "Empire Simulator",
-      "description": "Simulate 12 months of channel growth + revenue from your niche, cadence, and assumptions \u2014 a model, not a prediction.",
+      "description": "Simulate 12\u201324 months of channel growth + revenue \u2014 scenario library, A/B comparison, team hiring P&L \u2014 a model, not a prediction.",
       "page": "simulator.html",
       "input_schema": {
         "$schema": "http://json-schema.org/draft-07/schema#",
@@ -474,18 +474,86 @@
           "digital_start_month": {
             "type": "integer",
             "minimum": 1,
-            "maximum": 12,
+            "maximum": 24,
             "default": 1
           },
           "digital_price_usd": {
             "type": "number",
             "minimum": 1,
             "default": 49
+          },
+          "scenario_id": {
+            "type": "string",
+            "enum": [
+              "asmr-bedroom",
+              "tech-reviewer",
+              "betrayal-dramas",
+              "cooking-channel",
+              "personal-finance",
+              "fitness-coach"
+            ],
+            "description": "One-click preset: loads a full named starting config from the engine's SCENARIOS library (research-sourced assumptions)."
+          },
+          "horizon": {
+            "type": "integer",
+            "enum": [
+              12,
+              24
+            ],
+            "default": 12,
+            "description": "12 or 24 months. 24 adds year-2 diminishing returns: monthly growth decays x0.94/mo after month 12 (the engine's labeled curve)."
+          },
+          "hires": {
+            "type": "array",
+            "default": [],
+            "items": {
+              "type": "object",
+              "required": [
+                "type"
+              ],
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "editor",
+                    "thumbnail",
+                    "va"
+                  ],
+                  "description": "First-Hire-guide role: editor, thumbnail designer, or virtual assistant."
+                },
+                "start_month": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 24,
+                  "default": 1
+                },
+                "monthly_cost_usd": {
+                  "type": "number",
+                  "minimum": 0,
+                  "description": "Omit to use the guide preset: editor $1,400, thumbnail $120, VA $900."
+                }
+              }
+            },
+            "description": "Team hires: each adds output/quality lift and subtracts monthly cost (month-by-month P&L: gross, team cost, net). First active month at 50% effect (ramp-up)."
+          },
+          "compare_with": {
+            "type": "object",
+            "description": "A/B mode: {name_b, inputs_b} \u2014 compare(nameA, inputsA, nameB, inputsB, cfg) runs both over the same horizon and returns B-minus-A deltas plus a plain-language verdict.",
+            "properties": {
+              "name_b": {
+                "type": "string",
+                "description": "Label for the B path (e.g. 'Tech reviewer')."
+              },
+              "inputs_b": {
+                "type": "object",
+                "description": "Full SimulatorInput for the B path (or a scenario_id)."
+              }
+            }
           }
         }
       },
-      "output": "12-month projection: subs, views, and revenue per month per stream (ads, sponsors, affiliates, digital), totals, and the full named-assumptions list. A model, not a prediction.",
-      "drive_notes": "Engine (assets/js/sim-engine.js, UMD \u2014 importable in node): simulate(inputs, cfg) with cfg = calculators.json. Growth compounds monthly \u00d7 niche factor \u00d7 quality \u00d7 cadence (diminishing, capped 2.5x). RPMs come from calculators.json youtube_longform_rpm_bands. Every assumption is named in DEFAULTS and listed on-page."
+      "output": "12- or 24-month projection: subs, views, and revenue per month per stream (ads, sponsors, affiliates, digital), month-by-month team P&L (gross, team cost, net), totals, milestones, and the full named-assumptions list. compare() adds side-by-side deltas (B minus A) and a verdict. exportPlan() renders the copy-my-empire-plan text. A model, not a prediction.",
+      "drive_notes": "Engine (assets/js/sim-engine.js, UMD \u2014 importable in node): simulate(inputs, cfg) with cfg = calculators.json. scenarioInputs(id) loads a named preset from the SCENARIOS library; compare(nameA, inputsA, nameB, inputsB, cfg) runs two configs over the same clock (deltas are B minus A); assumptionLines(inputs, res) is the always-visible assumptions panel; exportPlan(scenarioName, inputs, res) renders the share text. Growth compounds monthly x niche factor x quality x cadence (diminishing, capped 2.5x). Hires add output/quality and subtract cost monthly (first active month at 50% ramp). Year-2 decays growth x0.94/mo after month 12. RPMs come from calculators.json youtube_longform_rpm_bands. Every assumption is named in DEFAULTS and listed on-page."
     },
     {
       "id": "api-explorer",

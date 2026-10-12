@@ -102,6 +102,39 @@ Goal: a 12-month growth + revenue model with every assumption named.
    proxies labeled, Q4 uplift flagged as adjustable. Never present scenario
    revenue as expected income.
 
+> Wave 13: this hand-built config is now the engine's `asmr-bedroom` scenario —
+> `EmpireSim.scenarioInputs("asmr-bedroom")` returns it, with five more presets
+> (tech reviewer, betrayal mini-dramas, cooking, personal finance, fitness) in
+> `EmpireSim.SCENARIOS`. The ASMR proxies are labeled inside the scenario.
+
+### Workflow 4 — A/B compare two Empire Simulator scenarios (ASMR vs tech reviewer)
+
+Goal: run two paths over the same 12 months, get the delta table and the
+"which path wins and why" verdict — all via API.
+
+1. `GET api/v1/tools.json` → tool `simulator` → `input_schema`: new wave-13
+   inputs are `scenario_id` (enum of the 6 presets), `horizon` (12 | 24),
+   `hires[]` (First Hire guide roles + costs), and `compare_with`
+   (`{name_b, inputs_b}` for A/B mode).
+2. Load both scenarios from the engine, declare proxies where they exist:
+   `EmpireSim.scenarioInputs("asmr-bedroom")` (ASMR → `lifestyle` proxies,
+   declared in the scenario) and `EmpireSim.scenarioInputs("tech-reviewer")`.
+3. `EmpireSim.compare("ASMR bedroom", asmr, "Tech reviewer", tech, cfg)` —
+   both run the same 12-month clock; every delta is **B minus A**.
+4. Verified result (executed against the real files):
+   ASMR bedroom → month-12 subs **6,434**, 12-month net **$909.02**
+   (rpm $4, growth 19.0%/mo — more subs, low RPM);
+   Tech reviewer → month-12 subs **5,323**, 12-month net **$7,955.56**
+   (rpm $14, growth 11.1%/mo — fewer subs, high RPM).
+   Verdict: **"Path Tech reviewer leads on net revenue over 12 months by 775%
+   vs ASMR bedroom. Why: RPM $4.00 vs $14.00; monthly growth 19.0% vs 11.1%;
+   note: the net-revenue winner is NOT the subscriber winner — subscribers are
+   not income."**
+5. Return the verdict **as a model, not a prediction**: deltas explained by
+   the drivers (RPM band, growth, team spend), the honesty caveat quoted,
+   assumptions from `assumptionLines()` attached. Never present scenario
+   revenue as expected income.
+
 ## Rate & expectation notes
 
 - **Static JSON.** Nothing here is live: no request counts, no streaming, no
@@ -134,7 +167,7 @@ explaining how to replicate the logic:
 | Sponsor Deal Analyzer | `platform`, `deliverable`, `followers`, `offer_usd` + `usage_rights`, `whitelisting`, `exclusivity`, `payment_terms` | Followers → tier → rate-card range; counter = range top + line items (see Workflow 1) |
 | Hiring Cost Calculator | `role`, `billing_model`, `rate_usd` + hours/units/views/`niche` | Sticker → loaded ×1.15; coverage views = loaded ÷ RPM band × 1000; 3-month reserve rule |
 | Repurposing Planner | `idea` (one sentence) + `source_format` | Atom test → pillar prep → 5 staggered mission cards (YT Day 0, Short +1, TikTok +2, Reel +3, FB +4) |
-| Empire Simulator | `niche`, `startSubs`, cadence, `quality`, `growthRate`, `q4Uplift`, monetization toggles | `require("assets/js/sim-engine.js").simulate(inputs, calculatorsJson)` — see Workflow 3 |
+| Empire Simulator | `niche`, `startSubs`, cadence, `quality`, `growthRate`, `q4Uplift`, monetization toggles, `scenario_id`, `horizon` (12/24), `hires[]`, `compare_with` | `require("assets/js/sim-engine.js").simulate(inputs, calculatorsJson)` — plus `scenarioInputs(id)`, `compare(nameA,a,nameB,b,cfg)`, `assumptionLines()`, `exportPlan()` — see Workflows 3–4 |
 | API Explorer | none (read-only browser over the API) | Skip the UI; fetch the endpoints directly |
 | Hook Builder | `topic` (one line) | One hook per Short-Form Playbook structure + the anti-hook checklist |
 

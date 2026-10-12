@@ -89,7 +89,32 @@
     digitalPrice: 49,
     digitalConvPerMonth: 0.001,
 
-    months: 12
+    months: 12,
+
+    // Team hiring presets (wave 13). SOURCED: the site's "First Hire" guide
+    // (2026 freelance-rate research, Oct 2026). monthlyCostDefault = the
+    // mid-band "real number" from the guide; extraLongPerWeek = extra
+    // long-form output the hire unlocks; qualityDelta = fractional bump to
+    // the quality multiplier (packaging/retention lift). rampFactor = first
+    // active month runs at 50% effect (ramp-up, labeled on-page).
+    hireTypes: {
+      editor:    { label: "Video editor",       monthlyCostDefault: 1400,
+                   costBand: "$800–$2,000/mo", extraLongPerWeek: 1.0, qualityDelta: 0.12,
+                   source: "First Hire guide: the $800–$2,000/mo 'real number' for a solid mid-level freelancer at ~4 long-form/mo" },
+      thumbnail: { label: "Thumbnail designer", monthlyCostDefault: 120,
+                   costBand: "$80–$160/mo", extraLongPerWeek: 0.0, qualityDelta: 0.08,
+                   source: "First Hire guide: $80–$160/mo at 4 videos/mo (mid-tier $10–$25/thumbnail)" },
+      va:        { label: "Virtual assistant",  monthlyCostDefault: 900,
+                   costBand: "$500–$1,500/mo", extraLongPerWeek: 0.5, qualityDelta: 0.00,
+                   source: "First Hire guide: $500–$1,500/mo for a 10–15 hr/wk offshore direct hire" }
+    },
+    rampFactor: 0.5,
+
+    // Year-2 scaling (wave 13): after month 12, monthly growth decays by
+    // this factor per month (compounding) — the "why most channels plateau"
+    // curve. ASSUMPTION — labeled as ours, displayed on-page.
+    year2Decay: 0.94,
+    q4MonthsYear2: [22, 23, 24]
   };
 
   function mid(lo, hi) { return (lo + hi) / 2; }
@@ -108,12 +133,112 @@
     return mid(band[0], band[1]);
   }
 
+  /* ---------- scenario library (wave 13) ----------
+   * Named, loadable starting configs built from the site's real research
+   * data: 2026 RPM bands (calculators.json), the case files, and the
+   * sponsored-stream rules. Every number here is an assumption or a sourced
+   * band — labeled per scenario. scenarioInputs(id) returns a full,
+   * ready-to-run inputs object (deep copy). */
+  var SCENARIOS = [
+    {
+      id: "asmr-bedroom",
+      name: "ASMR Bedroom Channel",
+      tagline: "Low-RPM ambient content, high volume, slow-burn loyalty.",
+      source: "Case File: Sleep Channels + the calculators.json RPM bands",
+      nicheProxyNote: "ASMR is not an engine niche key, so proxies are declared: growth uses lifestyle 1.05x, RPM uses the lifestyle band at low ($4) — ambient content is low-RPM.",
+      inputs: { niche: "lifestyle", startSubs: 800, longformPerWeek: 2, shortsPerWeek: 5,
+        quality: "solid", growthRate: 0.13, rpmLevel: "low", q4Uplift: 0.6,
+        ads: true, sponsors: false, affiliates: false,
+        digital: true, digitalStartMonth: 6, digitalPrice: 29, digitalConvPerMonth: 0.001 }
+    },
+    {
+      id: "tech-reviewer",
+      name: "Tech Reviewer",
+      tagline: "High RPM, sponsor-friendly — the money-per-view play.",
+      source: "calculators.json: tech RPM band $8–$20 + the finance/tech 2–3x sponsor rule",
+      inputs: { niche: "tech_software", startSubs: 1500, longformPerWeek: 1, shortsPerWeek: 3,
+        quality: "solid", growthRate: 0.10, rpmLevel: "mid", q4Uplift: 0.6,
+        ads: true, sponsors: true, affiliates: true,
+        digital: false, digitalStartMonth: 6, digitalPrice: 49, digitalConvPerMonth: 0.001 }
+    },
+    {
+      id: "betrayal-dramas",
+      name: "Betrayal Mini-Dramas",
+      tagline: "Serialized short-form dramas: volume first, RPM later.",
+      source: "calculators.json: entertainment band $1–$5 + the Phase 3 Shorts-first cadence",
+      inputs: { niche: "comedy_entertainment", startSubs: 2000, longformPerWeek: 1, shortsPerWeek: 7,
+        quality: "solid", growthRate: 0.15, rpmLevel: "low", q4Uplift: 0.6,
+        ads: true, sponsors: false, affiliates: false,
+        digital: false, digitalStartMonth: 6, digitalPrice: 49, digitalConvPerMonth: 0.001 }
+    },
+    {
+      id: "cooking-channel",
+      name: "Home Cooking Channel",
+      tagline: "Recipes + kitchen-gear affiliates + a recipe pack.",
+      source: "Case File: Ben's Bites + calculators.json lifestyle band",
+      inputs: { niche: "lifestyle", startSubs: 1000, longformPerWeek: 1, shortsPerWeek: 3,
+        quality: "solid", growthRate: 0.11, rpmLevel: "mid", q4Uplift: 0.6,
+        ads: true, sponsors: false, affiliates: true,
+        digital: true, digitalStartMonth: 6, digitalPrice: 29, digitalConvPerMonth: 0.001 }
+    },
+    {
+      id: "personal-finance",
+      name: "Personal Finance (Zero to Budget)",
+      tagline: "Competitive niche, top RPM band, sponsors pay the 2.5x.",
+      source: "Case File: PTYA + calculators.json finance band $8–$35 + sponsor niche multiplier",
+      inputs: { niche: "finance_investing", startSubs: 700, longformPerWeek: 1, shortsPerWeek: 2,
+        quality: "solid", growthRate: 0.09, rpmLevel: "mid", q4Uplift: 0.6,
+        ads: true, sponsors: true, affiliates: true,
+        digital: true, digitalStartMonth: 6, digitalPrice: 49, digitalConvPerMonth: 0.001 }
+    },
+    {
+      id: "fitness-coach",
+      name: "Fitness Coach",
+      tagline: "Training vlogs, affiliate gear, a program in month 9.",
+      source: "calculators.json: health/fitness band $4–$10 + Phase 5 digital-product stack",
+      inputs: { niche: "health_fitness", startSubs: 1200, longformPerWeek: 2, shortsPerWeek: 4,
+        quality: "solid", growthRate: 0.12, rpmLevel: "mid", q4Uplift: 0.6,
+        ads: true, sponsors: false, affiliates: true,
+        digital: true, digitalStartMonth: 9, digitalPrice: 49, digitalConvPerMonth: 0.001 }
+    }
+  ];
+
+  function scenarioInputs(id) {
+    for (var i = 0; i < SCENARIOS.length; i++) {
+      if (SCENARIOS[i].id === id) {
+        var src = SCENARIOS[i].inputs, out = {};
+        for (var k in src) out[k] = src[k];
+        return out;
+      }
+    }
+    return null;
+  }
+
+  /* hires: [{type: "editor"|"thumbnail"|"va", startMonth, monthlyCost}]
+   * Normalized against DEFAULTS.hireTypes (unknown types dropped).
+   * Missing monthlyCost falls back to the hire's honest preset default. */
+  function normalizeHires(hires) {
+    var out = [];
+    if (!hires) return out;
+    for (var i = 0; i < hires.length; i++) {
+      var h = hires[i] || {};
+      var t = DEFAULTS.hireTypes[h.type];
+      if (!t) continue;
+      var cost = h.monthlyCost != null ? h.monthlyCost : t.monthlyCostDefault;
+      var start = h.startMonth != null ? Math.max(1, Math.min(24, Math.round(h.startMonth))) : 1;
+      out.push({ type: h.type, label: t.label, startMonth: start,
+                 monthlyCost: Math.max(0, cost) });
+    }
+    return out;
+  }
+
   /* inputs: {
        niche, startSubs, longformPerWeek, shortsPerWeek, quality,
        growthRate, rpmLevel, q4Uplift,
        ads, sponsors, affiliates, digital, digitalStartMonth,
        digitalPrice, digitalConvPerMonth, affiliatePer1kViews,
-       viewsPerSubLong, viewsPerSubShort
+       viewsPerSubLong, viewsPerSubShort,
+       horizon (12|24, default 12), hires ([...] as above)
      }
      cfg: parsed calculators.json                                       */
   function simulate(inputs, cfg) {
@@ -125,11 +250,18 @@
     var nicheG = (d.nicheGrowth[inputs.niche] != null)
       ? d.nicheGrowth[inputs.niche] : 1.0;
     var qMult = d.qualityMult[inputs.quality] || 1.0;
-    var cad = 1 + d.cadencePerLongform * Math.max(0, inputs.longformPerWeek) +
-                  d.cadencePerShort * Math.max(0, inputs.shortsPerWeek);
+    var baseLong = Math.max(0, inputs.longformPerWeek);
+    var baseShorts = Math.max(0, inputs.shortsPerWeek);
+    var cad = 1 + d.cadencePerLongform * baseLong + d.cadencePerShort * baseShorts;
     cad = Math.min(cad, d.cadenceCap);
-    var g = (inputs.growthRate != null ? inputs.growthRate : d.baseGrowthRate) *
-            nicheG * cad * qMult;
+    var baseRate = (inputs.growthRate != null ? inputs.growthRate : d.baseGrowthRate) * nicheG;
+    var g = baseRate * cad * qMult;
+    // No hires, no year-2: g is exactly the pre-wave-13 formula. Byte-identical
+    // compounding when the wave-13 inputs (hires/horizon) are left default.
+
+    var horizon = Math.max(1, Math.min(24, Math.round(inputs.horizon || d.months)));
+    var year2 = horizon > 12;
+    var hires = normalizeHires(inputs.hires);
 
     var vpsL = inputs.viewsPerSubLong != null ? inputs.viewsPerSubLong : d.viewsPerSubLong;
     var vpsS = inputs.viewsPerSubShort != null ? inputs.viewsPerSubShort : d.viewsPerSubShort;
@@ -142,14 +274,42 @@
 
     var months = [];
     var subs = Math.max(0, inputs.startSubs || 0);
-    var cum = { adsLong: 0, adsShorts: 0, sponsors: 0, affiliates: 0, digital: 0, total: 0 };
+    var cum = { adsLong: 0, adsShorts: 0, sponsors: 0, affiliates: 0, digital: 0,
+                total: 0, teamCost: 0, net: 0 };
 
-    for (var m = 1; m <= d.months; m++) {
-      subs = subs * (1 + g);
+    for (var m = 1; m <= horizon; m++) {
+      // wave 13: hires reshape this month's effective cadence + quality,
+      // year-2 applies the diminishing-returns decay. Defaults reproduce g.
+      var gm = g;
+      var qMultH = qMult;
+      var teamCostM = 0;
+      var activeHires = [];
+      if (hires.length || year2) {
+        var extraLong = 0, qDelta = 0;
+        for (var h = 0; h < hires.length; h++) {
+          if (m < hires[h].startMonth) continue;
+          var t = d.hireTypes[hires[h].type];
+          var ramp = (m === hires[h].startMonth) ? d.rampFactor : 1;
+          extraLong += t.extraLongPerWeek * ramp;
+          qDelta += t.qualityDelta * ramp;
+          teamCostM += hires[h].monthlyCost;
+          activeHires.push(hires[h].type);
+        }
+        if (extraLong || qDelta) {
+          var cadH = 1 + d.cadencePerLongform * (baseLong + extraLong) +
+                         d.cadencePerShort * baseShorts;
+          cadH = Math.min(cadH, d.cadenceCap);
+          qMultH = qMult * (1 + qDelta);
+          gm = baseRate * cadH * qMultH;
+        }
+        if (m > 12) gm = gm * Math.pow(d.year2Decay, m - 12);
+      }
+      subs = subs * (1 + gm);
       var longViews = subs * vpsL;
       var shortViews = subs * vpsS;
       var monetized = subs >= d.monetizedAtSubs;
-      var q4 = d.q4Months.indexOf(m) !== -1 ? (1 + uplift) : 1;
+      var q4 = (d.q4Months.indexOf(m) !== -1 || d.q4MonthsYear2.indexOf(m) !== -1)
+        ? (1 + uplift) : 1;
 
       var adsLong = (inputs.ads && monetized)
         ? (longViews / 1000) * rpm * q4 : 0;
@@ -165,15 +325,20 @@
       var dig = (inputs.digital && m >= (inputs.digitalStartMonth || 1))
         ? subs * digConv * digPrice : 0;
       var total = adsLong + adsShorts + sponsor + aff + dig;
+      var net = total - teamCostM;
 
       cum.adsLong += adsLong; cum.adsShorts += adsShorts;
       cum.sponsors += sponsor; cum.affiliates += aff;
       cum.digital += dig; cum.total += total;
+      cum.teamCost += teamCostM; cum.net += net;
 
       months.push({
         month: m,
         subs: subs,
-        growthRate: g,
+        growthRate: gm,
+        teamCost: teamCostM,
+        net: net,
+        activeHires: activeHires,
         longViews: longViews,
         shortViews: shortViews,
         monetized: monetized,
@@ -200,9 +365,135 @@
       milestones: computeMilestones(months),
       meta: {
         rpm: rpm, rpmBand: band, nicheGrowth: nicheG,
-        qualityMult: qMult, cadenceMult: cad, monthlyGrowth: g
+        qualityMult: qMult, cadenceMult: cad, monthlyGrowth: g,
+        horizon: horizon, year2Decay: year2 ? d.year2Decay : null,
+        hires: hires
       }
     };
+  }
+
+  function bestOf(res) {
+    return res.months.reduce(function (a, b) { return b.total > a.total ? b : a; },
+                             res.months[0]);
+  }
+
+  /* compare(): run two configs over the same clock, return deltas + a
+   * plain-language verdict. Deltas are ALWAYS "B minus A" — documented and
+   * asserted in tests. The verdict names the net-revenue winner, explains
+   * the drivers from the two runs' meta, and carries the honesty caveat. */
+  function compare(nameA, inputsA, nameB, inputsB, cfg) {
+    var a = simulate(inputsA, cfg);
+    var b = simulate(inputsB, cfg);
+    var bestA = bestOf(a), bestB = bestOf(b);
+    var deltas = {
+      endSubs: b.endSubs - a.endSubs,
+      grossRevenue: b.totals.total - a.totals.total,
+      teamCost: b.totals.teamCost - a.totals.teamCost,
+      netRevenue: b.totals.net - a.totals.net,
+      bestMonth: bestB.total - bestA.total,
+      milestones: b.milestones.length - a.milestones.length
+    };
+    var bWins = deltas.netRevenue >= 0;
+    var winner = bWins ? nameB : nameA;
+    var loser = bWins ? nameA : nameB;
+    var margin = Math.abs(deltas.netRevenue) /
+      Math.max(1, Math.abs((bWins ? a : b).totals.net));
+    var drivers = [];
+    if (a.meta.rpm !== b.meta.rpm) {
+      drivers.push("RPM $" + a.meta.rpm.toFixed(2) + " vs $" + b.meta.rpm.toFixed(2));
+    }
+    if (a.meta.monthlyGrowth !== b.meta.monthlyGrowth) {
+      drivers.push("monthly growth " + (a.meta.monthlyGrowth * 100).toFixed(1) + "% vs " +
+        (b.meta.monthlyGrowth * 100).toFixed(1) + "%");
+    }
+    if (deltas.teamCost !== 0) {
+      drivers.push("team spend $" + Math.round(a.totals.teamCost).toLocaleString("en-US") +
+        " vs $" + Math.round(b.totals.teamCost).toLocaleString("en-US"));
+    }
+    if (Math.abs(deltas.endSubs) > 1 && ((bWins && deltas.endSubs < 0) || (!bWins && deltas.endSubs > 0))) {
+      drivers.push("note: the net-revenue winner is NOT the subscriber winner — subscribers are not income");
+    }
+    var verdict = "Path " + winner + " leads on net revenue over " + a.meta.horizon + " months by " +
+      (margin * 100).toFixed(0) + "% vs " + loser + ". " +
+      (drivers.length ? "Why: " + drivers.join("; ") + ". " : "") +
+      "Both are scenario models with stated assumptions — not predictions, not promises, not financial advice.";
+    return { a: a, b: b, nameA: nameA, nameB: nameB, deltas: deltas, verdict: verdict };
+  }
+
+  /* assumptionLines(): the honest-assumptions panel as plain text —
+   * shared by the UI compare view and the copy-my-empire-plan export so
+   * the two can never drift apart. */
+  function assumptionLines(inputs, res) {
+    var d = DEFAULTS;
+    var lines = [
+      "Base growth " + ((inputs.growthRate != null ? inputs.growthRate : d.baseGrowthRate) * 100).toFixed(0) +
+        "%/mo x niche " + res.meta.nicheGrowth + "x x cadence " + res.meta.cadenceMult.toFixed(2) +
+        "x x quality " + res.meta.qualityMult + "x = " + (res.meta.monthlyGrowth * 100).toFixed(1) +
+        "%/mo compounding (deterministic; no viral lottery)",
+      "RPM $" + res.meta.rpm.toFixed(2) + " (" + (inputs.rpmLevel || "mid") + " of the $" +
+        res.meta.rpmBand[0] + "-$" + res.meta.rpmBand[1] + " " + inputs.niche + " band)",
+      "Q4 ad-rate uplift " + ((inputs.q4Uplift != null ? inputs.q4Uplift : d.q4Uplift) * 100).toFixed(0) +
+        "% in months 10-12" + (res.meta.horizon > 12 ? " and 22-24" : "")
+    ];
+    if (res.meta.horizon > 12) {
+      lines.push("Year 2: monthly growth decays x" + d.year2Decay + "/mo after month 12 (our diminishing-returns curve)");
+    }
+    var hires = normalizeHires(inputs.hires);
+    if (hires.length) {
+      hires.forEach(function (h) {
+        var t = d.hireTypes[h.type];
+        lines.push(t.label + " from month " + h.startMonth + ": $" +
+          Math.round(h.monthlyCost).toLocaleString("en-US") + "/mo; +" +
+          t.extraLongPerWeek + " long-form/wk, quality +" +
+          Math.round(t.qualityDelta * 100) + "% (ramp month at 50%)");
+      });
+    } else {
+      lines.push("No team hires — solo run (gross = net)");
+    }
+    return lines;
+  }
+
+  function fmtMoney(n) { return "$" + Math.round(n).toLocaleString("en-US"); }
+  function fmtCompact(n) {
+    if (n >= 1e6) return (n / 1e6).toFixed(1) + "M";
+    if (n >= 1e3) return (n / 1e3).toFixed(1) + "K";
+    return Math.round(n).toString();
+  }
+
+  /* exportPlan(): the "Copy my empire plan" text export — scenario, hires,
+   * end-of-run numbers, every assumption, and the disclaimers. */
+  function exportPlan(scenarioName, inputs, res) {
+    var N = res.meta.horizon;
+    var best = bestOf(res);
+    var hires = normalizeHires(inputs.hires);
+    var streams = [];
+    if (inputs.ads) streams.push("ads");
+    if (inputs.sponsors) streams.push("sponsors");
+    if (inputs.affiliates) streams.push("affiliates");
+    if (inputs.digital) streams.push("digital product");
+    var lines = [
+      "MY EMPIRE PLAN — Creator Growth Empire (a model, not a prediction)",
+      "Scenario: " + scenarioName,
+      "Setup: " + inputs.niche + " | " + Math.round(inputs.startSubs || 0) + " subs start | " +
+        inputs.longformPerWeek + " long + " + inputs.shortsPerWeek + " shorts/wk | quality " +
+        inputs.quality + " | " + N + "-month horizon",
+      "Monetization: " + (streams.length ? streams.join(", ") : "none"),
+      "Team: " + (hires.length
+        ? hires.map(function (h) { return h.label + " ($" + Math.round(h.monthlyCost) +
+            "/mo from M" + h.startMonth + ")"; }).join("; ")
+        : "none (solo)"),
+      "Month " + N + ": " + fmtCompact(res.endSubs) + " subs (" +
+        (res.growthMultiple ? res.growthMultiple.toFixed(1) + "x" : "n/a") + ") | gross " +
+        fmtMoney(res.totals.total) + " | team spend " + fmtMoney(res.totals.teamCost) +
+        " | net " + fmtMoney(res.totals.net) + " | best month " + fmtMoney(best.total) + " (M" + best.month + ")",
+      res.milestones.length
+        ? "Milestones: " + res.milestones.map(function (m) { return m.label + " (M" + m.month + ")"; }).join("; ")
+        : "Milestones: none hit — raise cadence, quality, or the growth assumption.",
+      "ASSUMPTIONS:"
+    ];
+    assumptionLines(inputs, res).forEach(function (l) { lines.push("  - " + l); });
+    lines.push("Model, not a prediction. Not financial, legal, or tax advice. Verify every platform number live before making decisions.");
+    return lines.join("\n");
   }
 
   function computeMilestones(months) {
@@ -228,7 +519,13 @@
 
   return {
     DEFAULTS: DEFAULTS,
+    SCENARIOS: SCENARIOS,
+    scenarioInputs: scenarioInputs,
+    normalizeHires: normalizeHires,
     simulate: simulate,
+    compare: compare,
+    assumptionLines: assumptionLines,
+    exportPlan: exportPlan,
     tierForSubs: tierForSubs,
     rpmForBand: rpmForBand
   };

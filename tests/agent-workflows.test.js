@@ -141,5 +141,68 @@ function check(name, cond, detail) {
     + " milestones=" + r.milestones.length);
 })();
 
+/* ============ Workflow 4: A/B compare two simulator scenarios ============
+ * AGENT.md §Workflow 4: scenario library + compare() over the same clock. */
+(function workflow4() {
+  const EmpireSim = require(path.join(__dirname, "..", "assets", "js", "sim-engine.js"));
+  const cfg = load("calculators.json");
+
+  // the 2.0 inputs are discoverable from tools.json's input schema
+  const tools = load("tools.json").tools;
+  const simTool = tools.find((t) => t.id === "simulator");
+  const props = simTool && simTool.input_schema && simTool.input_schema.properties;
+  check("wf4: simulator schema exposes scenario_id / horizon / hires / compare_with",
+    !!(props && props.scenario_id && props.horizon && props.hires && props.compare_with),
+    Object.keys(props || {}).join(","));
+  check("wf4: schema lists the 6 scenario presets",
+    Array.isArray(props.scenario_id.enum) && props.scenario_id.enum.length === 6,
+    (props.scenario_id.enum || []).join(","));
+
+  // the scenario library is real: 6 presets, RPMs trace to calculators.json bands
+  check("wf4: engine ships 6 named scenarios", EmpireSim.SCENARIOS.length === 6,
+    String(EmpireSim.SCENARIOS.length));
+  const asmr = EmpireSim.scenarioInputs("asmr-bedroom");
+  const tech = EmpireSim.scenarioInputs("tech-reviewer");
+  check("wf4: scenario RPMs come from the calculators.json bands",
+    asmr.niche === "lifestyle" && tech.niche === "tech_software"
+    && cfg.youtube_longform_rpm_bands.lifestyle[0] === 4
+    && cfg.youtube_longform_rpm_bands.tech_software[1] === 20);
+  check("wf4: ASMR scenario declares its niche proxies",
+    typeof EmpireSim.SCENARIOS.find((s) => s.id === "asmr-bedroom").nicheProxyNote === "string");
+
+  // the A/B comparison AGENT.md quotes
+  const cmp = EmpireSim.compare("ASMR bedroom", asmr, "Tech reviewer", tech, cfg);
+  check("wf4: both paths run the same 12-month clock",
+    cmp.a.meta.horizon === 12 && cmp.b.meta.horizon === 12);
+  check("wf4: deltas are B minus A (net revenue)",
+    Math.abs(cmp.deltas.netRevenue - (cmp.b.totals.net - cmp.a.totals.net)) < 1e-6);
+  const m12a = Math.round(cmp.a.endSubs), m12b = Math.round(cmp.b.endSubs);
+  check("wf4: ASMR bedroom month-12 subs 6,434", m12a === 6434, String(m12a));
+  check("wf4: Tech reviewer month-12 subs 5,323", m12b === 5323, String(m12b));
+  check("wf4: ASMR net $909.02 / tech net $7,955.56",
+    cmp.a.totals.net.toFixed(2) === "909.02" && cmp.b.totals.net.toFixed(2) === "7955.56",
+    cmp.a.totals.net.toFixed(2) + " / " + cmp.b.totals.net.toFixed(2));
+  check("wf4: verdict names Tech reviewer the net-revenue winner",
+    /Path Tech reviewer leads on net revenue over 12 months by 775%/.test(cmp.verdict),
+    cmp.verdict.slice(0, 80));
+  check("wf4: verdict explains the drivers (RPM + growth)",
+    /RPM \$4\.00 vs \$14\.00/.test(cmp.verdict) && /19\.0% vs 11\.1%/.test(cmp.verdict));
+  check("wf4: verdict carries the subscribers-are-not-income note",
+    /the net-revenue winner is NOT the subscriber winner/.test(cmp.verdict));
+
+  // hires flow through compare too (content -> team -> company)
+  const teamCmp = EmpireSim.compare("solo", tech, "solo + editor",
+    Object.assign({}, tech, { hires: [{ type: "editor", startMonth: 1, monthlyCost: 1400 }] }), cfg);
+  check("wf4: team comparison prices the hire ($16,800) and moves net",
+    teamCmp.deltas.teamCost === 16800 && teamCmp.deltas.netRevenue !== 0,
+    String(teamCmp.deltas.teamCost));
+
+  // year-2 horizon is an exposed schema option and behaves
+  check("wf4: horizon schema allows 24 months", props.horizon.enum.includes(24));
+  const y2 = EmpireSim.simulate(Object.assign({}, tech, { horizon: 24 }), cfg);
+  check("wf4: 24-month run diminishes after month 12",
+    y2.months.length === 24 && y2.months[12].growthRate < y2.months[11].growthRate);
+})();
+
 console.log(`\nagent-workflows: ${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

@@ -76,6 +76,15 @@ Goal: turn "I tested 5 budget mics" into five platform-native posts.
 3. The [Repurposing Planner](repurpose.html) generates the same mission cards interactively (checkboxes, printable) for the human.
 4. Output: the five mission cards with per-platform hook adaptations and the staggered posting order. Enforce native grammar — no watermarks, no copy-paste.
 
+### 4. A/B compare two Empire Simulator scenarios
+
+Goal: run two paths over the same 12 months and get the delta table plus a plain-language verdict.
+
+1. `GET api/v1/tools.json` → tool `simulator` → `input_schema`: the 2.0 inputs are `scenario_id` (6 presets), `horizon` (12 | 24), `hires[]` (First Hire guide roles), and `compare_with` for A/B mode.
+2. `EmpireSim.scenarioInputs("asmr-bedroom")` vs `EmpireSim.scenarioInputs("tech-reviewer")` — the ASMR scenario declares its proxies (`lifestyle` growth 1.05x + lifestyle RPM band at low, $4).
+3. `EmpireSim.compare("ASMR bedroom", asmr, "Tech reviewer", tech, cfg)`: ASMR bedroom → **6,434** subs, **$909.02** net; Tech reviewer → **5,323** subs, **$7,955.56** net. Verdict: Path Tech reviewer leads on net revenue by **775%** — RPM $4.00 vs $14.00; growth 19.0% vs 11.1%; the net-revenue winner is NOT the subscriber winner.
+4. Return the verdict as a model, not a prediction: deltas explained by the drivers, the honesty caveat quoted, assumptions from `assumptionLines()` attached. Never present scenario revenue as expected income.
+
 ## Conventions
 
 - API `version` follows semver: minor on content changes, major on breaking shape changes.

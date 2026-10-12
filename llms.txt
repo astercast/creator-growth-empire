@@ -14,15 +14,15 @@ From $0 to a multi-million-dollar creator company.
 - [Phase 8: Scale](phase-8-scale.html) — 8 min read
 
 ## Tools
-- [Niche Picker](quiz.html)
-- [Revenue Calculator](calculator.html)
-- [90-Day Planner](planner.html)
-- [Sponsor Deal Analyzer](deal-analyzer.html)
-- [Hiring Cost Calculator](hiring-calculator.html)
-- [Repurposing Planner](repurpose.html)
-- [Empire Simulator](simulator.html)
-- [API Explorer](api-explorer.html)
-- [Hook Builder](hook-builder.html)
+- [Niche Picker](quiz.html) — Answer 6 questions, get ranked niche suggestions with reasoning.
+- [Revenue Calculator](calculator.html) — Project revenue from views, niche, sponsors, and affiliates — with honest ranges.
+- [90-Day Planner](planner.html) — Generate a posting schedule from your platforms and cadence. Printable.
+- [Sponsor Deal Analyzer](deal-analyzer.html) — Benchmark a sponsor offer against the 2026 rate card — verdict, red-flag checklist, counter-offer worksheet.
+- [Hiring Cost Calculator](hiring-calculator.html) — Price your first hire: monthly/annual cost and the ad revenue needed to cover it — honest math, no promises.
+- [Repurposing Planner](repurpose.html) — Turn one idea into a 5-platform mission-card checklist from the Phase 3 repurposing SOP.
+- [Empire Simulator](simulator.html) — Simulate 12–24 months of channel growth + revenue — scenario library, A/B comparison, team hiring P&L — a model, not a prediction.
+- [API Explorer](api-explorer.html) — Browse every api/v1 endpoint and preview JSON responses live in your browser — no key, no server.
+- [Hook Builder](hook-builder.html) — Type your video topic, get five filmed-ready hooks — one per Short-Form Playbook structure. Flip-through cards.
 - [Glossary](glossary.html)
 
 All nine tools, grouped by job (Plan / Money / Content): [Tools hub](tools.html).
@@ -54,8 +54,8 @@ All nine tools, grouped by job (Plan / Money / Content): [Tools hub](tools.html)
 - api/v1/schema/ — JSON Schema (draft-07) for every endpoint
 
 ## Agents
-- AGENT.md — how an agent uses this site: base URL pattern, example requests, 3 end-to-end workflows, tool input schemas
-- [Agents](agents.html) — the agent surface: endpoint table, all skills, data freshness policy, 3 worked agent workflows
+- AGENT.md — how an agent uses this site: base URL pattern, example requests, 4 end-to-end workflows, tool input schemas
+- [Agents](agents.html) — the agent surface: endpoint table, all skills, data freshness policy, 4 worked agent workflows
 - [API Explorer](api-explorer.html) — browse api/v1 endpoints, preview JSON in-browser
 - llms.txt (this file) — quick agent orientation
 - llms-full.txt — complete guide text, all chapters + reference + guides + agents

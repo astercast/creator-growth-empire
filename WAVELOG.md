@@ -1,5 +1,53 @@
 # Creator Growth Empire — Wave Log
 
+## Wave 13 — Empire Simulator 2.0 (2026-10-11)
+
+What shipped:
+1. **Scenario library** (`assets/js/sim-engine.js` → `SCENARIOS`, 6 presets):
+   ASMR Bedroom Channel (Case File: Sleep Channels, ASMR→lifestyle proxies
+   declared), Tech Reviewer (tech band $8–$20 + 2–3x sponsor rule), Betrayal
+   Mini-Dramas (entertainment band, Shorts-first cadence), Home Cooking
+   Channel (Case File: Ben's Bites), Personal Finance / Zero to Budget (Case
+   File: PTYA, finance band $8–$35), Fitness Coach (health band $4–$10). Each
+   is a named, loadable config with source attribution; one-click "Load
+   scenario" on the page (`EmpireSim.scenarioInputs(id)` for agents).
+2. **Comparison mode** — `EmpireSim.compare(nameA, inputsA, nameB, inputsB, cfg)`:
+   same clock, deltas ALWAYS B-minus-A, plain-language verdict naming the
+   net-revenue winner, the drivers (RPM, growth, team spend), the
+   "subscribers are not income" note, and the honesty caveat. Page UI:
+   scenario/custom selects per side, side-by-side cards, delta table, verdict
+   panel, and the assumptions panel rendered with every comparison — never hidden.
+3. **Team hiring layer** — wave 10's First Hire guide wired into the sim:
+   editor ($1,400/mo preset, +1 long-form/wk, quality +12%), thumbnail
+   designer ($120/mo, quality +8%), VA ($900/mo, +0.5 long-form/wk); start
+   month + monthly cost adjustable, first active month at 50% (ramp-up,
+   labeled). Month-by-month P&L: gross, team cost, net — in the ledger table
+   and stat cards. Backwards compatible: no hires → byte-identical math to v1.
+4. **Year 2 scaling** — optional 24-month horizon with the diminishing-returns
+   curve (monthly growth decays ×0.94/mo after month 12, honestly labeled as
+   our curve), Q4 uplift in months 22–24, generalized charts/milestones.
+5. **"Copy my empire plan"** — `EmpireSim.exportPlan()`: scenario, hires,
+   horizon-end numbers (subs, gross, team spend, net, best month),
+   milestones, the full assumptions list, and the "model, not a prediction /
+   not financial, legal, or tax advice" disclaimers.
+
+Engine (`sim-engine.js`) stays UMD/node-testable. Honesty contract intact:
+ranges and stated assumptions everywhere, no income promises, disclaimers
+visible on-page and in exports.
+
+Validation: `scripts/build.py` clean (9 chapters, 9 tools, 12 skills,
+5 case files, 16,153 words); `scripts/validate.sh` **8/8 GREEN**
+(15 JS files node --check, JSON parse, draft-07 schemas, 0 broken links,
+byte-identical rebuild, **71 sim assertions**, llms.txt counts fresh,
+**36 agent-workflow assertions**). AGENT.md gained Workflow 4 (ASMR bedroom vs
+Tech reviewer — executed numbers: 6,434 vs 5,323 subs; $909.02 vs $7,955.56
+net; Tech reviewer leads by 775%); `api/v1/tools.json` simulator
+`input_schema` extended (`scenario_id`, `horizon`, `hires[]`,
+`compare_with`); llms.txt tool bullets now carry descriptions (2.0 features);
+`pages/agents.md` gained worked workflow 4.
+
+Commit: bf4f914fc5a9bb459d09252c01d14e6286ce47eb (pushed 2026-10-11).
+
 ## Wave 12 — Agent API excellence pass (2026-10-11)
 
 What shipped:

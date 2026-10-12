@@ -88,5 +88,113 @@ var digitalOn = sim.simulate(baseInputs({ digital: true, digitalStartMonth: 1 })
 ok(digitalOn.months[0].digital > 0 && digitalOff.months[0].digital === 0,
   "digital product toggle + start month respected");
 
+
+console.log("scenario library (wave 13)");
+ok(sim.SCENARIOS.length >= 6, "6+ loadable scenarios (" + sim.SCENARIOS.length + ")");
+sim.SCENARIOS.forEach(function (sc) {
+  var inp = sim.scenarioInputs(sc.id);
+  ok(inp !== null, "scenario '" + sc.id + "' loads to a full inputs object");
+  var rs = sim.simulate(inp, cfg);
+  ok(rs.months.length === 12 && isFinite(rs.endSubs) && isFinite(rs.totals.total),
+    "scenario '" + sc.id + "' simulates 12 finite months (" +
+    Math.round(rs.endSubs) + " subs, $" + Math.round(rs.totals.total) + ")");
+  ok((cfg.youtube_longform_rpm_bands[inp.niche] || []).length === 2,
+    "scenario '" + sc.id + "' niche '" + inp.niche + "' is a real calculators.json RPM band");
+  ok(typeof sc.source === "string" && sc.source.length > 0,
+    "scenario '" + sc.id + "' names its research source");
+});
+// library returns copies: mutating a load doesn't poison the next one
+var copy = sim.scenarioInputs("asmr-bedroom");
+copy.niche = "gaming";
+ok(sim.scenarioInputs("asmr-bedroom").niche === "lifestyle",
+  "scenarioInputs returns a deep copy (library not mutated)");
+ok(sim.scenarioInputs("nope") === null, "unknown scenario id returns null");
+
+console.log("hiring math (wave 13)");
+var solo = sim.simulate(baseInputs({}), cfg);
+var hired = sim.simulate(baseInputs({ hires: [{ type: "editor", startMonth: 4, monthlyCost: 1400 }] }), cfg);
+ok(hired.totals.teamCost === 1400 * 9,
+  "editor from month 4 costs 1400 x 9 = 12600 (got " + hired.totals.teamCost + ")");
+ok(hired.months[3].activeHires.indexOf("editor") !== -1 && hired.months[2].activeHires.length === 0,
+  "hire activates exactly from its start month");
+ok(Math.abs(hired.totals.net - (hired.totals.total - hired.totals.teamCost)) < 1e-6,
+  "net = gross - team cost every run");
+ok(hired.endSubs > solo.endSubs,
+  "editor's output+quality lift raises end subs (" + Math.round(hired.endSubs) +
+  " > " + Math.round(solo.endSubs) + ")");
+ok(solo.totals.teamCost === 0 && solo.totals.net === solo.totals.total,
+  "no hires -> zero team cost, net equals gross (backwards compat)");
+// ramp month: month 4 subs-lift is smaller than month 5's (50% ramp effect)
+var lift4 = hired.months[3].subs - solo.months[3].subs;
+var lift5 = hired.months[4].subs - solo.months[4].subs;
+ok(lift5 > lift4 * 1.4,
+  "ramp month at 50%: month-5 lift beats month-4 lift (" +
+  lift5.toFixed(0) + " > " + lift4.toFixed(0) + " x 1.4)");
+var mixed = sim.simulate(baseInputs({ hires: [
+  { type: "thumbnail", startMonth: 2, monthlyCost: 120 },
+  { type: "va", startMonth: 6, monthlyCost: 900 },
+  { type: "ceo", startMonth: 1, monthlyCost: 99999 }
+] }), cfg);
+ok(mixed.totals.teamCost === 120 * 11 + 900 * 7,
+  "two hires accumulate; unknown hire type dropped (got " + mixed.totals.teamCost + ")");
+ok(mixed.months[5].activeHires.length === 2, "both hires active by month 6");
+var defCost = sim.simulate(baseInputs({ hires: [{ type: "editor", startMonth: 1 }] }), cfg);
+ok(defCost.totals.teamCost === sim.DEFAULTS.hireTypes.editor.monthlyCostDefault * 12,
+  "missing monthlyCost falls back to the honest preset default");
+
+console.log("comparison mode (wave 13)");
+var inpA = sim.scenarioInputs("asmr-bedroom");
+var inpB = sim.scenarioInputs("tech-reviewer");
+var cmp = sim.compare("ASMR bedroom", inpA, "Tech reviewer", inpB, cfg);
+ok(Math.abs(cmp.deltas.netRevenue - (cmp.b.totals.net - cmp.a.totals.net)) < 1e-6,
+  "netRevenue delta = B minus A");
+ok(Math.abs(cmp.deltas.endSubs - (cmp.b.endSubs - cmp.a.endSubs)) < 1e-6,
+  "endSubs delta = B minus A");
+ok(Math.abs(cmp.deltas.teamCost - (cmp.b.totals.teamCost - cmp.a.totals.teamCost)) < 1e-6,
+  "teamCost delta = B minus A");
+ok(/Path (ASMR bedroom|Tech reviewer) leads on net revenue/.test(cmp.verdict),
+  "verdict names the net-revenue winner");
+ok(/not predictions, not promises, not financial advice/.test(cmp.verdict),
+  "verdict carries the honesty caveat");
+var self = sim.compare("same", inpA, "same", inpA, cfg);
+ok(self.deltas.netRevenue === 0 && self.deltas.endSubs === 0 &&
+   self.deltas.grossRevenue === 0 && self.deltas.milestones === 0,
+  "identical configs -> zero deltas");
+// hires change the winner: solo vs solo+editor on the same config
+var team = sim.compare("solo", baseInputs({}), "solo + editor",
+  baseInputs({ hires: [{ type: "editor", startMonth: 1, monthlyCost: 1400 }] }), cfg);
+ok(team.deltas.teamCost === 1400 * 12 && team.deltas.netRevenue !== 0,
+  "solo-vs-team comparison prices the hire ($16,800) and moves net");
+
+console.log("year-2 scaling (wave 13)");
+var y2 = sim.simulate(baseInputs({ horizon: 24 }), cfg);
+ok(y2.months.length === 24, "horizon 24 returns 24 months");
+ok(y2.months[12].growthRate < y2.months[11].growthRate * 0.99,
+  "month-13 growth below month-12 (diminishing returns kick in)");
+ok(y2.months[12].growthRate > 0, "growth stays positive — plateau, not collapse");
+ok(y2.meta.year2Decay === sim.DEFAULTS.year2Decay,
+  "meta exposes the year-2 decay factor");
+ok(y2.months[22].q4UpliftApplied && y2.months[9].q4UpliftApplied,
+  "Q4 uplift applies in year 1 and year 2 (months 10-12, 22-24)");
+ok(y2.months.length === 24 && y2.endSubs > solo.endSubs,
+  "24-month run grows past the 12-month solo end");
+var horizonCap = sim.simulate(baseInputs({ horizon: 99 }), cfg);
+ok(horizonCap.months.length === 24, "horizon capped at 24");
+
+console.log("assumptions + plan export (wave 13)");
+var al = sim.assumptionLines(baseInputs({ hires: [{ type: "editor", startMonth: 4, monthlyCost: 1400 }] }), hired);
+ok(Array.isArray(al) && al.length >= 4 && /Video editor/.test(al.join(" | ")),
+  "assumptionLines lists the hire");
+var al2 = sim.assumptionLines(baseInputs({ horizon: 24 }), y2);
+ok(/year 2/i.test(al2.join(" ")), "assumptionLines labels the year-2 decay");
+var plan = sim.exportPlan("Tech Reviewer", inpB, cmp.b);
+ok(typeof plan === "string" && plan.indexOf("MY EMPIRE PLAN") === 0,
+  "exportPlan opens with the plan header");
+ok(plan.indexOf("Tech Reviewer") !== -1 && plan.indexOf("ASSUMPTIONS:") !== -1,
+  "exportPlan names the scenario + assumptions block");
+ok(/Not financial, legal, or tax advice/.test(plan),
+  "exportPlan carries the not-financial/legal/tax-advice disclaimer");
+ok(/a model, not a prediction/i.test(plan), "exportPlan says model-not-prediction");
+
 console.log(failures === 0 ? "\nALL PASS" : "\n" + failures + " FAILURES");
 process.exit(failures === 0 ? 0 : 1);
