@@ -21,7 +21,7 @@ Identity waves 29/30 are done; this is the first massive content wave after them
 
 **Tests:** `node tests/breakout-format-intel.test.js` — **46/46 PASS**. `node --check` clean (no new JS — wave ships no JS; the radar/wayfinding layers from waves 29/30 cover the page). Full `scripts/validate.sh`: **20 passed, 0 failed — 8/8 GREEN** (0 broken links; byte-identical rebuild; schema validation incl. the nullable-url relaxation; llms.txt/llms-full.txt fresh with 5 reference pages; agent workflows 122 assertions). Headless Chromium screenshot verified (see below).
 
-Commit: LOCAL_HASH (local) → REMOTE_HASH (pushed 2026-10-11, remote tree verified via GitHub Trees API).
+Commit: 86c81252eceb4377f5a8183b82d3d5bbda82b0f7 (local) → 9a2a92a24661264c8134e8faf1ab0e1675ede662 (pushed 2026-10-11, remote tree verified via GitHub Trees API 200 — 299 entries, not truncated; all wave-31 files present).
 
 ---
 
