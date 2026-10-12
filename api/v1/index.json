@@ -68,11 +68,11 @@
       "id": "deal-templates",
       "kind": "json",
       "path": "api/v1/deal-templates.json",
-      "description": "The Deal Room data contract: negotiation scripts (lowball counter, usage-rights upsell, exclusivity pushback, rush-fee ask \u2014 with {{placeholders}}), the red-flag checklist with severity levels and scoring rules, and usage-rights pricing tiers with reported vs. definitional multiplier basis. A negotiation aid, not financial/legal/tax advice.",
+      "description": "The Deal Room data contract: negotiation scripts (lowball counter, usage-rights upsell, exclusivity pushback, rush-fee ask \u2014 with {{placeholders}}), the red-flag checklist with severity levels and scoring rules, and usage-rights pricing tiers with reported vs. definitional multiplier basis, 3 honest pitch email templates (cold pitch, one follow-up nudge, warm intro \u2014 [bracketed] placeholders, never invented stats), and the 10-item contract red-flag checklist with scoring rules. A negotiation aid, not financial/legal/tax advice.",
       "schema": "api/v1/schema/deal-templates.json",
       "updated": "2026-10-11T00:00:00Z",
       "records": null,
-      "records_note": "Data contract, not a record list: 4 negotiation scripts, 6 red-flag items, 6 usage-rights tiers.",
+      "records_note": "Data contract, not a record list: 4 negotiation scripts, 6 red-flag items, 6 usage-rights tiers, 3 pitch email templates, 10 contract red-flag items.",
       "deprecated": false,
       "deprecation_note": null,
       "freshness_note": "Multipliers are reported 2026 benchmarks and ranges, not quotes. Verify against current creator rate reports before quoting."
@@ -116,10 +116,10 @@
       "id": "tools",
       "kind": "json",
       "path": "api/v1/tools.json",
-      "description": "All sixteen interactive tools with programmatic input schemas (JSON Schema draft-07), output descriptions, and drive notes \u2014 replicate the tools' logic without the UI.",
+      "description": "All seventeen interactive tools with programmatic input schemas (JSON Schema draft-07), output descriptions, and drive notes \u2014 replicate the tools' logic without the UI.",
       "schema": "api/v1/schema/tools.json",
       "updated": "2026-10-11T00:00:00Z",
-      "records": 16,
+      "records": 17,
       "deprecated": false,
       "deprecation_note": null
     },
@@ -157,12 +157,13 @@
         "batching.html",
         "money-map.html",
         "video-doctor.html",
-        "ypp-checker.html"
+        "ypp-checker.html",
+        "outreach.html"
       ],
-      "description": "The sixteen interactive tools' human UI pages. Agents should prefer api/v1/tools.json input schemas over scraping these pages.",
+      "description": "The seventeen interactive tools' human UI pages. Agents should prefer api/v1/tools.json input schemas over scraping these pages.",
       "schema": null,
       "updated": "2026-10-11T00:00:00Z",
-      "records": 16,
+      "records": 17,
       "deprecated": false,
       "deprecation_note": null
     },

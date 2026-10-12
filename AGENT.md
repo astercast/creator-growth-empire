@@ -1,7 +1,7 @@
 # AGENT.md — How an agent uses Creator Growth Empire
 
 > This site is a static machine-readable knowledge base for the creator
-> business: 9 phases, 16 tools, 12 skills, 9 case files, and a versioned JSON
+> business: 9 phases, 17 tools, 12 skills, 9 case files, and a versioned JSON
 > API. No API key, no server, no auth, no rate limits. Fetch and act.
 > Every workflow below was executed against the real `api/v1/` JSON files —> see `tests/agent-workflows.test.js` (run: `node tests/agent-workflows.test.js`).
 
@@ -32,7 +32,7 @@
 | `GET api/v1/calculators.json` | Per-niche RPM bands, Shorts RPM, platform thresholds w/ sources+dates, revenue splits, 2026 sponsorship rate card, 2026 research snapshots | The data contract every calculator and the sim engine read |
 | `GET api/v1/skills.json` | 12 skills: `name`, `description`, `path` | `skills/deal-negotiation/SKILL.md` for the full procedure |
 | `GET api/v1/case-files.json` | 9 creator-business deconstructions: `id`, `title`, `path`, `words`, `read_minutes` | Full text on the `case-*.html` pages |
-| `GET api/v1/tools.json` | 16 tools with programmatic `input_schema` (draft-07), output description, `drive_notes` | Replicate any tool's logic without the UI |
+| `GET api/v1/tools.json` | 17 tools with programmatic `input_schema` (draft-07), output description, `drive_notes` | Replicate any tool's logic without the UI |
 | `GET api/v1/schema/<name>.json` | JSON Schema draft-07 for every endpoint (per-doc and per-record) | Validate before you trust a payload |
 
 Skills are the executable layer: each `skills/<name>/SKILL.md` follows
@@ -267,6 +267,45 @@ all via API, no UI.
    carries the verify-live-in-YouTube-Studio disclaimer. Educational aid, not
    financial, legal, or tax advice; never an income promise.
 
+### Workflow 9 — Run an outbound sponsor campaign (The Outreach Center)
+
+Goal: take a creator's stats and a brand list, and run the whole outbound
+loop — pipeline, pitch, quote, contract read — all via API, no UI.
+
+1. `GET api/v1/tools.json` → tool `outreach` → `input_schema` (`OutreachInput`).
+   Build the input: `{ brand, contactName, email, status, followUpDate,
+   followers, platform, deliverable, expectedViews, pitchTemplate, pitchVars,
+   contractFlags }`. Example: `{ brand: "Acme", followers: 50000,
+   platform: "youtube", deliverable: "integrated", expectedViews: 40000,
+   pitchTemplate: "cold_pitch", contractFlags: [] }`.
+2. Drive the logic with `require("assets/js/outreach.js")` (UMD, importable
+   in node) against `api/v1/calculators.json` (`sponsorship_rate_card_2026` +
+   `sponsorship_rule_of_thumb`) and `api/v1/deal-templates.json`
+   (`pitch_templates`, `contract_flags`):
+   - **Pipeline.** `validDeal(d)` validates records; `pipelineStats(deals)` →
+     `{ contacted, responded, activeDeals, signed, responseRate, closeRate }`
+     with the ~5% normal-reply note; `dueFollowUps(deals, todayIso)` buckets
+     the single 7-day nudges (overdue / due today / upcoming).
+   - **Quote.** `quoteCalc(input, rateCard, ruleOfThumb)` → tier range
+     (50K YouTube = micro **$1,000–$10,000**), top-of-range quote point
+     **$10,000**, expected close ~$7,700 (the ~23% listed-vs-accepted math),
+     and the CPM cross-check ($250 implied vs the $20–$35 integrated-slot
+     band — dedication-level pricing on those views). Usage rights stay
+     separate line items, priced in the Deal Room.
+   - **Pitch.** `renderPitch(template, vars)` fills the 3 honest templates
+     (cold pitch / the one 7-day nudge / warm intro); unfilled `[brackets]`
+     stay visible so no stat is ever invented. Templates carry the
+     anti-spam contract: one targeted email per brand, one nudge, then
+     move on.
+   - **Contract.** `contractRisk(ids, flags)` → per-item plain-language
+     `fix` + a `clean` / `caution` / `dont_sign` verdict (any walk_away flag
+     or 3+ points → don't sign as written).
+3. Framing rule (non-negotiable): ranges are **reported 2026 benchmarks that
+   disagree 2–3× within tiers**, never quotes; pitch stats are the creator's
+   own real numbers or nothing; the contract summary is **not legal advice**
+   (contracts above $500 deserve a real lawyer's eyes). Educational aid, not
+   financial, legal, or tax advice; never an income promise.
+
 ## Rate & expectation notes
 
 - **Static JSON.** Nothing here is live: no request counts, no streaming, no
@@ -304,6 +343,7 @@ explaining how to replicate the logic:
 | API Explorer | none (read-only browser over the API) | Skip the UI; fetch the endpoints directly |
 | YPP 2027 Eligibility Checker | `subs`, `watchHours`, `shortsViews`, `uploads90d`, `originality` (original/repurposed/reposted), `formatMix` (longform/shorts/both) | `require("assets/js/ypp-checker.js")` — `check(i)` returns current-vs-2027 verdicts, Shorts floor, activity test, gap math, chapter-grounded plan — see Workflow 8 |
 | Hook Builder | `topic` (one line) | One hook per Short-Form Playbook structure + the anti-hook checklist |
+| The Outreach Center | `brand`, `contactName`, `email`, `status` (pitched → replied → negotiating → signed → passed), `followUpDate`, `followers`, `platform`, `deliverable`, `expectedViews`, `pitchTemplate` (cold_pitch/follow_up_nudge/warm_intro), `pitchVars{}`, `contractFlags[]` | `require("assets/js/outreach.js")` — `validDeal()` for pipeline records, `pipelineStats()` for response/close rates, `dueFollowUps()` for the one-nudge buckets, `quoteCalc()` for the tier range + CPM cross-check (top-of-range quote, ~23% expected-close math), `renderPitch()` for the 3 honest templates (unfilled `[brackets]` stay visible — never invent stats), `contractRisk()` for the checklist (any walk_away flag or 3+ points → don't sign); templates + contract flags from `api/v1/deal-templates.json` — see Workflow 9 |
 
 Full per-tool schemas, formulas, and honesty notes live in `tools.json`;
 the UI pages (`quiz.html`, `calculator.html`, …) are the human front-end for

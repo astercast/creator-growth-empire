@@ -474,6 +474,26 @@ output { font-family: var(--font-mono); color: var(--acid); font-weight: 700; }
   .deal-card:hover { border-color: var(--line-strong); }
 }
 
+/* ---------- outreach center (wave 22) ---------- */
+#oc-deals { list-style: none; padding: 0; max-width: 72ch; display: grid; gap: 1rem; }
+.deal-status { display: inline-block; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase;
+  border: 1px solid var(--gold); border-radius: 999px; padding: 0.15rem 0.6rem; margin-left: 0.5rem; }
+.stat-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr)); gap: 0.8rem; max-width: 72ch; }
+.stat-card { border: 1px solid var(--line-strong); border-radius: 0.9rem; padding: 0.8rem 1rem; text-align: center; }
+.stat-card strong { display: block; font-size: 1.5rem; color: var(--gold); }
+.stat-card span { font-size: 0.8rem; }
+.sev { font-size: 0.72rem; letter-spacing: 0.08em; border-radius: 999px; padding: 0.1rem 0.55rem; white-space: nowrap; }
+.sev-walk_away { border: 1px solid var(--coral); color: var(--coral); }
+.sev-major { border: 1px solid var(--gold); color: var(--gold); }
+.sev-minor { border: 1px solid var(--line-strong); color: inherit; }
+.risk-verdict { border-left: 3px solid var(--acid); padding: 0.2rem 0 0.2rem 0.9rem; margin: 1rem 0; max-width: 72ch; }
+.risk-verdict.risk-dont_sign { border-left-color: var(--coral); }
+.risk-verdict.risk-caution { border-left-color: var(--gold); }
+.pitch-warn { color: var(--coral); font-weight: 600; }
+.rate-range { font-size: 1.25rem; }
+#oc-pitch-out pre { white-space: pre-wrap; word-wrap: break-word; border: 1px solid var(--line-strong);
+  border-radius: 0.75rem; padding: 1rem 1.1rem; max-width: 72ch; font-size: 0.92rem; }
+
 /* ---------- retention-curve sketches (wave 19: metrics-glossary mount) ---------- */
 .curve-sketches { margin: 2rem 0; }
 .curve-sketch-grid { display: grid; gap: 1.2rem; grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr)); margin-top: 1.2rem; }

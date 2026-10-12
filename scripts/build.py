@@ -143,6 +143,7 @@ TOOLS = [
     ("money-map", "The Money Map", "Find your stage on the $0-to-company journey: 7 questions, 5 stage playbooks, your next 3 moves. Stages are focus guides, never income promises."),
     ("video-doctor", "Diagnose My Video", "Pick your symptom \u2014 low CTR, the 30-second cliff, great retention but no subs \u2014 and get ranked causes with the fix from the chapter that owns it."),
     ("ypp-checker", "YPP 2027 Eligibility Checker", "Enter your subs, watch hours, and Shorts views — get your verdict under the current YPP bar and the Feb-2027 bar, the gap math, and a chapter-grounded plan to close it."),
+    ("outreach", "The Outreach Center", "Run your sponsor pipeline outbound: track pitches in a CRM-lite, generate honest pitch emails, quote from the 2026 rate card, and flag contract red flags before you sign."),
 ]
 
 
@@ -514,6 +515,34 @@ TOOLS_API = [
       }},
      "Two verdicts: current YPP rules (through Jan 31, 2027: 1K subs + 4K watch hours/12mo OR 10M Shorts views/90d) vs 2027 rules (from Feb 1, 2027: 1K subs + 8K hours/365d OR 20M Shorts views/90d), each with per-check pass/fail; the 2027 Shorts revenue floor check (10M qualified Shorts views/90d, monthly); the 2027 activity test for partners; the unchanged fan-funding tier; the gap math per rule; the shorter-walk note; the Oct-2026 Shorts-originality warning when relevant; a chapter-grounded close-the-gap plan. Thresholds labeled with sources and observation dates; every verdict carries the verify-live-with-YouTube disclaimer.",
      "Engine (assets/js/ypp-checker.js, UMD \u2014 importable in node): RULES carries both rule sets with source strings; validInput(i) validates the numbers and two enums; check(i) returns {input, now, y2027, originalityWarning, plan2027, shorterWalk, disclaimer}; fullVerdict/fanVerdict/shortsFloorVerdict/activityVerdict return per-check pass/fail + gap math; plan() returns chapter-grounded steps with read-next links to real site pages. Educational aid, not financial/legal/tax advice; never an income promise."),
+    ("outreach", "The Outreach Center",
+     "Run your sponsor pipeline outbound: track pitches in a CRM-lite, generate honest pitch emails, quote from the 2026 rate card, and flag contract red flags before you sign.",
+     "outreach.html",
+     {"$schema": "http://json-schema.org/draft-07/schema#", "title": "OutreachInput",
+      "type": "object", "required": [],
+      "properties": {
+          "brand": {"type": "string", "description": "Brand being pitched (pipeline + pitch)."},
+          "contactName": {"type": "string", "description": "The human being emailed — never 'dear partnerships team'."},
+          "email": {"type": "string", "format": "email"},
+          "status": {"type": "string", "enum": ["pitched", "replied", "negotiating", "signed", "passed"],
+                     "default": "pitched",
+                     "description": "Where the outreach sits in the pitched → signed pipeline."},
+          "followUpDate": {"type": "string", "format": "date",
+                          "description": "YYYY-MM-DD of the single 7-day nudge. One nudge, then move on."},
+          "followers": {"type": "number", "minimum": 0,
+                       "description": "Follower/subscriber count on the platform being sold (rate calculator)."},
+          "platform": {"type": "string", "enum": ["youtube", "tiktok", "instagram"], "default": "youtube"},
+          "deliverable": {"type": "string", "enum": ["integrated", "dedicated", "short"], "default": "integrated"},
+          "expectedViews": {"type": "number", "minimum": 0, "default": 0,
+                           "description": "Last-10-video average; sponsors buy views, not subs."},
+          "pitchTemplate": {"type": "string", "enum": ["cold_pitch", "follow_up_nudge", "warm_intro"]},
+          "pitchVars": {"type": "object",
+                       "description": "Values for the template's [bracketed] placeholders (your_name, channel_name, avg_views, …). Unfilled placeholders stay visible — never invent stats."},
+          "contractFlags": {"type": "array", "items": {"type": "string"},
+                           "description": "Checked contract_flags[].id values from api/v1/deal-templates.json."},
+      }},
+     "Pipeline stats (contacted, response rate, active deals, close rate) + follow-up buckets (overdue / due today / upcoming); rendered pitch email from the 3 templates with unfilled [brackets] left visible; rate-card quote (tier range, top-of-range quote point, 23% expected-close math, CPM cross-check vs the deliverable band); contract risk summary (per-item plain-language fix + clean / caution / don't-sign verdict). All ranges and guidance, never promises.",
+     "Engine (assets/js/outreach.js, UMD — importable in node): validDeal(d) validates pipeline records; pipelineStats(deals) computes response/close rates; dueFollowUps(deals, nowIso) buckets follow-ups; quoteCalc(input, rateCard, ruleOfThumb) reads sponsorship_rate_card_2026 (tier ranges, platform multipliers, sponsored_cpms) and sponsorship_rule_of_thumb.dedicated_cpm_range — output carries the ~23% listed-vs-accepted note, the 41% package-discount figure, and the never-a-quote disclaimer; renderPitch(template, vars) fills placeholders and leaves unknown ones visible; contractRisk(ids, contract_flags) scores contract structure (any walk_away flag or 3+ points -> don't sign) with a NOT-legal-advice disclaimer. Templates + contract flags from api/v1/deal-templates.json. Negotiation aid, not financial/legal/tax advice."),
 ]
 
 # Tools hub (wave 9): grouped card index. Per tool: icon, "use when" one-liner,
@@ -551,6 +580,8 @@ TOOL_HUB_META = {
                       ["diagnosis", "retention", "Phases 1 · 2"]),
     "ypp-checker":     ("◈", "MONEY", "gold", "YPP changes on Feb 1, 2027 — see where you stand under both rule sets.",
                       ["monetization", "YPP", "Phase 5"]),
+    "outreach":        ("\u2709", "MONEY",   "gold", "you're pitching brands outbound and need the whole command center.",
+                      ["outreach", "pitch pipeline", "Phase 5"]),
 }
 TOOL_HUB_GROUPS = [
     ("PLAN", "Pick the battlefield",
@@ -1023,6 +1054,7 @@ def build():
         "money-map": ["assets/js/money-map.js"],
         "video-doctor": ["assets/js/video-doctor.js"],
         "ypp-checker": ["assets/js/ypp-checker.js"],
+        "outreach": ["assets/js/outreach.js", "assets/js/outreach-ui.js"],
     }
     TOOL_CSS = {
         "money-map": ["assets/css/moneymap.css"],
@@ -1096,7 +1128,7 @@ def build():
             f'<div class="brief-grid">{cards}</div></section>')
     tools_body = (
         hub_hero("COMMAND CENTER", "All Tools",
-                 "Sixteen power tools, one command center. Pick the briefing that matches where you are.",
+                 "Seventeen power tools, one command center. Pick the briefing that matches where you are.",
                  "acid")
         + hub_sections
         + '<section class="section honesty"><h2>Pick by job, not by shine</h2>'
@@ -1186,7 +1218,7 @@ def build():
   <p class="lede">Nine phases. Zero to multi-million-dollar creator company — YouTube, TikTok, Facebook, merch, brand deals, LLC, taxes, scale. No guru hype. Just the playbook.</p>
   <div class="sticker-row reveal">
     <span class="sticker">9 phases</span>
-    <span class="sticker sticker-coral">16 power tools</span>
+    <span class="sticker sticker-coral">17 power tools</span>
     <span class="sticker sticker-violet">9 case files</span>
     <span class="sticker sticker-gold">2026 verified</span>
     <span class="sticker sticker-violet">Zero → empire</span>
@@ -1207,7 +1239,7 @@ def build():
   <span>DIVERSIFY REVENUE</span><span>SEPARATE THE MONEY</span><span>SYSTEMS BEAT HUSTLE</span>
 </div></section>
 <section class="section"><div class="section-head"><h2>The Empire Map</h2><span class="section-tag">9 levels // clear them all</span></div><div class="phase-grid reveal-stagger">{cards}</div></section>
-<section class="section"><div class="section-head"><h2>Command Center</h2><span class="section-tag">weapons free</span><a href="tools.html" class="section-more">All 16 tools →</a></div><div class="tool-grid reveal-stagger">{tools_html}</div></section>
+<section class="section"><div class="section-head"><h2>Command Center</h2><span class="section-tag">weapons free</span><a href="tools.html" class="section-more">All 17 tools →</a></div><div class="tool-grid reveal-stagger">{tools_html}</div></section>
 {case_section}
 <section class="section"><div class="section-head"><h2>Hottest topics right now</h2><span class="section-tag">live feed // trend-machine</span></div>
 <div class="hud-panel trends-hud reveal">
@@ -1317,11 +1349,11 @@ def build():
             "id": "deal-templates",
             "kind": "json",
             "path": "api/v1/deal-templates.json",
-            "description": "The Deal Room data contract: negotiation scripts (lowball counter, usage-rights upsell, exclusivity pushback, rush-fee ask — with {{placeholders}}), the red-flag checklist with severity levels and scoring rules, and usage-rights pricing tiers with reported vs. definitional multiplier basis. A negotiation aid, not financial/legal/tax advice.",
+            "description": "The Deal Room data contract: negotiation scripts (lowball counter, usage-rights upsell, exclusivity pushback, rush-fee ask — with {{placeholders}}), the red-flag checklist with severity levels and scoring rules, and usage-rights pricing tiers with reported vs. definitional multiplier basis, 3 honest pitch email templates (cold pitch, one follow-up nudge, warm intro — [bracketed] placeholders, never invented stats), and the 10-item contract red-flag checklist with scoring rules. A negotiation aid, not financial/legal/tax advice.",
             "schema": "api/v1/schema/deal-templates.json",
             "updated": BUILD_TS,
             "records": None,
-            "records_note": "Data contract, not a record list: 4 negotiation scripts, 6 red-flag items, 6 usage-rights tiers.",
+            "records_note": "Data contract, not a record list: 4 negotiation scripts, 6 red-flag items, 6 usage-rights tiers, 3 pitch email templates, 10 contract red-flag items.",
             "deprecated": False,
             "deprecation_note": None,
             "freshness_note": "Multipliers are reported 2026 benchmarks and ranges, not quotes. Verify against current creator rate reports before quoting.",
@@ -1365,7 +1397,7 @@ def build():
             "id": "tools",
             "kind": "json",
             "path": "api/v1/tools.json",
-            "description": "All sixteen interactive tools with programmatic input schemas (JSON Schema draft-07), output descriptions, and drive notes — replicate the tools' logic without the UI.",
+            "description": "All seventeen interactive tools with programmatic input schemas (JSON Schema draft-07), output descriptions, and drive notes — replicate the tools' logic without the UI.",
             "schema": "api/v1/schema/tools.json",
             "updated": BUILD_TS,
             "records": len(TOOLS_API),
@@ -1389,7 +1421,7 @@ def build():
             "id": "tool-pages",
             "kind": "html",
             "paths": [f"{slug}.html" for slug, _, _ in TOOLS],
-            "description": "The sixteen interactive tools' human UI pages. Agents should prefer api/v1/tools.json input schemas over scraping these pages.",
+            "description": "The seventeen interactive tools' human UI pages. Agents should prefer api/v1/tools.json input schemas over scraping these pages.",
             "schema": None,
             "updated": BUILD_TS,
             "records": len(TOOLS),
@@ -1457,7 +1489,7 @@ def build():
     # ---- tools.json: every tool with its programmatic input schema ----
     (API / "tools.json").write_text(json.dumps({
         "version": "1.0.0", "updated": "2026-10-11",
-        "note": ("Programmatic input schemas for the sixteen interactive tools. "
+        "note": ("Programmatic input schemas for the seventeen interactive tools. "
                  "Agents replicate each tool's logic by feeding these inputs to the "
                  "documented formulas / shipped JS (assets/js/<id>.js); the UI pages "
                  "are the human front-end for the same logic."),
@@ -1897,7 +1929,7 @@ def build():
     for slug, title, desc in TOOLS:
         llms.append(f"- [{title}]({slug}.html) — {desc}")
     llms += ["- [Glossary](glossary.html)", "",
-             "All sixteen tools, grouped by job (Plan / Money / Content): [Tools hub](tools.html).",
+             "All seventeen tools, grouped by job (Plan / Money / Content): [Tools hub](tools.html).",
              "", "## Reference"]
     for m in reference_meta:
         llms.append(f"- [{m['badge']}: {m['title']}]({m['path']}) — {m['read_minutes']} min read")
@@ -1917,11 +1949,11 @@ def build():
              "- api/v1/skills.json",
              "- api/v1/case-files.json",
              "- api/v1/tools.json — every tool's programmatic input schema",
-             "- api/v1/deal-templates.json — Deal Room data: negotiation scripts, red-flag checklist, usage-rights tiers",
+             "- api/v1/deal-templates.json — Deal Room data: negotiation scripts, red-flag checklist, usage-rights tiers, pitch templates, contract red-flag checklist",
              "- api/v1/content-engine.json — Content Engine data: idea formats, Playbook hook structures, dealing rules, Repurposing 2.0 map, originality guardrails, deal-slot guidance",
              "- api/v1/schema/ — JSON Schema (draft-07) for every endpoint",
              "", "## Agents",
-             "- AGENT.md — how an agent uses this site: base URL pattern, example requests, 8 end-to-end workflows, tool input schemas",
+             "- AGENT.md — how an agent uses this site: base URL pattern, example requests, 9 end-to-end workflows, tool input schemas",
              "- [Agents](agents.html) — the agent surface: endpoint table, all skills, data freshness policy, 5 worked agent workflows",
              "- [API Explorer](api-explorer.html) — browse api/v1 endpoints, preview JSON in-browser",
              "- llms.txt (this file) — quick agent orientation",

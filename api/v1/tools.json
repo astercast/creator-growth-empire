@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
   "updated": "2026-10-11",
-  "note": "Programmatic input schemas for the sixteen interactive tools. Agents replicate each tool's logic by feeding these inputs to the documented formulas / shipped JS (assets/js/<id>.js); the UI pages are the human front-end for the same logic.",
+  "note": "Programmatic input schemas for the seventeen interactive tools. Agents replicate each tool's logic by feeding these inputs to the documented formulas / shipped JS (assets/js/<id>.js); the UI pages are the human front-end for the same logic.",
   "tools": [
     {
       "id": "quiz",
@@ -1129,6 +1129,99 @@
       },
       "output": "Two verdicts: current YPP rules (through Jan 31, 2027: 1K subs + 4K watch hours/12mo OR 10M Shorts views/90d) vs 2027 rules (from Feb 1, 2027: 1K subs + 8K hours/365d OR 20M Shorts views/90d), each with per-check pass/fail; the 2027 Shorts revenue floor check (10M qualified Shorts views/90d, monthly); the 2027 activity test for partners; the unchanged fan-funding tier; the gap math per rule; the shorter-walk note; the Oct-2026 Shorts-originality warning when relevant; a chapter-grounded close-the-gap plan. Thresholds labeled with sources and observation dates; every verdict carries the verify-live-with-YouTube disclaimer.",
       "drive_notes": "Engine (assets/js/ypp-checker.js, UMD \u2014 importable in node): RULES carries both rule sets with source strings; validInput(i) validates the numbers and two enums; check(i) returns {input, now, y2027, originalityWarning, plan2027, shorterWalk, disclaimer}; fullVerdict/fanVerdict/shortsFloorVerdict/activityVerdict return per-check pass/fail + gap math; plan() returns chapter-grounded steps with read-next links to real site pages. Educational aid, not financial/legal/tax advice; never an income promise."
+    },
+    {
+      "id": "outreach",
+      "title": "The Outreach Center",
+      "description": "Run your sponsor pipeline outbound: track pitches in a CRM-lite, generate honest pitch emails, quote from the 2026 rate card, and flag contract red flags before you sign.",
+      "page": "outreach.html",
+      "input_schema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "title": "OutreachInput",
+        "type": "object",
+        "required": [],
+        "properties": {
+          "brand": {
+            "type": "string",
+            "description": "Brand being pitched (pipeline + pitch)."
+          },
+          "contactName": {
+            "type": "string",
+            "description": "The human being emailed \u2014 never 'dear partnerships team'."
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pitched",
+              "replied",
+              "negotiating",
+              "signed",
+              "passed"
+            ],
+            "default": "pitched",
+            "description": "Where the outreach sits in the pitched \u2192 signed pipeline."
+          },
+          "followUpDate": {
+            "type": "string",
+            "format": "date",
+            "description": "YYYY-MM-DD of the single 7-day nudge. One nudge, then move on."
+          },
+          "followers": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Follower/subscriber count on the platform being sold (rate calculator)."
+          },
+          "platform": {
+            "type": "string",
+            "enum": [
+              "youtube",
+              "tiktok",
+              "instagram"
+            ],
+            "default": "youtube"
+          },
+          "deliverable": {
+            "type": "string",
+            "enum": [
+              "integrated",
+              "dedicated",
+              "short"
+            ],
+            "default": "integrated"
+          },
+          "expectedViews": {
+            "type": "number",
+            "minimum": 0,
+            "default": 0,
+            "description": "Last-10-video average; sponsors buy views, not subs."
+          },
+          "pitchTemplate": {
+            "type": "string",
+            "enum": [
+              "cold_pitch",
+              "follow_up_nudge",
+              "warm_intro"
+            ]
+          },
+          "pitchVars": {
+            "type": "object",
+            "description": "Values for the template's [bracketed] placeholders (your_name, channel_name, avg_views, \u2026). Unfilled placeholders stay visible \u2014 never invent stats."
+          },
+          "contractFlags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Checked contract_flags[].id values from api/v1/deal-templates.json."
+          }
+        }
+      },
+      "output": "Pipeline stats (contacted, response rate, active deals, close rate) + follow-up buckets (overdue / due today / upcoming); rendered pitch email from the 3 templates with unfilled [brackets] left visible; rate-card quote (tier range, top-of-range quote point, 23% expected-close math, CPM cross-check vs the deliverable band); contract risk summary (per-item plain-language fix + clean / caution / don't-sign verdict). All ranges and guidance, never promises.",
+      "drive_notes": "Engine (assets/js/outreach.js, UMD \u2014 importable in node): validDeal(d) validates pipeline records; pipelineStats(deals) computes response/close rates; dueFollowUps(deals, nowIso) buckets follow-ups; quoteCalc(input, rateCard, ruleOfThumb) reads sponsorship_rate_card_2026 (tier ranges, platform multipliers, sponsored_cpms) and sponsorship_rule_of_thumb.dedicated_cpm_range \u2014 output carries the ~23% listed-vs-accepted note, the 41% package-discount figure, and the never-a-quote disclaimer; renderPitch(template, vars) fills placeholders and leaves unknown ones visible; contractRisk(ids, contract_flags) scores contract structure (any walk_away flag or 3+ points -> don't sign) with a NOT-legal-advice disclaimer. Templates + contract flags from api/v1/deal-templates.json. Negotiation aid, not financial/legal/tax advice."
     }
   ]
 }

@@ -1,1 +1,274 @@
-{"$schema":"http://json-schema.org/draft-07/schema#","properties":{"disclaimer":{"type":"string"},"negotiation_scripts":{"items":{"properties":{"body":{"type":"string"},"grounded_in":{"type":"string"},"id":{"type":"string"},"tip":{"type":"string"},"title":{"type":"string"},"when":{"type":"string"}},"required":["id","title","when","body","tip","grounded_in"],"type":"object"},"type":"array"},"red_flags":{"items":{"properties":{"detail":{"type":"string"},"fix":{"type":"string"},"id":{"type":"string"},"severity":{"enum":["walk_away","major","minor"]},"title":{"type":"string"}},"required":["id","title","severity","detail","fix"],"type":"object"},"type":"array"},"scoring":{"properties":{"note":{"type":"string"},"rules":{"items":{"type":"string"},"type":"array"}},"required":["rules"],"type":"object"},"source":{"type":"string"},"updated":{"type":"string"},"usage_rights_tiers":{"items":{"properties":{"basis":{"type":"string"},"description":{"type":"string"},"id":{"type":"string"},"label":{"type":"string"},"multiplier":{"anyOf":[{"items":[{"type":"number"},{"anyOf":[{"type":"number"},{"type":"null"}]}],"maxItems":2,"minItems":2,"type":"array"},{"type":"null"}]},"multiplier_label":{"type":"string"},"reported":{"type":"boolean"}},"required":["id","label","description","multiplier","multiplier_label","basis","reported"],"type":"object"},"type":"array"},"version":{"type":"string"}},"required":["version","updated","disclaimer","usage_rights_tiers","negotiation_scripts","red_flags","scoring"],"title":"DealTemplates","type":"object"}
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "properties": {
+    "disclaimer": {
+      "type": "string"
+    },
+    "negotiation_scripts": {
+      "items": {
+        "properties": {
+          "body": {
+            "type": "string"
+          },
+          "grounded_in": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "tip": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "when": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "when",
+          "body",
+          "tip",
+          "grounded_in"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "red_flags": {
+      "items": {
+        "properties": {
+          "detail": {
+            "type": "string"
+          },
+          "fix": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "severity": {
+            "enum": [
+              "walk_away",
+              "major",
+              "minor"
+            ]
+          },
+          "title": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "severity",
+          "detail",
+          "fix"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "scoring": {
+      "properties": {
+        "note": {
+          "type": "string"
+        },
+        "rules": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "rules"
+      ],
+      "type": "object"
+    },
+    "source": {
+      "type": "string"
+    },
+    "updated": {
+      "type": "string"
+    },
+    "usage_rights_tiers": {
+      "items": {
+        "properties": {
+          "basis": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "multiplier": {
+            "anyOf": [
+              {
+                "items": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "anyOf": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  }
+                ],
+                "maxItems": 2,
+                "minItems": 2,
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "multiplier_label": {
+            "type": "string"
+          },
+          "reported": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "label",
+          "description",
+          "multiplier",
+          "multiplier_label",
+          "basis",
+          "reported"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "version": {
+      "type": "string"
+    },
+    "pitch_templates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "when",
+          "subject",
+          "body",
+          "placeholders",
+          "grounded_in",
+          "honesty_note"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "when": {
+            "type": "string"
+          },
+          "subject": {
+            "type": "string"
+          },
+          "body": {
+            "type": "string"
+          },
+          "placeholders": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "grounded_in": {
+            "type": "string"
+          },
+          "honesty_note": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "contract_flags": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "severity",
+          "detail",
+          "fix"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "severity": {
+            "enum": [
+              "walk_away",
+              "major",
+              "minor"
+            ]
+          },
+          "detail": {
+            "type": "string"
+          },
+          "fix": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "contract_scoring": {
+      "type": "object",
+      "required": [
+        "rules"
+      ],
+      "properties": {
+        "note": {
+          "type": "string"
+        },
+        "rules": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "version",
+    "updated",
+    "disclaimer",
+    "usage_rights_tiers",
+    "negotiation_scripts",
+    "red_flags",
+    "scoring",
+    "pitch_templates",
+    "contract_flags",
+    "contract_scoring"
+  ],
+  "title": "DealTemplates",
+  "type": "object"
+}

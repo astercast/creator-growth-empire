@@ -30,9 +30,10 @@ From $0 to a multi-million-dollar creator company.
 - [The Money Map](money-map.html) — Find your stage on the $0-to-company journey: 7 questions, 5 stage playbooks, your next 3 moves. Stages are focus guides, never income promises.
 - [Diagnose My Video](video-doctor.html) — Pick your symptom — low CTR, the 30-second cliff, great retention but no subs — and get ranked causes with the fix from the chapter that owns it.
 - [YPP 2027 Eligibility Checker](ypp-checker.html) — Enter your subs, watch hours, and Shorts views — get your verdict under the current YPP bar and the Feb-2027 bar, the gap math, and a chapter-grounded plan to close it.
+- [The Outreach Center](outreach.html) — Run your sponsor pipeline outbound: track pitches in a CRM-lite, generate honest pitch emails, quote from the 2026 rate card, and flag contract red flags before you sign.
 - [Glossary](glossary.html)
 
-All sixteen tools, grouped by job (Plan / Money / Content): [Tools hub](tools.html).
+All seventeen tools, grouped by job (Plan / Money / Content): [Tools hub](tools.html).
 
 ## Reference
 - [Reference: 2026 Rate Card](rate-card.html) — 3 min read
@@ -65,12 +66,12 @@ All sixteen tools, grouped by job (Plan / Money / Content): [Tools hub](tools.ht
 - api/v1/skills.json
 - api/v1/case-files.json
 - api/v1/tools.json — every tool's programmatic input schema
-- api/v1/deal-templates.json — Deal Room data: negotiation scripts, red-flag checklist, usage-rights tiers
+- api/v1/deal-templates.json — Deal Room data: negotiation scripts, red-flag checklist, usage-rights tiers, pitch templates, contract red-flag checklist
 - api/v1/content-engine.json — Content Engine data: idea formats, Playbook hook structures, dealing rules, Repurposing 2.0 map, originality guardrails, deal-slot guidance
 - api/v1/schema/ — JSON Schema (draft-07) for every endpoint
 
 ## Agents
-- AGENT.md — how an agent uses this site: base URL pattern, example requests, 8 end-to-end workflows, tool input schemas
+- AGENT.md — how an agent uses this site: base URL pattern, example requests, 9 end-to-end workflows, tool input schemas
 - [Agents](agents.html) — the agent surface: endpoint table, all skills, data freshness policy, 5 worked agent workflows
 - [API Explorer](api-explorer.html) — browse api/v1 endpoints, preview JSON in-browser
 - llms.txt (this file) — quick agent orientation

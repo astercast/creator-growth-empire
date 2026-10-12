@@ -67,7 +67,14 @@ function check(name, cond, detail) {
 
   // tools.json drives the planner config shape
   const tools = load("tools.json").tools;
-  check("wf2: tools.json lists all 16 tools", tools.length === 16, String(tools.length));
+  check("wf2: tools.json lists all 17 tools", tools.length === 17, String(tools.length));
+  const oc = tools.find((t) => t.id === "outreach");
+  const ocSchema = oc && oc.input_schema;
+  check("wf2: outreach input schema exposes pipeline + quote + pitch + contract fields",
+    !!(ocSchema && ocSchema.title === "OutreachInput"
+       && ocSchema.properties.brand && ocSchema.properties.status
+       && ocSchema.properties.followers && ocSchema.properties.platform
+       && ocSchema.properties.pitchTemplate && ocSchema.properties.contractFlags));
   const yppc = tools.find((t) => t.id === "ypp-checker");
   const yppSchema = yppc && yppc.input_schema;
   check("wf2: ypp-checker input schema exposes stats + originality + formatMix",
@@ -356,6 +363,64 @@ function check(name, cond, detail) {
   const early = MM.placeStage(Object.assign({}, answers, { revenue: "0", audience: "100k-1m" }));
   check("wf7: audience-ahead note fires, stage moves at most +1",
     early.stage === 1 && early.note === "audience-ahead", `${early.stage}/${early.note}`);
+})();
+
+/* ============ Workflow 9: outbound sponsor campaign, 50K-sub channel ============
+ * AGENT.md §Workflow 9: tools.json OutreachInput + deal-templates.json
+ * (pitch_templates, contract_flags) + the shipped outreach engine. */
+(function workflow8() {
+  const tools = load("tools.json").tools;
+  const oc = tools.find((t) => t.id === "outreach");
+  check("wf8: tools.json has the outreach record on outreach.html",
+    !!(oc && oc.page === "outreach.html"), oc && oc.page);
+
+  // Replicate the engine (same module the page ships)
+  const OC = require(path.join(__dirname, "..", "assets", "js", "outreach.js"));
+  const tpl = load("deal-templates.json");
+  check("wf8: deal-templates v1.1.0 ships 3 pitch templates + 10 contract flags",
+    tpl.version === "1.1.0" && tpl.pitch_templates.length === 3 && tpl.contract_flags.length === 10,
+    `${tpl.version}/${tpl.pitch_templates.length}/${tpl.contract_flags.length}`);
+
+  // Pipeline: validate a record, then stats over a pinned set
+  const rec = { brand: "Acme", contactName: "Priya", email: "priya@acme.co",
+                status: "pitched", followUpDate: "2026-10-18" };
+  check("wf8: validDeal accepts a complete pitch record", OC.validDeal(rec).ok);
+  const deals = [rec,
+    Object.assign({}, rec, { brand: "Beta", status: "replied" }),
+    Object.assign({}, rec, { brand: "Gamma", status: "signed" }),
+    Object.assign({}, rec, { brand: "Delta", status: "passed" })];
+  const stats = OC.pipelineStats(deals);
+  check("wf8: pipeline stats — 4 contacted, 2 responded, 50% response, 25% close",
+    stats.contacted === 4 && stats.responded === 2 && stats.signed === 1
+    && stats.responseRate === 50 && stats.closeRate === 25,
+    JSON.stringify(stats));
+
+  // Quote: 50K YouTube, integrated slot, 40K expected views
+  const cfg = load("calculators.json");
+  const q = OC.quoteCalc(
+    { followers: 50000, platform: "youtube", deliverable: "integrated", expectedViews: 40000 },
+    cfg.sponsorship_rate_card_2026, cfg.sponsorship_rule_of_thumb);
+  check("wf8: quote — micro tier, $1,000–$10,000 range, $10,000 top-of-range quote",
+    q.tier === "micro_10k_100k" && q.range[0] === 1000 && q.range[1] === 10000
+    && q.quotePoint === 10000, q.rangeLabel);
+  check("wf8: expected close ~$7,700 (23% listed-vs-accepted math)",
+    q.expectedClose === 7700, String(q.expectedClose));
+  check("wf8: CPM cross-check flags $250 implied as above the $20–$35 integrated band",
+    q.cpm.impliedCpmAtQuote === 250 && /above/.test(q.cpm.note));
+  check("wf8: quote carries the never-a-quote disclaimer",
+    /never a quote/i.test(q.disclaimer));
+
+  // Pitch: render the cold template with the creator's real numbers
+  const cold = tpl.pitch_templates.find((t) => t.id === "cold_pitch");
+  const pitch = OC.renderPitch(cold, { your_name: "Maya", channel_name: "Maya Makes",
+    brand: "Acme", avg_views: "40,000" });
+  check("wf8: pitch fills known vars, leaves unfilled [brackets] visible",
+    pitch.indexOf("Maya") !== -1 && pitch.indexOf("[Niche]") !== -1);
+
+  // Contract: IP assignment alone -> don't sign
+  const risk = OC.contractRisk(["ip_assignment"], tpl.contract_flags);
+  check("wf8: IP assignment alone -> dont_sign with a plain-language fix",
+    risk.verdict === "dont_sign" && risk.items.length === 1 && risk.items[0].fix.length > 0);
 })();
 
 console.log(`\nagent-workflows: ${pass} passed, ${fail} failed`);

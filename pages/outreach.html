@@ -1,0 +1,80 @@
+<div id="outreach">
+<p class="lede">The outbound side of the Deal Room: build a brand pipeline, write pitches that respect inboxes, quote from the 2026 rate card, and read a contract before you sign it. Everything lives in your browser — no accounts, no uploads, no data leaves the machine.</p>
+<p class="muted">Got an inbound offer to benchmark instead? The <a href="deal-room.html">Deal Room</a> manages the whole deal from offer to paid. The outreach rulebook lives in the <a href="phase-5-monetization-stack.html">Phase 5 chapter</a>.</p>
+
+<h2>1 · Outreach pipeline</h2>
+<p class="muted">Your CRM-lite for outbound: who you pitched, who replied, when the one nudge goes out. Follow up exactly once — then move on. ~5% reply rate is normal; the system works on volume.</p>
+<form id="oc-form" aria-label="Log a brand pitch">
+  <div class="calc-grid">
+    <label>Brand <input type="text" id="oc-brand" required maxlength="120" placeholder="e.g. Ridge Wallet"></label>
+    <label>Contact name <input type="text" id="oc-contact" maxlength="120" placeholder="e.g. Priya, influencer lead"></label>
+    <label>Contact email <input type="email" id="oc-email" maxlength="160" placeholder="name@brand.com"></label>
+    <label>Date pitched <input type="date" id="oc-date"></label>
+    <label>Status
+      <select id="oc-status">
+        <option value="pitched" selected>Pitched</option>
+        <option value="replied">Replied</option>
+        <option value="negotiating">Negotiating</option>
+        <option value="signed">Signed</option>
+        <option value="passed">Passed</option>
+      </select></label>
+    <label>Follow-up date <input type="date" id="oc-followup"></label>
+    <label>Notes <input type="text" id="oc-notes" maxlength="280" placeholder="e.g. Met at a conference, warm lead"></label>
+  </div>
+  <button type="submit" class="btn btn-primary">Log pitch →</button>
+</form>
+<p id="oc-confirm" role="status" aria-live="polite" class="muted"></p>
+<div id="oc-reminders" aria-live="polite" style="margin-top:1.25rem"></div>
+<div id="oc-stats" aria-live="polite" style="margin-top:1.25rem"></div>
+<ul id="oc-deals" aria-live="polite"></ul>
+<p class="muted">Pipeline lives in this browser only (localStorage). A "no" is data — mark it passed and keep pitching the next brand on the list.</p>
+
+<h2>2 · Pitch email generator</h2>
+<p class="muted">Three templates from the sponsorship outreach playbook: cold pitch, the one 7-day nudge, and the warm intro. Fill the fields — every <strong>[bracket]</strong> is a placeholder YOU complete with your real numbers. The generator never invents a stat for you.</p>
+<div class="calc-grid">
+  <label>Template
+    <select id="oc-pitch-tpl" aria-label="Pitch template"></select></label>
+</div>
+<p class="muted" id="oc-pitch-grounded"></p>
+<div id="oc-pitch-fields" class="calc-grid"></div>
+<div style="margin-top:1rem">
+  <button type="button" class="btn btn-primary" id="oc-pitch-gen">Generate pitch →</button>
+</div>
+<div id="oc-pitch-out" aria-live="polite" style="margin-top:1.5rem"></div>
+<div id="oc-pitch-actions" style="display:none;margin-top:1rem">
+  <button type="button" class="btn btn-ghost" id="oc-pitch-copy">Copy pitch</button>
+</div>
+<p class="muted" id="oc-pitch-honest"></p>
+<p class="muted">Anti-spam contract: one targeted email per brand, never bulk blasts. No reply to the cold pitch gets exactly one nudge — a second nudge is spam. Never pitch a brand whose product you haven't vetted; your audience blames <em>you</em>, not the brand.</p>
+
+<h2>3 · What should I charge?</h2>
+<p class="muted">The 2026 rate card, interactive: your tier range, a CPM cross-check against your expected views, and the negotiation guidance that travels with every number. Ranges — never quotes, never promises.</p>
+<form id="oc-rate-form" aria-label="Rate calculator">
+  <div class="calc-grid">
+    <label>Follower count <input type="number" id="oc-followers" min="0" step="1000" value="50000"></label>
+    <label>Platform
+      <select id="oc-platform">
+        <option value="youtube" selected>YouTube</option>
+        <option value="tiktok">TikTok</option>
+        <option value="instagram">Instagram</option>
+      </select></label>
+    <label>Deliverable
+      <select id="oc-deliverable">
+        <option value="integrated" selected>Integrated slot (mid-roll mention)</option>
+        <option value="dedicated">Dedicated video (brand is the video)</option>
+        <option value="short">Short-form video (Short / TikTok / Reel)</option>
+      </select></label>
+    <label>Avg. views per video (last 10) <input type="number" id="oc-views" min="0" step="1000" value="25000"></label>
+  </div>
+  <button type="submit" class="btn btn-primary">Calculate my range →</button>
+</form>
+<div id="oc-rate-out" aria-live="polite" style="margin-top:1.5rem"></div>
+<p class="muted">Tier ranges from the 2026 rate card (benchmarks disagree 2–3× within tiers — niche, engagement, and geography move the real number). Sponsors buy views, not subs: quote off your last-10-video average. At equal followers, YouTube pays ~1.7× Instagram, TikTok ~0.85× — re-verified against October 2026 agency tables.</p>
+
+<h2>4 · Contract red-flag checklist</h2>
+<p class="muted">Read the paper before you sign it. Check every clause the contract actually contains — exclusivity, usage rights, payment terms, kill fees, the traps hiding in the boilerplate. Your selections persist in this browser.</p>
+<form id="oc-contract" aria-label="Contract red-flag checklist"></form>
+<div id="oc-contract-out" aria-live="polite" style="margin-top:1.25rem"></div>
+<p class="muted">This checklist scores the contract's structure — the offer's pay is benchmarked in §3, and the Deal Room's checklist covers offer terms. <strong>Not legal advice:</strong> a negotiation aid only. Contracts above $500 deserve a real lawyer's eyes.</p>
+</div>
+<noscript><p><strong>The Outreach Center needs JavaScript</strong> — the pipeline, pitch generator, and calculators run entirely in your browser with no server. The 2026 rate card benchmarks live at <a href="rate-card.html">rate-card.html</a>, pitch templates and contract flags as machine-readable data at <a href="api/v1/deal-templates.json">api/v1/deal-templates.json</a>.</p></noscript>
