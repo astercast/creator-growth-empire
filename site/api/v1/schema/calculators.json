@@ -1,0 +1,67 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Calculators",
+  "type": "object",
+  "required": [
+    "version",
+    "updated",
+    "youtube_longform_rpm_bands",
+    "niche_growth_2026",
+    "platform_rules_2026",
+    "sponsorship_rate_card_2026",
+    "platform_thresholds",
+    "revenue_splits"
+  ],
+  "properties": {
+    "version": {
+      "type": "string"
+    },
+    "updated": {
+      "type": "string"
+    },
+    "youtube_longform_rpm_bands": {
+      "type": "object",
+      "required": [
+        "finance_investing",
+        "gaming",
+        "kids_content"
+      ],
+      "additionalProperties": {
+        "type": "array",
+        "minItems": 2,
+        "maxItems": 2,
+        "items": {
+          "type": "number"
+        }
+      }
+    },
+    "niche_growth_2026": {
+      "type": "object",
+      "required": [
+        "date",
+        "channel_growth_monthly_pct",
+        "search_growth_2026",
+        "breakout_formats",
+        "rpm_reality"
+      ]
+    },
+    "platform_rules_2026": {
+      "type": "object",
+      "required": [
+        "date",
+        "tiktok",
+        "youtube_shorts",
+        "instagram_reels"
+      ]
+    },
+    "sponsorship_rate_card_2026": {
+      "type": "object"
+    },
+    "platform_thresholds": {
+      "type": "object"
+    },
+    "revenue_splits": {
+      "type": "object"
+    }
+  }
+}

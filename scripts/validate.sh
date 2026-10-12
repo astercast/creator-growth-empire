@@ -1,0 +1,281 @@
+#!/usr/bin/env bash
+# validate.sh — one-command validation pipeline for the Creator Growth Empire.
+#
+# Stages:
+#   1. JS syntax ......... node --check every source JS file (assets/js, tests)
+#   2. JSON parse ........ every JSON file under api/, data/, skills/, scripts/
+#   3. JSON Schema ....... draft-07 validation of chapters / case-files /
+#                         glossary / calculators against api/v1/schema/
+#   4. Relative links .... every href/src in every site/ page resolves on disk;
+#                         JS fetch() literals resolve too; api/v1/index.json
+#                         endpoints all exist
+#   5. Build reproduc. ... scripts/build.py clean rebuild leaves zero git diff
+#                         on site/, api/, llms.txt, llms-full.txt, skills/index.json
+#   6. Sim engine tests .. node tests/sim-engine.test.js
+#   7. llms.txt fresh ... chapter/tool/reference/case-file/skill counts match
+#                         build.py; every chapter marker present in llms-full.txt
+#
+# Exit code: 0 only if every stage passes. Anything failing is a real issue
+# to fix, not cosmetic churn.
+#
+# Usage: bash scripts/validate.sh   (from anywhere; resolves the repo itself)
+
+set -u
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+cd "$ROOT"
+
+PASS=0
+FAIL=0
+fail() { echo "  FAIL: $1"; FAIL=$((FAIL+1)); }
+pass() { echo "  ok: $1"; PASS=$((PASS+1)); }
+stage() { echo; echo "[$1/7] $2"; }
+
+# ---------------------------------------------------------------- stage 1 ---
+stage 1 "JS syntax (node --check)"
+JS_OK=1
+JS_N=0
+while IFS= read -r f; do
+  JS_N=$((JS_N+1))
+  if ! node --check "$f" >/dev/null 2>&1; then
+    fail "$f"; JS_OK=0
+  fi
+done < <(find assets/js tests -name '*.js' 2>/dev/null | sort)
+if [ "$JS_OK" = 1 ]; then pass "$JS_N source JS files parse"; fi
+
+# ---------------------------------------------------------------- stage 2 ---
+stage 2 "JSON parse"
+JSON_N=0
+JSON_BAD=0
+while IFS= read -r f; do
+  JSON_N=$((JSON_N+1))
+  if ! python3 -c 'import json,sys; json.load(open(sys.argv[1]))' "$f" 2>/dev/null; then
+    fail "invalid JSON: $f"; JSON_BAD=$((JSON_BAD+1))
+  fi
+done < <(find api data skills scripts -name '*.json' 2>/dev/null | grep -v __pycache__ | sort)
+if [ "$JSON_BAD" = 0 ]; then pass "$JSON_N JSON files parse"; fi
+
+# ---------------------------------------------------------------- stage 3 ---
+stage 3 "JSON Schema (draft-07)"
+python3 - <<'EOF'
+import json, sys
+from pathlib import Path
+from jsonschema import Draft7Validator
+
+ROOT = Path(".")
+SCH = ROOT / "api" / "v1" / "schema"
+failures = []
+
+def schema(name):
+    s = json.loads((SCH / name).read_text())
+    Draft7Validator.check_schema(s)  # the schema itself must be valid draft-07
+    return Draft7Validator(s)
+
+# per-record schemas
+checks = [
+    ("chapters.json", "chapters", schema("chapter.json"), "chapter"),
+    ("case-files.json", "case_files", schema("case-file.json"), "case file"),
+]
+for fname, key, val, label in checks:
+    for i, rec in enumerate(json.loads((ROOT / "api" / "v1" / fname).read_text())[key]):
+        for e in val.iter_errors(rec):
+            failures.append(f"{fname}[{i}] {label}: {e.message}")
+
+# doc-level schemas
+for fname, sname in [("glossary.json", "glossary.json"),
+                     ("calculators.json", "calculators.json")]:
+    for e in schema(sname).iter_errors(json.loads((ROOT / "api" / "v1" / fname).read_text())):
+        failures.append(f"{fname}: {e.message}")
+
+# every record's path must resolve to a generated page
+for fname, key in [("chapters.json", "chapters"), ("case-files.json", "case_files")]:
+    for rec in json.loads((ROOT / "api" / "v1" / fname).read_text())[key]:
+        if not (ROOT / "site" / rec["path"]).exists():
+            failures.append(f"{fname}: path '{rec['path']}' has no site/ page")
+
+if failures:
+    print("  FAIL: schema/path violations:")
+    for f in failures[:20]:
+        print("   -", f)
+    if len(failures) > 20:
+        print(f"   ... and {len(failures)-20} more")
+    sys.exit(1)
+print("  ok: chapters/case-files/glossary/calculators validate against draft-07 schemas; all record paths resolve")
+EOF
+[ $? -eq 0 ] && pass "schema validation clean" || FAIL=$((FAIL+1))
+
+# ---------------------------------------------------------------- stage 4 ---
+stage 4 "relative-link check (0 broken)"
+python3 - <<'EOF'
+import json, re, sys
+from pathlib import Path
+from urllib.parse import unquote
+
+ROOT = Path(".")
+ATTR = re.compile(r'''(?:href|src)\s*=\s*["']([^"']+)["']''', re.I)
+FETCH = re.compile(r'''fetch\(\s*["']([^"']+)["']''')
+total = 0
+broken = []
+
+def resolve(base, link):
+    link = link.strip()
+    if not link or link.startswith(("#", "mailto:", "tel:", "data:", "javascript:")):
+        return None
+    if re.match(r"^(?:https?:)?//", link, re.I):
+        return None  # external: out of scope for this check
+    link = unquote(link.split("#", 1)[0].split("?", 1)[0])
+    if not link:
+        return None
+    if link.startswith("/"):
+        return ROOT / "site" / link[1:]  # site-rooted
+    return base / link
+
+def check_link(base, link, origin):
+    global total
+    target = resolve(base, link)
+    if target is None:
+        return
+    total += 1
+    t = Path(str(target).rstrip("/"))
+    if not t.exists():
+        broken.append(f"{origin} -> {link}")
+
+# generated pages + tool fragments (fragments resolve as-if included in site/)
+for page in sorted((ROOT / "site").rglob("*.html")):
+    text = page.read_text()
+    for m in ATTR.finditer(text):
+        check_link(page.parent, m.group(1), page.relative_to(ROOT))
+for frag in sorted((ROOT / "pages").glob("*.html")):
+    text = frag.read_text()
+    for m in ATTR.finditer(text):
+        check_link(ROOT / "site", m.group(1), frag.relative_to(ROOT))
+
+# JS fetch() literals in the shipped JS (from the page's perspective = site/)
+for js in sorted((ROOT / "site" / "assets" / "js").glob("*.js")):
+    text = js.read_text()
+    for m in FETCH.finditer(text):
+        if "BASE" in m.group(0):
+            continue
+        check_link(ROOT / "site", m.group(1), js.relative_to(ROOT))
+
+# api/v1/index.json endpoints must all exist on disk (the API Explorer BASE+name pattern).
+# references[]/tools[] are site-root-relative page files; the rest are repo-root-relative.
+idx = json.loads((ROOT / "api" / "v1" / "index.json").read_text())
+for key, val in idx["endpoints"].items():
+    vals = val if isinstance(val, list) else [val]
+    base = (ROOT / "site") if key in ("references", "tools") else ROOT
+    for v in vals:
+        check_link(base, v, "api/v1/index.json")
+
+print(f"  checked {total} links")
+if broken:
+    print(f"  FAIL: {len(broken)} broken links:")
+    for b in broken[:25]:
+        print("   -", b)
+    if len(broken) > 25:
+        print(f"   ... and {len(broken)-25} more")
+    sys.exit(1)
+print("  ok: 0 broken relative links")
+EOF
+[ $? -eq 0 ] && pass "link check" || FAIL=$((FAIL+1))
+
+# ---------------------------------------------------------------- stage 5 ---
+stage 5 "build reproducibility (clean rebuild -> zero diff)"
+python3 scripts/build.py >/dev/null 2>&1
+if [ $? -ne 0 ]; then
+  fail "scripts/build.py crashed"
+else
+  DIFF=$(git diff --stat -- site api llms.txt llms-full.txt skills/index.json 2>/dev/null)
+  if [ -z "$DIFF" ]; then
+    pass "clean rebuild produces byte-identical generated output"
+  else
+    fail "rebuild drifted from committed generated files:"
+    echo "$DIFF" | head -12 | sed 's/^/    /'
+  fi
+fi
+
+# ---------------------------------------------------------------- stage 6 ---
+stage 6 "sim-engine test suite"
+node tests/sim-engine.test.js >/tmp/cge_validate_tests.log 2>&1
+if [ $? -eq 0 ]; then
+  N=$(grep -c "PASS" /tmp/cge_validate_tests.log)
+  pass "sim-engine tests ($N assertions)"
+else
+  fail "tests/sim-engine.test.js failed:"
+  grep "FAIL" /tmp/cge_validate_tests.log | head -10 | sed 's/^/    /'
+fi
+
+# ---------------------------------------------------------------- stage 7 ---
+stage 7 "llms.txt / llms-full.txt freshness"
+python3 - <<'EOF'
+import re, sys
+sys.path.insert(0, "scripts")
+import build
+
+errors = []
+
+def section_bullets(text, header):
+    m = re.search(rf"^## {re.escape(header)}\s*$", text, re.M)
+    if not m:
+        return None
+    tail = text[m.end():]
+    nxt = re.search(r"^## ", tail, re.M)
+    tail = tail[:nxt.start()] if nxt else tail
+    return [l for l in tail.splitlines() if l.startswith("- ")]
+
+llms = open("llms.txt").read()
+full = open("llms-full.txt").read()
+
+phases = section_bullets(llms, "Phases")
+if phases is None or len(phases) != len(build.CHAPTERS):
+    errors.append(f"Phases: {len(phases) if phases is not None else 'MISSING'} bullets != CHAPTERS {len(build.CHAPTERS)}")
+
+tools = section_bullets(llms, "Tools")
+exp_tools = len(build.TOOLS) + 1  # tools + Glossary line
+if tools is None or len(tools) != exp_tools:
+    errors.append(f"Tools: {len(tools) if tools is not None else 'MISSING'} bullets != {exp_tools}")
+
+ref = section_bullets(llms, "Reference")
+if ref is None or len(ref) != len(build.REFERENCE_PAGES):
+    errors.append(f"Reference: {len(ref) if ref is not None else 'MISSING'} bullets != REFERENCE_PAGES {len(build.REFERENCE_PAGES)}")
+
+cases = section_bullets(llms, "Case Files — documented creator-business deconstructions")
+exp_cases = sum(1 for e in build.MARKDOWN_PAGES if e[3] == "Case File")
+case_links = [l for l in (cases or []) if re.match(r"- \[Case File:", l)]
+if cases is None or len(case_links) != exp_cases:
+    errors.append(f"Case Files: {len(case_links)} case links != {exp_cases} Case File pages")
+
+skills = section_bullets(llms, "Skills")
+from pathlib import Path
+exp_skills = len(list(Path("skills").glob("*/SKILL.md")))
+if skills is None or len(skills) != exp_skills:
+    errors.append(f"Skills: {len(skills) if skills is not None else 'MISSING'} bullets != {exp_skills} SKILL.md files")
+
+missing_markers = []
+for slug, src, phase, short in build.CHAPTERS:
+    if f"# {phase}: {short}" not in full:
+        missing_markers.append(slug)
+for slug, src, badge, short in build.REFERENCE_PAGES:
+    if f"# {badge}: {short}" not in full:
+        missing_markers.append(slug)
+for e in build.MARKDOWN_PAGES:
+    if f"# {e[3]}: {e[2]}" not in full:
+        missing_markers.append(e[0])
+if missing_markers:
+    errors.append(f"llms-full.txt missing markers: {', '.join(missing_markers)}")
+
+if errors:
+    print("  FAIL:")
+    for e in errors:
+        print("   -", e)
+    sys.exit(1)
+print(f"  ok: llms.txt lists {len(build.CHAPTERS)} phases, {len(build.TOOLS)} tools, "
+      f"{len(build.REFERENCE_PAGES)} reference, {exp_cases} case files, {exp_skills} skills; "
+      f"llms-full.txt carries every section marker")
+EOF
+[ $? -eq 0 ] && pass "llms.txt/llms-full.txt fresh" || FAIL=$((FAIL+1))
+
+# ---------------------------------------------------------------- summary ---
+echo
+echo "validate.sh: $PASS passed, $FAIL failed"
+[ "$FAIL" -eq 0 ] && echo "ALL STAGES PASS" || echo "VALIDATION FAILED"
+exit $([ "$FAIL" -eq 0 ] && echo 0 || echo 1)

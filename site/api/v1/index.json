@@ -8,7 +8,7 @@
     "skills": "api/v1/skills.json",
     "case-files": "api/v1/case-files.json",
     "references": [
-      "rate-card"
+      "rate-card.html"
     ],
     "tools": [
       "quiz.html",

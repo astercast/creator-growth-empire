@@ -479,7 +479,7 @@ def build():
             "calculators": "api/v1/calculators.json",
             "skills": "api/v1/skills.json",
             "case-files": "api/v1/case-files.json",
-            "references": [m["path"].replace(".html", "") for m in reference_meta],
+            "references": [m["path"] for m in reference_meta],
             "tools": [f"{slug}.html" for slug, _, _ in TOOLS],
         },
     }
@@ -496,13 +496,6 @@ def build():
     }, indent=2), encoding="utf-8")
     shutil.copy(DATA / "glossary.json", API / "glossary.json")
     shutil.copy(DATA / "calculators.json", API / "calculators.json")
-
-    # ---- ship an api/ mirror inside site/ so the deployed site serves its own
-    #      API (the API explorer fetches relative paths) ----
-    site_api = SITE / "api" / "v1"
-    if site_api.exists():
-        shutil.rmtree(site_api)
-    shutil.copytree(API, site_api)
 
     chapter_schema = {
         "$schema": "http://json-schema.org/draft-07/schema#",
@@ -542,6 +535,45 @@ def build():
     }
     (API / "schema" / "case-file.json").write_text(json.dumps(case_file_schema, indent=2), encoding="utf-8")
 
+    # calculators schema: locks the data contract the sim engine, revenue
+    # calculator, and deal analyzer read (rpm band shape + research blocks).
+    calculators_schema = {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "title": "Calculators",
+        "type": "object",
+        "required": ["version", "updated", "youtube_longform_rpm_bands",
+                     "niche_growth_2026", "platform_rules_2026",
+                     "sponsorship_rate_card_2026", "platform_thresholds",
+                     "revenue_splits"],
+        "properties": {
+            "version": {"type": "string"},
+            "updated": {"type": "string"},
+            "youtube_longform_rpm_bands": {
+                "type": "object",
+                "required": ["finance_investing", "gaming", "kids_content"],
+                "additionalProperties": {
+                    "type": "array", "minItems": 2, "maxItems": 2,
+                    "items": {"type": "number"},
+                },
+            },
+            "niche_growth_2026": {
+                "type": "object",
+                "required": ["date", "channel_growth_monthly_pct",
+                             "search_growth_2026", "breakout_formats",
+                             "rpm_reality"],
+            },
+            "platform_rules_2026": {
+                "type": "object",
+                "required": ["date", "tiktok", "youtube_shorts",
+                             "instagram_reels"],
+            },
+            "sponsorship_rate_card_2026": {"type": "object"},
+            "platform_thresholds": {"type": "object"},
+            "revenue_splits": {"type": "object"},
+        },
+    }
+    (API / "schema" / "calculators.json").write_text(json.dumps(calculators_schema, indent=2), encoding="utf-8")
+
     # ---- skills index (skills/<name>/SKILL.md directory format) ----
     skill_files = sorted((ROOT / "skills").glob("*/SKILL.md"))
     skills_idx = []
@@ -556,6 +588,15 @@ def build():
     (ROOT / "skills" / "index.json").write_text(json.dumps({"skills": skills_idx}, indent=2), encoding="utf-8")
     (API / "skills.json").write_text(json.dumps(
         {"version": "1.0.0", "updated": "2026-10-11", "skills": skills_idx}, indent=2), encoding="utf-8")
+
+    # ---- ship an api/ mirror inside site/ so the deployed site serves its own
+    #      API (the API explorer fetches relative paths). This must come AFTER
+    #      every api/v1 write (including schemas + skills.json) so a clean
+    #      build mirrors the final state, not a mid-build snapshot. ----
+    site_api = SITE / "api" / "v1"
+    if site_api.exists():
+        shutil.rmtree(site_api)
+    shutil.copytree(API, site_api)
 
     # ---- llms.txt / llms-full.txt ----
     llms = [f"# {SITE_NAME}", "", TAGLINE, "",

@@ -88,6 +88,8 @@
       });
       items.push({ name: "schema/chapter.json", desc: "JSON Schema for chapter entries." });
       items.push({ name: "schema/glossary.json", desc: "JSON Schema for glossary entries." });
+      items.push({ name: "schema/case-file.json", desc: "JSON Schema for case-file entries." });
+      items.push({ name: "schema/calculators.json", desc: "JSON Schema for the calculators data contract." });
       if (!items.length) throw new Error("empty index");
       render(items);
     })
