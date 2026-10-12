@@ -132,3 +132,5 @@ Phase 0 started with one person and a phone. The empire ends with a company that
 Start at Phase 0. Build the engine. Own the audience. Stack the revenue. Formalize the business. Scale the machine.
 
 The empire is built one upload at a time. Go.
+
+Curious what year one could look like under your assumptions? The [Empire Simulator](simulator.html) plays out 12 months of growth and revenue from your niche, cadence, and stack — with every assumption visible and tweakable. Model, not prophecy.

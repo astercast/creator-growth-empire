@@ -18,11 +18,11 @@
 <a class="skip-link" href="#main">Skip to content</a>
 <header class="site-header">
   <a class="brand" href="index.html"><span class="brand-mark">▲</span> Creator Growth Empire</a>
-  <nav class="site-nav" aria-label="Primary"><a href="index.html" class="nav-link">Empire Map</a><a href="quiz.html" class="nav-link">Niche Picker</a><a href="calculator.html" class="nav-link">Revenue Calc</a><a href="planner.html" class="nav-link">90-Day Plan</a><a href="deal-analyzer.html" class="nav-link">Deal Analyzer</a><a href="repurpose.html" class="nav-link">Repurpose Plan</a><a href="glossary.html" class="nav-link">Glossary</a><a href="agents.html" class="nav-link active">Agents</a></nav>
+  <nav class="site-nav" aria-label="Primary"><a href="index.html" class="nav-link">Empire Map</a><a href="quiz.html" class="nav-link">Niche Picker</a><a href="calculator.html" class="nav-link">Revenue Calc</a><a href="planner.html" class="nav-link">90-Day Plan</a><a href="deal-analyzer.html" class="nav-link">Deal Analyzer</a><a href="repurpose.html" class="nav-link">Repurpose Plan</a><a href="simulator.html" class="nav-link">Simulator</a><a href="glossary.html" class="nav-link">Glossary</a><a href="agents.html" class="nav-link active">Agents</a></nav>
   <button class="nav-toggle" aria-expanded="false" aria-controls="mobileNav" aria-label="Menu">☰</button>
 </header>
-<nav id="mobileNav" class="mobile-nav" aria-label="Mobile"><a href="index.html" class="nav-link">Empire Map</a><a href="quiz.html" class="nav-link">Niche Picker</a><a href="calculator.html" class="nav-link">Revenue Calc</a><a href="planner.html" class="nav-link">90-Day Plan</a><a href="deal-analyzer.html" class="nav-link">Deal Analyzer</a><a href="repurpose.html" class="nav-link">Repurpose Plan</a><a href="glossary.html" class="nav-link">Glossary</a><a href="agents.html" class="nav-link active">Agents</a></nav>
-<main id="main"><article class="chapter"><header class="chapter-hero" style="--phase-accent: var(--violet);"><p class="chapter-kicker"><span class="phase-badge" style="background: var(--violet);">The Agent Surface</span></p><h1>Agents</h1><p class="lede">This site is built to be used by agents, not just read by humans. Everything below — data, skills, tools, and full text — is machine-readable from static files. No API key, no server, no auth. Fetch and act.</p><p class="chapter-meta-strip"><span>5 min read</span><span class="sep">/</span><span>1,018 words</span></p></header>
+<nav id="mobileNav" class="mobile-nav" aria-label="Mobile"><a href="index.html" class="nav-link">Empire Map</a><a href="quiz.html" class="nav-link">Niche Picker</a><a href="calculator.html" class="nav-link">Revenue Calc</a><a href="planner.html" class="nav-link">90-Day Plan</a><a href="deal-analyzer.html" class="nav-link">Deal Analyzer</a><a href="repurpose.html" class="nav-link">Repurpose Plan</a><a href="simulator.html" class="nav-link">Simulator</a><a href="glossary.html" class="nav-link">Glossary</a><a href="agents.html" class="nav-link active">Agents</a></nav>
+<main id="main"><article class="chapter"><header class="chapter-hero" style="--phase-accent: var(--violet);"><p class="chapter-kicker"><span class="phase-badge" style="background: var(--violet);">The Agent Surface</span></p><h1>Agents</h1><p class="lede">This site is built to be used by agents, not just read by humans. Everything below — data, skills, tools, and full text — is machine-readable from static files. No API key, no server, no auth. Fetch and act.</p><p class="chapter-meta-strip"><span>5 min read</span><span class="sep">/</span><span>1,020 words</span></p></header>
 
 <h2>The surface at a glance</h2>
 <div class='table-wrap'><table><thead><tr><th>What</th><th>Where</th><th>Format</th></tr></thead><tbody>
@@ -35,7 +35,7 @@
 <tr><td>Skill index</td><td><code>api/v1/skills.json</code></td><td>10 skills: name, description, path</td></tr>
 <tr><td>Case files</td><td><code>api/v1/case-files.json</code> + <code>case-*.html</code></td><td>5 documented creator-business deconstructions: budget-grocery newsletter, Ben&#x27;s Bites, faceless sleep-channel network, Mavwicks on TikTok Shop, cohort course — figures source-reported, never promises</td></tr>
 <tr><td>Reference</td><td><code>rate-card.html</code> + <code>api/v1/calculators.json</code></td><td>The 2026 sponsorship rate card</td></tr>
-<tr><td>Interactive tools</td><td><code>quiz.html</code>, <code>calculator.html</code>, <code>planner.html</code>, <code>deal-analyzer.html</code>, <code>repurpose.html</code>, <code>api-explorer.html</code></td><td>Human-facing; agents should use the API data behind them</td></tr>
+<tr><td>Interactive tools</td><td><code>quiz.html</code>, <code>calculator.html</code>, <code>planner.html</code>, <code>deal-analyzer.html</code>, <code>repurpose.html</code>, <code>simulator.html</code>, <code>api-explorer.html</code></td><td>Human-facing; agents should use the API data behind them</td></tr>
 <tr><td>API explorer</td><td><code>api-explorer.html</code></td><td>Browse every <code>api/v1</code> endpoint and preview JSON in-browser</td></tr>
 </tbody></table></div>
 <p>All endpoints are <code>GET</code> on static JSON. Base path: <code>api/v1/</code> (relative to the site root; the deployed site ships its own <code>api/</code> mirror, so the explorer works live too). Schemas: <code>api/v1/schema/</code> (JSON Schema draft-07).</p>
@@ -91,6 +91,7 @@
       <a href="planner.html">90-Day Planner</a>
       <a href="deal-analyzer.html">Sponsor Deal Analyzer</a>
       <a href="repurpose.html">Repurposing Planner</a>
+      <a href="simulator.html">Empire Simulator</a>
       <a href="api-explorer.html">API Explorer</a>
       <a href="glossary.html">Glossary</a>
       <a href="agents.html">Agents</a>

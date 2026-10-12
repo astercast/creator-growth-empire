@@ -187,3 +187,55 @@ confirmed via GitHub API; all 13 case-file paths present on remote main). Note: 
 first push attempt (308b7b18) silently dropped untracked files — gh-push.py only pushes
 `git ls-files` tracked paths — so the case pages/API JSON were committed locally and
 pushed in this follow-up. Lesson: always `git add -A` before gh-push.py.
+
+---
+
+## Wave 6 — FLAGSHIP: Empire Simulator (2026-10-11)
+
+The "craziest products" mandate: a 12-month channel growth simulator — the most fun
+page on the site, all client-side, all from the site's real 2026 numbers, honest
+about being a model.
+
+What shipped:
+1. **`assets/js/sim-engine.js`** — pure, DOM-free simulation engine (UMD: browser
+   `window.EmpireSim` + node `module.exports`). Month-by-month for 12 months:
+   subs compound via base growth × niche factor × cadence factor × quality
+   multiplier (all shown); views = subs × views-per-sub per format; ad revenue =
+   views/1000 × niche RPM band (low/mid/high selectable) with Q4 uplift on
+   months 10–12 (default +60%, slider 40–80% per research); sponsors kick in at
+   1K/10K/100K/1M subs using `sponsorship_rate_card_2026` YouTube per-video ranges
+   × the researched niche multiplier (finance/tech 2–3×, entertainment lower —
+   sourced from the rate-card rule of thumb); affiliates and digital product
+   (toggleable, conservative conversion assumptions, launch month selectable).
+   YPP ad-revenue gate at 1,000 subs (watch-hours gate noted as not modeled).
+2. **`assets/js/simulator.js` + `pages/simulator.html`** — game-HUD tool page
+   (TOOL // 07): niche dropdown fed live from `data/calculators.json` RPM bands,
+   starting subs, long-form/shorts cadence, quality level (labeled assumption),
+   monetization toggles; assumptions drawer (growth-rate slider, RPM low/mid/high,
+   Q4 slider, digital price + every fixed assumption listed and sourced);
+   outputs: SVG subscriber curve + SVG revenue-stacked-by-stream chart (static,
+   responsive, labelled, aria-described), month-by-month ledger table, empire
+   milestones timeline ("First $1K month: Month 7" style — computed, celebrated
+   with sticker-bomb badges), end-of-year empire stats card, "Share my empire"
+   (copies a text summary), and a big coral banner: "A MODEL, NOT A PREDICTION —
+   change the assumptions, change the empire."
+3. **Discovery**: nav entry ("Simulator"), footer TOOLS link, index Command Center
+   card + hero counts 6→7, `pages/agents.md` tool table, cross-links from Phase 2
+   (niche selection), Phase 5 (monetization checklist), Phase 8 (scale); `llms.txt`
+   tools section; API tools list auto-updated. `build.py` TOOL_SCRIPTS now supports
+   multiple scripts per tool (engine + wiring).
+4. **A11y/perf**: semantic HTML, native `<details>`/`<fieldset>`/`<table>`,
+   aria-live results, keyboard-focusable drawer summary, reduced-motion-safe
+   (static SVGs, no animation), mobile-first grid.
+
+Validation: `scripts/build.py` clean (9 chapters, **7 tools**, 10 skills, 5 case
+files, 14,947 words); `node --check` on sim-engine.js + simulator.js PASS;
+internal link check 0 broken; `tests/sim-engine.test.js` ALL PASS under node —
+cadence monotonicity, finance ≥ gaming at equal inputs, Q4 uplift flag + per-sub
+uplift on months 10–12 only, sponsor tiers nano/micro/macro/mega at 5K/50K/200K/2M
+subs, digital toggle + launch month; plus a stubbed-DOM smoke test of the full
+render path (form → engine → SVG charts → table → milestones) PASS.
+Sanity tuning note: the first test run had gaming out-earning finance because the
+niche-growth compounding gap swamped the RPM gap in niche-independent streams
+(digital/sponsors) — fixed by applying the researched sponsor niche multiplier
+(finance/tech 2–3×), which is grounded in the rate-card rule of thumb, not invented.

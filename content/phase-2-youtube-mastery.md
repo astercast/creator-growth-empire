@@ -111,6 +111,8 @@ Pull up your worst-retained video and find the steepest drop:
 
 **"Subscribers vs. views — which do I optimize?"** Views. Subscribers are a vanity metric that follows satisfied viewers. A channel with 10k subs and 500k monthly views is healthier than 100k subs and 50k views.
 
+Want to see 12 months of this play out? Run your niche through the [Empire Simulator](simulator.html) — pick a niche, set a cadence, and watch a year of compounding (and Q4 uplift) unfold. A model, not a prediction.
+
 ## Your Phase 2 checklist
 
 - 5+ videos in each game (browse + search) to compare

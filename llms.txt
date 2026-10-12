@@ -19,6 +19,7 @@ From $0 to a multi-million-dollar creator company.
 - [90-Day Planner](planner.html)
 - [Sponsor Deal Analyzer](deal-analyzer.html)
 - [Repurposing Planner](repurpose.html)
+- [Empire Simulator](simulator.html)
 - [API Explorer](api-explorer.html)
 - [Glossary](glossary.html)
 

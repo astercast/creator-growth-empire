@@ -48,6 +48,7 @@ TOOLS = [
     ("planner", "90-Day Planner", "Generate a posting schedule from your platforms and cadence. Printable."),
     ("deal-analyzer", "Sponsor Deal Analyzer", "Benchmark a sponsor offer against the 2026 rate card — verdict, red-flag checklist, counter-offer worksheet."),
     ("repurpose", "Repurposing Planner", "Turn one idea into a 5-platform mission-card checklist from the Phase 3 repurposing SOP."),
+    ("simulator", "Empire Simulator", "Simulate 12 months of channel growth + revenue from your niche, cadence, and assumptions — a model, not a prediction."),
     ("api-explorer", "API Explorer", "Browse every api/v1 endpoint and preview JSON responses live in your browser — no key, no server."),
 ]
 
@@ -152,6 +153,7 @@ NAV_LINKS = [
     ("planner.html", "90-Day Plan"),
     ("deal-analyzer.html", "Deal Analyzer"),
     ("repurpose.html", "Repurpose Plan"),
+    ("simulator.html", "Simulator"),
     ("glossary.html", "Glossary"),
     ("agents.html", "Agents"),
 ]
@@ -210,6 +212,7 @@ def page_template(title, body, active="", extra_head=""):
       <a href="planner.html">90-Day Planner</a>
       <a href="deal-analyzer.html">Sponsor Deal Analyzer</a>
       <a href="repurpose.html">Repurposing Planner</a>
+      <a href="simulator.html">Empire Simulator</a>
       <a href="api-explorer.html">API Explorer</a>
       <a href="glossary.html">Glossary</a>
       <a href="agents.html">Agents</a>
@@ -365,19 +368,20 @@ def build():
 
     # tool pages
     TOOL_SCRIPTS = {
-        "quiz": "assets/js/quiz.js",
-        "calculator": "assets/js/calculator.js",
-        "planner": "assets/js/planner.js",
-        "deal-analyzer": "assets/js/deal-analyzer.js",
-        "repurpose": "assets/js/repurpose.js",
-        "api-explorer": "assets/js/api-explorer.js",
+        "quiz": ["assets/js/quiz.js"],
+        "calculator": ["assets/js/calculator.js"],
+        "planner": ["assets/js/planner.js"],
+        "deal-analyzer": ["assets/js/deal-analyzer.js"],
+        "repurpose": ["assets/js/repurpose.js"],
+        "simulator": ["assets/js/sim-engine.js", "assets/js/simulator.js"],
+        "api-explorer": ["assets/js/api-explorer.js"],
     }
     for slug, title, desc in TOOLS:
         body_src = PAGES / f"{slug}.html"
         tool_body = body_src.read_text(encoding="utf-8") if body_src.exists() else f"<p>{esc(desc)}</p>"
         extra = ""
         if slug in TOOL_SCRIPTS:
-            extra = f'<script src="{TOOL_SCRIPTS[slug]}"></script>'
+            extra = "".join(f'<script src="{src}"></script>' for src in TOOL_SCRIPTS[slug])
         tool_idx = [t[0] for t in TOOLS].index(slug)
         hud_open = (f'<div class="tool-page"><div class="hud-panel"><div class="hud-head">'
                     f'<span>TOOL // 0{tool_idx + 1} — {esc(title).upper()}</span>'
@@ -429,7 +433,7 @@ def build():
   <p class="lede">Nine phases. Zero to multi-million-dollar creator company — YouTube, TikTok, Facebook, merch, brand deals, LLC, taxes, scale. No guru hype. Just the playbook.</p>
   <div class="sticker-row reveal">
     <span class="sticker">9 phases</span>
-    <span class="sticker sticker-coral">6 power tools</span>
+    <span class="sticker sticker-coral">7 power tools</span>
     <span class="sticker sticker-violet">5 case files</span>
     <span class="sticker sticker-gold">2026 verified</span>
     <span class="sticker sticker-violet">Zero → empire</span>
@@ -437,7 +441,7 @@ def build():
   <div class="hero-stats">
     <div class="hero-stat reveal" style="--i:0"><strong>9</strong><span>phases</span></div>
     <div class="hero-stat reveal" style="--i:1"><strong>{total_words:,}</strong><span>words</span></div>
-    <div class="hero-stat reveal" style="--i:2"><strong>6</strong><span>interactive tools</span></div>
+    <div class="hero-stat reveal" style="--i:2"><strong>7</strong><span>interactive tools</span></div>
     <div class="hero-stat reveal" style="--i:3"><strong>LVL 01–09</strong><span>your climb</span></div>
   </div>
   <div class="hero-cta"><a class="btn btn-primary" href="phase-0-start-from-nothing.html">Start at Phase 0 →</a>

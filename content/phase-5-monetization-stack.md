@@ -164,4 +164,5 @@ Timelines vary wildly by niche and execution. Anyone promising faster is selling
 - Sponsor pitch sent to 20 brands (or media kit built)
 - First digital product scoped from comment demand
 - Revenue calculator run with honest numbers
+- Empire Simulator run: toggle each monetization stream on/off and watch how the stack changes over 12 months ([simulator.html](simulator.html))
 - 25–30% of profit being set aside for taxes

@@ -384,6 +384,8 @@ Pull up your worst-retained video and find the steepest drop:
 
 **"Subscribers vs. views — which do I optimize?"** Views. Subscribers are a vanity metric that follows satisfied viewers. A channel with 10k subs and 500k monthly views is healthier than 100k subs and 50k views.
 
+Want to see 12 months of this play out? Run your niche through the [Empire Simulator](simulator.html) — pick a niche, set a cadence, and watch a year of compounding (and Q4 uplift) unfold. A model, not a prediction.
+
 ## Your Phase 2 checklist
 
 - 5+ videos in each game (browse + search) to compare
@@ -836,6 +838,7 @@ Timelines vary wildly by niche and execution. Anyone promising faster is selling
 - Sponsor pitch sent to 20 brands (or media kit built)
 - First digital product scoped from comment demand
 - Revenue calculator run with honest numbers
+- Empire Simulator run: toggle each monetization stream on/off and watch how the stack changes over 12 months ([simulator.html](simulator.html))
 - 25–30% of profit being set aside for taxes
 
 
@@ -1243,6 +1246,8 @@ Start at Phase 0. Build the engine. Own the audience. Stack the revenue. Formali
 
 The empire is built one upload at a time. Go.
 
+Curious what year one could look like under your assumptions? The [Empire Simulator](simulator.html) plays out 12 months of growth and revenue from your niche, cadence, and stack — with every assumption visible and tweakable. Model, not prophecy.
+
 
 ---
 
@@ -1326,7 +1331,7 @@ When a brand re-runs your $300 video as paid ads for a year, they're capturing *
 | Skill index | `api/v1/skills.json` | 10 skills: name, description, path |
 | Case files | `api/v1/case-files.json` + `case-*.html` | 5 documented creator-business deconstructions: budget-grocery newsletter, Ben's Bites, faceless sleep-channel network, Mavwicks on TikTok Shop, cohort course — figures source-reported, never promises |
 | Reference | `rate-card.html` + `api/v1/calculators.json` | The 2026 sponsorship rate card |
-| Interactive tools | `quiz.html`, `calculator.html`, `planner.html`, `deal-analyzer.html`, `repurpose.html`, `api-explorer.html` | Human-facing; agents should use the API data behind them |
+| Interactive tools | `quiz.html`, `calculator.html`, `planner.html`, `deal-analyzer.html`, `repurpose.html`, `simulator.html`, `api-explorer.html` | Human-facing; agents should use the API data behind them |
 | API explorer | `api-explorer.html` | Browse every `api/v1` endpoint and preview JSON in-browser |
 
 All endpoints are `GET` on static JSON. Base path: `api/v1/` (relative to the site root; the deployed site ships its own `api/` mirror, so the explorer works live too). Schemas: `api/v1/schema/` (JSON Schema draft-07).
