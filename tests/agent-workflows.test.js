@@ -244,13 +244,13 @@ function check(name, cond, detail) {
     Array.isArray(props.horizon.enum) && props.horizon.enum.includes(36) &&
     props.events && props.events.type === "array",
     (props.horizon.enum || []).join(","));
-  check("wf11: events schema enumerates the 4 cards",
+  check("wf11: events schema enumerates the 5 cards",
     (props.events.items.properties.id.enum || []).join(",") ===
-    "algorithm-change,viral-hit,burnout-break,policy-change");
+    "algorithm-change,viral-hit,burnout-break,policy-change,holiday-shopping-surge");
 
   // the card library in the engine carries assumed effect + chapter basis
-  check("wf11: 4 event cards, each with assumedEffect + basis",
-    EmpireSim.DEFAULTS.eventCards.length === 4 &&
+  check("wf11: 5 event cards, each with assumedEffect + basis",
+    EmpireSim.DEFAULTS.eventCards.length === 5 &&
     EmpireSim.DEFAULTS.eventCards.every((c) => c.assumedEffect && c.basis));
 
   // AGENT.md Workflow 11 step 2: english-learning, 36 months, algo card at 12
@@ -277,6 +277,17 @@ function check(name, cond, detail) {
   const shortRatio = r.months[11].shortViews / rBase.months[11].shortViews;
   check("wf11: algorithm-change card cuts month-12 shorts views x0.6",
     Math.abs(shortRatio - 0.6) < 0.02, shortRatio.toFixed(3));
+  // wave 25: the holiday-shopping-surge card lifts affiliates x1.8 for 2 months
+  const aff = Object.assign({}, base, { horizon: 36, affiliates: true,
+    events: [{ id: "holiday-shopping-surge", startMonth: 11 }] });
+  const rAff = EmpireSim.simulate(aff, cfg);
+  const affRatio11 = rAff.months[10].affiliates / rBase.months[10].affiliates;
+  const affRatio12 = rAff.months[11].affiliates / rBase.months[11].affiliates;
+  const affRatio13 = rAff.months[12].affiliates / rBase.months[12].affiliates;
+  check("wf11: holiday-shopping-surge x1.8 affiliates for 2 months, then baseline",
+    Math.abs(affRatio11 - 1.8) < 1e-9 && Math.abs(affRatio12 - 1.8) < 1e-9 &&
+    Math.abs(affRatio13 - 1) < 1e-9,
+    affRatio11.toFixed(2) + "/" + affRatio12.toFixed(2) + "/" + affRatio13.toFixed(2));
 
   // step 4: compare with the baseline — B minus A, plain-language verdict
   const cmp = EmpireSim.compare("English learning", base36,

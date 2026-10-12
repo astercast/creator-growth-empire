@@ -8,7 +8,7 @@ From $0 to a multi-million-dollar creator company.
 - [Phase 2: YouTube Mastery](phase-2-youtube-mastery.html) — 10 min read
 - [Phase 3: The Everywhere Engine](phase-3-everywhere-engine.html) — 11 min read
 - [Phase 4: Audience to Community](phase-4-audience-to-community.html) — 8 min read
-- [Phase 5: The Monetization Stack](phase-5-monetization-stack.html) — 15 min read
+- [Phase 5: The Monetization Stack](phase-5-monetization-stack.html) — 19 min read
 - [Phase 6: Merch & Brand](phase-6-merch-and-brand.html) — 8 min read
 - [Phase 7: The Business](phase-7-the-business.html) — 9 min read
 - [Phase 8: Scale](phase-8-scale.html) — 8 min read
@@ -37,7 +37,7 @@ From $0 to a multi-million-dollar creator company.
 All seventeen tools, grouped by job (Plan / Money / Content): [Tools hub](tools.html).
 
 ## Reference
-- [Reference: 2026 Rate Card](rate-card.html) — 3 min read
+- [Reference: 2026 Rate Card](rate-card.html) — 4 min read
 - [Reference: The Niche Atlas](niche-atlas.html) — 14 min read
 - [Reference: The Metrics Glossary](metrics-glossary.html) — 9 min read
 

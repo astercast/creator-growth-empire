@@ -1,1 +1,453 @@
-{"note": "Illustrative ranges compiled from 2026 third-party data (AIR Media-Tech, vidIQ, creatorblade, shorts/saturaai, flowshorts, projectcasting, creatorsjet, elev8or). Platform rates change constantly — verify live before making decisions. These are ranges, not promises.", "platform_thresholds": {"facebook_content_monetization": {"fast_track_mar2026": "$1,000/mo at 100K+ followers or $3,000/mo at 1M+ followers (IG/TikTok/YT count), US/Canada, 3-month cap, 15 original Reels/month across 10+ days (TechCrunch/PetaPixel Mar 2026)", "followers": 10000, "min_age": 18, "min_videos": 5, "minutes_viewed_60d": 600000, "note_2025": "Meta paid ~$3B to creators in 2025 (+35% YoY, ~60% on Reels); Reels generated ~60% of payouts (socialbee Sep 2026)", "rpm_note": "Wide range; Reels often $0.02–$0.20. Instagram has NO standing Reels bonus (Reels Play ended 2023) — IG stack is brand deals, affiliates, subscriptions, invite-only bonuses (timetopost.co)", "rpm_per_1000_views": [1.0, 10.0], "source": "shortsync, socialbee, techcrunch, petapixel, timetopost.co, Oct 2026"}, "facebook_stars": {"followers": 1000, "per_star_usd": 0.01}, "tiktok_creator_rewards": {"eligibility": "10K followers + 100K video views in last 30 days + 18+ + personal account in good standing (kompozy Jul 2026, multilogin Sep 2026)", "eligible_countries_note": "Availability figures vary across sources (8–50+) — verify against creators.tiktok.com", "followers": 10000, "min_age": 18, "rpm_by_niche": {"comedy_memes": [0.3, 0.8], "education": [0.9, 1.9], "entertainment": [0.4, 1.0], "finance": [1.2, 2.4], "food": [0.6, 1.3], "health_fitness": [0.7, 1.6], "tech_reviews": [1.0, 2.1]}, "rpm_note": "Only videos over 1 minute with original content qualify; earning starts after 1,000 qualified For You views; paid monthly on the 15th at $50 balance. Payout = qualified views/1,000 x RPM + Additional Reward quality bonus", "rpm_per_1000_qualified_views": [0.4, 2.0], "shop_affiliate_commissions_pct": [5, 20], "source": "creatorblade.com Oct 11 2026, AIR Media-Tech Oct 10 2026, kompozy, multilogin", "video_min_length": "1 minute", "views_30d": 100000}, "youtube_ypp_tier1_fan_funding": {"shorts_views_90d_or": 3000000, "source": "YouTube Help Center via 1of10/air.io, Oct 2026", "subscribers": 500, "unlocks": ["Channel memberships", "Super Chat", "Super Stickers", "Super Thanks", "YouTube Shopping"], "uploads_90d": 3, "watch_hours_12mo_or": 3000}, "youtube_ypp_tier2_full": {"note_2027": "CONFIRMED via fresh check Oct 11, 2026: YouTube announced Aug 10, 2026 — new applicants from Feb 1, 2027 need 1,000 subs + 8,000 qualified watch hours over 365 days OR 20M qualified Shorts views over 90 days (up from 4,000 hrs / 10M views). 1,000-sub floor unchanged; existing partners grandfathered; fan-funding tier unchanged. Multiple press: Cartoon Brew, Tech Times, Hypebeast, AIR Media-Tech, Music Business Worldwide.", "shorts_views_90d_or": 10000000, "source": "YouTube Help Center via 1of10/air.io, Oct 2026; 2027 change confirmed via press Aug 2026", "subscribers": 1000, "unlocks": ["All Tier 1 features", "Ad revenue", "YouTube Premium revenue"], "watch_hours_12mo_or": 4000, "watch_time_gate_note": "Thresholds are entry fees, not guarantees — watch-time is the real gate, and YouTube's Jan 2026 enforcement wave reportedly stripped tens of millions of subscribers from mass-produced/AI-content channels (medium.com Sep 2026, single source — flag)"}}, "revenue_splits": {"youtube_longform_creator_share": 0.55, "youtube_memberships_supers_creator_share": 0.7, "youtube_shorts_creator_share_of_pool": 0.45}, "shorts_rpm_per_1000": [0.04, 0.5], "shorts_rpm_tiers": {"healthy": [0.1, 0.25], "strong_niche": [0.25, 0.5], "typical": [0.04, 0.08]}, "sponsorship_rate_card_2026": {"disclaimer": "Negotiation ranges, not quotes. Compiled 2026 agency benchmarks (air.io, projectcasting, creatorsjet, talentir) — benchmarks disagree 2-3x within tiers. Niche, engagement, format, and usage rights move numbers as much as follower count. Creators list rates ~23% above what they accept; 41% offer package discounts on 3+ posts.", "per_video_or_post_by_tier": {"macro_100k_1m": {"followers": "100K–1M", "instagram": [4500, 12000], "tiktok": [3500, 9000], "youtube": [10000, 50000]}, "mega_1m_plus": {"followers": "1M+", "instagram": [10000, 100000], "tiktok": [20000, 100000], "youtube": [50000, 300000]}, "micro_10k_100k": {"followers": "10K–100K", "instagram": [200, 3200], "tiktok": [150, 2500], "youtube": [1000, 10000]}, "nano_1k_10k": {"followers": "1K–10K", "instagram": [25, 150], "tiktok": [50, 300], "youtube": [25, 1000]}}, "platform_multipliers_at_equal_followers": {"instagram": 1.0, "tiktok": 0.85, "youtube": 1.7}, "sponsored_cpms": {"ig_sponsored_reel_median": 22.4, "tiktok_youtube_general": [10, 30], "youtube_general": [15, 40], "youtube_integrated_slot": [20, 35]}}, "sponsorship_rule_of_thumb": {"dedicated_cpm_range": [20, 50], "integrated_vs_ad_rpm": "An integrated YouTube sponsor slot pays $20–$35 per 1,000 views vs ~$2.30 median ad RPM (9–15x) — sponsorships dwarf platform payouts (air.io, Oct 10 2026)", "negotiation_note": "Listed rates run ~23% above accepted rates — negotiate. Usage rights are the most-neglected line item: price paid-ad usage of your content SEPARATELY from the post fee (projectcasting.com, Sep 2026)", "note": "Common starting point: $20–$50 per 1,000 expected views for a dedicated integration in mid-value niches; finance/tech 2–3x, entertainment lower. Negotiate on audience quality, not just views. Verify with current creator rate reports."}, "updated": "2026-10-11", "version": "1.2.0", "youtube_longform_rpm_bands": {"comedy_entertainment": [1, 5], "education": [4, 10], "finance_investing": [8, 35], "gaming": [1, 5], "health_fitness": [4, 10], "lifestyle": [4, 10], "music": [0.75, 1.65], "tech_software": [8, 20], "kids_content": [0.33, 0.33]}, "youtube_longform_rpm_source_note": "Research pass Oct 11, 2026 (AIR Media-Tech / OutlierKit / UTubeKit / ytmoneycalculator): low RPM niches (gaming, entertainment) $1-$5; mid (education, lifestyle) $4-$10; high (finance, business) $8-$35 (~7x gap vs gaming/entertainment per OutlierKit); music $0.75-$1.65; kids content $0.33 RPM (~3M views to earn $1,000, AIR Media-Tech). Creator-reported/benchmark ranges, not YouTube-published rates. Monetized playbacks typically 60-85% of views. Q4 pays 40-80% more than Q1.", "niche_growth_2026": {"date": "2026-10-11", "source": "Channel growth: AIR Media-Tech via TubeAI study of 144,370 YouTube channels (10K-100K subs), Sep 7-27, 2026; median across all channels 0.97%/mo. Search/outlier/breakout data: OutlierKit (Aug-Sep 2026). RPMs: AIR Media-Tech / OutlierKit / UTubeKit / Famety / upGrowth. All CPM/RPM are creator-reported and benchmark-estimated ranges, not YouTube-published; they vary by geography, season (Q4 spikes 30-50%), and audience tier. Ranges, not rates.", "channel_growth_monthly_pct": {"kids": 1.59, "asmr": 1.56, "creator_economy": 1.5, "challenges_stunts": 1.47, "ai_ml": 1.44, "true_crime": 1.34, "education": 1.3, "entertainment": 1.27, "science": 1.2, "gaming": 1.2}, "search_growth_2026": {"ai_tools_tutorials": {"search_growth": "+340%", "cpm_range": [8, 20]}, "no_code_automation": {"search_growth": "+220%", "cpm_range": [10, 25], "note": "most underserved per OutlierKit"}, "gen_z_personal_finance": {"search_growth": "+180%", "cpm_range": [18, 45]}, "cybersecurity_privacy": {"search_growth": "+160%", "cpm_range": [12, 28]}, "remote_work_digital_nomad": {"search_growth": "+140%", "cpm_range": [6, 15]}}, "breakout_formats": {"betrayal_revenge_storytelling": {"breakout_rate": "21x", "cpm_range": [20, 25], "competition": "low"}, "english_learning_podcasts": {"breakout_rate": "21x", "cpm_range": [18, 22], "rpm_reported": 11.88}, "senior_health": {"breakout_rate": "19x", "competition": "ultra-low"}, "sleep_ambient_soundscapes": {"breakout_rate": "14x", "competition": "low"}}, "rpm_reality": {"finance_rpm_range": [8, 35], "gaming_entertainment_rpm_range": [1, 5], "kids_rpm": 0.33, "kids_caveat": "kids grew fastest (1.59%/mo) but pays worst: $0.33 RPM, ~3M views to earn $1,000 (AIR Media-Tech). Growth != revenue.", "gap_note": "roughly a 7x gap per view between finance and gaming/entertainment (OutlierKit)"}, "reality_checks": ["Fewer than 1% of YouTube channels ever reach 100K subscribers (Lilach Bullock, Oct 2026) — plan a business model around 10K-30K loyal subscribers, not a million.", "Clipping/re-upload channels face channel-level reach reduction on Shorts from Oct 1, 2026 (announced by Creator Liaison Rene Ritchie).", "YouTube's January 2026 inauthentic-content enforcement removed 16 major channels (4.7B combined views) and demonetized thousands of low-effort AI channels (UTubeKit)."]}, "platform_rules_2026": {"date": "2026-10-11", "tiktok": {"signal_hierarchy": ["watch time + completion rate (dominant)", "rewatches", "shares", "saves", "quality-weighted comments", "likes (moderate and declining weight)"], "mechanics": "interest-graph, not social graph; every upload is tested against a small audience pool first and widened only if early signals clear thresholds", "search_engine": "captions, on-screen text, and spoken keywords decide whether content is discoverable months later — keyword delivery is a 2026 growth lever", "source": "Hootsuite, Vamp, fivebbc, DMA, viral.app (2026) — index reads Oct 11, 2026"}, "youtube_shorts": {"oct_1_2026_originality_update": "Shorts recommendations now prioritize original content and reduce reach of re-uploaded material 'without adding anything of your own' — judgment is made at the CHANNEL level", "announced_by": "Creator Liaison Rene Ritchie, Oct 1, 2026 (Creator Insider + TeamYouTube community post)", "safe_when": "adding real commentary, unique edits, or storytelling", "scope": "recommendations only — payout formulas unchanged", "ai_disclosure": "May 2026 enforcement: labeled AI videos get normal distribution; undisclosed photorealistic AI faces reduced recommendations or removal", "source": "Social Media Today, Storyboard18, readus247, aituber (Oct 2026)"}, "instagram_reels": {"top_signal": "sends per reach (Mosseri: more important than watch time or likes for discovery)", "signal_hierarchy": ["sends per reach", "watch time", "completion/rewatches", "likes per reach", "comments"], "over_3_min_rule": "Reels longer than 3 minutes are not pushed to non-followers; discovery sweet spot 7-30 seconds (single source — treat as reported)", "watermarks": "TikTok watermarks explicitly deprioritized; low-resolution and engagement-bait penalized", "source": "Virvid (Mosseri quotes), CreatorFlow, SocialPilot, orangemonke, FlowShorts (2026)"}}}
+{
+  "note": "Illustrative ranges compiled from 2026 third-party data (AIR Media-Tech, vidIQ, creatorblade, shorts/saturaai, flowshorts, projectcasting, creatorsjet, elev8or). Platform rates change constantly — verify live before making decisions. These are ranges, not promises.",
+  "platform_thresholds": {
+    "facebook_content_monetization": {
+      "fast_track_mar2026": "$1,000/mo at 100K+ followers or $3,000/mo at 1M+ followers (IG/TikTok/YT count), US/Canada, 3-month cap, 15 original Reels/month across 10+ days (TechCrunch/PetaPixel Mar 2026)",
+      "followers": 10000,
+      "min_age": 18,
+      "min_videos": 5,
+      "minutes_viewed_60d": 600000,
+      "note_2025": "Meta paid ~$3B to creators in 2025 (+35% YoY, ~60% on Reels); Reels generated ~60% of payouts (socialbee Sep 2026)",
+      "rpm_note": "Wide range; Reels often $0.02–$0.20. Instagram has NO standing Reels bonus (Reels Play ended 2023) — IG stack is brand deals, affiliates, subscriptions, invite-only bonuses (timetopost.co)",
+      "rpm_per_1000_views": [
+        1.0,
+        10.0
+      ],
+      "source": "shortsync, socialbee, techcrunch, petapixel, timetopost.co, Oct 2026"
+    },
+    "facebook_stars": {
+      "followers": 1000,
+      "per_star_usd": 0.01
+    },
+    "tiktok_creator_rewards": {
+      "eligibility": "10K followers + 100K video views in last 30 days + 18+ + personal account in good standing (kompozy Jul 2026, multilogin Sep 2026)",
+      "eligible_countries_note": "Availability figures vary across sources (8–50+) — verify against creators.tiktok.com",
+      "followers": 10000,
+      "min_age": 18,
+      "rpm_by_niche": {
+        "comedy_memes": [
+          0.3,
+          0.8
+        ],
+        "education": [
+          0.9,
+          1.9
+        ],
+        "entertainment": [
+          0.4,
+          1.0
+        ],
+        "finance": [
+          1.2,
+          2.4
+        ],
+        "food": [
+          0.6,
+          1.3
+        ],
+        "health_fitness": [
+          0.7,
+          1.6
+        ],
+        "tech_reviews": [
+          1.0,
+          2.1
+        ]
+      },
+      "rpm_note": "Only videos over 1 minute with original content qualify; earning starts after 1,000 qualified For You views; paid monthly on the 15th at $50 balance. Payout = qualified views/1,000 x RPM + Additional Reward quality bonus",
+      "rpm_per_1000_qualified_views": [
+        0.4,
+        2.0
+      ],
+      "shop_affiliate_commissions_pct": [
+        5,
+        20
+      ],
+      "source": "creatorblade.com Oct 11 2026, AIR Media-Tech Oct 10 2026, kompozy, multilogin",
+      "video_min_length": "1 minute",
+      "views_30d": 100000,
+      "eligible_countries": [
+        "US",
+        "UK",
+        "France",
+        "Germany",
+        "Japan",
+        "South Korea",
+        "Brazil",
+        "Mexico"
+      ],
+      "eligible_note": "Mexico added 2026 (Hootsuite Oct 2026). Verify live in TikTok Studio.",
+      "qualified_view": "view of >=5 seconds on videos longer than 1 minute (TikTok, via Hootsuite Oct 2026)",
+      "us_payout_per_1000_qualified": "$0.40-$1.00 (top-tier long-form US creators; AIR Media-Tech Oct 2026)",
+      "qualifying_share_of_raw_views": "~50% (creator dashboard reports, via AIR Oct 2026)"
+    },
+    "youtube_ypp_tier1_fan_funding": {
+      "shorts_views_90d_or": 3000000,
+      "source": "YouTube Help Center via 1of10/air.io, Oct 2026",
+      "subscribers": 500,
+      "unlocks": [
+        "Channel memberships",
+        "Super Chat",
+        "Super Stickers",
+        "Super Thanks",
+        "YouTube Shopping"
+      ],
+      "uploads_90d": 3,
+      "watch_hours_12mo_or": 3000
+    },
+    "youtube_ypp_tier2_full": {
+      "note_2027": "CONFIRMED via fresh check Oct 11, 2026: YouTube announced Aug 10, 2026 — new applicants from Feb 1, 2027 need 1,000 subs + 8,000 qualified watch hours over 365 days OR 20M qualified Shorts views over 90 days (up from 4,000 hrs / 10M views). 1,000-sub floor unchanged; existing partners grandfathered; fan-funding tier unchanged. Multiple press: Cartoon Brew, Tech Times, Hypebeast, AIR Media-Tech, Music Business Worldwide.",
+      "shorts_views_90d_or": 10000000,
+      "source": "YouTube Help Center via 1of10/air.io, Oct 2026; 2027 change confirmed via press Aug 2026",
+      "subscribers": 1000,
+      "unlocks": [
+        "All Tier 1 features",
+        "Ad revenue",
+        "YouTube Premium revenue"
+      ],
+      "watch_hours_12mo_or": 4000,
+      "watch_time_gate_note": "Thresholds are entry fees, not guarantees — watch-time is the real gate, and YouTube's Jan 2026 enforcement wave reportedly stripped tens of millions of subscribers from mass-produced/AI-content channels (medium.com Sep 2026, single source — flag)"
+    }
+  },
+  "revenue_splits": {
+    "youtube_longform_creator_share": 0.55,
+    "youtube_memberships_supers_creator_share": 0.7,
+    "youtube_shorts_creator_share_of_pool": 0.45,
+    "youtube_premium_creator_pool_share_of_net": 0.3,
+    "youtube_premium_lite_creator_pool_share_of_net": 0.6,
+    "premium_lite_source_note": "Premium Lite expands to every market where regular Premium is sold; 60% of net Premium Lite revenue funds the creator pool vs 30% of net regular Premium (AIR Media-Tech, Oct 2026)."
+  },
+  "shorts_rpm_per_1000": [
+    0.04,
+    0.5
+  ],
+  "shorts_rpm_tiers": {
+    "healthy": [
+      0.1,
+      0.25
+    ],
+    "strong_niche": [
+      0.25,
+      0.5
+    ],
+    "typical": [
+      0.04,
+      0.08
+    ]
+  },
+  "sponsorship_rate_card_2026": {
+    "disclaimer": "Negotiation ranges, not quotes. Compiled 2026 agency benchmarks (air.io, projectcasting, creatorsjet, talentir) — benchmarks disagree 2-3x within tiers. Niche, engagement, format, and usage rights move numbers as much as follower count. Creators list rates ~23% above what they accept; 41% offer package discounts on 3+ posts.",
+    "per_video_or_post_by_tier": {
+      "macro_100k_1m": {
+        "followers": "100K–1M",
+        "instagram": [
+          4500,
+          12000
+        ],
+        "tiktok": [
+          3500,
+          9000
+        ],
+        "youtube": [
+          10000,
+          50000
+        ]
+      },
+      "mega_1m_plus": {
+        "followers": "1M+",
+        "instagram": [
+          10000,
+          100000
+        ],
+        "tiktok": [
+          20000,
+          100000
+        ],
+        "youtube": [
+          50000,
+          300000
+        ]
+      },
+      "micro_10k_100k": {
+        "followers": "10K–100K",
+        "instagram": [
+          200,
+          3200
+        ],
+        "tiktok": [
+          150,
+          2500
+        ],
+        "youtube": [
+          1000,
+          10000
+        ]
+      },
+      "nano_1k_10k": {
+        "followers": "1K–10K",
+        "instagram": [
+          25,
+          150
+        ],
+        "tiktok": [
+          50,
+          300
+        ],
+        "youtube": [
+          25,
+          1000
+        ]
+      }
+    },
+    "platform_multipliers_at_equal_followers": {
+      "instagram": 1.0,
+      "tiktok": 0.85,
+      "youtube": 1.7
+    },
+    "sponsored_cpms": {
+      "ig_sponsored_reel_median": 22.4,
+      "tiktok_youtube_general": [
+        10,
+        30
+      ],
+      "youtube_general": [
+        15,
+        40
+      ],
+      "youtube_integrated_slot": [
+        20,
+        35
+      ]
+    },
+    "holiday_2026_note": "Black Friday brand deals can pay LESS per post than normal rates — brands buy in bulk during BFCM (Lilach Bullock, Oct 2026). Affiliate commissions are often cut during BFCM week because brand margins are thin from the discount itself. 2026 usage-rights benchmarks: paid ad usage 3 months +25-50%, 3-6 months +50-75%, 6-12 months +75-100%, perpetual from 2x base; whitelisting 30-100% of base fee per month (projectcasting 2026)."
+  },
+  "sponsorship_rule_of_thumb": {
+    "dedicated_cpm_range": [
+      20,
+      50
+    ],
+    "integrated_vs_ad_rpm": "An integrated YouTube sponsor slot pays $20–$35 per 1,000 views vs ~$2.30 median ad RPM (9–15x) — sponsorships dwarf platform payouts (air.io, Oct 10 2026)",
+    "negotiation_note": "Listed rates run ~23% above accepted rates — negotiate. Usage rights are the most-neglected line item: price paid-ad usage of your content SEPARATELY from the post fee (projectcasting.com, Sep 2026)",
+    "note": "Common starting point: $20–$50 per 1,000 expected views for a dedicated integration in mid-value niches; finance/tech 2–3x, entertainment lower. Negotiate on audience quality, not just views. Verify with current creator rate reports."
+  },
+  "updated": "2026-10-11",
+  "version": "1.3.0",
+  "youtube_longform_rpm_bands": {
+    "comedy_entertainment": [
+      1,
+      5
+    ],
+    "education": [
+      4,
+      10
+    ],
+    "finance_investing": [
+      8,
+      35
+    ],
+    "gaming": [
+      1,
+      5
+    ],
+    "health_fitness": [
+      4,
+      10
+    ],
+    "lifestyle": [
+      4,
+      10
+    ],
+    "music": [
+      0.75,
+      1.65
+    ],
+    "tech_software": [
+      8,
+      20
+    ],
+    "kids_content": [
+      0.33,
+      0.33
+    ]
+  },
+  "youtube_longform_rpm_source_note": "Research pass Oct 11, 2026 (AIR Media-Tech / OutlierKit / UTubeKit / ytmoneycalculator): low RPM niches (gaming, entertainment) $1-$5; mid (education, lifestyle) $4-$10; high (finance, business) $8-$35 (~7x gap vs gaming/entertainment per OutlierKit); music $0.75-$1.65; kids content $0.33 RPM (~3M views to earn $1,000, AIR Media-Tech). Creator-reported/benchmark ranges, not YouTube-published rates. Monetized playbacks typically 60-85% of views. Q4 pays 40-80% more than Q1.",
+  "niche_growth_2026": {
+    "date": "2026-10-11",
+    "source": "Channel growth: AIR Media-Tech via TubeAI study of 144,370 YouTube channels (10K-100K subs), Sep 7-27, 2026; median across all channels 0.97%/mo. Search/outlier/breakout data: OutlierKit (Aug-Sep 2026). RPMs: AIR Media-Tech / OutlierKit / UTubeKit / Famety / upGrowth. All CPM/RPM are creator-reported and benchmark-estimated ranges, not YouTube-published; they vary by geography, season (Q4 spikes 30-50%), and audience tier. Ranges, not rates.",
+    "channel_growth_monthly_pct": {
+      "kids": 1.59,
+      "asmr": 1.56,
+      "creator_economy": 1.5,
+      "challenges_stunts": 1.47,
+      "ai_ml": 1.44,
+      "true_crime": 1.34,
+      "education": 1.3,
+      "entertainment": 1.27,
+      "science": 1.2,
+      "gaming": 1.2
+    },
+    "search_growth_2026": {
+      "ai_tools_tutorials": {
+        "search_growth": "+340%",
+        "cpm_range": [
+          8,
+          20
+        ]
+      },
+      "no_code_automation": {
+        "search_growth": "+220%",
+        "cpm_range": [
+          10,
+          25
+        ],
+        "note": "most underserved per OutlierKit"
+      },
+      "gen_z_personal_finance": {
+        "search_growth": "+180%",
+        "cpm_range": [
+          18,
+          45
+        ]
+      },
+      "cybersecurity_privacy": {
+        "search_growth": "+160%",
+        "cpm_range": [
+          12,
+          28
+        ]
+      },
+      "remote_work_digital_nomad": {
+        "search_growth": "+140%",
+        "cpm_range": [
+          6,
+          15
+        ]
+      }
+    },
+    "breakout_formats": {
+      "betrayal_revenge_storytelling": {
+        "breakout_rate": "21x",
+        "cpm_range": [
+          20,
+          25
+        ],
+        "competition": "low"
+      },
+      "english_learning_podcasts": {
+        "breakout_rate": "21x",
+        "cpm_range": [
+          18,
+          22
+        ],
+        "rpm_reported": 11.88
+      },
+      "senior_health": {
+        "breakout_rate": "19x",
+        "competition": "ultra-low"
+      },
+      "sleep_ambient_soundscapes": {
+        "breakout_rate": "14x",
+        "competition": "low"
+      }
+    },
+    "rpm_reality": {
+      "finance_rpm_range": [
+        8,
+        35
+      ],
+      "gaming_entertainment_rpm_range": [
+        1,
+        5
+      ],
+      "kids_rpm": 0.33,
+      "kids_caveat": "kids grew fastest (1.59%/mo) but pays worst: $0.33 RPM, ~3M views to earn $1,000 (AIR Media-Tech). Growth != revenue.",
+      "gap_note": "roughly a 7x gap per view between finance and gaming/entertainment (OutlierKit)"
+    },
+    "reality_checks": [
+      "Fewer than 1% of YouTube channels ever reach 100K subscribers (Lilach Bullock, Oct 2026) — plan a business model around 10K-30K loyal subscribers, not a million.",
+      "Clipping/re-upload channels face channel-level reach reduction on Shorts from Oct 1, 2026 (announced by Creator Liaison Rene Ritchie).",
+      "YouTube's January 2026 inauthentic-content enforcement removed 16 major channels (4.7B combined views) and demonetized thousands of low-effort AI channels (UTubeKit)."
+    ]
+  },
+  "platform_rules_2026": {
+    "date": "2026-10-11",
+    "tiktok": {
+      "signal_hierarchy": [
+        "watch time + completion rate (dominant)",
+        "rewatches",
+        "shares",
+        "saves",
+        "quality-weighted comments",
+        "likes (moderate and declining weight)"
+      ],
+      "mechanics": "interest-graph, not social graph; every upload is tested against a small audience pool first and widened only if early signals clear thresholds",
+      "search_engine": "captions, on-screen text, and spoken keywords decide whether content is discoverable months later — keyword delivery is a 2026 growth lever",
+      "source": "Hootsuite, Vamp, fivebbc, DMA, viral.app (2026) — index reads Oct 11, 2026"
+    },
+    "youtube_shorts": {
+      "oct_1_2026_originality_update": "Shorts recommendations now prioritize original content and reduce reach of re-uploaded material 'without adding anything of your own' — judgment is made at the CHANNEL level",
+      "announced_by": "Creator Liaison Rene Ritchie, Oct 1, 2026 (Creator Insider + TeamYouTube community post)",
+      "safe_when": "adding real commentary, unique edits, or storytelling",
+      "scope": "recommendations only — payout formulas unchanged",
+      "ai_disclosure": "May 2026 enforcement: labeled AI videos get normal distribution; undisclosed photorealistic AI faces reduced recommendations or removal",
+      "source": "Social Media Today, Storyboard18, readus247, aituber (Oct 2026)"
+    },
+    "instagram_reels": {
+      "top_signal": "sends per reach (Mosseri: more important than watch time or likes for discovery)",
+      "signal_hierarchy": [
+        "sends per reach",
+        "watch time",
+        "completion/rewatches",
+        "likes per reach",
+        "comments"
+      ],
+      "over_3_min_rule": "Reels longer than 3 minutes are not pushed to non-followers; discovery sweet spot 7-30 seconds (single source — treat as reported)",
+      "watermarks": "TikTok watermarks explicitly deprioritized; low-resolution and engagement-bait penalized",
+      "source": "Virvid (Mosseri quotes), CreatorFlow, SocialPilot, orangemonke, FlowShorts (2026)"
+    }
+  },
+  "shorts_rpm_niche_2026": {
+    "date": "2026-10-11",
+    "most_niches_per_1000_views": "$0.02-$0.20",
+    "us_audiences_up_to": "$0.328",
+    "share_of_same_channel_longform_rpm": "3-14% in almost every niche (music exception: Content ID lifts Shorts to 41-60% of long-form)",
+    "source": "AIR Media-Tech, 274 channels, full-year medians (Oct 2026)"
+  },
+  "q4_seasonality_2026": {
+    "date": "2026-10-11",
+    "re_verified": true,
+    "december_cpm_vs_january": "+40 to +60%",
+    "december_cpm_source": "AIR Media-Tech, 274 channels, full-year medians (Oct 2026)",
+    "q4_cpm_vs_q1_estimate": "+50 to +80%",
+    "q4_estimate_source": "CheckTheWorth (estimate, via passionfru.it Oct 2026)",
+    "nov_dec_rpm_vs_q1": "+30 to +50%",
+    "nov_dec_source": "becomeviral.com creator-reported guide (Oct 2026)",
+    "exception": "finance/tax channels often see RPM rises in Q1 (Influencer Marketing Hub) — seasonality is not universal",
+    "engine_default_q4_uplift": 0.6,
+    "engine_basis_note": "engine q4Uplift default (+60%) sits inside the verified +40-60% December-vs-January band",
+    "source_note": "wave-25 Q4 2026 creator-economy research sweep; verify live in YouTube Studio"
+  },
+  "tiktok_shop_2026": {
+    "date": "2026-10-11",
+    "h1_2026_global_gmv": "$50.3B (+92% YoY)",
+    "h1_source": "Momentum Works + Tabcut, via TubeFilter (Aug 2026)",
+    "h1_2026_us_gmv": "$11.8B (+103% YoY, largest market globally)",
+    "full_year_2026_projection": "$112.2B (ringly.io) to $123.5B (Momentum Works pace) — projections, not reported",
+    "us_attribution_h1_2026": {
+      "shop_tab": "51.4%",
+      "video": "40.4%",
+      "live": "8.2%"
+    },
+    "us_live_gmv_h1_2026": "$967M (+19% YoY)",
+    "us_stores_over_1m_gmv": "5,700 (8x increase); 506 above $10M",
+    "live_shopping_conversion_vs_ecommerce": "8-12% vs 2-4%",
+    "conversion_source": "ringly.io stats roundup (Oct 2026)",
+    "bfcm_2025": "$500M over four days (+50% shoppers); livestream brands +84% sales growth",
+    "bfcm_source": "TikTok Newsroom, via socialpilot.co stats (Oct 2026)",
+    "us_2025_sales": "$15.82B (+108% YoY; 18.2% of US social commerce)",
+    "us_2025_source": "eMarketer, via sqmagazine.co.uk",
+    "us_2026_sales_projection": "$23.41B (+48%) — projection, not reported (eMarketer, via sqmagazine.co.uk)",
+    "adobe_holiday_2026_forecast": "$275.1B US online holiday spend Nov 1-Dec 31 (+6.7% YoY); affiliate/partner share of retail revenue +12%; social media share +17%; creators = 22% of affiliate traffic",
+    "adobe_source": "Adobe Analytics forecast, Sept 28, 2026"
+  }
+}

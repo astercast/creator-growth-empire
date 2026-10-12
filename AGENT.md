@@ -117,7 +117,7 @@ Goal: run two paths over the same 12 months, get the delta table and the
 
 1. `GET api/v1/tools.json` → tool `simulator` → `input_schema`: new wave-13
    inputs are `scenario_id` (enum of the 12 presets), `horizon` (12 | 24 | 36),
-   `hires[]` (First Hire guide roles + costs), `events[]` (the 4 what-if cards —
+   `hires[]` (First Hire guide roles + costs), `events[]` (the 5 what-if cards —
    see Workflow 11), and `compare_with`
    (`{name_b, inputs_b}` for A/B mode).
 2. Load both scenarios from the engine, declare proxies where they exist:
@@ -358,8 +358,10 @@ Goal: a 3-year projection with compounding growth, year-2/year-3 decay,
 Money Map stage transitions, and a named shock card — all via API, no UI.
 
 1. `GET api/v1/tools.json` → tool `simulator` → `input_schema`: `horizon`
-   (12 | 24 | 36) and `events[]` (the 4 what-if cards with their assumed
-   effects). Engine: `require("assets/js/sim-engine.js")` (UMD).
+   (12 | 24 | 36) and `events[]` (the 5 what-if cards with their assumed
+   effects — incl. the wave-25 `holiday-shopping-surge`: affiliate revenue
+   ×1.8 for the event month + the next one, the two-month holiday buying
+   window). Engine: `require("assets/js/sim-engine.js")` (UMD).
 2. Load a scenario: `EmpireSim.scenarioInputs("english-learning")`
    (the 2027-outlook 21x breakout niche), then set `inputs.horizon = 36`
    and `inputs.events = [{ id: "algorithm-change", startMonth: 12 }]` —
@@ -391,7 +393,7 @@ Money Map stage transitions, and a named shock card — all via API, no UI.
   client-side filtering.
 - **Freshness dates.** Every payload states when it was generated
   (`updated`) and from what snapshot. `calculators.json` carries `version`
-  (1.2.0) and `updated` (2026-10-11); platform thresholds carry their own
+  (1.3.0) and `updated` (2026-10-11); platform thresholds carry their own
   `source` + observation date. **Treat undated numbers as stale.**
 - **Verify-live flags.** Platform rules (YPP tiers, TikTok Rewards, Reels
   signals) change constantly — the manifest marks `calculators` with a

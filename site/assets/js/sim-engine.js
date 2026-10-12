@@ -126,7 +126,8 @@
     // numbers below are the Map's published bands ($100 / $1K / $10K).
     stageThresholds: { stage1Net: 100, stage2Net: 1000, stage3Net: 10000 },
 
-    // What-if event cards (wave 24): random-but-transparent scenario events.
+    // What-if event cards (waves 24–25): random-but-transparent scenario events.
+    // Wave 25 added the fifth card, holiday-shopping-surge (Q4 affiliate windfall).
     // Each event is fully labeled: its assumed effect + its chapter basis.
     // Applied via inputs.events = [{ id, startMonth }]. All multipliers are
     // OUR assumptions — the card says so, every one of them.
@@ -146,7 +147,11 @@
       { id: "policy-change",
         name: "Platform policy change — Feb-2027 YPP rules",
         assumedEffect: "From the event month: the Feb-2027 Shorts revenue floor applies — any month whose rolling 90-day Shorts views fall under 10M pays $0 Shorts ad revenue (long-form pays as usual). Stay in YPP; long-form keeps paying; Shorts pay stops.",
-        basis: "The YPP 2027 Eligibility Checker rules (announced by YouTube Aug 10, 2026): new applicants 8,000 hours or 20M Shorts/90d; the 10M qualified-Shorts-views/90d floor, checked monthly. The monthly application is our model." }
+        basis: "The YPP 2027 Eligibility Checker rules (announced by YouTube Aug 10, 2026): new applicants 8,000 hours or 20M Shorts/90d; the 10M qualified-Shorts-views/90d floor, checked monthly. The monthly application is our model." },
+      { id: "holiday-shopping-surge",
+        name: "Holiday shopping surge — Q4 affiliate windfall",
+        assumedEffect: "The event month and the month after: affiliate revenue ×1.8 (the two-month holiday buying window). Ads, sponsors, subs, and growth untouched. The 1.8 is our labeled assumption, not platform data.",
+        basis: "TikTok Shop's BFCM 2025: $500M over four days (+50% shoppers) and +84% sales growth for brands that livestreamed (TikTok Newsroom); Adobe's 2026 holiday forecast: affiliate/partner share of retail revenue +12%, social media share +17%, creators = 22% of affiliate traffic — see Phase 5 Layer 2 + the Q4 playbook." }
     ],
     eventAssumptions: {
       algoReachMult: 0.6,
@@ -156,6 +161,8 @@
       burnoutSubsDrift: -0.005,
       burnoutViewsMult: 0.3,
       burnoutMonths: 2,
+      holidaySurgeAffMult: 1.8,
+      holidaySurgeMonths: 2,
       shortsFloorViews90d: 10000000
     }
   };
@@ -358,8 +365,8 @@
     return out;
   }
 
-  /* events: [{id: "algorithm-change"|"viral-hit"|"burnout-break"|"policy-change",
-   *          startMonth}]
+  /* events: [{id: "algorithm-change"|"viral-hit"|"burnout-break"|"policy-change"|
+   *           "holiday-shopping-surge", startMonth}]
    * Normalized against DEFAULTS.eventCards (unknown ids dropped). Missing
    * startMonth defaults to 1; clamped to the run's clock. */
   function normalizeEvents(events) {
@@ -493,7 +500,7 @@
 
       // wave 24: what-if event cards. All effects are the card's labeled
       // assumptions — the card names them and cites the chapter basis.
-      var reachMult = 1, viralMult = 1, subsBoost = 1;
+      var reachMult = 1, viralMult = 1, subsBoost = 1, affMult = 1;
       var burnout = false, policyOn = false;
       var evActive = [];
       for (var e = 0; e < events.length; e++) {
@@ -502,6 +509,8 @@
         evActive.push(ev.id);
         if (ev.id === "algorithm-change") reachMult *= ea.algoReachMult;
         if (ev.id === "policy-change") policyOn = true;
+        if (ev.id === "holiday-shopping-surge" && m < ev.startMonth + ea.holidaySurgeMonths)
+          affMult *= ea.holidaySurgeAffMult;
         if (ev.id === "viral-hit") {
           if (m === ev.startMonth) {
             viralMult = ea.viralLongViewsMult; subsBoost = 1 + ea.viralSubsBoost;
@@ -543,7 +552,7 @@
       var sponsor = (inputs.sponsors && tier)
         ? tier.dealsPerMonth * mid(tier.perDealRange[0], tier.perDealRange[1]) * spMult : 0;
       var sponsorPerDeal = tier ? mid(tier.perDealRange[0], tier.perDealRange[1]) * spMult : 0;
-      var aff = inputs.affiliates ? (longViews / 1000) * affRate : 0;
+      var aff = inputs.affiliates ? (longViews / 1000) * affRate * affMult : 0;
       var dig = (inputs.digital && m >= (inputs.digitalStartMonth || 1))
         ? subs * digConv * digPrice : 0;
       var total = adsLong + adsShorts + sponsor + aff + dig;
@@ -574,6 +583,7 @@
         sponsorDeals: tier ? tier.dealsPerMonth : 0,
         sponsorPerDeal: sponsorPerDeal,
         affiliates: aff,
+        affiliateMult: affMult,
         digital: dig,
         total: total,
         stage: stage,

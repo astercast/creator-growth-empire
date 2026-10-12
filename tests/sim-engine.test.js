@@ -228,7 +228,7 @@ ok(sim.STAGES.length === 5 && sim.STAGES[2].name === "The Engine Runs",
   "STAGES ships the five Money Map names");
 
 console.log("what-if event cards (wave 24)");
-ok(sim.DEFAULTS.eventCards.length === 4, "4 event cards in DEFAULTS");
+ok(sim.DEFAULTS.eventCards.length === 5, "5 event cards in DEFAULTS");
 sim.DEFAULTS.eventCards.forEach(function (c) {
   ok(typeof c.assumedEffect === "string" && c.assumedEffect.length > 0 &&
      typeof c.basis === "string" && c.basis.length > 0,
@@ -302,6 +302,32 @@ sim.DEFAULTS.eventCards.forEach(function (c) {
   ok(!/\$\d/.test(c.assumedEffect) || /×\d/.test(c.assumedEffect) === false,
     "card '" + c.id + "' assumes effects as multipliers, never income dollars");
 });
+// holiday-shopping-surge (wave 25): affiliate revenue x1.8 for the event
+// month + the next month; everything else untouched
+var hol = sim.simulate(baseInputs({ horizon: 12, events: [{ id: "holiday-shopping-surge", startMonth: 5 }] }), cfg);
+var holAff5 = hol.months[4].affiliates / noEv.months[4].affiliates;
+var holAff6 = hol.months[5].affiliates / noEv.months[5].affiliates;
+var holAff7 = hol.months[6].affiliates / noEv.months[6].affiliates;
+ok(Math.abs(holAff5 - 1.8) < 1e-9 && Math.abs(holAff6 - 1.8) < 1e-9,
+  "holiday-shopping-surge: affiliate revenue x1.8 in months 5-6 (got " +
+  holAff5.toFixed(3) + " / " + holAff6.toFixed(3) + ")");
+ok(Math.abs(holAff7 - 1) < 1e-9,
+  "holiday-shopping-surge: affiliates back to baseline in month 7 (got " +
+  holAff7.toFixed(3) + ")");
+ok(hol.months[4].affiliateMult === 1.8 && hol.months[6].affiliateMult === 1,
+  "affiliateMult traces the card months on the record");
+ok(Math.abs(hol.months[4].adsLong / noEv.months[4].adsLong - 1) < 1e-9 &&
+   Math.abs(hol.months[4].subs / noEv.months[4].subs - 1) < 1e-9,
+  "holiday-shopping-surge: ads, subs, growth untouched");
+ok(hol.months[4].eventsActive.indexOf("holiday-shopping-surge") !== -1 &&
+   hol.months[3].eventsActive.indexOf("holiday-shopping-surge") === -1,
+  "eventsActive pins the holiday-shopping-surge start month (id stays listed after, like the persistent cards)");
+var holAl = sim.assumptionLines(baseInputs({ horizon: 12, events: [{ id: "holiday-shopping-surge", startMonth: 5 }] }), hol);
+ok(/Holiday shopping surge/.test(holAl.join(" ")) && /1\.8/.test(holAl.join(" ")),
+  "assumptionLines names the card + its 1.8 multiplier");
+var holCard = sim.DEFAULTS.eventCards.filter(function (c) { return c.id === "holiday-shopping-surge"; })[0];
+ok(/BFCM 2025|TikTok Shop/.test(holCard.basis) && /Adobe/.test(holCard.basis),
+  "holiday-shopping-surge card cites the TikTok Shop + Adobe research basis");
 
 console.log("compare on 36 months (wave 24)");
 var cmp36 = sim.compare("sleep-ambient", sim.scenarioInputs("sleep-ambient"),

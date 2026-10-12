@@ -37,6 +37,8 @@ The context that matters: a YouTube integrated slot pays **9–15x the median ad
 - **Multi-platform bundles add 30–50%** — selling the same concept across YT + TikTok + IG is more than the sum.
 - Macro creators cost ~45% more per authentic engagement than nano — small creators are the value buy, and brands know it.
 - Quoted medians from 2,356 rate-card lines (Sep 2026): IG Reel $1,800, TikTok video $2,000, video integration $3,000, UGC without posting $500.
+- **Holiday 2026 note:** Black Friday brand deals can pay *less* per post than normal rates — brands buy in bulk during BFCM (Lilach Bullock, Oct 2026). Affiliate commissions are often cut during BFCM week because the brand's margin is already thin from the discount itself. Price holiday packages with the bulk math, not the hope of a seasonal premium.
+- **2026 usage-rights benchmarks:** paid-ad usage for up to 3 months adds 25–50% to the base rate; 3–6 months adds 50–75%; 6–12 months adds 75–100%; perpetual/buyout starts at 2x. Whitelisting (brand running paid ads through *your* account) runs 30–100% of the base fee per month (projectcasting 2026).
 
 ## The most-neglected line item: usage rights
 
@@ -52,4 +54,4 @@ When a brand re-runs your $300 video as paid ads for a year, they're capturing *
 
 **Working a real offer?** Feed it to the [Sponsor Deal Analyzer](deal-analyzer.html) — it checks your offer against these ranges, scores the usage-rights and exclusivity terms, and generates a counter-offer worksheet with usage rights priced as separate line items.
 
-*Reference page — updated 2026-10-11 from the wave-2 research pass. Not financial advice. Platform rates change constantly; the most dangerous number on the internet is a stale one.*
+*Reference page — updated 2026-10-11 from the wave-25 Q4 research sweep. Not financial advice. Platform rates change constantly; the most dangerous number on the internet is a stale one.*
