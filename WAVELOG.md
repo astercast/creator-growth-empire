@@ -20,7 +20,7 @@ What shipped:
 
 Validation: `scripts/build.py` clean; `scripts/validate.sh` **8/8 GREEN** (27 JS files node --check, 31 JSON files parse, draft-07 schemas, 0 broken links (2,561 checked), byte-identical rebuild, 84 sim + 78 deal-room + 49 content-engine + 44 money-map + 184 video-doctor + 144 niche-atlas + 84 ypp-checker engine assertions, 68 agent-workflow assertions).
 
-Commit: f266741 (local) → REMOTE_HASH (pushed 2026-10-11, remote tree verified via GitHub API — all wave-21 files in the recursive tree).
+Commit: f266741 (local) → a7b31ddb3d12655073779034f53cee5b7f063f45 (pushed 2026-10-11, remote tree verified via GitHub API — all wave-21 files in the recursive tree).
 
 ## Wave 20 — Niche Atlas 2.0: the 2027 Niche Outlook (2026-10-11)
 
