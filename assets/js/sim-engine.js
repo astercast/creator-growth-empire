@@ -113,8 +113,51 @@
     // Year-2 scaling (wave 13): after month 12, monthly growth decays by
     // this factor per month (compounding) — the "why most channels plateau"
     // curve. ASSUMPTION — labeled as ours, displayed on-page.
+    // Wave 24: year-3 scaling — after month 24 the decay softens (×0.97/mo):
+    // big channels keep growing, just slowly. Also an assumption.
     year2Decay: 0.94,
-    q4MonthsYear2: [22, 23, 24]
+    year3Decay: 0.97,
+    q4MonthsYear2: [22, 23, 24],
+    q4MonthsYear3: [34, 35, 36],
+
+    // Money Map stages (wave 24): the five stages from money-map.js, placed
+    // per-month from that month's NET revenue + whether a team is active.
+    // ASSUMPTION — the stage ladder is ours (the Money Map names it); the
+    // numbers below are the Map's published bands ($100 / $1K / $10K).
+    stageThresholds: { stage1Net: 100, stage2Net: 1000, stage3Net: 10000 },
+
+    // What-if event cards (wave 24): random-but-transparent scenario events.
+    // Each event is fully labeled: its assumed effect + its chapter basis.
+    // Applied via inputs.events = [{ id, startMonth }]. All multipliers are
+    // OUR assumptions — the card says so, every one of them.
+    eventCards: [
+      { id: "algorithm-change",
+        name: "Algorithm change — Shorts reach cut",
+        assumedEffect: "From the event month: Shorts views ×0.6 every month (a channel-level reach cut). Long-form untouched. The 0.6 is our labeled assumption, not a published figure.",
+        basis: "The Oct-1-2026 Shorts originality update (platform-published: Rene Ritchie/Creator Insider): recommendations deprioritize re-uploaded/aggregator content, originals prioritized — see the algorithm signal map (Content Engine 2.0) and Phase 3." },
+      { id: "viral-hit",
+        name: "Viral hit — one video 10x's",
+        assumedEffect: "Event month: long-form views ×10 (one breakout video); subs get a one-time +8% lift ONLY. Next month: views ×1.5 (the tail). Then back to normal. Reality check, built in: virality spikes views, not loyalty.",
+        basis: "Phase 3 retention guidance + the Money Map lesson that one lucky month doesn't graduate anyone — repeatability does. The 10x / +8% / ×1.5 are our labeled assumptions." },
+      { id: "burnout-break",
+        name: "Burnout break — 2 months off",
+        assumedEffect: "Two full months of no posting: growth 0%, subs drift −0.5%/mo (audience drift), views ×0.3 (back-catalog only), revenue from the remaining views only. Posting resumes after.",
+        basis: "The Batching Planner + Phase 1 output guidance: consistency compounds, absence doesn't. The drift numbers are our labeled assumptions." },
+      { id: "policy-change",
+        name: "Platform policy change — Feb-2027 YPP rules",
+        assumedEffect: "From the event month: the Feb-2027 Shorts revenue floor applies — any month whose rolling 90-day Shorts views fall under 10M pays $0 Shorts ad revenue (long-form pays as usual). Stay in YPP; long-form keeps paying; Shorts pay stops.",
+        basis: "The YPP 2027 Eligibility Checker rules (announced by YouTube Aug 10, 2026): new applicants 8,000 hours or 20M Shorts/90d; the 10M qualified-Shorts-views/90d floor, checked monthly. The monthly application is our model." }
+    ],
+    eventAssumptions: {
+      algoReachMult: 0.6,
+      viralLongViewsMult: 10,
+      viralSubsBoost: 0.08,
+      viralTailMult: 1.5,
+      burnoutSubsDrift: -0.005,
+      burnoutViewsMult: 0.3,
+      burnoutMonths: 2,
+      shortsFloorViews90d: 10000000
+    }
   };
 
   function mid(lo, hi) { return (lo + hi) / 2; }
@@ -239,6 +282,50 @@
         quality: "solid", growthRate: 0.13, rpmLevel: "mid", q4Uplift: 0.6,
         ads: true, sponsors: true, affiliates: false,
         digital: false, digitalStartMonth: 6, digitalPrice: 29, digitalConvPerMonth: 0.001 }
+    },
+    {
+      /* Wave 24: new from the Niche Atlas 2027 outlook. Ambient watch-time
+         harvest — the sleep-channel case file documents the archetype, with
+         the what-NOT-to-copy caveats (Jan-2026 enforcement: only
+         original-production channels keep monetizing). Planning assumptions
+         for a from-scratch channel, never a replay of the case's trajectory. */
+      id: "sleep-ambient",
+      name: "Ambient Sleep Channel",
+      tagline: "Long ambient watch-time harvest: low effort per video, slow-burn loyalty.",
+      source: "Case File: Sleep Channels (Fortune-verified $40–60K/mo network, Dec 2025) + Niche Atlas 2027 outlook (stable, 14x breakout; Jan-2026 inauthentic-content enforcement caveats) + calculators.json lifestyle band $4–$10",
+      nicheProxyNote: "Ambient/sleep content is not an engine niche key, so proxies are declared: growth uses lifestyle 1.05x, RPM uses the lifestyle band at mid ($4–10). The case's 5-channel network and 6-hour runtimes are not replayed; this models a from-scratch ambient channel.",
+      inputs: { niche: "lifestyle", startSubs: 500, longformPerWeek: 2, shortsPerWeek: 2,
+        quality: "solid", growthRate: 0.12, rpmLevel: "mid", q4Uplift: 0.6,
+        ads: true, sponsors: false, affiliates: false,
+        digital: false, digitalStartMonth: 6, digitalPrice: 29, digitalConvPerMonth: 0.001 }
+    },
+    {
+      /* Wave 24: new from the Niche Atlas 2027 outlook (heating). Education
+         is the engine niche key; the $18–22 CPM reading (OutlierKit, Sep
+         2026) sits above the education RPM band — rpmLevel "high" ($10) is
+         the band's honest ceiling, stated in the source line. */
+      id: "english-learning",
+      name: "English Learning Channel",
+      tagline: "21x breakout niche at $18–22 CPM: evergreen demand, low competition.",
+      source: "OutlierKit trending guide (Sep 2026): English learning 21x breakout, $18–22 CPM + Niche Atlas 2027 outlook (heating — evergreen demand; AI dubbing expands global reach in 2027) + calculators.json education band $4–$10 (high end $10 = the band's honest ceiling)",
+      inputs: { niche: "education", startSubs: 600, longformPerWeek: 2, shortsPerWeek: 5,
+        quality: "solid", growthRate: 0.13, rpmLevel: "high", q4Uplift: 0.6,
+        ads: true, sponsors: false, affiliates: true,
+        digital: true, digitalStartMonth: 6, digitalPrice: 29, digitalConvPerMonth: 0.001 }
+    },
+    {
+      /* Wave 24: new from the Niche Atlas 2027 outlook (heating): 19x
+         breakout with ultra-low competition; the 31%-of-mini-drama-viewers-
+         are-45-64 Ampere figure says the senior audience is underserved
+         everywhere. Uses the real health_fitness engine key. */
+      id: "senior-health",
+      name: "Senior Health Channel",
+      tagline: "19x breakout, ultra-low competition: the underserved older audience.",
+      source: "OutlierKit trending guide (Sep 2026): senior health 19x breakout, $14–18 ultra-low-competition CPM + Niche Atlas 2027 outlook (heating; mini-dramas already skew older — 31% of viewers 45–64, Ampere) + calculators.json health/fitness band $4–$10",
+      inputs: { niche: "health_fitness", startSubs: 400, longformPerWeek: 1, shortsPerWeek: 3,
+        quality: "solid", growthRate: 0.13, rpmLevel: "mid", q4Uplift: 0.6,
+        ads: true, sponsors: false, affiliates: true,
+        digital: true, digitalStartMonth: 9, digitalPrice: 39, digitalConvPerMonth: 0.001 }
     }
   ];
 
@@ -264,9 +351,64 @@
       var t = DEFAULTS.hireTypes[h.type];
       if (!t) continue;
       var cost = h.monthlyCost != null ? h.monthlyCost : t.monthlyCostDefault;
-      var start = h.startMonth != null ? Math.max(1, Math.min(24, Math.round(h.startMonth))) : 1;
+      var start = h.startMonth != null ? Math.max(1, Math.min(36, Math.round(h.startMonth))) : 1;
       out.push({ type: h.type, label: t.label, startMonth: start,
                  monthlyCost: Math.max(0, cost) });
+    }
+    return out;
+  }
+
+  /* events: [{id: "algorithm-change"|"viral-hit"|"burnout-break"|"policy-change",
+   *          startMonth}]
+   * Normalized against DEFAULTS.eventCards (unknown ids dropped). Missing
+   * startMonth defaults to 1; clamped to the run's clock. */
+  function normalizeEvents(events) {
+    var out = [];
+    if (!events) return out;
+    var known = {};
+    for (var k = 0; k < DEFAULTS.eventCards.length; k++) {
+      known[DEFAULTS.eventCards[k].id] = true;
+    }
+    for (var i = 0; i < events.length; i++) {
+      var e = events[i] || {};
+      if (!known[e.id]) continue;
+      var start = e.startMonth != null ? Math.max(1, Math.min(36, Math.round(e.startMonth))) : 1;
+      out.push({ id: e.id, startMonth: start });
+    }
+    return out;
+  }
+
+  /* Money Map stage placement, wave 24: the five stage names from
+   * money-map.js, placed by monthly NET revenue + team-active. Exported so
+   * the UI and tests use the same rule — no drift possible.
+   *   net < $100 -> 0 · < $1K -> 1 · < $10K -> 2 · >= $10K -> 3 ·
+   *   team active AND net >= $10K -> 4 ("runs without your daily input") */
+  var STAGES = [
+    { id: 0, name: "The Start Line", band: "$0" },
+    { id: 1, name: "First $100", band: "first $100" },
+    { id: 2, name: "The Engine Runs", band: "$1K/mo" },
+    { id: 3, name: "The Business", band: "$10K/mo" },
+    { id: 4, name: "The Company", band: "company scale" }
+  ];
+
+  function stageForNet(net, teamActive) {
+    var t = DEFAULTS.stageThresholds;
+    if (net < t.stage1Net) return 0;
+    if (net < t.stage2Net) return 1;
+    if (net < t.stage3Net) return 2;
+    return teamActive ? 4 : 3;
+  }
+
+  /* computeStageTransitions(months): first month each stage was reached.
+   * Stages can only rise in-model (no regressing months are recorded). */
+  function computeStageTransitions(months) {
+    var out = [], seen = {};
+    for (var i = 0; i < months.length; i++) {
+      var s = months[i].stage;
+      if (!seen[s]) {
+        seen[s] = true;
+        out.push({ stage: s, name: STAGES[s].name, month: months[i].month });
+      }
     }
     return out;
   }
@@ -277,7 +419,8 @@
        ads, sponsors, affiliates, digital, digitalStartMonth,
        digitalPrice, digitalConvPerMonth, affiliatePer1kViews,
        viewsPerSubLong, viewsPerSubShort,
-       horizon (12|24, default 12), hires ([...] as above)
+       horizon (12|24|36, default 12), hires ([...] as above),
+       events ([...] as above — wave 24 what-if cards)
      }
      cfg: parsed calculators.json                                       */
   function simulate(inputs, cfg) {
@@ -298,9 +441,10 @@
     // No hires, no year-2: g is exactly the pre-wave-13 formula. Byte-identical
     // compounding when the wave-13 inputs (hires/horizon) are left default.
 
-    var horizon = Math.max(1, Math.min(24, Math.round(inputs.horizon || d.months)));
-    var year2 = horizon > 12;
+    var horizon = Math.max(1, Math.min(36, Math.round(inputs.horizon || d.months)));
     var hires = normalizeHires(inputs.hires);
+    var events = normalizeEvents(inputs.events);
+    var ea = d.eventAssumptions;
 
     var vpsL = inputs.viewsPerSubLong != null ? inputs.viewsPerSubLong : d.viewsPerSubLong;
     var vpsS = inputs.viewsPerSubShort != null ? inputs.viewsPerSubShort : d.viewsPerSubShort;
@@ -318,12 +462,12 @@
 
     for (var m = 1; m <= horizon; m++) {
       // wave 13: hires reshape this month's effective cadence + quality,
-      // year-2 applies the diminishing-returns decay. Defaults reproduce g.
+      // year-2/3 apply the diminishing-returns decay. Defaults reproduce g.
       var gm = g;
       var qMultH = qMult;
       var teamCostM = 0;
       var activeHires = [];
-      if (hires.length || year2) {
+      if (hires.length || horizon > 12) {
         var extraLong = 0, qDelta = 0;
         for (var h = 0; h < hires.length; h++) {
           if (m < hires[h].startMonth) continue;
@@ -341,18 +485,57 @@
           qMultH = qMult * (1 + qDelta);
           gm = baseRate * cadH * qMultH;
         }
-        if (m > 12) gm = gm * Math.pow(d.year2Decay, m - 12);
+        // wave 24: year-2 decays x0.94/mo after month 12; year-3 softens to
+        // x0.97/mo after month 24. Growth stays positive — plateau, not collapse.
+        if (m > 24) gm = gm * Math.pow(d.year2Decay, 12) * Math.pow(d.year3Decay, m - 24);
+        else if (m > 12) gm = gm * Math.pow(d.year2Decay, m - 12);
       }
-      subs = subs * (1 + gm);
-      var longViews = subs * vpsL;
-      var shortViews = subs * vpsS;
+
+      // wave 24: what-if event cards. All effects are the card's labeled
+      // assumptions — the card names them and cites the chapter basis.
+      var reachMult = 1, viralMult = 1, subsBoost = 1;
+      var burnout = false, policyOn = false;
+      var evActive = [];
+      for (var e = 0; e < events.length; e++) {
+        var ev = events[e];
+        if (m < ev.startMonth) continue;
+        evActive.push(ev.id);
+        if (ev.id === "algorithm-change") reachMult *= ea.algoReachMult;
+        if (ev.id === "policy-change") policyOn = true;
+        if (ev.id === "viral-hit") {
+          if (m === ev.startMonth) {
+            viralMult = ea.viralLongViewsMult; subsBoost = 1 + ea.viralSubsBoost;
+          } else if (m === ev.startMonth + 1) {
+            viralMult = ea.viralTailMult;
+          }
+        }
+        if (ev.id === "burnout-break" && m < ev.startMonth + ea.burnoutMonths) burnout = true;
+      }
+      if (burnout) gm = 0;
+      subs = subs * (1 + gm) * subsBoost;
+      if (burnout) subs = subs * (1 + ea.burnoutSubsDrift);
+
+      var viewsMult = burnout ? ea.burnoutViewsMult : 1;
+      var longViews = subs * vpsL * viralMult * viewsMult;
+      var shortViews = subs * vpsS * reachMult * viewsMult;
       var monetized = subs >= d.monetizedAtSubs;
-      var q4 = (d.q4Months.indexOf(m) !== -1 || d.q4MonthsYear2.indexOf(m) !== -1)
-        ? (1 + uplift) : 1;
+      var q4 = (d.q4Months.indexOf(m) !== -1 || d.q4MonthsYear2.indexOf(m) !== -1 ||
+                d.q4MonthsYear3.indexOf(m) !== -1) ? (1 + uplift) : 1;
+
+      // wave 24: the Feb-2027 policy event's Shorts revenue floor — rolling
+      // 90-day Shorts views under 10M => Shorts ads pay $0 that month.
+      var shortsBlocked = false;
+      if (policyOn) {
+        var roll90 = shortViews;
+        for (var p = 1; p <= 2; p++) {
+          if (months.length >= p) roll90 += months[months.length - p].shortViews;
+        }
+        if (roll90 < ea.shortsFloorViews90d) shortsBlocked = true;
+      }
 
       var adsLong = (inputs.ads && monetized)
         ? (longViews / 1000) * rpm * q4 : 0;
-      var adsShorts = (inputs.ads && monetized)
+      var adsShorts = (inputs.ads && monetized && !shortsBlocked)
         ? (shortViews / 1000) * d.shortsRpmMid * q4 : 0;
       var tier = tierForSubs(subs);
       var spMult = (d.sponsorNicheMult[inputs.niche] != null)
@@ -365,6 +548,7 @@
         ? subs * digConv * digPrice : 0;
       var total = adsLong + adsShorts + sponsor + aff + dig;
       var net = total - teamCostM;
+      var stage = stageForNet(net, activeHires.length > 0);
 
       cum.adsLong += adsLong; cum.adsShorts += adsShorts;
       cum.sponsors += sponsor; cum.affiliates += aff;
@@ -391,7 +575,11 @@
         sponsorPerDeal: sponsorPerDeal,
         affiliates: aff,
         digital: dig,
-        total: total
+        total: total,
+        stage: stage,
+        eventsActive: evActive,
+        shortsFloorBlocked: shortsBlocked,
+        viralMonth: viralMult !== 1 || subsBoost !== 1
       });
     }
 
@@ -402,11 +590,16 @@
       startSubs: Math.max(0, inputs.startSubs || 0),
       growthMultiple: subs > 0 && inputs.startSubs > 0 ? subs / inputs.startSubs : 0,
       milestones: computeMilestones(months),
+      stages: computeStageTransitions(months),
+      endStage: months.length ? months[months.length - 1].stage : 0,
       meta: {
         rpm: rpm, rpmBand: band, nicheGrowth: nicheG,
         qualityMult: qMult, cadenceMult: cad, monthlyGrowth: g,
-        horizon: horizon, year2Decay: year2 ? d.year2Decay : null,
-        hires: hires
+        horizon: horizon,
+        year2Decay: horizon > 12 ? d.year2Decay : null,
+        year3Decay: horizon > 24 ? d.year3Decay : null,
+        hires: hires,
+        events: events
       }
     };
   }
@@ -477,6 +670,18 @@
     if (res.meta.horizon > 12) {
       lines.push("Year 2: monthly growth decays x" + d.year2Decay + "/mo after month 12 (our diminishing-returns curve)");
     }
+    if (res.meta.horizon > 24) {
+      lines.push("Year 3: decay softens to x" + d.year3Decay + "/mo after month 24 — big channels keep growing, slowly (our assumption)");
+    }
+    var events = normalizeEvents(inputs.events);
+    events.forEach(function (e) {
+      var card = null;
+      for (var i = 0; i < d.eventCards.length; i++) {
+        if (d.eventCards[i].id === e.id) card = d.eventCards[i];
+      }
+      if (card) lines.push("What-if event: " + card.name + " (from month " + e.startMonth + ") — " + card.assumedEffect);
+    });
+    lines.push("Money Map stages placed per month by net revenue: <$100 = stage 0, <$1K = 1, <$10K = 2, >=$10K = 3, team active + >=$10K = 4");
     var hires = normalizeHires(inputs.hires);
     if (hires.length) {
       hires.forEach(function (h) {
@@ -524,10 +729,14 @@
       "Month " + N + ": " + fmtCompact(res.endSubs) + " subs (" +
         (res.growthMultiple ? res.growthMultiple.toFixed(1) + "x" : "n/a") + ") | gross " +
         fmtMoney(res.totals.total) + " | team spend " + fmtMoney(res.totals.teamCost) +
-        " | net " + fmtMoney(res.totals.net) + " | best month " + fmtMoney(best.total) + " (M" + best.month + ")",
+        " | net " + fmtMoney(res.totals.net) + " | best month " + fmtMoney(best.total) + " (M" + best.month + ")" +
+        " | Money Map stage " + res.endStage + " (" + STAGES[res.endStage].name + ")",
       res.milestones.length
         ? "Milestones: " + res.milestones.map(function (m) { return m.label + " (M" + m.month + ")"; }).join("; ")
         : "Milestones: none hit — raise cadence, quality, or the growth assumption.",
+      res.stages.length > 1
+        ? "Stage journey: " + res.stages.map(function (s) { return "stage " + s.stage + " (" + s.name + ") from M" + s.month; }).join(" -> ")
+        : "Stage journey: stayed at stage " + res.endStage + " (" + STAGES[res.endStage].name + ")",
       "ASSUMPTIONS:"
     ];
     assumptionLines(inputs, res).forEach(function (l) { lines.push("  - " + l); });
@@ -558,9 +767,12 @@
 
   return {
     DEFAULTS: DEFAULTS,
+    STAGES: STAGES,
     SCENARIOS: SCENARIOS,
     scenarioInputs: scenarioInputs,
     normalizeHires: normalizeHires,
+    normalizeEvents: normalizeEvents,
+    stageForNet: stageForNet,
     simulate: simulate,
     compare: compare,
     assumptionLines: assumptionLines,

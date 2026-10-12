@@ -174,12 +174,16 @@ function check(name, cond, detail) {
   check("wf4: simulator schema exposes scenario_id / horizon / hires / compare_with",
     !!(props && props.scenario_id && props.horizon && props.hires && props.compare_with),
     Object.keys(props || {}).join(","));
-  check("wf4: schema lists the 9 scenario presets",
-    Array.isArray(props.scenario_id.enum) && props.scenario_id.enum.length === 9,
+  check("wf4: schema lists the 12 scenario presets",
+    Array.isArray(props.scenario_id.enum) && props.scenario_id.enum.length === 12,
     (props.scenario_id.enum || []).join(","));
+  check("wf4: schema horizon covers 12 | 24 | 36 and exposes events",
+    Array.isArray(props.horizon.enum) && props.horizon.enum.length === 3 &&
+    props.horizon.enum[2] === 36 && !!props.events,
+    (props.horizon.enum || []).join(","));
 
-  // the scenario library is real: 9 presets, RPMs trace to calculators.json bands
-  check("wf4: engine ships 9 named scenarios", EmpireSim.SCENARIOS.length === 9,
+  // the scenario library is real: 12 presets, RPMs trace to calculators.json bands
+  check("wf4: engine ships 12 named scenarios", EmpireSim.SCENARIOS.length === 12,
     String(EmpireSim.SCENARIOS.length));
   const asmr = EmpireSim.scenarioInputs("asmr-bedroom");
   const tech = EmpireSim.scenarioInputs("tech-reviewer");
@@ -222,6 +226,81 @@ function check(name, cond, detail) {
   const y2 = EmpireSim.simulate(Object.assign({}, tech, { horizon: 24 }), cfg);
   check("wf4: 24-month run diminishes after month 12",
     y2.months.length === 24 && y2.months[12].growthRate < y2.months[11].growthRate);
+})();
+
+/* ============ Workflow 11: 36-month empire with what-if events ============
+ * AGENT.md §Workflow 11: Simulator 3.0 — horizon 36, year-2/year-3 decay,
+ * Money Map stage transitions, and the algorithm-change event card, all
+ * against the real sim engine + calculators.json. */
+(function workflow11() {
+  const EmpireSim = require(path.join(__dirname, "..", "assets", "js", "sim-engine.js"));
+  const cfg = load("calculators.json");
+
+  // discoverability from tools.json
+  const tools = load("tools.json").tools;
+  const simTool = tools.find((t) => t.id === "simulator");
+  const props = simTool && simTool.input_schema && simTool.input_schema.properties;
+  check("wf11: simulator schema exposes horizon (12/24/36) + events",
+    Array.isArray(props.horizon.enum) && props.horizon.enum.includes(36) &&
+    props.events && props.events.type === "array",
+    (props.horizon.enum || []).join(","));
+  check("wf11: events schema enumerates the 4 cards",
+    (props.events.items.properties.id.enum || []).join(",") ===
+    "algorithm-change,viral-hit,burnout-break,policy-change");
+
+  // the card library in the engine carries assumed effect + chapter basis
+  check("wf11: 4 event cards, each with assumedEffect + basis",
+    EmpireSim.DEFAULTS.eventCards.length === 4 &&
+    EmpireSim.DEFAULTS.eventCards.every((c) => c.assumedEffect && c.basis));
+
+  // AGENT.md Workflow 11 step 2: english-learning, 36 months, algo card at 12
+  const base = EmpireSim.scenarioInputs("english-learning");
+  const base36 = Object.assign({}, base, { horizon: 36 });
+  const shocked36 = Object.assign({}, base, {
+    horizon: 36, events: [{ id: "algorithm-change", startMonth: 12 }] });
+  const r = EmpireSim.simulate(shocked36, cfg);
+  const rBase = EmpireSim.simulate(base36, cfg);
+  check("wf11: 36-month run returns 36 months", r.months.length === 36);
+  const g0 = r.meta.monthlyGrowth;
+  check("wf11: month-13 growth = base x0.94 (year-2 curve)",
+    Math.abs(r.months[12].growthRate - g0 * 0.94) < 1e-9);
+  check("wf11: month-25 growth = base x0.94^12 x0.97 (year-3 curve)",
+    Math.abs(r.months[24].growthRate - g0 * Math.pow(0.94, 12) * 0.97) < 1e-9);
+  check("wf11: stages list first-month transitions with Money Map names",
+    r.stages.length >= 1 && r.stages[0].month === 1 &&
+    typeof r.stages[0].name === "string" &&
+    /Stage|Start Line|First \$100/.test(r.stages[0].name + " Stage " + r.stages[0].stage));
+  check("wf11: stage rule exported and pinned at the boundaries",
+    EmpireSim.stageForNet(99.99, false) === 0 && EmpireSim.stageForNet(100, false) === 1 &&
+    EmpireSim.stageForNet(9999.99, false) === 2 && EmpireSim.stageForNet(10000, false) === 3 &&
+    EmpireSim.stageForNet(10000, true) === 4);
+  const shortRatio = r.months[11].shortViews / rBase.months[11].shortViews;
+  check("wf11: algorithm-change card cuts month-12 shorts views x0.6",
+    Math.abs(shortRatio - 0.6) < 0.02, shortRatio.toFixed(3));
+
+  // step 4: compare with the baseline — B minus A, plain-language verdict
+  const cmp = EmpireSim.compare("English learning", base36,
+    "English learning + algo cut", shocked36, cfg);
+  check("wf11: both paths run the 36-month clock",
+    cmp.a.meta.horizon === 36 && cmp.b.meta.horizon === 36);
+  check("wf11: 36-month deltas are B minus A",
+    Math.abs(cmp.deltas.netRevenue - (cmp.b.totals.net - cmp.a.totals.net)) < 1e-6);
+  check("wf11: verdict names the winner with the honesty caveat",
+    /Path .* leads on net revenue over 36 months/.test(cmp.verdict) &&
+    /not predictions, not promises, not financial advice/.test(cmp.verdict));
+  check("wf11: the event path ends lower on net — the shock is honest",
+    cmp.deltas.netRevenue < 0, cmp.deltas.netRevenue.toFixed(2));
+
+  // exportPlan carries the stage journey + the disclaimer
+  const plan = EmpireSim.exportPlan("English learning", shocked36, r);
+  check("wf11: exportPlan names the stage journey + stage",
+    /Stage journey/.test(plan) && /Money Map stage/.test(plan));
+  check("wf11: exportPlan lists the what-if event with its assumed effect",
+    /What-if event/.test(plan) && /algorithm-change|Algorithm change/i.test(plan));
+
+  console.log("INFO: wf11 36mo net baseline=$" + rBase.totals.net.toFixed(2) +
+    " shocked=$" + r.totals.net.toFixed(2) +
+    " stages=" + r.stages.map((s) => "S" + s.stage + "@M" + s.month).join(","));
 })();
 
 /* ============ Workflow 5: manage a sponsorship deal end-to-end ============

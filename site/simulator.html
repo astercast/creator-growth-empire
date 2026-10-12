@@ -23,15 +23,15 @@
   <button class="nav-toggle" aria-expanded="false" aria-controls="mobileNav" aria-label="Menu">☰</button>
 </header>
 <nav id="mobileNav" class="mobile-nav" aria-label="Mobile"><a href="index.html" class="nav-link">Empire Map</a><a href="tools.html" class="nav-link active">All tools</a><a href="quiz.html" class="nav-link">Niche Picker</a><a href="calculator.html" class="nav-link">Revenue Calc</a><a href="planner.html" class="nav-link">90-Day Plan</a><a href="deal-analyzer.html" class="nav-link">Deal Analyzer</a><a href="hiring-calculator.html" class="nav-link">Hire Calc</a><a href="repurpose.html" class="nav-link">Repurpose Plan</a><a href="simulator.html" class="nav-link">Simulator</a><a href="case-files.html" class="nav-link">All case files</a><a href="glossary.html" class="nav-link">Glossary</a><a href="agents.html" class="nav-link">Agents</a></nav>
-<main id="main"><div class="tool-page"><div class="hud-panel"><div class="hud-head"><span>TOOL // 08 — EMPIRE SIMULATOR</span><span class="hud-status">SYSTEMS ONLINE</span></div><div class="hud-body"><h1>Empire Simulator</h1><p class="lede">Simulate 12–24 months of channel growth + revenue — scenario library, A/B comparison, team hiring P&amp;L — a model, not a prediction.</p></div></div><div class="honesty-banner" role="note" aria-label="Honesty banner">
+<main id="main"><div class="tool-page"><div class="hud-panel"><div class="hud-head"><span>TOOL // 08 — EMPIRE SIMULATOR</span><span class="hud-status">SYSTEMS ONLINE</span></div><div class="hud-body"><h1>Empire Simulator</h1><p class="lede">Simulate 12–36 months of channel growth + revenue — 12-scenario library, A/B comparison, team hiring P&amp;L, what-if event cards, Money Map stage transitions — a model, not a prediction.</p></div></div><div class="honesty-banner" role="note" aria-label="Honesty banner">
   <strong>A MODEL, NOT A PREDICTION.</strong>
   <span>Every number below comes from the site's 2026 research + assumptions you can see and change. Change the assumptions, change the empire. Nothing here is a promise — platforms move, audiences surprise, luck exists.</span>
 </div>
 
 <section class="hud-panel" aria-label="Scenario library" style="margin-bottom:1.5rem">
-  <div class="hud-head"><span>SCENARIO LIBRARY // PRE-LOADED STARTING POSITIONS</span><span class="hud-status">6 PRESETS</span></div>
+  <div class="hud-head"><span>SCENARIO LIBRARY // PRE-LOADED STARTING POSITIONS</span><span class="hud-status">12 PRESETS</span></div>
   <div class="hud-body">
-    <p class="lede">Six starting positions built from the site's real research — 2026 RPM bands, the case files, the rate card. One click loads a scenario into the form below; tweak anything after loading. Every preset is a model with stated assumptions, never a promise.</p>
+    <p class="lede">Twelve starting positions built from the site's real research — 2026 RPM bands, the case files, the rate card, the 2027 outlook. One click loads a scenario into the form below; tweak anything after loading. Every preset is a model with stated assumptions, never a promise.</p>
     <div class="calc-grid" id="scenario-grid"></div>
     <p class="muted" id="scenario-active" role="status" style="margin-top:1rem">No scenario loaded — your current form settings are custom.</p>
   </div>
@@ -97,23 +97,31 @@
       <div class="calc-grid">
         <div class="calc-out" style="text-align:left">
           <label class="check"><input type="checkbox" id="s-hire-editor"> <strong>Hire a video editor</strong></label>
-          <label>Start month <input type="number" id="s-hire-editor-month" min="1" max="24" value="4" step="1"></label>
+          <label>Start month <input type="number" id="s-hire-editor-month" min="1" max="36" value="4" step="1"></label>
           <label>Monthly cost ($) <input type="number" id="s-hire-editor-cost" min="0" value="1400" step="50"></label>
           <p class="muted" style="font-size:.82rem">Preset $1,400/mo (guide band $800–$2,000) &middot; +1 long-form/wk &middot; quality +12%</p>
         </div>
         <div class="calc-out" style="text-align:left">
           <label class="check"><input type="checkbox" id="s-hire-thumbnail"> <strong>Hire a thumbnail designer</strong></label>
-          <label>Start month <input type="number" id="s-hire-thumbnail-month" min="1" max="24" value="4" step="1"></label>
+          <label>Start month <input type="number" id="s-hire-thumbnail-month" min="1" max="36" value="4" step="1"></label>
           <label>Monthly cost ($) <input type="number" id="s-hire-thumbnail-cost" min="0" value="120" step="10"></label>
           <p class="muted" style="font-size:.82rem">Preset $120/mo (guide band $80–$160 @ 4 videos) &middot; quality +8% (packaging/CTR)</p>
         </div>
         <div class="calc-out" style="text-align:left">
           <label class="check"><input type="checkbox" id="s-hire-va"> <strong>Hire a virtual assistant</strong></label>
-          <label>Start month <input type="number" id="s-hire-va-month" min="1" max="24" value="6" step="1"></label>
+          <label>Start month <input type="number" id="s-hire-va-month" min="1" max="36" value="6" step="1"></label>
           <label>Monthly cost ($) <input type="number" id="s-hire-va-cost" min="0" value="900" step="50"></label>
           <p class="muted" style="font-size:.82rem">Preset $900/mo (guide band $500–$1,500 offshore) &middot; +0.5 long-form/wk of reclaimed time</p>
         </div>
       </div>
+    </div>
+  </fieldset>
+
+  <fieldset class="hud-panel" style="margin-top:1.5rem">
+    <legend class="hud-head" style="width:100%"><span>WHAT-IF EVENT CARDS // STRESS-TEST THE PLAN</span><span class="hud-status">OPTIONAL</span></legend>
+    <div class="hud-body">
+      <p class="muted" style="font-size:.9rem">Toggle any card to run the same empire through a named shock. Every card shows its assumed effect and the chapter basis behind it — random events, transparent math. Toggle a card, set when it lands, run the simulation, compare the ledgers. A model, not a prediction.</p>
+      <div class="calc-grid" id="event-grid"><noscript><p class="muted">The what-if event cards need JavaScript — their effects are listed on each card's basis line above the assumptions drawer.</p></noscript></div>
     </div>
   </fieldset>
 
@@ -133,7 +141,13 @@
         <output id="s-q4-out" for="s-q4">60%</output></label>
       <label>Digital product price ($)
         <input type="number" id="s-dig-price" min="1" value="49" step="1"></label>
-      <label class="check"><input type="checkbox" id="s-y2"> Extend to 24 months — year-2 diminishing returns (growth decays &times;0.94/mo after month 12; our curve, labeled)</label>
+      <label>Horizon
+        <select id="s-horizon" aria-describedby="s-horizon-note">
+          <option value="12" selected>12 months</option>
+          <option value="24">24 months — year-2 diminishing returns</option>
+          <option value="36">36 months — full 3-year empire</option>
+        </select></label>
+      <p class="muted" id="s-horizon-note" style="font-size:.85rem">Year 2: monthly growth decays &times;0.94/mo after month 12; year 3: &times;0.97/mo after month 24. Our labeled curve — growth slows, never collapses. Q4 ad-rate uplift applies in months 10–12, 22–24, 34–36.</p>
     </div>
     <div class="assumption-list" aria-label="Fixed assumptions">
       <h3>Fixed for this run (our assumptions, not platform data)</h3>
@@ -154,7 +168,7 @@
 <section class="hud-panel" aria-label="A/B comparison" style="margin-top:1.5rem">
   <div class="hud-head"><span>A/B COMPARE // TWO PATHS, ONE CLOCK</span><span class="hud-status">SIDE BY SIDE</span></div>
   <div class="hud-body">
-    <p class="muted" style="font-size:.9rem">Run two scenarios over the same months and get the delta table plus a plain-language verdict — which path wins on net revenue and why. Team hires apply to the <em>My current settings</em> side only. The assumptions panel renders with every comparison — it is never hidden.</p>
+    <p class="muted" style="font-size:.9rem">Run two strategies over the same clock (12, 24, or 36 months — set the horizon in the assumptions drawer) and get the shared outcome chart, the delta table, and a plain-language verdict — which path wins on net revenue and why. Team hires and what-if events apply to the <em>My current settings</em> side only. The assumptions panel renders with every comparison — it is never hidden.</p>
     <div class="calc-grid">
       <label>Path A
         <select id="cmp-a"></select></label>
@@ -166,7 +180,7 @@
   </div>
 </section>
 
-<div id="sim-output" aria-live="polite"><div class="empty-state" role="status"><span class="empty-icon" aria-hidden="true">◬</span><strong>Nothing brewing yet.</strong>Your 12-month empire run lands here — set your starting position and hit Run the simulation.</div></div>
+<div id="sim-output" aria-live="polite"><div class="empty-state" role="status"><span class="empty-icon" aria-hidden="true">◬</span><strong>Nothing brewing yet.</strong>Your 12–36-month empire run lands here — set your starting position, pick a horizon, and hit Run the simulation.</div></div>
 
 <noscript><p class="muted">The Empire Simulator needs JavaScript — the model runs in your browser. The assumptions and research sources are listed in the drawer above.</p></noscript>
 

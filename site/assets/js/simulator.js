@@ -53,6 +53,25 @@
   }
   function nicheName(k) { return NICHE_NAMES[k] || k; }
 
+  /* ---------- what-if event cards (wave 24) ----------
+   * Rendered from the engine's DEFAULTS.eventCards so the card copy can
+   * never drift from the engine that applies the effects. */
+  function renderEventCards() {
+    var grid = document.getElementById("event-grid");
+    if (!grid || typeof EmpireSim.DEFAULTS.eventCards === "undefined") return;
+    grid.innerHTML = EmpireSim.DEFAULTS.eventCards.map(function (c) {
+      var id = "s-ev-" + c.id;
+      return '<div class="calc-out" style="text-align:left">' +
+        '<label class="check"><input type="checkbox" id="' + id + '"> <strong>' +
+        esc(c.name) + "</strong></label>" +
+        '<label>Card lands <input type="number" id="' + id + '-month" min="1" max="36" value="6" step="1" aria-label="' +
+        esc(c.name) + ' start month"></label>' +
+        '<p class="muted" style="font-size:.82rem"><strong>Assumed effect:</strong> ' + esc(c.assumedEffect) + "</p>" +
+        '<p class="muted" style="font-size:.78rem"><strong>Basis:</strong> ' + esc(c.basis) + "</p>" +
+        "</div>";
+    }).join("");
+  }
+
   /* ---------- scenario library ---------- */
   function scenarioById(id) {
     for (var i = 0; i < EmpireSim.SCENARIOS.length; i++) {
@@ -100,7 +119,10 @@
     document.getElementById("s-dig-month").value = inp.digitalStartMonth;
     document.getElementById("s-dig-price").value = inp.digitalPrice;
     HIRE_FIELDS.forEach(function (f) { document.getElementById(f.check).checked = false; });
-    document.getElementById("s-y2").checked = false;
+    eventCardIds().forEach(function (id) {
+      var box = document.getElementById("s-ev-" + id);
+      if (box) box.checked = false;
+    });
     currentScenarioName = sc.name;
     var note = "Loaded: " + sc.name + " — tweak anything, then run the simulation.";
     if (sc.nicheProxyNote) note += " " + sc.nicheProxyNote;
@@ -135,6 +157,7 @@
     nicheNote.textContent = "Could not load live RPM bands — using engine fallbacks.";
   });
   renderScenarioGrid();
+  renderEventCards();
 
   var grid = document.getElementById("scenario-grid");
   if (grid) {
@@ -182,7 +205,9 @@
         "digital " + (d.digitalConvPerMonth * 100) + "% of subs buy per month at price you set",
       "Team hires: editor $1,400/mo (+1 long-form/wk, quality +12%), thumbnail $120/mo (quality +8%), " +
         "VA $900/mo (+0.5 long-form/wk) — from the First Hire guide; first month at 50% (ramp-up)",
-      "Year-2 (optional): monthly growth decays ×" + d.year2Decay + "/mo after month 12 — our diminishing-returns curve, labeled"
+      "Year-2 (12/24+ month horizons): monthly growth decays ×" + d.year2Decay + "/mo after month 12; year-3 decays ×" + d.year3Decay + "/mo after month 24 — our diminishing-returns curve, labeled; growth stays positive (plateau, not collapse)",
+      "What-if event cards (our labeled assumptions, chapter-cited): algorithm change (Shorts views ×" + d.eventAssumptions.algoReachMult + " from the card month), viral hit (one month ×" + d.eventAssumptions.viralLongViewsMult + " long views, +8% subs once, ×" + d.eventAssumptions.viralTailMult + " tail next month), burnout break (2 months: growth 0%, subs −0.5%/mo, views ×" + d.eventAssumptions.burnoutViewsMult + "), policy change (Feb-2027 YPP rules: Shorts ads $0 in months under the 10M/90d floor)",
+      "Money Map stages placed per month by net revenue: <$100 stage 0 · <$1K stage 1 · <$10K stage 2 · ≥$10K stage 3 · team + ≥$10K stage 4"
     ];
     ul.innerHTML = items.map(function (t) { return "<li>" + esc(t) + "</li>"; }).join("");
   })();
@@ -193,7 +218,7 @@
       if (document.getElementById(f.check).checked) {
         hires.push({
           type: f.type,
-          startMonth: Math.max(1, Math.min(24,
+          startMonth: Math.max(1, Math.min(36,
             parseInt(document.getElementById(f.month).value, 10) || 1)),
           monthlyCost: Math.max(0,
             parseFloat(document.getElementById(f.cost).value) || 0)
@@ -201,6 +226,25 @@
       }
     });
     return hires;
+  }
+
+  function eventCardIds() {
+    var ids = [];
+    if (typeof EmpireSim.DEFAULTS.eventCards === "undefined") return ids;
+    EmpireSim.DEFAULTS.eventCards.forEach(function (c) { ids.push(c.id); });
+    return ids;
+  }
+
+  function readEvents() {
+    var evs = [];
+    eventCardIds().forEach(function (id) {
+      var box = document.getElementById("s-ev-" + id);
+      if (box && box.checked) {
+        var mo = parseInt(document.getElementById("s-ev-" + id + "-month").value, 10);
+        evs.push({ id: id, startMonth: Math.max(1, Math.min(36, mo || 1)) });
+      }
+    });
+    return evs;
   }
 
   function readInputs() {
@@ -222,8 +266,9 @@
       digital: document.getElementById("s-digital").checked,
       digitalStartMonth: parseInt(document.getElementById("s-dig-month").value, 10) || 1,
       digitalPrice: Math.max(1, parseFloat(document.getElementById("s-dig-price").value) || 49),
-      horizon: document.getElementById("s-y2").checked ? 24 : 12,
-      hires: readHires()
+      horizon: parseInt(document.getElementById("s-horizon").value, 10) || 12,
+      hires: readHires(),
+      events: readEvents()
     };
   }
 
@@ -306,10 +351,48 @@
     }).join(" · ");
   }
 
+  function hireSummary(res) {
+    var hires = res.meta.hires || [];
+    if (!hires.length) return "no hires — gross = net";
+    return hires.map(function (h) {
+      var t = EmpireSim.DEFAULTS.hireTypes[h.type];
+      return (t ? t.label : h.type) + " $" + Math.round(h.monthlyCost) + "/mo from M" + h.startMonth;
+    }).join(" · ");
+  }
+
+  function cardName(id) {
+    var cards = EmpireSim.DEFAULTS.eventCards || [];
+    for (var i = 0; i < cards.length; i++) {
+      if (cards[i].id === id) return cards[i].name;
+    }
+    return id;
+  }
+
+  function stageTimeline(res) {
+    var html = '<h3>The stage journey</h3><div class="sticker-row" aria-label="Money Map stage transitions">' +
+      res.stages.map(function (s, i) {
+        return '<span class="sticker ' + STICKER_VARIANTS[i % 4] + '">M' + s.month +
+          " · Stage " + s.stage + " — " + esc(s.name) + "</span>";
+      }).join("") + "</div>" +
+      '<p class="muted" style="font-size:.85rem">Stages placed per month from net revenue plus team: ' +
+      "&lt;$100 = stage 0 (The Start Line) · &lt;$1K = stage 1 (First $100) · &lt;$10K = stage 2 (The Engine Runs) · " +
+      "≥$10K = stage 3 (The Business) · team + ≥$10K = stage 4 (The Company). " +
+      "Ends at stage " + res.endStage + " (" + esc(EmpireSim.STAGES[res.endStage].name) + ").</p>";
+    return html;
+  }
+
   function render(inputs, res) {
     var months = res.months, totals = res.totals;
     var N = months.length;
     var best = months.reduce(function (a, b) { return b.total > a.total ? b : a; }, months[0]);
+
+    var horizonNote = N > 24
+      ? " · 36-month run (year-2 ×" + res.meta.year2Decay + "/mo, year-3 ×" + res.meta.year3Decay + "/mo)"
+      : (N > 12 ? " · 24-month run (year-2 decay ×" + res.meta.year2Decay + "/mo)" : "");
+    var evNote = (res.meta.events && res.meta.events.length)
+      ? " · What-if: " + res.meta.events.map(function (e) {
+          return esc(cardName(e.id)) + " (M" + e.startMonth + ")";
+        }).join(", ") : "";
 
     var stats = '<div class="stat-grid">' +
       stat("End of run subs", fmtCompact(res.endSubs), res.startSubs + " → " + fmtCompact(res.endSubs)) +
@@ -317,7 +400,7 @@
       stat("Team spend", fmtMoney(totals.teamCost), hireSummary(res)) +
       stat("Net revenue", fmtMoney(totals.net), "gross minus team") +
       stat("Best month", fmtMoney(best.total), "month " + best.month) +
-      stat("Growth multiple", res.growthMultiple.toFixed(1) + "×", "subs compounded") +
+      stat("End stage", "Stage " + res.endStage, esc(EmpireSim.STAGES[res.endStage].name) + " (Money Map)") +
       "</div>";
 
     var meta = '<p class="muted">Model used: ' + (inputs.growthRate * 100).toFixed(0) +
@@ -325,8 +408,8 @@
       " cadence × " + res.meta.qualityMult + " quality = <strong>" +
       (res.meta.monthlyGrowth * 100).toFixed(1) + "%/mo</strong> · RPM $" +
       res.meta.rpm.toFixed(2) + " (" + inputs.rpmLevel + " of $" + res.meta.rpmBand[0] +
-      "–$" + res.meta.rpmBand[1] + ")" + (N > 12 ? " · 24-month run (year-2 decay ×" +
-      res.meta.year2Decay + "/mo)" : "") + " · Team: " + esc(hireSummary(res)) + ".</p>";
+      "–$" + res.meta.rpmBand[1] + ")" + horizonNote + evNote +
+      " · Team: " + esc(hireSummary(res)) + ".</p>";
 
     var miles = res.milestones.length
       ? '<div class="sticker-row" aria-label="Empire milestones">' + res.milestones.map(function (m, i) {
@@ -337,7 +420,11 @@
 
     var rows = months.map(function (m) {
       var ads = m.adsLong + m.adsShorts;
-      return "<tr><th scope='row'>" + m.month + "</th><td>" + fmtCompact(m.subs) + "</td>" +
+      var moCell = m.month + (m.eventsActive.length
+        ? ' <span title="What-if active: ' + esc(m.eventsActive.map(cardName).join(", ")) +
+          '" aria-label="what-if event active this month">⚡</span>' : "");
+      return "<tr><th scope='row'>" + moCell + "</th><td>" + fmtCompact(m.subs) + "</td>" +
+        "<td>S" + m.stage + "</td>" +
         "<td>" + fmtCompact(m.longViews) + "</td><td>" + fmtCompact(m.shortViews) + "</td>" +
         "<td>" + fmtMoney(ads) + "</td><td>" + fmtMoney(m.sponsor) + "</td>" +
         "<td>" + fmtMoney(m.affiliates) + "</td><td>" + fmtMoney(m.digital) + "</td>" +
@@ -349,11 +436,12 @@
       "<span>SIMULATION COMPLETE // " + N + "-MONTH EMPIRE PROJECTION</span>" +
       '<span class="hud-status">MODEL, NOT PROPHECY</span></div><div class="hud-body">' +
       "<h2>Your empire, month by month</h2>" + meta + stats +
+      miles + stageTimeline(res) +
       "<h3>Subscriber curve</h3>" + subsChart(months) +
       "<h3>Revenue by stream</h3>" + revenueChart(months) +
       "<h3>The ledger (month-by-month P&amp;L)</h3><div class=\"table-wrap\"><table><caption>Month-by-month projection. " +
-      "Compact numbers; revenue rounded. Net = total − team cost.</caption><thead><tr><th scope='col'>Mo</th>" +
-      "<th scope='col'>Subs</th><th scope='col'>Long views</th><th scope='col'>Shorts views</th>" +
+      "Compact numbers; revenue rounded. Net = total − team cost. ⚡ marks months with an active what-if event.</caption><thead><tr><th scope='col'>Mo</th>" +
+      "<th scope='col'>Subs</th><th scope='col'>Stage</th><th scope='col'>Long views</th><th scope='col'>Shorts views</th>" +
       "<th scope='col'>Ads</th><th scope='col'>Sponsors</th><th scope='col'>Affiliates</th>" +
       "<th scope='col'>Digital</th><th scope='col'>Team</th><th scope='col'>Net</th></tr></thead><tbody>" + rows +
       "</tbody></table></div>" +
@@ -396,7 +484,40 @@
     });
   }
 
-  /* ---------- A/B comparison ---------- */
+  /* shared net-revenue chart: both paths on one clock, two lines */
+  function compareNetChart(ma, mb, nameA, nameB) {
+    var N = ma.length;
+    var W = 640, H = 280, pl = 52, pr = 14, pt = 18, pb = 44;
+    var max = Math.max.apply(null,
+      ma.concat(mb).map(function (m) { return m.net; })) * 1.08 || 1;
+    var X = function (i) { return pl + (W - pl - pr) * (i / (N - 1)); };
+    var Y = function (v) { return pt + (H - pt - pb) * (1 - v / max); };
+    function line(months) {
+      return months.map(function (m, i) {
+        return X(i).toFixed(1) + "," + Y(m.net).toFixed(1);
+      }).join(" ");
+    }
+    var ticks = [0, max / 2, max].map(function (v) {
+      return '<line x1="' + pl + '" y1="' + Y(v) + '" x2="' + (W - pr) + '" y2="' + Y(v) +
+        '" class="chart-grid"/><text x="' + (pl - 6) + '" y="' + (Y(v) + 4) +
+        '" class="chart-tick" text-anchor="end">' + fmtMoney(v) + "</text>";
+    }).join("");
+    var monthsTicks = chartTicks(N).map(function (mm) {
+      return '<text x="' + X(mm - 1) + '" y="' + (H - 24) +
+        '" class="chart-tick" text-anchor="middle">M' + mm + "</text>";
+    }).join("");
+    return '<svg viewBox="0 0 ' + W + " " + H + '" class="chart" role="img" ' +
+      'aria-label="Net revenue per month over ' + N + " months: " + esc(nameA) + " versus " + esc(nameB) + '">' +
+      ticks +
+      '<polyline points="' + line(ma) + '" class="chart-line" style="stroke:var(--acid)"/>' +
+      '<polyline points="' + line(mb) + '" class="chart-line" style="stroke:var(--coral)"/>' +
+      monthsTicks +
+      '<text x="' + pl + '" y="' + (H - 6) + '" class="chart-tick">month</text></svg>' +
+      '<div class="chart-legend" aria-hidden="true">' +
+      '<span class="legend-item"><span class="swatch" style="background:var(--acid)"></span>A · ' + esc(nameA) + "</span>" +
+      '<span class="legend-item"><span class="swatch" style="background:var(--coral)"></span>B · ' + esc(nameB) + "</span></div>";
+  }
+
   var cmpOut = document.getElementById("cmp-output");
   function cmpSelectOptions() {
     var html = '<option value="custom">My current settings (form above)</option>';
@@ -457,6 +578,8 @@
       "<span>COMPARE COMPLETE // " + N + "-MONTH DELTAS</span>" +
       '<span class="hud-status">MODEL, NOT PROPHECY</span></div><div class="hud-body">' +
       '<div class="calc-grid">' + sideCard(cmp.a, cmp.nameA) + sideCard(cmp.b, cmp.nameB) + "</div>" +
+      "<h3>The shared chart — net revenue, same clock</h3>" +
+      compareNetChart(cmp.a.months, cmp.b.months, cmp.nameA, cmp.nameB) +
       "<h3>Which path wins</h3>" +
       '<div class="calc-out" style="text-align:left;border-left:4px solid var(--gold)">' +
       "<p><strong>Verdict:</strong> " + esc(cmp.verdict) + "</p></div>" +
@@ -481,7 +604,7 @@
         cmpOut.innerHTML = '<p class="muted">Still loading the 2026 rate data — try again in a second.</p>';
         return;
       }
-      var horizon = document.getElementById("s-y2").checked ? 24 : 12;
+      var horizon = parseInt(document.getElementById("s-horizon").value, 10) || 12;
       var A = cmpSide(cmpA.value, horizon);
       var B = cmpSide(cmpB.value, horizon);
       renderCompare(EmpireSim.compare(A.name, A.inputs, B.name, B.inputs, cfg), A, B);

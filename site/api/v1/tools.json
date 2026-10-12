@@ -536,7 +536,7 @@
     {
       "id": "simulator",
       "title": "Empire Simulator",
-      "description": "Simulate 12\u201324 months of channel growth + revenue \u2014 scenario library, A/B comparison, team hiring P&L \u2014 a model, not a prediction.",
+      "description": "Simulate 12\u201336 months of channel growth + revenue \u2014 12-scenario library, A/B comparison, team hiring P&L, what-if event cards, Money Map stage transitions \u2014 a model, not a prediction.",
       "page": "simulator.html",
       "input_schema": {
         "$schema": "http://json-schema.org/draft-07/schema#",
@@ -617,7 +617,7 @@
           "digital_start_month": {
             "type": "integer",
             "minimum": 1,
-            "maximum": 24,
+            "maximum": 36,
             "default": 1
           },
           "digital_price_usd": {
@@ -636,7 +636,10 @@
               "personal-finance",
               "fitness-coach",
               "serialized-mini-drama",
-              "asmr-roleplay"
+              "asmr-roleplay",
+              "sleep-ambient",
+              "english-learning",
+              "senior-health"
             ],
             "description": "One-click preset: loads a full named starting config from the engine's SCENARIOS library (research-sourced assumptions)."
           },
@@ -644,10 +647,11 @@
             "type": "integer",
             "enum": [
               12,
-              24
+              24,
+              36
             ],
             "default": 12,
-            "description": "12 or 24 months. 24 adds year-2 diminishing returns: monthly growth decays x0.94/mo after month 12 (the engine's labeled curve)."
+            "description": "12, 24, or 36 months. 24 adds year-2 diminishing returns (monthly growth decays x0.94/mo after month 12); 36 adds year-3 (x0.97/mo after month 24) plus Money Map stage transitions \u2014 the engine's labeled curves."
           },
           "hires": {
             "type": "array",
@@ -670,7 +674,7 @@
                 "start_month": {
                   "type": "integer",
                   "minimum": 1,
-                  "maximum": 24,
+                  "maximum": 36,
                   "default": 1
                 },
                 "monthly_cost_usd": {
@@ -681,6 +685,36 @@
               }
             },
             "description": "Team hires: each adds output/quality lift and subtracts monthly cost (month-by-month P&L: gross, team cost, net). First active month at 50% effect (ramp-up)."
+          },
+          "events": {
+            "type": "array",
+            "default": [],
+            "items": {
+              "type": "object",
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "enum": [
+                    "algorithm-change",
+                    "viral-hit",
+                    "burnout-break",
+                    "policy-change"
+                  ],
+                  "description": "What-if event card: algorithm-change (Shorts reach cut), viral-hit (one video 10x's), burnout-break (2 months off), policy-change (Feb-2027 YPP rules)."
+                },
+                "start_month": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 36,
+                  "default": 1,
+                  "description": "The month the card lands on the timeline."
+                }
+              }
+            },
+            "description": "What-if event cards: random-but-transparent scenario events with chapter-cited assumed effects. algorithm-change: Shorts views x0.6 from the card month (Oct-1-2026 originality update). viral-hit: event month long views x10, one-time +8% subs, next month x1.5 tail (reality check built in: virality spikes views, not loyalty). burnout-break: 2 months of zero growth, -0.5%/mo subs drift, views x0.3. policy-change: the Feb-2027 10M-qualified-Shorts-views/90d revenue floor \u2014 Shorts ads pay $0 in months under it. Multipliers are the engine's labeled assumptions, never platform data."
           },
           "compare_with": {
             "type": "object",
@@ -698,8 +732,8 @@
           }
         }
       },
-      "output": "12- or 24-month projection: subs, views, and revenue per month per stream (ads, sponsors, affiliates, digital), month-by-month team P&L (gross, team cost, net), totals, milestones, and the full named-assumptions list. compare() adds side-by-side deltas (B minus A) and a verdict. exportPlan() renders the copy-my-empire-plan text. A model, not a prediction.",
-      "drive_notes": "Engine (assets/js/sim-engine.js, UMD \u2014 importable in node): simulate(inputs, cfg) with cfg = calculators.json. scenarioInputs(id) loads a named preset from the SCENARIOS library; compare(nameA, inputsA, nameB, inputsB, cfg) runs two configs over the same clock (deltas are B minus A); assumptionLines(inputs, res) is the always-visible assumptions panel; exportPlan(scenarioName, inputs, res) renders the share text. Growth compounds monthly x niche factor x quality x cadence (diminishing, capped 2.5x). Hires add output/quality and subtract cost monthly (first active month at 50% ramp). Year-2 decays growth x0.94/mo after month 12. RPMs come from calculators.json youtube_longform_rpm_bands. Every assumption is named in DEFAULTS and listed on-page."
+      "output": "12-, 24-, or 36-month projection: subs, views, and revenue per month per stream (ads, sponsors, affiliates, digital), month-by-month team P&L (gross, team cost, net), per-month Money Map stage (0-4 from monthly net + team) with the stage-transition timeline, active what-if event cards per month, totals, milestones, and the full named-assumptions list. compare() adds side-by-side deltas (B minus A) and a verdict. exportPlan() renders the copy-my-empire-plan text incl. the stage journey. A model, not a prediction.",
+      "drive_notes": "Engine (assets/js/sim-engine.js, UMD \u2014 importable in node): simulate(inputs, cfg) with cfg = calculators.json. scenarioInputs(id) loads a named preset from the SCENARIOS library (12 presets, research-sourced assumptions); compare(nameA, inputsA, nameB, inputsB, cfg) runs two configs over the same clock (deltas are B minus A); assumptionLines(inputs, res) is the always-visible assumptions panel; exportPlan(scenarioName, inputs, res) renders the share text; normalizeEvents() validates the 4 what-if cards; stageForNet(net, teamActive) is the single source of the 0-4 stage rule. Growth compounds monthly x niche factor x quality x cadence (diminishing, capped 2.5x). Hires add output/quality and subtract cost monthly (first active month at 50% ramp). Year-2 decays growth x0.94/mo after month 12; year-3 x0.97/mo after month 24 (growth stays positive \u2014 plateau, not collapse). RPMs come from calculators.json youtube_longform_rpm_bands. Every assumption is named in DEFAULTS and listed on-page."
     },
     {
       "id": "api-explorer",

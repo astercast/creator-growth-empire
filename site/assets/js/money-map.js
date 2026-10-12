@@ -56,7 +56,7 @@
         { tool: "Batching Planner", page: "batching.html",
           why: "Does your shoot capacity actually cover your cadence? The honest surplus/shortfall math before you promise a sponsor a schedule." },
         { tool: "Empire Simulator", page: "simulator.html",
-          why: "Model 12–24 months of growth and revenue before you live them. A model, not a prediction — it shows what has to be true." }
+          why: "Model 12–36 months of growth and revenue before you live them. A model, not a prediction — it shows what has to be true." }
       ],
       trap: "One revenue stream. Ads-only is a single point of failure — one algorithm change, one demonetization wave. Stack a second stream before you need it.",
       graduate: "Three consecutive $1K+ months from at least two revenue streams. Consistency, then diversification."
@@ -189,7 +189,7 @@
     ],
     growth: [
       { tool: "Hook Builder", page: "hook-builder.html", why: "Growth at this stage is usually a packaging problem, not a quality problem." },
-      { tool: "Empire Simulator", page: "simulator.html", why: "See what different growth rates actually compound into over 12–24 months." }
+      { tool: "Empire Simulator", page: "simulator.html", why: "See what different growth rates actually compound into over 12–36 months." }
     ],
     monetization: [
       { tool: "Revenue Calculator", page: "calculator.html", why: "Know what your current views are worth in honest ranges before you price anything." },

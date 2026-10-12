@@ -82,7 +82,7 @@ Goal: niche → content plan → launch schedule, with monetization gates.
 
 ### Workflow 3 — Run an Empire Simulator scenario for ASMR
 
-Goal: a 12-month growth + revenue model with every assumption named.
+Goal: a 12-month growth + revenue model with every assumption named (36-month runs and what-if events: Workflow 11).
 
 1. `GET api/v1/tools.json` → tool `simulator` → `input_schema` + `drive_notes`.
    The engine is `assets/js/sim-engine.js` (UMD — `require()` it in node):
@@ -106,6 +106,9 @@ Goal: a 12-month growth + revenue model with every assumption named.
 > `EmpireSim.scenarioInputs("asmr-bedroom")` returns it, with five more presets
 > (tech reviewer, betrayal mini-dramas, cooking, personal finance, fitness) in
 > `EmpireSim.SCENARIOS`. The ASMR proxies are labeled inside the scenario.
+> Wave 24: the library is 12 presets — new: `sleep-ambient` (from the sleep
+> channels case file + the 2027 outlook), `english-learning` (21x breakout,
+> $18–22 CPM), `senior-health` (19x breakout, ultra-low competition).
 
 ### Workflow 4 — A/B compare two Empire Simulator scenarios (ASMR vs tech reviewer)
 
@@ -113,8 +116,9 @@ Goal: run two paths over the same 12 months, get the delta table and the
 "which path wins and why" verdict — all via API.
 
 1. `GET api/v1/tools.json` → tool `simulator` → `input_schema`: new wave-13
-   inputs are `scenario_id` (enum of the 6 presets), `horizon` (12 | 24),
-   `hires[]` (First Hire guide roles + costs), and `compare_with`
+   inputs are `scenario_id` (enum of the 12 presets), `horizon` (12 | 24 | 36),
+   `hires[]` (First Hire guide roles + costs), `events[]` (the 4 what-if cards —
+   see Workflow 11), and `compare_with`
    (`{name_b, inputs_b}` for A/B mode).
 2. Load both scenarios from the engine, declare proxies where they exist:
    `EmpireSim.scenarioInputs("asmr-bedroom")` (ASMR → `lifestyle` proxies,
@@ -348,6 +352,38 @@ originality rules, all via API, no UI.
    matters. The `content-repurposing` skill owns the full pillar-to-everywhere
    SOP this tool plugs into. Planning aid, not financial, legal, or tax advice.
 
+### Workflow 11 — Run a 36-month empire with what-if events (Simulator 3.0)
+
+Goal: a 3-year projection with compounding growth, year-2/year-3 decay,
+Money Map stage transitions, and a named shock card — all via API, no UI.
+
+1. `GET api/v1/tools.json` → tool `simulator` → `input_schema`: `horizon`
+   (12 | 24 | 36) and `events[]` (the 4 what-if cards with their assumed
+   effects). Engine: `require("assets/js/sim-engine.js")` (UMD).
+2. Load a scenario: `EmpireSim.scenarioInputs("english-learning")`
+   (the 2027-outlook 21x breakout niche), then set `inputs.horizon = 36`
+   and `inputs.events = [{ id: "algorithm-change", startMonth: 12 }]` —
+   the Oct-1-2026 Shorts reach-cut card landing at month 12.
+3. `EmpireSim.simulate(inputs, cfg)` with `cfg` =
+   `api/v1/calculators.json`. Verified result (executed against the real
+   files): 36 months, month-12 → month-13 growth drops ×0.94 (the year-2
+   curve), month-24 → month-25 ×0.97 (year-3), `stages` lists the first
+   month each Money Map stage was reached (stage rule:
+   `EmpireSim.stageForNet(net, teamActive)` — <$100 = 0, <$1K = 1,
+   <$10K = 2, ≥$10K = 3, team + ≥$10K = 4), and `months[11].shortViews`
+   is ×0.6 the no-event baseline (the card's labeled assumption).
+4. Compare with the baseline: `EmpireSim.compare("English learning",
+   base36, "English learning + algo cut", shocked36, cfg)` — deltas are
+   **B minus A**, the verdict names the net-revenue winner with drivers
+   and the honesty caveat. Verified: the event path ends lower on net,
+   and the verdict says so in plain language.
+5. Framing rule (non-negotiable): 36-month numbers are **scenario models
+   with stated assumptions — not predictions, not promises, never
+   expected income**. The cards' multipliers are the engine's labeled
+   assumptions (each card cites its chapter basis); the platform rules
+   they model (Oct-1 originality, Feb-2027 YPP) must be verified live.
+   Not financial, legal, or tax advice.
+
 ## Rate & expectation notes
 
 - **Static JSON.** Nothing here is live: no request counts, no streaming, no
@@ -381,7 +417,7 @@ explaining how to replicate the logic:
 | The Deal Room | `brand`, `platform`, `followers`, `deliverable`, `expected_views`, `offer_usd`, `usage_rights`, `exclusivity`, `payment_terms`, `timeline`, `status` (offer → negotiating → signed → delivered → paid) | `require("assets/js/deal-room.js")` — `scoreOffer()` for the verdict, `priceUsage()` for usage line items (reported +50/+75/+100% band; no invented whitelisting/buyout multipliers), `redFlagScore()` for the checklist, `renderScript()` for the 4 negotiation scripts, `dealMemo()` for the one-page record; scripts + checklist + tiers from `api/v1/deal-templates.json` — see Workflow 5 |
 | Hiring Cost Calculator | `role`, `billing_model`, `rate_usd` + hours/units/views/`niche` | Sticker → loaded ×1.15; coverage views = loaded ÷ RPM band × 1000; 3-month reserve rule |
 | Repurposing Planner | `idea` (one sentence) + `source_format` | Atom test → pillar prep → 5 staggered mission cards (YT Day 0, Short +1, TikTok +2, Reel +3, FB +4) |
-| Empire Simulator | `niche`, `startSubs`, cadence, `quality`, `growthRate`, `q4Uplift`, monetization toggles, `scenario_id`, `horizon` (12/24), `hires[]`, `compare_with` | `require("assets/js/sim-engine.js").simulate(inputs, calculatorsJson)` — plus `scenarioInputs(id)`, `compare(nameA,a,nameB,b,cfg)`, `assumptionLines()`, `exportPlan()` — see Workflows 3–4 |
+| Empire Simulator | `niche`, `startSubs`, cadence, `quality`, `growthRate`, `q4Uplift`, monetization toggles, `scenario_id`, `horizon` (12/24/36), `hires[]`, `events[]`, `compare_with` | `require("assets/js/sim-engine.js").simulate(inputs, calculatorsJson)` — plus `scenarioInputs(id)`, `compare(nameA,a,nameB,b,cfg)`, `assumptionLines()`, `exportPlan()`, `normalizeEvents()`, `stageForNet(net, teamActive)` — see Workflows 3–4, 11 |
 | API Explorer | none (read-only browser over the API) | Skip the UI; fetch the endpoints directly |
 | YPP 2027 Eligibility Checker | `subs`, `watchHours`, `shortsViews`, `uploads90d`, `originality` (original/repurposed/reposted), `formatMix` (longform/shorts/both) | `require("assets/js/ypp-checker.js")` — `check(i)` returns current-vs-2027 verdicts, Shorts floor, activity test, gap math, chapter-grounded plan — see Workflow 8 |
 | Hook Builder | `topic` (one line) | One hook per Short-Form Playbook structure + the anti-hook checklist |

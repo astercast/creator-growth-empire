@@ -179,7 +179,159 @@ ok(y2.months[22].q4UpliftApplied && y2.months[9].q4UpliftApplied,
 ok(y2.months.length === 24 && y2.endSubs > solo.endSubs,
   "24-month run grows past the 12-month solo end");
 var horizonCap = sim.simulate(baseInputs({ horizon: 99 }), cfg);
-ok(horizonCap.months.length === 24, "horizon capped at 24");
+ok(horizonCap.months.length === 36, "horizon capped at 36");
+
+console.log("36-month projections (wave 24)");
+var r36 = sim.simulate(baseInputs({ horizon: 36 }), cfg);
+ok(r36.months.length === 36, "horizon 36 returns 36 months");
+ok(r36.meta.year2Decay === 0.94 && r36.meta.year3Decay === 0.97,
+  "meta exposes both decay factors on a 36-month run");
+ok(r36.meta.year3Decay === null || sim.simulate(baseInputs({ horizon: 12 }), cfg).meta.year3Decay === null,
+  "12-month meta carries no year-3 decay");
+// pinned decay math: month 13 = g x0.94, month 25 = g x0.94^12 x0.97
+var g0 = r36.meta.monthlyGrowth;
+ok(Math.abs(r36.months[12].growthRate - g0 * Math.pow(0.94, 1)) < 1e-9,
+  "month-13 growth = base x0.94^1 (got " + r36.months[12].growthRate + ")");
+ok(Math.abs(r36.months[24].growthRate - g0 * Math.pow(0.94, 12) * Math.pow(0.97, 1)) < 1e-9,
+  "month-25 growth = base x0.94^12 x0.97^1 (got " + r36.months[24].growthRate + ")");
+ok(Math.abs(r36.months[35].growthRate - g0 * Math.pow(0.94, 12) * Math.pow(0.97, 12)) < 1e-9,
+  "month-36 growth = base x0.94^12 x0.97^12 (got " + r36.months[35].growthRate + ")");
+ok(r36.months[35].growthRate > 0, "growth stays positive at month 36 — plateau, not collapse");
+ok(r36.months[33].q4UpliftApplied && r36.months[35].q4UpliftApplied && !r36.months[32].q4UpliftApplied,
+  "Q4 uplift applies in year 3 (months 34-36)");
+ok(r36.endSubs > sim.simulate(baseInputs({ horizon: 24 }), cfg).endSubs,
+  "36-month run grows past the 24-month end");
+// the s-y2-era checkbox semantic survives: a 24-month run with hires clamps start month at 36
+var h36 = sim.simulate(baseInputs({ horizon: 36, hires: [{ type: "editor", startMonth: 40, monthlyCost: 1400 }] }), cfg);
+ok(h36.meta.hires[0].startMonth === 36, "hire start month clamps at 36 (got " + h36.meta.hires[0].startMonth + ")");
+
+console.log("stage transitions (wave 24)");
+ok(sim.stageForNet(50, false) === 0, "net $50 -> stage 0");
+ok(sim.stageForNet(500, false) === 1, "net $500 -> stage 1");
+ok(sim.stageForNet(5000, false) === 2, "net $5K -> stage 2");
+ok(sim.stageForNet(50000, false) === 3, "net $50K solo -> stage 3 (not 4)");
+ok(sim.stageForNet(50000, true) === 4, "net $50K with team -> stage 4");
+ok(sim.stageForNet(100, false) === 1 && sim.stageForNet(99.99, false) === 0,
+  "stage boundary exactly $100");
+ok(sim.stageForNet(10000, false) === 3 && sim.stageForNet(9999.99, false) === 2,
+  "stage boundary exactly $10K");
+ok(Array.isArray(r36.stages) && r36.stages.length >= 1,
+  "36-month run returns stage transitions");
+ok(r36.stages[0].stage === r36.months[0].stage && r36.stages[0].month === 1,
+  "first transition is the starting stage at month 1");
+var stageNames = r36.stages.map(function (s) { return s.stage; });
+ok(stageNames.every(function (s, i) { return i === 0 || s > stageNames[i - 1]; }),
+  "stages only rise (no regressing transitions)");
+ok(r36.endStage === r36.months[35].stage && r36.endStage === r36.stages[r36.stages.length - 1].stage,
+  "endStage matches the last month and the last transition");
+ok(sim.STAGES.length === 5 && sim.STAGES[2].name === "The Engine Runs",
+  "STAGES ships the five Money Map names");
+
+console.log("what-if event cards (wave 24)");
+ok(sim.DEFAULTS.eventCards.length === 4, "4 event cards in DEFAULTS");
+sim.DEFAULTS.eventCards.forEach(function (c) {
+  ok(typeof c.assumedEffect === "string" && c.assumedEffect.length > 0 &&
+     typeof c.basis === "string" && c.basis.length > 0,
+    "card '" + c.id + "' names its assumed effect + chapter basis");
+});
+// algorithm change: Shorts views x0.6 from the event month, long-form untouched
+var algo = sim.simulate(baseInputs({ horizon: 12, events: [{ id: "algorithm-change", startMonth: 4 }] }), cfg);
+var ratio = algo.months[3].shortViews / algo.months[2].shortViews * (algo.months[2].subs / algo.months[3].subs);
+ok(Math.abs(ratio - 0.6) < 0.02,
+  "algorithm-change: shorts views x0.6 at the event month (ratio " + ratio.toFixed(3) + ")");
+ok(algo.months[3].eventsActive.indexOf("algorithm-change") !== -1 &&
+   algo.months[2].eventsActive.length === 0,
+  "eventsActive pins the algorithm-change start month");
+var algoLong = algo.months[3].longViews / algo.months[2].longViews * (algo.months[2].subs / algo.months[3].subs);
+ok(Math.abs(algoLong - 1) < 0.02, "algorithm-change leaves long-form views untouched");
+// viral hit: 10x long views in the event month, +8% subs bump, 1.5x tail, then normal
+var viral = sim.simulate(baseInputs({ horizon: 12, events: [{ id: "viral-hit", startMonth: 6 }] }), cfg);
+var noEv = sim.simulate(baseInputs({ horizon: 12 }), cfg);
+var vSpike = viral.months[5].longViews / noEv.months[5].longViews;
+ok(vSpike > 9 && vSpike < 11,
+  "viral-hit: event-month long views ~10x (got " + vSpike.toFixed(2) + "x)");
+ok(viral.months[5].viralMonth === true && viral.months[4].viralMonth === false,
+  "viralMonth flags exactly the event month");
+var vSubs = viral.months[5].subs / noEv.months[5].subs;
+ok(vSubs > 1.07 && vSubs < 1.09,
+  "viral-hit: subs get the one-time +8% lift only (got " + (vSubs * 100 - 100).toFixed(2) + "%)");
+var vTail = viral.months[6].longViews / noEv.months[6].longViews;
+// the +8% subs bump compounds forward, so the tail ratio = 1.5 x (1.08 x growth)
+ok(vTail > 1.55 && vTail < 1.75,
+  "viral-hit: next-month tail 1.5x on the boosted subs base (got " + vTail.toFixed(2) + "x)");
+// two months later: views per sub back to 1x (the bump lives in the subs base, not the view rate)
+var vRec = (viral.months[7].longViews / viral.months[7].subs) / (noEv.months[7].longViews / noEv.months[7].subs);
+ok(Math.abs(vRec - 1) < 0.02,
+  "viral-hit: views-per-sub returns to baseline after the tail (got " + vRec.toFixed(3) + ")");
+ok(viral.months[7].subs / noEv.months[7].subs > 1.07,
+  "viral-hit: the subs lift compounds forward (reality check: views fade, the audience bump stays small)");
+// burnout break: 2 months of zero growth, drift, views x0.3
+var burn = sim.simulate(baseInputs({ horizon: 12, events: [{ id: "burnout-break", startMonth: 5 }] }), cfg);
+ok(burn.months[4].growthRate === 0 && burn.months[5].growthRate === 0 &&
+   burn.months[6].growthRate > 0,
+  "burnout-break: exactly 2 months of zero growth, then recovery");
+var drift = burn.months[4].subs / burn.months[3].subs;
+ok(Math.abs(drift - 0.995) < 0.002,
+  "burnout-break: -0.5%/mo audience drift (got " + drift.toFixed(4) + ")");
+// pin views-per-sub (the 0.3 applies to the view rate; the zero-growth
+// month also shrinks the subs base vs the control, so raw views read lower)
+var burnVps = (burn.months[4].longViews / burn.months[4].subs) /
+              (noEv.months[4].longViews / noEv.months[4].subs);
+ok(Math.abs(burnVps - 0.3) < 0.01,
+  "burnout-break: views-per-sub x0.3 back-catalog only (got " + burnVps.toFixed(3) + ")");
+// policy change: Shorts ads $0 while rolling 90d < 10M views
+var pol = sim.simulate(baseInputs({ horizon: 12, events: [{ id: "policy-change", startMonth: 1 }] }), cfg);
+ok(pol.months[0].shortsFloorBlocked === true && pol.months[0].adsShorts === 0,
+  "policy-change: shorts ads blocked at small scale");
+ok(pol.months[0].adsLong > 0, "policy-change: long-form ads keep paying");
+var polBig = sim.simulate(baseInputs({ horizon: 12, startSubs: 2000000, shortsPerWeek: 7,
+  events: [{ id: "policy-change", startMonth: 1 }] }), cfg);
+var blocked12 = polBig.months[11].shortsFloorBlocked;
+ok(blocked12 === false && polBig.months[11].adsShorts > 0,
+  "policy-change: above the 10M/90d floor, shorts ads pay normally");
+// unknown ids dropped, start months clamped/defaulted
+ok(sim.normalizeEvents([{ id: "nope", startMonth: 2 }]).length === 0,
+  "unknown event id dropped");
+ok(sim.normalizeEvents([{ id: "viral-hit" }])[0].startMonth === 1,
+  "missing startMonth defaults to 1");
+ok(sim.normalizeEvents([{ id: "viral-hit", startMonth: 99 }])[0].startMonth === 36,
+  "startMonth clamps at 36");
+ok(sim.normalizeEvents(null).length === 0, "no events -> empty array");
+// event honesty contract: no hard income numbers on the cards
+sim.DEFAULTS.eventCards.forEach(function (c) {
+  ok(!/\$\d/.test(c.assumedEffect) || /×\d/.test(c.assumedEffect) === false,
+    "card '" + c.id + "' assumes effects as multipliers, never income dollars");
+});
+
+console.log("compare on 36 months (wave 24)");
+var cmp36 = sim.compare("sleep-ambient", sim.scenarioInputs("sleep-ambient"),
+  "english-learning", sim.scenarioInputs("english-learning"), cfg);
+var A36 = sim.scenarioInputs("sleep-ambient"); A36.horizon = 36;
+var B36 = sim.scenarioInputs("english-learning"); B36.horizon = 36;
+var cmp36h = sim.compare("sleep-ambient", A36, "english-learning", B36, cfg);
+ok(cmp36h.a.meta.horizon === 36 && cmp36h.b.meta.horizon === 36,
+  "both paths run the 36-month clock when horizon=36");
+ok(Math.abs(cmp36h.deltas.netRevenue - (cmp36h.b.totals.net - cmp36h.a.totals.net)) < 1e-6,
+  "36-month deltas still B minus A");
+ok(/over 36 months/.test(cmp36h.verdict), "verdict names the 36-month clock");
+ok(cmp36.a.months.length === 12, "scenarios still default to 12 months");
+
+console.log("new scenarios (wave 24)");
+ok(sim.SCENARIOS.length === 12, "12 loadable scenarios (" + sim.SCENARIOS.length + ")");
+["sleep-ambient", "english-learning", "senior-health"].forEach(function (id) {
+  var sc = sim.SCENARIOS.filter(function (s) { return s.id === id; })[0];
+  ok(!!sc, "new scenario '" + id + "' exists");
+  var inp = sim.scenarioInputs(id);
+  var rs = sim.simulate(inp, cfg);
+  ok(rs.months.length === 12 && isFinite(rs.endSubs) && isFinite(rs.totals.total),
+    "scenario '" + id + "' simulates 12 finite months");
+  ok((cfg.youtube_longform_rpm_bands[inp.niche] || []).length === 2,
+    "scenario '" + id + "' niche is a real calculators.json RPM band");
+  ok(typeof sc.source === "string" && /OutlierKit|Fortune|Niche Atlas 2027/.test(sc.source),
+    "scenario '" + id + "' cites its 2027-outlook / case-file source");
+  ok(typeof sc.nicheProxyNote === "string" || ["education", "health_fitness"].indexOf(inp.niche) !== -1,
+    "scenario '" + id + "' uses a real engine niche key (proxies declared where needed)");
+});
 
 console.log("assumptions + plan export (wave 13)");
 var al = sim.assumptionLines(baseInputs({ hires: [{ type: "editor", startMonth: 4, monthlyCost: 1400 }] }), hired);

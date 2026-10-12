@@ -83,10 +83,20 @@ Goal: turn "I tested 5 budget mics" into five platform-native posts.
 
 Goal: run two paths over the same 12 months and get the delta table plus a plain-language verdict.
 
-1. `GET api/v1/tools.json` → tool `simulator` → `input_schema`: the 2.0 inputs are `scenario_id` (6 presets), `horizon` (12 | 24), `hires[]` (First Hire guide roles), and `compare_with` for A/B mode.
+1. `GET api/v1/tools.json` → tool `simulator` → `input_schema`: the 3.0 inputs are `scenario_id` (12 presets), `horizon` (12 | 24 | 36), `hires[]` (First Hire guide roles), `events[]` (the 4 what-if cards), and `compare_with` for A/B mode.
 2. `EmpireSim.scenarioInputs("asmr-bedroom")` vs `EmpireSim.scenarioInputs("tech-reviewer")` — the ASMR scenario declares its proxies (`lifestyle` growth 1.05x + lifestyle RPM band at low, $4).
 3. `EmpireSim.compare("ASMR bedroom", asmr, "Tech reviewer", tech, cfg)`: ASMR bedroom → **6,434** subs, **$909.02** net; Tech reviewer → **5,323** subs, **$7,955.56** net. Verdict: Path Tech reviewer leads on net revenue by **775%** — RPM $4.00 vs $14.00; growth 19.0% vs 11.1%; the net-revenue winner is NOT the subscriber winner.
 4. Return the verdict as a model, not a prediction: deltas explained by the drivers, the honesty caveat quoted, assumptions from `assumptionLines()` attached. Never present scenario revenue as expected income.
+
+### 7. Run a 36-month empire with what-if events
+
+Goal: a 3-year projection — compounding growth, year-2/year-3 decay, Money Map stage transitions, and a named shock card.
+
+1. `GET api/v1/tools.json` → tool `simulator` → `input_schema`: `horizon` (12 | 24 | 36) and `events[]`. Engine: `require("assets/js/sim-engine.js")` (UMD, importable in node).
+2. `EmpireSim.scenarioInputs("english-learning")` (21x breakout, 2027 outlook) → set `inputs.horizon = 36`, `inputs.events = [{ id: "algorithm-change", startMonth: 12 }]`.
+3. `EmpireSim.simulate(inputs, cfg)`: 36 months; month-12 → month-13 growth ×0.94 (year-2), month-24 → month-25 ×0.97 (year-3); `stages` lists each Money Map stage's first month (rule: `EmpireSim.stageForNet(net, teamActive)`); the card's labeled effect (Shorts views ×0.6 from month 12) cites the Oct-1-2026 originality update.
+4. `EmpireSim.compare("English learning", base36, "English learning + algo cut", shocked36, cfg)` — deltas are B minus A; the verdict names the net-revenue winner with the honesty caveat.
+5. Framing: scenario models with stated assumptions — not predictions, not promises, never expected income. Not financial, legal, or tax advice. See AGENT.md Workflow 11.
 
 ### 5. Manage a sponsorship deal end-to-end
 
