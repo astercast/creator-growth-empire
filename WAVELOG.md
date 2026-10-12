@@ -21,7 +21,7 @@ What shipped:
 
 Validation: `scripts/build.py` clean (9 chapters, 18 tools, 12 skills, 9 case files, 17,224 words); `scripts/validate.sh` **8/8 GREEN** (JS syntax, JSON parse, draft-07 schemas incl. the extended content-engine doc, 0 broken links (2,693 checked), byte-identical rebuild on the committed tree, 84 sim + 78 deal-room + 111 content-engine + 44 money-map + 184 video-doctor + 144 niche-atlas + 84 ypp-checker + 92 outreach engine assertions, 88 agent-workflow assertions).
 
-Commit: LOCAL_HASH (local) → REMOTE_HASH (pushed 2026-10-11, remote tree verified via GitHub API — all wave-23 files in the recursive tree).
+Commit: 1a09e6d (local) → 22b2a562bbac554c7498a4a04bcf7d7746237309 (pushed 2026-10-11, remote tree verified via GitHub API — all wave-23 files in the recursive tree).
 
 ## Wave 22 — Deal Room 2.0: The Outreach Center (2026-10-11)
 
