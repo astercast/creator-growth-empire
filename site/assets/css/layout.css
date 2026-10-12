@@ -131,6 +131,11 @@ main { max-width: var(--max-w); margin: 0 auto; padding: 0 1.5rem 4rem; }
 .ticker-track span::after { content: "///"; position: absolute; right: -0.6rem; color: var(--cyan-dim); }
 .ticker-track span:nth-child(odd) { color: var(--cyan); }
 @keyframes tick { to { transform: translateX(-50%); } }
+/* the tape is ambient motion: still under reduced motion (and under calm mode —
+   see motifs.css), readable either way since the slogans are duplicated */
+@media (prefers-reduced-motion: reduce) {
+  .ticker-track { animation: none; }
+}
 
 /* ---------- sections ---------- */
 .section { padding: 3.5rem 0 0.5rem; }

@@ -51,7 +51,11 @@
   --shadow-chisel: 6px 6px 0 rgba(0, 0, 0, 0.55);
   --shadow-plate: 4px 4px 0 rgba(0, 0, 0, 0.55);
   --shadow-lift: 8px 8px 0 rgba(0, 0, 0, 0.6);
-  /* motion — 5 named durations + 3 named easings (web-craft research).
+  /* motion — 5 named durations + 3 named easings + 1 emphasized accent
+     (web-craft round 4: expo.out 0.16,1,0.3,1 is the primary reveal curve;
+     back.out(1.7) is reserved for the ONE emphasized accent per view — the
+     stamp slam. One primary easing + exit + emphasized; mixed curve
+     vocabularies are the fastest way to feel template-assembled.)
      Never exceed 500ms on a UI interaction. Physics: entrances decelerate,
      exits accelerate, scroll-synced motion is linear. */
   --dur-instant: 0ms;
@@ -60,8 +64,9 @@
   --dur-moderate: 320ms;
   --dur-slow: 480ms;
   --ease-standard: cubic-bezier(0.2, 0, 0, 1);
-  --ease-decelerate: cubic-bezier(0, 0, 0, 1);
+  --ease-decelerate: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-accelerate: cubic-bezier(0.3, 0, 1, 1);
+  --ease-emphasized: cubic-bezier(0.34, 1.56, 0.64, 1);
   /* legacy aliases — DO NOT USE in new code; kept so older fragments that
      slipped through still resolve. New code uses the names above. */
   --dur-med: 320ms;

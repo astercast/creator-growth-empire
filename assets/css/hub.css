@@ -71,18 +71,7 @@ a.brief-card:hover, a.brief-card:focus-visible {
 .hub-group-head .hub-rule { flex: 1 1 100%; height: 2px; background: var(--card-accent, var(--cyan)); opacity: 0.55; }
 .hub-group-head p { flex: 1 1 100%; margin: 0; color: var(--muted); max-width: 68ch; }
 
-/* ---------- empty + error states: in-world copy ---------- */
-.empty-state {
-  border: 2px dashed var(--line-strong); border-radius: var(--radius-sm);
-  padding: 2.2rem 1.5rem; text-align: center; color: var(--muted);
-  background: var(--bg-2); margin: 1.5rem 0;
-}
-.empty-state .empty-icon { display: block; font-size: 2rem; color: var(--faint); margin-bottom: 0.6rem; }
-.empty-state strong {
-  display: block; margin-bottom: 0.35rem;
-  font-family: var(--font-cond); font-weight: 700; font-size: 1.2rem;
-  text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink);
-}
+/* ---------- error states: in-world copy ---------- */
 .error-state {
   border: 1px solid var(--line-strong); border-left: 5px solid var(--stamp);
   background: var(--bg-2); border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
@@ -100,5 +89,4 @@ a.brief-card:hover, a.brief-card:focus-visible {
 @media (max-width: 720px) {
   .brief-grid { grid-template-columns: 1fr; }
   .hub-group { margin-top: 2.2rem; }
-  .empty-state { padding: 1.8rem 1.1rem; }
 }

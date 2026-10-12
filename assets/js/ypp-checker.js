@@ -515,7 +515,7 @@
       e.preventDefault();
       var input = readInputs();
       if (!validInput(input)) {
-        out.innerHTML = '<div class="empty-state" role="alert"><span class="empty-icon" aria-hidden="true">⚠️</span><strong>Check your numbers.</strong>Enter non-negative values for subscribers, watch hours, Shorts views, and uploads.</div>';
+        out.innerHTML = '<div class="empty-state" role="alert"><span class="empty-icon" aria-hidden="true">!</span><strong>Check your numbers.</strong>Enter non-negative values for subscribers, watch hours, Shorts views, and uploads.</div>';
         return;
       }
       saveStore({ last: input });
@@ -524,7 +524,7 @@
 
     if (reset) reset.addEventListener("click", function () {
       form.reset();
-      out.innerHTML = '<div class="empty-state" role="status"><span class="empty-icon" aria-hidden="true">🧭</span><strong>Nothing checked yet.</strong>Enter your numbers above — the checker compares them against the current YPP bar and the Feb-2027 bar, side by side.</div>';
+      out.innerHTML = '<div class="empty-state" role="status"><span class="empty-icon" aria-hidden="true">⌖</span><strong>Nothing checked yet.</strong>Enter your numbers above — the checker compares them against the current YPP bar and the Feb-2027 bar, side by side.</div>';
       saveStore({ last: null });
     });
   }

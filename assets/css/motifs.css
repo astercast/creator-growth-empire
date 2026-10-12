@@ -47,10 +47,11 @@
 .stamp-cyan { color: var(--cyan); border-color: var(--cyan); outline-color: var(--cyan); }
 .stamp-sm { font-size: 0.72rem; border-width: 2px; padding: 0.25rem 0.6rem 0.2rem 0.8rem; }
 .stamp-lg { font-size: 1.4rem; border-width: 4px; }
-/* signature motion: the stamp slam — one impact, then it sits. */
+/* signature motion: the stamp slam — one impact, then it sits.
+   The emphasized easing (back.out 1.7) is reserved for this one accent. */
 @media (prefers-reduced-motion: no-preference) {
   .stamp-slam.slammed {
-    animation: stamp-impact var(--dur-moderate) var(--ease-decelerate);
+    animation: stamp-impact var(--dur-moderate) var(--ease-emphasized);
   }
   @keyframes stamp-impact {
     0% { transform: rotate(-6deg) scale(1.7); opacity: 0; }
@@ -145,6 +146,205 @@
   color: var(--cyan); text-transform: uppercase;
   font-variant-numeric: tabular-nums;
 }
+
+/* ============ P5 — empty states: the "no intel yet" dossier plate ============
+   Where: every tool's pre-run results panel (static fragments + JS-rendered).
+   The plate reads as an unfilled form: dashed border, diagonal corner
+   brackets, a boxed tactical glyph (never an emoji), and a ghost
+   "AWAITING ORDERS" stamp — decorative chrome via ::before; the
+   role="status" text stays the accessible content. */
+.empty-state {
+  position: relative;
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--radius-sm);
+  background-color: var(--bg-2);
+  /* diagonal corner brackets — flat lines drawn with gradient stops
+     (same job as P1's corners; precedent: the P3 XP segment ticks) */
+  background-image:
+    linear-gradient(var(--cyan-dim), var(--cyan-dim)),
+    linear-gradient(var(--cyan-dim), var(--cyan-dim)),
+    linear-gradient(var(--cyan-dim), var(--cyan-dim)),
+    linear-gradient(var(--cyan-dim), var(--cyan-dim));
+  background-repeat: no-repeat;
+  background-size: 16px 3px, 3px 16px, 16px 3px, 3px 16px;
+  background-position: 12px 12px, 12px 12px, right 12px bottom 12px, right 12px bottom 12px;
+  padding: 2.6rem 1.5rem 1.8rem;
+  text-align: center; color: var(--muted); margin: 1.5rem 0;
+}
+.empty-state::before {
+  content: "AWAITING ORDERS";
+  position: absolute; top: 0.85rem; right: 1rem;
+  font-family: var(--font-cond); font-weight: 700; font-size: 0.66rem;
+  letter-spacing: 0.24em; text-transform: uppercase; white-space: nowrap;
+  color: var(--faint); border: 2px solid var(--faint); border-radius: 3px;
+  padding: 0.2rem 0.55rem 0.15rem 0.75rem; transform: rotate(-4deg);
+  opacity: 0.85;
+}
+.empty-state .empty-icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 3rem; height: 3rem; margin-bottom: 0.9rem;
+  border: 2px solid var(--line-strong); border-radius: var(--radius-sm);
+  background: var(--bg-3); color: var(--cyan); font-size: 1.35rem;
+}
+.empty-state strong {
+  display: block; margin-bottom: 0.35rem;
+  font-family: var(--font-cond); font-weight: 700; font-size: 1.2rem;
+  text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink);
+}
+@media (max-width: 720px) {
+  .empty-state { padding: 2.2rem 1.1rem 1.5rem; }
+}
+
+/* ============ P6 — signal log: the kill-feed of field wins ============
+   Where: the homepage SIGNAL LOG. Tactical comms lines — mono MSG numbers,
+   cyan callsigns, one-line transmission text, gold FILED chits. Entries are
+   numbered transmissions, never fake timestamps (the build can't know
+   "recent", so it doesn't claim it). */
+.killfeed { display: flex; flex-direction: column; }
+.kf-msg {
+  display: grid; grid-template-columns: auto auto minmax(0, 1fr) auto;
+  gap: 0.35rem 1.1rem; align-items: baseline;
+  padding: 0.8rem 0.6rem; border-bottom: 1px dashed var(--line);
+  text-decoration: none;
+}
+.kf-msg:last-child { border-bottom: none; }
+.kf-num {
+  font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.12em;
+  color: var(--faint); white-space: nowrap;
+}
+.kf-num::before { content: "▸ "; color: var(--cyan); }
+.kf-call {
+  font-family: var(--font-mono); font-weight: 700; font-size: 0.8rem;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--cyan); white-space: nowrap;
+}
+.kf-text { color: var(--muted); font-size: 0.95rem; }
+.kf-chit {
+  font-family: var(--font-cond); font-weight: 700; font-size: 0.68rem;
+  letter-spacing: 0.22em; text-transform: uppercase; white-space: nowrap;
+  color: var(--gold); border: 1px solid var(--gold-dim); border-radius: 3px;
+  padding: 0.18rem 0.55rem 0.12rem 0.7rem;
+}
+a.kf-msg:hover, a.kf-msg:focus-visible { background: var(--bg-3); }
+a.kf-msg:hover .kf-call, a.kf-msg:focus-visible .kf-call { color: var(--ink); }
+a.kf-msg:hover .kf-text, a.kf-msg:focus-visible .kf-text { color: var(--ink); }
+.killfeed-foot { margin: 1.1rem 0 0; font-size: 0.85rem; }
+/* monitored-status dot: the hud-status ● pulses gold only when motion is
+   welcome — one dot, never two (the ::before is the dot). */
+.hud-head .hud-status-live::before { color: var(--gold); }
+@media (prefers-reduced-motion: no-preference) {
+  .hud-head .hud-status-live::before { animation: live-blink 2.6s ease-in-out infinite; }
+  @keyframes live-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.25; } }
+}
+html[data-calm="1"] .hud-head .hud-status-live::before { animation: none; }
+@media (max-width: 720px) {
+  .kf-msg { grid-template-columns: auto minmax(0, 1fr); }
+  .kf-text { grid-column: 1 / -1; }
+  .kf-chit { grid-column: 2; justify-self: start; }
+}
+
+/* ============ P7 — radar: the dossier section map ============
+   Where: long chapter + reference pages. A sticky dossier nav tracking
+   reading position — numbered sections, cyan position marker, a thin
+   read-progress rail. aria-current is state, not motion (survives reduced
+   motion); the rail fill is a state indicator with an instant update. */
+.chapter-with-map {
+  display: grid; grid-template-columns: 248px minmax(0, 1fr);
+  gap: 2.75rem; align-items: start;
+}
+.chapter-with-map > article.chapter { min-width: 0; }
+.radar {
+  position: sticky; top: 5.5rem;
+  border: 1px solid var(--line-strong); border-radius: var(--radius-sm);
+  background: var(--bg-2); padding: 1.1rem 1rem 1rem;
+  max-height: calc(100vh - 7rem); overflow-y: auto;
+  font-size: 0.92rem;
+}
+.radar-kicker { margin: 0 0 0.7rem; }
+.radar-rail {
+  height: 4px; background: var(--bg-3); border-radius: 2px;
+  margin-bottom: 0.9rem; overflow: hidden;
+}
+.radar-rail i { display: block; height: 100%; width: 0; background: var(--cyan); }
+.radar ol { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.radar li { margin: 0; }
+.radar a {
+  display: flex; gap: 0.65rem; align-items: baseline;
+  padding: 0.42rem 0.55rem; border-left: 2px solid var(--line-strong);
+  color: var(--muted); text-decoration: none;
+  font-family: var(--font-cond); font-weight: 600; font-size: 0.95rem;
+  letter-spacing: 0.04em; text-transform: uppercase; line-height: 1.25;
+}
+.radar a:hover { color: var(--ink); border-left-color: var(--cyan-dim); }
+.radar a[aria-current="true"] {
+  color: var(--ink); border-left-color: var(--cyan); background: var(--bg-3);
+}
+.radar-n {
+  font-family: var(--font-mono); font-size: 0.7rem; font-weight: 400;
+  color: var(--faint); flex: none; letter-spacing: 0.08em;
+}
+.radar a[aria-current="true"] .radar-n { color: var(--cyan); }
+.radar-foot { margin: 0.9rem 0 0; font-size: 0.68rem; }
+/* mobile: the sidebar becomes a disclosure right under the briefing hero */
+.radar-mobile { display: none; margin: 0 0 1.5rem; border: 1px solid var(--line-strong); border-radius: var(--radius-sm); background: var(--bg-2); }
+.radar-mobile summary { cursor: pointer; padding: 0.85rem 1.1rem; list-style: none; }
+.radar-mobile summary::-webkit-details-marker { display: none; }
+.radar-mobile summary::before { content: "▸ "; color: var(--cyan); }
+.radar-mobile[open] summary::before { content: "▾ "; }
+.radar-mobile nav { padding: 0 1.1rem 1rem; }
+.radar-mobile ol { list-style: none; margin: 0; padding: 0; }
+.radar-mobile li { margin: 0; }
+.radar-mobile a {
+  display: flex; gap: 0.65rem; align-items: baseline;
+  padding: 0.5rem 0.2rem; border-bottom: 1px dashed var(--line);
+  color: var(--muted); text-decoration: none;
+  font-family: var(--font-cond); font-weight: 600; font-size: 0.95rem;
+  letter-spacing: 0.04em; text-transform: uppercase;
+}
+.radar-mobile a:last-child { border-bottom: none; }
+.radar-mobile a[aria-current="true"] { color: var(--cyan); }
+.radar-mobile .radar-n { font-family: var(--font-mono); font-size: 0.7rem; color: var(--faint); }
+@media (max-width: 1100px) {
+  .chapter-with-map { grid-template-columns: minmax(0, 1fr); }
+  .radar { display: none; }
+  .radar-mobile { display: block; }
+}
+
+/* ============ the lost file: dossier 404 ============
+   A decommissioned-dossier panel: stamp-red corner brackets, MIA stamp,
+   stencil headline, rally links back to known positions. */
+.lost {
+  max-width: 46rem; margin: 4rem auto; text-align: center;
+  background: var(--bg-2); border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm); padding: 3.5rem 2rem;
+}
+.lost h1 { margin: 1.2rem 0 1.5rem; }
+.lost .lede { margin-left: auto; margin-right: auto; }
+.lost-nav { display: flex; gap: 0.9rem; flex-wrap: wrap; justify-content: center; margin: 2rem 0; }
+.lost .fm-readout { margin: 0; }
+
+/* ============ calm mode: the sensory-envelope kill switch ============
+   Web-craft round 4: prefers-reduced-motion is not a listed WCAG 2.2.2
+   technique for pause/stop/hide — every ambient loop gets a real, visible
+   pause control. The header CALM toggle sets data-calm="1" (same key the
+   simulator's calm mode uses: localStorage "cge.calm"), and these rules
+   kill every ambient loop on the site. State feedback (stamps, XP fills,
+   aria-current) is untouched — calm kills motion, never information. */
+.calm-toggle {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font-family: var(--font-cond); font-weight: 700; font-size: 0.78rem;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--muted); background: var(--bg-2);
+  border: 1px solid var(--line-strong); border-radius: var(--radius-sm);
+  padding: 0.5rem 0.8rem; cursor: pointer; min-height: 44px;
+}
+.calm-toggle:hover { color: var(--ink); border-color: var(--cyan-dim); }
+.calm-toggle .calm-glyph { color: var(--faint); font-size: 0.95rem; }
+.calm-toggle[aria-pressed="true"] { color: var(--cyan-ink); background: var(--cyan); border-color: var(--cyan); }
+.calm-toggle[aria-pressed="true"] .calm-glyph { color: var(--cyan-ink); }
+html[data-calm="1"] .scan-sweep::after { display: none; }
+html[data-calm="1"] .ticker-track { animation: none; }
+html[data-calm="1"] { scroll-behavior: auto; }
 
 /* ============ ambient: scanline sweep (hero only) ============
    One ambient motion per site. A thin cyan line sweeps the briefing board

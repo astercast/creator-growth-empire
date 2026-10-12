@@ -1,5 +1,33 @@
 # Creator Growth Empire — Wave Log
 
+## Wave 30 — "The Field Manual" identity wave 2 (2026-10-11)
+
+Wave 2 of the identity rework: the four wave-29 opportunities, executed at the award-winning bar, plus a consistency audit that caught a site-wide functional bug. Content/tools/data/API untouched — identity only. Honesty contract intact (no income promises; "not financial, legal, or tax advice" disclaimer unchanged and still stamped).
+
+**What shipped:**
+1. **Radar section maps** — every chapter (9) and reference page (4) now carries a dossier-style section map: build-time anchor ids on every h2 (`sec-*`, deduped), a sticky sidebar (numbered entries, cyan position marker, thin read-progress rail with `role="progressbar"`) on desktop ≥1100px, and a `<details>` disclosure under the briefing hero on mobile. Reading position tracks via IntersectionObserver → `aria-current` (state, not motion — survives reduced motion). The Platform Rules Bible keeps its own in-article "What's inside" TOC; the sidebar mirrors the same sections.
+2. **Signal Log (kill-feed)** — new homepage section: 9 tactical-comms transmissions, one per case file (MSG 01–09, cyan callsign, one-line lede from the file's own copy, gold FILED chit), in a corner-bracket HUD panel with a MONITORED status. Numbered, never fake timestamps — the build can't know "recent", so it doesn't claim it. Footnote states the honesty terms.
+3. **Dossier 404** — `site/404.html`: stamp-red corner brackets, FIELD MANUAL // LOST & FOUND kicker, stencil FILE NOT FOUND, rotated MIA stamp (slam motion), in-world copy ("This page never filed its paperwork…"), rally links (Empire Map / Tools / Case Files / Glossary), `noindex` meta. All links resolve (stage 4 checks it).
+4. **Empty states → dossier plates** — `.empty-state` moved to `motifs.css` as P5 and re-cut: dashed unfilled-form border, diagonal corner brackets, boxed tactical glyph icon, ghost "AWAITING ORDERS" stamp. All 12 emoji-as-icon violations purged per the refusal list (🎬🗓⚖⚒🎣💡🩺🧭📁📝⚠️ → ▦⌂⌖✚◉✦◬◫!), across `pages/*.html` fragments AND JS-rendered states (quiz, video-doctor, ypp-checker, deal-room-ui, crosspost-ui). New `tests/identity-w30.test.js` (119 assertions) pins the whole system and runs in validate.sh stage 6.
+5. **Consistency audit fixes:**
+   - **MAJOR: every tool script was dead on arrival.** Tool/reference scripts were injected into `<head>` without `defer` and query the DOM at IIFE load — they ran before the body existed and silently no-op'd (verified: 0 `.quiz-q` elements rendered on the built quiz page). All head-injected scripts now load `deferred` (execution order preserved). The quiz, all 19 tools, the niche explorer, and the bible's wayfinding TOC now actually initialize — confirmed in headless Chromium (6/6 quiz questions render, 13/13 bible TOC links linkify).
+   - `platform-rules-ui.js` no longer clobbers build-time h2 ids (only assigns when missing).
+   - `cadence.css` still referenced the retired `--acid`/`--coral` tokens (fallbacks rendered old-identity colors) — remapped to `--cyan`/`--stamp`.
+   - Ticker had no reduced-motion gating — now still under `prefers-reduced-motion`.
+   - Selection, scrollbars, gold focus perimeters, DEBRIEF footer all verified intact.
+
+**Research applied** (`web-craft-20261011-2110`, round 4, landed 21:15 PDT — read in full):
+- *Signature easings*: `--ease-decelerate` is now expo.out `0.16,1,0.3,1` (the primary reveal curve); new `--ease-emphasized` back.out(1.7) `0.34,1.56,0.64,1` reserved for the ONE emphasized accent per view — the stamp slam. One primary + exit + emphasized; no mixed curve vocabularies.
+- *Ambient loops need a real pause control* (WCAG 2.2.2 nuance: prefers-reduced-motion is not a listed pause/stop/hide technique): new header **CALM toggle** — sets `data-calm="1"` (same `localStorage "cge.calm"` key the simulator's calm mode uses, so the two are one system; pre-paint inline script, `aria-pressed`, syncs the simulator checkbox). Kills scan-sweep, ticker, and the signal-log pulse. State feedback (stamps, XP, aria-current) untouched.
+- *"One progress drives everything"*: the radar's read-progress rail derives from the same scroll position as the section tracking — choreography as arithmetic.
+- *Microcopy as a judged surface*: 404 copy, AWAITING ORDERS stamps, SECTION MAP // FILED footers all written in-world.
+
+**Tests:** `bash scripts/validate.sh` — **8/8 GREEN** (18 passed, 0 failed; 0 broken links; byte-identical rebuild). All 12 engine suites green (1,146 existing assertions + 119 new identity assertions + 122 agent-workflow assertions). `node --check` clean on all JS incl. new/edited files. Headless Chromium (via xvfb): **18/18 DOM checks passed** — quiz renders, radar tracks (aria-current=1 after scroll), mobile disclosure swaps correctly, 404/MIA/noindex, 9 kill-feed transmissions linking to case files, AWAITING ORDERS stamp present, calm toggle sets data-calm, bible TOC linkified. Screenshots: sidebar map, 404, kill-feed, empty-state plate, quiz — all visually verified against the field-manual identity.
+
+Commit: TBD (local) → TBD (pushed 2026-10-11, remote tree verified via GitHub Trees API).
+
+---
+
 ## Wave 29 — "The Field Manual" visual identity rework (wave 1) (2026-10-11)
 
 The user's top-priority directive, executed at the award-winning bar: a full visual-identity overhaul of the site's core design system — typography, color/texture, motifs, motion language — applied to the homepage, Empire Simulator, all 19 tool pages, and every reference chapter. Content, tools, data, and API surfaces are untouched: visual overhaul only.

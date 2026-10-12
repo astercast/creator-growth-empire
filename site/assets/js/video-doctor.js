@@ -502,7 +502,7 @@
       platformSel.selectedIndex = 0;
       expSel.selectedIndex = 0;
       btn.disabled = true;
-      out.innerHTML = '<div class="empty-state" role="status"><span class="empty-icon" aria-hidden="true">\uD83E\uDE7A</span><strong>Nothing diagnosed yet.</strong>Pick the symptom above and the likely causes \u2014 ranked, with chapter fixes \u2014 land here.</div>';
+      out.innerHTML = '<div class="empty-state" role="status"><span class="empty-icon" aria-hidden="true">◬</span><strong>Nothing diagnosed yet.</strong>Pick the symptom above and the likely causes \u2014 ranked, with chapter fixes \u2014 land here.</div>';
       saveStore({ last: null });
       btn.disabled = true;
     });

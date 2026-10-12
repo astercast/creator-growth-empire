@@ -21,13 +21,17 @@
      scrolling under no-preference) to this page only. */
   document.body.classList.add("platform-rules-page");
 
-  /* 1. Anchor ids on every h2 (slugified, deduped). */
+  /* 1. Anchor ids on every h2 (slugified, deduped). Build-time ids win:
+     only assign where the build didn't (wave 30 gives every chapter h2 an
+     id for the radar section map, and those must stay stable). */
   var heads = Array.prototype.slice.call(article.querySelectorAll("h2"));
   var seen = {};
+  heads.forEach(function (h) { if (h.id) seen[h.id] = true; });
   function slugify(t) {
     return "sec-" + t.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
   }
   heads.forEach(function (h) {
+    if (h.id) return;
     var base = slugify(h.textContent), id = base, n = 2;
     while (seen[id]) { id = base + "-" + (n++); }
     seen[id] = true;

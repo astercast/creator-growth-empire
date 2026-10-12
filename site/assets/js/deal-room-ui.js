@@ -73,7 +73,7 @@
     var counts = {};
     deals.forEach(function (d) { counts[d.status] = (counts[d.status] || 0) + 1; });
     if (!list.length) {
-      dealsOut.innerHTML = '<div class="empty-state" role="status"><span class="empty-icon" aria-hidden="true">📁</span>' +
+      dealsOut.innerHTML = '<div class="empty-state" role="status"><span class="empty-icon" aria-hidden="true">◫</span>' +
         "<strong>No deals here yet.</strong>" +
         (deals.length ? "Nothing matches this filter — try another status." : "Log your first offer above. Every deal gets scored against the 2026 rate card.") + "</div>";
       return;
@@ -266,7 +266,7 @@
   function renderMemo() {
     var d = deals.filter(function (x) { return x.id === memoSel.value; })[0];
     if (!d) {
-      memoOut.innerHTML = '<div class="empty-state" role="status"><span class="empty-icon" aria-hidden="true">📝</span>' +
+      memoOut.innerHTML = '<div class="empty-state" role="status"><span class="empty-icon" aria-hidden="true">▦</span>' +
         "<strong>No deal selected.</strong>Log a deal above and it will appear here.</div>";
       return;
     }

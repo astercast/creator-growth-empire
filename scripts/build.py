@@ -36,6 +36,61 @@ def _rank_chevrons(n, cls="rank", sm=False):
     tag = "rank rank-sm" if sm else cls
     return f'<span class="{tag}" role="img" aria-label="Tier {n}">' + "<i></i>" * n + "</span>"
 
+# ---------- wave 30: radar section maps (dossier nav for long pages) ----------
+
+def _slugify_h2(text, seen):
+    base = "sec-" + re.sub(r"[^a-z0-9]+", "-", text.lower()).strip("-")
+    if base == "sec-":
+        base = "sec-x"
+    slug, n = base, 2
+    while slug in seen:
+        slug = f"{base}-{n}"
+        n += 1
+    seen.add(slug)
+    return slug
+
+def _add_h2_ids(body_html):
+    """Give every h2 an anchor id. Returns (html, [(id, label), ...])."""
+    seen = set()
+    items = []
+    def repl(m):
+        inner = m.group(1)
+        label = html.unescape(re.sub(r"<[^>]+>", "", inner)).strip()
+        sid = _slugify_h2(label, seen)
+        items.append((sid, label))
+        return f'<h2 id="{sid}">{inner}</h2>'
+    return re.sub(r"<h2>(.*?)</h2>", repl, body_html, flags=re.S), items
+
+def _radar_map(items):
+    """Dossier section-map: sticky sidebar + mobile disclosure, same links."""
+    links = "".join(
+        f'<li><a href="#{sid}"><span class="radar-n">{i + 1:02d}</span>'
+        f'<span class="radar-t">{esc(label)}</span></a></li>'
+        for i, (sid, label) in enumerate(items))
+    nav = f'<nav aria-label="On this page"><ol>{links}</ol></nav>'
+    aside = (
+        '<aside class="radar" data-radar>'
+        '<p class="fm-kicker radar-kicker"><strong>SECTION MAP</strong></p>'
+        '<div class="radar-rail" role="progressbar" aria-label="Reading progress" '
+        'aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i aria-hidden="true"></i></div>'
+        f"{nav}"
+        f'<p class="radar-foot fm-readout">FILED // {len(items):02d} SECTIONS</p></aside>')
+    details = (
+        '<details class="radar-mobile" data-radar-mobile>'
+        f'<summary><span class="fm-kicker"><strong>SECTION MAP</strong>'
+        f'<span class="sep">//</span>{len(items):02d} SECTIONS</span></summary>'
+        f"{nav}</details>")
+    return aside, details
+
+def _lede_text(briefing_html, limit=170):
+    """Plain-text one-liner from a blockquote lede (for the signal log)."""
+    t = html.unescape(re.sub(r"<[^>]+>", "", briefing_html or ""))
+    t = re.sub(r"\s+", " ", t).strip()
+    if len(t) > limit:
+        cut = t[:limit].rsplit(" ", 1)[0]
+        t = (cut or t[:limit]) + "…"
+    return t
+
 REFERENCE_PAGES = [
     ("rate-card", "content/rate-card.md", "Reference", "2026 Rate Card"),
     # Optional 5th element: list of <script src> paths injected into <head>
@@ -917,6 +972,7 @@ def page_template(title, body, active="", extra_head=""):
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<script>try{{if(localStorage.getItem("cge.calm")==="1")document.documentElement.setAttribute("data-calm","1");}}catch(e){{}}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{esc(title)} — {SITE_NAME}</title>
 <meta name="description" content="{esc(TAGLINE)}">
@@ -936,6 +992,7 @@ def page_template(title, body, active="", extra_head=""):
 <header class="site-header">
   <a class="brand" href="index.html"><span class="brand-plate" aria-hidden="true">CG</span> {SITE_NAME}</a>
   <nav class="site-nav" aria-label="Primary">{desktop_nav}</nav>
+  <button class="calm-toggle" id="calmToggle" aria-pressed="false" title="Calm mode — stop ambient motion"><span class="calm-glyph" aria-hidden="true">◍</span><span>CALM</span></button>
   <button class="nav-toggle" aria-expanded="false" aria-controls="mobileNav" aria-label="Menu">☰</button>
 </header>
 <nav id="mobileNav" class="mobile-nav" aria-label="Mobile">{mobile_nav}</nav>
@@ -1059,7 +1116,14 @@ def build():
                  '<strong>⌖ Lost in the climb?</strong>'
                  '<span>See where this phase fits on <a href="money-map.html">The Money Map</a> — 7 questions, your stage, your next 3 moves.</span>'
                  '<a class="btn btn-ghost" href="money-map.html">Open the map →</a></div>')
-        page = page_template(f"{phase}: {short}", f'<article class="chapter">{hero}{body_html}{cnav}</article>', active="")
+        # wave 30: radar section map — anchor ids on every h2 + a dossier nav
+        # that tracks reading position (sidebar on desktop, disclosure on mobile)
+        body_html, map_items = _add_h2_ids(body_html)
+        raside, rdetails = _radar_map(map_items)
+        page = page_template(f"{phase}: {short}",
+                             f'<div class="chapter-with-map">{raside}'
+                             f'<article class="chapter">{hero}{rdetails}{body_html}{cnav}</article></div>',
+                             active="")
         (SITE / f"{slug}.html").write_text(page, encoding="utf-8")
         chapters_meta.append({
             "id": slug, "phase": phase, "title": short,
@@ -1101,8 +1165,16 @@ def build():
         mount = NICHE_EXPLORER_MOUNT if slug == "niche-atlas" else ""
         if slug == "metrics-glossary":
             mount = METRICS_CURVE_MOUNT
-        extra_head = "".join(f'<script src="{s}"></script>' for s in scripts)
-        page = page_template(f"{short}", f'<article class="chapter">{hero}{body_html}{mount}{cnav}</article>',
+        # wave 14/28: page scripts load deferred — they ran dead in <head>
+        # before the DOM existed (audit fix, wave 30)
+        extra_head = "".join(f'<script defer src="{s}"></script>' for s in scripts)
+        # wave 30: radar section map, same as chapters (the bible keeps its own
+        # in-article "What's inside" TOC; the sidebar mirrors the same sections)
+        body_html, map_items = _add_h2_ids(body_html)
+        raside, rdetails = _radar_map(map_items)
+        page = page_template(f"{short}",
+                             f'<div class="chapter-with-map">{raside}'
+                             f'<article class="chapter">{hero}{rdetails}{body_html}{mount}{cnav}</article></div>',
                              active="", extra_head=extra_head)
         (SITE / f"{slug}.html").write_text(page, encoding="utf-8")
         reference_meta.append({"id": slug, "badge": badge, "title": short,
@@ -1142,7 +1214,8 @@ def build():
         page = page_template(short, f'<article class="chapter">{hero}{body_html}{cnav}</article>', active=nav_active)
         (SITE / f"{slug}.html").write_text(page, encoding="utf-8")
         mdpage_meta.append({"id": slug, "badge": badge, "title": short,
-                            "path": f"{slug}.html", "words": wc, "read_minutes": read_min})
+                            "path": f"{slug}.html", "words": wc, "read_minutes": read_min,
+                            "lede": _lede_text(briefing)})
         llms_full_parts.append(f"# {badge}: {short}\n\n{md}")
 
     # tool pages
@@ -1178,7 +1251,10 @@ def build():
         tool_body = body_src.read_text(encoding="utf-8") if body_src.exists() else f"<p>{esc(desc)}</p>"
         extra = ""
         if slug in TOOL_SCRIPTS:
-            extra = "".join(f'<script src="{src}"></script>' for src in TOOL_SCRIPTS[slug])
+            # deferred: these scripts query the DOM at load; in <head> without
+            # defer they ran before the body existed and silently no-op'd
+            # (audit fix, wave 30 — execution order is preserved by defer)
+            extra = "".join(f'<script defer src="{src}"></script>' for src in TOOL_SCRIPTS[slug])
         if slug in TOOL_CSS:
             extra += "".join(f'<link rel="stylesheet" href="{href}">' for href in TOOL_CSS[slug])
         tool_idx = [t[0] for t in TOOLS].index(slug)
@@ -1338,10 +1414,31 @@ def build():
         f'<span class="phase-name">{esc(m["title"])}</span>'
         f'<span class="phase-meta">{m["read_minutes"]} min · {m["words"]:,} words</span></a>'
         for i, m in enumerate(m for m in mdpage_meta if m["badge"] == "Case File"))
+    case_files = [m for m in mdpage_meta if m["badge"] == "Case File"]
     case_section = (f'<section class="section"><div class="section-head"><h2>Empire Case Files</h2>'
                     f'<span class="section-tag">documented deconstructions // no guru hype</span>'
-                    f'<a href="case-files.html" class="section-more">All 9 case files →</a></div>'
+                    f'<a href="case-files.html" class="section-more">All {len(case_files)} case files →</a></div>'
                     f'<div class="phase-grid reveal-stagger">{case_cards}</div></section>')
+    # wave 30: signal log — the kill-feed of field wins. Every transmission is
+    # an existing case file, one line each, styled as tactical comms. Numbered
+    # MSG ids, never fake timestamps; the lede is the file's own, truncated.
+    kf_items = "".join(
+        f'<a class="kf-msg" role="listitem" href="{m["path"]}">'
+        f'<span class="kf-num">MSG {i + 1:02d}</span>'
+        f'<span class="kf-call">{esc(m["title"])}</span>'
+        f'<span class="kf-text">{esc(m["lede"])}</span>'
+        f'<span class="kf-chit">Filed</span></a>'
+        for i, m in enumerate(case_files))
+    signal_log = (
+        f'<section class="section"><div class="section-head"><h2>Signal Log</h2>'
+        f'<span class="section-tag">field wins // tactical comms</span></div>'
+        f'<div class="hud-panel brk"><b class="brk-x" aria-hidden="true"></b>'
+        f'<div class="hud-head"><span>SIGNAL LOG // {len(case_files):02d} TRANSMISSIONS</span>'
+        f'<span class="hud-status hud-status-live">MONITORED</span></div>'
+        f'<div class="hud-body"><div class="killfeed" role="list">{kf_items}</div>'
+        f'<p class="killfeed-foot muted">Every transmission is a documented case file — '
+        f'structures proven, figures directional. No wins invented, no timestamps faked.</p>'
+        f'</div></div></section>')
     n_tools = len(TOOLS)
     index_body = f"""
 <section class="hero">
@@ -1380,6 +1477,7 @@ def build():
 <section class="section"><div class="section-head"><h2>The Empire Map</h2><span class="section-tag">9 levels // clear them all</span></div><div class="phase-grid reveal-stagger">{cards}</div></section>
 <section class="section"><div class="section-head"><h2>Command Center</h2><span class="section-tag">weapons free</span><a href="tools.html" class="section-more">All {n_tools} tools →</a></div><div class="tool-grid reveal-stagger">{tools_html}</div></section>
 {case_section}
+{signal_log}
 <section class="section"><div class="section-head"><h2>Hottest topics right now</h2><span class="section-tag">live feed // trend-machine</span></div>
 <div class="hud-panel trends-hud reveal">
   <div class="hud-head"><span>INTEL // WHAT TO COVER TODAY</span><span class="hud-status">SCANNING</span></div>
@@ -1393,6 +1491,28 @@ def build():
 <p>Every platform number on this site was verified against 2026 sources or is flagged <strong>verify live</strong>. Income ranges are illustrative, never promises. The LLC/tax phase is educational — <strong>not legal or tax advice</strong>. Platforms change rules constantly; the most dangerous number on the internet is a stale one.</p></section>
 """
     (SITE / "index.html").write_text(page_template(SITE_NAME, index_body, active="index.html"), encoding="utf-8")
+
+    # wave 30: dossier-styled 404 — the file that never filed its paperwork.
+    # noindex: a 404 must never be indexed. All links resolve (stage 4 checks).
+    notfound_body = (
+        '<div class="lost brk brk-stamp"><b class="brk-x" aria-hidden="true"></b>'
+        '<p class="fm-kicker"><strong>FIELD MANUAL</strong><span class="sep">//</span>LOST &amp; FOUND</p>'
+        '<h1>FILE<br>NOT FOUND</h1>'
+        '<p><span class="stamp stamp-slam" data-slam="1">MIA</span></p>'
+        '<p class="lede">This page never filed its paperwork. It may have been moved, '
+        'renamed, or decommissioned — or the coordinates were wrong from the start. '
+        'Fall back to a known position:</p>'
+        '<div class="lost-nav">'
+        '<a class="btn btn-primary" href="index.html">Return to the Empire Map →</a>'
+        '<a class="btn btn-ghost" href="tools.html">All field tools</a>'
+        '<a class="btn btn-ghost" href="case-files.html">Case files</a>'
+        '<a class="btn btn-ghost" href="glossary.html">Glossary</a>'
+        '</div>'
+        '<p class="fm-readout">ERROR 404 // NO PAPERWORK ON FILE</p></div>')
+    (SITE / "404.html").write_text(
+        page_template("File not found", notfound_body,
+                      extra_head='<meta name="robots" content="noindex">'),
+        encoding="utf-8")
 
     # ---- skills index (skills/<name>/SKILL.md directory format) ----
     # (computed before the API block so the manifest can carry record counts)

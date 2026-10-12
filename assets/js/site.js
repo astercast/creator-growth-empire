@@ -142,4 +142,86 @@
     });
     updateMeter();
   }
+
+  // Calm mode — the site-wide sensory-envelope kill switch (wave 30).
+  // Same mechanism the simulator's calm mode uses: data-calm="1" on <html>
+  // + localStorage "cge.calm". The <head> inline script already applied the
+  // attribute pre-paint; here we wire the header toggle and keep the
+  // simulator's own checkbox in sync when both share a page.
+  var calmBtn = document.getElementById("calmToggle");
+  function setCalm(on) {
+    if (on) document.documentElement.setAttribute("data-calm", "1");
+    else document.documentElement.removeAttribute("data-calm");
+    try { localStorage.setItem("cge.calm", on ? "1" : "0"); } catch (e) {}
+    if (calmBtn) calmBtn.setAttribute("aria-pressed", String(on));
+    var sbox = document.getElementById("s-calm");
+    if (sbox) sbox.checked = on;
+  }
+  if (calmBtn) {
+    calmBtn.setAttribute("aria-pressed",
+      String(document.documentElement.getAttribute("data-calm") === "1"));
+    calmBtn.addEventListener("click", function () {
+      setCalm(document.documentElement.getAttribute("data-calm") !== "1");
+    });
+  }
+
+  // Radar section map (wave 30): the dossier nav on long chapter/reference
+  // pages. Tracks reading position with aria-current (state, not motion —
+  // it holds under reduced motion) and drives a thin read-progress rail
+  // off the same scroll position ("one progress drives everything").
+  // No-ops on pages without [data-radar].
+  (function radar() {
+    var asides = document.querySelectorAll("[data-radar]");
+    if (!asides.length || !("IntersectionObserver" in window)) return;
+    // group every map link on the page (sidebar + mobile disclosure) by target
+    var byHref = {};
+    document.querySelectorAll("[data-radar] a[href^='#'], [data-radar-mobile] a[href^='#']")
+      .forEach(function (a) {
+        var h = a.getAttribute("href");
+        (byHref[h] = byHref[h] || []).push(a);
+      });
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting || !e.target.id) return;
+        var links = byHref["#" + e.target.id] || [];
+        if (!links.length) return;
+        Object.keys(byHref).forEach(function (h) {
+          byHref[h].forEach(function (a) { a.removeAttribute("aria-current"); });
+        });
+        links.forEach(function (a) { a.setAttribute("aria-current", "true"); });
+      });
+    }, { rootMargin: "-30% 0px -60% 0px" });
+    var seen = {};
+    document.querySelectorAll(".chapter-with-map article.chapter").forEach(function (art) {
+      art.querySelectorAll("h2[id]").forEach(function (h) {
+        if (!seen[h.id]) { seen[h.id] = true; io.observe(h); }
+      });
+    });
+    // read-progress rails: one passive scroll listener, rAF-throttled
+    var rails = [];
+    asides.forEach(function (aside) {
+      var rail = aside.querySelector(".radar-rail");
+      var scope = aside.closest ? aside.closest(".chapter-with-map") : null;
+      var art = scope ? scope.querySelector("article.chapter") : null;
+      if (rail && art) rails.push({ rail: rail, fill: rail.querySelector("i"), art: art });
+    });
+    if (!rails.length) return;
+    var ticking = false;
+    function update() {
+      ticking = false;
+      rails.forEach(function (r) {
+        var top = r.art.offsetTop;
+        var h = r.art.offsetHeight - window.innerHeight;
+        var p = h > 0 ? Math.min(1, Math.max(0, (window.pageYOffset - top) / h)) : 0;
+        var pct = Math.round(p * 100);
+        r.rail.setAttribute("aria-valuenow", String(pct));
+        if (r.fill) r.fill.style.width = pct + "%";
+      });
+    }
+    window.addEventListener("scroll", function () {
+      if (!ticking) { ticking = true; requestAnimationFrame(update); }
+    }, { passive: true });
+    window.addEventListener("resize", update);
+    update();
+  })();
 })();

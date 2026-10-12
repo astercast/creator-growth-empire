@@ -57,11 +57,11 @@
   border: 1px solid var(--line, #2a2a3a);
 }
 
-.cc-chip.cc-long { border-color: var(--acid, #b8e62e); }
-.cc-chip.cc-short { border-color: var(--coral, #ff6b5e); }
+.cc-chip.cc-long { border-color: var(--cyan, #5fe8ff); }
+.cc-chip.cc-short { border-color: var(--stamp, #ff6a55); }
 
 .cc-ramp {
-  border-left: 3px solid var(--acid, #b8e62e);
+  border-left: 3px solid var(--cyan, #5fe8ff);
   padding: 0.2rem 0 0.2rem 0.9rem;
   margin: 1rem 0;
   max-inline-size: 65ch;
@@ -119,9 +119,9 @@
   transform: rotate(-90deg);
   transform-origin: center;
 }
-.cc-ring-fill.is-holds { stroke: var(--acid, #b8e62e); }
+.cc-ring-fill.is-holds { stroke: var(--cyan, #5fe8ff); }
 .cc-ring-fill.is-tight { stroke: var(--gold, #e8b62e); }
-.cc-ring-fill.is-over { stroke: var(--coral, #ff6b5e); }
+.cc-ring-fill.is-over { stroke: var(--stamp, #ff6a55); }
 
 /* Scroll-driven reveal for the week strip (§2/angle 1, progressive
    enhancement only — ~83% support, Firefox behind a flag).
