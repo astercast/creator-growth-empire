@@ -8,7 +8,7 @@ From $0 to a multi-million-dollar creator company.
 - [Phase 2: YouTube Mastery](phase-2-youtube-mastery.html) — 10 min read
 - [Phase 3: The Everywhere Engine](phase-3-everywhere-engine.html) — 9 min read
 - [Phase 4: Audience to Community](phase-4-audience-to-community.html) — 8 min read
-- [Phase 5: The Monetization Stack](phase-5-monetization-stack.html) — 11 min read
+- [Phase 5: The Monetization Stack](phase-5-monetization-stack.html) — 15 min read
 - [Phase 6: Merch & Brand](phase-6-merch-and-brand.html) — 8 min read
 - [Phase 7: The Business](phase-7-the-business.html) — 9 min read
 - [Phase 8: Scale](phase-8-scale.html) — 8 min read
@@ -29,9 +29,10 @@ From $0 to a multi-million-dollar creator company.
 - [Batching Planner](batching.html) — Film-day math: does your shoot capacity actually cover your cadence? Honest surplus/shortfall, consistency-beats-volume framing.
 - [The Money Map](money-map.html) — Find your stage on the $0-to-company journey: 7 questions, 5 stage playbooks, your next 3 moves. Stages are focus guides, never income promises.
 - [Diagnose My Video](video-doctor.html) — Pick your symptom — low CTR, the 30-second cliff, great retention but no subs — and get ranked causes with the fix from the chapter that owns it.
+- [YPP 2027 Eligibility Checker](ypp-checker.html) — Enter your subs, watch hours, and Shorts views — get your verdict under the current YPP bar and the Feb-2027 bar, the gap math, and a chapter-grounded plan to close it.
 - [Glossary](glossary.html)
 
-All fifteen tools, grouped by job (Plan / Money / Content): [Tools hub](tools.html).
+All sixteen tools, grouped by job (Plan / Money / Content): [Tools hub](tools.html).
 
 ## Reference
 - [Reference: 2026 Rate Card](rate-card.html) — 3 min read
@@ -46,6 +47,8 @@ All fifteen tools, grouped by job (Plan / Money / Content): [Tools hub](tools.ht
 - [Case File: The Cohort Course](case-ptya.html) — 4 min read
 - [Case File: The Poly Couple](case-poly-couple.html) — 6 min read
 - [Case File: Gibi ASMR](case-gibi-asmr.html) — 6 min read
+- [Case File: The Clipping Squeeze](case-clippers-squeeze.html) — 6 min read
+- [Case File: The Monthly Floor](case-shorts-floor.html) — 6 min read
 - [All case files — index + comparison table](case-files.html)
 - api/v1/case-files.json — machine-readable case-file index
 
@@ -67,7 +70,7 @@ All fifteen tools, grouped by job (Plan / Money / Content): [Tools hub](tools.ht
 - api/v1/schema/ — JSON Schema (draft-07) for every endpoint
 
 ## Agents
-- AGENT.md — how an agent uses this site: base URL pattern, example requests, 6 end-to-end workflows, tool input schemas
+- AGENT.md — how an agent uses this site: base URL pattern, example requests, 8 end-to-end workflows, tool input schemas
 - [Agents](agents.html) — the agent surface: endpoint table, all skills, data freshness policy, 5 worked agent workflows
 - [API Explorer](api-explorer.html) — browse api/v1 endpoints, preview JSON in-browser
 - llms.txt (this file) — quick agent orientation

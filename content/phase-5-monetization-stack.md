@@ -8,14 +8,30 @@ Most creators monetize backwards: they chase ad revenue (slow, small) and ignore
 
 ### Layer 1 — Platform ad revenue (the foundation, not the house)
 
-**YouTube long-form:** you keep 55%. RPMs by niche (2026 third-party data, verify live): low-CPM niches (gaming, entertainment) **$1.50–$4** per 1,000 views; mid (education, lifestyle) **$4–$10**; high (finance, business) **$8–$20**; music sits at **$0.75–$1.65**. Q4 pays 40–80% more than Q1 — calendar effects are real.
+**YouTube long-form:** you keep 55%. RPMs by niche (third-party creator-reported data, refreshed Oct 2026, verify live): **$1–$3** for entertainment, **$2–$4** for gaming (OutlierKit Sep-2026 RPM/CPM table); **$4–$11** for AI & tech, **$8–$22** for legal & tax, **$10–$25** for personal finance. Music sits at **$0.75–$1.65**. Q4 pays 40–80% more than Q1 — calendar effects are real.
+**The counterweight:** advertiser-CPM lists overstate the spread. AIR Media-Tech's monetization statistics (300 channels, May 2025–May 2026) report *medians* far below the headline ranges: education & science **$10.22**, entertainment **$2.43**, gaming **$2.05**, kids **$0.33** — and business & finance at just **$2.01** (3 channels, directional). The niche matters, but so do your geography, your audience, and whether your viewers actually watch the ads. Plan from the median, daydream from the top.
+**Breakout multiples (OutlierKit 2026):** some niche-format combos pay far above their category: AI tutorials **18x** (~$15–22 CPM), betrayal/revenge dramas **21x** (~$20–25), English learning **21x** (~$18–22), senior health **19x** (~$14–18, ultra-low competition), video podcasts **15x** (~$12–18), rural homesteading **16x** (~$12–16), sleep content **14x** (~$16–20), manhwa/webtoon recaps **5.8x** (~$15–19). Multiples describe what outliers earn, not what you'll earn. All ranges are creator-reported — never promises.
 **YouTube Shorts:** you keep 45% of your pool allocation. RPM **$0.04–$0.50** per 1,000 engaged views: typical $0.04–$0.08, healthy $0.10–$0.25, strong niches $0.25–$0.50. So 1M engaged Shorts views ≈ $50–$500. Discovery gold, revenue bronze.
 **TikTok Creator Rewards:** **$0.40–$2.00** per 1,000 qualified views — 5–10x YouTube Shorts. Finance/tech sits at the top ($1.20–$2.40), comedy/memes at the floor ($0.30–$0.80). Only videos **over 1 minute** with original content qualify; earning starts after 1,000 qualified For You views. Eligibility: 10K followers + 100K views in 30 days + 18+ (country availability varies — verify live). TikTok Shop affiliates pay 5–20% commissions.
 **Meta (Facebook + Instagram):** Facebook merged In-Stream Ads, Ads on Reels, and Performance Bonus into **one Facebook Content Monetization program** (roughly $1–$10 per 1,000 views, wide range). Meta's **Creator Fast Track** (March 2026) paid a guaranteed "salary" — $1,000/mo at 100K+ followers or $3,000/mo at 1M+ for 15 Reels/month, US/Canada, 3-month cap. Meta paid ~$3B to creators in 2025 (+35%). **Instagram has no standing Reels bonus** (ended 2023) — the IG money stack is brand deals, affiliates, subscriptions, and occasional invite-only bonuses.
 
 **The truth:** ad revenue alone rarely pays rent until you're at 500k+ monthly views in a decent niche. Its real value is *baseline* — money that arrives while you sleep, funding the higher layers.
 
-**Watch-time is the real gate:** followers unlock eligibility, watch minutes unlock money. Creators hit 10K followers and still get rejected with ~300K watch minutes against ~600K-minute thresholds. And YouTube's **January 2026 enforcement wave** reportedly stripped tens of millions of subscribers from mass-produced/AI-content channels — thresholds are entry fees, not guarantees (single-source report — treat as caution, not fact). Also note: from **February 1, 2027, YPP thresholds double** for new applicants (8,000 watch hours or 20M Shorts views — confirmed via YouTube, Aug 2026). See the calculator's data for details.
+**Watch-time is the real gate — and it has two versions.** Followers unlock eligibility; watch minutes unlock money. And there are *two* gates, not one: the numbers, and YouTube's qualitative review (the "inauthentic content" policy, July 2025). Mass-produced or templated channels can fail review even when the numbers pass — and YouTube's January 2026 enforcement wave reportedly stripped tens of millions of subscribers from mass-produced/AI-content channels (single-source report — treat as caution, not fact).
+
+**The two YPP rule sets** (announced by YouTube Aug 10, 2026; reported by AIR Media-Tech, AuditSocials, Tablet News, GSMDome):
+
+| | Current — through Jan 31, 2027 | From Feb 1, 2027 |
+|---|---|---|
+| Full ad-revenue bar | 1,000 subs + **4,000** watch hours/12mo **or** 10M Shorts views/90d | 1,000 subs + **8,000** watch hours/365d **or** 20M Shorts views/90d |
+| Shorts revenue floor | — | **10M qualified Shorts views/90d, checked monthly** — below it, Shorts pay stops for that month; you stay in YPP, long-form keeps paying |
+| Activity test (existing partners) | 6 months of inactivity → monetization off | 1,000 hours/365d **or** 1M Shorts views/90d **or** 2 longs / 5 Shorts per 90d — miss all three and a 90-day recovery window opens |
+| Fan-funding tier | 500 subs + 3 uploads/90d + 3,000 hours/12mo or 3M Shorts views/90d | **Unchanged** |
+| Application timing | — | An application reaching YouTube by 23:59 UTC Jan 31, 2027 is judged at the old 4,000-hour bar; existing partners are grandfathered but must accept new terms by Jan 31, 2027 |
+
+**Shorts-only channels — read this twice:** the February-2027 package hits Shorts-only channels with *three* stacked changes — the Oct-1-2026 originality update (recommendations deprioritize re-uploaded clips), the doubled entry bar (20M Shorts views/90d), and the monthly 10M floor that can switch Shorts pay off any given month. "Shorts-only channels chasing pool revenue (post-Feb-2027)" is on the Niche Atlas avoid list for exactly this reason. The documented escape route is the below-floor stack: sponsorships, affiliates, Shopping, memberships — revenue with no view floor. See [Case File: The Clipping Squeeze](case-clippers-squeeze.html) and [Case File: The Monthly Floor](case-shorts-floor.html).
+
+**Run the numbers:** the [YPP 2027 Eligibility Checker](ypp-checker.html) takes your subs, watch hours, Shorts views, and uploads and returns your verdict under *both* rule sets — per-check pass/fail, the gap math, the Shorts-originality warning if your mix triggers it, and a chapter-grounded plan to close the gap. Rules change; the checker tells you to verify live in YouTube Studio's Earn tab, and so do I.
 
 ### Layer 2 — Affiliates (the first real money)
 
@@ -64,6 +80,8 @@ Want the full deconstructions? See [Case File: The Budget-Grocery Newsletter](ca
 ## The revenue calculator is honest; use it
 
 The calculator on this site shows *ranges* because ranges are the truth. Two creators with identical views can earn 5x differently based on niche, geography, and how many layers they've built. If your projection disappoints you, the answer is never "get more views" first — it's "add the next layer."
+
+**Where this fits on your map:** the stack builds in stage order. Stage 0–1 creators should be in the affiliates + first-sponsors phase, not optimizing ad RPMs they can't touch yet — the [Money Map](money-map.html) places you and names the next three moves. And the niche sets the ceiling of every layer: check your lane against the [Niche Atlas](niche-atlas.html)'s 2027 outlook before building the stack on top of it.
 
 ## When to add each layer
 
@@ -159,10 +177,12 @@ Timelines vary wildly by niche and execution. Anyone promising faster is selling
 
 ## Your Phase 5 checklist
 
-- Ad revenue enabled everywhere eligible (YPP tiers, TikTok Rewards, Facebook CMP)
+- Ad revenue enabled everywhere eligible ([YPP 2027 Eligibility Checker](ypp-checker.html) — verify against both rule sets, then confirm live in YouTube Studio)
 - 3–5 affiliate links live in relevant videos
-- Sponsor pitch sent to 20 brands (or media kit built)
+- Sponsor pitch sent to 20 brands (or media kit built) — manage the pipeline in the [Deal Room](deal-room.html)
 - First digital product scoped from comment demand
 - Revenue calculator run with honest numbers
 - Empire Simulator run: toggle each monetization stream on/off and watch how the stack changes over 12 months ([simulator.html](simulator.html))
 - 25–30% of profit being set aside for taxes
+- Niche checked against the 2027 outlook: heating vs cooling, plus the avoid list ([Niche Atlas](niche-atlas.html))
+- Your stage placed on the [Money Map](money-map.html) — the stack builds in stage order, not all at once

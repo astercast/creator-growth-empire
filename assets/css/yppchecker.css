@@ -1,0 +1,89 @@
+/* YPP 2027 Eligibility Checker (wave 21) — verdict panels + plan.
+ * Reuses quiz-actions / calc-grid / empty-state from the design system. */
+
+.ypp-result {
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--bg-2);
+  padding: 1.6rem;
+  margin: 1.6rem 0;
+  max-width: 82ch;
+}
+.ypp-result-kicker {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  color: var(--coral);
+  margin: 0 0 0.4rem;
+}
+.ypp-rule-block {
+  border-top: 1px solid var(--line-strong);
+  padding-top: 1.2rem;
+  margin-top: 1.2rem;
+}
+.ypp-rule-block > h4 { margin-bottom: 0.4rem; }
+.ypp-verdict { margin: 1rem 0; }
+.ypp-verdict h4 { margin: 0 0 0.2rem; }
+.ypp-rule-note { font-size: 0.92rem; color: var(--muted); margin: 0 0 0.6rem; }
+.ypp-status { font-weight: 800; margin: 0.4rem 0; }
+.ypp-status.yes { color: var(--acid); }
+.ypp-status.no { color: var(--coral); }
+.ypp-checks { list-style: none; padding: 0; margin: 0.8rem 0; display: grid; gap: 0.5rem; }
+.ypp-check {
+  display: flex; gap: 0.6rem; align-items: baseline;
+  border: 1px solid var(--line);
+  border-radius: 0.6rem;
+  padding: 0.55rem 0.8rem;
+  background: var(--bg-1);
+  font-size: 0.95rem;
+}
+.ypp-check .ypp-badge { font-weight: 800; flex: none; width: 1.2em; text-align: center; }
+.ypp-check.pass .ypp-badge { color: var(--acid); }
+.ypp-check.fail .ypp-badge { color: var(--coral); }
+.ypp-sources { font-size: 0.85rem; }
+.ypp-fanline, .ypp-floorline, .ypp-activityline {
+  border-radius: 0.6rem;
+  padding: 0.7rem 0.9rem;
+  font-size: 0.95rem;
+  margin: 0.8rem 0;
+  background: var(--bg-1);
+  border: 1px solid var(--line);
+}
+.ypp-fanline.yes, .ypp-floorline.yes, .ypp-activityline.yes {
+  border-left: 3px solid var(--acid);
+}
+.ypp-floorline.no, .ypp-activityline.no {
+  border-left: 3px solid var(--gold);
+}
+.ypp-warning {
+  border: 2px solid var(--gold);
+  border-radius: var(--radius);
+  padding: 1.1rem 1.2rem;
+  background: rgba(255, 200, 60, 0.07);
+  margin: 1.4rem 0;
+}
+.ypp-warning h4 { margin: 0 0 0.5rem; }
+.ypp-walk {
+  border-left: 3px solid var(--coral);
+  padding: 0.6rem 0.9rem;
+  background: var(--bg-1);
+  margin: 1.2rem 0;
+}
+.ypp-plan { list-style: none; padding: 0; margin: 1.2rem 0; display: grid; gap: 1.2rem; }
+.ypp-step {
+  border: 1px solid var(--line-strong);
+  border-radius: 0.75rem;
+  padding: 1.1rem 1.2rem;
+  background: var(--bg-1);
+}
+.ypp-step h4 { margin: 0 0 0.5rem; font-size: 1.05rem; }
+.ypp-step ul { margin: 0.5rem 0 0.8rem; padding-left: 1.2rem; }
+.ypp-step li { margin-bottom: 0.4rem; }
+.ypp-links { margin: 0; font-size: 0.92rem; }
+.ypp-qual { margin-top: 1.4rem; }
+.ypp-qual li { margin-bottom: 0.5rem; }
+.ypp-disclaimer { font-size: 0.85rem; margin-top: 1.4rem; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ypp-result * { transition: none !important; animation: none !important; }
+}

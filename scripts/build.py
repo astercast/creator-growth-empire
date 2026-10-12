@@ -142,6 +142,7 @@ TOOLS = [
     ("batching", "Batching Planner", "Film-day math: does your shoot capacity actually cover your cadence? Honest surplus/shortfall, consistency-beats-volume framing."),
     ("money-map", "The Money Map", "Find your stage on the $0-to-company journey: 7 questions, 5 stage playbooks, your next 3 moves. Stages are focus guides, never income promises."),
     ("video-doctor", "Diagnose My Video", "Pick your symptom \u2014 low CTR, the 30-second cliff, great retention but no subs \u2014 and get ranked causes with the fix from the chapter that owns it."),
+    ("ypp-checker", "YPP 2027 Eligibility Checker", "Enter your subs, watch hours, and Shorts views — get your verdict under the current YPP bar and the Feb-2027 bar, the gap math, and a chapter-grounded plan to close it."),
 ]
 
 
@@ -492,6 +493,27 @@ TOOLS_API = [
       }},
      "Ranked likely causes drawn from the site's chapters (Phase 1, Phase 2, Short-Form Playbook), each with chapter-grounded fixes and read-next links; the metric to watch next; context notes (tuition-phase caveat under 50 videos, swipe-feed completion-rate note for CTR on short-form). Thresholds labeled as creator-reported rules of thumb, never platform-published benchmarks.",
      "Engine (assets/js/video-doctor.js, UMD \u2014 importable in node): validInput(i) validates the three enums; diagnose(i) returns the symptom record with causes ranked 1..N (cause/why/fixes/links) plus notes. SYMPTOMS carries the full 8-symptom dataset. Diagnostic aid, not financial/legal/tax advice; never an income promise."),
+    ("ypp-checker", "YPP 2027 Eligibility Checker",
+     "Enter your subs, watch hours, and Shorts views \u2014 get your verdict under the current YPP bar and the Feb-2027 bar, the gap math, and a chapter-grounded plan to close it.",
+     "ypp-checker.html",
+     {"$schema": "http://json-schema.org/draft-07/schema#", "title": "YPPCheckerInput",
+      "type": "object", "required": ["subs", "watchHours", "shortsViews", "uploads90d", "originality", "formatMix"],
+      "properties": {
+          "subs": {"type": "number", "minimum": 0,
+                 "description": "Current subscriber count."},
+          "watchHours": {"type": "number", "minimum": 0,
+                        "description": "Qualified public watch hours from long-form in the last 12 months (as YouTube counts them, not the raw Studio number)."},
+          "shortsViews": {"type": "number", "minimum": 0,
+                         "description": "Qualified public Shorts views in the last 90 days."},
+          "uploads90d": {"type": "number", "minimum": 0,
+                        "description": "Total uploads (long + shorts) in the last 90 days."},
+          "originality": {"type": "string", "enum": ["original", "repurposed", "reposted"],
+                         "description": "How the channel's content is mostly made. Repurposed/reposted with Shorts in play triggers the Oct-2026 Shorts-originality warning."},
+          "formatMix": {"type": "string", "enum": ["longform", "shorts", "both"],
+                      "description": "Where the channel's volume mostly lives."},
+      }},
+     "Two verdicts: current YPP rules (through Jan 31, 2027: 1K subs + 4K watch hours/12mo OR 10M Shorts views/90d) vs 2027 rules (from Feb 1, 2027: 1K subs + 8K hours/365d OR 20M Shorts views/90d), each with per-check pass/fail; the 2027 Shorts revenue floor check (10M qualified Shorts views/90d, monthly); the 2027 activity test for partners; the unchanged fan-funding tier; the gap math per rule; the shorter-walk note; the Oct-2026 Shorts-originality warning when relevant; a chapter-grounded close-the-gap plan. Thresholds labeled with sources and observation dates; every verdict carries the verify-live-with-YouTube disclaimer.",
+     "Engine (assets/js/ypp-checker.js, UMD \u2014 importable in node): RULES carries both rule sets with source strings; validInput(i) validates the numbers and two enums; check(i) returns {input, now, y2027, originalityWarning, plan2027, shorterWalk, disclaimer}; fullVerdict/fanVerdict/shortsFloorVerdict/activityVerdict return per-check pass/fail + gap math; plan() returns chapter-grounded steps with read-next links to real site pages. Educational aid, not financial/legal/tax advice; never an income promise."),
 ]
 
 # Tools hub (wave 9): grouped card index. Per tool: icon, "use when" one-liner,
@@ -527,6 +549,8 @@ TOOL_HUB_META = {
                       ["roadmap", "stages", "Phases 0 · 8"]),
     "video-doctor":    ("\U0001fa7a", "CONTENT", "coral", "your numbers are telling you something but you can't read them yet.",
                       ["diagnosis", "retention", "Phases 1 · 2"]),
+    "ypp-checker":     ("◈", "MONEY", "gold", "YPP changes on Feb 1, 2027 — see where you stand under both rule sets.",
+                      ["monetization", "YPP", "Phase 5"]),
 }
 TOOL_HUB_GROUPS = [
     ("PLAN", "Pick the battlefield",
@@ -597,6 +621,22 @@ CASE_HUB = [
      "primary": "YouTube ad revenue + brand work + talent agency",
      "team": "Solo → agency (Human Media Group / Mana Talent)",
      "timeline": "Jun 2016 channel → 1M (2018) → 5M (2024)"},
+    {"id": "case-clippers-squeeze",
+     "headline": "KSh 130–520 per 1,000 views — then the originality update",
+     "stat": "Clipping industry · Oct-2026 reach cut + Feb-2027 Shorts floor",
+     "source": "Kenyan Mirror; TechJuice; Digital Trends (industry reports)",
+     "niche": "Clip redistribution / Shorts",
+     "primary": "Production-based clip payments",
+     "team": "Solo clippers / clip networks",
+     "timeline": "Boom → Oct 1, 2026 originality update → Feb 1, 2027 floor"},
+    {"id": "case-shorts-floor",
+     "headline": "The 10M-views-a-month subscription",
+     "stat": "≈111,000 qualifying Shorts views/day to hold the floor",
+     "source": "GSMDome; Tablet News; AIR Media-Tech; AuditSocials",
+     "niche": "Shorts-first channels",
+     "primary": "Shorts Creator Pool + Shorts Premium",
+     "team": "Any size",
+     "timeline": "Announced Aug 2026 → live Feb 1, 2027"},
 ]
 
 # Markdown landing pages rendered like chapters (pages/*.md -> site/*.html).
@@ -617,6 +657,10 @@ MARKDOWN_PAGES = [
     ("case-poly-couple", "pages/case-poly-couple.md", "The Poly Couple", "Case File",
      ("case-gibi-asmr", "Gibi ASMR")),
     ("case-gibi-asmr", "pages/case-gibi-asmr.md", "Gibi ASMR", "Case File",
+     ("case-clippers-squeeze", "The Clipping Squeeze")),
+    ("case-clippers-squeeze", "pages/case-clippers-squeeze.md", "The Clipping Squeeze", "Case File",
+     ("case-shorts-floor", "The Monthly Floor")),
+    ("case-shorts-floor", "pages/case-shorts-floor.md", "The Monthly Floor", "Case File",
      ("agents", "The Agent Surface")),
     ("hiring", "pages/hiring.md", "The First Hire", "Guide",
      ("hiring-calculator", "Try the Hiring Cost Calculator")),
@@ -978,10 +1022,12 @@ def build():
         "batching": ["assets/js/content-engine.js", "assets/js/batching-ui.js"],
         "money-map": ["assets/js/money-map.js"],
         "video-doctor": ["assets/js/video-doctor.js"],
+        "ypp-checker": ["assets/js/ypp-checker.js"],
     }
     TOOL_CSS = {
         "money-map": ["assets/css/moneymap.css"],
         "video-doctor": ["assets/css/videodoctor.css"],
+        "ypp-checker": ["assets/css/yppchecker.css"],
     }
     for slug, title, desc in TOOLS:
         body_src = PAGES / f"{slug}.html"
@@ -1050,7 +1096,7 @@ def build():
             f'<div class="brief-grid">{cards}</div></section>')
     tools_body = (
         hub_hero("COMMAND CENTER", "All Tools",
-                 "Fifteen power tools, one command center. Pick the briefing that matches where you are.",
+                 "Sixteen power tools, one command center. Pick the briefing that matches where you are.",
                  "acid")
         + hub_sections
         + '<section class="section honesty"><h2>Pick by job, not by shine</h2>'
@@ -1130,7 +1176,7 @@ def build():
         for i, m in enumerate(m for m in mdpage_meta if m["badge"] == "Case File"))
     case_section = (f'<section class="section"><div class="section-head"><h2>Empire Case Files</h2>'
                     f'<span class="section-tag">documented deconstructions // no guru hype</span>'
-                    f'<a href="case-files.html" class="section-more">All 7 case files →</a></div>'
+                    f'<a href="case-files.html" class="section-more">All 9 case files →</a></div>'
                     f'<div class="phase-grid reveal-stagger">{case_cards}</div></section>')
     index_body = f"""
 <section class="hero">
@@ -1140,15 +1186,15 @@ def build():
   <p class="lede">Nine phases. Zero to multi-million-dollar creator company — YouTube, TikTok, Facebook, merch, brand deals, LLC, taxes, scale. No guru hype. Just the playbook.</p>
   <div class="sticker-row reveal">
     <span class="sticker">9 phases</span>
-    <span class="sticker sticker-coral">15 power tools</span>
-    <span class="sticker sticker-violet">7 case files</span>
+    <span class="sticker sticker-coral">16 power tools</span>
+    <span class="sticker sticker-violet">9 case files</span>
     <span class="sticker sticker-gold">2026 verified</span>
     <span class="sticker sticker-violet">Zero → empire</span>
   </div>
   <div class="hero-stats">
     <div class="hero-stat reveal" style="--i:0"><strong>9</strong><span>phases</span></div>
     <div class="hero-stat reveal" style="--i:1"><strong>{total_words:,}</strong><span>words</span></div>
-    <div class="hero-stat reveal" style="--i:2"><strong>15</strong><span>interactive tools</span></div>
+    <div class="hero-stat reveal" style="--i:2"><strong>16</strong><span>interactive tools</span></div>
     <div class="hero-stat reveal" style="--i:3"><strong>LVL 01–09</strong><span>your climb</span></div>
   </div>
   <div class="hero-cta"><a class="btn btn-primary" href="phase-0-start-from-nothing.html">Start at Phase 0 →</a>
@@ -1161,7 +1207,7 @@ def build():
   <span>DIVERSIFY REVENUE</span><span>SEPARATE THE MONEY</span><span>SYSTEMS BEAT HUSTLE</span>
 </div></section>
 <section class="section"><div class="section-head"><h2>The Empire Map</h2><span class="section-tag">9 levels // clear them all</span></div><div class="phase-grid reveal-stagger">{cards}</div></section>
-<section class="section"><div class="section-head"><h2>Command Center</h2><span class="section-tag">weapons free</span><a href="tools.html" class="section-more">All 14 tools →</a></div><div class="tool-grid reveal-stagger">{tools_html}</div></section>
+<section class="section"><div class="section-head"><h2>Command Center</h2><span class="section-tag">weapons free</span><a href="tools.html" class="section-more">All 16 tools →</a></div><div class="tool-grid reveal-stagger">{tools_html}</div></section>
 {case_section}
 <section class="section"><div class="section-head"><h2>Hottest topics right now</h2><span class="section-tag">live feed // trend-machine</span></div>
 <div class="hud-panel trends-hud reveal">
@@ -1319,7 +1365,7 @@ def build():
             "id": "tools",
             "kind": "json",
             "path": "api/v1/tools.json",
-            "description": "All fourteen interactive tools with programmatic input schemas (JSON Schema draft-07), output descriptions, and drive notes — replicate the tools' logic without the UI.",
+            "description": "All sixteen interactive tools with programmatic input schemas (JSON Schema draft-07), output descriptions, and drive notes — replicate the tools' logic without the UI.",
             "schema": "api/v1/schema/tools.json",
             "updated": BUILD_TS,
             "records": len(TOOLS_API),
@@ -1343,7 +1389,7 @@ def build():
             "id": "tool-pages",
             "kind": "html",
             "paths": [f"{slug}.html" for slug, _, _ in TOOLS],
-            "description": "The fifteen interactive tools' human UI pages. Agents should prefer api/v1/tools.json input schemas over scraping these pages.",
+            "description": "The sixteen interactive tools' human UI pages. Agents should prefer api/v1/tools.json input schemas over scraping these pages.",
             "schema": None,
             "updated": BUILD_TS,
             "records": len(TOOLS),
@@ -1411,7 +1457,7 @@ def build():
     # ---- tools.json: every tool with its programmatic input schema ----
     (API / "tools.json").write_text(json.dumps({
         "version": "1.0.0", "updated": "2026-10-11",
-        "note": ("Programmatic input schemas for the fifteen interactive tools. "
+        "note": ("Programmatic input schemas for the sixteen interactive tools. "
                  "Agents replicate each tool's logic by feeding these inputs to the "
                  "documented formulas / shipped JS (assets/js/<id>.js); the UI pages "
                  "are the human front-end for the same logic."),
@@ -1851,7 +1897,7 @@ def build():
     for slug, title, desc in TOOLS:
         llms.append(f"- [{title}]({slug}.html) — {desc}")
     llms += ["- [Glossary](glossary.html)", "",
-             "All fifteen tools, grouped by job (Plan / Money / Content): [Tools hub](tools.html).",
+             "All sixteen tools, grouped by job (Plan / Money / Content): [Tools hub](tools.html).",
              "", "## Reference"]
     for m in reference_meta:
         llms.append(f"- [{m['badge']}: {m['title']}]({m['path']}) — {m['read_minutes']} min read")
@@ -1875,7 +1921,7 @@ def build():
              "- api/v1/content-engine.json — Content Engine data: idea formats, Playbook hook structures, dealing rules, Repurposing 2.0 map, originality guardrails, deal-slot guidance",
              "- api/v1/schema/ — JSON Schema (draft-07) for every endpoint",
              "", "## Agents",
-             "- AGENT.md — how an agent uses this site: base URL pattern, example requests, 6 end-to-end workflows, tool input schemas",
+             "- AGENT.md — how an agent uses this site: base URL pattern, example requests, 8 end-to-end workflows, tool input schemas",
              "- [Agents](agents.html) — the agent surface: endpoint table, all skills, data freshness policy, 5 worked agent workflows",
              "- [API Explorer](api-explorer.html) — browse api/v1 endpoints, preview JSON in-browser",
              "- llms.txt (this file) — quick agent orientation",

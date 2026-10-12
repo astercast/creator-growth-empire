@@ -750,14 +750,30 @@ Most creators monetize backwards: they chase ad revenue (slow, small) and ignore
 
 ### Layer 1 — Platform ad revenue (the foundation, not the house)
 
-**YouTube long-form:** you keep 55%. RPMs by niche (2026 third-party data, verify live): low-CPM niches (gaming, entertainment) **$1.50–$4** per 1,000 views; mid (education, lifestyle) **$4–$10**; high (finance, business) **$8–$20**; music sits at **$0.75–$1.65**. Q4 pays 40–80% more than Q1 — calendar effects are real.
+**YouTube long-form:** you keep 55%. RPMs by niche (third-party creator-reported data, refreshed Oct 2026, verify live): **$1–$3** for entertainment, **$2–$4** for gaming (OutlierKit Sep-2026 RPM/CPM table); **$4–$11** for AI & tech, **$8–$22** for legal & tax, **$10–$25** for personal finance. Music sits at **$0.75–$1.65**. Q4 pays 40–80% more than Q1 — calendar effects are real.
+**The counterweight:** advertiser-CPM lists overstate the spread. AIR Media-Tech's monetization statistics (300 channels, May 2025–May 2026) report *medians* far below the headline ranges: education & science **$10.22**, entertainment **$2.43**, gaming **$2.05**, kids **$0.33** — and business & finance at just **$2.01** (3 channels, directional). The niche matters, but so do your geography, your audience, and whether your viewers actually watch the ads. Plan from the median, daydream from the top.
+**Breakout multiples (OutlierKit 2026):** some niche-format combos pay far above their category: AI tutorials **18x** (~$15–22 CPM), betrayal/revenge dramas **21x** (~$20–25), English learning **21x** (~$18–22), senior health **19x** (~$14–18, ultra-low competition), video podcasts **15x** (~$12–18), rural homesteading **16x** (~$12–16), sleep content **14x** (~$16–20), manhwa/webtoon recaps **5.8x** (~$15–19). Multiples describe what outliers earn, not what you'll earn. All ranges are creator-reported — never promises.
 **YouTube Shorts:** you keep 45% of your pool allocation. RPM **$0.04–$0.50** per 1,000 engaged views: typical $0.04–$0.08, healthy $0.10–$0.25, strong niches $0.25–$0.50. So 1M engaged Shorts views ≈ $50–$500. Discovery gold, revenue bronze.
 **TikTok Creator Rewards:** **$0.40–$2.00** per 1,000 qualified views — 5–10x YouTube Shorts. Finance/tech sits at the top ($1.20–$2.40), comedy/memes at the floor ($0.30–$0.80). Only videos **over 1 minute** with original content qualify; earning starts after 1,000 qualified For You views. Eligibility: 10K followers + 100K views in 30 days + 18+ (country availability varies — verify live). TikTok Shop affiliates pay 5–20% commissions.
 **Meta (Facebook + Instagram):** Facebook merged In-Stream Ads, Ads on Reels, and Performance Bonus into **one Facebook Content Monetization program** (roughly $1–$10 per 1,000 views, wide range). Meta's **Creator Fast Track** (March 2026) paid a guaranteed "salary" — $1,000/mo at 100K+ followers or $3,000/mo at 1M+ for 15 Reels/month, US/Canada, 3-month cap. Meta paid ~$3B to creators in 2025 (+35%). **Instagram has no standing Reels bonus** (ended 2023) — the IG money stack is brand deals, affiliates, subscriptions, and occasional invite-only bonuses.
 
 **The truth:** ad revenue alone rarely pays rent until you're at 500k+ monthly views in a decent niche. Its real value is *baseline* — money that arrives while you sleep, funding the higher layers.
 
-**Watch-time is the real gate:** followers unlock eligibility, watch minutes unlock money. Creators hit 10K followers and still get rejected with ~300K watch minutes against ~600K-minute thresholds. And YouTube's **January 2026 enforcement wave** reportedly stripped tens of millions of subscribers from mass-produced/AI-content channels — thresholds are entry fees, not guarantees (single-source report — treat as caution, not fact). Also note: from **February 1, 2027, YPP thresholds double** for new applicants (8,000 watch hours or 20M Shorts views — confirmed via YouTube, Aug 2026). See the calculator's data for details.
+**Watch-time is the real gate — and it has two versions.** Followers unlock eligibility; watch minutes unlock money. And there are *two* gates, not one: the numbers, and YouTube's qualitative review (the "inauthentic content" policy, July 2025). Mass-produced or templated channels can fail review even when the numbers pass — and YouTube's January 2026 enforcement wave reportedly stripped tens of millions of subscribers from mass-produced/AI-content channels (single-source report — treat as caution, not fact).
+
+**The two YPP rule sets** (announced by YouTube Aug 10, 2026; reported by AIR Media-Tech, AuditSocials, Tablet News, GSMDome):
+
+| | Current — through Jan 31, 2027 | From Feb 1, 2027 |
+|---|---|---|
+| Full ad-revenue bar | 1,000 subs + **4,000** watch hours/12mo **or** 10M Shorts views/90d | 1,000 subs + **8,000** watch hours/365d **or** 20M Shorts views/90d |
+| Shorts revenue floor | — | **10M qualified Shorts views/90d, checked monthly** — below it, Shorts pay stops for that month; you stay in YPP, long-form keeps paying |
+| Activity test (existing partners) | 6 months of inactivity → monetization off | 1,000 hours/365d **or** 1M Shorts views/90d **or** 2 longs / 5 Shorts per 90d — miss all three and a 90-day recovery window opens |
+| Fan-funding tier | 500 subs + 3 uploads/90d + 3,000 hours/12mo or 3M Shorts views/90d | **Unchanged** |
+| Application timing | — | An application reaching YouTube by 23:59 UTC Jan 31, 2027 is judged at the old 4,000-hour bar; existing partners are grandfathered but must accept new terms by Jan 31, 2027 |
+
+**Shorts-only channels — read this twice:** the February-2027 package hits Shorts-only channels with *three* stacked changes — the Oct-1-2026 originality update (recommendations deprioritize re-uploaded clips), the doubled entry bar (20M Shorts views/90d), and the monthly 10M floor that can switch Shorts pay off any given month. "Shorts-only channels chasing pool revenue (post-Feb-2027)" is on the Niche Atlas avoid list for exactly this reason. The documented escape route is the below-floor stack: sponsorships, affiliates, Shopping, memberships — revenue with no view floor. See [Case File: The Clipping Squeeze](case-clippers-squeeze.html) and [Case File: The Monthly Floor](case-shorts-floor.html).
+
+**Run the numbers:** the [YPP 2027 Eligibility Checker](ypp-checker.html) takes your subs, watch hours, Shorts views, and uploads and returns your verdict under *both* rule sets — per-check pass/fail, the gap math, the Shorts-originality warning if your mix triggers it, and a chapter-grounded plan to close the gap. Rules change; the checker tells you to verify live in YouTube Studio's Earn tab, and so do I.
 
 ### Layer 2 — Affiliates (the first real money)
 
@@ -806,6 +822,8 @@ Want the full deconstructions? See [Case File: The Budget-Grocery Newsletter](ca
 ## The revenue calculator is honest; use it
 
 The calculator on this site shows *ranges* because ranges are the truth. Two creators with identical views can earn 5x differently based on niche, geography, and how many layers they've built. If your projection disappoints you, the answer is never "get more views" first — it's "add the next layer."
+
+**Where this fits on your map:** the stack builds in stage order. Stage 0–1 creators should be in the affiliates + first-sponsors phase, not optimizing ad RPMs they can't touch yet — the [Money Map](money-map.html) places you and names the next three moves. And the niche sets the ceiling of every layer: check your lane against the [Niche Atlas](niche-atlas.html)'s 2027 outlook before building the stack on top of it.
 
 ## When to add each layer
 
@@ -901,13 +919,15 @@ Timelines vary wildly by niche and execution. Anyone promising faster is selling
 
 ## Your Phase 5 checklist
 
-- Ad revenue enabled everywhere eligible (YPP tiers, TikTok Rewards, Facebook CMP)
+- Ad revenue enabled everywhere eligible ([YPP 2027 Eligibility Checker](ypp-checker.html) — verify against both rule sets, then confirm live in YouTube Studio)
 - 3–5 affiliate links live in relevant videos
-- Sponsor pitch sent to 20 brands (or media kit built)
+- Sponsor pitch sent to 20 brands (or media kit built) — manage the pipeline in the [Deal Room](deal-room.html)
 - First digital product scoped from comment demand
 - Revenue calculator run with honest numbers
 - Empire Simulator run: toggle each monetization stream on/off and watch how the stack changes over 12 months ([simulator.html](simulator.html))
 - 25–30% of profit being set aside for taxes
+- Niche checked against the 2027 outlook: heating vs cooling, plus the avoid list ([Niche Atlas](niche-atlas.html))
+- Your stage placed on the [Money Map](money-map.html) — the stack builds in stage order, not all at once
 
 
 ---
@@ -2255,6 +2275,132 @@ All figures are reported by the cited sources, not audited — and counts move; 
 - Wikitubia, "Gibi ASMR" — subscriber milestone dates, ~1,900 videos: https://youtube.fandom.com/wiki/Gibi_ASMR
 - Wikitubia 19-question interview with Gibi ASMR — "no one had broken a million," the Bee Movie project, 21.5M most-viewed video: https://youtube.fandom.com/wiki/Wikitubia:Interviews/Gibi_ASMR
 - SocialBlade, Gibi ASMR realtime statistics — current subscriber/view/video counts: https://socialblade.com/youtube/channel/UCE6acMV3m35znLcf0JGNn7Q/realtime
+
+
+---
+
+# Case File: The Clipping Squeeze
+
+# The Clipping Squeeze: Kenya's Clip Industry Meets the Originality Update
+
+> Clipping — cutting the best moments from podcasts, livestreams, and interviews — grew into a real industry: production-based payments of roughly KSh 130–520 per 1,000 views, with a single successful piece able to generate KSh 130,000–520,000. Then YouTube's October-2026 Shorts originality update cut distribution for re-upload-heavy channels, and the February-2027 YPP changes put a recurring 10M-view floor under Shorts pay. This is the documented squeeze, as reported — not a invented creator's story.
+
+## The arc: the rule change → the squeeze
+
+Clipping was always redistribution with a business model. Clippers cut viral moments, posted them as Shorts, and monetized through production-based payments (reported at KSh 130–520 per 1,000 views) or rev-share with streamers — at the boom's peak, one streamer reportedly paid clippers **$1.4 million in five weeks** (Clownfish TV, Oct 2026). The work was volume, not transformation: get the moment up first, with minimal edits.
+
+On October 1, 2026, YouTube announced through Creator Liaison Rene Ritchie on the Creator Insider channel that Shorts recommendations would "further prioritize original content" and cut distribution for channels that mainly repost others' videos without significant changes (TechJuice, Digital Trends). The bar for "original" was defined negatively: voiceover descriptions of what's on screen, minor technical edits, and template bulk-changes don't count. Commentary, analysis, and storytelling do. Creators cutting Shorts from their *own* long-form videos are unaffected.
+
+Kenyan Mirror (Oct 5, 2026) reported the industry's problem in plain terms: the update "forces these creators to rethink their strategy, as they can no longer rely solely on high-performing original material to generate income" — because redistribution accounts "risk losing visibility."
+
+Then came the second squeeze: from February 1, 2027, Shorts revenue sharing requires 10 million *qualified* Shorts views per 90 days, checked monthly. A channel that dips below loses Shorts pay for that month — it stays in YPP, long-form keeps paying — and regains Shorts revenue when it climbs back (Tablet News, GSMDome). For clippers whose reach just got cut, a recurring view floor is a second gate on the same business.
+
+## The revenue stack
+
+| Stream | Role in the stack | What was reported |
+|---|---|---|
+| Production-based clip payments | Primary income line for the industry | Sh130–520 per 1,000 views (Kenyan Mirror) |
+| Streamer rev-share / bounty deals | The boom-era outlier | $1.4M in five weeks paid by one streamer (Clownfish TV) |
+| Single successful piece | The ceiling moment | KSh 130,000–520,000 (Kenyan Mirror) |
+| Below-the-floor incentives | YouTube's promised substitute (details pending) | Shopping bonuses, brand-deal incentives, trend boosts for channels under the 10M floor (AIR Media-Tech) |
+
+The stack's real structure: reach → volume → views. When YouTube takes distribution *and* puts a floor under pay, the whole stack compresses from the top. Reported figures are industry estimates — treat as directional, never as promises.
+
+## The 3 decisions that mattered
+
+1. **The platforms defined "original" — and the industry heard it.** YouTube's list of what *doesn't* count (narration of what's on screen, minor tweaks, templates) is the clearest statement the platform has ever made about re-upload work. The documented adapters don't argue with the definition; they rebuild to meet it: analysis, storytelling, genuine transformation — or their own footage.
+
+2. **Distribution loss + pay floor = two gates, not one.** The October update cuts reach; the February floor cuts pay. A clipper who survives one can still fail the other. The documented escape route is diversification: below the floor, YouTube is promising Shopping bonuses and brand-deal incentives instead of pool revenue — affiliate and sponsor money, not ad money.
+
+3. **The re-evaluation door is real but unmapped.** YouTube said creators who shift toward original content get their reach "re-evaluated" — with no timeline and no appeals page (Search Engine Journal, TechJuice). The honest read: the door exists, the wait is unknown, and nobody can tell you when you're through it.
+
+## What to steal
+
+- **Read policy lists as business intelligence.** YouTube's "what doesn't count" list is a free business plan: everything on it is a dead end; everything off it (commentary, analysis, storytelling) is where the surviving value is.
+- **Own-footage Shorts are the safe harbor.** Channels cutting Shorts from their own long videos or streams were explicitly unaffected. The clipper's durable move is becoming the *source* — filming something of their own to cut from.
+- **Below the floor, pivot the stream.** If 10M views/month is out of reach, the money moves to affiliates, Shopping, and sponsors — the layers that don't require a pool. Phase 5's stack order is the playbook for this exact situation.
+
+## What NOT to copy
+
+- **Don't "technical-change" your way around it.** Adding a filter, a template, or a voiceover that narrates the footage is exactly what YouTube named as insufficient. Cosmetic changes are the expensive version of doing nothing.
+- **Don't rebuild reach you can't keep.** Volume posting works until the recommendation system stops picking up re-uploads. The metric that matters post-update is *original* uploads per week, not total uploads.
+- **"Reach was fine last month" is not a strategy.** The monthly floor check means every 90-day window is its own exam. One viral month buys nothing permanent.
+
+## Sources
+
+- Kenyan Mirror, "YouTube tightens grip on reposted clips, hurting clippers' revenue sources" (Oct 5, 2026) — KSh 130–520 per 1,000 views; KSh 130,000–520,000 per successful piece: https://kenyanmirror.com/article/youtube-tightens-grip-on-reposted-clips-hurting-clippers-revenue-sources
+- TechJuice, "YouTube Shorts Algorithm Now Prioritizes Original Content Creators" — the Ritchie/Creator Insider announcement (Oct 1, 2026): https://www.techjuice.pk/youtube-shorts-algorithm-update-original-content-aggregator-reach-reduced/
+- Digital Trends, "YouTube cracks down on reposted Shorts and it's bad news for clipper accounts" — reach change vs. monetization policy distinction: https://www.digitaltrends.com/phones/youtube-cracks-down-on-reposted-shorts-with-a-new-recommendation-update/
+- Search Engine Journal, "YouTube To Cut Reach Of Channels Reposting Barely Changed Clips" — no timeline for re-evaluation, no appeals process: https://www.searchenginejournal.com/youtube-original-shorts-reposted-clips-reach/591774/
+- Clownfish TV, "YouTube Shorts is cutting the reach of re-uploaded clip channels" — the $1.4M-in-five-weeks clipper boom: https://drezzed.clownfishtv.com/p/youtube-shorts-is-cutting-the-reach
+- Tablet News, "YouTube's 2027 Monetization Rules Raise the Bar for Shorts Creators" — the 10M/90d floor as ongoing requirement: https://tablet-news.com/youtube-s-2027-monetization-rules-raise-the-bar-for-shorts-creators/
+- AIR Media-Tech, "YouTube Monetization Requirements 2027: What Changes Feb 1" — below-floor incentives (Shopping bonuses, brand-deal incentives): https://air.io/en/trending/youtube-updates-its-monetization-rules-what-creators-need-to-know
+
+All figures are source-reported industry estimates, never audited — never present as promises. Not financial, legal, or tax advice.
+
+
+---
+
+# Case File: The Monthly Floor
+
+# The Monthly Floor: Shorts-First Channels Learn to Count to Ten Million
+
+> The February-2027 YPP change that bites hardest isn't the doubled entry bar — it's the recurring one: 10 million qualified Shorts views per 90 days, checked monthly, to keep earning Shorts ad and Premium revenue. Miss it and Shorts pay stops for that month. This is the documented arc of the Shorts-first channels adapting to it — an industry pattern assembled from reporting, not an invented creator's story.
+
+## The arc: one hurdle becomes a subscription
+
+Before February 2027, getting into YPP was the finish line: clear the bar once, keep the status. For Shorts creators the 2027 terms flip it into a subscription: 10 million qualified Shorts views over the trailing 90 days, re-checked every month, to receive the month's share of the Shorts Creator Pool and Shorts-related Premium revenue. Below it, the channel keeps YPP membership and long-form monetization — the Shorts money just doesn't come that month. Cross back over and it resumes (GSMDome, AuditSocials).
+
+The arithmetic of the floor is unforgiving: 10 million views in 90 days means roughly **111,000 qualifying Shorts views every single day** — and a single viral video no longer buys permanent entry. As Eastleigh Voice's Kenya coverage put it: the change rewards "creators who can consistently attract viewers" over occasional spikes. A channel living on one viral month gets one paid month.
+
+YouTube's VP of Creator Product framed the logic in August 2026: Shorts ads should be "meaningful" revenue — and meaningful takes millions of views (Olivia Hart / StartupInsider, Sep 2026, reporting Hanif's Creator Insider line). Below the floor, YouTube promises substitutes rather than revenue: YouTube Shopping bonuses, brand-deal incentives, trend boosts — details still pending (AIR Media-Tech).
+
+The broadcasters heard the message early. Barrett Media (Oct 6, 2026), covering radio stations and digital brands: for most of them, "Shorts is a marketing tool, not a revenue line" — the platform pays the *stations* in discovery while the revenue comes from direct monetization and brand deals. That's the documented adapter's posture: treat Shorts as the top of the funnel, never the paycheck.
+
+## The revenue stack (below vs above the floor)
+
+| Stream | Above the floor | Below the floor |
+|---|---|---|
+| Shorts Creator Pool (45% creator share) | Flowing monthly | Zero for the month |
+| Shorts-related Premium revenue | Flowing monthly | Zero for the month |
+| Long-form ads (55% share) + long Premium | Unaffected | Unaffected — the floor only touches Shorts |
+| Fan funding, Shopping, Creator Partnerships (70% fan share) | Unaffected | Unaffected — this is the tier that stays |
+| Below-floor incentives | — | Shopping bonuses, brand-deal incentives, trend boosts (promised; details pending — AIR) |
+| Sponsors / affiliates | The documented adapter's move: revenue that doesn't require a pool | The documented adapter's move |
+
+The structural lesson: the channels that survive the floor are the ones whose stack never depended on it — sponsorships, affiliates, fan funding, products. Ad revenue was always the tip of the iceberg; the 2027 floor just saws the tip off for everyone below 10M. Revenue figures are source-reported — never promises.
+
+## The 3 decisions that mattered
+
+1. **Treat 10M/90d as a monthly subscription, not a graduation.** The documented adapters stopped thinking "get in" and started thinking "stay in": a rolling 90-day window means every quiet month is a missed invoice. Cadence becomes financial infrastructure — the 90-Day Planner's consistency logic, but with money attached.
+
+2. **Move the revenue below the floor, not above it.** The surviving playbook, as documented: sponsors, affiliates, Shopping, memberships — streams with no view floor at all. YouTube itself is pushing below-floor channels toward Shopping and brand deals. The money that can't be switched off is the money to build first.
+
+3. **Keep the long-form engine running.** The floor touches Shorts only. A channel with long-form monetization keeps earning on every standard video regardless. The cheapest insurance against the monthly check is a format that doesn't have one — which is also why "Shorts-only" is now a red-flag lane in the Niche Atlas avoid list.
+
+## What to steal
+
+- **Dailyize the floor.** 10M ÷ 90 days ≈ 111,000 qualifying views/day. A number you can see every morning beats a threshold you check once a quarter. Run the checker's math on your own numbers — then run the Money Map to place yourself.
+- **Build the below-floor stack now.** Sponsors, affiliates, Shopping, memberships — every stream that pays with no floor should exist *before* a quiet month, not after one. Phase 5 orders the stack by effort-to-return; the floor adds a new reason to follow that order.
+- **If you're already in YPP: calendar the terms.** Accept updated terms in YouTube Studio by January 31, 2027 — without them, affected features stop earning on Feb 1 (AIR). And the new activity test (1,000 hours/365d, 1M Shorts views/90d, or 2 longs / 5 Shorts per 90 days) has a 90-day recovery window — mark it before you need it.
+
+## What NOT to copy
+
+- **Don't chase 20M to "be safe" and neglect the monthly check.** The 20M figure is the *entry* bar for new applicants; the *ongoing* bar is 10M/90d monthly. A channel that enters at 20M and slides to 9M keeps YPP but loses Shorts pay. The ongoing floor is the one that recurs.
+- **Don't apply in January to dodge February unless you're ready.** Applications reaching YouTube by 23:59 UTC Jan 31, 2027 are judged at the old 4,000-hour bar (AIR partner support) — but a rejected January application reapplies at the 8,000-hour bar. Rushing a thin application into a review is a two-way door.
+- **Don't treat the floor as the whole story.** Partners also face the new activity test and the Jan-31 terms deadline. The floor is the loudest change, not the only one.
+
+## Sources
+
+- GSMDome, "YouTube Raises YPP Entry Thresholds for 2027, Adds Monthly Shorts View Requirement" — monthly check mechanics: https://www.gsmdome.com/youtube-raises-ypp-entry-thresholds-for-2027-adds-monthly-shorts-view-requirement
+- Tablet News, "YouTube's 2027 Monetization Rules Raise the Bar for Shorts Creators" — one-time hurdle → ongoing performance requirement: https://tablet-news.com/youtube-s-2027-monetization-rules-raise-the-bar-for-shorts-creators/
+- AuditSocials, "YouTube Partner Program 2027 Thresholds: What Changes" — YouTube's Aug-10-2026 announcement summary: https://www.auditsocials.com/blog/youtube-partner-program-2027-shorts-revenue-entry-thresholds
+- AIR Media-Tech, "YouTube Monetization Requirements 2027: What Changes Feb 1" — activity test legs, terms deadline, below-floor incentives, Jan-31 cutoff: https://air.io/en/trending/youtube-updates-its-monetization-rules-what-creators-need-to-know
+- Eastleigh Voice, "Content creators will need twice as many watch hours under YouTube new rules" — the consistency-over-spikes read: https://eastleighvoice.co.ke/youtubers/388962/content-creators-will-need-twice-as-many-watch-hours-to-start-earning-money-under-youtube-new-rules
+- Barrett Media, "YouTube Is Changing the Rules Again: What it Means For Broadcasters and Brands" (Oct 6, 2026) — "Shorts is a marketing tool, not a revenue line": https://barrettmedia.com/2026/10/06/youtube-changing-the-rules-yet-again/
+- StartupInsider / Olivia Hart, "YouTube decided ten million Shorts views is where a hobby ends and said so in public" (Sep 2026) — Hanif's "meaningful" revenue line: https://medium.com/startup-insider-edge/youtube-decided-ten-million-shorts-views-is-where-a-hobby-ends-and-said-so-in-public-42ff80a4ada5
+
+All figures are source-reported, never audited — never present as promises. Not financial, legal, or tax advice. Rules change; verify live with YouTube.
 
 
 ---

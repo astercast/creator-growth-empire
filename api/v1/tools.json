@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
   "updated": "2026-10-11",
-  "note": "Programmatic input schemas for the fifteen interactive tools. Agents replicate each tool's logic by feeding these inputs to the documented formulas / shipped JS (assets/js/<id>.js); the UI pages are the human front-end for the same logic.",
+  "note": "Programmatic input schemas for the sixteen interactive tools. Agents replicate each tool's logic by feeding these inputs to the documented formulas / shipped JS (assets/js/<id>.js); the UI pages are the human front-end for the same logic.",
   "tools": [
     {
       "id": "quiz",
@@ -1068,6 +1068,67 @@
       },
       "output": "Ranked likely causes drawn from the site's chapters (Phase 1, Phase 2, Short-Form Playbook), each with chapter-grounded fixes and read-next links; the metric to watch next; context notes (tuition-phase caveat under 50 videos, swipe-feed completion-rate note for CTR on short-form). Thresholds labeled as creator-reported rules of thumb, never platform-published benchmarks.",
       "drive_notes": "Engine (assets/js/video-doctor.js, UMD \u2014 importable in node): validInput(i) validates the three enums; diagnose(i) returns the symptom record with causes ranked 1..N (cause/why/fixes/links) plus notes. SYMPTOMS carries the full 8-symptom dataset. Diagnostic aid, not financial/legal/tax advice; never an income promise."
+    },
+    {
+      "id": "ypp-checker",
+      "title": "YPP 2027 Eligibility Checker",
+      "description": "Enter your subs, watch hours, and Shorts views \u2014 get your verdict under the current YPP bar and the Feb-2027 bar, the gap math, and a chapter-grounded plan to close it.",
+      "page": "ypp-checker.html",
+      "input_schema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "title": "YPPCheckerInput",
+        "type": "object",
+        "required": [
+          "subs",
+          "watchHours",
+          "shortsViews",
+          "uploads90d",
+          "originality",
+          "formatMix"
+        ],
+        "properties": {
+          "subs": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Current subscriber count."
+          },
+          "watchHours": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Qualified public watch hours from long-form in the last 12 months (as YouTube counts them, not the raw Studio number)."
+          },
+          "shortsViews": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Qualified public Shorts views in the last 90 days."
+          },
+          "uploads90d": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Total uploads (long + shorts) in the last 90 days."
+          },
+          "originality": {
+            "type": "string",
+            "enum": [
+              "original",
+              "repurposed",
+              "reposted"
+            ],
+            "description": "How the channel's content is mostly made. Repurposed/reposted with Shorts in play triggers the Oct-2026 Shorts-originality warning."
+          },
+          "formatMix": {
+            "type": "string",
+            "enum": [
+              "longform",
+              "shorts",
+              "both"
+            ],
+            "description": "Where the channel's volume mostly lives."
+          }
+        }
+      },
+      "output": "Two verdicts: current YPP rules (through Jan 31, 2027: 1K subs + 4K watch hours/12mo OR 10M Shorts views/90d) vs 2027 rules (from Feb 1, 2027: 1K subs + 8K hours/365d OR 20M Shorts views/90d), each with per-check pass/fail; the 2027 Shorts revenue floor check (10M qualified Shorts views/90d, monthly); the 2027 activity test for partners; the unchanged fan-funding tier; the gap math per rule; the shorter-walk note; the Oct-2026 Shorts-originality warning when relevant; a chapter-grounded close-the-gap plan. Thresholds labeled with sources and observation dates; every verdict carries the verify-live-with-YouTube disclaimer.",
+      "drive_notes": "Engine (assets/js/ypp-checker.js, UMD \u2014 importable in node): RULES carries both rule sets with source strings; validInput(i) validates the numbers and two enums; check(i) returns {input, now, y2027, originalityWarning, plan2027, shorterWalk, disclaimer}; fullVerdict/fanVerdict/shortsFloorVerdict/activityVerdict return per-check pass/fail + gap math; plan() returns chapter-grounded steps with read-next links to real site pages. Educational aid, not financial/legal/tax advice; never an income promise."
     }
   ]
 }

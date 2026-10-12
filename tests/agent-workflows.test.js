@@ -67,7 +67,13 @@ function check(name, cond, detail) {
 
   // tools.json drives the planner config shape
   const tools = load("tools.json").tools;
-  check("wf2: tools.json lists all 15 tools", tools.length === 15, String(tools.length));
+  check("wf2: tools.json lists all 16 tools", tools.length === 16, String(tools.length));
+  const yppc = tools.find((t) => t.id === "ypp-checker");
+  const yppSchema = yppc && yppc.input_schema;
+  check("wf2: ypp-checker input schema exposes stats + originality + formatMix",
+    !!(yppSchema && yppSchema.properties.subs && yppSchema.properties.watchHours
+       && yppSchema.properties.shortsViews && yppSchema.properties.uploads90d
+       && yppSchema.properties.originality && yppSchema.properties.formatMix));
   const planner = tools.find((t) => t.id === "planner");
   const schema = planner && planner.input_schema;
   check("wf2: planner input schema exposes cadence fields",

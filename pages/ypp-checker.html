@@ -1,0 +1,44 @@
+<p class="lede">YPP changes on February 1, 2027: new applicants face double the bar (8,000 watch hours or 20M Shorts views), and Shorts revenue gets a monthly 10M-views floor — even for partners who are already in. Enter your numbers and see where you stand under both rule sets, what gap remains, and the chapter-grounded plan to close it.</p>
+
+<form id="ypp-form" aria-labelledby="ypp-form-title">
+  <h2 id="ypp-form-title">Your numbers</h2>
+  <div class="calc-grid">
+    <label>Subscribers
+      <input type="number" id="ypp-subs" min="0" step="1" inputmode="numeric" autocomplete="off" required></label>
+    <label>Watch hours (last 12 months)
+      <input type="number" id="ypp-hours" min="0" step="1" inputmode="numeric" autocomplete="off" required></label>
+    <label>Shorts views (last 90 days)
+      <input type="number" id="ypp-shorts" min="0" step="1" inputmode="numeric" autocomplete="off" required></label>
+    <label>Uploads (last 90 days)
+      <input type="number" id="ypp-uploads" min="0" step="1" inputmode="numeric" autocomplete="off" required></label>
+    <label>Your content's originality
+      <select id="ypp-originality">
+        <option value="original" selected>Mostly original — my own footage / commentary / storytelling</option>
+        <option value="repurposed">Mostly repurposed — others' clips with my edits / voiceover</option>
+        <option value="reposted">Mostly reposted — clips with little or no transformation</option>
+      </select></label>
+    <label>Format mix
+      <select id="ypp-mix">
+        <option value="both" selected>A mix of long-form and Shorts</option>
+        <option value="longform">Mostly long-form</option>
+        <option value="shorts">Mostly Shorts</option>
+      </select></label>
+  </div>
+  <div class="quiz-actions">
+    <button class="btn btn-primary" id="ypp-check-btn" type="submit">Check my eligibility →</button>
+    <button class="btn btn-ghost" id="ypp-reset" type="button">Reset</button>
+  </div>
+  <div id="ypp-results" aria-live="polite" style="margin-top:1.5rem">
+    <div class="empty-state" role="status"><span class="empty-icon" aria-hidden="true">🧭</span><strong>Nothing checked yet.</strong>Enter your numbers above — the checker compares them against the current YPP bar and the Feb-2027 bar, side by side.</div>
+  </div>
+</form>
+
+<section aria-label="How this tool thinks" style="margin-top:2rem">
+  <h2>How this tool thinks</h2>
+  <p class="muted">Two rule sets, both sourced and labeled with their observation dates. <strong>Current (through Jan 31, 2027):</strong> full YPP = 1,000 subs + 4,000 qualified watch hours/12mo <em>or</em> 10M qualified Shorts views/90d; fan-funding tier = 500 subs + 3 uploads/90d + 3,000 hours/12mo <em>or</em> 3M Shorts views/90d (YouTube published eligibility, restated by AIR Media-Tech and multi-source press). <strong>2027 (from Feb 1, 2027):</strong> new applicants = 1,000 subs + 8,000 hours/365d <em>or</em> 20M Shorts views/90d; the Shorts Creator Pool + Shorts Premium floor = 10M qualified Shorts views/90d, checked monthly; a new partner activity test (1,000 hours/365d, 1M Shorts views/90d, or 2 longs / 5 Shorts per 90 days); fan-funding unchanged. Announced by YouTube Aug 10, 2026; reported consistently by AIR Media-Tech, AuditSocials, Tablet News, GSMDome, and others. The <strong>Oct-1-2026 Shorts originality update</strong> (announced by Creator Liaison Rene Ritchie via Creator Insider) is surfaced as a warning whenever your content mix risks it. Thresholds are program rules, not forecasts — they change. Verify live in YouTube Studio's Earn tab. An educational aid, not financial, legal, or tax advice.</p>
+  <noscript>
+    <h3>The two rule sets, one paragraph each</h3>
+    <p><strong>Current (through Jan 31, 2027):</strong> full YPP = 1,000 subscribers + (4,000 qualified watch hours in 12 months OR 10M qualified Shorts views in 90 days). Fan-funding tier = 500 subscribers + 3 uploads in 90 days + (3,000 hours in 12 months OR 3M Shorts views in 90 days). Also: no active strikes, 2-Step Verification, linked AdSense, eligible country. The numbers are one gate; YouTube's qualitative review (inauthentic-content policy, Jul 2025) is the other.</p>
+    <p><strong>From Feb 1, 2027:</strong> new applicants = 1,000 subscribers + (8,000 qualified watch hours in 365 days OR 20M qualified Shorts views in 90 days). Shorts revenue (Creator Pool + Shorts Premium) = 10M qualified Shorts views in 90 days, checked monthly — miss it and Shorts pay stops for that month; you stay in YPP and long-form keeps paying. Existing partners are grandfathered on entry but must accept new terms by Jan 31, 2027 and face an activity test (1,000 hours/365d OR 1M Shorts views/90d OR 2 longs / 5 Shorts in 90 days). Fan-funding tier unchanged. Application submitted by 23:59 UTC Jan 31, 2027 is judged at the old 4,000-hour bar.</p>
+  </noscript>
+</section>

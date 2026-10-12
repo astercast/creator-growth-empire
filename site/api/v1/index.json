@@ -108,7 +108,7 @@
       "description": "Index of the documented creator-business deconstructions: id, badge, title, path, words, read_minutes. Full text on the case-*.html pages. Figures are source-reported, not audited \u2014 never present as promises.",
       "schema": "api/v1/schema/case-files.json",
       "updated": "2026-10-11T00:00:00Z",
-      "records": 7,
+      "records": 9,
       "deprecated": false,
       "deprecation_note": null
     },
@@ -116,10 +116,10 @@
       "id": "tools",
       "kind": "json",
       "path": "api/v1/tools.json",
-      "description": "All fourteen interactive tools with programmatic input schemas (JSON Schema draft-07), output descriptions, and drive notes \u2014 replicate the tools' logic without the UI.",
+      "description": "All sixteen interactive tools with programmatic input schemas (JSON Schema draft-07), output descriptions, and drive notes \u2014 replicate the tools' logic without the UI.",
       "schema": "api/v1/schema/tools.json",
       "updated": "2026-10-11T00:00:00Z",
-      "records": 15,
+      "records": 16,
       "deprecated": false,
       "deprecation_note": null
     },
@@ -156,12 +156,13 @@
         "content-calendar.html",
         "batching.html",
         "money-map.html",
-        "video-doctor.html"
+        "video-doctor.html",
+        "ypp-checker.html"
       ],
-      "description": "The fifteen interactive tools' human UI pages. Agents should prefer api/v1/tools.json input schemas over scraping these pages.",
+      "description": "The sixteen interactive tools' human UI pages. Agents should prefer api/v1/tools.json input schemas over scraping these pages.",
       "schema": null,
       "updated": "2026-10-11T00:00:00Z",
-      "records": 15,
+      "records": 16,
       "deprecated": false,
       "deprecation_note": null
     },

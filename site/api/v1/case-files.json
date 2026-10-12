@@ -58,6 +58,22 @@
       "path": "case-gibi-asmr.html",
       "words": 1155,
       "read_minutes": 6
+    },
+    {
+      "id": "case-clippers-squeeze",
+      "badge": "Case File",
+      "title": "The Clipping Squeeze",
+      "path": "case-clippers-squeeze.html",
+      "words": 1130,
+      "read_minutes": 6
+    },
+    {
+      "id": "case-shorts-floor",
+      "badge": "Case File",
+      "title": "The Monthly Floor",
+      "path": "case-shorts-floor.html",
+      "words": 1241,
+      "read_minutes": 6
     }
   ]
 }

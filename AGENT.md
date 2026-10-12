@@ -1,10 +1,9 @@
 # AGENT.md — How an agent uses Creator Growth Empire
 
 > This site is a static machine-readable knowledge base for the creator
-> business: 9 phases, 15 tools, 12 skills, 7 case files, and a versioned JSON
+> business: 9 phases, 16 tools, 12 skills, 9 case files, and a versioned JSON
 > API. No API key, no server, no auth, no rate limits. Fetch and act.
-> Every workflow below was executed against the real `api/v1/` JSON files —
-> see `tests/agent-workflows.test.js` (run: `node tests/agent-workflows.test.js`).
+> Every workflow below was executed against the real `api/v1/` JSON files —> see `tests/agent-workflows.test.js` (run: `node tests/agent-workflows.test.js`).
 
 ## Base URL pattern
 
@@ -32,8 +31,8 @@
 | `GET api/v1/glossary.json` | 26 creator-economy terms + definitions | Look up "RPM", "YPP", "whitelisting" before quoting them |
 | `GET api/v1/calculators.json` | Per-niche RPM bands, Shorts RPM, platform thresholds w/ sources+dates, revenue splits, 2026 sponsorship rate card, 2026 research snapshots | The data contract every calculator and the sim engine read |
 | `GET api/v1/skills.json` | 12 skills: `name`, `description`, `path` | `skills/deal-negotiation/SKILL.md` for the full procedure |
-| `GET api/v1/case-files.json` | 5 creator-business deconstructions: `id`, `title`, `path`, `words`, `read_minutes` | Full text on the `case-*.html` pages |
-| `GET api/v1/tools.json` | 15 tools with programmatic `input_schema` (draft-07), output description, `drive_notes` | Replicate any tool's logic without the UI |
+| `GET api/v1/case-files.json` | 9 creator-business deconstructions: `id`, `title`, `path`, `words`, `read_minutes` | Full text on the `case-*.html` pages |
+| `GET api/v1/tools.json` | 16 tools with programmatic `input_schema` (draft-07), output description, `drive_notes` | Replicate any tool's logic without the UI |
 | `GET api/v1/schema/<name>.json` | JSON Schema draft-07 for every endpoint (per-doc and per-record) | Validate before you trust a payload |
 
 Skills are the executable layer: each `skills/<name>/SKILL.md` follows
@@ -234,6 +233,40 @@ all via API, no UI.
    **typically focus on** — never income promises, timelines, or guarantees.
    This is a planning aid, not financial, legal, or tax advice.
 
+### Workflow 8 — Check YPP eligibility under both rule sets (current vs Feb 2027)
+
+Goal: take a creator's channel stats and return their YPP verdict under the
+current bar and the Feb-2027 bar, the gap math, and the close-the-gap plan —
+all via API, no UI.
+
+1. `GET api/v1/tools.json` → tool `ypp-checker` → `input_schema`. Build the
+   input: `{ subs, watchHours, shortsViews, uploads90d, originality, formatMix }`.
+   Example: `{ subs: 1200, watchHours: 6500, shortsViews: 5000000,
+   uploads90d: 60, originality: "original", formatMix: "both" }`.
+2. Drive the logic with `require("assets/js/ypp-checker.js")` (UMD, importable
+   in node). `YppChecker.check(input)` → `{ now, y2027, originalityWarning,
+   plan2027, shorterWalk, disclaimer }`. `RULES` pins both rule sets with
+   source strings:
+   - **Current (through Jan 31, 2027):** 1,000 subs + (4,000 qualified watch
+     hours/12mo OR 10M qualified Shorts views/90d); fan-funding tier 500 subs +
+     3 uploads/90d + (3,000 hours OR 3M Shorts).
+   - **2027 (from Feb 1, 2027):** new applicants 1,000 subs + (8,000 hours/365d
+     OR 20M Shorts views/90d); Shorts Creator Pool + Shorts Premium floor 10M
+     qualified Shorts views/90d, checked monthly; partner activity test
+     (1,000 hours/365d OR 1M Shorts views/90d OR 2 longs/5 Shorts per 90d);
+     fan-funding tier unchanged. Sources: YouTube's Aug-10-2026 announcement
+     via AIR Media-Tech, AuditSocials, Tablet News, GSMDome.
+3. Read the verdicts: `now.full.eligible` / `y2027.full.eligible` (per-check
+   pass/fail in `.checks[]`), the `hoursGap`/`shortsGap`/`subsGap` gap math,
+   `y2027.shortsFloor` (inside/outside, gap in views), `y2027.activity`
+   (partners), and `plan2027[]` — chapter-grounded steps with read-next links
+   to real site pages. `originalityWarning` fires for repurposed/reposted
+   content with Shorts in play (Oct-1-2026 Shorts originality update).
+4. Framing rule (non-negotiable): thresholds are **YouTube-published /
+   press-reported program rules**, not forecasts. They change — every verdict
+   carries the verify-live-in-YouTube-Studio disclaimer. Educational aid, not
+   financial, legal, or tax advice; never an income promise.
+
 ## Rate & expectation notes
 
 - **Static JSON.** Nothing here is live: no request counts, no streaming, no
@@ -269,6 +302,7 @@ explaining how to replicate the logic:
 | Repurposing Planner | `idea` (one sentence) + `source_format` | Atom test → pillar prep → 5 staggered mission cards (YT Day 0, Short +1, TikTok +2, Reel +3, FB +4) |
 | Empire Simulator | `niche`, `startSubs`, cadence, `quality`, `growthRate`, `q4Uplift`, monetization toggles, `scenario_id`, `horizon` (12/24), `hires[]`, `compare_with` | `require("assets/js/sim-engine.js").simulate(inputs, calculatorsJson)` — plus `scenarioInputs(id)`, `compare(nameA,a,nameB,b,cfg)`, `assumptionLines()`, `exportPlan()` — see Workflows 3–4 |
 | API Explorer | none (read-only browser over the API) | Skip the UI; fetch the endpoints directly |
+| YPP 2027 Eligibility Checker | `subs`, `watchHours`, `shortsViews`, `uploads90d`, `originality` (original/repurposed/reposted), `formatMix` (longform/shorts/both) | `require("assets/js/ypp-checker.js")` — `check(i)` returns current-vs-2027 verdicts, Shorts floor, activity test, gap math, chapter-grounded plan — see Workflow 8 |
 | Hook Builder | `topic` (one line) | One hook per Short-Form Playbook structure + the anti-hook checklist |
 
 Full per-tool schemas, formulas, and honesty notes live in `tools.json`;

@@ -23,7 +23,7 @@ Calculator config: `youtube_longform_rpm_bands` (per-niche RPM ranges), `shorts_
 Skill index: `version`, `updated`, `skills: [{ "name", "description", "path" }]` for all twelve skills. Full skill content lives in `skills/<name>/SKILL.md`.
 
 ### `GET api/v1/case-files.json`
-Case-file index: `version`, `updated`, `note`, `case_files: [{ "id", "badge", "title", "path", "words", "read_minutes" }]` for all five documented creator-business deconstructions (budget-grocery newsletter, Ben's Bites, faceless sleep-channel network, Mavwicks on TikTok Shop, cohort course). Full text on the `case-*.html` pages. Figures are source-reported, not audited — never present as promises.
+Case-file index: `version`, `updated`, `note`, `case_files: [{ "id", "badge", "title", "path", "words", "read_minutes" }]` for all nine documented creator-business deconstructions (budget-grocery newsletter, Ben's Bites, faceless sleep-channel network, Mavwicks on TikTok Shop, cohort course, the poly couple, Gibi ASMR, the clipping squeeze, the monthly Shorts floor). Full text on the `case-*.html` pages. Figures are source-reported, not audited — never present as promises.
 
 ### `GET api/v1/tools.json`
 `{ "version", "updated", "note", "tools": [{ "id", "title", "description", "page", "input_schema", "output", "drive_notes" }] }` — all thirteen interactive tools with programmatic input schemas (JSON Schema draft-07), output descriptions, and drive notes. Replicate any tool's logic without the UI; the `*.html` tool pages are the human front-end for the same logic.
