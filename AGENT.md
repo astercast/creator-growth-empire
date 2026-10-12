@@ -97,28 +97,33 @@ Goal: a 12-month growth + revenue model with every assumption named (36-month ru
 1. `GET data/v1/tools.json` → tool `simulator` → `input_schema` + `drive_notes`.
    The engine is `assets/js/sim-engine.js` (UMD — `require()` it in node):
    `simulate(inputs, cfg)` with `cfg` = `data/v1/calculators.json`.
-2. ASMR is not a key in the engine's niche maps — declare proxies explicitly:
-   `niche: "lifestyle"` (growth factor 1.05, closest supported key for ambient
-   content) + `rpmLevel: "low"` (lifestyle band $4–$10 at the floor — ASMR is
-   low-RPM). The engine needs a nonzero seed (growth compounds on subs):
-   `startSubs: 500`.
+2. Wow wave 2: ASMR is now a REAL study niche — `niche: "asmr"` reads the
+   `niche_rpm_2026` band $4–$10 (site lifestyle-band proxy, labeled) at
+   `rpmLevel: "low"` ($4 — ASMR is low-RPM), and the TubeAI 1.56%/mo median
+   rides along as context (never a multiplier). The engine needs a nonzero
+   seed (growth compounds on subs): `startSubs: 500`.
 3. Inputs: 2 long-form + 5 shorts/week, quality `solid`, growth 12%/mo,
    Q4 uplift 60%, ads on, sponsors/affiliates/digital off.
-4. Verified result (executed against the real files): month-12 subs **3,468**,
-   12-month ad total **$43.12**, milestones: **1K subs — ad revenue unlocks**.
-   `meta` exposes every assumption: rpm $4, nicheGrowth 1.05, cadence 1.39x,
-   monthly growth 17.5%.
+4. Verified result (executed against the real files): month-12 subs **3,184**,
+   12-month ad total **$40.23**, milestones: **1K subs — ad revenue unlocks**.
+   `meta` exposes every assumption: rpm $4 (basis: proxy), nicheMedianGrowth
+   0.0156 (context, not a multiplier), cadence 1.39x, monthly growth 16.7%.
 5. Return the projection **as a model, not a prediction**: assumptions listed,
-   proxies labeled, Q4 uplift flagged as adjustable. Never present scenario
-   revenue as expected income.
+   the proxy basis labeled, Q4 uplift flagged as adjustable. Never present
+   scenario revenue as expected income.
 
 > Wave 13: this hand-built config is now the engine's `asmr-bedroom` scenario —
 > `EmpireSim.scenarioInputs("asmr-bedroom")` returns it, with five more presets
 > (tech reviewer, betrayal mini-dramas, cooking, personal finance, fitness) in
-> `EmpireSim.SCENARIOS`. The ASMR proxies are labeled inside the scenario.
+> `EmpireSim.SCENARIOS`.
 > Wave 24: the library is 12 presets — new: `sleep-ambient` (from the sleep
 > channels case file + the 2027 outlook), `english-learning` (21x breakout,
 > $18–22 CPM), `senior-health` (19x breakout, ultra-low competition).
+> Wow wave 2 flagship: the niche picker shows the 10 real 2026 study niches
+> (TubeAI/AIR medians + labeled RPM bands); platform mix (`publish_tiktok` /
+> `publish_reels`) splits short-form output across Shorts/TikTok/Reels under
+> their real rules; `realityChecks(inputs, res)` returns the kind hard truths;
+> `moneyMapToInputs(answers)` feeds the Money Map quiz into starting stats.
 > Wow wave 1: explicit UI runs fly the mission-control launch sequence
 > (`assets/js/simulator-launch.js`, UMD): `SimLaunch.preflightChecks(inputs,
 > {loaded, engineReady})` → four real gates; `SimLaunch.countdownSteps()`;
@@ -536,7 +541,7 @@ explaining how to replicate the logic:
 | The Deal Room | `brand`, `platform`, `followers`, `deliverable`, `expected_views`, `offer_usd`, `usage_rights`, `exclusivity`, `payment_terms`, `timeline`, `status` (offer → negotiating → signed → delivered → paid) | `require("assets/js/deal-room.js")` — `scoreOffer()` for the verdict, `priceUsage()` for usage line items (reported +50/+75/+100% band; no invented whitelisting/buyout multipliers), `redFlagScore()` for the checklist, `renderScript()` for the 4 negotiation scripts, `dealMemo()` for the one-page record; scripts + checklist + tiers from `data/v1/deal-templates.json` — see Workflow 5 |
 | Hiring Cost Calculator | `role`, `billing_model`, `rate_usd` + hours/units/views/`niche` | Sticker → loaded ×1.15; coverage views = loaded ÷ RPM band × 1000; 3-month reserve rule |
 | Repurposing Planner | `idea` (one sentence) + `source_format` | Atom test → pillar prep → 5 staggered mission cards (YT Day 0, Short +1, TikTok +2, Reel +3, FB +4) |
-| Empire Simulator | `niche`, `startSubs`, cadence, `quality`, `growthRate`, `q4Uplift`, monetization toggles, `scenario_id`, `horizon` (12/24/36), `hires[]`, `events[]`, `compare_with` | `require("assets/js/sim-engine.js").simulate(inputs, calculatorsJson)` — plus `scenarioInputs(id)`, `compare(nameA,a,nameB,b,cfg)`, `assumptionLines()`, `exportPlan()`, `normalizeEvents()`, `stageForNet(net, teamActive)`, `solveForGoal(inputs, cfg, goal)` — see Workflows 3–4, 11, 13 |
+| Empire Simulator | `niche` (10 real 2026 study keys), `startSubs`, cadence, `quality`, `growthRate` (1–40%), `q4Uplift`, monetization toggles, `publish_tiktok`, `publish_reels`, `short_mix`, `scenario_id`, `horizon` (12/24/36), `hires[]`, `events[]`, `compare_with` | `require("assets/js/sim-engine.js").simulate(inputs, calculatorsJson)` — plus `scenarioInputs(id)`, `compare(nameA,a,nameB,b,cfg)`, `assumptionLines()`, `exportPlan()`, `normalizeEvents()`, `stageForNet(net, teamActive)`, `solveForGoal(inputs, cfg, goal)`, `realityChecks(inputs, res)` (the kind hard truths), `moneyMapToInputs(answers)` (Money Map quiz → starting stats), `rpmBandForNiche(niche, cfg)` (labeled basis) — wow wave 2 flagship: niche/cadence/quality sliders, 10 real study niches with TubeAI/AIR medians as context (never multipliers), platform mix under the real Shorts/TikTok/Reels rules, animated watch-the-empire-build chart with milestone celebrations — see Workflows 3–4, 11, 13 |
 | API Explorer | none (read-only browser over the API) | Skip the UI; fetch the endpoints directly |
 | YPP 2027 Eligibility Checker | `subs`, `watchHours`, `shortsViews`, `uploads90d`, `originality` (original/repurposed/reposted), `formatMix` (longform/shorts/both) | `require("assets/js/ypp-checker.js")` — `check(i)` returns current-vs-2027 verdicts, Shorts floor, activity test, gap math, chapter-grounded plan — see Workflow 8 |
 | Hook Builder | `topic` (one line) | One hook per Short-Form Playbook structure + the anti-hook checklist |

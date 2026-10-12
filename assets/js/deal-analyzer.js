@@ -52,17 +52,26 @@
   /* Sponsor niche multiplier — the same table as the Empire Simulator's
    * DEFAULTS.sponsorNicheMult (engine assumption, sourced from the rate
    * card's rule of thumb: "finance/tech 2–3x, entertainment lower").
+   * Wow wave 2: the 10 study niches share the table (ai_ml 2.5 sponsor-
+   * friendly, creator_economy 1.5, the rest at the entertainment/low end).
    * tests/deal-analyzer.test.js pins parity with the simulator table. */
   var NICHE_MULT = {
     finance_investing: 2.5, tech_software: 2.5,
     education: 1.0, health_fitness: 1.0, lifestyle: 1.0,
-    gaming: 0.6, comedy_entertainment: 0.6, music: 0.6
+    gaming: 0.6, comedy_entertainment: 0.6, music: 0.6,
+    kids: 0.6, asmr: 0.6, creator_economy: 1.5,
+    challenges_stunts: 0.6, ai_ml: 2.5, true_crime: 0.6,
+    entertainment: 0.6, science: 1.0
   };
   var NICHE_LABELS = {
     finance_investing: "Finance / Investing", tech_software: "Tech / Software",
     education: "Education", health_fitness: "Health / Fitness",
     lifestyle: "Lifestyle", gaming: "Gaming",
-    comedy_entertainment: "Comedy / Entertainment", music: "Music"
+    comedy_entertainment: "Comedy / Entertainment", music: "Music",
+    kids: "Kids Content", asmr: "ASMR",
+    creator_economy: "Creator Economy", challenges_stunts: "Challenges & Stunts",
+    ai_ml: "AI & ML", true_crime: "True Crime",
+    entertainment: "Entertainment & Comedy", science: "Science Explainers"
   };
 
   function nicheMult(niche) {

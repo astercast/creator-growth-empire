@@ -36,7 +36,7 @@
     var inputsOk = inputs &&
       inputs.startSubs >= 0 &&
       inputs.longformPerWeek >= 0 && inputs.shortsPerWeek >= 0 &&
-      inputs.growthRate >= 0.02 && inputs.growthRate <= 0.40 &&
+      inputs.growthRate >= 0.01 && inputs.growthRate <= 0.40 &&
       !!VALID_HORIZONS[inputs.horizon];
     return [
       { id: "rates",
@@ -52,7 +52,7 @@
           ? Math.round(inputs.growthRate * 100) + "% base growth \u00b7 " +
             inputs.horizon + "-month horizon \u00b7 " +
             inputs.longformPerWeek + " long + " + inputs.shortsPerWeek + " shorts/wk"
-          : "An input is outside the model's bounds \u2014 check growth (2\u201340%), horizon, and cadence" },
+          : "An input is outside the model's bounds \u2014 check growth (1\u201340%), horizon, and cadence" },
       { id: "streams",
         label: "Revenue streams armed",
         ok: streamsOn.length > 0,
@@ -358,7 +358,9 @@
       /* still the sequence, minus the motion: compute, render, debrief */
       var pair = ui.computeRun();
       if (!pair) { setStatus("HOLD \u2014 SCRUBBED"); return true; }
-      ui.renderRun(pair, { scroll: false, transition: false });
+      /* wave-2: the launch hands off to the animated "watch the empire
+       * build" chart — the telemetry already played, this is the payoff. */
+      ui.renderRun(pair, { scroll: false, transition: false, animate: true });
       renderDebrief(pair, creditMission(ui.scenarioName()));
       var tele = $("lc-tele");
       if (tele) tele.hidden = true;
@@ -373,8 +375,9 @@
         /* transition:false: render()'s startViewTransition defers its DOM
          * swap to the next frame, which would wipe the debrief inserted
          * right after. The synchronous swap keeps ordering deterministic;
-         * the debrief card carries its own entrance animation (CSS). */
-        ui.renderRun(p, { scroll: false, transition: false });
+         * the debrief card carries its own entrance animation (CSS).
+         * animate:true: the chart still plays its month-by-month build. */
+        ui.renderRun(p, { scroll: false, transition: false, animate: true });
         renderDebrief(p, creditMission(ui.scenarioName()));
       });
     }); }, 600);

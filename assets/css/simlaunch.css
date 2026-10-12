@@ -102,3 +102,79 @@
     transition: transform 90ms linear;
   }
 }
+
+/* ---------- wow wave 2: the flagship rebuild ---------- */
+
+/* Niche picker cards: radio inputs dressed as dossier cards. The selected
+ * card lights its border gold; keyboard focus gets the gold perimeter.
+ * Mobile-first: 2 columns collapse to 1 under 560px. */
+.niche-fieldset { border: 0; padding: 0; margin: 0; }
+.niche-cards {
+  display: grid; gap: 0.6rem;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+}
+.niche-card {
+  display: grid; gap: 0.15rem; align-content: start;
+  border: 1px solid var(--line); border-radius: var(--radius-sm);
+  padding: 0.7rem 0.8rem; cursor: pointer; background: var(--bg-2);
+  transition: border-color var(--dur-fast) var(--ease-standard),
+              background var(--dur-fast) var(--ease-standard);
+}
+.niche-card:hover { border-color: var(--line-strong); background: var(--bg); }
+.niche-card-selected { border-color: var(--gold); background: var(--bg); }
+.niche-card:focus-within { outline: 2px solid var(--gold); outline-offset: 2px; }
+.niche-card-name { font-weight: 700; font-size: 0.95rem; }
+.niche-card-median { font-family: var(--font-mono); font-size: 1.05rem; color: var(--cyan); }
+.niche-card-rpm { font-size: 0.85rem; }
+.niche-card-comp { font-size: 0.78rem; }
+.niche-card-comp:empty { display: none; }
+.chip {
+  display: inline-block; font-size: 0.7rem; letter-spacing: 0.04em;
+  border: 1px solid var(--line-strong); border-radius: var(--radius-sm);
+  padding: 0.05rem 0.4rem; color: var(--muted); vertical-align: middle;
+}
+.chip-verified { border-color: var(--cyan); color: var(--cyan); }
+
+/* Slider readouts sit beside the label, tabular so they don't jitter. */
+.range-out output { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+input[type="range"] { width: 100%; accent-color: var(--gold); }
+
+/* Animated chart stage: HUD readout + milestone toast. */
+.chart-stage { position: relative; }
+.chart-hud {
+  display: flex; gap: 1rem; align-items: baseline;
+  font-family: var(--font-mono); margin-bottom: 0.25rem;
+}
+.chart-hud-month { font-size: 1.4rem; color: var(--gold); font-variant-numeric: tabular-nums; }
+.chart-hud-subs { color: var(--muted); font-size: 0.9rem; font-variant-numeric: tabular-nums; }
+.chart-toast { min-height: 2.2rem; margin-bottom: 0.25rem; }
+.milestone-toast {
+  display: inline-block; border: 1px solid var(--gold); border-radius: var(--radius-sm);
+  padding: 0.35rem 0.7rem; background: var(--bg-2); font-size: 0.9rem;
+}
+.chart-actions { margin-top: 0.5rem; }
+
+/* Reality checks: the kind hard truths, gold-left-bordered. */
+.reality-checks { display: grid; gap: 0.75rem; }
+.reality-check { border-left: 3px solid var(--gold); }
+
+/* Motion: transform/opacity only, gated like the rest of the launch choreography. */
+@media (prefers-reduced-motion: no-preference) {
+  html:not([data-calm="1"]) .toast-slam {
+    animation: toast-slam var(--dur-moderate) var(--ease-emphasized);
+  }
+  @keyframes toast-slam {
+    0% { transform: scale(1.6) rotate(-4deg); opacity: 0; }
+    60% { transform: scale(0.96) rotate(1deg); opacity: 1; }
+    100% { transform: scale(1) rotate(0); opacity: 1; }
+  }
+  html:not([data-calm="1"]) .chart-dot-pop circle {
+    transform-box: fill-box; transform-origin: center;
+    animation: dot-pop var(--dur-moderate) var(--ease-emphasized);
+  }
+  @keyframes dot-pop {
+    0% { transform: scale(0); opacity: 0; }
+    60% { transform: scale(1.8); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+}

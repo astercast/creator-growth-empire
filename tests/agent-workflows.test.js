@@ -142,22 +142,23 @@ function check(name, cond, detail) {
 
 /* ============ Workflow 3: Empire Simulator scenario, ASMR ============
  * AGENT.md §Workflow 3: calculators.json RPM bands + the shipped sim engine.
- * ASMR is not a key in the engine's niche maps, so the scenario declares its
- * proxies explicitly: lifestyle growth factor (1.05) + lifestyle RPM band at
- * the "low" end ($4 — ASMR is low-RPM ambient content). The engine compounds
- * growth on existing subs, so it needs a nonzero seed: 500 subs of first
- * traction. A literal day-zero seed returns all zeros — honest, not a bug. */
+ * Wow wave 2: ASMR is now a REAL study niche — niche_rpm_2026 carries its
+ * $4–$10 band (site lifestyle-band proxy, labeled) and the TubeAI 1.56%/mo
+ * median as context (never a multiplier). The engine compounds growth on
+ * existing subs, so it needs a nonzero seed: 500 subs of first traction.
+ * A literal day-zero seed returns all zeros — honest, not a bug. */
 (function workflow3() {
   const EmpireSim = require(path.join(__dirname, "..", "assets", "js", "sim-engine.js"));
   const cfg = load("calculators.json");
 
-  // sanity: ASMR genuinely has no native keys (the proxies are load-bearing)
-  check("wf3: no native ASMR keys — proxies required",
-    cfg.youtube_longform_rpm_bands.asmr === undefined
-    && EmpireSim.DEFAULTS.nicheGrowth.asmr === undefined);
+  // sanity: ASMR is a real niche_rpm_2026 key now (wave 2 flagship)
+  check("wf3: ASMR is a real study-niche key",
+    cfg.niche_rpm_2026.niches.asmr.band[0] === 4
+    && cfg.niche_rpm_2026.niches.asmr.basis === "proxy"
+    && EmpireSim.DEFAULTS.nicheMedianGrowth.asmr === 0.0156);
 
   const inputs = {
-    niche: "lifestyle", startSubs: 500, longformPerWeek: 2, shortsPerWeek: 5,
+    niche: "asmr", startSubs: 500, longformPerWeek: 2, shortsPerWeek: 5,
     quality: "solid", growthRate: 0.12, rpmLevel: "low", q4Uplift: 0.6,
     ads: true, sponsors: false, affiliates: false, digital: false,
   };
@@ -165,8 +166,8 @@ function check(name, cond, detail) {
 
   check("wf3: engine returns 12 months", r.months.length === 12, String(r.months.length));
   check("wf3: meta exposes the declared assumptions",
-    r.meta.rpm === 4 && r.meta.nicheGrowth === 1.05 && r.meta.rpmBand[0] === 4,
-    JSON.stringify({ rpm: r.meta.rpm, nicheGrowth: r.meta.nicheGrowth }));
+    r.meta.rpm === 4 && r.meta.nicheMedianGrowth === 0.0156 && r.meta.rpmBand[0] === 4,
+    JSON.stringify({ rpm: r.meta.rpm, nicheMedianGrowth: r.meta.nicheMedianGrowth }));
   const m12 = r.months[11];
   check("wf3: month-12 subs positive", m12.subs > 0, String(m12.subs));
   check("wf3: Q4 uplift applied in months 10–12",
@@ -211,11 +212,12 @@ function check(name, cond, detail) {
   const asmr = EmpireSim.scenarioInputs("asmr-bedroom");
   const tech = EmpireSim.scenarioInputs("tech-reviewer");
   check("wf4: scenario RPMs come from the calculators.json bands",
-    asmr.niche === "lifestyle" && tech.niche === "tech_software"
-    && cfg.youtube_longform_rpm_bands.lifestyle[0] === 4
+    asmr.niche === "asmr" && tech.niche === "tech_software"
+    && cfg.niche_rpm_2026.niches.asmr.band[0] === 4
     && cfg.youtube_longform_rpm_bands.tech_software[1] === 20);
-  check("wf4: ASMR scenario declares its niche proxies",
-    typeof EmpireSim.SCENARIOS.find((s) => s.id === "asmr-bedroom").nicheProxyNote === "string");
+  check("wf4: ASMR is a real study niche now (wave 2 — no proxy note needed)",
+    asmr.niche === "asmr" &&
+    typeof EmpireSim.SCENARIOS.find((s) => s.id === "asmr-bedroom").nicheProxyNote !== "string");
 
   // the A/B comparison AGENT.md quotes
   const cmp = EmpireSim.compare("ASMR bedroom", asmr, "Tech reviewer", tech, cfg);
@@ -224,18 +226,21 @@ function check(name, cond, detail) {
   check("wf4: deltas are B minus A (net revenue)",
     Math.abs(cmp.deltas.netRevenue - (cmp.b.totals.net - cmp.a.totals.net)) < 1e-6);
   const m12a = Math.round(cmp.a.endSubs), m12b = Math.round(cmp.b.endSubs);
-  check("wf4: ASMR bedroom month-12 subs 6,434", m12a === 6434, String(m12a));
-  check("wf4: Tech reviewer month-12 subs 5,323", m12b === 5323, String(m12b));
-  check("wf4: ASMR net $909.02 / tech net $7,955.56",
-    cmp.a.totals.net.toFixed(2) === "909.02" && cmp.b.totals.net.toFixed(2) === "7955.56",
+  check("wf4: ASMR bedroom month-12 subs 5,872", m12a === 5872, String(m12a));
+  check("wf4: Tech reviewer month-12 subs 5,907", m12b === 5907, String(m12b));
+  check("wf4: ASMR net $844.77 / tech net $7,975.71",
+    cmp.a.totals.net.toFixed(2) === "844.77" && cmp.b.totals.net.toFixed(2) === "7975.71",
     cmp.a.totals.net.toFixed(2) + " / " + cmp.b.totals.net.toFixed(2));
   check("wf4: verdict names Tech reviewer the net-revenue winner",
-    /Path Tech reviewer leads on net revenue over 12 months by 775%/.test(cmp.verdict),
+    /Path Tech reviewer leads on net revenue over 12 months by 844%/.test(cmp.verdict),
     cmp.verdict.slice(0, 80));
   check("wf4: verdict explains the drivers (RPM + growth)",
-    /RPM \$4\.00 vs \$14\.00/.test(cmp.verdict) && /19\.0% vs 11\.1%/.test(cmp.verdict));
-  check("wf4: verdict carries the subscribers-are-not-income note",
-    /the net-revenue winner is NOT the subscriber winner/.test(cmp.verdict));
+    /RPM \$4\.00 vs \$14\.00/.test(cmp.verdict) && /18\.1% vs 12\.1%/.test(cmp.verdict));
+  // the subscribers-are-not-income note fires when the winners differ
+  const cmp2 = EmpireSim.compare("ASMR bedroom", asmr, "Betrayal dramas",
+    EmpireSim.scenarioInputs("betrayal-dramas"), cfg);
+  check("wf4: verdict carries the subscribers-are-not-income note when winners differ",
+    /the net-revenue winner is NOT the subscriber winner/.test(cmp2.verdict));
 
   // hires flow through compare too (content -> team -> company)
   const teamCmp = EmpireSim.compare("solo", tech, "solo + editor",

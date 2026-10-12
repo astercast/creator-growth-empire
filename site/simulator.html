@@ -26,7 +26,7 @@
   <button class="nav-toggle" aria-expanded="false" aria-controls="mobileNav" aria-label="Menu">☰</button>
 </header>
 <nav id="mobileNav" class="mobile-nav" aria-label="Mobile"><a href="index.html" class="nav-link"><span class="nav-n">01</span>Empire Map</a><a href="tools.html" class="nav-link active"><span class="nav-n">02</span>All tools</a><a href="quiz.html" class="nav-link"><span class="nav-n">03</span>Niche Picker</a><a href="calculator.html" class="nav-link"><span class="nav-n">04</span>Revenue Calc</a><a href="planner.html" class="nav-link"><span class="nav-n">05</span>90-Day Plan</a><a href="deal-analyzer.html" class="nav-link"><span class="nav-n">06</span>Deal Analyzer</a><a href="hiring-calculator.html" class="nav-link"><span class="nav-n">07</span>Hire Calc</a><a href="repurpose.html" class="nav-link"><span class="nav-n">08</span>Repurpose Plan</a><a href="simulator.html" class="nav-link"><span class="nav-n">09</span>Simulator</a><a href="case-files.html" class="nav-link"><span class="nav-n">10</span>All case files</a><a href="glossary.html" class="nav-link"><span class="nav-n">11</span>Glossary</a><a href="agents.html" class="nav-link"><span class="nav-n">12</span>Agents</a></nav>
-<main id="main"><div class="tool-page"><div class="hud-panel brk brk-gold"><b class="brk-x" aria-hidden="true"></b><div class="hud-head"><span>MISSION BRIEFING // TOOL 08 — EMPIRE SIMULATOR</span><span class="hud-status">SYSTEMS ONLINE</span></div><div class="hud-body"><p class="fm-kicker"><strong>FIELD MANUAL</strong><span class="sep">//</span>DIVISION PLAN</p><h1>Empire Simulator</h1><p class="lede">Simulate 12–36 months of channel growth + revenue — 12-scenario library, A/B comparison, team hiring P&amp;L, what-if event cards, Money Map stage transitions, the “what would it take?” goal solver, live re-run, and the mission-control launch sequence — a model, not a prediction.</p><div class="briefing-rank"><span class="rank" role="img" aria-label="Tier 1"><i></i></span><span class="fm-readout">TIER 1 // PLAN</span></div></div></div><div class="honesty-banner" role="note" aria-label="Honesty banner">
+<main id="main"><div class="tool-page"><div class="hud-panel brk brk-gold"><b class="brk-x" aria-hidden="true"></b><div class="hud-head"><span>MISSION BRIEFING // TOOL 08 — EMPIRE SIMULATOR</span><span class="hud-status">SYSTEMS ONLINE</span></div><div class="hud-body"><p class="fm-kicker"><strong>FIELD MANUAL</strong><span class="sep">//</span>DIVISION PLAN</p><h1>Empire Simulator</h1><p class="lede">Simulate 12–36 months of channel growth + revenue — the 10 real 2026 study niches (TubeAI/AIR medians + labeled RPM bands), niche/cadence/quality sliders, platform mix (Shorts/TikTok/Reels under their real 2026 rules), 12-scenario library, A/B comparison, team hiring P&amp;L, what-if event cards, Money Map stage transitions, the “what would it take?” goal solver, live re-run, the mission-control launch sequence, and the animated watch-the-empire-build chart with milestone celebrations + kind reality checks — a model, not a prediction.</p><div class="briefing-rank"><span class="rank" role="img" aria-label="Tier 1"><i></i></span><span class="fm-readout">TIER 1 // PLAN</span></div></div></div><div class="honesty-banner" role="note" aria-label="Honesty banner">
   <strong>A MODEL, NOT A PREDICTION.</strong>
   <span>Every number below comes from the site's 2026 research + assumptions you can see and change. Change the assumptions, change the empire. Nothing here is a promise — platforms move, audiences surprise, luck exists.</span>
 </div>
@@ -42,35 +42,54 @@
 
 <form id="sim-form" aria-label="Empire Simulator inputs">
   <div class="hud-panel">
-    <div class="hud-head"><span>BRIEFING // YOUR STARTING POSITION</span><span class="hud-status">AWAITING ORDERS</span></div>
+    <div class="hud-head"><span>BRIEFING // YOUR STARTING POSITION</span><span class="hud-status" id="briefing-status">AWAITING ORDERS</span></div>
     <div class="hud-body">
-      <div class="calc-grid">
-        <label>Niche (RPM band)
-          <select id="s-niche" aria-describedby="s-niche-note">
-            <option value="finance_investing">Finance / Investing</option>
-            <option value="tech_software">Tech / Software</option>
-            <option value="education" selected>Education</option>
-            <option value="health_fitness">Health / Fitness</option>
-            <option value="lifestyle">Lifestyle</option>
-            <option value="gaming">Gaming</option>
-            <option value="comedy_entertainment">Comedy / Entertainment</option>
-            <option value="music">Music</option>
-          </select></label>
+      <div id="s-moneymap-row" hidden>
+        <button type="button" class="btn btn-ghost" id="s-moneymap-load">Start from my Money Map position →</button>
+        <p class="muted" id="s-moneymap-note" role="status" style="font-size:.85rem"></p>
+      </div>
+
+      <fieldset class="niche-fieldset" style="margin-top:1rem">
+        <legend class="lbl">PICK YOUR NICHE — the 10 fastest-growing niches of 2026</legend>
+        <p class="muted" style="font-size:.85rem;margin:.25rem 0 .75rem">Real study data (TubeAI / AIR Media-Tech, Sep 2026): median monthly subscriber growth among 10K–100K-subscriber channels. The all-channel median was 0.97%/mo. <strong>Medians hide huge variance — they describe the middle of a cohort, not your outcome.</strong> Picking a niche sets its RPM band and shows the median as context; your growth slider stays your own assumption.</p>
+        <div class="niche-cards" id="niche-cards" role="radiogroup" aria-label="Niche — 2026 study data"></div>
+        <p class="muted" style="font-size:.85rem;margin-top:.75rem"><span id="s-niche-median-line" role="status"></span>
+          <button type="button" class="btn btn-ghost" id="s-use-median" style="margin-left:.5rem">Use the study median as my growth rate</button></p>
+      </fieldset>
+
+      <div class="calc-grid" style="margin-top:1rem">
         <label>Starting subscribers
           <input type="number" id="s-subs" min="0" max="100000000" value="500" step="50"></label>
-        <label>Long-form videos / week
-          <input type="number" id="s-long" min="0" max="20" value="1" step="1"></label>
-        <label>Shorts / week
-          <input type="number" id="s-shorts" min="0" max="50" value="3" step="1"></label>
-        <label>Quality / effort level
-          <select id="s-quality" aria-describedby="s-quality-note">
-            <option value="low">Low — phone it in</option>
-            <option value="solid" selected>Solid — consistent, decent packaging</option>
-            <option value="excellent">Excellent — top-tier packaging + retention</option>
-          </select></label>
+        <label>Long-form videos / week <span class="range-out"><output id="s-long-out" for="s-long">1</output></span>
+          <input type="range" id="s-long" min="0" max="7" value="1" step="1" aria-describedby="s-long-out"></label>
+        <label>Short-form videos / week <span class="range-out"><output id="s-shorts-out" for="s-shorts">3</output></span>
+          <input type="range" id="s-shorts" min="0" max="20" value="3" step="1" aria-describedby="s-shorts-out"></label>
+        <label>Quality / effort level <span class="range-out"><output id="s-quality-out" for="s-quality">Solid</output></span>
+          <input type="range" id="s-quality" min="0" max="2" step="1" value="1" aria-describedby="s-quality-out s-quality-scale">
+          <span class="muted" id="s-quality-scale" style="font-size:.78rem">Low — phone it in · Solid — consistent, decent packaging · Excellent — top-tier packaging + retention</span></label>
       </div>
-      <p class="muted" id="s-niche-note" style="font-size:.85rem">RPM bands fed live from <code>data/calculators.json</code> (2026 research). <span id="s-niche-rpm"></span></p>
       <p class="muted" id="s-quality-note" style="font-size:.85rem">Quality is the biggest assumption in the model — low = 0.7× growth, solid = 1×, excellent = 1.35×. Our guess, labeled as such.</p>
+
+      <fieldset class="hud-panel" style="margin-top:1.5rem">
+        <legend class="hud-head" style="width:100%"><span>PUBLISHING MIX // WHERE THE SHORT-FORM GOES</span><span class="hud-status">REAL PLATFORM RULES</span></legend>
+        <div class="hud-body">
+          <p class="muted" style="font-size:.9rem">Your weekly short-form output is split across the platforms you arm, each monetizing under its real 2026 rules. Turn a platform on and watch the empire change shape — the mix is a real model input, not decoration. <span id="s-mix-line" role="status"></span></p>
+          <div class="calc-grid">
+            <div class="calc-out" style="text-align:left">
+              <p class="lbl">▸ YouTube Shorts <span class="chip">always on</span></p>
+              <p class="muted" style="font-size:.82rem"><strong>$0.02–$0.20</strong> per 1K views in most niches (creator-reported). The Oct 1, 2026 originality update: recommendations deprioritize re-uploaded/aggregator content — originals get the reach. Re-uploading others' clips won't build here anymore.</p>
+            </div>
+            <div class="calc-out" style="text-align:left">
+              <label class="check"><input type="checkbox" id="s-pf-tiktok"> <strong>Arm TikTok</strong></label>
+              <p class="muted" style="font-size:.82rem">Creator Rewards: <strong>$0.40–$1.00</strong> per 1K qualified views (US top-tier, creator-reported). Only 1-minute-plus original videos qualify; qualifying views run ~half of raw views. Gate: 10K followers + 100K views/30d — under it, TikTok pays $0 but still builds audience.</p>
+            </div>
+            <div class="calc-out" style="text-align:left">
+              <label class="check"><input type="checkbox" id="s-pf-reels"> <strong>Arm Instagram Reels</strong></label>
+              <p class="muted" style="font-size:.82rem">Direct payout: <strong>$0 per view</strong> in 2026 (Reels Play Bonus ended 2023 — nothing comparable replaced it). Reels money comes from sponsors, gifts, and subscriptions. Reels past 3 minutes get diminished non-follower distribution — keep them under 3:00 for reach.</p>
+            </div>
+          </div>
+        </div>
+      </fieldset>
     </div>
   </div>
 
@@ -132,7 +151,7 @@
     <summary><strong>Every assumption, on the table</strong> — tweak the model, change the empire</summary>
     <div class="calc-grid">
       <label>Monthly growth rate (base, %)
-        <input type="range" id="s-growth" min="2" max="40" value="12" step="1" aria-describedby="s-growth-out">
+        <input type="range" id="s-growth" min="1" max="40" value="12" step="0.1" aria-describedby="s-growth-out">
         <output id="s-growth-out" for="s-growth">12%</output></label>
       <fieldset class="radio-group"><legend>Ad RPM within your niche band</legend>
         <label><input type="radio" name="s-rpm" value="low"> Low end</label>

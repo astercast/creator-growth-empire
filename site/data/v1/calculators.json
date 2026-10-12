@@ -328,6 +328,22 @@
     ]
   },
   "youtube_longform_rpm_source_note": "Research pass Oct 11, 2026 (AIR Media-Tech / OutlierKit / UTubeKit / ytmoneycalculator): low RPM niches (gaming, entertainment) $1-$5; mid (education, lifestyle) $4-$10; high (finance, business) $8-$35 (~7x gap vs gaming/entertainment per OutlierKit); music $0.75-$1.65; kids content $0.33 RPM (~3M views to earn $1,000, AIR Media-Tech). Creator-reported/benchmark ranges, not YouTube-published rates. Monetized playbacks typically 60-85% of views. Q4 pays 40-80% more than Q1.",
+  "niche_rpm_2026": {
+    "date": "2026-10-12",
+    "note": "Per-niche long-form RPM bands for the Empire Simulator's 10 real study niches (TubeAI/AIR, Sep 2026). 'reported' = creator-reported/benchmark figure from the study; 'proxy' = the site's closest researched band, used only where no creator-reported figure exists; 'cpm-reported' = the study reported CPM, not RPM (RPM varies by geography, season, monetized-playback share). Ranges, not rates.",
+    "niches": {
+      "kids": { "band": [0.33, 0.33], "basis": "reported", "source": "AIR Media-Tech, May 2025-May 2026 (Kids & Teens median)" },
+      "asmr": { "band": [4, 10], "basis": "proxy", "source": "site lifestyle band (calculators.json) — ambient content is low-RPM; no creator-reported ASMR band exists yet" },
+      "creator_economy": { "band": [4, 10], "basis": "proxy", "source": "site education band (calculators.json) — creator-education is ad-friendly; no creator-reported creator-economy RPM band exists yet" },
+      "challenges_stunts": { "band": [1, 5], "basis": "proxy", "source": "site entertainment band (calculators.json)" },
+      "ai_ml": { "band": [8, 20], "basis": "cpm-reported", "source": "OutlierKit, Sep 2026 (AI tutorials CPM $8-$20 — CPM, not RPM)" },
+      "true_crime": { "band": [1, 5], "basis": "proxy", "source": "site entertainment band (calculators.json)" },
+      "education": { "band": [10.22, 10.22], "basis": "reported", "source": "AIR Media-Tech, May 2025-May 2026 (Education & Science median)" },
+      "entertainment": { "band": [2.43, 2.43], "basis": "reported", "source": "AIR Media-Tech, May 2025-May 2026 (Entertainment median)" },
+      "science": { "band": [10.22, 10.22], "basis": "reported", "source": "AIR Media-Tech, May 2025-May 2026 (Education & Science median)" },
+      "gaming": { "band": [2.05, 2.05], "basis": "reported", "source": "AIR Media-Tech, May 2025-May 2026 (Gaming median)" }
+    }
+  },
   "niche_growth_2026": {
     "date": "2026-10-11",
     "source": "Channel growth: AIR Media-Tech via TubeAI study of 144,370 YouTube channels (10K-100K subs), Sep 7-27, 2026; median across all channels 0.97%/mo. Search/outlier/breakout data: OutlierKit (Aug-Sep 2026). RPMs: AIR Media-Tech / OutlierKit / UTubeKit / Famety / upGrowth. All CPM/RPM are creator-reported and benchmark-estimated ranges, not YouTube-published; they vary by geography, season (Q4 spikes 30-50%), and audience tier. Ranges, not rates.",

@@ -18,11 +18,20 @@
     gaming: "Gaming",
     comedy_entertainment: "Comedy / Entertainment",
     music: "Music",
-    kids_content: "Kids Content (low RPM — see Phase 0)"
+    kids_content: "Kids Content (low RPM — see Phase 0)",
+    kids: "Kids Content",
+    asmr: "ASMR",
+    creator_economy: "Creator Economy",
+    challenges_stunts: "Challenges & Stunts",
+    ai_ml: "AI & ML",
+    true_crime: "True Crime",
+    entertainment: "Entertainment & Comedy",
+    science: "Science Explainers"
   };
   var STREAMS = [
     { key: "adsLong",   label: "Long-form ads", color: "var(--cyan)" },
     { key: "adsShorts", label: "Shorts ads",    color: "var(--gold)" },
+    { key: "tiktok",    label: "TikTok Rewards", color: "var(--gold-dim)" },
     { key: "sponsor",   label: "Sponsors",      color: "var(--stamp)" },
     { key: "affiliates",label: "Affiliates",    color: "var(--sage)" },
     { key: "digital",   label: "Digital product", color: "var(--cyan)" }
@@ -34,9 +43,14 @@
   ];
 
   var cfg = null;
+  var nichesData = null;
   var currentScenarioName = "Custom settings";
-  var nicheSel = document.getElementById("s-niche");
-  var nicheNote = document.getElementById("s-niche-rpm");
+  /* Wave-2 flagship: the niche picker is a card grid of the 10 real study
+   * niches — no <select>, no made-up factors. selectedNiche is the source of
+   * truth; cards re-render once the data lands. */
+  var selectedNiche = "education";
+  var QUALITY_LABELS = ["Low", "Solid", "Excellent"];
+  var QUALITY_VALUES = ["low", "solid", "excellent"];
 
   /* 4.0: reduced-motion-safe scrolling — smooth scroll only when the user
    * hasn't asked for reduced motion. Round-2 design: a manual "calm mode"
@@ -104,12 +118,82 @@
     return null;
   }
 
+  /* Wave-2 flagship: niche cards from the real data. Each card carries the
+   * study median, the RPM band + its honest basis, and the competition chip.
+   * Rendered from niches.json (names/competition) + calculators.json
+   * (niche_rpm_2026 bands); falls back to the engine DEFAULTS medians. */
+  function studyNiches() {
+    return Object.keys(EmpireSim.DEFAULTS.nicheMedianGrowth).map(function (id) {
+      var rec = null;
+      if (nichesData && nichesData.niches) {
+        for (var i = 0; i < nichesData.niches.length; i++) {
+          if (nichesData.niches[i].id === id) { rec = nichesData.niches[i]; break; }
+        }
+      }
+      var median = EmpireSim.DEFAULTS.nicheMedianGrowth[id];
+      var bandInfo = cfg ? EmpireSim.rpmBandForNiche(id, cfg)
+        : { band: [0, 0], basis: "fallback", source: "" };
+      return {
+        id: id,
+        name: rec ? rec.name : (NICHE_NAMES[id] || id),
+        median: median,
+        band: bandInfo.band,
+        basis: bandInfo.basis,
+        competition: rec ? rec.competition : null
+      };
+    }).sort(function (a, b) { return b.median - a.median; });
+  }
+  function basisChip(basis) {
+    if (basis === "reported") return '<span class="chip chip-verified">reported</span>';
+    if (basis === "cpm-reported") return '<span class="chip">CPM-reported</span>';
+    return '<span class="chip">proxy</span>';
+  }
+  function renderNicheCards() {
+    var wrap = document.getElementById("niche-cards");
+    if (!wrap) return;
+    var niches = studyNiches();
+    wrap.innerHTML = niches.map(function (n) {
+      var bandTxt = n.band[0] === n.band[1]
+        ? "$" + n.band[0] : "$" + n.band[0] + "–$" + n.band[1];
+      var compTxt = n.competition ? ' · <span class="muted">' + esc(n.competition) + " competition</span>" : "";
+      return '<label class="niche-card' + (n.id === selectedNiche ? " niche-card-selected" : "") + '">' +
+        '<input type="radio" name="s-niche" value="' + esc(n.id) + '"' +
+        (n.id === selectedNiche ? " checked" : "") + ' class="sr-only">' +
+        '<span class="niche-card-name">' + esc(n.name) + "</span>" +
+        '<span class="niche-card-median">' + (n.median * 100).toFixed(2) + "%/mo <span class='muted'>median</span></span>" +
+        '<span class="niche-card-rpm">RPM ' + bandTxt + " " + basisChip(n.basis) + "</span>" +
+        '<span class="niche-card-comp">' + compTxt.replace(/^ · /, "") + "</span>" +
+        "</label>";
+    }).join("");
+    updateNicheMedianLine();
+  }
+  function updateNicheMedianLine() {
+    var line = document.getElementById("s-niche-median-line");
+    if (!line) return;
+    var info = EmpireSim.nicheMedianInfo(selectedNiche);
+    var bandInfo = cfg ? EmpireSim.rpmBandForNiche(selectedNiche, cfg) : null;
+    var txt = nicheName(selectedNiche) + ": study median " +
+      (info.median * 100).toFixed(2) + "%/mo — " + info.note;
+    if (bandInfo) {
+      var bandTxt = bandInfo.band[0] === bandInfo.band[1]
+        ? "$" + bandInfo.band[0] : "$" + bandInfo.band[0] + "–$" + bandInfo.band[1];
+      txt += " RPM band " + bandTxt + " (" + bandInfo.basis + ": " + bandInfo.source + ").";
+    }
+    line.textContent = txt;
+  }
+  function selectNiche(id) {
+    selectedNiche = id;
+    renderNicheCards();
+    var st = document.getElementById("briefing-status");
+    if (st) st.textContent = "ORDERS UPDATED";
+  }
+
   function renderScenarioGrid() {
     var grid = document.getElementById("scenario-grid");
     if (!grid) return;
-    var bands = (cfg && cfg.youtube_longform_rpm_bands) || {};
     grid.innerHTML = EmpireSim.SCENARIOS.map(function (sc) {
-      var band = bands[sc.inputs.niche];
+      var bandInfo = cfg ? EmpireSim.rpmBandForNiche(sc.inputs.niche, cfg) : null;
+      var band = bandInfo ? bandInfo.band : null;
       var bandTxt = band ? " · RPM $" + band[0] + "–$" + band[1] : "";
       return '<div class="calc-out" style="text-align:left">' +
         '<div class="lbl">' + esc(sc.name) + "</div>" +
@@ -125,11 +209,11 @@
     var sc = scenarioById(id);
     if (!sc) return;
     var inp = EmpireSim.scenarioInputs(id);
-    nicheSel.value = inp.niche;
+    selectNiche(inp.niche);
     document.getElementById("s-subs").value = inp.startSubs;
-    document.getElementById("s-long").value = inp.longformPerWeek;
-    document.getElementById("s-shorts").value = inp.shortsPerWeek;
-    document.getElementById("s-quality").value = inp.quality;
+    setRange("s-long", inp.longformPerWeek);
+    setRange("s-shorts", inp.shortsPerWeek);
+    setQuality(inp.quality);
     growthRange.value = Math.round(inp.growthRate * 100);
     growthOut.value = growthRange.value + "%";
     var radios = document.querySelectorAll('input[name="s-rpm"]');
@@ -142,44 +226,43 @@
     document.getElementById("s-digital").checked = !!inp.digital;
     document.getElementById("s-dig-month").value = inp.digitalStartMonth;
     document.getElementById("s-dig-price").value = inp.digitalPrice;
+    document.getElementById("s-pf-tiktok").checked = !!inp.tiktok;
+    document.getElementById("s-pf-reels").checked = !!inp.reels;
     HIRE_FIELDS.forEach(function (f) { document.getElementById(f.check).checked = false; });
-    eventCardIds().forEach(function (id) {
-      var box = document.getElementById("s-ev-" + id);
+    eventCardIds().forEach(function (id2) {
+      var box = document.getElementById("s-ev-" + id2);
       if (box) box.checked = false;
     });
     currentScenarioName = sc.name;
     var note = "Loaded: " + sc.name + " — tweak anything, then run the simulation.";
     if (sc.nicheProxyNote) note += " " + sc.nicheProxyNote;
     document.getElementById("scenario-active").textContent = note;
-    rpmNote();
+    updateMixLine();
   }
 
-  function rpmNote() {
-    if (!cfg) return;
-    var band = (cfg.youtube_longform_rpm_bands || {})[nicheSel.value];
-    if (band && nicheNote) {
-      nicheNote.textContent = nicheName(nicheSel.value) + " band: $" +
-        band[0] + "–$" + band[1] + " RPM.";
+  /* Wave-2: fetch both data files, then build the picker + scenario grid. */
+  function loadData() {
+    var got = 0;
+    function done() {
+      got++;
+      if (got < 2) return;
+      renderNicheCards();
+      renderScenarioGrid();
+      updateMixLine();
     }
-  }
-
-  fetch("data/v1/calculators.json").then(function (r) { return r.json(); }).then(function (c) {
-    cfg = c;
-    var bands = c.youtube_longform_rpm_bands || {};
-    var cur = nicheSel.value;
-    nicheSel.innerHTML = "";
-    Object.keys(bands).forEach(function (key) {
-      var o = document.createElement("option");
-      o.value = key;
-      o.textContent = nicheName(key);
-      if (key === cur) o.selected = true;
-      nicheSel.appendChild(o);
+    fetch("data/v1/calculators.json").then(function (r) { return r.json(); }).then(function (c) {
+      cfg = c; done();
+    }).catch(function () {
+      var line = document.getElementById("s-niche-median-line");
+      if (line) line.textContent = "Could not load live RPM bands — using engine fallbacks.";
+      done();
     });
-    rpmNote();
-    renderScenarioGrid();
-  }).catch(function () {
-    nicheNote.textContent = "Could not load live RPM bands — using engine fallbacks.";
-  });
+    fetch("data/v1/niches.json").then(function (r) { return r.json(); }).then(function (n) {
+      nichesData = n; done();
+    }).catch(function () { done(); });
+  }
+  loadData();
+  renderNicheCards();
   renderScenarioGrid();
   renderEventCards();
 
@@ -191,7 +274,113 @@
     });
   }
 
-  nicheSel.addEventListener("change", rpmNote);
+  /* Wave-2: niche card selection (delegated — cards re-render on data load). */
+  document.getElementById("niche-cards").addEventListener("change", function (e) {
+    var radio = e.target && e.target.closest ? e.target.closest('input[name="s-niche"]') : null;
+    if (radio && radio.value !== selectedNiche) selectNiche(radio.value);
+  });
+  document.getElementById("s-use-median").addEventListener("click", function () {
+    var info = EmpireSim.nicheMedianInfo(selectedNiche);
+    if (info.median == null) return;
+    growthRange.value = Math.round(info.median * 10000) / 100;
+    growthOut.value = growthRange.value + "%";
+    growthRange.dispatchEvent(new Event("input", { bubbles: true }));
+  });
+
+  /* Wave-2: cadence + quality sliders. */
+  function setRange(id, v) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    el.value = v;
+    el.dispatchEvent(new Event("input", { bubbles: true }));
+  }
+  function qualityValue() {
+    var v = parseInt(document.getElementById("s-quality").value, 10);
+    return QUALITY_VALUES[Math.max(0, Math.min(2, isNaN(v) ? 1 : v))];
+  }
+  function setQuality(q) {
+    var i = QUALITY_VALUES.indexOf(q);
+    setRange("s-quality", i === -1 ? 1 : i);
+  }
+  function wireSlider(id, outId, fmt) {
+    var el = document.getElementById(id), o = document.getElementById(outId);
+    if (!el || !o) return;
+    el.addEventListener("input", function () { o.value = fmt(el.value); });
+    o.value = fmt(el.value);
+  }
+  wireSlider("s-long", "s-long-out", function (v) { return v + "/wk"; });
+  wireSlider("s-shorts", "s-shorts-out", function (v) { return v + "/wk"; });
+  wireSlider("s-quality", "s-quality-out", function (v) {
+    return QUALITY_LABELS[Math.max(0, Math.min(2, parseInt(v, 10) || 0))];
+  });
+
+  /* Wave-2: publishing mix readout — the normalized shares, stated plainly. */
+  function updateMixLine() {
+    var line = document.getElementById("s-mix-line");
+    if (!line) return;
+    var tiktok = document.getElementById("s-pf-tiktok").checked;
+    var reels = document.getElementById("s-pf-reels").checked;
+    var mix = EmpireSim.shortMixShares({ tiktok: tiktok, reels: reels });
+    line.textContent = "Current mix: " + Math.round(mix.shorts * 100) + "% Shorts" +
+      (tiktok ? " / " + Math.round(mix.tiktok * 100) + "% TikTok" : "") +
+      (reels ? " / " + Math.round(mix.reels * 100) + "% Reels" : "") + ".";
+  }
+  document.getElementById("s-pf-tiktok").addEventListener("change", updateMixLine);
+  document.getElementById("s-pf-reels").addEventListener("change", updateMixLine);
+
+  /* Wave-2: the Money Map feeds starting stats. The quiz answers live in
+   * localStorage under cge.moneymap.v1 (see money-map.js); validAnswers()
+   * is MoneyMap's own gate, exposed on window.MoneyMap. */
+  (function moneyMapFeed() {
+    var row = document.getElementById("s-moneymap-row");
+    var btn = document.getElementById("s-moneymap-load");
+    var note = document.getElementById("s-moneymap-note");
+    if (!row || !btn) return;
+    var answers = null;
+    try {
+      var raw = localStorage.getItem("cge.moneymap.v1");
+      var store = raw ? JSON.parse(raw) : null;
+      if (store && store.answers && window.MoneyMap &&
+          typeof window.MoneyMap.validAnswers === "function" &&
+          window.MoneyMap.validAnswers(store.answers)) {
+        answers = store.answers;
+      }
+    } catch (e) { answers = null; }
+    if (!answers) return;
+    row.hidden = false;
+    var stageName = "";
+    try {
+      var placed = window.MoneyMap.placeStage(answers);
+      stageName = " (Money Map placed you at Stage " + placed.stage + " — " +
+        window.MoneyMap.STAGES[placed.stage].name + ")";
+    } catch (e) { /* placement is a nicety, not a gate */ }
+    note.textContent = "Found your Money Map survey" + stageName +
+      " — one click carries your audience band, platform, cadence, and team over as starting stats.";
+    btn.addEventListener("click", function () {
+      var mapped = EmpireSim.moneyMapToInputs(answers);
+      var inp = mapped.inputs;
+      if (inp.startSubs != null) document.getElementById("s-subs").value = inp.startSubs;
+      if (inp.longformPerWeek != null) setRange("s-long", inp.longformPerWeek);
+      if (inp.shortsPerWeek != null) setRange("s-shorts", inp.shortsPerWeek);
+      if (inp.tiktok) document.getElementById("s-pf-tiktok").checked = true;
+      if (inp.reels) document.getElementById("s-pf-reels").checked = true;
+      if (inp.sponsors) document.getElementById("s-sponsors").checked = true;
+      HIRE_FIELDS.forEach(function (f) { document.getElementById(f.check).checked = false; });
+      (inp.hires || []).forEach(function (h) {
+        for (var i = 0; i < HIRE_FIELDS.length; i++) {
+          if (HIRE_FIELDS[i].type === h.type) {
+            document.getElementById(HIRE_FIELDS[i].check).checked = true;
+            document.getElementById(HIRE_FIELDS[i].month).value = h.startMonth;
+          }
+        }
+      });
+      updateMixLine();
+      note.textContent = "Carried over: " + mapped.mapped.join("; ") + ". Tweak anything, then run.";
+      var st = document.getElementById("briefing-status");
+      if (st) st.textContent = "MONEY MAP LINKED";
+    });
+  })();
+
   var growthRange = document.getElementById("s-growth");
   var growthOut = document.getElementById("s-growth-out");
   var q4Range = document.getElementById("s-q4");
@@ -214,14 +403,23 @@
     if (!ul) return;
     var d = EmpireSim.DEFAULTS;
     var items = [
-      "Base monthly growth " + (d.baseGrowthRate * 100) + "% × niche factor × cadence × quality (compounding, deterministic — no viral lottery)",
-      "Niche growth factors: " + Object.keys(d.nicheGrowth).map(function (k) {
-        return nicheName(k) + " " + d.nicheGrowth[k] + "×"; }).join(", "),
+      "Base monthly growth " + (d.baseGrowthRate * 100) + "% × cadence × quality (compounding, deterministic — no viral lottery)",
+      "Niche growth medians (TubeAI Sep 2026, 10K–100K cohort; all-channel median 0.97%/mo): " +
+        Object.keys(d.nicheMedianGrowth).map(function (k) {
+          return nicheName(k) + " " + (d.nicheMedianGrowth[k] * 100).toFixed(2) + "%"; }).join(", ") +
+        " — context for the growth slider, NOT multipliers. " + d.nicheMedianGrowthNote,
       "Quality multipliers: low 0.7× / solid 1× / excellent 1.35×",
       "Cadence factor: 1 + 0.12 per long-form + 0.03 per short (cap 2.5×)",
       "Views per sub per month: " + d.viewsPerSubLong + " (long-form), " +
         d.viewsPerSubShort + " (shorts)",
-      "Shorts RPM $" + d.shortsRpmMid + " (mid of the 2026 Shorts band)",
+      "Shorts RPM $" + d.shortsRpmMid + " (mid of the 2026 Shorts band); " +
+        "TikTok Creator Rewards: qualifying views ≈ " + Math.round(d.tiktokQualifyingRatio * 100) +
+        "% of raw views at the rewards RPM band, past the " +
+        d.tiktokGateSubs.toLocaleString("en-US") + "-follower gate; Reels pay $0/view (2026)",
+      "Short-form mix shares (normalized across armed platforms): Shorts " +
+        Math.round(d.shortMixShares.shorts * 100) + "% / TikTok " +
+        Math.round(d.shortMixShares.tiktok * 100) + "% / Reels " +
+        Math.round(d.shortMixShares.reels * 100) + "%",
       "Sponsor tiers nano → mega with " +
         d.sponsorTiers.slice().reverse().map(function (t) {
           return t.id + " " + t.dealsPerMonth + "/mo"; }).join(", ") + " deals",
@@ -276,14 +474,16 @@
     var radios = document.querySelectorAll('input[name="s-rpm"]');
     for (var i = 0; i < radios.length; i++) if (radios[i].checked) rpmLevel = radios[i].value;
     return {
-      niche: nicheSel.value,
+      niche: selectedNiche,
       startSubs: Math.max(0, parseFloat(document.getElementById("s-subs").value) || 0),
       longformPerWeek: Math.max(0, parseFloat(document.getElementById("s-long").value) || 0),
       shortsPerWeek: Math.max(0, parseFloat(document.getElementById("s-shorts").value) || 0),
-      quality: document.getElementById("s-quality").value,
+      quality: qualityValue(),
       growthRate: (parseFloat(growthRange.value) || 12) / 100,
       rpmLevel: rpmLevel,
       q4Uplift: (parseFloat(q4Range.value) || 60) / 100,
+      tiktok: document.getElementById("s-pf-tiktok").checked,
+      reels: document.getElementById("s-pf-reels").checked,
       ads: document.getElementById("s-ads").checked,
       sponsors: document.getElementById("s-sponsors").checked,
       affiliates: document.getElementById("s-aff").checked,
@@ -300,6 +500,167 @@
   function chartTicks(N) {
     if (N === 12) return [1, 4, 7, 10, 12];
     return [1, Math.round(N / 4), Math.round(N / 2), Math.round(3 * N / 4), N];
+  }
+
+  /* Wave-2 flagship: "watch the empire build." The animated subscriber
+   * chart reveals the curve month by month with milestone celebrations as
+   * the curve crosses them. Reduced-motion/calm users get the full static
+   * chart (subsChart) instantly — the animation is delight, never the only
+   * way to read the data. */
+  function subsChartGeom(months) {
+    var N = months.length;
+    var W = 640, H = 260, pl = 46, pr = 14, pt = 18, pb = 30;
+    var max = Math.max.apply(null, months.map(function (m) { return m.subs; })) * 1.08;
+    return {
+      N: N, W: W, H: H, pl: pl, pr: pr, pt: pt, pb: pb, max: max,
+      slot: (W - pl - pr) / N,
+      X: function (i) { return pl + (W - pl - pr) * (i / (N - 1)); },
+      Y: function (v) { return pt + (H - pt - pb) * (1 - v / max); }
+    };
+  }
+  function subsChartShell(months, res) {
+    var g = subsChartGeom(months);
+    var bands = months.map(function (m, i) {
+      var bx = g.pl + g.slot * i;
+      return '<rect x="' + bx.toFixed(1) + '" y="' + g.pt + '" width="' +
+        (g.slot + 0.6).toFixed(1) + '" height="' + (g.H - g.pt - g.pb) +
+        '" class="stage-band-' + m.stage + '" aria-hidden="true"></rect>' +
+        '<text x="' + (bx + g.slot / 2).toFixed(1) + '" y="' + (g.H - g.pb + g.pt - 24).toFixed(1) +
+        '" text-anchor="middle" class="chart-stage-num" aria-hidden="true">S' + m.stage + "</text>";
+    }).join("");
+    var ticks = [0, g.max / 2, g.max].map(function (v) {
+      return '<line x1="' + g.pl + '" y1="' + g.Y(v) + '" x2="' + (g.W - g.pr) + '" y2="' + g.Y(v) +
+        '" class="chart-grid"/><text x="' + (g.pl - 6) + '" y="' + (g.Y(v) + 4) +
+        '" class="chart-tick" text-anchor="end">' + fmtCompact(v) + "</text>";
+    }).join("");
+    var months_ticks = chartTicks(g.N).map(function (mm) {
+      return '<text x="' + g.X(mm - 1) + '" y="' + (g.H - 8) +
+        '" class="chart-tick" text-anchor="middle">M' + mm + "</text>";
+    }).join("");
+    var stageLegend = [0, 1, 2, 3, 4].map(function (s) {
+      return '<span class="legend-item"><span class="swatch stage-swatch-' + s +
+        '"></span>S' + s + " \u00b7 " + esc(EmpireSim.STAGES[s].name) + "</span>";
+    }).join("");
+    return '<div class="chart-stage" data-months="' + g.N + '">' +
+      '<div class="chart-hud" aria-hidden="true"><span class="chart-hud-month" data-hud-month>M1</span>' +
+      '<span class="chart-hud-subs" data-hud-subs></span></div>' +
+      '<div class="chart-toast" role="status" aria-live="polite" data-toast></div>' +
+      '<svg viewBox="0 0 ' + g.W + " " + g.H + '" class="chart" role="img" ' +
+      'aria-label="Animated subscriber growth curve over ' + g.N + " months, ending at " +
+      fmtCompact(months[g.N - 1].subs) + ' subscribers">' +
+      '<g aria-hidden="true">' + bands + "</g>" + ticks +
+      '<polygon points="" class="chart-area" data-area/>' +
+      '<polyline points="" class="chart-line" data-line/>' +
+      '<g data-marks></g>' +
+      months_ticks + "</svg>" +
+      '<div class="chart-legend" aria-hidden="true">' + stageLegend + "</div>" +
+      '<div class="chart-actions"><button type="button" class="btn btn-ghost" data-replay hidden>Replay the build ↻</button></div>' +
+      "</div>";
+  }
+  function animateSubsChart(stage, months, res) {
+    var g = subsChartGeom(months);
+    var line = stage.querySelector("[data-line]");
+    var area = stage.querySelector("[data-area]");
+    var marks = stage.querySelector("[data-marks]");
+    var hudMonth = stage.querySelector("[data-hud-month]");
+    var hudSubs = stage.querySelector("[data-hud-subs]");
+    var toast = stage.querySelector("[data-toast]");
+    var replay = stage.querySelector("[data-replay]");
+    var milestoneByMonth = {};
+    (res.milestones || []).forEach(function (ms) { milestoneByMonth[ms.month] = ms; });
+    var svgNS = "http://www.w3.org/2000/svg";
+    function pt(i) { return g.X(i).toFixed(1) + "," + g.Y(months[i].subs).toFixed(1); }
+    function milestoneDot(i, ms) {
+      var grp = document.createElementNS(svgNS, "g");
+      grp.setAttribute("tabindex", "0");
+      grp.setAttribute("role", "img");
+      var lbl = ms.label + " — month " + ms.month + ", " + fmtCompact(months[i].subs) + " subscribers";
+      grp.setAttribute("aria-label", lbl);
+      grp.setAttribute("class", "chart-mark chart-dot-pop");
+      var c = document.createElementNS(svgNS, "circle");
+      c.setAttribute("cx", g.X(i).toFixed(1));
+      c.setAttribute("cy", g.Y(months[i].subs).toFixed(1));
+      c.setAttribute("r", "4.5");
+      c.setAttribute("class", "chart-dot");
+      var title = document.createElementNS(svgNS, "title");
+      title.textContent = lbl;
+      c.appendChild(title);
+      grp.appendChild(c);
+      return grp;
+    }
+    var i = 0, timer = null;
+    function celebrate(ms) {
+      /* Milestone celebration: a stamp-slam toast + the dot pops onto the
+       * curve. Transform/opacity only; the aria-live region announces it. */
+      toast.innerHTML = '<span class="milestone-toast"><span class="stamp stamp-gold" aria-hidden="true">★</span> ' +
+        "<strong>MILESTONE — " + esc(ms.label).toUpperCase() + "</strong></span>";
+      var t = toast.firstChild;
+      if (t) { t.classList.remove("toast-slam"); void t.offsetWidth; t.classList.add("toast-slam"); }
+    }
+    function frame() {
+      var pts = [];
+      for (var k = 0; k <= i; k++) pts.push(pt(k));
+      line.setAttribute("points", pts.join(" "));
+      area.setAttribute("points",
+        g.pl + "," + g.Y(0).toFixed(1) + " " + pts.join(" ") + " " +
+        g.X(i).toFixed(1) + "," + g.Y(0).toFixed(1));
+      hudMonth.textContent = "M" + months[i].month;
+      hudSubs.textContent = fmtCompact(months[i].subs) + " subs · S" + months[i].stage;
+      var ms = milestoneByMonth[months[i].month];
+      if (ms) {
+        marks.appendChild(milestoneDot(i, ms));
+        celebrate(ms);
+      }
+      if (months[i].eventsActive.length) {
+        var lbl = "What-if active, month " + months[i].month + ": " +
+          months[i].eventsActive.map(cardName).join(", ");
+        var tg = document.createElementNS(svgNS, "g");
+        tg.setAttribute("tabindex", "0");
+        tg.setAttribute("role", "img");
+        tg.setAttribute("aria-label", lbl);
+        tg.setAttribute("class", "chart-mark");
+        var tt = document.createElementNS(svgNS, "text");
+        tt.setAttribute("x", g.X(i).toFixed(1));
+        tt.setAttribute("y", (g.Y(months[i].subs) - 14).toFixed(1));
+        tt.setAttribute("text-anchor", "middle");
+        tt.setAttribute("class", "chart-event");
+        tt.textContent = "⚡";
+        var ttitle = document.createElementNS(svgNS, "title");
+        ttitle.textContent = lbl;
+        tt.appendChild(ttitle);
+        tg.appendChild(tt);
+        marks.appendChild(tg);
+      }
+      i++;
+      if (i < months.length) {
+        timer = setTimeout(frame, 150);
+      } else {
+        /* Final frame: the end label + replay affordance. */
+        var end = document.createElementNS(svgNS, "text");
+        end.setAttribute("x", (g.X(g.N - 1) - 4).toFixed(1));
+        end.setAttribute("y", (g.Y(months[g.N - 1].subs) - 10).toFixed(1));
+        end.setAttribute("text-anchor", "end");
+        end.setAttribute("class", "chart-tick");
+        end.textContent = fmtCompact(months[g.N - 1].subs) + " subs";
+        marks.appendChild(end);
+        if (replay) replay.hidden = false;
+        if (toast) toast.innerHTML = '<span class="muted">Empire built — ' + g.N +
+          ' months, ' + fmtCompact(months[g.N - 1].subs) + ' subs. A model, not a prediction.</span>';
+      }
+    }
+    function start() {
+      if (timer) clearTimeout(timer);
+      line.setAttribute("points", "");
+      area.setAttribute("points", "");
+      marks.innerHTML = "";
+      if (replay) replay.hidden = true;
+      i = 0;
+      frame();
+    }
+    if (replay) replay.addEventListener("click", start);
+    stage._replayChart = start;
+    start();
+    return start;
   }
   function subsChart(months, res) {
     var N = months.length;
@@ -515,11 +876,30 @@
       }).join("") + "</ul></div>";
   }
 
+  /* Wave-2 flagship: the kind hard truths, rendered as their own debrief
+   * section — the sim shows the math AND the base rates. */
+  function realityChecksBlock(inputs, res) {
+    var checks = EmpireSim.realityChecks(inputs, res);
+    if (!checks.length) return "";
+    return "<h3>Reality checks — kind hard truths</h3>" +
+      '<div class="reality-checks" role="note" aria-label="Reality checks">' +
+      checks.map(function (c) {
+        return '<div class="calc-out reality-check" style="text-align:left">' +
+          '<p class="lbl">◉ ' + esc(c.headline) + "</p>" +
+          '<p style="font-size:.9rem">' + esc(c.detail) + "</p>" +
+          '<p class="muted" style="font-size:.78rem">Basis: ' + esc(c.basis) + "</p></div>";
+      }).join("") + "</div>";
+  }
+
   function render(inputs, res, opts) {
     opts = opts || {};
     var months = res.months, totals = res.totals;
     var N = months.length;
     var best = months.reduce(function (a, b) { return b.total > a.total ? b : a; }, months[0]);
+    /* Wave-2: the animated chart plays on explicit runs only (submit +
+     * launch). Live re-runs swap the static chart — no flicker, no replay
+     * storm. Reduced-motion/calm always gets the static chart. */
+    var animateChart = opts.animate === true && !motionReduced();
 
     var horizonNote = N > 24
       ? " · 36-month run (year-2 ×" + res.meta.year2Decay + "/mo, year-3 ×" + res.meta.year3Decay + "/mo)"
@@ -539,11 +919,15 @@
       "</div>";
 
     var meta = '<p class="muted">Model used: ' + (inputs.growthRate * 100).toFixed(0) +
-      "% base growth × " + res.meta.nicheGrowth + " niche × " + res.meta.cadenceMult.toFixed(2) +
+      "% base growth × " + res.meta.cadenceMult.toFixed(2) +
       " cadence × " + res.meta.qualityMult + " quality = <strong>" +
       (res.meta.monthlyGrowth * 100).toFixed(1) + "%/mo</strong> · RPM $" +
       res.meta.rpm.toFixed(2) + " (" + inputs.rpmLevel + " of $" + res.meta.rpmBand[0] +
-      "–$" + res.meta.rpmBand[1] + ")" + horizonNote + evNote +
+      "–$" + res.meta.rpmBand[1] + ", " + esc(res.meta.rpmBandBasis) + ") · mix " +
+      Math.round(res.meta.shortMix.shorts * 100) + "/" +
+      Math.round(res.meta.shortMix.tiktok * 100) + "/" +
+      Math.round(res.meta.shortMix.reels * 100) + " Shorts/TikTok/Reels" +
+      horizonNote + evNote +
       " · Team: " + esc(hireSummary(res)) + ".</p>";
 
     var miles = res.milestones.length
@@ -554,7 +938,7 @@
       : '<p class="muted">No milestones hit — raise the cadence, the quality, or the growth assumption and run it again.</p>';
 
     var rows = months.map(function (m) {
-      var ads = m.adsLong + m.adsShorts;
+      var ads = m.adsLong + m.adsShorts + m.tiktok;
       var moCell = m.month + (m.eventsActive.length
         ? ' <span title="What-if active: ' + esc(m.eventsActive.map(cardName).join(", ")) +
           '" aria-label="what-if event active this month">⚡</span>' : "");
@@ -572,8 +956,13 @@
       '<span class="hud-status">MODEL, NOT PROPHECY</span></div><div class="hud-body">' +
       "<h2>Your empire, month by month</h2>" + meta + stats +
       yearCards(res) + miles + stageTimeline(res) +
-      "<h3>Subscriber curve</h3>" + subsChart(months, res) + subsDataTable(months) +
+      "<h3>Subscriber curve</h3>" +
+      (animateChart
+        ? '<div id="subs-chart-live">' + subsChartShell(months, res) + "</div>"
+        : subsChart(months, res)) +
+      subsDataTable(months) +
       "<h3>Revenue by stream</h3>" + revenueChart(months, res) + revenueDataTable(months) +
+      realityChecksBlock(inputs, res) +
       assumptionsBlock(inputs, res) +
       "<h3>The ledger (month-by-month P&amp;L)</h3><div class=\"table-wrap\"><table><caption>Month-by-month projection. " +
       "Compact numbers; revenue rounded. Net = total − team cost. ⚡ marks months with an active what-if event.</caption><thead><tr><th scope='col'>Mo</th>" +
@@ -595,6 +984,10 @@
     function swap() {
       out.innerHTML = html;
       wireShare(inputs, res);
+      if (animateChart) {
+        var stage = out.querySelector(".chart-stage");
+        if (stage) animateSubsChart(stage, months, res);
+      }
       if (opts.scroll !== false) scrollToEl(out);
     }
     if (opts.transition !== false && !motionReduced() && document.startViewTransition) {
@@ -779,7 +1172,9 @@
     if (typeof window !== "undefined" && window.SimLaunch &&
         window.SimLaunch.interceptSubmit(e)) return;
     e.preventDefault();
-    renderRun(computeRun());
+    /* explicit run: the full choreography — view transition + the animated
+     * "watch the empire build" chart. */
+    renderRun(computeRun(), { animate: true });
   });
 
   window.EmpireSimUI = {

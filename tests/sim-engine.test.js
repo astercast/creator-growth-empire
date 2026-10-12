@@ -98,15 +98,20 @@ sim.SCENARIOS.forEach(function (sc) {
   ok(rs.months.length === 12 && isFinite(rs.endSubs) && isFinite(rs.totals.total),
     "scenario '" + sc.id + "' simulates 12 finite months (" +
     Math.round(rs.endSubs) + " subs, $" + Math.round(rs.totals.total) + ")");
-  ok((cfg.youtube_longform_rpm_bands[inp.niche] || []).length === 2,
-    "scenario '" + sc.id + "' niche '" + inp.niche + "' is a real calculators.json RPM band");
+  ok((cfg.youtube_longform_rpm_bands[inp.niche] || []).length === 2 ||
+     (cfg.niche_rpm_2026 && cfg.niche_rpm_2026.niches[inp.niche] &&
+      cfg.niche_rpm_2026.niches[inp.niche].band.length === 2),
+    "scenario '" + sc.id + "' niche '" + inp.niche + "' has a real RPM band " +
+    "(niche_rpm_2026 or youtube_longform_rpm_bands)");
   ok(typeof sc.source === "string" && sc.source.length > 0,
     "scenario '" + sc.id + "' names its research source");
 });
-// library returns copies: mutating a load doesn't poison the next one
+var asmSc = sim.scenarioInputs("asmr-bedroom");
+ok(asmSc.niche === "asmr",
+  "asmr-bedroom is a real study niche now (no more lifestyle proxy)");
 var copy = sim.scenarioInputs("asmr-bedroom");
 copy.niche = "gaming";
-ok(sim.scenarioInputs("asmr-bedroom").niche === "lifestyle",
+ok(sim.scenarioInputs("asmr-bedroom").niche === "asmr",
   "scenarioInputs returns a deep copy (library not mutated)");
 ok(sim.scenarioInputs("nope") === null, "unknown scenario id returns null");
 
@@ -351,11 +356,14 @@ ok(sim.SCENARIOS.length === 12, "12 loadable scenarios (" + sim.SCENARIOS.length
   var rs = sim.simulate(inp, cfg);
   ok(rs.months.length === 12 && isFinite(rs.endSubs) && isFinite(rs.totals.total),
     "scenario '" + id + "' simulates 12 finite months");
-  ok((cfg.youtube_longform_rpm_bands[inp.niche] || []).length === 2,
+  ok((cfg.youtube_longform_rpm_bands[inp.niche] || []).length === 2 ||
+     (cfg.niche_rpm_2026 && cfg.niche_rpm_2026.niches[inp.niche] &&
+      cfg.niche_rpm_2026.niches[inp.niche].band.length === 2),
     "scenario '" + id + "' niche is a real calculators.json RPM band");
   ok(typeof sc.source === "string" && /OutlierKit|Fortune|Niche Atlas 2027/.test(sc.source),
     "scenario '" + id + "' cites its 2027-outlook / case-file source");
-  ok(typeof sc.nicheProxyNote === "string" || ["education", "health_fitness"].indexOf(inp.niche) !== -1,
+  ok(typeof sc.nicheProxyNote === "string" ||
+     ["education", "health_fitness", "asmr"].indexOf(inp.niche) !== -1,
     "scenario '" + id + "' uses a real engine niche key (proxies declared where needed)");
 });
 
@@ -413,6 +421,141 @@ var verify8 = baseInputs({ startSubs: 1000, horizon: 24, growthRate: s8.value })
 ok(sim.simulate(verify8, cfg).months[17].net >= 5000,
   "re-simulation at solved growth reaches $5k net by month 18");
 ok(s1.note.indexOf("not a promise") !== -1, "solver note says model-not-promise");
+
+/* ---------- wow wave 2: the flagship rebuild ---------- */
+console.log("real niche RPM bands (niche_rpm_2026)");
+var bandKids = sim.rpmBandForNiche("kids", cfg);
+ok(bandKids.band[0] === 0.33 && bandKids.band[1] === 0.33 && bandKids.basis === "reported",
+  "kids: $0.33 point band, reported (got " + JSON.stringify(bandKids.band) + "/" + bandKids.basis + ")");
+var bandAI = sim.rpmBandForNiche("ai_ml", cfg);
+ok(bandAI.band[0] === 8 && bandAI.band[1] === 20 && bandAI.basis === "cpm-reported",
+  "ai_ml: $8-20 band, cpm-reported (not RPM)");
+var bandEdu = sim.rpmBandForNiche("education", cfg);
+ok(bandEdu.band[0] === 10.22 && bandEdu.band[1] === 10.22 && bandEdu.basis === "reported",
+  "education: $10.22 point band, AIR reported");
+var bandASMR = sim.rpmBandForNiche("asmr", cfg);
+ok(bandASMR.band[0] === 4 && bandASMR.band[1] === 10 && bandASMR.basis === "proxy",
+  "asmr: $4-10 band, honestly labeled proxy");
+var bandLegacy = sim.rpmBandForNiche("finance_investing", cfg);
+ok(bandLegacy.band[0] === 8 && bandLegacy.band[1] === 35 && bandLegacy.basis === "band",
+  "legacy key finance_investing still reads the calculator band ($8-35)");
+var bandNone = sim.rpmBandForNiche("nope", cfg);
+ok(bandNone.band[0] === 2 && bandNone.band[1] === 10 && bandNone.basis === "fallback",
+  "unknown niche falls back to [2,10], labeled fallback");
+["kids","asmr","creator_economy","challenges_stunts","ai_ml","true_crime",
+ "education","entertainment","science","gaming"].forEach(function (n) {
+  var b = sim.rpmBandForNiche(n, cfg);
+  ok(b.band.length === 2 && ["reported","proxy","cpm-reported"].indexOf(b.basis) !== -1 &&
+     typeof b.source === "string" && b.source.length > 0,
+    "niche '" + n + "' band has a labeled basis + source");
+});
+
+console.log("niche growth medians = context, not multipliers");
+var med = sim.nicheMedianInfo("kids");
+ok(med.median === 0.0159 && /huge variance/.test(med.note),
+  "kids median 1.59%/mo with the medians-hide-variance note");
+ok(sim.nicheMedianInfo("ai_ml").median === 0.0144, "ai_ml median 1.44%/mo");
+ok(sim.nicheMedianInfo("finance_investing").median === null,
+  "legacy key has no study median (said honestly)");
+var gTest = sim.simulate(baseInputs({ niche: "kids", growthRate: 0.10,
+  longformPerWeek: 1, shortsPerWeek: 0, quality: "solid" }), cfg);
+ok(Math.abs(gTest.meta.monthlyGrowth - 0.10 * 1.12 * 1.0) < 1e-9,
+  "no niche multiplier: g = growthRate x cadence x quality exactly (" +
+  (gTest.meta.monthlyGrowth * 100).toFixed(2) + "%/mo)");
+ok(gTest.meta.nicheMedianGrowth === 0.0159,
+  "meta exposes the niche median for the picker/debrief");
+var alMed = sim.assumptionLines(baseInputs({ niche: "kids" }), gTest).join(" ");
+ok(/1\.59%\/mo/.test(alMed) && /NOT a multiplier/.test(alMed),
+  "assumptionLines names the median and says it is not a multiplier");
+ok(/reported/.test(alMed) && /\$0\.33/.test(alMed),
+  "assumptionLines carries the RPM band basis ($0.33 reported)");
+
+console.log("platform mix (tiktok / reels)");
+var noMix = sim.simulate(baseInputs({ shortsPerWeek: 4 }), cfg);
+ok(noMix.meta.shortMix.shorts === 1 && noMix.meta.shortMix.tiktok === 0 && noMix.meta.shortMix.reels === 0,
+  "no toggles -> Shorts takes 100% (pre-wave-2 behavior)");
+ok(Math.abs(noMix.months[0].shortsViews - noMix.months[0].shortViews) < 1e-9,
+  "shortsViews == shortViews when the mix is all Shorts");
+ok(noMix.months[0].tiktok === 0 && noMix.months[0].reels === 0,
+  "no TikTok/Reels revenue when toggles are off");
+var tk = sim.simulate(baseInputs({ shortsPerWeek: 4, tiktok: true, startSubs: 20000,
+  growthRate: 0.05 }), cfg);
+ok(tk.meta.shortMix.tiktok > 0 && tk.meta.shortMix.shorts < 1 &&
+   Math.abs(tk.meta.shortMix.shorts + tk.meta.shortMix.tiktok + tk.meta.shortMix.reels - 1) < 1e-9,
+  "TikTok on -> shares normalize across enabled platforms (sum = 1)");
+ok(tk.months[0].tiktok > 0, "TikTok pays past the 10K gate");
+ok(tk.months[0].tiktokGate === true, "tiktokGate true at 20K subs");
+var tkSmall = sim.simulate(baseInputs({ shortsPerWeek: 4, tiktok: true, startSubs: 500,
+  growthRate: 0.05 }), cfg);
+ok(tkSmall.months[0].tiktok === 0 && tkSmall.months[0].tiktokGate === false,
+  "TikTok pays $0 under the 10K-follower gate (labeled, not hidden)");
+// qualifying ratio pin: tiktok = tiktokViews x 0.5 / 1000 x tiktokRpm(mid 1.2) x q4(1)
+var m0 = tk.months[0];
+var expectTk = (m0.tiktokViews * 0.5 / 1000) * 1.2;
+ok(Math.abs(m0.tiktok - expectTk) < 1e-6,
+  "TikTok revenue = qualifying views (~half raw) x $1.20/1k mid (got " + m0.tiktok.toFixed(4) + ")");
+ok(Math.abs(tk.meta.tiktokRpm - 1.2) < 1e-9, "meta exposes the TikTok RPM used");
+var rl = sim.simulate(baseInputs({ shortsPerWeek: 4, reels: true, growthRate: 0.05 }), cfg);
+ok(rl.meta.shortMix.reels > 0 && rl.months[0].reels === 0,
+  "Reels take a real share of output and pay $0/view (the honest number)");
+ok(rl.totals.total < noMix.totals.total,
+  "shifting output to Reels lowers modeled revenue (the mix is real, not theater)");
+var alMix = sim.assumptionLines(baseInputs({ tiktok: true, reels: true }), tk).join(" ");
+ok(/TikTok pays Creator Rewards/.test(alMix) && /Reels pay \$0\/view/.test(alMix),
+  "assumptionLines states the TikTok mechanics + the Reels $0 rule");
+
+console.log("reality checks");
+var rcBig = sim.simulate(baseInputs({ growthRate: 0.30, horizon: 24 }), cfg);
+var checksBig = sim.realityChecks(baseInputs({ growthRate: 0.30, horizon: 24 }), rcBig);
+var ids = checksBig.map(function (c) { return c.id; });
+ok(ids.indexOf("hundred-k") !== -1, "100K-crossing run fires the <1% check");
+ok(/fewer than 1%/.test(checksBig[ids.indexOf("hundred-k")].headline),
+  "the <1% truth is named in the headline");
+ok(/kind|loyal|plan/i.test(checksBig[ids.indexOf("hundred-k")].detail),
+  "the <1% check is kind, not a scolding (points at the loyal-subscriber plan)");
+ok(ids.indexOf("hyper-growth") !== -1, "30%/mo fires the hyper-growth check");
+var rcKids = sim.simulate(baseInputs({ niche: "kids", growthRate: 0.10 }), cfg);
+var kidsChecks = sim.realityChecks(baseInputs({ niche: "kids", growthRate: 0.10 }), rcKids)
+  .map(function (c) { return c.id; });
+ok(kidsChecks.indexOf("kids-trap") !== -1, "kids niche fires the growth-is-not-revenue check");
+var rcSpon = sim.simulate(baseInputs({ startSubs: 60000, growthRate: 0.0, sponsors: false,
+  ads: false, affiliates: false, digital: false }), cfg);
+var sponIds = sim.realityChecks(baseInputs({ startSubs: 60000, growthRate: 0.0, sponsors: false,
+  ads: false, affiliates: false, digital: false }), rcSpon).map(function (c) { return c.id; });
+ok(sponIds.indexOf("ads-vs-sponsors") !== -1,
+  "big audience + sponsors off fires the $20-35 vs $2.30 check");
+var rcReels = sim.simulate(baseInputs({ reels: true }), cfg);
+var reelsIds = sim.realityChecks(baseInputs({ reels: true }), rcReels).map(function (c) { return c.id; });
+ok(reelsIds.indexOf("reels-zero") !== -1, "Reels share fires the $0/view check");
+var rcTkGate = sim.simulate(baseInputs({ tiktok: true, startSubs: 100, growthRate: 0.02 }), cfg);
+var tkIds = sim.realityChecks(baseInputs({ tiktok: true, startSubs: 100, growthRate: 0.02 }), rcTkGate)
+  .map(function (c) { return c.id; });
+ok(tkIds.indexOf("tiktok-gate") !== -1, "never-gated TikTok run fires the gate check");
+var rcCalm = sim.simulate(baseInputs({ growthRate: 0.10 }), cfg);
+var calmIds = sim.realityChecks(baseInputs({ growthRate: 0.10 }), rcCalm).map(function (c) { return c.id; });
+ok(calmIds.indexOf("hundred-k") === -1 && calmIds.indexOf("hyper-growth") === -1,
+  "a calm run fires no scare checks");
+checksBig.forEach(function (c) {
+  ok(typeof c.headline === "string" && c.headline.length > 0 &&
+     typeof c.detail === "string" && c.detail.length > 0 &&
+     typeof c.basis === "string" && c.basis.length > 0,
+    "check '" + c.id + "' has headline + detail + basis");
+});
+
+console.log("moneyMapToInputs (Money Map feeds starting stats)");
+var mm = sim.moneyMapToInputs({ platform: "tiktok", audience: "1k-10k", revenue: "1-99",
+  cadence: "multi-weekly", team: "freelancers", bottleneck: "growth", streams: "2-3" });
+ok(mm.inputs.startSubs === 3000 && mm.inputs.tiktok === true &&
+   mm.inputs.longformPerWeek === 2 && mm.inputs.shortsPerWeek === 7 &&
+   mm.inputs.sponsors === true && mm.inputs.hires[0].type === "editor",
+  "full quiz answers map to sim inputs (3K subs, TikTok, 2+7/wk, sponsors, editor)");
+ok(mm.mapped.length >= 5, "mapping reports what it carried over (" + mm.mapped.length + " notes)");
+var mmEmpty = sim.moneyMapToInputs(null);
+ok(Object.keys(mmEmpty.inputs).length === 0 && mmEmpty.mapped.length === 0,
+  "no answers -> empty mapping (UI keeps defaults)");
+var mmPartial = sim.moneyMapToInputs({ audience: "under-1k" });
+ok(mmPartial.inputs.startSubs === 500 && mmPartial.mapped.length === 1,
+  "partial answers map only what exists");
 
 console.log(failures === 0 ? "\nALL PASS" : "\n" + failures + " FAILURES");
 process.exit(failures === 0 ? 0 : 1);
