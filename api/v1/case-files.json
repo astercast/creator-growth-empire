@@ -1,0 +1,47 @@
+{
+  "version": "1.0.0",
+  "updated": "2026-10-11",
+  "note": "Documented creator-business deconstructions. Figures are reported by the cited sources, not audited \u2014 never present as promises.",
+  "case_files": [
+    {
+      "id": "case-budget-grocery",
+      "badge": "Case File",
+      "title": "The Budget-Grocery Newsletter",
+      "path": "case-budget-grocery.html",
+      "words": 684,
+      "read_minutes": 3
+    },
+    {
+      "id": "case-bens-bites",
+      "badge": "Case File",
+      "title": "Ben's Bites",
+      "path": "case-bens-bites.html",
+      "words": 750,
+      "read_minutes": 4
+    },
+    {
+      "id": "case-sleep-channels",
+      "badge": "Case File",
+      "title": "The Sleep-Channel Network",
+      "path": "case-sleep-channels.html",
+      "words": 800,
+      "read_minutes": 4
+    },
+    {
+      "id": "case-mavwicks",
+      "badge": "Case File",
+      "title": "Mavwicks on TikTok Shop",
+      "path": "case-mavwicks.html",
+      "words": 791,
+      "read_minutes": 4
+    },
+    {
+      "id": "case-ptya",
+      "badge": "Case File",
+      "title": "The Cohort Course",
+      "path": "case-ptya.html",
+      "words": 853,
+      "read_minutes": 4
+    }
+  ]
+}
