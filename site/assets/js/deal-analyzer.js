@@ -155,7 +155,18 @@
         '<h3>Counter-offer worksheet</h3><ul class="checklist">' + sheet + "</ul>" +
         '<p class="muted">A negotiation aid, not financial advice. Benchmarks disagree 2–3x within tiers; niche, engagement, and audience quality move numbers as much as followers (finance/tech 2–3x, entertainment lower). Rates change — verify against current creator rate reports before you quote. The walk-away rule from Phase 5 stands: decide your walk-away rate before the call, not during it.</p>';
     }).catch(function () {
-      out.innerHTML = "<p>Could not load calculator config.</p>";
+      out.innerHTML = '<div class="error-state" role="alert">' +
+        "<strong>CONFIG LOAD FAILED</strong>" +
+        "<p>Could not load the calculator config (<code>api/v1/calculators.json</code>). " +
+        "Check that <code>api/v1/</code> is deployed alongside this page, then try again — your inputs are still here.</p>" +
+        '<button type="button" class="btn btn-ghost" data-retry>Try again</button></div>';
     });
+  });
+
+  /* error-state retry button re-submits the form */
+  document.getElementById("deal-results").addEventListener("click", function (e) {
+    if (e.target && e.target.getAttribute && e.target.getAttribute("data-retry") !== null) {
+      document.getElementById("deal-form").requestSubmit();
+    }
   });
 })();

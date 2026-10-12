@@ -40,8 +40,19 @@
         '<div class="range">Annualized: ' + range(totLo * 12, totHi * 12) + " · before taxes, fees, costs</div></div>" +
         '<p class="muted" style="grid-column:1/-1">Ranges, not promises. Ad rates move with season (Q4 pays ~30–50% more), geography, and niche. Sponsors are usually 50–80% of a mid-size creator\'s income — notice how they dominate the math above.</p>';
     }).catch(function () {
-      out.innerHTML = "<p>Could not load calculator config.</p>";
+      out.innerHTML = '<div class="error-state" role="alert" style="grid-column:1/-1">' +
+        "<strong>CONFIG LOAD FAILED</strong>" +
+        "<p>Could not load the calculator config (<code>api/v1/calculators.json</code>). " +
+        "Check that <code>api/v1/</code> is deployed alongside this page, then try again — your inputs are still here.</p>" +
+        '<button type="button" class="btn btn-ghost" data-retry>Try again</button></div>';
     });
+  });
+
+  /* error-state retry button re-submits the form */
+  out.addEventListener("click", function (e) {
+    if (e.target && e.target.getAttribute && e.target.getAttribute("data-retry") !== null) {
+      form.requestSubmit();
+    }
   });
 
   function card(label, big, sub) {

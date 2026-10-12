@@ -12,16 +12,17 @@
 <link rel="stylesheet" href="assets/css/base.css">
 <link rel="stylesheet" href="assets/css/layout.css">
 <link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/hub.css">
 <script src="assets/js/quiz.js"></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
 <header class="site-header">
   <a class="brand" href="index.html"><span class="brand-mark">▲</span> Creator Growth Empire</a>
-  <nav class="site-nav" aria-label="Primary"><a href="index.html" class="nav-link">Empire Map</a><a href="quiz.html" class="nav-link active">Niche Picker</a><a href="calculator.html" class="nav-link">Revenue Calc</a><a href="planner.html" class="nav-link">90-Day Plan</a><a href="deal-analyzer.html" class="nav-link">Deal Analyzer</a><a href="repurpose.html" class="nav-link">Repurpose Plan</a><a href="simulator.html" class="nav-link">Simulator</a><a href="glossary.html" class="nav-link">Glossary</a><a href="agents.html" class="nav-link">Agents</a></nav>
+  <nav class="site-nav" aria-label="Primary"><a href="index.html" class="nav-link">Empire Map</a><a href="tools.html" class="nav-link active">Tools</a><a href="case-files.html" class="nav-link">Case Files</a><a href="glossary.html" class="nav-link">Glossary</a><a href="agents.html" class="nav-link">Agents</a></nav>
   <button class="nav-toggle" aria-expanded="false" aria-controls="mobileNav" aria-label="Menu">☰</button>
 </header>
-<nav id="mobileNav" class="mobile-nav" aria-label="Mobile"><a href="index.html" class="nav-link">Empire Map</a><a href="quiz.html" class="nav-link active">Niche Picker</a><a href="calculator.html" class="nav-link">Revenue Calc</a><a href="planner.html" class="nav-link">90-Day Plan</a><a href="deal-analyzer.html" class="nav-link">Deal Analyzer</a><a href="repurpose.html" class="nav-link">Repurpose Plan</a><a href="simulator.html" class="nav-link">Simulator</a><a href="glossary.html" class="nav-link">Glossary</a><a href="agents.html" class="nav-link">Agents</a></nav>
+<nav id="mobileNav" class="mobile-nav" aria-label="Mobile"><a href="index.html" class="nav-link">Empire Map</a><a href="tools.html" class="nav-link active">All tools</a><a href="quiz.html" class="nav-link">Niche Picker</a><a href="calculator.html" class="nav-link">Revenue Calc</a><a href="planner.html" class="nav-link">90-Day Plan</a><a href="deal-analyzer.html" class="nav-link">Deal Analyzer</a><a href="repurpose.html" class="nav-link">Repurpose Plan</a><a href="simulator.html" class="nav-link">Simulator</a><a href="case-files.html" class="nav-link">All case files</a><a href="glossary.html" class="nav-link">Glossary</a><a href="agents.html" class="nav-link">Agents</a></nav>
 <main id="main"><div class="tool-page"><div class="hud-panel"><div class="hud-head"><span>TOOL // 01 — NICHE PICKER</span><span class="hud-status">SYSTEMS ONLINE</span></div><div class="hud-body"><h1>Niche Picker</h1><p class="lede">Answer 6 questions, get ranked niche suggestions with reasoning.</p></div></div><div id="quiz-app" aria-live="polite">
   <div class="meter-wrap">
     <div class="meter" id="quiz-meter" role="progressbar" aria-label="Quiz progress" aria-valuemin="0" aria-valuemax="6" aria-valuenow="0"><div class="meter-fill" id="quiz-meter-fill"></div></div>
@@ -32,7 +33,7 @@
     <button class="btn btn-primary" id="quiz-submit" disabled>Get my niches →</button>
     <button class="btn btn-ghost" id="quiz-reset">Reset</button>
   </div>
-  <div id="quiz-results" aria-live="polite"></div>
+  <div id="quiz-results" aria-live="polite"><div class="empty-state" role="status"><span class="empty-icon" aria-hidden="true">◉</span><strong>Nothing brewing yet.</strong>Your top-3 niches land here once you answer all 6 questions.</div></div>
 </div>
 <noscript><p>This tool needs JavaScript. The niche framework is in Phase 0.</p></noscript>
 </div></main>
@@ -55,6 +56,7 @@
     </nav>
     <nav aria-label="Tools">
       <strong class="muted" style="font-size:.78rem;letter-spacing:.12em">TOOLS</strong>
+      <a href="tools.html">All tools →</a>
       <a href="quiz.html">Niche Picker</a>
       <a href="calculator.html">Revenue Calculator</a>
       <a href="planner.html">90-Day Planner</a>
@@ -67,6 +69,7 @@
     </nav>
     <nav aria-label="Case Files">
       <strong class="muted" style="font-size:.78rem;letter-spacing:.12em">CASE FILES</strong>
+      <a href="case-files.html">All case files →</a>
       <a href="case-budget-grocery.html">The Budget-Grocery Newsletter</a>
       <a href="case-bens-bites.html">Ben's Bites</a>
       <a href="case-sleep-channels.html">The Sleep-Channel Network</a>

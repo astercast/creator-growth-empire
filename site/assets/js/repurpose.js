@@ -68,7 +68,10 @@
     var idea = document.getElementById("rp-idea").value.trim();
     var source = document.getElementById("rp-source").value;
     if (!idea) {
-      out.innerHTML = "<p>Give me one content idea first — one line is enough.</p>";
+      out.innerHTML = '<div class="error-state" role="alert">' +
+        "<strong>NO PILLAR IDEA</strong>" +
+        "<p>Give me one content idea first — one line is enough. " +
+        "The whole plan is cut from your pillar, so without it there's nothing to repurpose.</p></div>";
       return;
     }
     var s = esc(stub(idea));

@@ -96,6 +96,9 @@
   var results = document.getElementById("quiz-results");
   if (!qWrap) return;
 
+  var EMPTY = '<div class="empty-state" role="status"><span class="empty-icon" aria-hidden="true">◉</span>' +
+    "<strong>Nothing brewing yet.</strong>Your top-3 niches land here once you answer all 6 questions.</div>";
+
   QUESTIONS.forEach(function (q, qi) {
     var fs = document.createElement("fieldset");
     fs.className = "quiz-q";
@@ -167,7 +170,7 @@
     answers = {};
     qWrap.querySelectorAll("input[type=radio]").forEach(function (r) { r.checked = false; });
     qWrap.querySelectorAll(".quiz-opt").forEach(function (l) { l.classList.remove("selected"); });
-    results.innerHTML = "";
+    results.innerHTML = EMPTY;
     submit.disabled = true;
   });
 })();

@@ -2,13 +2,21 @@
 <div class="explorer" style="display:grid;gap:1.25rem;margin-top:1rem">
   <div>
     <h2 style="font-size:1rem;letter-spacing:.08em">Endpoints</h2>
-    <ul id="explorer-list" class="checklist" aria-label="API endpoints"></ul>
-    <p id="explorer-error" class="muted" role="alert" hidden></p>
+    <ul id="explorer-list" class="checklist" aria-label="API endpoints">
+      <li class="muted">Loading endpoints…</li>
+    </ul>
+    <p id="explorer-error" class="error-state" role="alert" hidden></p>
   </div>
   <div>
     <h2 style="font-size:1rem;letter-spacing:.08em">Response preview</h2>
-    <p id="explorer-meta" class="muted" aria-live="polite">Pick an endpoint to load its JSON.</p>
-    <pre id="explorer-out" tabindex="0" aria-live="polite" style="max-height:32rem;overflow:auto;white-space:pre-wrap;word-break:break-word"><code id="explorer-code">// Nothing loaded yet.</code></pre>
+    <div id="explorer-empty" class="empty-state" role="status">
+      <span class="empty-icon" aria-hidden="true">⌗</span>
+      <strong>Nothing loaded yet.</strong>
+      Pick an endpoint on the left — its live JSON preview lands here.
+    </div>
+    <p id="explorer-meta" class="muted" aria-live="polite" hidden></p>
+    <pre id="explorer-out" tabindex="0" aria-live="polite" style="max-height:32rem;overflow:auto;white-space:pre-wrap;word-break:break-word" hidden><code id="explorer-code"></code></pre>
   </div>
 </div>
+<noscript><p class="muted">The API Explorer needs JavaScript — the endpoint list is at <code>api/v1/index.json</code> and every response is static JSON.</p></noscript>
 <p class="muted" style="margin-top:1rem">Base path: <code>api/v1/</code> · Full reference: repo-root <code>API.md</code> · Machine orientation: <a href="agents.html">Agents</a> · <code>llms.txt</code></p>

@@ -23,6 +23,8 @@ From $0 to a multi-million-dollar creator company.
 - [API Explorer](api-explorer.html)
 - [Glossary](glossary.html)
 
+All seven tools, grouped by job (Plan / Money / Content): [Tools hub](tools.html).
+
 ## Reference
 - [Reference: 2026 Rate Card](rate-card.html) — 3 min read
 
@@ -32,6 +34,7 @@ From $0 to a multi-million-dollar creator company.
 - [Case File: The Sleep-Channel Network](case-sleep-channels.html) — 4 min read
 - [Case File: Mavwicks on TikTok Shop](case-mavwicks.html) — 4 min read
 - [Case File: The Cohort Course](case-ptya.html) — 4 min read
+- [All case files — index + comparison table](case-files.html)
 - api/v1/case-files.json — machine-readable case-file index
 
 

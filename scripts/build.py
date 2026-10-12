@@ -52,6 +52,79 @@ TOOLS = [
     ("api-explorer", "API Explorer", "Browse every api/v1 endpoint and preview JSON responses live in your browser — no key, no server."),
 ]
 
+# Tools hub (wave 9): grouped card index. Per tool: icon, "use when" one-liner,
+# best-for tags. Groups: PLAN / MONEY / CONTENT (order within group = TOOLS order).
+TOOL_HUB_META = {
+    "quiz":          ("◉", "PLAN",    "acid", "you're starting out and don't know what to make yet.",
+                      ["starting out", "undecided", "Phase 0"]),
+    "planner":       ("▦", "PLAN",    "acid", "you need a posting schedule you can actually keep.",
+                      ["consistency", "cadence", "Phase 1"]),
+    "simulator":     ("◬", "PLAN",    "acid", "you want to see 12 months of growth and revenue before you live them.",
+                      ["what-if", "projections", "Phases 2 · 5 · 8"]),
+    "calculator":    ("∑", "MONEY",   "gold", "you want honest revenue ranges from your current views.",
+                      ["ads", "sponsors", "ranges"]),
+    "deal-analyzer": ("⚖", "MONEY",   "gold", "a brand made an offer and your gut isn't sure.",
+                      ["negotiation", "rate card", "Phase 5"]),
+    "repurpose":     ("⇄", "CONTENT", "coral", "one good idea should feed five platforms.",
+                      ["SOP", "short-form", "Phase 3"]),
+    "api-explorer":  ("⌗", "CONTENT", "coral", "you're building on the empire's data and want every endpoint.",
+                      ["agents", "JSON", "no key"]),
+}
+TOOL_HUB_GROUPS = [
+    ("PLAN", "Pick the battlefield",
+     "Figure out what to make, when to post, and what it could become — before you burn a year on the wrong niche."),
+    ("MONEY", "Know what it's worth",
+     "Ranges, benchmarks, and verdicts before you quote a rate or sign an offer."),
+    ("CONTENT", "Multiply one win",
+     "Systems that turn one idea into a week of output — and the API that powers it all."),
+]
+
+# Case-files hub (wave 9): headline numbers are sourced from the case pages
+# themselves (see pages/case-*.md Sources sections); every figure is reported,
+# not audited. Comparison table fields: niche / primary revenue / team / timeline.
+CASE_HUB = [
+    {"id": "case-bens-bites",
+     "headline": "7 figures in under 9 months",
+     "stat": "10,000+ students taught",
+     "source": "Ben Tossell's interviews + company about page (self-reported)",
+     "niche": "AI education / newsletter",
+     "primary": "AI courses / education products",
+     "team": "1 core + collaborators",
+     "timeline": "Oct 2022 → mid-2023"},
+    {"id": "case-budget-grocery",
+     "headline": "Paid newsletter ≈ $670K/yr",
+     "stat": "3M+ followers · 7-figure business",
+     "source": "The creator's own interview (self-reported)",
+     "niche": "Budget grocery / cooking",
+     "primary": "Paid newsletter",
+     "team": "2 full-time + contractors",
+     "timeline": "Years posting → 2023 viral video → newsletter primary"},
+    {"id": "case-mavwicks",
+     "headline": "$32M in year one on TikTok Shop",
+     "stat": "From $300–400K/yr to $32M",
+     "source": "Modern Retail interview; figures via TikTok-shared data (unaudited)",
+     "niche": "Fragrance / live commerce",
+     "primary": "TikTok Shop product sales",
+     "team": "Founder-led (size undisclosed)",
+     "timeline": "First year on the platform"},
+    {"id": "case-ptya",
+     "headline": "$1.3M+ maker revenue (2021); final cohort reportedly $2M",
+     "stat": "$528K in 4 days from one email sequence",
+     "source": "Digiday; 2026 Kit case study",
+     "niche": "Productivity / cohort course",
+     "primary": "Cohort course ($1K–$4K)",
+     "team": "Small team (size undisclosed)",
+     "timeline": "2017 YouTube → Nov 2020 first cohort"},
+    {"id": "case-sleep-channels",
+     "headline": "$40–60K/mo (~$700K/yr)",
+     "stat": "5 faceless channels; Fortune-verified AdSense records",
+     "source": "Fortune profile (Dec 2025), AdSense records verified",
+     "niche": "Faceless ambient / sleep YouTube",
+     "primary": "YouTube ad revenue (5 channels)",
+     "team": "Davis + business partner",
+     "timeline": "2020 dropout → 5-channel network"},
+]
+
 # Markdown landing pages rendered like chapters (pages/*.md -> site/*.html).
 # Optional 5th element: (next_slug, next_label) for the end-nav next link.
 MARKDOWN_PAGES = [
@@ -146,23 +219,41 @@ def word_count(md):
 
 # ---------- page template ----------
 
-NAV_LINKS = [
+# Desktop nav stays tight: hub-first discovery (wave 9 — the site grew too
+# large for per-tool nav links). The full per-tool list lives in the mobile
+# nav and the footer.
+DESKTOP_NAV_LINKS = [
     ("index.html", "Empire Map"),
+    ("tools.html", "Tools"),
+    ("case-files.html", "Case Files"),
+    ("glossary.html", "Glossary"),
+    ("agents.html", "Agents"),
+]
+
+MOBILE_NAV_LINKS = [
+    ("index.html", "Empire Map"),
+    ("tools.html", "All tools"),
     ("quiz.html", "Niche Picker"),
     ("calculator.html", "Revenue Calc"),
     ("planner.html", "90-Day Plan"),
     ("deal-analyzer.html", "Deal Analyzer"),
     ("repurpose.html", "Repurpose Plan"),
     ("simulator.html", "Simulator"),
+    ("case-files.html", "All case files"),
     ("glossary.html", "Glossary"),
     ("agents.html", "Agents"),
 ]
 
 def page_template(title, body, active="", extra_head=""):
-    nav = "".join(
+    desktop_nav = "".join(
         f'<a href="{href}" class="nav-link{" active" if href == active else ""}">{label}</a>'
-        for href, label in NAV_LINKS
+        for href, label in DESKTOP_NAV_LINKS
     )
+    mobile_nav = "".join(
+        f'<a href="{href}" class="nav-link{" active" if href == active else ""}">{label}</a>'
+        for href, label in MOBILE_NAV_LINKS
+    )
+    nav = desktop_nav  # historical name kept for the mobile fallback below
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -177,16 +268,17 @@ def page_template(title, body, active="", extra_head=""):
 <link rel="stylesheet" href="assets/css/base.css">
 <link rel="stylesheet" href="assets/css/layout.css">
 <link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/hub.css">
 {extra_head}
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
 <header class="site-header">
   <a class="brand" href="index.html"><span class="brand-mark">▲</span> {SITE_NAME}</a>
-  <nav class="site-nav" aria-label="Primary">{nav}</nav>
+  <nav class="site-nav" aria-label="Primary">{desktop_nav}</nav>
   <button class="nav-toggle" aria-expanded="false" aria-controls="mobileNav" aria-label="Menu">☰</button>
 </header>
-<nav id="mobileNav" class="mobile-nav" aria-label="Mobile">{nav}</nav>
+<nav id="mobileNav" class="mobile-nav" aria-label="Mobile">{mobile_nav}</nav>
 <main id="main">{body}</main>
 <footer class="site-footer">
   <div class="footer-grid">
@@ -207,6 +299,7 @@ def page_template(title, body, active="", extra_head=""):
     </nav>
     <nav aria-label="Tools">
       <strong class="muted" style="font-size:.78rem;letter-spacing:.12em">TOOLS</strong>
+      <a href="tools.html">All tools →</a>
       <a href="quiz.html">Niche Picker</a>
       <a href="calculator.html">Revenue Calculator</a>
       <a href="planner.html">90-Day Planner</a>
@@ -219,6 +312,7 @@ def page_template(title, body, active="", extra_head=""):
     </nav>
     <nav aria-label="Case Files">
       <strong class="muted" style="font-size:.78rem;letter-spacing:.12em">CASE FILES</strong>
+      <a href="case-files.html">All case files →</a>
       <a href="case-budget-grocery.html">The Budget-Grocery Newsletter</a>
       <a href="case-bens-bites.html">Ben's Bites</a>
       <a href="case-sleep-channels.html">The Sleep-Channel Network</a>
@@ -360,7 +454,8 @@ def build():
                 '<a href="index.html"><span class="nav-dir">← Back to</span><span class="nav-title">The Empire Map</span></a>'
                 f'<a class="nav-next" href="{nxt[0]}.html"><span class="nav-dir">Next →</span>'
                 f'<span class="nav-title">{esc(nxt[1])}</span></a></nav>')
-        page = page_template(short, f'<article class="chapter">{hero}{body_html}{cnav}</article>', active=f"{slug}.html")
+        nav_active = "case-files.html" if badge == "Case File" else f"{slug}.html"
+        page = page_template(short, f'<article class="chapter">{hero}{body_html}{cnav}</article>', active=nav_active)
         (SITE / f"{slug}.html").write_text(page, encoding="utf-8")
         mdpage_meta.append({"id": slug, "badge": badge, "title": short,
                             "path": f"{slug}.html", "words": wc, "read_minutes": read_min})
@@ -388,7 +483,7 @@ def build():
                     f'<span class="hud-status">SYSTEMS ONLINE</span></div>'
                     f'<div class="hud-body"><h1>{esc(title)}</h1><p class="lede">{esc(desc)}</p></div></div>')
         page = page_template(title, f'{hud_open}{tool_body}</div>',
-                             active=f"{slug}.html", extra_head=extra)
+                             active="tools.html", extra_head=extra)
         (SITE / f"{slug}.html").write_text(page, encoding="utf-8")
 
     # glossary page
@@ -398,6 +493,101 @@ def build():
         gloss_html += f"<div class='gloss-entry'><dt id='g-{term['term'].lower().replace(' ', '-')}'>{esc(term['term'])}</dt><dd>{inline(term['definition'])}</dd></div>"
     gloss_html += "</dl>"
     (SITE / "glossary.html").write_text(page_template("Glossary", gloss_html, active="glossary.html"), encoding="utf-8")
+
+    # ---- hub pages (wave 9): tools hub + case-files hub ----
+    def hub_hero(kicker, title_words, lede, accent):
+        words = title_words.split()
+        hero_title = ((" ".join(esc(w) for w in words[:-1]) + ' <span class="accent-word">' +
+                       esc(words[-1]) + "</span>") if len(words) > 1 else esc(title_words))
+        return (f'<header class="chapter-hero" style="--phase-accent: var(--{accent});">'
+                f'<p class="chapter-kicker"><span class="phase-badge" style="background: var(--{accent});">{esc(kicker)}</span></p>'
+                f"<h1>{hero_title}</h1>"
+                f'<p class="lede">{lede}</p></header>')
+
+    # tools hub: brief cards grouped Plan / Money / Content
+    tool_titles = {slug: title for slug, title, _ in TOOLS}
+    n = 0
+    hub_sections = ""
+    for group, group_sub, group_desc in TOOL_HUB_GROUPS:
+        members = [slug for slug, _, _ in TOOLS if TOOL_HUB_META[slug][1] == group]
+        g_accent = TOOL_HUB_META[members[0]][2]
+        cards = ""
+        for slug in members:
+            icon, _, accent, use_when, tags = TOOL_HUB_META[slug]
+            n += 1
+            tag_html = "".join(f"<li>{esc(t)}</li>" for t in tags)
+            cards += (
+                f'<a class="brief-card" style="--card-accent: var(--{accent});" href="{slug}.html">'
+                f'<div class="brief-head"><span class="brief-id">BRIEF // {n:02d}</span>'
+                f'<span class="brief-status">{group}</span></div>'
+                f'<div class="brief-body"><div class="brief-icon-row">'
+                f'<span class="brief-icon" aria-hidden="true">{esc(icon)}</span>'
+                f"<h3>{esc(tool_titles[slug])}</h3></div>"
+                f'<p class="brief-usage"><strong>Use when</strong> {esc(use_when)}</p></div>'
+                f'<ul class="brief-tags" aria-label="Best for">{tag_html}</ul>'
+                f'<span class="brief-go">Launch →</span></a>')
+        hub_sections += (
+            f'<section class="hub-group" aria-label="{group} tools">'
+            f'<div class="hub-group-head" style="--card-accent: var(--{g_accent});">'
+            f"<h2>{group}</h2>"
+            f'<span class="hub-kicker">{esc(group_sub)}</span>'
+            f'<span class="hub-rule" aria-hidden="true"></span>'
+            f"<p>{esc(group_desc)}</p></div>"
+            f'<div class="brief-grid">{cards}</div></section>')
+    tools_body = (
+        hub_hero("COMMAND CENTER", "All Tools",
+                 "Seven power tools, one command center. Pick the briefing that matches where you are.",
+                 "acid")
+        + hub_sections
+        + '<section class="section honesty"><h2>Pick by job, not by shine</h2>'
+        "<p>Every tool on this page reads the same 2026 research the rest of the site is built on. "
+        "Start with the Niche Picker if you're undecided, the Revenue Calculator if you have views, "
+        "and the Sponsor Deal Analyzer the moment a brand emails you.</p></section>")
+    (SITE / "tools.html").write_text(page_template("All Tools", tools_body, active="tools.html"), encoding="utf-8")
+
+    # case-files hub: sourced headline cards + comparison table
+    case_meta_by_id = {m["id"]: m for m in mdpage_meta if m["badge"] == "Case File"}
+    case_cards = ""
+    for i, c in enumerate(CASE_HUB):
+        m = case_meta_by_id[c["id"]]
+        case_cards += (
+            f'<a class="brief-card" style="--card-accent: var(--violet);" href="{m["path"]}">'
+            f'<div class="brief-head"><span class="brief-id">CASE FILE // {i + 1:02d}</span>'
+            f'<span class="brief-status">{m["read_minutes"]} MIN READ</span></div>'
+            f'<div class="brief-body"><h3>{esc(m["title"])}</h3>'
+            f'<p class="brief-stat">{esc(c["headline"])}</p>'
+            f'<p class="brief-stat-sub">{esc(c["stat"])}</p>'
+            f'<p class="brief-source">Source: {esc(c["source"])}</p></div>'
+            f'<span class="brief-go">Read the file →</span></a>')
+    case_rows = "".join(
+        f'<tr><th scope="row"><a href="{case_meta_by_id[c["id"]]["path"]}">{esc(case_meta_by_id[c["id"]]["title"])}</a></th>'
+        f"<td>{esc(c['niche'])}</td><td>{esc(c['primary'])}</td>"
+        f"<td>{esc(c['team'])}</td><td>{esc(c['timeline'])}</td></tr>"
+        for c in CASE_HUB)
+    case_body = (
+        hub_hero("DOCUMENTED DECONSTRUCTIONS", "Case Files",
+                 "Five real creator businesses, taken apart: the stack, the decisions, the numbers — reported, not audited.",
+                 "violet")
+        + '<section class="hub-group" aria-label="Case files">'
+        f'<div class="brief-grid">{case_cards}</div></section>'
+        + '<section class="hub-group" aria-label="Comparison table">'
+        + '<div class="hub-group-head" style="--card-accent: var(--violet);">'
+        "<h2>Side by side</h2>"
+        '<span class="hub-kicker">the comparison table</span>'
+        '<span class="hub-rule" aria-hidden="true"></span>'
+        "<p>Niche, primary revenue, team, and timeline at a glance. Headline figures are the numbers "
+        "each case is best known for — always reported, never audited.</p></div>"
+        + '<div class="table-wrap"><table class="compare-table">'
+        "<caption>Case file comparison: niche, primary revenue, team size, timeline</caption>"
+        "<thead><tr><th scope=\"col\">Case</th><th scope=\"col\">Niche</th>"
+        "<th scope=\"col\">Primary revenue</th><th scope=\"col\">Team</th>"
+        "<th scope=\"col\">Timeline</th></tr></thead><tbody>"
+        + case_rows + "</tbody></table></div></section>"
+        + '<section class="section honesty"><h2>The honesty policy</h2>'
+        "<p>Every figure on these cards is reported by the cited source — interviews, company pages, "
+        "or (in one case) verified AdSense records — not audited financials. Treat the structures as "
+        "proven and the figures as directional. Read the full file before you copy a play.</p></section>")
+    (SITE / "case-files.html").write_text(page_template("Case Files", case_body, active="case-files.html"), encoding="utf-8")
 
     # index
     cards = ""
@@ -423,7 +613,8 @@ def build():
         f'<span class="phase-meta">{m["read_minutes"]} min · {m["words"]:,} words</span></a>'
         for i, m in enumerate(m for m in mdpage_meta if m["badge"] == "Case File"))
     case_section = (f'<section class="section"><div class="section-head"><h2>Empire Case Files</h2>'
-                    f'<span class="section-tag">documented deconstructions // no guru hype</span></div>'
+                    f'<span class="section-tag">documented deconstructions // no guru hype</span>'
+                    f'<a href="case-files.html" class="section-more">All 5 case files →</a></div>'
                     f'<div class="phase-grid reveal-stagger">{case_cards}</div></section>')
     index_body = f"""
 <section class="hero">
@@ -454,7 +645,7 @@ def build():
   <span>DIVERSIFY REVENUE</span><span>SEPARATE THE MONEY</span><span>SYSTEMS BEAT HUSTLE</span>
 </div></section>
 <section class="section"><div class="section-head"><h2>The Empire Map</h2><span class="section-tag">9 levels // clear them all</span></div><div class="phase-grid reveal-stagger">{cards}</div></section>
-<section class="section"><div class="section-head"><h2>Command Center</h2><span class="section-tag">weapons free</span></div><div class="tool-grid reveal-stagger">{tools_html}</div></section>
+<section class="section"><div class="section-head"><h2>Command Center</h2><span class="section-tag">weapons free</span><a href="tools.html" class="section-more">All 7 tools →</a></div><div class="tool-grid reveal-stagger">{tools_html}</div></section>
 {case_section}
 <section class="section"><div class="section-head"><h2>Hottest topics right now</h2><span class="section-tag">live feed // trend-machine</span></div>
 <div class="hud-panel trends-hud reveal">
@@ -606,13 +797,16 @@ def build():
     llms += ["", "## Tools"]
     for slug, title, desc in TOOLS:
         llms.append(f"- [{title}]({slug}.html)")
-    llms += ["- [Glossary](glossary.html)", "", "## Reference"]
+    llms += ["- [Glossary](glossary.html)", "",
+             "All seven tools, grouped by job (Plan / Money / Content): [Tools hub](tools.html).",
+             "", "## Reference"]
     for m in reference_meta:
         llms.append(f"- [{m['badge']}: {m['title']}]({m['path']}) — {m['read_minutes']} min read")
     llms += ["", "## Case Files — documented creator-business deconstructions"]
     for m in (m for m in mdpage_meta if m["badge"] == "Case File"):
         llms.append(f"- [Case File: {m['title']}]({m['path']}) — {m['read_minutes']} min read")
-    llms += ["- api/v1/case-files.json — machine-readable case-file index", ""]
+    llms += ["- [All case files — index + comparison table](case-files.html)",
+             "- api/v1/case-files.json — machine-readable case-file index", ""]
     llms += ["", "## API", "- api/v1/index.json", "- api/v1/chapters.json",
              "- api/v1/glossary.json", "- api/v1/calculators.json",
              "- api/v1/skills.json",

@@ -6,6 +6,8 @@
   var list = document.getElementById("explorer-list");
   var out = document.getElementById("explorer-code");
   var meta = document.getElementById("explorer-meta");
+  var pre = document.getElementById("explorer-out");
+  var empty = document.getElementById("explorer-empty");
   var errBox = document.getElementById("explorer-error");
   if (!list || !out) return;
 
@@ -18,11 +20,30 @@
     { name: "skills.json", desc: "Skill index: name, description, path (10 skills)." }
   ];
 
+  /* Design-treated failure state: callout-style error panel + restore
+     the empty state behind it. */
   function showError(msg) {
     errBox.hidden = false;
-    errBox.textContent = msg;
+    errBox.className = "error-state";
+    errBox.innerHTML = "";
+    var strong = document.createElement("strong");
+    strong.textContent = "FETCH FAILED";
+    var p = document.createElement("p");
+    p.textContent = msg;
+    errBox.appendChild(strong);
+    errBox.appendChild(p);
+    if (empty) empty.hidden = false;
+    if (meta) meta.hidden = true;
+    if (pre) pre.hidden = true;
   }
   function clearError() { errBox.hidden = true; errBox.textContent = ""; }
+
+  /* Toggle between the empty state and the live preview. */
+  function setPreview(on) {
+    if (empty) empty.hidden = on;
+    if (meta) meta.hidden = !on;
+    if (pre) pre.hidden = !on;
+  }
 
   function topKeys(obj) {
     if (Array.isArray(obj)) return "array[" + obj.length + "]";
@@ -32,6 +53,7 @@
 
   function load(name) {
     clearError();
+    setPreview(true);
     meta.textContent = "Loading " + BASE + name + " …";
     out.textContent = "// fetching …";
     fetch(BASE + name, { headers: { "Accept": "application/json" } })
@@ -49,11 +71,9 @@
         out.textContent = JSON.stringify(data, null, 2);
       })
       .catch(function (e) {
-        meta.textContent = "Could not load " + BASE + name + ".";
-        out.textContent = "// Nothing loaded yet.";
-        showError("Fetch failed (" + (e && e.message ? e.message : "unknown error") +
-          "). The endpoint list below was loaded from a static fallback — " +
-          "check that api/v1/ is deployed alongside this page and try again.");
+        showError("Could not load " + BASE + name + " — fetch failed (" +
+          (e && e.message ? e.message : "unknown error") + "). " +
+          "Check that api/v1/ is deployed alongside this page and try again.");
       });
   }
 
