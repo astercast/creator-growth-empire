@@ -592,3 +592,57 @@ committed tree, 72 sim assertions, 36 agent-workflow assertions, llms
 counts fresh).
 
 Commit: 03825a66508de380708ccce6fb0ce9d78f8cb88d (pushed 2026-10-11).
+
+## Wave 15 — The Deal Room (2026-10-11)
+
+What shipped (extends the wave-3 Sponsor Deal Analyzer into full sponsorship
+deal management; every benchmark a reported 2026 range, never a quote):
+1. **Deal tracker** (`pages/deal-room.html` → `site/deal-room.html`, the 10th
+   tool): log offers (brand, platform, followers, deliverable, expected views,
+   pay, usage rights, exclusivity, payment terms, timeline, notes) in
+   localStorage only — no accounts, no network writes. Status pipeline
+   offer → negotiating → signed → delivered → paid (advance buttons + status
+   filter). Every deal scored against the 2026 rate card
+   (fair/under/over + the ~23%-listed-above-accepted honesty note).
+2. **Usage-rights pricing calculator**: base post fee × tier. Reported tiers
+   flagged honestly — paid ads 30d +50%, 6mo +75%, 12mo +100% (the wave-2
+   research band, each tier labeled reported/not-gospel); whitelisting and
+   full buyout return guidance instead of invented multipliers (whitelisting
+   priced as a user-set monthly line; buyout a 2.0× negotiation floor or
+   refuse outright).
+3. **Negotiation scripts** — lowball counter, usage-rights upsell, exclusivity
+   pushback, rush-fee ask — all grounded in the rate-card chapter, rendered
+   live from one context form, copy-to-clipboard with fallback + aria-live
+   confirmation. The rush-fee script carries a fill-in rate: no research
+   benchmark exists, and the data says so.
+4. **Red-flag checklist** — the walk-away signals (net-90+ without escrow,
+   unlimited revisions, perpetual usage for organic price, no kill fee) +
+   perpetual whitelisting and broad exclusivity as majors; interactive scoring
+   (any walk-away flag or 3+ points → walk away), persisted to localStorage.
+5. **"Copy my deal memo"** — one-page deal summary (terms, rate-card score,
+   checked flags, counters, disclaimer) from any logged deal: copy to
+   clipboard or download .txt.
+6. **New API endpoint `api/v1/deal-templates.json`** (source of truth
+   `data/deal-templates.json`, mirrored to `site/api/v1/`): 4 scripts,
+   6 red-flag items, 6 usage-rights tiers, scoring rules. Draft-07 doc schema
+   (`api/v1/schema/deal-templates.json`), registered in the manifest
+   (schemas count 13 → 14, freshness note on the endpoint). Documented in
+   AGENT.md (Workflow 5 + programmatic-tools table), API.md, `pages/agents.md`
+   (surface table + workflow 5), README, and the `llms.txt` API section.
+7. **Deal Room engine** (`assets/js/deal-room.js`, UMD — browser +
+   `require()`-able in node): `scoreOffer`, `priceUsage`, `redFlagScore`,
+   `renderScript`, `dealMemo`, `tierOf`, `nice`, `fmt`; UI wiring in
+   `assets/js/deal-room-ui.js` (pure-math-free, localStorage, clipboard).
+   Registered as TOOLS entry 10 (MONEY group in the hub, "All 10 tools"
+   everywhere) with a `tools.json` input schema + drive notes. The
+   wave-3 deal analyzer page now cross-links to the Deal Room.
+
+Validation: `scripts/build.py` clean (9 chapters, 10 tools, 12 skills,
+5 case files, 16,153 words); `scripts/validate.sh` **8/8 GREEN** (18 JS
+files node --check, JSON parse, draft-07 schemas incl. the new
+deal-templates doc, 0 broken links, byte-identical rebuild on the committed
+tree, 72 sim + **78 deal-room** engine assertions, 47 agent-workflow
+assertions — incl. the new Workflow 5 against the real JSONs, llms counts
+fresh).
+
+Commit: ca56215f7f560cb300de11fccab5e1362905f2ae (pushed 2026-10-11).

@@ -12,10 +12,10 @@
 #                         endpoint paths + schema URLs all exist
 #   5. Build reproduc. ... scripts/build.py clean rebuild leaves zero git diff
 #                         on site/, api/, llms.txt, llms-full.txt, skills/index.json
-#   6. Sim engine tests .. node tests/sim-engine.test.js
+#   6. Engine tests ..... node tests/sim-engine.test.js + tests/deal-room.test.js
 #   7. llms.txt fresh ... chapter/tool/reference/guide/case-file/skill counts match
 #                         build.py; every chapter marker present in llms-full.txt
-#   8. Agent workflows ... node tests/agent-workflows.test.js — the 3 AGENT.md
+#   8. Agent workflows ... node tests/agent-workflows.test.js — the AGENT.md
 #                         example workflows executed against the real api/v1 JSON
 #
 # Exit code: 0 only if every stage passes. Anything failing is a real issue
@@ -103,7 +103,8 @@ for fname, sname in [("index.json", "index.json"),
                      ("calculators.json", "calculators.json"),
                      ("skills.json", "skills.json"),
                      ("case-files.json", "case-files.json"),
-                     ("tools.json", "tools.json")]:
+                     ("tools.json", "tools.json"),
+                     ("deal-templates.json", "deal-templates.json")]:
     for e in schema(sname).iter_errors(json.loads((ROOT / "api" / "v1" / fname).read_text())):
         failures.append(f"{fname}: {e.message}")
 
@@ -247,15 +248,19 @@ else
 fi
 
 # ---------------------------------------------------------------- stage 6 ---
-stage 6 "sim-engine test suite"
-node tests/sim-engine.test.js >/tmp/cge_validate_tests.log 2>&1
-if [ $? -eq 0 ]; then
-  N=$(grep -c "PASS" /tmp/cge_validate_tests.log)
-  pass "sim-engine tests ($N assertions)"
-else
-  fail "tests/sim-engine.test.js failed:"
-  grep "FAIL" /tmp/cge_validate_tests.log | head -10 | sed 's/^/    /'
-fi
+stage 6 "engine test suites (sim + deal room)"
+TEST_FAIL=0
+for T in tests/sim-engine.test.js tests/deal-room.test.js; do
+  node "$T" >/tmp/cge_validate_tests.log 2>&1
+  if [ $? -eq 0 ]; then
+    N=$(grep -c "PASS" /tmp/cge_validate_tests.log)
+    pass "$T ($N assertions)"
+  else
+    TEST_FAIL=1
+    fail "$T failed:"
+    grep "FAIL" /tmp/cge_validate_tests.log | head -10 | sed 's/^/    /'
+  fi
+done
 
 # ---------------------------------------------------------------- stage 7 ---
 stage 7 "llms.txt / llms-full.txt freshness"

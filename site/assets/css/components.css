@@ -419,3 +419,22 @@ output { font-family: var(--font-mono); color: var(--acid); font-weight: 700; }
   .niche-card { transition: none; }
   .niche-card:hover { border-color: var(--line-strong); }
 }
+
+/* ---------- deal room (wave 15) ---------- */
+#dr-deals { list-style: none; padding: 0; max-width: 72ch; display: grid; gap: 1rem; }
+.deal-card { border: 1px solid var(--line-strong); border-radius: 1rem; padding: 1rem 1.1rem; transition: border-color 0.2s ease; }
+.deal-card:hover { border-color: var(--gold); }
+.deal-head { display: flex; flex-wrap: wrap; gap: 0.45rem; align-items: center; margin-bottom: 0.35rem; }
+.deal-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem; }
+.script-card { border: 1px solid var(--line-strong); border-radius: 1rem; padding: 1rem 1.1rem; max-width: 72ch; margin-bottom: 1rem; }
+.script-card h3 { margin: 0 0 0.25rem; font-size: 1.05rem; }
+.script-text { border-left: 3px solid var(--gold); padding: 0.6rem 0.9rem; margin: 0.6rem 0; font-style: normal; }
+.flag-row { display: flex; gap: 0.6rem; align-items: flex-start; border: 1px solid var(--line-strong); border-radius: 0.75rem; padding: 0.7rem 0.9rem; max-width: 72ch; margin-bottom: 0.6rem; cursor: pointer; }
+.flag-row:hover { border-color: var(--acid); }
+.flag-row input { margin-top: 0.25rem; flex: none; }
+.memo-pre { white-space: pre-wrap; word-wrap: break-word; border: 1px solid var(--line-strong); border-radius: 0.75rem; padding: 1rem 1.1rem; max-width: 72ch; font-size: 0.9rem; }
+.memo-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.75rem; }
+@media (prefers-reduced-motion: reduce) {
+  .deal-card { transition: none; }
+  .deal-card:hover { border-color: var(--line-strong); }
+}

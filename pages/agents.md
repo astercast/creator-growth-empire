@@ -13,10 +13,11 @@
 | Niche atlas | `api/v1/niches.json` | 20 October-2026-researched niches: growth, revenue ranges, competition, startup cost, skill fit, avoid list, sources, reality check — ranges, never promises |
 | Glossary | `api/v1/glossary.json` | Creator-economy terms + definitions |
 | Calculators data | `api/v1/calculators.json` | RPM bands, thresholds, splits, 2026 rate card, usage-rights notes |
+| Deal templates | `api/v1/deal-templates.json` | 4 negotiation scripts, 6-item red-flag checklist, 6 usage-rights tiers with reported multiplier basis — the Deal Room data contract |
 | Skill index | `api/v1/skills.json` | 12 skills: name, description, path |
 | Case files | `api/v1/case-files.json` + `case-*.html` | 5 documented creator-business deconstructions: budget-grocery newsletter, Ben's Bites, faceless sleep-channel network, Mavwicks on TikTok Shop, cohort course — figures source-reported, never promises |
 | Reference | `rate-card.html`, `niche-atlas.html` + `api/v1/calculators.json`, `api/v1/niches.json` | The 2026 sponsorship rate card + the Niche Atlas (interactive explorer) |
-| Interactive tools | `quiz.html`, `calculator.html`, `planner.html`, `deal-analyzer.html`, `hiring-calculator.html`, `repurpose.html`, `simulator.html`, `hook-builder.html`, `api-explorer.html` | Human-facing; agents should use the API data behind them (`api/v1/tools.json` carries every tool's programmatic input schema) |
+| Interactive tools | `quiz.html`, `calculator.html`, `planner.html`, `deal-analyzer.html`, `deal-room.html`, `hiring-calculator.html`, `repurpose.html`, `simulator.html`, `hook-builder.html`, `api-explorer.html` | Human-facing; agents should use the API data behind them (`api/v1/tools.json` carries every tool's programmatic input schema) |
 | API explorer | `api-explorer.html` | Browse every `api/v1` endpoint and preview JSON in-browser |
 
 All endpoints are `GET` on static JSON. Base path: `api/v1/` (relative to the site root; the deployed site ships its own `api/` mirror, so the explorer works live too). Schemas: `api/v1/schema/` (JSON Schema draft-07).
@@ -85,6 +86,17 @@ Goal: run two paths over the same 12 months and get the delta table plus a plain
 2. `EmpireSim.scenarioInputs("asmr-bedroom")` vs `EmpireSim.scenarioInputs("tech-reviewer")` — the ASMR scenario declares its proxies (`lifestyle` growth 1.05x + lifestyle RPM band at low, $4).
 3. `EmpireSim.compare("ASMR bedroom", asmr, "Tech reviewer", tech, cfg)`: ASMR bedroom → **6,434** subs, **$909.02** net; Tech reviewer → **5,323** subs, **$7,955.56** net. Verdict: Path Tech reviewer leads on net revenue by **775%** — RPM $4.00 vs $14.00; growth 19.0% vs 11.1%; the net-revenue winner is NOT the subscriber winner.
 4. Return the verdict as a model, not a prediction: deltas explained by the drivers, the honesty caveat quoted, assumptions from `assumptionLines()` attached. Never present scenario revenue as expected income.
+
+### 5. Manage a sponsorship deal end-to-end
+
+Goal: take a live offer from first read to a signed-paper record — scored, priced, flag-checked, scripted, and memorized.
+
+1. `GET api/v1/deal-templates.json` → scripts, red-flag checklist, usage-rights tiers. Drive the logic with `require("assets/js/deal-room.js")` (UMD, importable in node).
+2. Score: 60K YouTube subs → micro tier → range **$1,000–$10,000**; $5,000 → **FAIR** with the ~23% listed-vs-accepted honesty note.
+3. Price usage rights separately: 6-month paid-ads window on a $10,000 base → **+$7,500** (reported +75%, midpoint of the +50–100% research band). Whitelisting and buyout return guidance, never invented numbers.
+4. Check red flags: unlimited revisions → **walk away**. Four walk-away signals total: perpetual-usage-for-organic-price, net-90+ without escrow, unlimited revisions, no kill fee.
+5. Render the reply: the 4 scripts (lowball counter, usage-rights upsell, exclusivity pushback, rush-fee ask) fill `{{placeholders}}` from the deal's numbers.
+6. Export the record: `dealMemo()` builds the one-page summary with the verdict, checked flags, counters, and the not-financial/legal/tax-advice disclaimer. The [Deal Room](deal-room.html) runs the same pipeline interactively, storing deals in localStorage only.
 
 ## Conventions
 

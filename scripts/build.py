@@ -66,6 +66,7 @@ TOOLS = [
     ("calculator", "Revenue Calculator", "Project revenue from views, niche, sponsors, and affiliates — with honest ranges."),
     ("planner", "90-Day Planner", "Generate a posting schedule from your platforms and cadence. Printable."),
     ("deal-analyzer", "Sponsor Deal Analyzer", "Benchmark a sponsor offer against the 2026 rate card — verdict, red-flag checklist, counter-offer worksheet."),
+    ("deal-room", "The Deal Room", "Manage the whole deal: track offers through signing, price usage rights, rehearse negotiations, export your memo."),
     ("hiring-calculator", "Hiring Cost Calculator", "Price your first hire: monthly/annual cost and the ad revenue needed to cover it — honest math, no promises."),
     ("repurpose", "Repurposing Planner", "Turn one idea into a 5-platform mission-card checklist from the Phase 3 repurposing SOP."),
     ("simulator", "Empire Simulator", "Simulate 12–24 months of channel growth + revenue — scenario library, A/B comparison, team hiring P&L — a model, not a prediction."),
@@ -164,6 +165,36 @@ TOOLS_API = [
       }},
      "Verdict (UNDERPAID / FAIR / STRONG), benchmark range, implied CPM vs rate-card CPMs, red-flag checklist (usage, whitelisting, exclusivity, payment), counter-offer worksheet with line items.",
      "Logic (assets/js/deal-analyzer.js): followers → tier (nano/micro/macro/mega) → per_video_or_post_by_tier range for platform; verdict = offer vs range; counter starts at range top (creators list ~23% above what they accept) + usage line items (paid30 +50%, paid180 +75%, paid365 +100%) + exclusivity (30d +25%, 60–90d +50%). Negotiation aid, not financial advice."),
+    ("deal-room", "The Deal Room",
+     "Manage the whole deal: track offers through signing, price usage rights, rehearse negotiations, export your memo.",
+     "deal-room.html",
+     {"$schema": "http://json-schema.org/draft-07/schema#", "title": "DealRoomInput",
+      "type": "object", "required": ["brand", "platform", "followers", "offer_usd"],
+      "properties": {
+          "brand": {"type": "string", "description": "Brand making the offer."},
+          "platform": {"type": "string", "enum": ["youtube", "tiktok", "instagram"]},
+          "followers": {"type": "number", "minimum": 0},
+          "deliverable": {"type": "string", "enum": ["integrated", "dedicated", "short"],
+                          "default": "integrated"},
+          "expected_views": {"type": "number", "minimum": 0, "default": 0,
+                             "description": "Last-10-video average; the number sponsors buy."},
+          "offer_usd": {"type": "number", "minimum": 0},
+          "usage_rights": {"type": "string",
+                           "enum": ["organic", "paid30", "paid180", "paid365", "perpetual"],
+                           "default": "organic"},
+          "exclusivity": {"type": "string", "enum": ["none", "30", "90", "broad"],
+                          "default": "none"},
+          "payment_terms": {"type": "string", "enum": ["15", "30", "60", "90"],
+                            "default": "30", "description": "Net payment terms in days."},
+          "timeline": {"type": "string",
+                       "description": "Due date / delivery window as written in the offer."},
+          "status": {"type": "string",
+                     "enum": ["offer", "negotiating", "signed", "delivered", "paid"],
+                     "default": "offer",
+                     "description": "Where the deal sits in the offer → paid pipeline."},
+      }},
+     "Tracked deal records with rate-card verdicts (UNDERPAID / FAIR / STRONG + the ~23% listed-vs-accepted note), usage-rights line-item pricing (reported +50/+75/+100% band; no invented whitelisting/buyout multipliers), per-situation negotiation scripts, interactive red-flag checklist scoring, and a one-page deal memo.",
+     "Logic (assets/js/deal-room.js, UMD — importable in node): scoreOffer(offer, lo, hi) benchmarks against sponsorship_rate_card_2026; priceUsage(baseFee, tierId, usage_rights_tiers) applies the reported multipliers, returning guidance instead of numbers for whitelisting/buyout; redFlagScore(checkedIds, red_flags) scores contract structure (any walk_away flag or 3+ points -> walk away); renderScript(script, vars) fills {{placeholders}}; dealMemo(deal, scored, flags) builds the one-page record. Scripts + checklist + tiers live in api/v1/deal-templates.json. Negotiation aid, not financial/legal/tax advice."),
     ("hiring-calculator", "Hiring Cost Calculator",
      "Price your first hire: monthly/annual cost and the ad revenue needed to cover it — honest math, no promises.",
      "hiring-calculator.html",
@@ -286,6 +317,8 @@ TOOL_HUB_META = {
                       ["ads", "sponsors", "ranges"]),
     "deal-analyzer": ("⚖", "MONEY",   "gold", "a brand made an offer and your gut isn't sure.",
                       ["negotiation", "rate card", "Phase 5"]),
+    "deal-room":     ("🗂", "MONEY",   "gold", "you want to manage a deal from offer to paid, not just analyze it once.",
+                      ["deal pipeline", "scripts", "Phase 5"]),
     "hiring-calculator": ("⚒", "MONEY", "gold", "you're about to hire someone and want the real numbers first.",
                       ["first hire", "costs", "Phase 7 · 8"]),
     "repurpose":     ("⇄", "CONTENT", "coral", "one good idea should feed five platforms.",
@@ -703,6 +736,7 @@ def build():
         "calculator": ["assets/js/calculator.js"],
         "planner": ["assets/js/planner.js"],
         "deal-analyzer": ["assets/js/deal-analyzer.js"],
+        "deal-room": ["assets/js/deal-room.js", "assets/js/deal-room-ui.js"],
         "hiring-calculator": ["assets/js/hiring-calculator.js"],
         "repurpose": ["assets/js/repurpose.js"],
         "simulator": ["assets/js/sim-engine.js", "assets/js/simulator.js"],
@@ -883,7 +917,7 @@ def build():
   <span>DIVERSIFY REVENUE</span><span>SEPARATE THE MONEY</span><span>SYSTEMS BEAT HUSTLE</span>
 </div></section>
 <section class="section"><div class="section-head"><h2>The Empire Map</h2><span class="section-tag">9 levels // clear them all</span></div><div class="phase-grid reveal-stagger">{cards}</div></section>
-<section class="section"><div class="section-head"><h2>Command Center</h2><span class="section-tag">weapons free</span><a href="tools.html" class="section-more">All 9 tools →</a></div><div class="tool-grid reveal-stagger">{tools_html}</div></section>
+<section class="section"><div class="section-head"><h2>Command Center</h2><span class="section-tag">weapons free</span><a href="tools.html" class="section-more">All 10 tools →</a></div><div class="tool-grid reveal-stagger">{tools_html}</div></section>
 {case_section}
 <section class="section"><div class="section-head"><h2>Hottest topics right now</h2><span class="section-tag">live feed // trend-machine</span></div>
 <div class="hud-panel trends-hud reveal">
@@ -986,6 +1020,19 @@ def build():
             "freshness_note": "Verify platform figures live before acting on them — see the payload's own updated/version fields. Treat undated numbers as stale.",
         },
         {
+            "id": "deal-templates",
+            "kind": "json",
+            "path": "api/v1/deal-templates.json",
+            "description": "The Deal Room data contract: negotiation scripts (lowball counter, usage-rights upsell, exclusivity pushback, rush-fee ask — with {{placeholders}}), the red-flag checklist with severity levels and scoring rules, and usage-rights pricing tiers with reported vs. definitional multiplier basis. A negotiation aid, not financial/legal/tax advice.",
+            "schema": "api/v1/schema/deal-templates.json",
+            "updated": BUILD_TS,
+            "records": None,
+            "records_note": "Data contract, not a record list: 4 negotiation scripts, 6 red-flag items, 6 usage-rights tiers.",
+            "deprecated": False,
+            "deprecation_note": None,
+            "freshness_note": "Multipliers are reported 2026 benchmarks and ranges, not quotes. Verify against current creator rate reports before quoting.",
+        },
+        {
             "id": "skills",
             "kind": "json",
             "path": "api/v1/skills.json",
@@ -1011,7 +1058,7 @@ def build():
             "id": "tools",
             "kind": "json",
             "path": "api/v1/tools.json",
-            "description": "All nine interactive tools with programmatic input schemas (JSON Schema draft-07), output descriptions, and drive notes — replicate the tools' logic without the UI.",
+            "description": "All ten interactive tools with programmatic input schemas (JSON Schema draft-07), output descriptions, and drive notes — replicate the tools' logic without the UI.",
             "schema": "api/v1/schema/tools.json",
             "updated": BUILD_TS,
             "records": len(TOOLS_API),
@@ -1035,7 +1082,7 @@ def build():
             "id": "tool-pages",
             "kind": "html",
             "paths": [f"{slug}.html" for slug, _, _ in TOOLS],
-            "description": "The nine interactive tools' human UI pages. Agents should prefer api/v1/tools.json input schemas over scraping these pages.",
+            "description": "The ten interactive tools' human UI pages. Agents should prefer api/v1/tools.json input schemas over scraping these pages.",
             "schema": None,
             "updated": BUILD_TS,
             "records": len(TOOLS),
@@ -1061,10 +1108,11 @@ def build():
                 "case-file.json — case-file record",
                 "tools.json — tools doc",
                 "tool.json — tool record",
+                "deal-templates.json — deal-room data contract",
             ],
             "schema": None,
             "updated": BUILD_TS,
-            "records": 13,
+            "records": 14,
             "deprecated": False,
             "deprecation_note": None,
         },
@@ -1095,11 +1143,12 @@ def build():
     shutil.copy(DATA / "glossary.json", API / "glossary.json")
     shutil.copy(DATA / "calculators.json", API / "calculators.json")
     shutil.copy(DATA / "niches.json", API / "niches.json")
+    shutil.copy(DATA / "deal-templates.json", API / "deal-templates.json")
 
     # ---- tools.json: every tool with its programmatic input schema ----
     (API / "tools.json").write_text(json.dumps({
         "version": "1.0.0", "updated": "2026-10-11",
-        "note": ("Programmatic input schemas for the nine interactive tools. "
+        "note": ("Programmatic input schemas for the ten interactive tools. "
                  "Agents replicate each tool's logic by feeding these inputs to the "
                  "documented formulas / shipped JS (assets/js/<id>.js); the UI pages "
                  "are the human front-end for the same logic."),
@@ -1415,7 +1464,7 @@ def build():
     for slug, title, desc in TOOLS:
         llms.append(f"- [{title}]({slug}.html) — {desc}")
     llms += ["- [Glossary](glossary.html)", "",
-             "All nine tools, grouped by job (Plan / Money / Content): [Tools hub](tools.html).",
+             "All ten tools, grouped by job (Plan / Money / Content): [Tools hub](tools.html).",
              "", "## Reference"]
     for m in reference_meta:
         llms.append(f"- [{m['badge']}: {m['title']}]({m['path']}) — {m['read_minutes']} min read")
@@ -1435,10 +1484,11 @@ def build():
              "- api/v1/skills.json",
              "- api/v1/case-files.json",
              "- api/v1/tools.json — every tool's programmatic input schema",
+             "- api/v1/deal-templates.json — Deal Room data: negotiation scripts, red-flag checklist, usage-rights tiers",
              "- api/v1/schema/ — JSON Schema (draft-07) for every endpoint",
              "", "## Agents",
-             "- AGENT.md — how an agent uses this site: base URL pattern, example requests, 4 end-to-end workflows, tool input schemas",
-             "- [Agents](agents.html) — the agent surface: endpoint table, all skills, data freshness policy, 4 worked agent workflows",
+             "- AGENT.md — how an agent uses this site: base URL pattern, example requests, 5 end-to-end workflows, tool input schemas",
+             "- [Agents](agents.html) — the agent surface: endpoint table, all skills, data freshness policy, 5 worked agent workflows",
              "- [API Explorer](api-explorer.html) — browse api/v1 endpoints, preview JSON in-browser",
              "- llms.txt (this file) — quick agent orientation",
              "- llms-full.txt — complete guide text, all chapters + reference + guides + agents",

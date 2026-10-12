@@ -65,6 +65,19 @@
       "freshness_note": "Verify platform figures live before acting on them \u2014 see the payload's own updated/version fields. Treat undated numbers as stale."
     },
     {
+      "id": "deal-templates",
+      "kind": "json",
+      "path": "api/v1/deal-templates.json",
+      "description": "The Deal Room data contract: negotiation scripts (lowball counter, usage-rights upsell, exclusivity pushback, rush-fee ask \u2014 with {{placeholders}}), the red-flag checklist with severity levels and scoring rules, and usage-rights pricing tiers with reported vs. definitional multiplier basis. A negotiation aid, not financial/legal/tax advice.",
+      "schema": "api/v1/schema/deal-templates.json",
+      "updated": "2026-10-11T00:00:00Z",
+      "records": null,
+      "records_note": "Data contract, not a record list: 4 negotiation scripts, 6 red-flag items, 6 usage-rights tiers.",
+      "deprecated": false,
+      "deprecation_note": null,
+      "freshness_note": "Multipliers are reported 2026 benchmarks and ranges, not quotes. Verify against current creator rate reports before quoting."
+    },
+    {
       "id": "skills",
       "kind": "json",
       "path": "api/v1/skills.json",
@@ -90,10 +103,10 @@
       "id": "tools",
       "kind": "json",
       "path": "api/v1/tools.json",
-      "description": "All nine interactive tools with programmatic input schemas (JSON Schema draft-07), output descriptions, and drive notes \u2014 replicate the tools' logic without the UI.",
+      "description": "All ten interactive tools with programmatic input schemas (JSON Schema draft-07), output descriptions, and drive notes \u2014 replicate the tools' logic without the UI.",
       "schema": "api/v1/schema/tools.json",
       "updated": "2026-10-11T00:00:00Z",
-      "records": 9,
+      "records": 10,
       "deprecated": false,
       "deprecation_note": null
     },
@@ -119,16 +132,17 @@
         "calculator.html",
         "planner.html",
         "deal-analyzer.html",
+        "deal-room.html",
         "hiring-calculator.html",
         "repurpose.html",
         "simulator.html",
         "api-explorer.html",
         "hook-builder.html"
       ],
-      "description": "The nine interactive tools' human UI pages. Agents should prefer api/v1/tools.json input schemas over scraping these pages.",
+      "description": "The ten interactive tools' human UI pages. Agents should prefer api/v1/tools.json input schemas over scraping these pages.",
       "schema": null,
       "updated": "2026-10-11T00:00:00Z",
-      "records": 9,
+      "records": 10,
       "deprecated": false,
       "deprecation_note": null
     },
@@ -150,11 +164,12 @@
         "case-files.json \u2014 case-files doc",
         "case-file.json \u2014 case-file record",
         "tools.json \u2014 tools doc",
-        "tool.json \u2014 tool record"
+        "tool.json \u2014 tool record",
+        "deal-templates.json \u2014 deal-room data contract"
       ],
       "schema": null,
       "updated": "2026-10-11T00:00:00Z",
-      "records": 13,
+      "records": 14,
       "deprecated": false,
       "deprecation_note": null
     }

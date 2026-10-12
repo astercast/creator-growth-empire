@@ -136,6 +136,37 @@ Goal: run two paths over the same 12 months, get the delta table and the
    assumptions from `assumptionLines()` attached. Never present scenario
    revenue as expected income.
 
+### Workflow 5 — Manage a sponsorship deal end-to-end (The Deal Room)
+
+Goal: take a live offer from first read to a signed-paper record — scored,
+priced, flag-checked, scripted, and memorized — all via API.
+
+1. `GET api/v1/deal-templates.json` → the Deal Room data contract: 4
+   negotiation scripts, 6 red-flag items, 6 usage-rights tiers, and the
+   scoring rules. Drive the logic with
+   `require("assets/js/deal-room.js")` (UMD, importable in node).
+2. Score the offer. `DealRoom.tierOf(60000)` → `micro_10k_100k`;
+   `calculators.json` `per_video_or_post_by_tier` YouTube →
+   **$1,000–$10,000**. `scoreOffer(5000, 1000, 10000)` → **FAIR** with the
+   ~23% listed-vs-accepted honesty note.
+3. Price usage rights as a separate line item. The offer asks for a 6-month
+   paid-ads window: `priceUsage(10000, "paid_180", tiers)` → **+$7,500**
+   (1.75×, reported +75% — midpoint of the wave-2 +50–100% research band),
+   counter total **$17,500**. Whitelisting and buyout have no research-backed
+   multiplier: the engine returns guidance, never a fake number.
+4. Run the red-flag checklist. `redFlagScore(["unlimited_revisions"], flags)`
+   → **walk away** — unlimited revisions is one of the four walk-away
+   signals (with perpetual-usage-for-organic-price, net-90+ without escrow,
+   and no kill fee).
+5. Render the reply. `renderScript(lowball_counter, {brand, counter, …})`
+   fills `{{placeholders}}` from the deal; unknown keys stay visible so
+   nothing silently lies. Scripts: lowball counter, usage-rights upsell,
+   exclusivity pushback, rush-fee ask (rush fee carries a fill-in rate —
+   no research benchmark exists).
+6. Export the record. `dealMemo(deal, scored, flags)` builds the one-page
+   summary (terms, FAIR verdict, checked flags, counters) with the
+   not-financial/legal/tax-advice disclaimer attached.
+
 ## Rate & expectation notes
 
 - **Static JSON.** Nothing here is live: no request counts, no streaming, no
@@ -166,6 +197,7 @@ explaining how to replicate the logic:
 | Revenue Calculator | `niche` (RPM-band key) + monthly long-form/shorts views + sponsor deals + sponsor views + affiliate $ | `views/1000 × RPM band` per stream from `calculators.json`; affiliate ±30% |
 | 90-Day Planner | `longform_per_week` (0–7), `shorts_per_week` (0–21), `platforms[]`, `rest_day` (0–6) | Spread long-form across non-rest days, shorts 2 days apart, 13 weeks |
 | Sponsor Deal Analyzer | `platform`, `deliverable`, `followers`, `offer_usd` + `usage_rights`, `whitelisting`, `exclusivity`, `payment_terms` | Followers → tier → rate-card range; counter = range top + line items (see Workflow 1) |
+| The Deal Room | `brand`, `platform`, `followers`, `deliverable`, `expected_views`, `offer_usd`, `usage_rights`, `exclusivity`, `payment_terms`, `timeline`, `status` (offer → negotiating → signed → delivered → paid) | `require("assets/js/deal-room.js")` — `scoreOffer()` for the verdict, `priceUsage()` for usage line items (reported +50/+75/+100% band; no invented whitelisting/buyout multipliers), `redFlagScore()` for the checklist, `renderScript()` for the 4 negotiation scripts, `dealMemo()` for the one-page record; scripts + checklist + tiers from `api/v1/deal-templates.json` — see Workflow 5 |
 | Hiring Cost Calculator | `role`, `billing_model`, `rate_usd` + hours/units/views/`niche` | Sticker → loaded ×1.15; coverage views = loaded ÷ RPM band × 1000; 3-month reserve rule |
 | Repurposing Planner | `idea` (one sentence) + `source_format` | Atom test → pillar prep → 5 staggered mission cards (YT Day 0, Short +1, TikTok +2, Reel +3, FB +4) |
 | Empire Simulator | `niche`, `startSubs`, cadence, `quality`, `growthRate`, `q4Uplift`, monetization toggles, `scenario_id`, `horizon` (12/24), `hires[]`, `compare_with` | `require("assets/js/sim-engine.js").simulate(inputs, calculatorsJson)` — plus `scenarioInputs(id)`, `compare(nameA,a,nameB,b,cfg)`, `assumptionLines()`, `exportPlan()` — see Workflows 3–4 |

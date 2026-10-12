@@ -26,7 +26,10 @@ Skill index: `version`, `updated`, `skills: [{ "name", "description", "path" }]`
 Case-file index: `version`, `updated`, `note`, `case_files: [{ "id", "badge", "title", "path", "words", "read_minutes" }]` for all five documented creator-business deconstructions (budget-grocery newsletter, Ben's Bites, faceless sleep-channel network, Mavwicks on TikTok Shop, cohort course). Full text on the `case-*.html` pages. Figures are source-reported, not audited — never present as promises.
 
 ### `GET api/v1/tools.json`
-`{ "version", "updated", "note", "tools": [{ "id", "title", "description", "page", "input_schema", "output", "drive_notes" }] }` — all nine interactive tools with programmatic input schemas (JSON Schema draft-07), output descriptions, and drive notes. Replicate any tool's logic without the UI; the `*.html` tool pages are the human front-end for the same logic.
+`{ "version", "updated", "note", "tools": [{ "id", "title", "description", "page", "input_schema", "output", "drive_notes" }] }` — all ten interactive tools with programmatic input schemas (JSON Schema draft-07), output descriptions, and drive notes. Replicate any tool's logic without the UI; the `*.html` tool pages are the human front-end for the same logic.
+
+### `GET api/v1/deal-templates.json`
+`{ "version", "updated", "disclaimer", "usage_rights_tiers": [{ "id", "label", "description", "multiplier", "multiplier_label", "basis", "reported" }], "negotiation_scripts": [{ "id", "title", "when", "body", "tip", "grounded_in" }], "red_flags": [{ "id", "title", "severity", "detail", "fix" }], "scoring": { "note", "rules" } }` — the Deal Room data contract: 6 usage-rights tiers (organic / paid-30d / paid-6mo / paid-12mo / whitelisting / buyout) with reported-vs-definitional multiplier basis, 4 negotiation scripts with `{{placeholders}}`, and the red-flag checklist with severities (`walk_away` / `major` / `minor`) plus scoring rules. Multipliers are reported 2026 research ranges, never quotes. **Not financial, legal, or tax advice.**
 
 ### API Explorer (`api-explorer.html`)
 
@@ -53,6 +56,7 @@ deployed, offline-safe, no server required.
 - `skills.json` — skills doc; `skill.json` — skill record
 - `case-files.json` — case-files doc; `case-file.json` — case-file record
 - `tools.json` — tools doc; `tool.json` — tool record
+- `deal-templates.json` — deal-room data contract (scripts, red-flag checklist, usage-rights tiers inline)
 
 ## llms.txt
 
@@ -61,7 +65,7 @@ deployed, offline-safe, no server required.
 
 ## AGENT.md
 
-`AGENT.md` (repo root) — how an agent uses this site: base URL pattern, key endpoints with example requests, 3 end-to-end worked workflows (sponsorship evaluation, 90-day launch, sim scenario), rate/expectation notes, per-tool programmatic input shapes, honesty rules. Every workflow is executed against the real `api/v1/` JSON files by `tests/agent-workflows.test.js`.
+`AGENT.md` (repo root) — how an agent uses this site: base URL pattern, key endpoints with example requests, 5 end-to-end worked workflows (sponsorship evaluation, 90-day launch, sim scenario, sim A/B, deal-room pipeline), rate/expectation notes, per-tool programmatic input shapes, honesty rules. Every workflow is executed against the real `api/v1/` JSON files by `tests/agent-workflows.test.js`.
 
 ## Shared API conventions (all sites)
 - Base: `api/v1/` relative to the site root. Works on any static host; no auth, no keys, no rate limits.

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Deal Room — Creator Growth Empire</title>
+<meta name="description" content="From $0 to a multi-million-dollar creator company.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,600;0,800;0,900;1,900&family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/layout.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/hub.css">
+<script src="assets/js/deal-room.js"></script><script src="assets/js/deal-room-ui.js"></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <a class="brand" href="index.html"><span class="brand-mark">▲</span> Creator Growth Empire</a>
+  <nav class="site-nav" aria-label="Primary"><a href="index.html" class="nav-link">Empire Map</a><a href="tools.html" class="nav-link active">Tools</a><a href="case-files.html" class="nav-link">Case Files</a><a href="glossary.html" class="nav-link">Glossary</a><a href="agents.html" class="nav-link">Agents</a></nav>
+  <button class="nav-toggle" aria-expanded="false" aria-controls="mobileNav" aria-label="Menu">☰</button>
+</header>
+<nav id="mobileNav" class="mobile-nav" aria-label="Mobile"><a href="index.html" class="nav-link">Empire Map</a><a href="tools.html" class="nav-link active">All tools</a><a href="quiz.html" class="nav-link">Niche Picker</a><a href="calculator.html" class="nav-link">Revenue Calc</a><a href="planner.html" class="nav-link">90-Day Plan</a><a href="deal-analyzer.html" class="nav-link">Deal Analyzer</a><a href="hiring-calculator.html" class="nav-link">Hire Calc</a><a href="repurpose.html" class="nav-link">Repurpose Plan</a><a href="simulator.html" class="nav-link">Simulator</a><a href="case-files.html" class="nav-link">All case files</a><a href="glossary.html" class="nav-link">Glossary</a><a href="agents.html" class="nav-link">Agents</a></nav>
+<main id="main"><div class="tool-page"><div class="hud-panel"><div class="hud-head"><span>TOOL // 05 — THE DEAL ROOM</span><span class="hud-status">SYSTEMS ONLINE</span></div><div class="hud-body"><h1>The Deal Room</h1><p class="lede">Manage the whole deal: track offers through signing, price usage rights, rehearse negotiations, export your memo.</p></div></div><div id="deal-room">
+<p class="lede">The full deal pipeline: log offers, score them against the 2026 rate card, price usage rights as separate line items, rehearse what to say, and export a clean memo. Everything lives in your browser — no accounts, no uploads.</p>
+<p class="muted">One-off offer to benchmark first? Start with the <a href="deal-analyzer.html">Sponsor Deal Analyzer</a>, then log it here to manage the whole deal.</p>
+
+<h2>1 · Deal tracker</h2>
+<form id="dr-form" aria-label="Log a sponsorship deal">
+  <div class="calc-grid">
+    <label>Brand <input type="text" id="dr-brand" required maxlength="120" placeholder="e.g. Ridge Wallet"></label>
+    <label>Platform
+      <select id="dr-platform">
+        <option value="youtube" selected>YouTube</option>
+        <option value="tiktok">TikTok</option>
+        <option value="instagram">Instagram</option>
+      </select></label>
+    <label>Follower count <input type="number" id="dr-followers" min="0" step="1000" value="50000"></label>
+    <label>Deliverable
+      <select id="dr-deliverable">
+        <option value="integrated" selected>Integrated slot (mid-roll mention)</option>
+        <option value="dedicated">Dedicated video (brand is the video)</option>
+        <option value="short">Short-form video (Short / TikTok / Reel)</option>
+      </select></label>
+    <label>Avg. views per video (last 10) <input type="number" id="dr-views" min="0" step="1000" value="25000"></label>
+    <label>Offered pay ($) <input type="number" id="dr-offer" min="0" step="50" value="1200"></label>
+    <label>Usage rights
+      <select id="dr-usage">
+        <option value="organic" selected>Organic only — stays on my channel</option>
+        <option value="paid30">Paid ads, 30 days</option>
+        <option value="paid180">Paid ads, 6 months</option>
+        <option value="paid365">Paid ads, 12 months</option>
+        <option value="perpetual">Unlimited / perpetual</option>
+      </select></label>
+    <label>Exclusivity
+      <select id="dr-excl">
+        <option value="none" selected>None</option>
+        <option value="30">No competitor sponsors, 30 days</option>
+        <option value="90">No competitor sponsors, 60–90 days</option>
+        <option value="broad">Broad / category lock, 6+ months</option>
+      </select></label>
+    <label>Payment terms
+      <select id="dr-pay">
+        <option value="15">Net 15 or better</option>
+        <option value="30" selected>Net 30</option>
+        <option value="60">Net 60</option>
+        <option value="90">Net 90+</option>
+      </select></label>
+    <label>Timeline / due date <input type="text" id="dr-timeline" maxlength="80" placeholder="e.g. Draft by Nov 1"></label>
+    <label>Notes <input type="text" id="dr-notes" maxlength="280" placeholder="e.g. Agency contact, kill fee agreed"></label>
+  </div>
+  <button type="submit" class="btn btn-primary">Log deal →</button>
+</form>
+<p id="dr-confirm" role="status" aria-live="polite" class="muted"></p>
+<div style="margin:1.25rem 0">
+  <label>Filter by status <select id="dr-filter">
+    <option value="all" selected>All</option>
+    <option value="offer">Offer</option>
+    <option value="negotiating">Negotiating</option>
+    <option value="signed">Signed</option>
+    <option value="delivered">Delivered</option>
+    <option value="paid">Paid</option>
+  </select></label>
+</div>
+<ul id="dr-deals" aria-live="polite"></ul>
+<p class="muted">Deals live in this browser only (localStorage). Score each deal against the 2026 rate card — fair / under / over — with the ~23%-above-accepted honesty note: creators list rates ~23% above what they accept, so quote high and expect to be negotiated down.</p>
+
+<h2>2 · Usage-rights pricing calculator</h2>
+<form id="dr-usage-form" aria-label="Price usage rights">
+  <div class="calc-grid">
+    <label>Base post fee ($) <input type="number" id="dr-base" min="0" step="50" value="1000"></label>
+    <label>Usage tier
+      <select id="dr-tier">
+        <option value="organic" selected>Organic only</option>
+        <option value="paid_30">Paid ads, 30 days</option>
+        <option value="paid_180">Paid ads, 6 months</option>
+        <option value="paid_365">Paid ads, 12 months</option>
+        <option value="whitelisting">Whitelisting — ads from YOUR account</option>
+        <option value="buyout">Full buyout — all rights, forever</option>
+      </select></label>
+  </div>
+  <div class="calc-grid" id="dr-white-extra" style="display:none">
+    <label>Your monthly whitelisting premium ($) <input type="number" id="dr-white-rate" min="0" step="25" value="250"></label>
+    <label>Months <input type="number" id="dr-white-months" min="1" step="1" value="1"></label>
+  </div>
+  <button type="submit" class="btn btn-primary">Price it →</button>
+</form>
+<div id="dr-usage-out" aria-live="polite" style="margin-top:1.5rem"></div>
+<p class="muted">Multipliers are reported 2026 research ranges — the wave-2 band puts paid-ad usage at +50–100% on top of the post fee. Whitelisting and buyouts have no safe research multiplier, so the calculator refuses to invent one.</p>
+
+<h2>3 · Negotiation scripts</h2>
+<p class="muted">Fill in your context once — every script below updates live, and each copies to your clipboard with one tap.</p>
+<form id="dr-script-ctx" aria-label="Script context">
+  <div class="calc-grid">
+    <label>Brand <input type="text" name="brand" placeholder="e.g. Ridge Wallet"></label>
+    <label>Your avg. views <input type="text" name="views_avg" placeholder="e.g. 25,000"></label>
+    <label>Your range floor ($) <input type="text" name="range_lo" placeholder="e.g. 1,000"></label>
+    <label>Your range ceiling ($) <input type="text" name="range_hi" placeholder="e.g. 10,000"></label>
+    <label>Your counter ($) <input type="text" name="counter" placeholder="e.g. 10,000"></label>
+    <label>Deliverable <input type="text" name="deliverable" placeholder="e.g. integrated slot"></label>
+    <label>Usage tier <input type="text" name="usage_tier_label" placeholder="e.g. Paid ads, 30 days"></label>
+    <label>Usage line item ($) <input type="text" name="usage_addon" placeholder="e.g. 5,000"></label>
+    <label>Post fee ($) <input type="text" name="post_fee" placeholder="e.g. 10,000"></label>
+    <label>Exclusivity term <input type="text" name="exclusivity_term" placeholder="e.g. 30 days"></label>
+    <label>Exclusivity fee ($) <input type="text" name="exclusivity_fee" placeholder="e.g. 2,500"></label>
+    <label>Turnaround they want <input type="text" name="turnaround" placeholder="e.g. 48-hour"></label>
+    <label>Your normal turnaround <input type="text" name="standard_turnaround" placeholder="e.g. two weeks"></label>
+    <label>Rush premium (%) <input type="text" name="rush_percent" placeholder="e.g. 30 — you set this, no benchmark"></label>
+  </div>
+</form>
+<div id="dr-scripts" aria-live="polite"></div>
+<p id="dr-copy-live" role="status" aria-live="polite" class="muted"></p>
+
+<h2>4 · Red-flag checklist</h2>
+<form id="dr-flags" aria-label="Deal red-flag checklist"></form>
+<div id="dr-flags-out" aria-live="polite" style="margin-top:1.25rem"></div>
+<p class="muted">Scores the deal's contract structure — not its pay, which the tracker benchmarks separately. Check everything the offer actually contains; your selections persist in this browser.</p>
+
+<h2>5 · Copy my deal memo</h2>
+<div class="calc-grid">
+  <label>Deal <select id="dr-memo-deal"><option value="">No deals logged yet</option></select></label>
+</div>
+<div id="dr-memo-out" aria-live="polite" style="margin-top:1.25rem"></div>
+<div class="memo-actions">
+  <button type="button" class="btn btn-primary" id="dr-copy-memo">Copy deal memo</button>
+  <button type="button" class="btn btn-ghost" id="dr-download-memo">Download .txt</button>
+</div>
+<p class="muted">A one-page summary for your records: terms, rate-card score, red flags, and your counters. A negotiation aid, not financial, legal, or tax advice. Benchmarks disagree 2–3x within tiers — verify against current creator rate reports before you quote.</p>
+</div>
+<noscript><p><strong>The Deal Room needs JavaScript</strong> — the tracker, calculators, and checklists run entirely in your browser with no server. The 2026 rate card benchmarks live at <a href="rate-card.html">rate-card.html</a> and as machine-readable data at <a href="api/v1/deal-templates.json">api/v1/deal-templates.json</a>.</p></noscript>
+</div></main>
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <div class="foot-brand"><span class="brand-mark">▲</span> Creator Growth Empire</div>
+      <p class="muted">From $0 to a multi-million-dollar creator company.</p>
+      <div class="sticker-row" style="margin:1rem 0 0">
+        <span class="sticker sticker-ghost">No guru hype</span>
+        <span class="sticker sticker-ghost">2026 verified</span>
+      </div>
+    </div>
+    <nav aria-label="Phases">
+      <strong class="muted" style="font-size:.78rem;letter-spacing:.12em">PHASES</strong>
+      <a href="phase-0-start-from-nothing.html">Phase 0 — Start From Nothing</a>
+      <a href="phase-2-youtube-mastery.html">Phase 2 — YouTube Mastery</a>
+      <a href="phase-5-monetization-stack.html">Phase 5 — Monetization Stack</a>
+      <a href="phase-7-the-business.html">Phase 7 — The Business</a>
+    </nav>
+    <nav aria-label="Tools">
+      <strong class="muted" style="font-size:.78rem;letter-spacing:.12em">TOOLS</strong>
+      <a href="tools.html">All tools →</a>
+      <a href="quiz.html">Niche Picker</a>
+      <a href="calculator.html">Revenue Calculator</a>
+      <a href="planner.html">90-Day Planner</a>
+      <a href="deal-analyzer.html">Sponsor Deal Analyzer</a>
+      <a href="hiring-calculator.html">Hiring Cost Calculator</a>
+      <a href="repurpose.html">Repurposing Planner</a>
+      <a href="simulator.html">Empire Simulator</a>
+      <a href="api-explorer.html">API Explorer</a>
+      <a href="glossary.html">Glossary</a>
+      <a href="agents.html">Agents</a>
+    </nav>
+    <nav aria-label="Case Files">
+      <strong class="muted" style="font-size:.78rem;letter-spacing:.12em">CASE FILES</strong>
+      <a href="case-files.html">All case files →</a>
+      <a href="case-budget-grocery.html">The Budget-Grocery Newsletter</a>
+      <a href="case-bens-bites.html">Ben's Bites</a>
+      <a href="case-sleep-channels.html">The Sleep-Channel Network</a>
+      <a href="case-mavwicks.html">Mavwicks on TikTok Shop</a>
+      <a href="case-ptya.html">The Cohort Course</a>
+    </nav>
+  </div>
+  <div class="footer-fine">PRIVATE RESEARCH ARCHIVE · PLATFORM FACTS VERIFIED OCT 2026 — VERIFY LIVE BEFORE ACTING · NOT FINANCIAL, LEGAL, OR TAX ADVICE</div>
+</footer>
+<script src="assets/js/site.js"></script>
+</body>
+</html>

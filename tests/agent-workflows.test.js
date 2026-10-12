@@ -1,6 +1,6 @@
 /* tests/agent-workflows.test.js — wave 12.
  *
- * Executes the 3 end-to-end workflows documented in AGENT.md against the
+ * Executes the 5 end-to-end workflows documented in AGENT.md against the
  * REAL local api/v1 JSON files (plus the shipped sim engine, which is UMD
  * and require()-able in node). This proves the agent workflows actually
  * work — they are not aspirational pseudocode.
@@ -67,7 +67,7 @@ function check(name, cond, detail) {
 
   // tools.json drives the planner config shape
   const tools = load("tools.json").tools;
-  check("wf2: tools.json lists all 9 tools", tools.length === 9, String(tools.length));
+  check("wf2: tools.json lists all 10 tools", tools.length === 10, String(tools.length));
   const planner = tools.find((t) => t.id === "planner");
   const schema = planner && planner.input_schema;
   check("wf2: planner input schema exposes cadence fields",
@@ -202,6 +202,61 @@ function check(name, cond, detail) {
   const y2 = EmpireSim.simulate(Object.assign({}, tech, { horizon: 24 }), cfg);
   check("wf4: 24-month run diminishes after month 12",
     y2.months.length === 24 && y2.months[12].growthRate < y2.months[11].growthRate);
+})();
+
+/* ============ Workflow 5: manage a sponsorship deal end-to-end ============
+ * AGENT.md §Workflow 5: score the offer, price usage rights, check red
+ * flags, render the negotiation script, and export the deal memo — all
+ * against the real deal-templates.json + calculators.json, via the shipped
+ * Deal Room engine (assets/js/deal-room.js, UMD, require()-able). */
+(function workflow5() {
+  const DealRoom = require(path.join(__dirname, "..", "assets", "js", "deal-room.js"));
+  const rc = load("calculators.json").sponsorship_rate_card_2026;
+  const tpl = load("deal-templates.json");
+
+  // the data contract is complete
+  check("wf5: deal-templates.json carries 4 scripts, 6 red flags, 6 usage tiers",
+    tpl.negotiation_scripts.length === 4 && tpl.red_flags.length === 6 &&
+    tpl.usage_rights_tiers.length === 6,
+    `${tpl.negotiation_scripts.length}/${tpl.red_flags.length}/${tpl.usage_rights_tiers.length}`);
+  check("wf5: disclaimer carries the not-financial/legal/tax-advice line",
+    /not financial, legal, or tax advice/i.test(tpl.disclaimer));
+
+  // 1. score: $5,000 YouTube integrated slot, 60K-sub creator -> micro tier
+  const tier = DealRoom.tierOf(60000);
+  const range = rc.per_video_or_post_by_tier[tier].youtube; // [1000, 10000]
+  check("wf5: 60K subs -> micro_10k_100k, YouTube range $1,000–$10,000",
+    tier === "micro_10k_100k" && range[0] === 1000 && range[1] === 10000);
+  const scored = DealRoom.scoreOffer(5000, range[0], range[1]);
+  check("wf5: $5,000 inside the band -> FAIR verdict", scored.verdict === "fair" && scored.badge === "FAIR");
+  check("wf5: verdict carries the ~23% honesty note", /23%/.test(scored.note));
+
+  // 2. usage rights: 6-month paid-ads window on a $10,000 base (top of range)
+  const usage = DealRoom.priceUsage(10000, "paid_180", tpl.usage_rights_tiers);
+  check("wf5: paid 6mo usage = +$7,500 line item ($17,500 total)",
+    usage.addonLo === 7500 && usage.totalLo === 17500, `${usage.addonLo}/${usage.totalLo}`);
+  check("wf5: the tier is flagged as reported research", usage.reported === true);
+
+  // 3. red flags: unlimited revisions alone is a walk-away signal
+  const r = DealRoom.redFlagScore(["unlimited_revisions"], tpl.red_flags);
+  check("wf5: unlimited revisions -> walk away", r.verdict === "walk_away");
+
+  // 4. negotiation script: lowball counter renders with the deal's numbers
+  const script = tpl.negotiation_scripts.find((x) => x.id === "lowball_counter");
+  const text = DealRoom.renderScript(script, { brand: "Acme", counter: "10,000", views_avg: "85,000",
+    range_lo: "1,000", range_hi: "10,000", deliverable: "integrated slot" });
+  check("wf5: script fills known vars, keeps unknowns visible",
+    text.includes("Acme") && text.includes("10,000") && !text.includes("{{brand}}"));
+
+  // 5. deal memo: one-page record with verdict + disclaimer
+  const memo = DealRoom.dealMemo(
+    { brand: "Acme", status: "negotiating", deliverable: "Integrated slot", platform: "YouTube",
+      offer: 5000, usage: "Paid ads, 6 months", exclusivity: "30 days", payTerms: "Net 30",
+      timeline: "Draft by Nov 1", createdAt: "2026-10-11" },
+    scored, { verdictText: "Walk away — unlimited revisions.", checkedTitles: ["Unlimited revisions"] });
+  check("wf5: memo names the brand, verdict, and red flag",
+    memo.startsWith("DEAL MEMO — Acme") && memo.includes("FAIR") && memo.includes("Unlimited revisions"));
+  check("wf5: memo carries the disclaimer", /not financial, legal, or tax advice/i.test(memo));
 })();
 
 console.log(`\nagent-workflows: ${pass} passed, ${fail} failed`);

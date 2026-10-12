@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
   "updated": "2026-10-11",
-  "note": "Programmatic input schemas for the nine interactive tools. Agents replicate each tool's logic by feeding these inputs to the documented formulas / shipped JS (assets/js/<id>.js); the UI pages are the human front-end for the same logic.",
+  "note": "Programmatic input schemas for the ten interactive tools. Agents replicate each tool's logic by feeding these inputs to the documented formulas / shipped JS (assets/js/<id>.js); the UI pages are the human front-end for the same logic.",
   "tools": [
     {
       "id": "quiz",
@@ -281,6 +281,110 @@
       },
       "output": "Verdict (UNDERPAID / FAIR / STRONG), benchmark range, implied CPM vs rate-card CPMs, red-flag checklist (usage, whitelisting, exclusivity, payment), counter-offer worksheet with line items.",
       "drive_notes": "Logic (assets/js/deal-analyzer.js): followers \u2192 tier (nano/micro/macro/mega) \u2192 per_video_or_post_by_tier range for platform; verdict = offer vs range; counter starts at range top (creators list ~23% above what they accept) + usage line items (paid30 +50%, paid180 +75%, paid365 +100%) + exclusivity (30d +25%, 60\u201390d +50%). Negotiation aid, not financial advice."
+    },
+    {
+      "id": "deal-room",
+      "title": "The Deal Room",
+      "description": "Manage the whole deal: track offers through signing, price usage rights, rehearse negotiations, export your memo.",
+      "page": "deal-room.html",
+      "input_schema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "title": "DealRoomInput",
+        "type": "object",
+        "required": [
+          "brand",
+          "platform",
+          "followers",
+          "offer_usd"
+        ],
+        "properties": {
+          "brand": {
+            "type": "string",
+            "description": "Brand making the offer."
+          },
+          "platform": {
+            "type": "string",
+            "enum": [
+              "youtube",
+              "tiktok",
+              "instagram"
+            ]
+          },
+          "followers": {
+            "type": "number",
+            "minimum": 0
+          },
+          "deliverable": {
+            "type": "string",
+            "enum": [
+              "integrated",
+              "dedicated",
+              "short"
+            ],
+            "default": "integrated"
+          },
+          "expected_views": {
+            "type": "number",
+            "minimum": 0,
+            "default": 0,
+            "description": "Last-10-video average; the number sponsors buy."
+          },
+          "offer_usd": {
+            "type": "number",
+            "minimum": 0
+          },
+          "usage_rights": {
+            "type": "string",
+            "enum": [
+              "organic",
+              "paid30",
+              "paid180",
+              "paid365",
+              "perpetual"
+            ],
+            "default": "organic"
+          },
+          "exclusivity": {
+            "type": "string",
+            "enum": [
+              "none",
+              "30",
+              "90",
+              "broad"
+            ],
+            "default": "none"
+          },
+          "payment_terms": {
+            "type": "string",
+            "enum": [
+              "15",
+              "30",
+              "60",
+              "90"
+            ],
+            "default": "30",
+            "description": "Net payment terms in days."
+          },
+          "timeline": {
+            "type": "string",
+            "description": "Due date / delivery window as written in the offer."
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "offer",
+              "negotiating",
+              "signed",
+              "delivered",
+              "paid"
+            ],
+            "default": "offer",
+            "description": "Where the deal sits in the offer \u2192 paid pipeline."
+          }
+        }
+      },
+      "output": "Tracked deal records with rate-card verdicts (UNDERPAID / FAIR / STRONG + the ~23% listed-vs-accepted note), usage-rights line-item pricing (reported +50/+75/+100% band; no invented whitelisting/buyout multipliers), per-situation negotiation scripts, interactive red-flag checklist scoring, and a one-page deal memo.",
+      "drive_notes": "Logic (assets/js/deal-room.js, UMD \u2014 importable in node): scoreOffer(offer, lo, hi) benchmarks against sponsorship_rate_card_2026; priceUsage(baseFee, tierId, usage_rights_tiers) applies the reported multipliers, returning guidance instead of numbers for whitelisting/buyout; redFlagScore(checkedIds, red_flags) scores contract structure (any walk_away flag or 3+ points -> walk away); renderScript(script, vars) fills {{placeholders}}; dealMemo(deal, scored, flags) builds the one-page record. Scripts + checklist + tiers live in api/v1/deal-templates.json. Negotiation aid, not financial/legal/tax advice."
     },
     {
       "id": "hiring-calculator",
