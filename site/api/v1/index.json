@@ -81,7 +81,7 @@
       "id": "content-engine",
       "kind": "json",
       "path": "api/v1/content-engine.json",
-      "description": "The Content Engine data contract: idea formats, the five Short-Form Playbook hook structures, calendar dealing rules, batching guidance (consistency-beats-volume), the Repurposing 2.0 derivative map (each derivative's required original element), the Oct-1 originality guardrails, deal-slot guidance, and the simulator bridge. A planning aid, not financial/legal/tax advice.",
+      "description": "The Content Engine data contract v1.1.0: idea formats, the five Short-Form Playbook hook structures, calendar dealing rules, batching guidance (consistency-beats-volume), the Repurposing 2.0 derivative map (each derivative's required original element), the Oct-1 originality guardrails, deal-slot guidance, the simulator bridge \u2014 plus the 2.0 additions: the Oct-2026 algorithm signal map (TikTok/Shorts/Reels, every claim source-labeled), 6 trend-derived hook patterns, the cross-post adaptation matrix (12 source\u2192destination rule sets + universal checks), and the weekly batch scheduler defaults. A planning aid, not financial/legal/tax advice.",
       "schema": "api/v1/schema/content-engine.json",
       "updated": "2026-10-11T00:00:00Z",
       "records": null,
@@ -119,7 +119,7 @@
       "description": "All seventeen interactive tools with programmatic input schemas (JSON Schema draft-07), output descriptions, and drive notes \u2014 replicate the tools' logic without the UI.",
       "schema": "api/v1/schema/tools.json",
       "updated": "2026-10-11T00:00:00Z",
-      "records": 17,
+      "records": 18,
       "deprecated": false,
       "deprecation_note": null
     },
@@ -158,12 +158,13 @@
         "money-map.html",
         "video-doctor.html",
         "ypp-checker.html",
-        "outreach.html"
+        "outreach.html",
+        "crosspost.html"
       ],
-      "description": "The seventeen interactive tools' human UI pages. Agents should prefer api/v1/tools.json input schemas over scraping these pages.",
+      "description": "The eighteen interactive tools' human UI pages. Agents should prefer api/v1/tools.json input schemas over scraping these pages.",
       "schema": null,
       "updated": "2026-10-11T00:00:00Z",
-      "records": 17,
+      "records": 18,
       "deprecated": false,
       "deprecation_note": null
     },

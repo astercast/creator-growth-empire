@@ -67,7 +67,7 @@ function check(name, cond, detail) {
 
   // tools.json drives the planner config shape
   const tools = load("tools.json").tools;
-  check("wf2: tools.json lists all 17 tools", tools.length === 17, String(tools.length));
+  check("wf2: tools.json lists all 18 tools", tools.length === 18, String(tools.length));
   const oc = tools.find((t) => t.id === "outreach");
   const ocSchema = oc && oc.input_schema;
   check("wf2: outreach input schema exposes pipeline + quote + pitch + contract fields",
@@ -86,6 +86,13 @@ function check(name, cond, detail) {
   check("wf2: planner input schema exposes cadence fields",
     !!(schema && schema.properties.longform_per_week && schema.properties.shorts_per_week
        && schema.properties.platforms && schema.properties.rest_day));
+  const cross = tools.find((t) => t.id === "crosspost");
+  const crossSchema = cross && cross.input_schema;
+  check("wf2: crosspost input schema exposes source/destinations/AI-flag fields",
+    !!(crossSchema && crossSchema.title === "CrossPostInput"
+       && crossSchema.properties.source_platform && crossSchema.properties.destinations
+       && crossSchema.properties.photorealistic_ai)
+    && cross.page === "crosspost.html");
 
   // Replicate the planner's layout math (assets/js/planner.js) for
   // 1 long + 3 shorts/week, rest day = Sunday (6): 13 weeks
@@ -421,6 +428,46 @@ function check(name, cond, detail) {
   const risk = OC.contractRisk(["ip_assignment"], tpl.contract_flags);
   check("wf8: IP assignment alone -> dont_sign with a plain-language fix",
     risk.verdict === "dont_sign" && risk.items.length === 1 && risk.items[0].fix.length > 0);
+})();
+
+/* ============ Workflow 10: cross-post adaptation, TikTok -> Shorts + Reels ============
+ * AGENT.md §Workflow 10: tools.json CrossPostInput + content-engine.json
+ * (adaptation_matrix) + the shipped content engine's adaptChecklist(). */
+(function workflow10() {
+  const tools = load("tools.json").tools;
+  const cp = tools.find((t) => t.id === "crosspost");
+  check("wf10: tools.json has the crosspost record on crosspost.html",
+    !!(cp && cp.page === "crosspost.html"), cp && cp.page);
+  const schema = cp && cp.input_schema;
+  check("wf10: CrossPostInput requires source_platform + destinations",
+    !!(schema && schema.required.includes("source_platform")
+       && schema.required.includes("destinations")));
+
+  const CE = require(path.join(__dirname, "..", "assets", "js", "content-engine.js"));
+  const matrix = load("content-engine.json").adaptation_matrix;
+  const plan = CE.adaptChecklist("tiktok", ["shorts", "reels"]);
+  check("wf10: tiktok -> [shorts, reels] builds 2 cards",
+    plan.ok && plan.cards.length === 2);
+  check("wf10: shorts card re-cuts the opening + carries the AI disclosure rule",
+    plan.cards[0].to === "shorts"
+    && plan.cards[0].changes.some((c) => /first 2 seconds/.test(c))
+    && plan.cards[0].changes.some((c) => /AI-content label/.test(c)));
+  check("wf10: reels card strips the watermark + adds the send trigger",
+    plan.cards[1].to === "reels"
+    && plan.cards[1].changes.some((c) => /watermark/i.test(c))
+    && plan.cards[1].changes.some((c) => /send/i.test(c)));
+  check("wf10: engine cards match the data-contract rule sets",
+    plan.cards.every((card) => {
+      const dc = matrix.rules[card.from + ">" + card.to];
+      return dc && dc.length === card.changes.length
+        && dc.every((c, i) => c === card.changes[i]);
+    }));
+  check("wf10: universal checks + Oct-1 gate ride along",
+    plan.universal.length === matrix.universal_checks.length
+    && /channel level/i.test(plan.gate));
+  check("wf10: unknown source fails clean, source-in-dests is ignored",
+    !CE.adaptChecklist("myspace", ["shorts"]).ok
+    && CE.adaptChecklist("tiktok", ["tiktok", "shorts"]).cards.length === 1);
 })();
 
 console.log(`\nagent-workflows: ${pass} passed, ${fail} failed`);

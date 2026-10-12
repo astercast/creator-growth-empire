@@ -14,11 +14,11 @@
 | Glossary | `api/v1/glossary.json` | Creator-economy terms + definitions |
 | Calculators data | `api/v1/calculators.json` | RPM bands, thresholds, splits, 2026 rate card, usage-rights notes |
 | Deal templates | `api/v1/deal-templates.json` | 4 negotiation scripts, 6-item red-flag checklist, 6 usage-rights tiers with reported multiplier basis — the Deal Room data contract |
-| Content engine | `api/v1/content-engine.json` | 3 idea formats, 5 Playbook hook structures, dealing rules, batching guidance, Repurposing 2.0 derivative map, Oct-1 originality guardrails, deal-slot guidance — the Content Engine data contract |
+| Content engine | `api/v1/content-engine.json` | 3 idea formats, 5 Playbook hook structures, dealing rules, batching guidance, Repurposing 2.0 derivative map, Oct-1 originality guardrails, deal-slot guidance — the Content Engine data contract (v1.1.0 adds: the Oct-2026 algorithm signal map with source-labeled claims, 6 trend-derived hook patterns, the cross-post adaptation matrix, and the weekly batch scheduler defaults) |
 | Skill index | `api/v1/skills.json` | 12 skills: name, description, path |
 | Case files | `api/v1/case-files.json` + `case-*.html` | 5 documented creator-business deconstructions: budget-grocery newsletter, Ben's Bites, faceless sleep-channel network, Mavwicks on TikTok Shop, cohort course — figures source-reported, never promises |
 | Reference | `rate-card.html`, `niche-atlas.html` + `api/v1/calculators.json`, `api/v1/niches.json` | The 2026 sponsorship rate card + the Niche Atlas (interactive explorer) |
-| Interactive tools | `quiz.html`, `calculator.html`, `planner.html`, `deal-analyzer.html`, `deal-room.html`, `hiring-calculator.html`, `repurpose.html`, `simulator.html`, `hook-builder.html`, `idea-bank.html`, `content-calendar.html`, `batching.html`, `api-explorer.html` | Human-facing; agents should use the API data behind them (`api/v1/tools.json` carries every tool's programmatic input schema) |
+| Interactive tools | `quiz.html`, `calculator.html`, `planner.html`, `deal-analyzer.html`, `deal-room.html`, `hiring-calculator.html`, `repurpose.html`, `simulator.html`, `hook-builder.html`, `idea-bank.html`, `content-calendar.html`, `batching.html`, `crosspost.html`, `api-explorer.html` | Human-facing; agents should use the API data behind them (`api/v1/tools.json` carries every tool's programmatic input schema) |
 | API explorer | `api-explorer.html` | Browse every `api/v1` endpoint and preview JSON in-browser |
 
 All endpoints are `GET` on static JSON. Base path: `api/v1/` (relative to the site root; the deployed site ships its own `api/` mirror, so the explorer works live too). Schemas: `api/v1/schema/` (JSON Schema draft-07).
@@ -109,6 +109,7 @@ Goal: take raw ideas through the whole production pipeline — banked, scored, d
 4. Batch: `ContentEngine.batchingMath({videosPerShootDay, shootDaysPerMonth, longsPerWeek, shortsPerWeek})` — capacity = shoot days × videos/day, required = cadence × 52/12; verdict surplus/balanced/shortfall with the consistency-beats-volume guidance. Arithmetic on the creator's inputs, never a promise.
 5. Repurpose 2.0: `ContentEngine.repurposeMap(title)` — the 7-derivative map (short clip, community reaction, TikTok cut, Reel cut, newsletter issue, X thread, Facebook post), every derivative with a required original element; `originalityGuardrails()` — the Oct-1 rules. Repurposing is not re-uploading.
 6. Bridge: `simInputFromCadence()` feeds the cadence to the [Simulator](simulator.html) (a model, not a prediction); `exportCalendarText()` renders the copy-my-calendar export. Sponsor slots are calendar commitments only — price them in the [Deal Room](deal-room.html) before promising them.
+7. Content Engine 2.0: `algorithmSignals("tiktok"|"shorts"|"reels")` — the Oct-2026 signal map with `source_label` on every claim (platform-published / verified-multi-source / single-source / creator-lore); `hookPatterns()` — the 6 trend-derived structural patterns with the mechanic each exploits; `planBatchWeek({weeklyHours, longsPerWeek, shortsPerWeek, restDay, taskMinutes})` — the week blocked into film/edit/publish day-blocks (verdict holds/tight/over); `adaptChecklist(source, destinations)` — the per-destination cross-post plan (see the [Cross-Post Optimizer](crosspost.html)).
 
 ## Conventions
 

@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
   "updated": "2026-10-11",
-  "note": "Programmatic input schemas for the seventeen interactive tools. Agents replicate each tool's logic by feeding these inputs to the documented formulas / shipped JS (assets/js/<id>.js); the UI pages are the human front-end for the same logic.",
+  "note": "Programmatic input schemas for the eighteen interactive tools. Agents replicate each tool's logic by feeding these inputs to the documented formulas / shipped JS (assets/js/<id>.js); the UI pages are the human front-end for the same logic.",
   "tools": [
     {
       "id": "quiz",
@@ -912,11 +912,27 @@
             "type": "number",
             "minimum": 0,
             "default": 0
+          },
+          "weekly_hours": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Scheduler: honest weekly content hours (planBatchWeek)."
+          },
+          "rest_day": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 6,
+            "default": 6,
+            "description": "Scheduler: rest day, Mon=0..Sun=6 (non-negotiable)."
+          },
+          "task_minutes": {
+            "type": "object",
+            "description": "Scheduler: per-task minutes {long:{film,edit,publish}, short:{film,edit,publish}} \u2014 your own timings; blanks fall back to starting estimates."
           }
         }
       },
       "output": "Required vs capacity per month (long + short), deltas, and a verdict: surplus (bank it), balanced (no slack), or shortfall (add a shoot day / drop a slot / merge formats).",
-      "drive_notes": "Logic (assets/js/content-engine.js, UMD \u2014 importable in node): batchingMath(opts) \u2014 capacity = shoot_days_per_month \u00d7 videos_per_shoot_day; required = cadence \u00d7 52/12 (the honest month); verdict surplus/balanced/shortfall with guidance text. Pure arithmetic on the creator's own inputs \u2014 never a promise. Planning aid, not financial/legal/tax advice."
+      "drive_notes": "Logic (assets/js/content-engine.js, UMD \u2014 importable in node): batchingMath(opts) \u2014 capacity = shoot_days_per_month \u00d7 videos_per_shoot_day; required = cadence \u00d7 52/12 (the honest month); verdict surplus/balanced/shortfall with guidance text. 2.0 adds planBatchWeek({weeklyHours, longsPerWeek, shortsPerWeek, restDay, taskMinutes}) \u2014 weekly hours blocked into film/edit/publish day-blocks (8h/day cap, rest day untouched); verdict holds/tight/over with lever guidance. Defaults for task minutes are adjustable starting estimates, not benchmarks. Pure arithmetic on the creator's own inputs \u2014 never a promise. Planning aid, not financial/legal/tax advice."
     },
     {
       "id": "money-map",
@@ -1222,6 +1238,54 @@
       },
       "output": "Pipeline stats (contacted, response rate, active deals, close rate) + follow-up buckets (overdue / due today / upcoming); rendered pitch email from the 3 templates with unfilled [brackets] left visible; rate-card quote (tier range, top-of-range quote point, 23% expected-close math, CPM cross-check vs the deliverable band); contract risk summary (per-item plain-language fix + clean / caution / don't-sign verdict). All ranges and guidance, never promises.",
       "drive_notes": "Engine (assets/js/outreach.js, UMD \u2014 importable in node): validDeal(d) validates pipeline records; pipelineStats(deals) computes response/close rates; dueFollowUps(deals, nowIso) buckets follow-ups; quoteCalc(input, rateCard, ruleOfThumb) reads sponsorship_rate_card_2026 (tier ranges, platform multipliers, sponsored_cpms) and sponsorship_rule_of_thumb.dedicated_cpm_range \u2014 output carries the ~23% listed-vs-accepted note, the 41% package-discount figure, and the never-a-quote disclaimer; renderPitch(template, vars) fills placeholders and leaves unknown ones visible; contractRisk(ids, contract_flags) scores contract structure (any walk_away flag or 3+ points -> don't sign) with a NOT-legal-advice disclaimer. Templates + contract flags from api/v1/deal-templates.json. Negotiation aid, not financial/legal/tax advice."
+    },
+    {
+      "id": "crosspost",
+      "title": "Cross-Post Optimizer",
+      "description": "Take one clip to every platform without getting throttled: per-destination adaptation checklists (aspect, captions, hooks, CTAs, disclosure labels) under the Oct-1 originality rules.",
+      "page": "crosspost.html",
+      "input_schema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "title": "CrossPostInput",
+        "type": "object",
+        "required": [
+          "source_platform",
+          "destinations"
+        ],
+        "properties": {
+          "source_platform": {
+            "type": "string",
+            "enum": [
+              "tiktok",
+              "shorts",
+              "reels",
+              "facebook"
+            ],
+            "description": "Where the clip lives now."
+          },
+          "destinations": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "enum": [
+                "tiktok",
+                "shorts",
+                "reels",
+                "facebook"
+              ]
+            },
+            "description": "Where it should go (the source is ignored if included)."
+          },
+          "photorealistic_ai": {
+            "type": "boolean",
+            "default": false,
+            "description": "The clip uses photorealistic AI visuals \u2014 triggers the YouTube disclosure-label reminder (labeled = normal distribution; undisclosed = reduced recommendations or removal)."
+          }
+        }
+      },
+      "output": "Per-destination adaptation cards (aspect, captions, hook rework, CTA, audio, disclosure label, one-original-element changes) + the universal checks + the Oct-1 gate reminder. Adaptation guidance under the platforms' stated 2026 rules \u2014 never a promise of reach, views, or revenue.",
+      "drive_notes": "Engine (assets/js/content-engine.js, UMD \u2014 importable in node): adaptChecklist(source_platform, destinations) reads the adaptation matrix (12 source\u2192destination rule sets + 6 universal checks); unknown platforms and the source itself are filtered out. Matrix + grammars + gate: api/v1/content-engine.json -> adaptation_matrix. Pairs with the content-repurposing skill. Planning aid, not financial/legal/tax advice."
     }
   ]
 }

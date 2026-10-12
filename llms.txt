@@ -6,7 +6,7 @@ From $0 to a multi-million-dollar creator company.
 - [Phase 0: Start From Nothing](phase-0-start-from-nothing.html) — 10 min read
 - [Phase 1: The Content Engine](phase-1-content-engine.html) — 8 min read
 - [Phase 2: YouTube Mastery](phase-2-youtube-mastery.html) — 10 min read
-- [Phase 3: The Everywhere Engine](phase-3-everywhere-engine.html) — 9 min read
+- [Phase 3: The Everywhere Engine](phase-3-everywhere-engine.html) — 11 min read
 - [Phase 4: Audience to Community](phase-4-audience-to-community.html) — 8 min read
 - [Phase 5: The Monetization Stack](phase-5-monetization-stack.html) — 15 min read
 - [Phase 6: Merch & Brand](phase-6-merch-and-brand.html) — 8 min read
@@ -31,6 +31,7 @@ From $0 to a multi-million-dollar creator company.
 - [Diagnose My Video](video-doctor.html) — Pick your symptom — low CTR, the 30-second cliff, great retention but no subs — and get ranked causes with the fix from the chapter that owns it.
 - [YPP 2027 Eligibility Checker](ypp-checker.html) — Enter your subs, watch hours, and Shorts views — get your verdict under the current YPP bar and the Feb-2027 bar, the gap math, and a chapter-grounded plan to close it.
 - [The Outreach Center](outreach.html) — Run your sponsor pipeline outbound: track pitches in a CRM-lite, generate honest pitch emails, quote from the 2026 rate card, and flag contract red flags before you sign.
+- [Cross-Post Optimizer](crosspost.html) — Move one clip to every platform without getting throttled: per-destination adaptation checklists (aspect, captions, hooks, CTAs, disclosure labels) under the Oct-1 originality rules.
 - [Glossary](glossary.html)
 
 All seventeen tools, grouped by job (Plan / Money / Content): [Tools hub](tools.html).

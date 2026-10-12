@@ -1,5 +1,5 @@
 {
-  "disclaimer": "A planning aid, not financial, legal, or tax advice. Cadence math is arithmetic on your own inputs \u2014 posting more never guarantees views, revenue, or growth.",
+  "disclaimer": "A planning aid, not financial, legal, or tax advice. Cadence math is arithmetic on your own inputs — posting more never guarantees views, revenue, or growth.",
   "idea_formats": [
     {
       "description": "Full production piece. The pillar everything else is cut from.",
@@ -35,14 +35,14 @@
   ],
   "hook_structures": [
     {
-      "formula": "I [did X] \u2014 and [surprising result] is at the end.",
+      "formula": "I [did X] — and [surprising result] is at the end.",
       "id": "open-loop",
       "name": "The Open Loop",
       "reference": "hook-builder.html",
       "source": "Short-Form Playbook"
     },
     {
-      "formula": "[Mid-action, already talking:] Forget the intro \u2014 [topic].",
+      "formula": "[Mid-action, already talking:] Forget the intro — [topic].",
       "id": "cold-start",
       "name": "The Cold Start",
       "reference": "hook-builder.html",
@@ -56,7 +56,7 @@
       "source": "Short-Form Playbook"
     },
     {
-      "formula": "3 [things/mistakes] about [X] \u2014 #2 is the one that matters.",
+      "formula": "3 [things/mistakes] about [X] — #2 is the one that matters.",
       "id": "numbered",
       "name": "The Numbered Promise",
       "reference": "hook-builder.html",
@@ -73,12 +73,12 @@
   "dealing_rules": {
     "basis": "Same dealing arithmetic as the 90-Day Planner (assets/js/planner.js): long-form spreads across non-rest days by round-robin, shorts every other day; week 7 is the midpoint review.",
     "rules": [
-      "Long ideas are sorted by hook-strength score (highest first) before dealing \u2014 the best hooks earn the earliest weeks.",
+      "Long ideas are sorted by hook-strength score (highest first) before dealing — the best hooks earn the earliest weeks.",
       "Longs deal round-robin across weeks: week 1 gets the top scores, not all of them at once.",
-      "Shorts and community ideas deal independently on their own cadence \u2014 they must never cannibalize a long slot.",
+      "Shorts and community ideas deal independently on their own cadence — they must never cannibalize a long slot.",
       "Rest day is non-negotiable: no placement, analytics review only.",
-      "If ideas run out before slots, slots stay OPEN \u2014 never pad the calendar with filler. A visible gap is feedback: the bank needs ideas.",
-      "Surplus ideas stay in the bank as backlog \u2014 a full bank is a runway, not waste.",
+      "If ideas run out before slots, slots stay OPEN — never pad the calendar with filler. A visible gap is feedback: the bank needs ideas.",
+      "Surplus ideas stay in the bank as backlog — a full bank is a runway, not waste.",
       "Week 7 (of 13) carries the midpoint review: kill the worst-performing format, double the best outlier."
     ],
     "slot_priorities": [
@@ -88,24 +88,24 @@
     ]
   },
   "batching": {
-    "consistency_framing": "Consistency beats volume \u2014 a cadence you can film is worth more than an ambitious one you abandon. The batching planner shows your film-day math honestly: if capacity doesn't cover cadence, shrink the cadence, don't promise yourself heroics.",
+    "consistency_framing": "Consistency beats volume — a cadence you can film is worth more than an ambitious one you abandon. The batching planner shows your film-day math honestly: if capacity doesn't cover cadence, shrink the cadence, don't promise yourself heroics.",
     "guidance": [
-      "Capacity = shoot_days_per_month \u00d7 videos_per_shoot_day. Required = cadence \u00d7 52/12. Both are arithmetic on your own inputs.",
-      "A surplus means banked videos \u2014 publish steady, rest easy. A shortfall means a decision: add a shoot day, drop a slot, or merge formats.",
-      "Two short-form videos typically fit the effort of one long-form film block \u2014 budget shoot days by effort, not by count.",
+      "Capacity = shoot_days_per_month × videos_per_shoot_day. Required = cadence × 52/12. Both are arithmetic on your own inputs.",
+      "A surplus means banked videos — publish steady, rest easy. A shortfall means a decision: add a shoot day, drop a slot, or merge formats.",
+      "Two short-form videos typically fit the effort of one long-form film block — budget shoot days by effort, not by count.",
       "Never count 'I'll find the time' as capacity. Only scheduled, repeatable shoot days count."
     ],
     "weeks_per_month": 4.3333333
   },
   "repurposing_2_0": {
-    "basis": "Extends the wave-3 repurposing SOP (Phase 3, Everywhere Engine). The 2.0 map adds the full derivative map \u2014 every derivative must carry one original element (new hook, new framing, native caption). Repurposing is not re-uploading.",
+    "basis": "Extends the wave-3 repurposing SOP (Phase 3, Everywhere Engine). The 2.0 map adds the full derivative map — every derivative must carry one original element (new hook, new framing, native caption). Repurposing is not re-uploading.",
     "derivatives": [
       {
         "day": "+1",
         "effort": "~45 min each (edit for pacing, not re-upload)",
         "id": "short_clip",
         "label": "Short-form clip",
-        "original_element": "A fresh first 2 seconds \u2014 re-hook the clip, never reuse the pillar's intro",
+        "original_element": "A fresh first 2 seconds — re-hook the clip, never reuse the pillar's intro",
         "platform": "YouTube Shorts",
         "task": "Cut the best self-contained moment; burned-in captions, 9:16 reframe."
       },
@@ -114,7 +114,7 @@
         "effort": "~10 min (transcript edit)",
         "id": "community_reaction",
         "label": "Community reaction post",
-        "original_element": "A new question or poll written for the community tab \u2014 not the video title",
+        "original_element": "A new question or poll written for the community tab — not the video title",
         "platform": "YouTube Community",
         "task": "Post the debatable claim as a question or poll."
       },
@@ -123,8 +123,8 @@
         "platform": "TikTok",
         "day": "+2 to +4",
         "label": "TikTok cut",
-        "task": "Re-edit for TikTok pacing; keep 60\u201390s for Creator Rewards eligibility.",
-        "original_element": "Text-on-screen re-hook + native pacing \u2014 a re-edit, not a re-upload.",
+        "task": "Re-edit for TikTok pacing; keep 60–90s for Creator Rewards eligibility.",
+        "original_element": "Text-on-screen re-hook + native pacing — a re-edit, not a re-upload.",
         "effort": "~50 min (cut + cut-native edit)"
       },
       {
@@ -132,7 +132,7 @@
         "effort": "~20 min (caption as mini-blog)",
         "id": "reel_cut",
         "label": "Instagram Reel cut",
-        "original_element": "An aesthetic or save-worthy framing \u2014 transformation or reveal in the first 2 seconds",
+        "original_element": "An aesthetic or save-worthy framing — transformation or reveal in the first 2 seconds",
         "platform": "Instagram Reels",
         "task": "Polished, save-worthy; caption as a mini-blog (5 hashtags)."
       },
@@ -141,7 +141,7 @@
         "effort": "~1 hr (write the story around the numbers)",
         "id": "newsletter_issue",
         "label": "Newsletter issue",
-        "original_element": "A written angle the video never states outright \u2014 the story behind the result",
+        "original_element": "A written angle the video never states outright — the story behind the result",
         "platform": "Newsletter / email",
         "task": "Write the story around the video's numbers or result."
       },
@@ -150,7 +150,7 @@
         "effort": "~30 min (compress, don't paste)",
         "id": "x_thread",
         "label": "X thread",
-        "original_element": "Written natively for X \u2014 first post is a new hook, not a link drop",
+        "original_element": "Written natively for X — first post is a new hook, not a link drop",
         "platform": "X / Twitter",
         "task": "5-8 posts compressing the pillar's argument."
       },
@@ -164,7 +164,7 @@
         "effort": "~20 min (caption is the engagement lever)"
       }
     ],
-    "note": "Cut 2\u20133 clips per pillar, not per platform \u2014 one clip per platform, each re-edited."
+    "note": "Cut 2–3 clips per pillar, not per platform — one clip per platform, each re-edited."
   },
   "originality_guardrails": [
     {
@@ -178,7 +178,7 @@
       "rule": "Every derivative gets a new hook"
     },
     {
-      "detail": "Watermarks, letterboxed 16:9 on vertical, copy-pasted captions \u2014 platforms and viewers both punish it.",
+      "detail": "Watermarks, letterboxed 16:9 on vertical, copy-pasted captions — platforms and viewers both punish it.",
       "id": "native_grammar",
       "rule": "Native grammar per platform"
     },
@@ -188,15 +188,15 @@
       "rule": "Text derivatives are written, not extracted"
     },
     {
-      "detail": "If the pillar scores under 3/4 on the atom test (standalone hook, visual moment, quotable line, debatable claim), publish the pillar only \u2014 skip the repurposing and save the hours.",
+      "detail": "If the pillar scores under 3/4 on the atom test (standalone hook, visual moment, quotable line, debatable claim), publish the pillar only — skip the repurposing and save the hours.",
       "id": "atom_gate",
       "rule": "Atom test gates the whole pipeline"
     }
   ],
   "deal_slots": {
-    "description": "Sponsored content slots reserved inside the content calendar. Pricing lives in the Deal Room and the 2026 rate card \u2014 the calendar only reserves the slots.",
+    "description": "Sponsored content slots reserved inside the content calendar. Pricing lives in the Deal Room and the 2026 rate card — the calendar only reserves the slots.",
     "guidance": [
-      "Reserve 1 slot per 4\u20136 organic pieces so sponsors never outnumber your own voice \u2014 an over-sponsored calendar bleeds trust.",
+      "Reserve 1 slot per 4–6 organic pieces so sponsors never outnumber your own voice — an over-sponsored calendar bleeds trust.",
       "Sponsor slots get the same hook-strength scoring as organic ideas; a weak sponsored video still costs you audience.",
       "A sponsor slot is a calendar commitment, not a deal. Price it in the Deal Room (deal-room.html) before you promise it.",
       "Links: the Deal Room (deal-room.html) for negotiation and the rate card (rate-card.html) for 2026 ranges."
@@ -210,7 +210,399 @@
       "shorts_per_week": "shorts_per_week from the calendar"
     }
   },
-  "source": "Wave 16 \u2014 The Content Engine. Hook structures from the Short-Form Playbook (hook-builder.html); niche tags from api/v1/niches.json; dealing arithmetic mirrors assets/js/planner.js.",
+  "source": "Wave 16 — The Content Engine; wave 23 (2.0) adds the Oct-2026 algorithm signal map (TikTok/Shorts/Reels, source-labeled), 6 trend-derived hook patterns, the cross-post adaptation matrix, and the weekly batch scheduler. Hook structures from the Short-Form Playbook (hook-builder.html); niche tags from api/v1/niches.json; dealing arithmetic mirrors assets/js/planner.js.",
   "updated": "2026-10-11",
-  "version": "1.0.0"
+  "version": "1.1.0",
+  "algorithm_signals": {
+    "updated": "2026-10-11",
+    "research_basis": "Wave-fuel research, Mission A (read 2026-10-11): TikTok algorithm (Hootsuite, Vamp, fivebbc, DMA, viral.app); YouTube Shorts Oct-1-2026 update (Creator Liaison Rene Ritchie via Social Media Today, Storyboard18, readus247); AI disclosure (aituber); Instagram Reels ranking (Virvid, CreatorFlow, SocialPilot, orangemonke, FlowShorts).",
+    "source_labels": {
+      "platform-published": "Stated by the platform itself (exec post, help docs, Creator Insider).",
+      "verified-multi-source": "Multiple independent sources agree.",
+      "single-source": "One source only — treat as guidance, not law.",
+      "creator-lore": "Creator-community consensus, unverified by the platform — flagged."
+    },
+    "platforms": [
+      {
+        "id": "tiktok",
+        "label": "TikTok — For You feed",
+        "optimize_for": "Completion rate + watch time per impression.",
+        "hierarchy": [
+          {
+            "rank": 1,
+            "signal": "Watch time + completion rate",
+            "note": "the dominant signals",
+            "source": "Hootsuite; Vamp; fivebbc",
+            "source_label": "verified-multi-source"
+          },
+          {
+            "rank": 2,
+            "signal": "Rewatches, shares, saves",
+            "note": "next in line",
+            "source": "Hootsuite; Vamp; fivebbc",
+            "source_label": "verified-multi-source"
+          },
+          {
+            "rank": 3,
+            "signal": "Comments",
+            "note": "quality-weighted, not volume-weighted",
+            "source": "Hootsuite; Vamp; fivebbc",
+            "source_label": "verified-multi-source"
+          },
+          {
+            "rank": 4,
+            "signal": "Likes",
+            "note": "moderate and declining in weight",
+            "source": "Hootsuite; Vamp; fivebbc",
+            "source_label": "verified-multi-source"
+          }
+        ],
+        "mechanics": [
+          {
+            "claim": "Interest graph, not social graph — follower count is not a direct ranking factor.",
+            "source": "Hootsuite; Vamp; fivebbc",
+            "source_label": "verified-multi-source"
+          },
+          {
+            "claim": "Every upload is tested against a small matched audience pool (~300–500 accounts) and widened ~3–5x per wave only if early signals clear the gate.",
+            "source": "marketing_brain SKILL.md (Oct 2026, citing virvid.ai)",
+            "source_label": "creator-lore"
+          },
+          {
+            "claim": "Watch time per impression has replaced raw view counts — a 60-second video at 80% completion can outperform a 15-second clip at 95%.",
+            "source": "DMA (digitalmarketingagency.sg)",
+            "source_label": "single-source"
+          },
+          {
+            "claim": "The 'qualified view' bar may have risen from 3s to 5s in 2025–2026.",
+            "source": "virvid.ai",
+            "source_label": "creator-lore"
+          },
+          {
+            "claim": "TikTok functions as a search engine — captions, on-screen text, and spoken keywords decide discoverability months later.",
+            "source": "Vamp; fivebbc",
+            "source_label": "verified-multi-source"
+          },
+          {
+            "claim": "TikTok does not recommend reused, unoriginal, or engagement-bait content.",
+            "source": "viral.app, citing TikTok docs (Sept 2026)",
+            "source_label": "platform-published"
+          },
+          {
+            "claim": "One agency estimates watch time/completion at 40–50% of ranking weight.",
+            "source": "DMA",
+            "source_label": "single-source"
+          }
+        ]
+      },
+      {
+        "id": "shorts",
+        "label": "YouTube Shorts — recommendations feed",
+        "optimize_for": "Completion rate (nobody clicks — they just don't swipe).",
+        "hierarchy": [
+          {
+            "rank": 1,
+            "signal": "Completion rate + watch time",
+            "note": "dominant; the metric that matters is completion rate, not CTR",
+            "source": "October 2026 research consensus",
+            "source_label": "verified-multi-source"
+          },
+          {
+            "rank": 2,
+            "signal": "Rewatches, shares, saves",
+            "note": "next in line",
+            "source": "October 2026 research",
+            "source_label": "single-source"
+          },
+          {
+            "rank": 3,
+            "signal": "Likes",
+            "note": "a declining signal on swipe-driven feeds",
+            "source": "October 2026 research",
+            "source_label": "single-source"
+          }
+        ],
+        "mechanics": [
+          {
+            "claim": "Oct 1, 2026 update: Shorts recommendations prioritize original content and reduce reach for re-uploaded material 'without adding anything of your own'.",
+            "source": "Rene Ritchie (Creator Liaison), Creator Insider video + TeamYouTube community post, Oct 1 2026; reported by Social Media Today, Storyboard18, readus247",
+            "source_label": "platform-published"
+          },
+          {
+            "claim": "The judgment is at the channel level: channels that primarily aggregate or re-upload without significant changes likely see less distribution — clipping channels are the direct target.",
+            "source": "Ritchie announcement via readus247; Storyboard18",
+            "source_label": "verified-multi-source"
+          },
+          {
+            "claim": "Recommendations only, not monetization — reach is cut; payout formulas are unchanged.",
+            "source": "readus247",
+            "source_label": "verified-multi-source"
+          },
+          {
+            "claim": "Real commentary, unique edits, or storytelling keep a channel safe; reaction and quoting with genuine added perspective are explicitly carved out.",
+            "source": "Ritchie announcement via Social Media Today",
+            "source_label": "platform-published"
+          },
+          {
+            "claim": "AI disclosure (May 2026 enforcement): automated detection flags undisclosed photorealistic AI content; properly labeled videos get normal distribution — AI labels alone don't affect recommendations or pay. Undisclosed ones face reduced recommendations or removal.",
+            "source": "Ritchie (May 2026), via aituber",
+            "source_label": "platform-published"
+          },
+          {
+            "claim": "Shorts-specific search filters launched in 2026 — keyword SEO matters for short-form for the first time.",
+            "source": "Dataslayer / MeltedStories",
+            "source_label": "single-source"
+          },
+          {
+            "claim": "Retention thresholds around ~65% (sub-30s) / ~50% (30–60s) keep a Short in distribution.",
+            "source": "Dataslayer",
+            "source_label": "creator-lore"
+          }
+        ]
+      },
+      {
+        "id": "reels",
+        "label": "Instagram Reels",
+        "optimize_for": "Sends per reach — build Reels people want to send someone.",
+        "hierarchy": [
+          {
+            "rank": 1,
+            "signal": "Sends per reach",
+            "note": "Mosseri: correlates with reach more than watch time or likes",
+            "source": "Adam Mosseri via Virvid; CreatorFlow",
+            "source_label": "platform-published"
+          },
+          {
+            "rank": 2,
+            "signal": "Watch time",
+            "note": "",
+            "source": "CreatorFlow; SocialPilot",
+            "source_label": "verified-multi-source"
+          },
+          {
+            "rank": 3,
+            "signal": "Completion / rewatches",
+            "note": "",
+            "source": "CreatorFlow; SocialPilot",
+            "source_label": "verified-multi-source"
+          },
+          {
+            "rank": 4,
+            "signal": "Likes per reach",
+            "note": "likes matter more for connected (follower) content; sends dominate unconnected discovery",
+            "source": "Virvid (Mosseri)",
+            "source_label": "platform-published"
+          },
+          {
+            "rank": 5,
+            "signal": "Comments",
+            "note": "",
+            "source": "CreatorFlow; SocialPilot",
+            "source_label": "verified-multi-source"
+          }
+        ],
+        "mechanics": [
+          {
+            "claim": "'Sends are worth 3–5x a like' is an invented number with no source — Instagram publishes no weights.",
+            "source": "CreatorFlow (debunk)",
+            "source_label": "creator-lore"
+          },
+          {
+            "claim": "Most Reels impressions come from accounts the viewer doesn't follow; ~100 Reels are scored for 'Reels chaining'.",
+            "source": "SocialPilot, citing Meta",
+            "source_label": "single-source"
+          },
+          {
+            "claim": "Reels longer than ~3 minutes are reportedly not pushed to non-followers; 7–30 seconds is the discovery sweet spot.",
+            "source": "orangemonke",
+            "source_label": "single-source"
+          },
+          {
+            "claim": "TikTok watermarks are explicitly deprioritized; low-resolution and engagement-bait content are penalized.",
+            "source": "FlowShorts",
+            "source_label": "single-source"
+          }
+        ]
+      }
+    ]
+  },
+  "hook_patterns": {
+    "updated": "2026-10-11",
+    "basis": "Structural hook patterns distilled from the October 2026 TikTok trend reports (SocialPilot, New Engen, Later, MediaNug, Virlo, Lightreel — read 2026-10-11). Trends expire in weeks; the containers below — reveal, confession, contrast — keep working. Steal the structure, never the sound or the exact format.",
+    "honesty_note": "These are patterns, not predictions. A structure improves your odds; it never guarantees views.",
+    "patterns": [
+      {
+        "id": "costume-reveal-walk",
+        "name": "The Costume Reveal Walk",
+        "formula": "Open on a striking walk toward the camera — low angle, full commitment — then the zoom-out reveals the transformation.",
+        "mechanic": "Completion + watch time: the promised visual reveal is an open loop; viewers stay to see the payoff.",
+        "spotted_in": "Ramalama Costume Walk — 430.7K videos (SocialPilot, Sept 25–Oct 5, 2026; New Engen)",
+        "adapt": "The walk is a container. Swap the costume for your reveal: the finished product, the before/after, the result of the experiment."
+      },
+      {
+        "id": "leaving-edit",
+        "name": "The Leaving Edit",
+        "formula": "'I left [X] behind' — a confession montage of walking away from a habit, job, or belief, cut to a wistful track.",
+        "mechanic": "Sends + shares: an identity confession people DM to friends ('this is so you').",
+        "spotted_in": "Patient Zero edits — wedding edits and 'leaving something behind' audio, 149.3K videos (SocialPilot; Virlo, Oct 2026)",
+        "adapt": "Works for any transformation arc in your niche: the diet you quit, the tool you dropped, the belief you outgrew."
+      },
+      {
+        "id": "joy-contrast",
+        "name": "The Joy Contrast",
+        "formula": "Upbeat, happy-dance energy layered over chaos — the track and the caption contradict each other.",
+        "mechanic": "Rewatches + comments: the contradiction makes viewers watch twice and comment 'same'.",
+        "spotted_in": "Be OK / 'I just want to be OK' — happy-dance-over-chaos (New Engen; Later, Oct 2, 2026)",
+        "adapt": "Pair your realest caption with your most upbeat 3 seconds. The clash is the hook."
+      },
+      {
+        "id": "hidden-confession",
+        "name": "The Hidden Confession",
+        "formula": "'Text from -A' framing: 'POV: someone just exposed the thing I've been hiding about [X].'",
+        "mechanic": "Watch time + comments: social tension creates a stay-to-the-end promise; the comments become the confessional.",
+        "spotted_in": "Text From '-A' — 53.5K videos (MediaNug, 10/1/26; Later, Oct 2, 2026)",
+        "adapt": "Confess a niche truth your audience thinks they're alone in. Specificity beats drama."
+      },
+      {
+        "id": "cozy-bed",
+        "name": "The Cozy Bed",
+        "formula": "Romanticize a routine: slow shots of the ordinary process, a jazz/piano bed underneath, text overlay naming the ordinary thing as the good thing.",
+        "mechanic": "Saves + search: save-for-later comfort content; keyword-rich captions ride TikTok search.",
+        "spotted_in": "Cozy-fall mood beds — 5 of Metricool's Oct 1, 2026 top-10 sounds are jazz/piano/ambient (Virlo)",
+        "adapt": "Any 'day in my process' content becomes a save magnet with the right bed and a keyword-forward caption."
+      },
+      {
+        "id": "upside-down-flip",
+        "name": "The Upside-Down Flip",
+        "formula": "Shoot the 'before' upside down or mid-gesture; flip to the 'after' on the beat — the transition IS the hook.",
+        "mechanic": "Completion + shares: the visual trick delays the payoff past the swipe point.",
+        "spotted_in": "'Upside down' before/after main-character transitions (Later, Oct 2, 2026)",
+        "adapt": "Use for any transformation: edits, builds, makeovers, data reveals. Film the flip, not the filter."
+      }
+    ]
+  },
+  "adaptation_matrix": {
+    "updated": "2026-10-11",
+    "basis": "Platform-native adaptation, not blind cross-posting. One clip, four dialects. Under the Oct-1-2026 rules every destination needs at least one original element — a re-cut opening, a re-recorded voiceover, a new text overlay, or a new caption angle. Grammars from Phase 3 (The Everywhere Engine).",
+    "platforms": {
+      "tiktok": {
+        "label": "TikTok",
+        "grammar": "raw, fast, text-on-screen, trending audio"
+      },
+      "shorts": {
+        "label": "YouTube Shorts",
+        "grammar": "punchy, loopable, high-retention"
+      },
+      "reels": {
+        "label": "Instagram Reels",
+        "grammar": "polished, aesthetic, save-worthy"
+      },
+      "facebook": {
+        "label": "Facebook",
+        "grammar": "discussion-provoking, shareable, slightly longer"
+      }
+    },
+    "rules": {
+      "tiktok>shorts": [
+        "Re-cut the opening: the first 2 seconds must carry the payoff — Shorts is swipe-driven, no title or CTR to save you.",
+        "Strip or rebuild the TikTok text overlay — Shorts viewers expect burned-in captions, not TikTok's UI text.",
+        "Loop the ending into the opening when the format allows — loopable Shorts harvest rewatches.",
+        "AI disclosure: if the clip uses photorealistic AI, apply YouTube's AI-content label BEFORE upload — labeled gets normal distribution (Ritchie, May 2026; aituber).",
+        "Swap trending TikTok audio for a Shorts-safe track whenever you don't hold the rights cross-platform."
+      ],
+      "tiktok>reels": [
+        "Strip the TikTok watermark — watermarked re-uploads are explicitly deprioritized on Reels (FlowShorts). Export a clean master from your editor.",
+        "Re-edit for polish: Reels rewards aesthetic consistency — stabilize, grade, reframe.",
+        "Rewrite the caption as a mini-blog + ~5 hashtags (Reels grammar, not TikTok's keyword-stuffed caption).",
+        "Add the send trigger: a 'send this to someone who…' CTA or a quotable line built for DMs — sends per reach is Mosseri's #1 signal.",
+        "Keep it under ~3 minutes — longer Reels reportedly aren't pushed to non-followers (orangemonke, single source)."
+      ],
+      "tiktok>facebook": [
+        "Write a discussion-prompting caption ending in a direct question — Facebook's algorithm weights meaningful discussion.",
+        "Native upload to your Page; never post the TikTok link.",
+        "Slightly longer is fine here — Facebook rewards native long-ish video, so keep the fuller cut, not the trimmed one.",
+        "Respect Meta's March 2026 repost policy: your own content with native captions is normal practice; reposting others' videos kills reach."
+      ],
+      "shorts>tiktok": [
+        "Add TikTok-native text-on-screen hooks — TikTok grammar is raw, fast, text-forward.",
+        "Say your keywords out loud in the first 10 seconds, in on-screen text, and in the caption — TikTok is a search engine; Shorts SEO doesn't transfer.",
+        "Keep 60–90 seconds when the format allows to stay Creator Rewards eligible (1 min+, original, 10K followers / 100K views in 30d).",
+        "Strip YouTube end-cards and subscribe CTAs — they read as off-platform on TikTok."
+      ],
+      "shorts>reels": [
+        "Export a clean master — no watermarks or cross-platform branding.",
+        "Polish pass: aesthetic reframe + save-worthy framing (transformation or reveal in the first 2 seconds).",
+        "Caption as mini-blog + hashtags; add the DM-send trigger.",
+        "Keep it under ~3 minutes for discovery; save longer cuts for followers."
+      ],
+      "shorts>facebook": [
+        "Native upload to your Page — Facebook rewards long-ish native video, so bring the fuller cut.",
+        "Write a discussion-prompting caption with a direct question.",
+        "Post the best short as a Facebook Reel too."
+      ],
+      "reels>tiktok": [
+        "De-polish: faster pacing, rawer cuts — TikTok's grammar rewards authenticity over aesthetic.",
+        "Replace the mini-blog caption with keyword-forward text, and say the keywords on camera.",
+        "Re-hook the first 2 seconds with a native text overlay."
+      ],
+      "reels>shorts": [
+        "Tighten the hook to the first 2 seconds — Shorts viewers decide faster than Reels scrollers.",
+        "Burn in captions if the Reel relied on Instagram's auto-captions.",
+        "Apply YouTube's AI-content label if the Reel used photorealistic AI — labeled gets normal distribution.",
+        "Loop the ending into the opening when the format allows."
+      ],
+      "reels>facebook": [
+        "Native upload to your Page with a discussion-prompting caption.",
+        "The polished aesthetic transfers fine — Facebook audiences skew older and appreciate production value.",
+        "Keep the mini-blog caption's best line as the discussion question."
+      ],
+      "facebook>tiktok": [
+        "Cut down: Facebook's longer cut must become a 60–90s TikTok cut with a brand-new hook.",
+        "Add text-on-screen overlay and keyword delivery for TikTok search.",
+        "Remove Facebook-specific CTAs ('follow my Page')."
+      ],
+      "facebook>shorts": [
+        "Extract the best self-contained moment — a Facebook cut is rarely a Short as-is.",
+        "Re-hook the first 2 seconds; 9:16 reframe; burned-in captions.",
+        "Apply YouTube's AI-content label if the footage used photorealistic AI."
+      ],
+      "facebook>reels": [
+        "Export a clean master — no watermarks.",
+        "Polish pass: aesthetic reframe; mini-blog caption + hashtags + the DM-send trigger.",
+        "Keep it under ~3 minutes for discovery."
+      ]
+    },
+    "universal_checks": [
+      "Upload native, every time. Watermarks from another platform are deprioritized (TikTok watermark on Reels is explicit). Export a clean master from your editor.",
+      "9:16 full-frame. Letterboxed 16:9 on vertical reads as recycled — platforms and viewers both punish it.",
+      "A new hook per destination. Same file, same first 2 seconds = a re-upload, not repurposing — and the Oct-1 rules starve re-uploads.",
+      "One original element minimum per destination (re-cut opening, re-recorded VO, new text overlay, new caption angle). 'Repurposing is not re-uploading' is policy now, not advice.",
+      "Photorealistic AI? Disclose on YouTube before upload (labeled = normal distribution; hiding = reduced reach or removal). Other platforms: check the current disclosure rules — they move.",
+      "Stagger posting across days. The same idea everywhere on the same day splits your own audience's attention and looks automated."
+    ],
+    "oct1_gate": "Oct-1-2026 gate: YouTube's Shorts update judges at the CHANNEL level — channels that primarily re-upload without adding anything of their own get less distribution (Ritchie, Oct 1 2026). TikTok demotes reused/unoriginal content; Meta's March 2026 policy targets reposts with low-value changes. Every adaptation below adds the original element that keeps you on the right side of all three."
+  },
+  "batching_scheduler": {
+    "basis": "Input your weekly hours → the scheduler blocks film / edit / publish time against your cadence and tells you whether the week holds. Default task minutes are adjustable starting estimates, NOT benchmarks — your footage, your edit speed, your reality.",
+    "default_task_minutes": {
+      "long": {
+        "film": 180,
+        "edit": 360,
+        "publish": 30
+      },
+      "short": {
+        "film": 30,
+        "edit": 45,
+        "publish": 15
+      }
+    },
+    "rest_day_default": 6,
+    "max_hours_per_day": 8,
+    "guidance": [
+      "Film day, edit day, publish day — blocks in that order. Never edit what you haven't filmed; never publish what you haven't edited.",
+      "Required hours = cadence × your per-task minutes. If the week doesn't hold, change the inputs you control — cadence, hours, or per-task time — not your standards.",
+      "One rest day is non-negotiable. A schedule with no rest day is a plan to quit.",
+      "Publish blocks include packaging (title, thumbnail, captions, scheduling) — the invisible 30% most creators forget to budget."
+    ]
+  }
 }

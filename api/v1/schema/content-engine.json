@@ -14,6 +14,10 @@
     "originality_guardrails",
     "deal_slots",
     "simulator_bridge",
+    "algorithm_signals",
+    "hook_patterns",
+    "adaptation_matrix",
+    "batching_scheduler",
     "source"
   ],
   "properties": {
@@ -263,6 +267,266 @@
     },
     "simulator_bridge": {
       "type": "object"
+    },
+    "algorithm_signals": {
+      "type": "object",
+      "required": [
+        "updated",
+        "research_basis",
+        "source_labels",
+        "platforms"
+      ],
+      "properties": {
+        "updated": {
+          "type": "string"
+        },
+        "research_basis": {
+          "type": "string"
+        },
+        "source_labels": {
+          "type": "object"
+        },
+        "platforms": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "label",
+              "optimize_for",
+              "hierarchy",
+              "mechanics"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "enum": [
+                  "tiktok",
+                  "shorts",
+                  "reels"
+                ]
+              },
+              "label": {
+                "type": "string"
+              },
+              "optimize_for": {
+                "type": "string"
+              },
+              "hierarchy": {
+                "type": "array",
+                "minItems": 3,
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "rank",
+                    "signal",
+                    "note",
+                    "source",
+                    "source_label"
+                  ],
+                  "properties": {
+                    "rank": {
+                      "type": "integer"
+                    },
+                    "signal": {
+                      "type": "string"
+                    },
+                    "note": {
+                      "type": "string"
+                    },
+                    "source": {
+                      "type": "string"
+                    },
+                    "source_label": {
+                      "type": "string",
+                      "enum": [
+                        "platform-published",
+                        "verified-multi-source",
+                        "single-source",
+                        "creator-lore"
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            "mechanics": {
+              "type": "array",
+              "minItems": 4,
+              "items": {
+                "type": "object",
+                "required": [
+                  "claim",
+                  "source",
+                  "source_label"
+                ],
+                "properties": {
+                  "claim": {
+                    "type": "string"
+                  },
+                  "source": {
+                    "type": "string"
+                  },
+                  "source_label": {
+                    "type": "string",
+                    "enum": [
+                      "platform-published",
+                      "verified-multi-source",
+                      "single-source",
+                      "creator-lore"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "hook_patterns": {
+      "type": "object",
+      "required": [
+        "updated",
+        "basis",
+        "honesty_note",
+        "patterns"
+      ],
+      "properties": {
+        "updated": {
+          "type": "string"
+        },
+        "basis": {
+          "type": "string"
+        },
+        "honesty_note": {
+          "type": "string"
+        },
+        "patterns": {
+          "type": "array",
+          "minItems": 6,
+          "maxItems": 6,
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "name",
+              "formula",
+              "mechanic",
+              "spotted_in",
+              "adapt"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "enum": [
+                  "costume-reveal-walk",
+                  "leaving-edit",
+                  "joy-contrast",
+                  "hidden-confession",
+                  "cozy-bed",
+                  "upside-down-flip"
+                ]
+              },
+              "name": {
+                "type": "string"
+              },
+              "formula": {
+                "type": "string"
+              },
+              "mechanic": {
+                "type": "string"
+              },
+              "spotted_in": {
+                "type": "string"
+              },
+              "adapt": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "adaptation_matrix": {
+      "type": "object",
+      "required": [
+        "updated",
+        "basis",
+        "platforms",
+        "rules",
+        "universal_checks",
+        "oct1_gate"
+      ],
+      "properties": {
+        "updated": {
+          "type": "string"
+        },
+        "basis": {
+          "type": "string"
+        },
+        "platforms": {
+          "type": "object"
+        },
+        "rules": {
+          "type": "object",
+          "required": [
+            "tiktok>shorts",
+            "tiktok>reels",
+            "tiktok>facebook",
+            "shorts>tiktok",
+            "shorts>reels",
+            "shorts>facebook",
+            "reels>tiktok",
+            "reels>shorts",
+            "reels>facebook",
+            "facebook>tiktok",
+            "facebook>shorts",
+            "facebook>reels"
+          ]
+        },
+        "universal_checks": {
+          "type": "array",
+          "minItems": 6,
+          "items": {
+            "type": "string"
+          }
+        },
+        "oct1_gate": {
+          "type": "string"
+        }
+      }
+    },
+    "batching_scheduler": {
+      "type": "object",
+      "required": [
+        "basis",
+        "default_task_minutes",
+        "rest_day_default",
+        "max_hours_per_day",
+        "guidance"
+      ],
+      "properties": {
+        "basis": {
+          "type": "string"
+        },
+        "default_task_minutes": {
+          "type": "object"
+        },
+        "rest_day_default": {
+          "type": "integer"
+        },
+        "max_hours_per_day": {
+          "type": "number"
+        },
+        "guidance": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
     },
     "source": {
       "type": "string"

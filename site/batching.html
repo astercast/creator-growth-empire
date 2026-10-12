@@ -49,6 +49,43 @@
   </ul>
 </section>
 <p class="muted">Capacity = shoot days × videos per shoot day. Required = cadence × 52/12. Pure arithmetic on your own inputs — posting more never guarantees views, revenue, or growth. A planning aid, not financial, legal, or tax advice.</p>
+
+<section aria-labelledby="bs-title" style="margin-top:3rem">
+  <h2 id="bs-title">Weekly batch schedule: hours → days</h2>
+  <p class="muted">Film-day math says whether the cadence holds. The scheduler says <em>when the work happens</em>: give it your real weekly hours and it blocks film / edit / publish time into actual days, with a rest day that's non-negotiable.</p>
+  <form id="bs-form" aria-label="Weekly batch schedule">
+    <div class="calc-grid">
+      <label>Hours per week you can actually give content
+        <input type="number" id="bs-hours" min="0" step="0.5" value="10" required aria-describedby="bs-hint"></label>
+      <label>Long-form videos per week
+        <input type="number" id="bs-lpw" min="0" max="7" step="1" value="1" required></label>
+      <label>Short-form posts per week
+        <input type="number" id="bs-spw" min="0" max="21" step="1" value="3" required></label>
+      <label>Rest day
+        <select id="bs-rest">
+          <option value="0">Monday</option><option value="1">Tuesday</option>
+          <option value="2">Wednesday</option><option value="3">Thursday</option>
+          <option value="4">Friday</option><option value="5">Saturday</option>
+          <option value="6" selected>Sunday</option>
+        </select></label>
+    </div>
+    <p id="bs-hint" class="muted" style="margin-top:-0.5rem">Be honest: only hours you actually have, week after week. Wishful hours are how cadences die.</p>
+    <details style="margin-bottom:1rem">
+      <summary style="cursor:pointer;font-weight:600">Per-task minutes (optional — defaults are starting estimates, not benchmarks)</summary>
+      <div class="calc-grid" style="margin-top:.75rem">
+        <label>Long-form: film (min)<input type="number" id="bs-lf" min="0" step="5" placeholder="180"></label>
+        <label>Long-form: edit (min)<input type="number" id="bs-le" min="0" step="5" placeholder="360"></label>
+        <label>Long-form: publish (min)<input type="number" id="bs-lp" min="0" step="5" placeholder="30"></label>
+        <label>Short-form: film (min)<input type="number" id="bs-sf" min="0" step="5" placeholder="30"></label>
+        <label>Short-form: edit (min)<input type="number" id="bs-se" min="0" step="5" placeholder="45"></label>
+        <label>Short-form: publish (min)<input type="number" id="bs-sp" min="0" step="5" placeholder="15"></label>
+      </div>
+      <p class="muted">Your footage, your edit speed, your reality. Time one real video of each type and replace these — that's the single highest-leverage calibration on this page.</p>
+    </details>
+    <button type="submit" class="btn btn-primary">Build my week →</button>
+  </form>
+  <div id="bs-results" aria-live="polite" style="margin-top:1.5rem"><div class="empty-state" role="status"><span class="empty-icon" aria-hidden="true">🗓</span><strong>No week built yet.</strong>Plug in your honest hours and the scheduler deals film, edit, and publish blocks into real days — and tells you straight if the week holds.</div></div>
+</section>
 </div></main>
 <footer class="site-footer">
   <div class="footer-grid">

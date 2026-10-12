@@ -144,6 +144,7 @@ TOOLS = [
     ("video-doctor", "Diagnose My Video", "Pick your symptom \u2014 low CTR, the 30-second cliff, great retention but no subs \u2014 and get ranked causes with the fix from the chapter that owns it."),
     ("ypp-checker", "YPP 2027 Eligibility Checker", "Enter your subs, watch hours, and Shorts views — get your verdict under the current YPP bar and the Feb-2027 bar, the gap math, and a chapter-grounded plan to close it."),
     ("outreach", "The Outreach Center", "Run your sponsor pipeline outbound: track pitches in a CRM-lite, generate honest pitch emails, quote from the 2026 rate card, and flag contract red flags before you sign."),
+    ("crosspost", "Cross-Post Optimizer", "Move one clip to every platform without getting throttled: per-destination adaptation checklists (aspect, captions, hooks, CTAs, disclosure labels) under the Oct-1 originality rules."),
 ]
 
 
@@ -441,9 +442,15 @@ TOOLS_API = [
                                  "description": "Defaults to 2x videos_per_shoot_day."},
           "longform_per_week": {"type": "number", "minimum": 0},
           "shorts_per_week": {"type": "number", "minimum": 0, "default": 0},
+          "weekly_hours": {"type": "number", "minimum": 0,
+                         "description": "Scheduler: honest weekly content hours (planBatchWeek)."},
+          "rest_day": {"type": "integer", "minimum": 0, "maximum": 6, "default": 6,
+                      "description": "Scheduler: rest day, Mon=0..Sun=6 (non-negotiable)."},
+          "task_minutes": {"type": "object",
+                         "description": "Scheduler: per-task minutes {long:{film,edit,publish}, short:{film,edit,publish}} — your own timings; blanks fall back to starting estimates."},
       }},
      "Required vs capacity per month (long + short), deltas, and a verdict: surplus (bank it), balanced (no slack), or shortfall (add a shoot day / drop a slot / merge formats).",
-     "Logic (assets/js/content-engine.js, UMD — importable in node): batchingMath(opts) — capacity = shoot_days_per_month × videos_per_shoot_day; required = cadence × 52/12 (the honest month); verdict surplus/balanced/shortfall with guidance text. Pure arithmetic on the creator's own inputs — never a promise. Planning aid, not financial/legal/tax advice."),
+     "Logic (assets/js/content-engine.js, UMD — importable in node): batchingMath(opts) — capacity = shoot_days_per_month × videos_per_shoot_day; required = cadence × 52/12 (the honest month); verdict surplus/balanced/shortfall with guidance text. 2.0 adds planBatchWeek({weeklyHours, longsPerWeek, shortsPerWeek, restDay, taskMinutes}) — weekly hours blocked into film/edit/publish day-blocks (8h/day cap, rest day untouched); verdict holds/tight/over with lever guidance. Defaults for task minutes are adjustable starting estimates, not benchmarks. Pure arithmetic on the creator's own inputs — never a promise. Planning aid, not financial/legal/tax advice."),
     ("money-map", "The Money Map",
      "Find your stage on the $0-to-company journey: 7 questions, 5 stage playbooks, your next 3 moves. Stages are focus guides, never income promises.",
      "money-map.html",
@@ -543,6 +550,22 @@ TOOLS_API = [
       }},
      "Pipeline stats (contacted, response rate, active deals, close rate) + follow-up buckets (overdue / due today / upcoming); rendered pitch email from the 3 templates with unfilled [brackets] left visible; rate-card quote (tier range, top-of-range quote point, 23% expected-close math, CPM cross-check vs the deliverable band); contract risk summary (per-item plain-language fix + clean / caution / don't-sign verdict). All ranges and guidance, never promises.",
      "Engine (assets/js/outreach.js, UMD — importable in node): validDeal(d) validates pipeline records; pipelineStats(deals) computes response/close rates; dueFollowUps(deals, nowIso) buckets follow-ups; quoteCalc(input, rateCard, ruleOfThumb) reads sponsorship_rate_card_2026 (tier ranges, platform multipliers, sponsored_cpms) and sponsorship_rule_of_thumb.dedicated_cpm_range — output carries the ~23% listed-vs-accepted note, the 41% package-discount figure, and the never-a-quote disclaimer; renderPitch(template, vars) fills placeholders and leaves unknown ones visible; contractRisk(ids, contract_flags) scores contract structure (any walk_away flag or 3+ points -> don't sign) with a NOT-legal-advice disclaimer. Templates + contract flags from api/v1/deal-templates.json. Negotiation aid, not financial/legal/tax advice."),
+    ("crosspost", "Cross-Post Optimizer",
+     "Take one clip to every platform without getting throttled: per-destination adaptation checklists (aspect, captions, hooks, CTAs, disclosure labels) under the Oct-1 originality rules.",
+     "crosspost.html",
+     {"$schema": "http://json-schema.org/draft-07/schema#", "title": "CrossPostInput",
+      "type": "object", "required": ["source_platform", "destinations"],
+      "properties": {
+          "source_platform": {"type": "string", "enum": ["tiktok", "shorts", "reels", "facebook"],
+                           "description": "Where the clip lives now."},
+          "destinations": {"type": "array", "minItems": 1,
+                         "items": {"type": "string", "enum": ["tiktok", "shorts", "reels", "facebook"]},
+                         "description": "Where it should go (the source is ignored if included)."},
+          "photorealistic_ai": {"type": "boolean", "default": False,
+                              "description": "The clip uses photorealistic AI visuals — triggers the YouTube disclosure-label reminder (labeled = normal distribution; undisclosed = reduced recommendations or removal)."},
+      }},
+     "Per-destination adaptation cards (aspect, captions, hook rework, CTA, audio, disclosure label, one-original-element changes) + the universal checks + the Oct-1 gate reminder. Adaptation guidance under the platforms' stated 2026 rules — never a promise of reach, views, or revenue.",
+     "Engine (assets/js/content-engine.js, UMD — importable in node): adaptChecklist(source_platform, destinations) reads the adaptation matrix (12 source→destination rule sets + 6 universal checks); unknown platforms and the source itself are filtered out. Matrix + grammars + gate: api/v1/content-engine.json -> adaptation_matrix. Pairs with the content-repurposing skill. Planning aid, not financial/legal/tax advice."),
 ]
 
 # Tools hub (wave 9): grouped card index. Per tool: icon, "use when" one-liner,
@@ -582,6 +605,8 @@ TOOL_HUB_META = {
                       ["monetization", "YPP", "Phase 5"]),
     "outreach":        ("\u2709", "MONEY",   "gold", "you're pitching brands outbound and need the whole command center.",
                       ["outreach", "pitch pipeline", "Phase 5"]),
+    "crosspost":       ("⧉", "CONTENT", "coral", "one clip needs to live natively on four platforms.",
+                      ["adaptation", "cross-post", "Phase 3"]),
 }
 TOOL_HUB_GROUPS = [
     ("PLAN", "Pick the battlefield",
@@ -1055,6 +1080,7 @@ def build():
         "video-doctor": ["assets/js/video-doctor.js"],
         "ypp-checker": ["assets/js/ypp-checker.js"],
         "outreach": ["assets/js/outreach.js", "assets/js/outreach-ui.js"],
+        "crosspost": ["assets/js/content-engine.js", "assets/js/crosspost-ui.js"],
     }
     TOOL_CSS = {
         "money-map": ["assets/css/moneymap.css"],
@@ -1226,7 +1252,7 @@ def build():
   <div class="hero-stats">
     <div class="hero-stat reveal" style="--i:0"><strong>9</strong><span>phases</span></div>
     <div class="hero-stat reveal" style="--i:1"><strong>{total_words:,}</strong><span>words</span></div>
-    <div class="hero-stat reveal" style="--i:2"><strong>16</strong><span>interactive tools</span></div>
+    <div class="hero-stat reveal" style="--i:2"><strong>18</strong><span>interactive tools</span></div>
     <div class="hero-stat reveal" style="--i:3"><strong>LVL 01–09</strong><span>your climb</span></div>
   </div>
   <div class="hero-cta"><a class="btn btn-primary" href="phase-0-start-from-nothing.html">Start at Phase 0 →</a>
@@ -1239,7 +1265,7 @@ def build():
   <span>DIVERSIFY REVENUE</span><span>SEPARATE THE MONEY</span><span>SYSTEMS BEAT HUSTLE</span>
 </div></section>
 <section class="section"><div class="section-head"><h2>The Empire Map</h2><span class="section-tag">9 levels // clear them all</span></div><div class="phase-grid reveal-stagger">{cards}</div></section>
-<section class="section"><div class="section-head"><h2>Command Center</h2><span class="section-tag">weapons free</span><a href="tools.html" class="section-more">All 17 tools →</a></div><div class="tool-grid reveal-stagger">{tools_html}</div></section>
+<section class="section"><div class="section-head"><h2>Command Center</h2><span class="section-tag">weapons free</span><a href="tools.html" class="section-more">All 18 tools →</a></div><div class="tool-grid reveal-stagger">{tools_html}</div></section>
 {case_section}
 <section class="section"><div class="section-head"><h2>Hottest topics right now</h2><span class="section-tag">live feed // trend-machine</span></div>
 <div class="hud-panel trends-hud reveal">
@@ -1362,7 +1388,7 @@ def build():
             "id": "content-engine",
             "kind": "json",
             "path": "api/v1/content-engine.json",
-            "description": "The Content Engine data contract: idea formats, the five Short-Form Playbook hook structures, calendar dealing rules, batching guidance (consistency-beats-volume), the Repurposing 2.0 derivative map (each derivative's required original element), the Oct-1 originality guardrails, deal-slot guidance, and the simulator bridge. A planning aid, not financial/legal/tax advice.",
+            "description": "The Content Engine data contract v1.1.0: idea formats, the five Short-Form Playbook hook structures, calendar dealing rules, batching guidance (consistency-beats-volume), the Repurposing 2.0 derivative map (each derivative's required original element), the Oct-1 originality guardrails, deal-slot guidance, the simulator bridge — plus the 2.0 additions: the Oct-2026 algorithm signal map (TikTok/Shorts/Reels, every claim source-labeled), 6 trend-derived hook patterns, the cross-post adaptation matrix (12 source→destination rule sets + universal checks), and the weekly batch scheduler defaults. A planning aid, not financial/legal/tax advice.",
             "schema": "api/v1/schema/content-engine.json",
             "updated": BUILD_TS,
             "records": None,
@@ -1421,7 +1447,7 @@ def build():
             "id": "tool-pages",
             "kind": "html",
             "paths": [f"{slug}.html" for slug, _, _ in TOOLS],
-            "description": "The seventeen interactive tools' human UI pages. Agents should prefer api/v1/tools.json input schemas over scraping these pages.",
+            "description": "The eighteen interactive tools' human UI pages. Agents should prefer api/v1/tools.json input schemas over scraping these pages.",
             "schema": None,
             "updated": BUILD_TS,
             "records": len(TOOLS),
@@ -1489,7 +1515,7 @@ def build():
     # ---- tools.json: every tool with its programmatic input schema ----
     (API / "tools.json").write_text(json.dumps({
         "version": "1.0.0", "updated": "2026-10-11",
-        "note": ("Programmatic input schemas for the seventeen interactive tools. "
+        "note": ("Programmatic input schemas for the eighteen interactive tools. "
                  "Agents replicate each tool's logic by feeding these inputs to the "
                  "documented formulas / shipped JS (assets/js/<id>.js); the UI pages "
                  "are the human front-end for the same logic."),
@@ -1818,7 +1844,9 @@ def build():
         "required": ["version", "updated", "disclaimer", "idea_formats",
                      "hook_structures", "dealing_rules", "batching",
                      "repurposing_2_0", "originality_guardrails",
-                     "deal_slots", "simulator_bridge", "source"],
+                     "deal_slots", "simulator_bridge",
+                     "algorithm_signals", "hook_patterns",
+                     "adaptation_matrix", "batching_scheduler", "source"],
         "properties": {
             "version": {"type": "string"},
             "updated": {"type": "string"},
@@ -1901,6 +1929,91 @@ def build():
                     "max_sponsor_share": {"type": "number"},
                 }},
             "simulator_bridge": {"type": "object"},
+            "algorithm_signals": {
+                "type": "object",
+                "required": ["updated", "research_basis", "source_labels", "platforms"],
+                "properties": {
+                    "updated": {"type": "string"},
+                    "research_basis": {"type": "string"},
+                    "source_labels": {"type": "object"},
+                    "platforms": {"type": "array", "minItems": 3, "maxItems": 3, "items": {
+                        "type": "object",
+                        "required": ["id", "label", "optimize_for", "hierarchy", "mechanics"],
+                        "properties": {
+                            "id": {"type": "string", "enum": ["tiktok", "shorts", "reels"]},
+                            "label": {"type": "string"},
+                            "optimize_for": {"type": "string"},
+                            "hierarchy": {"type": "array", "minItems": 3, "items": {
+                                "type": "object",
+                                "required": ["rank", "signal", "note", "source", "source_label"],
+                                "properties": {
+                                    "rank": {"type": "integer"},
+                                    "signal": {"type": "string"},
+                                    "note": {"type": "string"},
+                                    "source": {"type": "string"},
+                                    "source_label": {"type": "string",
+                                        "enum": ["platform-published", "verified-multi-source",
+                                                 "single-source", "creator-lore"]},
+                                }}}},
+                            "mechanics": {"type": "array", "minItems": 4, "items": {
+                                "type": "object",
+                                "required": ["claim", "source", "source_label"],
+                                "properties": {
+                                    "claim": {"type": "string"},
+                                    "source": {"type": "string"},
+                                    "source_label": {"type": "string",
+                                        "enum": ["platform-published", "verified-multi-source",
+                                                 "single-source", "creator-lore"]},
+                                }}},
+                        }}}},
+            "hook_patterns": {
+                "type": "object",
+                "required": ["updated", "basis", "honesty_note", "patterns"],
+                "properties": {
+                    "updated": {"type": "string"},
+                    "basis": {"type": "string"},
+                    "honesty_note": {"type": "string"},
+                    "patterns": {"type": "array", "minItems": 6, "maxItems": 6, "items": {
+                        "type": "object",
+                        "required": ["id", "name", "formula", "mechanic", "spotted_in", "adapt"],
+                        "properties": {
+                            "id": {"type": "string",
+                                   "enum": ["costume-reveal-walk", "leaving-edit",
+                                            "joy-contrast", "hidden-confession",
+                                            "cozy-bed", "upside-down-flip"]},
+                            "name": {"type": "string"},
+                            "formula": {"type": "string"},
+                            "mechanic": {"type": "string"},
+                            "spotted_in": {"type": "string"},
+                            "adapt": {"type": "string"},
+                        }}}}},
+            "adaptation_matrix": {
+                "type": "object",
+                "required": ["updated", "basis", "platforms", "rules", "universal_checks", "oct1_gate"],
+                "properties": {
+                    "updated": {"type": "string"},
+                    "basis": {"type": "string"},
+                    "platforms": {"type": "object"},
+                    "rules": {"type": "object",
+                              "required": ["tiktok>shorts", "tiktok>reels", "tiktok>facebook",
+                                           "shorts>tiktok", "shorts>reels", "shorts>facebook",
+                                           "reels>tiktok", "reels>shorts", "reels>facebook",
+                                           "facebook>tiktok", "facebook>shorts", "facebook>reels"]},
+                    "universal_checks": {"type": "array", "minItems": 6,
+                                         "items": {"type": "string"}},
+                    "oct1_gate": {"type": "string"},
+                }},
+            "batching_scheduler": {
+                "type": "object",
+                "required": ["basis", "default_task_minutes", "rest_day_default",
+                           "max_hours_per_day", "guidance"],
+                "properties": {
+                    "basis": {"type": "string"},
+                    "default_task_minutes": {"type": "object"},
+                    "rest_day_default": {"type": "integer"},
+                    "max_hours_per_day": {"type": "number"},
+                    "guidance": {"type": "array", "items": {"type": "string"}},
+                }},
             "source": {"type": "string"},
         },
     }

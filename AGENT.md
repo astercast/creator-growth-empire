@@ -1,7 +1,7 @@
 # AGENT.md — How an agent uses Creator Growth Empire
 
 > This site is a static machine-readable knowledge base for the creator
-> business: 9 phases, 17 tools, 12 skills, 9 case files, and a versioned JSON
+> business: 9 phases, 18 tools, 12 skills, 9 case files, and a versioned JSON
 > API. No API key, no server, no auth, no rate limits. Fetch and act.
 > Every workflow below was executed against the real `api/v1/` JSON files —> see `tests/agent-workflows.test.js` (run: `node tests/agent-workflows.test.js`).
 
@@ -32,7 +32,7 @@
 | `GET api/v1/calculators.json` | Per-niche RPM bands, Shorts RPM, platform thresholds w/ sources+dates, revenue splits, 2026 sponsorship rate card, 2026 research snapshots | The data contract every calculator and the sim engine read |
 | `GET api/v1/skills.json` | 12 skills: `name`, `description`, `path` | `skills/deal-negotiation/SKILL.md` for the full procedure |
 | `GET api/v1/case-files.json` | 9 creator-business deconstructions: `id`, `title`, `path`, `words`, `read_minutes` | Full text on the `case-*.html` pages |
-| `GET api/v1/tools.json` | 17 tools with programmatic `input_schema` (draft-07), output description, `drive_notes` | Replicate any tool's logic without the UI |
+| `GET api/v1/tools.json` | 18 tools with programmatic `input_schema` (draft-07), output description, `drive_notes` | Replicate any tool's logic without the UI |
 | `GET api/v1/schema/<name>.json` | JSON Schema draft-07 for every endpoint (per-doc and per-record) | Validate before you trust a payload |
 
 Skills are the executable layer: each `skills/<name>/SKILL.md` follows
@@ -203,6 +203,17 @@ via API.
    `exportCalendarText(deal)` renders the copy-my-calendar text. Sponsor slots
    are calendar commitments only — price them in the Deal Room before
    promising them.
+7. Content Engine 2.0 extras (same file, same import). `algorithmSignals("tiktok"|"shorts"|"reels")`
+   returns the Oct-2026 signal map — hierarchy + mechanics, every claim carrying
+   `source` and `source_label` (platform-published / verified-multi-source /
+   single-source / creator-lore); treat anything below platform-published as
+   guidance, not law. `hookPatterns()` returns the 6 trend-derived structural
+   patterns (each with the mechanic it exploits — completion, sends, rewatches…).
+   `planBatchWeek({weeklyHours, longsPerWeek, shortsPerWeek, restDay, taskMinutes})`
+   blocks the week into film/edit/publish day-blocks (8h/day cap, rest day
+   untouched) → verdict holds/tight/over with lever guidance; task-minute
+   defaults are starting estimates, never benchmarks. All of it mirrors
+   `api/v1/content-engine.json` (v1.1.0).
 
 ### Workflow 7 — Place a creator on the Money Map and generate their roadmap
 
@@ -306,6 +317,37 @@ loop — pipeline, pitch, quote, contract read — all via API, no UI.
    (contracts above $500 deserve a real lawyer's eyes). Educational aid, not
    financial, legal, or tax advice; never an income promise.
 
+### Workflow 10 — Adapt one clip for every platform (the Cross-Post Optimizer)
+
+Goal: take a finished clip and build the per-destination adaptation plan —
+aspect, captions, hooks, CTAs, disclosure labels — under the Oct-1
+originality rules, all via API, no UI.
+
+1. `GET api/v1/tools.json` → tool `crosspost` → `input_schema` (`CrossPostInput`).
+   Build the input: `{ source_platform, destinations[], photorealistic_ai }`.
+   Example: `{ source_platform: "tiktok", destinations: ["shorts", "reels"],
+   photorealistic_ai: false }`.
+2. Drive the logic with `require("assets/js/content-engine.js")` (UMD,
+   importable in node) against `api/v1/content-engine.json` (`adaptation_matrix`):
+   - **Plan.** `adaptChecklist(source_platform, destinations)` → per-destination
+     cards (grammar note + ordered changes: hook rework, caption rewrite, CTA
+     swap, audio rights, disclosure label); the source itself and unknown
+     platforms are filtered out — `{ ok: false }` only on an unknown source.
+   - **Gate.** Every plan carries the `gate` (Oct-1-2026: YouTube judges at the
+     channel level; TikTok demotes reused content; Meta's March 2026 policy
+     targets low-value reposts) plus the 6 `universal` checks (native uploads,
+     no watermarks, 9:16, one original element minimum per destination,
+     stagger posting).
+   - **AI flag.** `photorealistic_ai: true` triggers the disclosure reminder:
+     YouTube's AI-content label before upload — labeled gets normal
+     distribution (Ritchie, May 2026); undisclosed photorealistic AI faces
+     reduced recommendations or removal.
+3. Framing rule (non-negotiable): checklists are **adaptation guidance under
+   the platforms' stated 2026 rules** — never a promise of reach, views, or
+   revenue. Platform rules change; verify live before acting on anything that
+   matters. The `content-repurposing` skill owns the full pillar-to-everywhere
+   SOP this tool plugs into. Planning aid, not financial, legal, or tax advice.
+
 ## Rate & expectation notes
 
 - **Static JSON.** Nothing here is live: no request counts, no streaming, no
@@ -344,6 +386,7 @@ explaining how to replicate the logic:
 | YPP 2027 Eligibility Checker | `subs`, `watchHours`, `shortsViews`, `uploads90d`, `originality` (original/repurposed/reposted), `formatMix` (longform/shorts/both) | `require("assets/js/ypp-checker.js")` — `check(i)` returns current-vs-2027 verdicts, Shorts floor, activity test, gap math, chapter-grounded plan — see Workflow 8 |
 | Hook Builder | `topic` (one line) | One hook per Short-Form Playbook structure + the anti-hook checklist |
 | The Outreach Center | `brand`, `contactName`, `email`, `status` (pitched → replied → negotiating → signed → passed), `followUpDate`, `followers`, `platform`, `deliverable`, `expectedViews`, `pitchTemplate` (cold_pitch/follow_up_nudge/warm_intro), `pitchVars{}`, `contractFlags[]` | `require("assets/js/outreach.js")` — `validDeal()` for pipeline records, `pipelineStats()` for response/close rates, `dueFollowUps()` for the one-nudge buckets, `quoteCalc()` for the tier range + CPM cross-check (top-of-range quote, ~23% expected-close math), `renderPitch()` for the 3 honest templates (unfilled `[brackets]` stay visible — never invent stats), `contractRisk()` for the checklist (any walk_away flag or 3+ points → don't sign); templates + contract flags from `api/v1/deal-templates.json` — see Workflow 9 |
+| Cross-Post Optimizer | `source_platform` (tiktok/shorts/reels/facebook), `destinations[]`, `photorealistic_ai` (boolean) | `require("assets/js/content-engine.js")` — `adaptChecklist(source, dests)` → per-destination cards (hook rework, caption rewrite, CTA swap, audio rights, disclosure label) + 6 universal checks + the Oct-1 gate; matrix from `api/v1/content-engine.json` → `adaptation_matrix`; pairs with the `content-repurposing` skill — see Workflow 10 |
 
 Full per-tool schemas, formulas, and honesty notes live in `tools.json`;
 the UI pages (`quiz.html`, `calculator.html`, …) are the human front-end for

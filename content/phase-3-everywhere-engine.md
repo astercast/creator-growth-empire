@@ -20,14 +20,14 @@ The portfolio, in priority order for most creators:
 
 **What wins:** native pacing (hook in under 1 second, captions burned in, trending audio used *strategically*), series formats ("day 12 of X" — TikTok's algorithm loves episodic return viewers), and search-value content (TikTok is now a search engine for Gen Z; "how to" content has a long tail here too).
 
-**How the TikTok algorithm actually ranks (2026, per Hootsuite / Vamp / fivebbc consensus):** it's an *interest* graph, not a social graph — follower count is not a direct ranking factor. Every upload is tested against a small audience pool first (~300–500 matched accounts per one creator-lore model), widened 3–5x per wave only if early signals clear the gate. The signal hierarchy, in order:
+**How the TikTok algorithm actually ranks (2026, per Hootsuite / Vamp / fivebbc consensus):** it's an *interest* graph, not a social graph — follower count is not a direct ranking factor. Every upload is tested against a small audience pool first (~300–500 matched accounts per one creator-lore model — *creator lore, unverified by TikTok*), widened 3–5x per wave only if early signals clear the gate. The signal hierarchy, in order *(verified multi-source — all three agree)*:
 
-1. **Watch time + completion rate** — the dominant signals (one agency estimates 40–50% of ranking weight, unconfirmed but directionally right)
+1. **Watch time + completion rate** — the dominant signals (one agency estimates 40–50% of ranking weight — *single source, unconfirmed but directionally right*; TikTok publishes no weights)
 2. **Rewatches, shares, saves** — next in line
 3. **Comments** — quality-weighted, not volume-weighted
 4. **Likes** — moderate and *declining* in weight
 
-The "qualified view" bar keeps rising (creator lore says 3s → 5s). And because TikTok now functions as a **search engine**, your captions, on-screen text, and *spoken* keywords decide whether a video is discoverable months later — keyword delivery is a real 2026 growth lever, not just an SEO nicety.
+Two more mechanics, flagged honestly: watch time *per impression* appears to have replaced raw view counts (DMA, single source — a 60s video at 80% completion can beat a 15s clip at 95%), and the "qualified view" bar may have risen from 3s to 5s (virvid.ai, single source, unverified). What TikTok *has* stated in its own docs (via viral.app, Sept 2026): it does not recommend reused, unoriginal, or engagement-bait content — *platform-published*. And because TikTok now functions as a **search engine**, your captions, on-screen text, and *spoken* keywords decide whether a video is discoverable months later — keyword delivery is a real 2026 growth lever, not just an SEO nicety *(Vamp + fivebbc, verified multi-source)*.
 
 **The repost trap:** TikTok's originality filter pays reposts and template-slop at the floor rate. Adapt, don't cross-post blindly.
 
@@ -37,7 +37,7 @@ Instagram doesn't share ad revenue on Reels the way YouTube does — income here
 
 **What wins:** aesthetic consistency (your grid is your portfolio), carousel + Reel combos (carousels still drive saves, a deep algorithm signal on IG), and Stories for the parasocial layer (polls, Q&As, behind-the-scenes — this is where followers become fans).
 
-**How Reels actually rank in 2026 (Mosseri-stated signals):** **sends per reach is the #1 signal** — per Adam Mosseri himself, send rate correlates with reach more than watch time or likes do. Likes matter more for content shown to your *followers*; sends matter more for *unconnected* discovery, and most Reels impressions come from people who don't follow you. Full hierarchy: sends per reach > watch time > completion/rewatches > likes per reach > comments. (One caution: "sends are worth 3–5x a like" is an invented number with no source — Instagram publishes no weights.) Two more 2026 rules: **Reels longer than 3 minutes aren't pushed to non-followers** (discovery sweet spot is 7–30 seconds), and TikTok watermarks are explicitly deprioritized alongside low-resolution and engagement-bait content. Build Reels people want to *send someone* — that's the whole algorithm in one sentence.
+**How Reels actually rank in 2026 (Mosseri-stated signals — *platform-published*, via Virvid + CreatorFlow):** **sends per reach is the #1 signal** — per Adam Mosseri himself, send rate correlates with reach more than watch time or likes do. Likes matter more for content shown to your *followers*; sends matter more for *unconnected* discovery, and most Reels impressions come from people who don't follow you. Full hierarchy *(Mosseri-stated, corroborated by CreatorFlow + SocialPilot)*: sends per reach > watch time > completion/rewatches > likes per reach > comments. (One caution: "sends are worth 3–5x a like" is an invented number with no source — Instagram publishes no weights.) Two more 2026 rules: **Reels longer than 3 minutes aren't pushed to non-followers** (discovery sweet spot is 7–30 seconds — *single source, orangemonke — guidance, not law*), and TikTok watermarks are explicitly deprioritized alongside low-resolution and engagement-bait content *(FlowShorts, single source)*. Build Reels people want to *send someone* — that's the whole algorithm in one sentence.
 
 ## Facebook: the underestimated giant
 
@@ -46,6 +46,19 @@ Everyone under 25 ignores Facebook. That's the opportunity. Facebook's **Content
 **What wins:** Facebook rewards *native* long-ish video and community discussion. Cross-post your YouTube videos natively (not YouTube links — native uploads), run a Facebook Page as your broadcast channel, and take comments seriously: Facebook's algorithm heavily weights meaningful discussion.
 
 **The originality crackdown (2026):** Meta's March 2026 policy targets reposted content with low-value changes (borders, captions, speed shifts). Cross-post *your own* content, natively, with platform-specific captions — that's normal practice. Reposting others' videos is what gets reach killed.
+
+## The algorithm cheat sheet (Oct 2026)
+
+The full mechanics — with every claim labeled platform-published, verified multi-source, single-source, or creator lore — live in the [Short-Form Playbook](shortform-playbook.html) and in `api/v1/content-engine.json` → `algorithm_signals`. The working version fits on an index card:
+
+| Platform | Optimize for | The hierarchy that matters |
+|---|---|---|
+| **TikTok** | Completion rate + watch time per impression | Watch time/completion dominate *(multi-source)* → rewatches, shares, saves → comments (quality-weighted) → likes (declining). TikTok is also a search engine now — spoken + captioned keywords decide long-tail discovery *(Vamp, fivebbc)*. |
+| **YouTube Shorts** | Completion rate (nobody clicks — they just don't swipe) | Completion + watch time dominate → rewatches/shares/saves → likes declining. **Oct 1, 2026:** originals prioritized, re-uploads starved *at the channel level*; AI labels don't hurt reach, undisclosed photorealistic AI gets reduced or removed *(Ritchie, platform-published)*. |
+| **Instagram Reels** | Sends per reach | Sends *(Mosseri-stated)* > watch time > completion/rewatches > likes per reach > comments. Keep discovery Reels under ~3 min *(single source)*; strip TikTok watermarks. |
+| **Facebook** | Meaningful discussion | Discussion-prompting native video; your own content cross-posted natively is fine, reposting others' kills reach *(Meta's March 2026 policy)*. |
+
+Three cross-platform truths: **retention is the currency** everywhere; **shareability is distribution** (DMs on Reels, shares on TikTok); and **originality is now a gate, not a nice-to-have** — all three platforms starve recycled content as of October 2026. The [Cross-Post Optimizer](crosspost.html) turns this table into a per-destination checklist for any clip you're moving.
 
 ## The repurposing system: one idea → five platforms
 
@@ -68,7 +81,7 @@ The #1 repurposing mistake: uploading the identical file everywhere. Each platfo
 - **Shorts** wants punchy, loopable, high-retention.
 - **Facebook** wants discussion-provoking, shareable, slightly longer.
 
-Same idea, four dialects. The reframe takes minutes; the performance difference is enormous.
+Same idea, four dialects. The reframe takes minutes; the performance difference is enormous. When you're moving a clip, the [Cross-Post Optimizer](crosspost.html) builds the per-destination checklist (aspect, captions, hooks, CTAs, disclosure labels) under the Oct-1 originality rules.
 
 ## The 80/20 of being everywhere
 

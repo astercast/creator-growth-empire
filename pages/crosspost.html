@@ -1,0 +1,31 @@
+<form id="cp-form" aria-label="Cross-post optimizer">
+  <div class="calc-grid">
+    <label>Source platform — where the clip lives now
+      <select id="cp-source">
+        <option value="tiktok" selected>TikTok</option>
+        <option value="shorts">YouTube Shorts</option>
+        <option value="reels">Instagram Reels</option>
+        <option value="facebook">Facebook</option>
+      </select></label>
+    <fieldset id="cp-dests" style="border:0;padding:0;margin:0">
+      <legend style="font-weight:600;margin-bottom:.4rem">Destinations — where it should go</legend>
+      <label style="display:block;font-weight:400"><input type="checkbox" name="cp-dest" value="tiktok"> TikTok</label>
+      <label style="display:block;font-weight:400"><input type="checkbox" name="cp-dest" value="shorts" checked> YouTube Shorts</label>
+      <label style="display:block;font-weight:400"><input type="checkbox" name="cp-dest" value="reels" checked> Instagram Reels</label>
+      <label style="display:block;font-weight:400"><input type="checkbox" name="cp-dest" value="facebook"> Facebook</label>
+    </fieldset>
+    <label style="display:block;font-weight:400"><input type="checkbox" id="cp-ai"> This clip uses photorealistic AI visuals</label>
+  </div>
+  <button type="submit" class="btn btn-primary">Build my adaptation plan →</button>
+</form>
+<div id="cp-results" aria-live="polite" style="margin-top:1.5rem"><div class="empty-state" role="status"><span class="empty-icon" aria-hidden="true">⧉</span><strong>No plan yet.</strong>Pick the source and the destinations — the optimizer builds a per-platform adaptation checklist so the same idea ships natively everywhere without tripping the Oct-1 originality rules.</div></div>
+<noscript><div class="callout warn"><strong>JavaScript is off — the checklist generator needs it.</strong><p>The short version works without JS: upload natively everywhere, strip watermarks, re-cut the first 2 seconds per platform, add one original element per destination, disclose photorealistic AI on YouTube before upload, and stagger posting across days. The full per-platform checklists live in the <a href="shortform-playbook.html">Short-Form Playbook</a>.</p></div></noscript>
+<section aria-labelledby="cp-links-title" style="margin-top:2rem">
+  <h2 id="cp-links-title">Adapt, then distribute</h2>
+  <ul>
+    <li><strong>Repurposing Planner</strong> (<a href="repurpose.html">repurpose.html</a>) — the full pillar-to-five-platforms SOP this checklist plugs into.</li>
+    <li><strong>Short-Form Playbook</strong> (<a href="shortform-playbook.html">shortform-playbook.html</a>) — the Oct-1 originality rules, per-platform ranking mechanics, and the disclosure rules in full.</li>
+    <li><strong>Phase 3: The Everywhere Engine</strong> (<a href="phase-3-everywhere-engine.html">phase-3-everywhere-engine.html</a>) — platform grammars and the weekly everywhere schedule.</li>
+  </ul>
+</section>
+<p class="muted">Checklists are adaptation guidance under the platforms' stated 2026 rules — they never promise reach, views, or revenue. Platform rules change; verify live before acting on anything that matters. A planning aid, not financial, legal, or tax advice.</p>

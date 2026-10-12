@@ -1,6 +1,6 @@
 # Creator Growth Empire
 
-The most comprehensive creator-growth guide ever made: the $0 → multi-million-dollar creator company arc. YouTube, TikTok, Facebook, merch, brand deals, LLC, taxes, scale — nine phases, three interactive tools, a versioned JSON API, and six agent skills.
+The most comprehensive creator-growth guide ever made: the $0 → multi-million-dollar creator company arc. YouTube, TikTok, Facebook, merch, brand deals, LLC, taxes, scale — nine phases, eighteen interactive tools, a versioned JSON API, and twelve agent skills.
 
 **Private repo. GitHub-only. No Vercel.**
 
@@ -22,13 +22,13 @@ Every chapter is 1,500+ words of substantive, actionable content. No stubs.
 
 ## Interactive tools
 
-Fourteen tools (`pages/*.html` → `site/*.html`): **Niche Picker** (quiz), **Revenue Calculator** (calculator), **90-Day Planner** (planner), **Sponsor Deal Analyzer** (deal-analyzer), **The Deal Room** (deal-room), **Hiring Cost Calculator** (hiring-calculator), **Repurposing Planner** (repurpose), **Empire Simulator** (simulator), **API Explorer** (api-explorer), **Hook Builder** (hook-builder), **Idea Bank** (idea-bank), **90-Day Content Calendar** (content-calendar), **Batching Planner** (batching). **The Money Map** (money-map). Every tool's programmatic input schema lives in `api/v1/tools.json`.
+Eighteen tools (`pages/*.html` → `site/*.html`): **Niche Picker** (quiz), **Revenue Calculator** (calculator), **90-Day Planner** (planner), **Sponsor Deal Analyzer** (deal-analyzer), **The Deal Room** (deal-room), **Hiring Cost Calculator** (hiring-calculator), **Repurposing Planner** (repurpose), **Empire Simulator** (simulator), **API Explorer** (api-explorer), **Hook Builder** (hook-builder), **Idea Bank** (idea-bank), **90-Day Content Calendar** (content-calendar), **Batching Planner** (batching). **The Money Map** (money-map), **Diagnose My Video** (video-doctor), **YPP 2027 Eligibility Checker** (ypp-checker), **The Outreach Center** (outreach), **Cross-Post Optimizer** (crosspost). Every tool's programmatic input schema lives in `api/v1/tools.json`.
 
 ## Agentic layer
 
 - `api/v1/` — versioned JSON: `index.json` (self-describing manifest), `chapters.json`, `glossary.json`, `calculators.json`, `skills.json`, `case-files.json`, `tools.json`, plus `schema/` (15 JSON Schema draft-07 files)
-- `AGENT.md` — how an agent uses this site: base URL pattern, example requests, 6 end-to-end workflows (executed by `tests/agent-workflows.test.js`), tool input schemas
-- `llms.txt` + `llms-full.txt` — LLM-ready summaries of the full guide (9 phases, 15 tools, guides & playbooks, 7 case files, 12 skills)
+- `AGENT.md` — how an agent uses this site: base URL pattern, example requests, 10 end-to-end workflows (executed by `tests/agent-workflows.test.js`), tool input schemas
+- `llms.txt` + `llms-full.txt` — LLM-ready summaries of the full guide (9 phases, 18 tools, guides & playbooks, 9 case files, 12 skills)
 - `skills/` — twelve skills in the standard format: `niche-validation`, `hook-writing`, `shortform-hook-craft`, `thumbnail-teardown`, `content-repurposing`, `repurposing-sprint`, `analytics-review`, `sponsorship-pitch`, `deal-negotiation`, `rate-card-reader`, `first-hire-planner`, `live-shopping-playbook`
 - `API.md` — full API reference (includes the shared cross-site API conventions block)
 
