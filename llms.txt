@@ -35,9 +35,10 @@ From $0 to a multi-million-dollar creator company.
 - [Cadence Coach](cadence.html) — How often should you actually post? Turn your honest weekly hours, formats, and platforms into a sustainable cadence — capacity math plus Oct-2026 platform realities. Consistency beats volume.
 - [Format Fit Finder](format-fit.html) — Answer six questions about your real situation — experience, hours, on-camera comfort, budget, timeline, risk — and get all 10 breakout formats ranked by fit, each with why it fits, the catch, creator-reported pay ranges, and your first 3 moves. Honest mismatch flags; never a promise.
 - [Deal Builder](deal-builder.html) — Turn deliverables into a line-item quote from the 2026 rate card — base fees, usage, whitelisting, and exclusivity stacked as separate lines — plus a ready-to-send proposal and a deal checklist built from your actual terms.
+- [The Negotiation Kit](negotiation-kit.html) — The words and the math for a live negotiation: a counter-offer builder grounded in the 2026 rate card with the typical-quote evidence shown (reported vs modeled, kept apart), six ready-to-send reply scripts — the counter, the lowball, exposure-only, usage rights, whitelisting, late payment — each editable in place, and a walk-away panel tied to your own Deal Room pipeline numbers.
 - [Glossary](glossary.html)
 
-All twenty-one tools, grouped by job (Plan / Money / Content): [Tools hub](tools.html).
+All twenty-two tools, grouped by job (Plan / Money / Content): [Tools hub](tools.html).
 
 ## Reference
 - [Reference: 2026 Rate Card](rate-card.html) — 5 min read
@@ -73,7 +74,7 @@ All twenty-one tools, grouped by job (Plan / Money / Content): [Tools hub](tools
 - data/v1/skills.json
 - data/v1/case-files.json
 - data/v1/tools.json — every tool's programmatic input schema
-- data/v1/deal-templates.json — Deal Room data: negotiation scripts, red-flag checklist, usage-rights tiers, pitch templates, contract red-flag checklist
+- data/v1/deal-templates.json — Deal Room data: negotiation scripts, red-flag checklist, usage-rights tiers, pitch templates, contract red-flag checklist, negotiation-kit reply scripts
 - data/v1/content-engine.json — Content Engine data: idea formats, Playbook hook structures, dealing rules, Repurposing 2.0 map, originality guardrails, deal-slot guidance
 - data/v1/changes.json — Algorithm Watch feed: dated algorithm/policy/monetization changes with sources + confidence flags (verified/single-source); live at /api/changes
 - what-changed.html — Algorithm Watch 'what changed' feed page: pre-rendered from data/v1/changes.json, live-updated from /api/changes when reachable (status badge reports live/cached honestly)
@@ -81,7 +82,7 @@ All twenty-one tools, grouped by job (Plan / Money / Content): [Tools hub](tools
 
 ## Agents
 - AGENT.md — how an agent uses this site: base URL pattern, example requests, 14 end-to-end workflows, tool input schemas
-- [Agents](agents.html) — the agent surface: endpoint table, all skills, data freshness policy, 6 worked agent workflows
+- [Agents](agents.html) — the agent surface: endpoint table, all skills, data freshness policy, 7 worked agent workflows
 - [API Explorer](api-explorer.html) — browse api/v1 endpoints, preview JSON in-browser
 - llms.txt (this file) — quick agent orientation
 - llms-full.txt — complete guide text, all chapters + reference + guides + agents

@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
   "updated": "2026-10-11",
-  "note": "Programmatic input schemas for the twenty-one interactive tools. Agents replicate each tool's logic by feeding these inputs to the documented formulas / shipped JS (assets/js/<id>.js); the UI pages are the human front-end for the same logic.",
+  "note": "Programmatic input schemas for the twenty-two interactive tools. Agents replicate each tool's logic by feeding these inputs to the documented formulas / shipped JS (assets/js/<id>.js); the UI pages are the human front-end for the same logic.",
   "tools": [
     {
       "id": "quiz",
@@ -1801,6 +1801,139 @@
       },
       "output": "Line-item quote: per-deliverable lines (per-unit + line ranges with the data basis named), post-fee base, usage add-on (+25\u201350% / +50\u201375% / +75\u2013100% / perpetual from 2x), whitelisting add-on (30\u2013100%/mo), exclusivity add-on or broad-lock flag, package total, expected landing zone (~23% below the ask), bundle + multi-platform + honesty notes; exclusivity/usage-window conflict flags (walk_away/flag/note levels, incl. the can't-see-other-contracts honesty note); proposal email with unsupplied stats as [brackets] (never invented); 7-group deal checklist (usage, payment, revisions, exclusivity, FTC disclosure, deliverables, walk-away) customized to the quote's terms. All ranges and guidance, never promises.",
       "drive_notes": "Engine (assets/js/deal-builder.js, UMD \u2014 importable in node): validInput() validates (followers \u22651,000, \u22648 deliverable lines, count 1\u201312, exclusivity consistency); tierOf() parity-pinned with Outreach.tierOf; deliverableBase() reads sponsorship_rate_card_2026 (dedicated = tier band, integrated/short = sponsored-CPM \u00d7 viewsAvg with a labeled half-band fallback, ugc = Storika $150\u2013$1,000 single-source); buildQuote() stacks base + usage (usage_rights_benchmarks_2026 tiers) + whitelisting (monthly) + exclusivity (named +25%/+50%, category flagged not invented) \u2014 2-sig-fig rounding, expectedClose \u00d7(1\u22120.23); exclusivityConflicts() checks window mismatches, perpetual+exclusivity, whitelisting-outliving-lock, UGC+affiliate edges; buildChecklist() generates the 7-group checklist from the quote; renderPitch() writes the proposal with [bracket] placeholders. Negotiation aid \u2014 not financial, legal, or tax advice; the checklist is not legal advice. See AGENT.md Workflow 14."
+    },
+    {
+      "id": "negotiation-kit",
+      "title": "The Negotiation Kit",
+      "description": "The words and the math for a live negotiation: a counter-offer builder grounded in the 2026 rate card with the typical-quote evidence shown (reported vs modeled, kept apart), six ready-to-send reply scripts, and a walk-away panel tied to your own Deal Room pipeline numbers.",
+      "page": "negotiation-kit.html",
+      "input_schema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "title": "NegotiationKitInput",
+        "type": "object",
+        "required": [
+          "platform",
+          "deliverable",
+          "followers",
+          "offer"
+        ],
+        "properties": {
+          "brand": {
+            "type": "string",
+            "description": "Brand making the offer (used in the reply scripts)."
+          },
+          "platform": {
+            "type": "string",
+            "enum": [
+              "youtube",
+              "tiktok",
+              "instagram"
+            ]
+          },
+          "deliverable": {
+            "type": "string",
+            "enum": [
+              "integrated",
+              "dedicated",
+              "short",
+              "ugc"
+            ],
+            "description": "Integrated slot, dedicated video, short-form video, or UGC without posting."
+          },
+          "followers": {
+            "type": "number",
+            "minimum": 1000,
+            "description": "Follower/subscriber count on the platform being sold (nano floor 1,000)."
+          },
+          "expectedViews": {
+            "type": "number",
+            "minimum": 0,
+            "default": 0,
+            "description": "Last-10-video average; enables the implied-CPM check."
+          },
+          "offer": {
+            "type": "number",
+            "minimum": 0,
+            "description": "The brand's offered fee in USD. 0 = an exposure-only offer."
+          },
+          "niche": {
+            "type": "string",
+            "enum": [
+              "finance_investing",
+              "tech_software",
+              "education",
+              "health_fitness",
+              "lifestyle",
+              "gaming",
+              "comedy_entertainment",
+              "music",
+              "kids",
+              "asmr",
+              "creator_economy",
+              "challenges_stunts",
+              "ai_ml",
+              "true_crime",
+              "entertainment",
+              "science"
+            ],
+            "description": "Optional sponsor niche key \u2014 adjusts the benchmark range by the shared niche multiplier table."
+          },
+          "usage": {
+            "type": "string",
+            "enum": [
+              "organic_only",
+              "paid_3mo",
+              "paid_6mo",
+              "paid_12mo",
+              "perpetual"
+            ],
+            "default": "organic_only",
+            "description": "Paid-ad usage in the offer, from calculators.json usage_rights_benchmarks_2026."
+          },
+          "whitelistingMonths": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 24,
+            "default": 0,
+            "description": "Months of whitelisting the brand asks for (30\u2013100%/mo of the counter base)."
+          },
+          "exclusivity": {
+            "type": "object",
+            "properties": {
+              "scope": {
+                "type": "string",
+                "enum": [
+                  "none",
+                  "named",
+                  "category"
+                ],
+                "default": "none"
+              },
+              "months": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 24,
+                "default": 0
+              }
+            }
+          },
+          "postCount": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 12,
+            "default": 1,
+            "description": "Posts in the deal \u2014 3+ triggers the bundle-discount note."
+          },
+          "creatorFloor": {
+            "type": "number",
+            "minimum": 0,
+            "default": 0,
+            "description": "Your own walk-away floor in USD; the panel takes the higher of this and the rate-card floor."
+          }
+        }
+      },
+      "output": "Counter-offer: niche-adjusted tier range and verdict on the offer, implied-CPM position against the deliverable's reported band, the typical-quote / typical-ask evidence (Cheerful Sep-2026, reported) and the modeled Instagram feed-post cross-check (Click Analytic 2026, labeled modeled) \u2014 null where no format maps honestly; line items (post fee at the top of the range + usage + whitelisting + named exclusivity, each with its basis), counter total, expected landing zone (~23% below the ask), and the broad-exclusivity flag. Walk-away panel: your floor (higher of rate-card floor and your own floor), your Deal Room pipeline totals (committed / paid / average paid / still open \u2014 your numbers only), and a stance on this offer. Six editable reply scripts (counter, lowball, exposure-only, usage rights, whitelisting, late payment) filled from the counter's numbers, plus a one-page negotiation brief. A model, not a prediction; never a guarantee.",
+      "drive_notes": "Engine (assets/js/negotiation-kit.js, UMD \u2014 importable in node): validInput() validates; buildCounter(input, calculatorsJson) reads sponsorship_rate_card_2026 + sponsorship_quoted_prices_2026 + usage_rights_benchmarks_2026 (calculators v1.5.0) \u2014 niche multiplier parity-pinned with DealRoom/DealAnalyzer, quoted-price format map shared with the Deal Room, unmapped formats return null evidence; walkAwayPanel(input, dealRoomDeals, calculatorsJson) totals the creator's own pipeline with no invented close probabilities; renderReply(script, vars) fills {{placeholders}} from deal-templates.json negotiation_kit_scripts (v1.2.0) and leaves unknown ones visible; replyVars(counter, extra) carries the counter's numbers into the scripts; exportBrief(counter, walk) renders the plaintext brief. Negotiation aid \u2014 not financial, legal, or tax advice. See AGENT.md Workflow 15."
     }
   ]
 }

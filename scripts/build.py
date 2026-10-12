@@ -217,6 +217,7 @@ TOOLS = [
     ("cadence", "Cadence Coach", "How often should you actually post? Turn your honest weekly hours, formats, and platforms into a sustainable cadence — capacity math plus Oct-2026 platform realities. Consistency beats volume."),
     ("format-fit", "Format Fit Finder", "Answer six questions about your real situation — experience, hours, on-camera comfort, budget, timeline, risk — and get all 10 breakout formats ranked by fit, each with why it fits, the catch, creator-reported pay ranges, and your first 3 moves. Honest mismatch flags; never a promise."),
     ("deal-builder", "Deal Builder", "Turn deliverables into a line-item quote from the 2026 rate card — base fees, usage, whitelisting, and exclusivity stacked as separate lines — plus a ready-to-send proposal and a deal checklist built from your actual terms."),
+    ("negotiation-kit", "The Negotiation Kit", "The words and the math for a live negotiation: a counter-offer builder grounded in the 2026 rate card with the typical-quote evidence shown (reported vs modeled, kept apart), six ready-to-send reply scripts — the counter, the lowball, exposure-only, usage rights, whitelisting, late payment — each editable in place, and a walk-away panel tied to your own Deal Room pipeline numbers."),
 ]
 
 
@@ -781,6 +782,44 @@ TOOLS_API = [
       }},
      "Line-item quote: per-deliverable lines (per-unit + line ranges with the data basis named), post-fee base, usage add-on (+25–50% / +50–75% / +75–100% / perpetual from 2x), whitelisting add-on (30–100%/mo), exclusivity add-on or broad-lock flag, package total, expected landing zone (~23% below the ask), bundle + multi-platform + honesty notes; exclusivity/usage-window conflict flags (walk_away/flag/note levels, incl. the can't-see-other-contracts honesty note); proposal email with unsupplied stats as [brackets] (never invented); 7-group deal checklist (usage, payment, revisions, exclusivity, FTC disclosure, deliverables, walk-away) customized to the quote's terms. All ranges and guidance, never promises.",
      "Engine (assets/js/deal-builder.js, UMD — importable in node): validInput() validates (followers ≥1,000, ≤8 deliverable lines, count 1–12, exclusivity consistency); tierOf() parity-pinned with Outreach.tierOf; deliverableBase() reads sponsorship_rate_card_2026 (dedicated = tier band, integrated/short = sponsored-CPM × viewsAvg with a labeled half-band fallback, ugc = Storika $150–$1,000 single-source); buildQuote() stacks base + usage (usage_rights_benchmarks_2026 tiers) + whitelisting (monthly) + exclusivity (named +25%/+50%, category flagged not invented) — 2-sig-fig rounding, expectedClose ×(1−0.23); exclusivityConflicts() checks window mismatches, perpetual+exclusivity, whitelisting-outliving-lock, UGC+affiliate edges; buildChecklist() generates the 7-group checklist from the quote; renderPitch() writes the proposal with [bracket] placeholders. Negotiation aid — not financial, legal, or tax advice; the checklist is not legal advice. See AGENT.md Workflow 14."),
+    ("negotiation-kit", "The Negotiation Kit",
+     "The words and the math for a live negotiation: a counter-offer builder grounded in the 2026 rate card with the typical-quote evidence shown (reported vs modeled, kept apart), six ready-to-send reply scripts, and a walk-away panel tied to your own Deal Room pipeline numbers.",
+     "negotiation-kit.html",
+     {"$schema": "http://json-schema.org/draft-07/schema#", "title": "NegotiationKitInput",
+      "type": "object", "required": ["platform", "deliverable", "followers", "offer"],
+      "properties": {
+          "brand": {"type": "string", "description": "Brand making the offer (used in the reply scripts)."},
+          "platform": {"type": "string", "enum": ["youtube", "tiktok", "instagram"]},
+          "deliverable": {"type": "string", "enum": ["integrated", "dedicated", "short", "ugc"],
+                          "description": "Integrated slot, dedicated video, short-form video, or UGC without posting."},
+          "followers": {"type": "number", "minimum": 1000,
+                        "description": "Follower/subscriber count on the platform being sold (nano floor 1,000)."},
+          "expectedViews": {"type": "number", "minimum": 0, "default": 0,
+                            "description": "Last-10-video average; enables the implied-CPM check."},
+          "offer": {"type": "number", "minimum": 0,
+                    "description": "The brand's offered fee in USD. 0 = an exposure-only offer."},
+          "niche": {"type": "string",
+                    "enum": ["finance_investing", "tech_software", "education", "health_fitness",
+                             "lifestyle", "gaming", "comedy_entertainment", "music", "kids",
+                             "asmr", "creator_economy", "challenges_stunts", "ai_ml",
+                             "true_crime", "entertainment", "science"],
+                    "description": "Optional sponsor niche key — adjusts the benchmark range by the shared niche multiplier table."},
+          "usage": {"type": "string", "enum": ["organic_only", "paid_3mo", "paid_6mo", "paid_12mo", "perpetual"],
+                    "default": "organic_only",
+                    "description": "Paid-ad usage in the offer, from calculators.json usage_rights_benchmarks_2026."},
+          "whitelistingMonths": {"type": "integer", "minimum": 0, "maximum": 24, "default": 0,
+                              "description": "Months of whitelisting the brand asks for (30–100%/mo of the counter base)."},
+          "exclusivity": {"type": "object",
+                          "properties": {
+                              "scope": {"type": "string", "enum": ["none", "named", "category"], "default": "none"},
+                              "months": {"type": "integer", "minimum": 0, "maximum": 24, "default": 0}}},
+          "postCount": {"type": "integer", "minimum": 1, "maximum": 12, "default": 1,
+                        "description": "Posts in the deal — 3+ triggers the bundle-discount note."},
+          "creatorFloor": {"type": "number", "minimum": 0, "default": 0,
+                           "description": "Your own walk-away floor in USD; the panel takes the higher of this and the rate-card floor."},
+      }},
+     "Counter-offer: niche-adjusted tier range and verdict on the offer, implied-CPM position against the deliverable's reported band, the typical-quote / typical-ask evidence (Cheerful Sep-2026, reported) and the modeled Instagram feed-post cross-check (Click Analytic 2026, labeled modeled) — null where no format maps honestly; line items (post fee at the top of the range + usage + whitelisting + named exclusivity, each with its basis), counter total, expected landing zone (~23% below the ask), and the broad-exclusivity flag. Walk-away panel: your floor (higher of rate-card floor and your own floor), your Deal Room pipeline totals (committed / paid / average paid / still open — your numbers only), and a stance on this offer. Six editable reply scripts (counter, lowball, exposure-only, usage rights, whitelisting, late payment) filled from the counter's numbers, plus a one-page negotiation brief. A model, not a prediction; never a guarantee.",
+     "Engine (assets/js/negotiation-kit.js, UMD — importable in node): validInput() validates; buildCounter(input, calculatorsJson) reads sponsorship_rate_card_2026 + sponsorship_quoted_prices_2026 + usage_rights_benchmarks_2026 (calculators v1.5.0) — niche multiplier parity-pinned with DealRoom/DealAnalyzer, quoted-price format map shared with the Deal Room, unmapped formats return null evidence; walkAwayPanel(input, dealRoomDeals, calculatorsJson) totals the creator's own pipeline with no invented close probabilities; renderReply(script, vars) fills {{placeholders}} from deal-templates.json negotiation_kit_scripts (v1.2.0) and leaves unknown ones visible; replyVars(counter, extra) carries the counter's numbers into the scripts; exportBrief(counter, walk) renders the plaintext brief. Negotiation aid — not financial, legal, or tax advice. See AGENT.md Workflow 15."),
 ]
 
 # Tools hub (wave 9): grouped card index. Per tool: icon, "use when" one-liner,
@@ -828,6 +867,8 @@ TOOL_HUB_META = {
                       ["format fit", "assessment", "Phase 1"]),
     "deal-builder":    ("◊", "MONEY",   "gold", "you're building a sponsor package and need the line-item quote, the proposal, and the checklist.",
                       ["quote", "sponsorship package", "Phase 5"]),
+    "negotiation-kit": ("✎", "MONEY",   "gold", "a brand replied and you need the counter, the exact words, and your walk-away number before you answer.",
+                      ["counter-offer", "reply scripts", "Phase 5"]),
 }
 TOOL_HUB_GROUPS = [
     ("PLAN", "Pick the battlefield",
@@ -1428,6 +1469,7 @@ def build():
         "cadence": ["assets/js/cadence.js", "assets/js/cadence-ui.js"],
         "format-fit": ["assets/js/format-fit.js", "assets/js/format-fit-ui.js"],
         "deal-builder": ["assets/js/deal-builder.js", "assets/js/deal-builder-ui.js"],
+        "negotiation-kit": ["assets/js/negotiation-kit.js", "assets/js/negotiation-kit-ui.js"],
     }
     TOOL_CSS = {
         "money-map": ["assets/css/moneymap.css"],
@@ -1437,6 +1479,7 @@ def build():
         "cadence": ["assets/css/cadence.css"],
         "format-fit": ["assets/css/format-fit.css"],
         "deal-builder": ["assets/css/deal-builder.css"],
+        "negotiation-kit": ["assets/css/negotiation-kit.css"],
         "deal-room": ["assets/css/deal-room.css"],
     }
     for slug, title, desc in TOOLS:
@@ -1686,7 +1729,7 @@ def build():
 <section class="section"><div class="section-head"><h2>The climb</h2><span class="section-tag">9 phases // clear them in order</span></div>
 <p class="section-lede">Nine phases, in order. Each one is a mission set \u2014 open it to see what it covers, clear it to earn XP and rise a rank.</p>
 <div class="trail reveal">{trail_stops}</div></section>
-<section class="section"><div class="section-head"><h2>Field tools</h2><span class="section-tag">21 instruments // grouped by job</span><a href="tools.html" class="section-more">All {n_tools} tools \u2192</a></div>
+<section class="section"><div class="section-head"><h2>Field tools</h2><span class="section-tag">{n_tools} instruments // grouped by job</span><a href="tools.html" class="section-more">All {n_tools} tools \u2192</a></div>
 {tiers_html}</section>
 <section class="section"><div class="section-head"><h2>Case files</h2><span class="section-tag">documented deconstructions // no guru hype</span><a href="case-files.html" class="section-more">All 9 case files \u2192</a></div>
 <p class="rail-hint" aria-hidden="true">scroll \u2192</p><div class="rail reveal" role="list">{case_cards}</div></section>
@@ -1814,7 +1857,7 @@ def build():
             "id": "calculators",
             "kind": "json",
             "path": "data/v1/calculators.json",
-            "description": "Calculator config: per-niche long-form RPM bands, Shorts RPM, platform thresholds (YPP tiers, TikTok Rewards, Facebook CMP — with sources and dates), revenue splits, the 2026 sponsorship rate card, the 2026 quoted-prices block (Cheerful reported asks/quotes + Click Analytic modeled Instagram cross-check, bases labeled), and 2026 niche/platform research snapshots. The data contract the sim engine, revenue calculator, deal analyzer, deal room, and hiring calculator read.",
+            "description": "Calculator config: per-niche long-form RPM bands, Shorts RPM, platform thresholds (YPP tiers, TikTok Rewards, Facebook CMP — with sources and dates), revenue splits, the 2026 sponsorship rate card, the 2026 quoted-prices block (Cheerful reported asks/quotes + Click Analytic modeled Instagram cross-check, bases labeled), and 2026 niche/platform research snapshots. The data contract the sim engine, revenue calculator, deal analyzer, deal room, negotiation kit, and hiring calculator read.",
             "schema": "data/v1/schema/calculators.json",
             "updated": BUILD_TS,
             "records": None,
@@ -1829,11 +1872,11 @@ def build():
             "id": "deal-templates",
             "kind": "json",
             "path": "data/v1/deal-templates.json",
-            "description": "The Deal Room data contract: negotiation scripts (lowball counter, usage-rights upsell, exclusivity pushback, rush-fee ask — with {{placeholders}}), the red-flag checklist with severity levels and scoring rules, and usage-rights pricing tiers with reported vs. definitional multiplier basis, 3 honest pitch email templates (cold pitch, one follow-up nudge, warm intro — [bracketed] placeholders, never invented stats), and the 10-item contract red-flag checklist with scoring rules. A negotiation aid, not financial/legal/tax advice.",
+            "description": "The Deal Room data contract: negotiation scripts (lowball counter, usage-rights upsell, exclusivity pushback, rush-fee ask — with {{placeholders}}), the red-flag checklist with severity levels and scoring rules, and usage-rights pricing tiers with reported vs. definitional multiplier basis, 3 honest pitch email templates (cold pitch, one follow-up nudge, warm intro — [bracketed] placeholders, never invented stats), the 10-item contract red-flag checklist with scoring rules, and the Negotiation Kit reply scripts (6 situations — counter, lowball, exposure-only, usage rights, whitelisting, late payment — with {{placeholders}}, v1.2.0). A negotiation aid, not financial/legal/tax advice.",
             "schema": "data/v1/schema/deal-templates.json",
             "updated": BUILD_TS,
             "records": None,
-            "records_note": "Data contract, not a record list: 4 negotiation scripts, 6 red-flag items, 6 usage-rights tiers, 3 pitch email templates, 10 contract red-flag items.",
+            "records_note": "Data contract, not a record list: 4 negotiation scripts, 6 red-flag items, 6 usage-rights tiers, 3 pitch email templates, 10 contract red-flag items, 6 negotiation-kit reply scripts.",
             "deprecated": False,
             "deprecation_note": None,
             "freshness_note": "Multipliers are reported 2026 benchmarks and ranges, not quotes. Verify against current creator rate reports before quoting.",
@@ -1894,7 +1937,7 @@ def build():
             "id": "tools",
             "kind": "json",
             "path": "data/v1/tools.json",
-            "description": "All twenty-one interactive tools with programmatic input schemas (JSON Schema draft-07), output descriptions, and drive notes — replicate the tools' logic without the UI.",
+            "description": "All twenty-two interactive tools with programmatic input schemas (JSON Schema draft-07), output descriptions, and drive notes — replicate the tools' logic without the UI.",
             "schema": "data/v1/schema/tools.json",
             "updated": BUILD_TS,
             "records": len(TOOLS_API),
@@ -1925,7 +1968,7 @@ def build():
             "id": "tool-pages",
             "kind": "html",
             "paths": [f"{slug}.html" for slug, _, _ in TOOLS],
-            "description": "The twenty-one interactive tools' human UI pages. Agents should prefer data/v1/tools.json input schemas over scraping these pages.",
+            "description": "The twenty-two interactive tools' human UI pages. Agents should prefer data/v1/tools.json input schemas over scraping these pages.",
             "schema": None,
             "updated": BUILD_TS,
             "records": len(TOOLS),
@@ -2011,7 +2054,7 @@ def build():
     # ---- tools.json: every tool with its programmatic input schema ----
     (DATA_V1 / "tools.json").write_text(json.dumps({
         "version": "1.0.0", "updated": "2026-10-11",
-        "note": ("Programmatic input schemas for the twenty-one interactive tools. "
+        "note": ("Programmatic input schemas for the twenty-two interactive tools. "
                  "Agents replicate each tool's logic by feeding these inputs to the "
                  "documented formulas / shipped JS (assets/js/<id>.js); the UI pages "
                  "are the human front-end for the same logic."),
@@ -2601,7 +2644,7 @@ def build():
     for slug, title, desc in TOOLS:
         llms.append(f"- [{title}]({slug}.html) — {desc}")
     llms += ["- [Glossary](glossary.html)", "",
-             "All twenty-one tools, grouped by job (Plan / Money / Content): [Tools hub](tools.html).",
+             "All twenty-two tools, grouped by job (Plan / Money / Content): [Tools hub](tools.html).",
              "", "## Reference"]
     for m in reference_meta:
         llms.append(f"- [{m['badge']}: {m['title']}]({m['path']}) — {m['read_minutes']} min read")
@@ -2621,14 +2664,14 @@ def build():
              "- data/v1/skills.json",
              "- data/v1/case-files.json",
              "- data/v1/tools.json — every tool's programmatic input schema",
-             "- data/v1/deal-templates.json — Deal Room data: negotiation scripts, red-flag checklist, usage-rights tiers, pitch templates, contract red-flag checklist",
+             "- data/v1/deal-templates.json — Deal Room data: negotiation scripts, red-flag checklist, usage-rights tiers, pitch templates, contract red-flag checklist, negotiation-kit reply scripts",
              "- data/v1/content-engine.json — Content Engine data: idea formats, Playbook hook structures, dealing rules, Repurposing 2.0 map, originality guardrails, deal-slot guidance",
              "- data/v1/changes.json — Algorithm Watch feed: dated algorithm/policy/monetization changes with sources + confidence flags (verified/single-source); live at /api/changes",
              "- what-changed.html — Algorithm Watch 'what changed' feed page: pre-rendered from data/v1/changes.json, live-updated from /api/changes when reachable (status badge reports live/cached honestly)",
              "- data/v1/schema/ — JSON Schema (draft-07) for every endpoint",
              "", "## Agents",
              "- AGENT.md — how an agent uses this site: base URL pattern, example requests, 14 end-to-end workflows, tool input schemas",
-             "- [Agents](agents.html) — the agent surface: endpoint table, all skills, data freshness policy, 6 worked agent workflows",
+             "- [Agents](agents.html) — the agent surface: endpoint table, all skills, data freshness policy, 7 worked agent workflows",
              "- [API Explorer](api-explorer.html) — browse api/v1 endpoints, preview JSON in-browser",
              "- llms.txt (this file) — quick agent orientation",
              "- llms-full.txt — complete guide text, all chapters + reference + guides + agents",

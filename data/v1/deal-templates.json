@@ -87,7 +87,7 @@
     ]
   },
   "source": "Wave 15 — The Deal Room. Usage-rights multipliers come from the wave-2 2026 sponsorship research pass (usage rights +50–100% band) and the 2026 rate card chapter; scripts are grounded in the rate-card negotiation rules. Wave 22 added 3 pitch email templates (from the sponsorship-pitch skill's outreach procedure) and 10 contract red-flag items (from the Deal Room negotiation content and the deal-negotiation skill) plus contract scoring rules.",
-  "updated": "2026-10-11",
+  "updated": "2026-10-12",
   "usage_rights_tiers": [
     {
       "basis": "Definitional: the base post fee covers organic placement only. Not a market rate — it's the absence of a line item.",
@@ -159,7 +159,7 @@
       "reported": false
     }
   ],
-  "version": "1.1.0",
+  "version": "1.2.0",
   "pitch_templates": [
     {
       "id": "cold_pitch",
@@ -309,5 +309,61 @@
       "Score 1–2 → caution: fix the flagged terms in writing before you sign.",
       "Score 3+ → don't sign as written: the flagged terms stack up to a deal that costs you more than it pays."
     ]
-  }
+  },
+  "negotiation_kit_scripts": [
+    {
+      "body": "Hi {{brand}} team — thanks for sending the terms over.\n\nI priced this against my recent work and the 2026 rate data for my tier. My {{deliverable}} rate sits in the ${{range_lo}}–${{range_hi}} range at my last-10-video average of {{views_avg}} views, and creators at my size typically quote ${{typical_quote}} for this format.\n\nMy counter is ${{counter_total}}: ${{counter_base}} for the post, with usage priced as its own line ({{usage_line}}). That number is the top of my range, and I hold it because the slot, the audience, and the usage are three separate things.\n\nIf the budget is fixed at your end, the honest lever is scope — fewer deliverables, a shorter usage window, or no exclusivity — not the same package for less. Happy to talk through which scope fits.\n\nThanks for thinking of me either way.",
+      "grounded_in": "Counter builder: base = top of the niche-adjusted tier range; usage as a separate line item; the typical-quote figure is Cheerful's Sep-2026 reported data where the format maps, and is left out where it does not.",
+      "id": "counter_offer",
+      "subject": "Re: {{brand}} — rate for the {{deliverable}}",
+      "tip": "Send the counter as a number with its workings, not as an apology. One counter, stated once, then let them respond.",
+      "title": "The counter — send your number with the evidence attached",
+      "when": "You have run the offer through the counter builder and you are ready to name your price."
+    },
+    {
+      "body": "Hi {{brand}} team — thanks for the offer of ${{offer}}.\n\nI have to be straight with you: that is below the floor for my tier. My range for this {{deliverable}} is ${{range_lo}}–${{range_hi}}, based on {{views_avg}} average views on my last 10 videos. At ${{offer}}, the implied rate works out to ${{implied_cpm}} per 1,000 views, which is under what the slot itself is worth before usage or exclusivity enter it.\n\nI can do this at ${{counter_total}} with the terms as written. If that is outside the budget, I would rather pass cleanly than discount the rate — a smaller scope at my rate serves us both better than the same scope at a rate I cannot repeat.\n\nIf the budget moves, my door is open.",
+      "grounded_in": "Rate card: below the tier floor = underpaid. Implied CPM (offer divided by expected views, times 1,000) is the check that makes the gap concrete.",
+      "id": "lowball_reply",
+      "subject": "Re: {{brand}} — rate for the {{deliverable}}",
+      "tip": "Name the floor, show the implied CPM, offer the counter once. Do not negotiate against yourself in the same email.",
+      "title": "The lowball — under the floor, stated plainly",
+      "when": "The offer lands below the bottom of your tier range."
+    },
+    {
+      "body": "Hi {{brand}} team — thanks for thinking of me for this.\n\nI do not take sponsored work for exposure, product, or future consideration. The {{deliverable}} on my channel is a paid slot: my rate is ${{counter_base}} for the post, with usage and whitelisting priced separately if you need them. That is the same rate I charge every sponsor, and it is how the channel stays in business.\n\nIf a paid slot is possible later in the year, I am glad to hold the conversation. If it is not, no hard feelings — I will pass on this one so you can find a creator whose model fits it.",
+      "grounded_in": "Phase 5 rule: sponsored slots are paid inventory. Exposure has no rate-card entry because it pays no bills — the reply prices the slot or passes.",
+      "id": "exposure_only_reply",
+      "subject": "Re: {{brand}} — the {{deliverable}}",
+      "tip": "Decline the structure, not the people. A short, final no protects the relationship better than a resentful yes.",
+      "title": "Exposure only — no fee on the table",
+      "when": "The offer is payment in visibility: a shout-out, a product, or a promise of future work."
+    },
+    {
+      "body": "Hi {{brand}} team — one term to settle before we sign: usage.\n\nThe post fee of ${{counter_base}} covers organic placement on my channel only. The draft asks for {{usage_ask}}, and paid usage is a separate line in every rate benchmark I work from: {{usage_line}}. That puts the total at ${{counter_total}}, with the usage window ending on a date we write into the contract.\n\nI am glad to license the usage — it is valuable, which is exactly why it is priced on its own line instead of bundled into the post. If the usage budget is not there, strike the paid-usage clause and the post fee stands as quoted.",
+      "grounded_in": "2026 usage-rights benchmarks (calculators.json v1.5.0): paid ads 3 months +25–50%, 3–6 months +50–75%, 6–12 months +75–100%, perpetual from 2x base — always separate line items.",
+      "id": "usage_rights_reply",
+      "subject": "Re: {{brand}} — usage terms on the {{deliverable}}",
+      "tip": "Offer the choice in the same email: pay for the usage line, or remove the usage clause. Never let them keep both the clause and the lower price.",
+      "title": "Usage rights — priced as their own line",
+      "when": "The contract folds paid-ad usage into the post fee, or the usage window is open-ended."
+    },
+    {
+      "body": "Hi {{brand}} team — happy to discuss whitelisting, with the terms I use for every brand.\n\nWhitelisting runs at ${{whitelisting_monthly}} per month for {{whitelisting_months}} month(s), billed as its own line on top of the post fee. It is revocable by me with written notice, it does not renew automatically, and it covers the one {{deliverable}} we are contracting — not future content.\n\nAds from my account spend my audience's trust along with your budget, so the monthly rate and the end date are the terms, not a formality. If that works, I will add the line to the agreement and we can sign.",
+      "grounded_in": "2026 benchmarks put whitelisting at 30–100% of the base fee per month. The kit prices it off your counter base and never as a perpetual grant.",
+      "id": "whitelisting_reply",
+      "subject": "Re: {{brand}} — whitelisting terms",
+      "tip": "Monthly, revocable, dated. If a brand wants whitelisting without an end date, that is a perpetual license request wearing a friendlier name.",
+      "title": "Whitelisting — ads from your account, monthly and revocable",
+      "when": "The brand asks to run ads through your handle, with or without a fee attached."
+    },
+    {
+      "body": "Hi {{brand}} team — following up on the invoice of ${{invoice_amount}} for the {{deliverable}}, issued {{invoice_date}} on {{due_terms}} terms. It is now {{days_overdue}} days past due, and I have not had a payment date from your side.\n\nPlease confirm today when payment will land. If it has already been sent, a remittance reference is all I need. If it is stuck somewhere in approvals, tell me where, and who owns it — I would rather have an honest date than another week of silence.\n\nUntil this invoice clears I am pausing further deliverables and usage renewals with {{brand}}, which I would prefer not to do. This work was delivered and published on schedule; I am asking for the same on payment.",
+      "grounded_in": "Deal Room contract standard: 50% upfront for new brands, net-30 in writing, late terms named in the contract. This script enforces the terms you already agreed.",
+      "id": "late_payment_reply",
+      "subject": "{{brand}} — invoice of ${{invoice_amount}} now {{days_overdue}} days overdue",
+      "tip": "One written chase with the amount, the date, and the consequence. Keep it factual — the paper trail is the leverage.",
+      "title": "Late payment — the overdue invoice, chased once, in writing",
+      "when": "An agreed invoice is past its terms and has gone quiet."
+    }
+  ]
 }

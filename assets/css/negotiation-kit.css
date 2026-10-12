@@ -1,0 +1,70 @@
+/* Negotiation Kit — counter table, evidence cards, editable reply
+ * scripts, walk-away strip. Field Manual chit style: flat panels, hard
+ * borders, mono figures. Scoped to .nk-* / #negotiation-kit. Motion is
+ * transform/opacity only and dies under the global reduced-motion rule. */
+
+.nk-stamp { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; margin-bottom: 0.5rem; }
+
+.nk-jump { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 1rem 0 0.5rem; }
+.nk-jump a {
+  font-family: var(--font-cond); font-weight: 600; font-size: 0.82rem;
+  letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none;
+  color: var(--muted); border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm); padding: 0.3rem 0.65rem;
+  transition: color 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+}
+.nk-jump a:hover, .nk-jump a:focus-visible { color: var(--gold); border-color: var(--gold); transform: translateY(-1px); }
+
+#negotiation-kit h2 { text-wrap: balance; }
+#negotiation-kit p, #negotiation-kit li { max-inline-size: 65ch; }
+#negotiation-kit :focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+.nk-counter-card { max-width: 72ch; }
+
+/* counter line-item table */
+.nk-table-wrap { overflow-x: auto; max-width: 100%; border: 1px solid var(--line-strong); border-radius: var(--radius-sm); background: var(--bg-2); margin: 1rem 0; }
+.nk-table { border-collapse: collapse; width: 100%; min-width: 560px; }
+.nk-table th, .nk-table td { padding: 0.55rem 0.8rem; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+.nk-table thead th { font-family: var(--font-cond); font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.nk-table tbody th { font-weight: 600; }
+.nk-table td { font-family: var(--font-mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.nk-table td:last-child { font-family: inherit; white-space: normal; }
+.nk-table .nk-total th, .nk-table .nk-total td { border-top: 2px solid var(--gold); border-bottom: none; color: var(--gold); font-weight: 700; }
+.nk-table tbody tr { transition: background 0.15s ease; }
+.nk-table tbody tr:hover { background: var(--bg-3); }
+
+/* evidence cards — reported and modeled look different on purpose */
+.nk-evidence { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.6rem; max-width: 72ch; margin: 0.8rem 0; }
+.nk-ev-card { border: 1px solid var(--line-strong); border-radius: var(--radius-sm); background: var(--bg-2); padding: 0.75rem 0.9rem; }
+.nk-ev-card .big { font-family: var(--font-mono); font-weight: 700; font-size: 1.5rem; color: var(--cyan); font-variant-numeric: tabular-nums; }
+.nk-ev-card .lbl { font-family: var(--font-cond); font-weight: 600; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.nk-ev-card p { margin: 0.3rem 0 0; font-size: 0.85rem; color: var(--muted); }
+.nk-ev-modeled { border-style: dashed; }
+.nk-ev-modeled .big { color: var(--gold); }
+
+.nk-flag { border-left: 3px solid var(--stamp); background: var(--bg-2); padding: 0.6rem 0.9rem; margin: 0.8rem 0; max-width: 72ch; font-size: 0.92rem; }
+
+/* reply scripts — folded until needed (progressive disclosure) */
+.nk-script { border: 1px solid var(--line-strong); border-radius: var(--radius-sm); background: var(--bg-2); max-width: 72ch; margin-bottom: 0.6rem; }
+.nk-script summary { cursor: pointer; padding: 0.75rem 1rem; font-size: 0.95rem; }
+.nk-script summary:hover { color: var(--gold); }
+.nk-script-body { padding: 0 1rem 1rem; }
+.nk-script-body label { display: block; margin: 0.6rem 0; font-size: 0.85rem; color: var(--muted); }
+.nk-script-body input[type="text"], .nk-script-body textarea {
+  width: 100%; margin-top: 0.3rem; box-sizing: border-box;
+  font-family: var(--font-mono); font-size: 0.88rem; line-height: 1.55;
+}
+.nk-script-body textarea { min-height: 12rem; }
+.nk-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.6rem; }
+
+/* walk-away pipeline strip */
+.nk-pipe { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0.6rem; max-width: 72ch; margin: 0.8rem 0; }
+.nk-stat { border: 1px solid var(--line-strong); border-radius: var(--radius-sm); background: var(--bg-2); padding: 0.7rem 0.85rem; }
+.nk-stat .k { font-family: var(--font-cond); font-weight: 600; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.nk-stat .v { font-family: var(--font-mono); font-weight: 700; font-size: 1.35rem; color: var(--ink); font-variant-numeric: tabular-nums; }
+.nk-stat .s { font-size: 0.8rem; color: var(--muted); }
+
+@media (max-width: 640px) {
+  .nk-table { min-width: 480px; }
+  .nk-stat .v { font-size: 1.15rem; }
+}

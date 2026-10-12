@@ -18,7 +18,7 @@
 | Skill index | `data/v1/skills.json` | 12 skills: name, description, path |
 | Case files | `data/v1/case-files.json` + `case-*.html` | 5 documented creator-business deconstructions: budget-grocery newsletter, Ben's Bites, faceless sleep-channel network, Mavwicks on TikTok Shop, cohort course — figures source-reported, never promises |
 | Reference | `rate-card.html`, `niche-atlas.html`, `sponsor-playbook.html` + `data/v1/calculators.json`, `data/v1/niches.json` | The 2026 sponsorship rate card + the Niche Atlas (interactive explorer) + the 2026 Sponsor Playbook (deal structures, usage-rights math, negotiation, contracts, FTC disclosure) |
-| Interactive tools | `quiz.html`, `calculator.html`, `planner.html`, `deal-analyzer.html`, `deal-room.html`, `hiring-calculator.html`, `repurpose.html`, `simulator.html`, `hook-builder.html`, `idea-bank.html`, `content-calendar.html`, `batching.html`, `crosspost.html`, `cadence.html`, `format-fit.html`, `deal-builder.html`, `api-explorer.html` | Human-facing; agents should use the API data behind them (`data/v1/tools.json` carries every tool's programmatic input schema) |
+| Interactive tools | `quiz.html`, `calculator.html`, `planner.html`, `deal-analyzer.html`, `deal-room.html`, `hiring-calculator.html`, `repurpose.html`, `simulator.html`, `hook-builder.html`, `idea-bank.html`, `content-calendar.html`, `batching.html`, `crosspost.html`, `cadence.html`, `format-fit.html`, `deal-builder.html`, `negotiation-kit.html`, `api-explorer.html` | Human-facing; agents should use the API data behind them (`data/v1/tools.json` carries every tool's programmatic input schema) |
 | API explorer | `api-explorer.html` | Browse every `api/v1` endpoint and preview JSON in-browser |
 
 All endpoints are `GET` on static JSON. Base path: `data/v1/` (relative to the site root; the deployed site ships its own `api/` mirror, so the explorer works live too). Schemas: `data/v1/schema/` (JSON Schema draft-07).
@@ -136,3 +136,13 @@ Goal: turn a deliverable list into a line-item quote, a proposal, and a deal che
 3. `DealBuilder.exclusivityConflicts(input)` — window mismatches and broad-lock walk-away flags; the tool can't see other contracts and says so.
 4. `DealBuilder.buildChecklist(quote)` — the 7-group checklist (usage, payment, revisions, exclusivity, FTC disclosure, deliverables, walk-away) customized to the quote; `DealBuilder.renderPitch(input, quote)` — the proposal with unsupplied stats as `[brackets]`, never invented.
 5. Framing: the quote is the top of reported ranges (benchmarks disagree 2–3× within tiers) — never a quote, never a promise. Not financial, legal, or tax advice; the checklist is not legal advice. See AGENT.md Workflow 14.
+
+### 9. Build the counter, the reply, and the walk-away
+
+Goal: take one live offer and produce the counter with its evidence, the exact reply to send, and the walk-away number.
+
+1. `GET data/v1/tools.json` → tool `negotiation-kit` → `input_schema`: `brand`, `platform`, `deliverable`, `followers`, `offer` (0 = exposure-only), `expectedViews`, `niche`, `usage`, `whitelistingMonths`, `exclusivity{scope, months}`, `postCount`, `creatorFloor`. Engine: `require("assets/js/negotiation-kit.js")` (UMD, importable in node) against `data/v1/calculators.json` (v1.5.0).
+2. `NegotiationKit.buildCounter(input, cfg)` — niche-adjusted tier range + verdict, implied-CPM position, the typical-quote / typical-ask evidence (Cheerful Sep-2026, reported; the Click Analytic Instagram cross-check kept separate as modeled; nulls where no format maps), then the counter: top-of-range post fee + usage / whitelisting / named-exclusivity lines, total, and the ~23% expected landing zone. Perpetual usage is open-ended; broad exclusivity is flagged, never priced with an invented number.
+3. `NegotiationKit.walkAwayPanel(input, dealRoomDeals, cfg)` — walk-away = the higher of the rate-card floor and the creator's own floor; pipeline totals (committed / paid / average paid / still open) are arithmetic on the creator's own logged deals only.
+4. `NegotiationKit.replyVars(counter)` + `renderReply(script, vars)` — the 6 reply scripts from `data/v1/deal-templates.json` (`negotiation_kit_scripts`, v1.2.0): the counter, the lowball, exposure-only, usage rights, whitelisting, late payment. Unsupplied fields stay visible as `{{placeholders}}`. `exportBrief(counter, walk)` renders the one-page brief.
+5. Framing: a model, not a prediction — never a guarantee of what a brand will pay. Not financial, legal, or tax advice. See AGENT.md Workflow 15.

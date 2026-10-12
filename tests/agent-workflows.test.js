@@ -73,7 +73,7 @@ function check(name, cond, detail) {
 
   // tools.json drives the planner config shape
   const tools = load("tools.json").tools;
-  check("wf2: tools.json lists all 21 tools", tools.length === 21, String(tools.length));
+  check("wf2: tools.json lists all 22 tools", tools.length === 22, String(tools.length));
   const oc = tools.find((t) => t.id === "outreach");
   const ocSchema = oc && oc.input_schema;
   check("wf2: outreach input schema exposes pipeline + quote + pitch + contract fields",
@@ -108,6 +108,14 @@ function check(name, cond, detail) {
        && dbSchema.properties.whitelistingMonths && dbSchema.properties.exclusivity
        && dbSchema.properties.affiliate)
     && db.page === "deal-builder.html");
+  const nk = tools.find((t) => t.id === "negotiation-kit");
+  const nkSchema = nk && nk.input_schema;
+  check("wf2: negotiation-kit input schema exposes offer + usage + exclusivity + floor fields",
+    !!(nkSchema && nkSchema.title === "NegotiationKitInput"
+       && nkSchema.properties.offer && nkSchema.properties.deliverable
+       && nkSchema.properties.usage && nkSchema.properties.whitelistingMonths
+       && nkSchema.properties.exclusivity && nkSchema.properties.creatorFloor)
+    && nk.page === "negotiation-kit.html");
   const cad = tools.find((t) => t.id === "cadence");
   const cadSchema = cad && cad.input_schema;
   check("wf2: cadence input schema exposes hours/minutes/priority fields",
@@ -502,8 +510,8 @@ function check(name, cond, detail) {
   // Replicate the engine (same module the page ships)
   const OC = require(path.join(__dirname, "..", "assets", "js", "outreach.js"));
   const tpl = load("deal-templates.json");
-  check("wf8: deal-templates v1.1.0 ships 3 pitch templates + 10 contract flags",
-    tpl.version === "1.1.0" && tpl.pitch_templates.length === 3 && tpl.contract_flags.length === 10,
+  check("wf8: deal-templates v1.2.0 ships 3 pitch templates + 10 contract flags",
+    tpl.version === "1.2.0" && tpl.pitch_templates.length === 3 && tpl.contract_flags.length === 10,
     `${tpl.version}/${tpl.pitch_templates.length}/${tpl.contract_flags.length}`);
 
   // Pipeline: validate a record, then stats over a pinned set
@@ -726,6 +734,61 @@ function check(name, cond, detail) {
     pitch.ok && pitch.body.indexOf("$2,700") >= 0);
   check("wf14: proposal keeps unsupplied stats as [brackets]",
     pitch.ok && pitch.bracketCount >= 8 && !/views averaged [0-9]/.test(pitch.body));
+})();
+
+
+/* ============ Workflow 15: the counter, the reply, the walk-away ====
+ * AGENT.md §Workflow 15: one live offer -> counter with evidence + the
+ * reply script + the walk-away panel, all through NegotiationKit. */
+(function workflow15() {
+  const NK = require(path.join(__dirname, "..", "assets", "js", "negotiation-kit.js"));
+  const cfg = load("calculators.json");
+  const tpl = load("deal-templates.json");
+
+  const input = { brand: "Acme", platform: "youtube", deliverable: "integrated",
+    followers: 50000, expectedViews: 60000, offer: 5000, niche: "tech_software",
+    usage: "paid_6mo", whitelistingMonths: 0,
+    exclusivity: { scope: "none", months: 0 }, postCount: 1, creatorFloor: 0 };
+  check("wf15: workflow input validates", NK.validInput(input).ok);
+  const c = NK.buildCounter(input, cfg);
+  check("wf15: counter builds, micro tier, niche-adjusted $2,500–$25,000 -> FAIR",
+    c.ok && c.tier === "micro_10k_100k" && c.range[0] === 2500 && c.range[1] === 25000
+    && c.verdict === "fair");
+  check("wf15: implied CPM $83.33 above the $20–$35 integrated band (reported)",
+    c.impliedCpm === 83.33 && c.cpmCheck.position === "above" && c.cpmCheck.basis === "reported");
+  check("wf15: evidence: typical quote $3,000 (reported); no ask band at 50K (null)",
+    c.evidence.formatQuote.quoted === 3000 && c.evidence.formatQuote.basis === "reported"
+    && c.evidence.typicalAsk === null);
+  const usageLine = c.lines.find((l) => l.id === "usage");
+  check("wf15: usage line $13,000–$19,000; total $38,000–$44,000; close $29,000–$34,000",
+    usageLine.range[0] === 13000 && usageLine.range[1] === 19000
+    && c.total[0] === 38000 && c.total[1] === 44000
+    && c.expectedClose[0] === 29000 && c.expectedClose[1] === 34000);
+
+  const deals = [
+    { brand: "A", offer: 500, status: "offer" },
+    { brand: "B", offer: 5000, status: "signed" },
+    { brand: "C", offer: 2000, status: "paid" },
+    { brand: "D", offer: 3000, status: "paid" }
+  ];
+  const w = NK.walkAwayPanel(input, deals, cfg);
+  check("wf15: walk-away $2,500 (rate floor); pipeline $10,000 committed / $5,000 paid",
+    w.ok && w.walkAway === 2500 && w.pipeline.committed === 10000
+    && w.pipeline.paidTotal === 5000 && w.pipeline.avgPaid === 2500
+    && w.stance === "workable");
+
+  check("wf15: deal-templates v1.2.0 carries the 6 kit scripts",
+    tpl.version === "1.2.0" && tpl.negotiation_kit_scripts.length === 6);
+  const rv = NK.replyVars(c, {});
+  const script = tpl.negotiation_kit_scripts.find((s) => s.id === "counter_offer");
+  const rendered = NK.renderReply(script, rv.vars);
+  check("wf15: counter script renders from the counter's numbers, no placeholder survives",
+    rendered.body.indexOf("$38,000") >= 0 && rendered.body.indexOf("{{") === -1);
+  const brief = NK.exportBrief(c, w);
+  check("wf15: brief carries the counter, the evidence, and both disclaimers",
+    brief.ok && /NEGOTIATION BRIEF/.test(brief.text) && /Typical quote/.test(brief.text)
+    && /a model, not a prediction/i.test(brief.text)
+    && /not financial, legal, or tax advice/i.test(brief.text));
 })();
 
 console.log(`\nagent-workflows: ${pass} passed, ${fail} failed`);

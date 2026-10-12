@@ -1,7 +1,7 @@
 # AGENT.md — How an agent uses Creator Growth Empire
 
 > This site is a static machine-readable knowledge base for the creator
-> business: 9 phases, 21 tools, 12 skills, 9 case files, and a versioned JSON
+> business: 9 phases, 22 tools, 12 skills, 9 case files, and a versioned JSON
 > API. No API key, no server, no auth, no rate limits. Fetch and act.
 > Every workflow below was executed against the real `data/v1/` JSON files —> see `tests/agent-workflows.test.js` (run: `node tests/agent-workflows.test.js`).
 
@@ -527,6 +527,45 @@ deal checklist — via API, against the real 2026 rate card.
    creator rate reports before sending. Not financial, legal, or tax advice;
    the checklist is not legal advice.
 
+### Workflow 15 — Build the counter, the reply, and the walk-away (Negotiation Kit)
+
+Goal: take one live offer and produce the counter with its evidence, the
+exact reply to send, and the walk-away number — via API, against the real
+2026 rate-card data (calculators v1.5.0).
+
+1. `GET data/v1/calculators.json` as `cfg`; `GET data/v1/deal-templates.json`
+   for the reply scripts (v1.2.0 `negotiation_kit_scripts`); engine =
+   `require("assets/js/negotiation-kit.js")` (UMD).
+2. `NegotiationKit.buildCounter({brand: "Acme", platform: "youtube",
+   deliverable: "integrated", followers: 50000, expectedViews: 60000,
+   offer: 5000, niche: "tech_software", usage: "paid_6mo"}, cfg)` →
+   micro tier, niche-adjusted range **$2,500–$25,000** (tech ×2.5), verdict
+   **FAIR**; implied CPM **$83.33** — above the $20–$35 integrated band
+   (reported); evidence: typical quote **$3,000** for a video integration
+   (Cheerful Sep-2026, reported), no typical-ask band maps at 50K followers
+   (null, never stretched). Counter: post fee **$25,000** (top of range) +
+   paid 3–6-month usage line **$13,000–$19,000** (+50–75%, reported) →
+   total **$38,000–$44,000**, expected landing zone **$29,000–$34,000**
+   (the ~23% listed-vs-accepted math). Perpetual usage returns an
+   open-ended total; broad category exclusivity returns a flag, never an
+   invented multiplier; the Instagram modeled cross-check (Click Analytic
+   2026) is returned separately with basis **modeled**.
+3. `NegotiationKit.walkAwayPanel(input, deals, cfg)` with the creator's
+   own Deal Room tracker records (4 deals: $500 offer / $5,000 signed /
+   $2,000 + $3,000 paid) → rate floor **$2,500**, walk-away **$2,500**
+   (no personal floor set), pipeline **$10,000 committed / $5,000 paid /
+   $2,500 average paid / 1 still open**, stance **workable** on the $5,000
+   offer. Arithmetic on the creator's numbers only — no close
+   probabilities are invented.
+4. `NegotiationKit.replyVars(counter)` carries the counter's numbers into
+   the scripts; `renderReply(script, vars)` fills `{{placeholders}}` and
+   leaves unsupplied ones visible. Six scripts: the counter, the lowball,
+   exposure-only, usage rights, whitelisting, late payment.
+   `exportBrief(counter, walk)` renders the one-page plaintext brief.
+5. Framing rule: **a model, not a prediction** — the counter is built from
+   reported ranges that disagree 2–3× within tiers, never presented as a
+   guarantee of what a brand will pay. Not financial, legal, or tax advice.
+
 ## Rate & expectation notes
 
 - **Static JSON.** Nothing here is live: no request counts, no streaming, no
@@ -574,6 +613,7 @@ explaining how to replicate the logic:
 | Cadence Coach | `platforms`, `weeklyHours`, `longMins`, `shortMins`, `restDay`, `stage`, `priority` (longs/shorts/balanced) | `require("assets/js/cadence.js")` — `recommend(i)` → longs/week + shorts/week, holds/tight/over utilization, 7-day grid, Oct-2026 platform revenue realities, 2-week ramp — capacity math only, never a growth promise |
 | Format Fit Finder | `experience` (teacher/tech/finance/legal/health/audio/writer/operator/none-yet), `weeklyHours`, `camera` (face/voice/hands/anything), `budget` (free/modest/real), `goal` (fast/mid/slow), `risk` (safe/balanced/bold) | `require("assets/js/format-fit.js")` — `recommend(i)` → 10 breakout formats ranked by axis scores (experience/camera/hours/budget/goal/risk = 13 max, strong ≥9), per-match why-it-fits, the catch from dossier risks, creator-reported pay ranges, first 3 moves, per-match + global mismatch flags — matching arithmetic, never a promise |
 | Deal Builder | `followers`, `deliverables[]` (`platform` youtube/tiktok/instagram, `kind` dedicated/integrated/short/ugc, `count` 1–12), `viewsAvg`, `usage` (organic_only/paid_3mo/paid_6mo/paid_12mo/perpetual), `whitelistingMonths` (0–24), `exclusivity{scope, months}`, `affiliate{include, commissionPct}` | `require("assets/js/deal-builder.js")` — `buildQuote()` for the stacked line-item quote (usage/whitelisting/exclusivity as separate lines, expected close ×0.77), `exclusivityConflicts()` for window checks, `buildChecklist()` for the 7-group checklist, `renderPitch()` for the proposal ([brackets] for unsupplied stats); tier math parity-pinned with Outreach — see Workflow 14 |
+| Negotiation Kit | `brand`, `platform`, `deliverable` (integrated/dedicated/short/ugc), `followers`, `offer` (0 = exposure-only), `expectedViews`, `niche`, `usage`, `whitelistingMonths`, `exclusivity{scope, months}`, `postCount`, `creatorFloor` + the creator's Deal Room deal records for the walk-away panel | `require("assets/js/negotiation-kit.js")` — `buildCounter(input, calculatorsJson)` for the niche-adjusted verdict + implied CPM + reported typical-quote/ask evidence (modeled IG cross-check kept separate, nulls where unmapped) + line-item counter + expected landing zone; `walkAwayPanel(input, deals, calculatorsJson)` for the floor + pipeline stance; `replyVars()` + `renderReply()` for the 6 kit scripts in `data/v1/deal-templates.json` (`negotiation_kit_scripts`); `exportBrief()` for the plaintext brief — see Workflow 15 |
 
 Full per-tool schemas, formulas, and honesty notes live in `tools.json`;
 the UI pages (`quiz.html`, `calculator.html`, …) are the human front-end for

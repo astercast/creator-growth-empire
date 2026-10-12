@@ -255,6 +255,44 @@
           }
         }
       }
+    },
+    "negotiation_kit_scripts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "when",
+          "subject",
+          "body",
+          "tip",
+          "grounded_in"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "when": {
+            "type": "string"
+          },
+          "subject": {
+            "type": "string"
+          },
+          "body": {
+            "type": "string"
+          },
+          "tip": {
+            "type": "string"
+          },
+          "grounded_in": {
+            "type": "string"
+          }
+        }
+      }
     }
   },
   "required": [
