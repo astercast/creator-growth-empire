@@ -26,7 +26,7 @@ What shipped (this lane only — parallel lanes' files untouched):
 
 Validation note for the merge worker: wave 28's own suite is not yet in validate.sh's stage-6 loop (shared file — staged below instead of edited).
 
-Commit: <LOCAL_HASH> (local) → <REMOTE_HASH> (pushed 2026-10-11, remote tree verified via GitHub API — wave-28 files present in the recursive tree).
+Commit: 8ce0e616cf8e3cd5509e9e6a97b6782bbc40895b (local) → ba4dfaa456df1e09bc1dec2a84e604506018454a (pushed 2026-10-11, remote tree verified via GitHub Trees API 200 — all 4 wave-28 files in the recursive tree, not truncated).
 
 ---
 

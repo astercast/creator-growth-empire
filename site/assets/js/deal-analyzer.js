@@ -497,7 +497,7 @@
         0, null, "rule");
     }
 
-    var totalLo = base, totalHi = base, open = false;
+    var totalLo = 0, totalHi = 0, open = false;
     lines.forEach(function (l) {
       totalLo += (l.lo || 0);
       if (l.hi == null) open = true; else totalHi += l.hi;

@@ -17,7 +17,7 @@ From $0 to a multi-million-dollar creator company.
 - [Niche Picker](quiz.html) — Answer 6 questions, get ranked niche suggestions with reasoning — or take the 4-question "Pick my 2027 niche" branch, scored against the Niche Atlas 2027 outlook layer.
 - [Revenue Calculator](calculator.html) — Project revenue from views, niche, sponsors, and affiliates — with honest ranges.
 - [90-Day Planner](planner.html) — Generate a posting schedule from your platforms and cadence. Printable.
-- [Sponsor Deal Analyzer](deal-analyzer.html) — Benchmark a sponsor offer against the 2026 rate card — verdict, red-flag checklist, counter-offer worksheet.
+- [The Deal Analyzer](deal-analyzer.html) — Paste the brand's terms — rate-card verdict with platform multipliers + niche adjustment, the wave-22 contract checklist applied to the deal, counter-offer calculator, 2026 usage-rights add-on math, deal history + comparison mode.
 - [The Deal Room](deal-room.html) — Manage the whole deal: track offers through signing, price usage rights, rehearse negotiations, export your memo.
 - [Hiring Cost Calculator](hiring-calculator.html) — Price your first hire: monthly/annual cost and the ad revenue needed to cover it — honest math, no promises.
 - [Repurposing Planner](repurpose.html) — Turn one idea into a 5-platform mission-card checklist from the Phase 3 repurposing SOP.

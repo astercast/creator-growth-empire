@@ -10,7 +10,8 @@
     "platform_rules_2026",
     "sponsorship_rate_card_2026",
     "platform_thresholds",
-    "revenue_splits"
+    "revenue_splits",
+    "usage_rights_benchmarks_2026"
   ],
   "properties": {
     "version": {
@@ -56,6 +57,60 @@
     },
     "sponsorship_rate_card_2026": {
       "type": "object"
+    },
+    "usage_rights_benchmarks_2026": {
+      "type": "object",
+      "required": [
+        "date",
+        "source",
+        "note",
+        "tiers",
+        "whitelisting_per_month_pct"
+      ],
+      "properties": {
+        "tiers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "label",
+              "addon_pct",
+              "note"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "label": {
+                "type": "string"
+              },
+              "addon_pct": {
+                "type": "array",
+                "items": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "minItems": 2,
+                "maxItems": 2
+              },
+              "note": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "whitelisting_per_month_pct": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 2,
+          "maxItems": 2
+        }
+      }
     },
     "platform_thresholds": {
       "type": "object"

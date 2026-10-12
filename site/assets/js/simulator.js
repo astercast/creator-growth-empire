@@ -429,6 +429,38 @@
     return html;
   }
 
+  /* 4.0: year-by-year summary cards for 24/36-month runs — the multi-year
+   * story at a glance, before the month-by-month ledger. */
+  function yearCards(res) {
+    var months = res.months;
+    if (months.length <= 12) return "";
+    var cards = "";
+    for (var y = 0; y < months.length / 12; y++) {
+      var slice = months.slice(y * 12, y * 12 + 12);
+      var gross = slice.reduce(function (a, m) { return a + m.total; }, 0);
+      var team = slice.reduce(function (a, m) { return a + m.teamCost; }, 0);
+      var last = slice[slice.length - 1];
+      cards += '<div class="calc-out"><div class="lbl">Year ' + (y + 1) + "</div>" +
+        '<div class="big">' + fmtMoney(gross - team) + '</div><div class="range">net · ' +
+        fmtCompact(last.subs) + " subs · ends Stage " + last.stage + " (" +
+        esc(EmpireSim.STAGES[last.stage].name) + ")</div>" +
+        '<p class="muted" style="font-size:.82rem;margin:.4rem 0">Gross ' +
+        fmtMoney(gross) + " − team " + fmtMoney(team) + "</p></div>";
+    }
+    return '<h3>The years</h3><div class="calc-grid">' + cards + "</div>";
+  }
+
+  /* 4.0: the assumptions panel, always visible in the results — never
+   * hidden behind the drawer. Reuses the engine's assumptionLines(). */
+  function assumptionsBlock(inputs, res) {
+    return "<h3>Assumptions — always visible</h3>" +
+      '<div class="calc-out" style="text-align:left">' +
+      "<ul style='font-size:.88rem;margin:.5rem 0;padding-left:1.2rem'>" +
+      EmpireSim.assumptionLines(inputs, res).map(function (l) {
+        return "<li>" + esc(l) + "</li>";
+      }).join("") + "</ul></div>";
+  }
+
   function render(inputs, res, opts) {
     opts = opts || {};
     var months = res.months, totals = res.totals;
@@ -480,14 +512,15 @@
         "<td>" + fmtMoney(m.teamCost) + "</td><td><strong>" + fmtMoney(m.net) + "</strong></td></tr>";
     }).join("");
 
-    out.innerHTML =
+    var html =
       '<div class="hud-panel" style="margin-top:2rem"><div class="hud-head">' +
       "<span>SIMULATION COMPLETE // " + N + "-MONTH EMPIRE PROJECTION</span>" +
       '<span class="hud-status">MODEL, NOT PROPHECY</span></div><div class="hud-body">' +
       "<h2>Your empire, month by month</h2>" + meta + stats +
-      miles + stageTimeline(res) +
-      "<h3>Subscriber curve</h3>" + subsChart(months) +
-      "<h3>Revenue by stream</h3>" + revenueChart(months) +
+      yearCards(res) + miles + stageTimeline(res) +
+      "<h3>Subscriber curve</h3>" + subsChart(months, res) +
+      "<h3>Revenue by stream</h3>" + revenueChart(months, res) +
+      assumptionsBlock(inputs, res) +
       "<h3>The ledger (month-by-month P&amp;L)</h3><div class=\"table-wrap\"><table><caption>Month-by-month projection. " +
       "Compact numbers; revenue rounded. Net = total − team cost. ⚡ marks months with an active what-if event.</caption><thead><tr><th scope='col'>Mo</th>" +
       "<th scope='col'>Subs</th><th scope='col'>Stage</th><th scope='col'>Long views</th><th scope='col'>Shorts views</th>" +
@@ -501,8 +534,20 @@
       'Verify every platform number live before making decisions.</p>' +
       "</div></div>";
 
-    wireShare(inputs, res);
-    if (opts.scroll !== false) scrollToEl(out);
+    /* Same-document view transition (Baseline 2026) on explicit runs — the
+     * new results crossfade in as one choreographed beat. Live re-runs pass
+     * transition:false to swap plainly (no flicker); reduced-motion users
+     * and unsupporting browsers always get the plain swap. */
+    function swap() {
+      out.innerHTML = html;
+      wireShare(inputs, res);
+      if (opts.scroll !== false) scrollToEl(out);
+    }
+    if (opts.transition !== false && !REDUCED && document.startViewTransition) {
+      document.startViewTransition(swap);
+    } else {
+      swap();
+    }
   }
 
   function stat(label, big, sub) {
@@ -670,4 +715,86 @@
     var res = EmpireSim.simulate(inputs, cfg);
     render(inputs, res);
   });
+
+  /* ---------- 4.0: live re-run (debounced) ----------
+   * The sandbox re-simulates as you type — the charts stay in sync with the
+   * form without a round-trip through the Run button. Explicit runs keep the
+   * view transition + scroll; live runs swap plainly and stay put. */
+  var liveTimer = null;
+  var liveBox = document.getElementById("s-live");
+  var liveStatus = document.getElementById("s-live-status");
+  form.addEventListener("input", function () {
+    if (!liveBox || !liveBox.checked || !cfg) return;
+    if (liveTimer) clearTimeout(liveTimer);
+    liveTimer = setTimeout(function () {
+      var inputs = readInputs();
+      var res = EmpireSim.simulate(inputs, cfg);
+      render(inputs, res, { scroll: false, transition: false });
+      if (liveStatus) {
+        var d = new Date();
+        var hh = ("0" + d.getHours()).slice(-2);
+        var mm = ("0" + d.getMinutes()).slice(-2);
+        var ss = ("0" + d.getSeconds()).slice(-2);
+        liveStatus.textContent = "Live re-ran at " + hh + ":" + mm + ":" + ss + ".";
+      }
+    }, 800);
+  });
+
+  /* ---------- 4.0: "what would it take?" goal solver ----------
+   * Inverts the model: binary-searches base growth (or long-form cadence)
+   * until the target lands by the target month. The answer is the model's,
+   * labeled as such — never a promise. */
+  var goalBtn = document.getElementById("s-goal-run");
+  if (goalBtn) {
+    var goalTarget = document.getElementById("s-goal-target");
+    var goalStageRow = document.getElementById("s-goal-stage-row");
+    goalTarget.addEventListener("change", function () {
+      if (goalStageRow) {
+        goalStageRow.style.display = goalTarget.value === "stage" ? "" : "none";
+      }
+    });
+    goalBtn.addEventListener("click", function () {
+      var goalOut = document.getElementById("s-goal-out");
+      if (!cfg) {
+        goalOut.innerHTML = '<p class="muted">Still loading the 2026 rate data — try again in a second.</p>';
+        return;
+      }
+      var target = goalTarget.value;
+      var goal = {
+        target: target,
+        value: target === "stage"
+          ? parseInt(document.getElementById("s-goal-stage").value, 10)
+          : parseFloat(document.getElementById("s-goal-value").value) || 0,
+        month: Math.max(1, Math.min(36,
+          parseInt(document.getElementById("s-goal-month").value, 10) || 12)),
+        variable: document.getElementById("s-goal-var").value
+      };
+      var inputs = readInputs();
+      var r = EmpireSim.solveForGoal(inputs, cfg, goal);
+      var html;
+      if (r.ok) {
+        html = '<div class="calc-out" style="text-align:left;border-left:4px solid var(--acid)">' +
+          "<p><strong>What it would take: " + esc(r.valueLabel) + "</strong></p>" +
+          "<p class='muted'>" + esc(r.note) + "</p>" +
+          (r.alreadyThere ? "" :
+            "<p class='muted'>Model check: at " + esc(r.valueLabel) + " the run reaches " +
+            esc(r.achievedLabel) + " by month " + r.month + ".</p>") +
+          "</div>";
+      } else if (r.reason === "stage4_needs_team") {
+        html = '<div class="calc-out" style="text-align:left;border-left:4px solid var(--gold)">' +
+          "<p><strong>Blocked:</strong> " + esc(r.note) + "</p></div>";
+      } else if (r.reason === "unreachable") {
+        html = '<div class="calc-out" style="text-align:left;border-left:4px solid var(--coral)">' +
+          "<p><strong>Not reachable in this model.</strong></p>" +
+          "<p class='muted'>" + esc(r.note) + "</p></div>";
+      } else {
+        html = '<p class="muted">Enter a target above zero first.</p>';
+      }
+      html += '<p class="muted" style="font-size:.82rem">Single-source reality check (Lilach Bullock, Oct 2026): ' +
+        "under 1% of YouTube channels ever reach 100K subscribers — plan around loyal-subscriber math, not virality. " +
+        "The solver is model math, not a plan.</p>";
+      goalOut.innerHTML = html;
+      scrollToEl(goalOut);
+    });
+  }
 })();
