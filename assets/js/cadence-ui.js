@@ -25,6 +25,19 @@
     over: { badge: "bad", label: "OVER CAPACITY" }
   };
 
+  /* Same-document view transition (Baseline since Oct 2025 — research
+     web-craft round 1 §2). Gated on no-preference: the site honors
+     reduced-motion everywhere, and the fallback is a plain swap. */
+  function swap(html) {
+    var noPref = window.matchMedia &&
+      window.matchMedia("(prefers-reduced-motion: no-preference)").matches;
+    if (noPref && document.startViewTransition) {
+      document.startViewTransition(function () { out.innerHTML = html; });
+    } else {
+      out.innerHTML = html;
+    }
+  }
+
   function platChecked() {
     var boxes = form.querySelectorAll('input[name="cc-plat"]:checked');
     var out = [];
@@ -49,16 +62,25 @@
   function render(r) {
     var v = VERDICTS[r.verdict];
     var n = r.inputs;
+    var pct = Math.round(r.utilization * 100);
+    var CIRC = 2 * Math.PI * 30;
+    var ringOff = (CIRC * (1 - Math.min(1, r.utilization))).toFixed(1);
     var html =
       '<div class="hud-panel" style="margin-bottom:1rem"><div class="hud-head">' +
       "<span>CADENCE MATH // YOUR SUSTAINABLE SCHEDULE</span>" +
       '<span class="hud-status">' + v.label + "</span></div>" +
       '<div class="hud-body">' +
       '<div class="calc-grid" style="margin-bottom:1rem">' +
-      '<div class="calc-out"><div class="lbl">Long-form / week</div><div class="big">' + r.longs + "</div></div>" +
-      '<div class="calc-out"><div class="lbl">Short-form / week</div><div class="big">' + r.shorts + "</div></div>" +
-      '<div class="calc-out"><div class="lbl">Production hours / week</div><div class="big">' + r.usedHours + "h</div></div>" +
-      '<div class="calc-out"><div class="lbl">Of production time</div><div class="big">' + Math.round(r.utilization * 100) + "%</div></div>" +
+      '<div class="calc-out"><div class="lbl">Long-form / week</div><div class="big cc-stat-num">' + r.longs + "</div></div>" +
+      '<div class="calc-out"><div class="lbl">Short-form / week</div><div class="big cc-stat-num">' + r.shorts + "</div></div>" +
+      '<div class="calc-out"><div class="lbl">Production hours / week</div><div class="big cc-stat-num">' + r.usedHours + "h</div></div>" +
+      '<div class="calc-out"><div class="lbl">Of production time</div>' +
+      '<svg class="cc-ring" viewBox="0 0 72 72" role="img" aria-label="' + pct +
+      '% of production time used — ' + v.label.toLowerCase() + '">' +
+      '<circle class="cc-ring-track" cx="36" cy="36" r="30"></circle>' +
+      '<circle class="cc-ring-fill is-' + r.verdict + '" cx="36" cy="36" r="30" ' +
+      'stroke-dasharray="' + CIRC.toFixed(1) + '" stroke-dashoffset="' + ringOff + '"></circle></svg>' +
+      '<div class="big cc-stat-num">' + pct + "%</div></div>" +
       "</div>" +
       '<div class="callout mission" style="margin:0 0 1rem"><strong><span class="badge ' + v.badge + '">' + v.label + "</span></strong>" +
       "<p>" + esc(r.guidance) + "</p></div>" +
@@ -76,16 +98,16 @@
         return '<div class="callout"><strong>' + esc(p.title) + "</strong><p>" + esc(p.body) + "</p></div>";
       }).join("") + "</section>" +
 
-      '<section aria-labelledby="cc-method-title"><h2 id="cc-method-title">How this was computed</h2><ul>' +
+      '<section aria-labelledby="cc-method-title"><h2 id="cc-method-title">How this was computed</h2><ul class="cc-prose">' +
       r.methodNotes.map(function (m) { return "<li>" + esc(m) + "</li>"; }).join("") +
       "</ul>" +
       '<p><button type="button" class="btn btn-ghost" id="cc-copy">Copy my cadence →</button> ' +
       '<a class="btn btn-ghost" href="planner.html">Open the 90-Day Planner →</a> ' +
       '<a class="btn btn-ghost" href="batching.html">Check it in the Batching Planner →</a> ' +
       '<a class="btn btn-ghost" href="simulator.html">Model it in the Simulator →</a></p>' +
-      '<p class="muted">' + esc(r.disclaimer) + "</p></section>";
+      '<p class="muted cc-prose">' + esc(r.disclaimer) + "</p></section>";
 
-    out.innerHTML = html;
+    swap(html);
     var copyBtn = document.getElementById("cc-copy");
     if (copyBtn) copyBtn.addEventListener("click", function () {
       var payload = JSON.stringify({
@@ -137,8 +159,8 @@
     var raw = {
       platforms: platChecked(),
       weeklyHours: num("cc-hours", NaN),
-      longMins: num("cc-longmins", NaN),
-      shortMins: num("cc-shortmins", NaN),
+      longMins: num("cc-longmins", CC.DEFAULTS.longMins),
+      shortMins: num("cc-shortmins", CC.DEFAULTS.shortMins),
       restDay: parseInt(document.getElementById("cc-rest").value, 10),
       stage: parseInt(document.getElementById("cc-stage").value, 10),
       priority: (form.querySelector('input[name="cc-priority"]:checked') || {}).value

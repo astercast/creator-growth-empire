@@ -33,17 +33,26 @@ parent to apply after wave 26 merges. New files only.
   Every platform note carries its source label; ranges are creator-reported,
   never promises. The report's "retention craft beats volume" thesis is the
   tool's framing line (consistency beats volume).
-- `~/workspace/research_notes/web-craft-20261011-2014/` (the design domain):
-  **directory exists but is EMPTY** — the coordinator dispatched the mission
-  but no report had landed as of this wave. Nothing to apply; no findings
-  were invented. The tool ships to the site's established craft bar
-  (Empire Briefing v2 hud panels, mobile-first, static results —
-  reduced-motion-safe by never animating) plus one progressive enhancement
-  in the spirit of the design brief: the 7-day schedule grid uses a CSS
-  container query (`@container ccweek`, `@supports`-guarded) so the strip
-  becomes true week-columns on wider containers. Recommend a follow-up wave
-  to integrate the design report once it lands (scroll-driven animation,
-  view transitions, form/result typography findings).
+- **Web-craft design reports LANDED mid-wave** (`web-craft-20261011-2014/`
+  + `web-craft-20261011-2025/`, read in full): applied to tool #20 —
+  typography micro-craft (`text-wrap: balance` on result headings,
+  `font-variant-numeric: tabular-nums` on stat numbers, 65ch measure on
+  prose, `text-wrap: pretty` kept `@supports`-gated per the round-2
+  Firefox dispute); same-document view transitions on results render
+  (Baseline Oct 2025), gated on `prefers-reduced-motion: no-preference`
+  with a plain-swap fallback; scroll-driven week-cell reveals
+  (`animation-timeline: view()`, transform+opacity only, compositor),
+  `@supports`-gated with the finished-visible state as CSS default
+  (failure-mode rule) and no-preference gating; motion tokens
+  (120/200ms, standard + decelerate easings); hand-rolled SVG utilization
+  ring (angle-6 recipe — the number is the encoding, color redundant).
+  Deliberately NOT applied: scroll progress bar (wave 28 owns that
+  pattern on their page — no duplication), blur-reveal signature and
+  kinetic type (wrong register for a utilitarian tool; restraint wins),
+  font-pipeline changes (fleet-level decision, out of wave scope).
+  Everything scoped to `.cc-*` / `#cc-results` — zero collision with wave
+  28's `.platform-rules` scope (asserted in-test). Reduced-motion safe
+  throughout; site identity untouched.
 
 **Honesty contract:** no income promises, no growth promises — the engine
 emits "Posting more never guarantees views, revenue, or growth" and
@@ -65,20 +74,29 @@ What shipped (all new files):
    Oct-2026 platform facts with source labels.
 2. **UI** (`assets/js/cadence-ui.js`, pure-math-free): platform checkboxes,
    priority radios, honest-hours input, Money Map stage + rest-day selects,
-   optional per-piece-minute overrides; aria-live results; localStorage
-   `cge.cadence.v1` last-input restore; "Copy my cadence →" clipboard bridge
+   optional per-piece-minute overrides; results swap via same-document view
+   transition gated on `prefers-reduced-motion: no-preference` (plain-swap
+   fallback); hand-rolled SVG utilization ring (role=img, number as the
+   encoding); aria-live results; localStorage `cge.cadence.v1` last-input
+   restore; "Copy my cadence →" clipboard bridge
    (`{longform_per_week, shorts_per_week, rest_day}`) feeding the Planner /
    Simulator; error-state on invalid input.
 3. **Page** (`pages/cadence.html`): form, empty-state, full `<noscript>`
    fallback (the honest one-paragraph version: the formula + platform facts),
    "The cadence pipeline" cross-link section (Batching → Planner → Calendar
    → Simulator), honesty footer. Own stylesheet `assets/css/cadence.css`
-   (mobile-first week grid; container-query week strip; zero animation).
-4. **Tests** (`tests/cadence.test.js`, **62 assertions** — validation,
+   (mobile-first week grid; `@supports`-guarded container-query week strip;
+   web-craft layer: balance/tabular-nums/65ch/pretty-gated typography,
+   motion tokens, scroll-driven cell reveals with visible-by-default
+   failure mode — all `.cc-`-scoped, reduced-motion safe).
+4. **Tests** (`tests/cadence.test.js`, **71 assertions** — validation,
    capacity pins (20h→960 prod mins→1 long/10 shorts), per-priority
    allocation pins, verdict-band pins, ramp bounds, dealWeek shape/spread/
    rest-day pins, platform-note gating, tuition/method notes, honesty
-   contract). Exit 0 standalone.
+   contract, + a web-craft contract section: view-transition
+   reduced-motion gating, scroll-reveal `@supports` gating + visible
+   failure mode, balance/tabular-nums/65ch/pretty-gated CSS, SVG ring,
+   no `.platform-rules` selector collision). Exit 0 standalone.
 5. **`MERGE-fragment-w27-tools.md`** — the staged wiring (B1: TOOLS entry;
    B2: TOOL_HUB_META PLAN-group card; B3: TOOLS_API record with draft-07
    `CadenceInput` schema + drive notes; B4: TOOL_SCRIPTS; B5: TOOL_CSS;
@@ -90,11 +108,12 @@ What shipped (all new files):
 scratch copy of the tree (including wave 26's in-flight changes), then
 `scripts/build.py` (clean — 9 chapters, 19 tools, 12 skills, 9 case files)
 and `scripts/validate.sh` — **16 passed, 0 failed, ALL STAGES PASS**:
-`site/cadence.html` renders as TOOL // 019 with both scripts + CSS wired;
-tools hub carries the Cadence Coach card; `api/v1/tools.json` 19th record
-is cadence with the draft-07-validated CadenceInput schema; llms.txt fresh;
-0 broken links; byte-identical rebuild; 62 cadence assertions in stage 6;
-agent workflows 105→106 with the new wf2 cadence schema pin.
+`site/cadence.html` renders as TOOL // 019 with both scripts + CSS wired
+(incl. the web-craft layer); tools hub carries the Cadence Coach card;
+`api/v1/tools.json` 19th record is cadence with the draft-07-validated
+CadenceInput schema; llms.txt fresh; 0 broken links; byte-identical
+rebuild; 71 cadence assertions in stage 6; agent workflows 105→106 with
+the new wf2 cadence schema pin.
 
 Validation (real tree, fragment NOT applied — the committed tree is
 build-consistent without it): `scripts/build.py` untouched inputs;
@@ -103,13 +122,17 @@ parse, draft-07 schemas, 0 broken links, byte-identical rebuild on the
 committed tree, all existing engine suites green — cadence suite runs
 standalone at 62/62 via `node tests/cadence.test.js`).
 
-Design findings applied (per the new mandatory design input): the
-web-craft report had not landed (empty directory) — no findings applied,
-none invented; tool built to the site's existing craft conventions, plus a
-`@supports`-guarded container query for the week grid as the one
-forward-looking craft step. Follow-up recommended once the report lands.
+Design findings applied (per the new mandatory design input): both
+web-craft reports read in full; applied — balance/tabular-nums/65ch/
+pretty-gated typography, no-preference-gated same-document view
+transitions, @supports-gated scroll-driven reveals with visible failure
+mode, motion tokens, hand-rolled SVG ring; deliberately skipped — wave 28's
+scroll progress bar (their pattern), blur-reveal/kinetic-type (wrong
+register), font-pipeline changes (fleet scope). All `.cc-`-scoped; no
+collision with wave 28's `.platform-rules` (asserted in-test).
 
-Commit: <local-hash> → <remote-hash> (pushed 2026-10-11, remote tree verified via GitHub API).
+Commit: 40cce22 (local) → b242b0abe94f91f906edf16a6e7d4b24cd65a99c (pushed 2026-10-11, remote tree verified via GitHub API).
+Follow-up design-application commit: <local-hash2> → <remote-hash2>.
 Merge attention needed: apply `MERGE-fragment-w27-tools.md` (B1–B8) after
 wave 26 merges, then rebuild + revalidate; if wave 26 renumbered tools or
 moved anchors, re-anchor per the fragment's notes. `WAVELOG.md` itself was

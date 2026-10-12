@@ -16,7 +16,7 @@ New files this fragment wires up (all committed by wave 27, all new):
 - `assets/js/cadence.js` — `CadenceCoach` UMD engine (`validInput`, `capacityMath`, `dealWeek`, `recommend`)
 - `assets/js/cadence-ui.js` — pure-math-free DOM wiring (aria-live, localStorage `cge.cadence.v1`, copy-cadence)
 - `assets/css/cadence.css` — week grid (mobile-first; container query `@container ccweek` progressive enhancement; zero animation)
-- `tests/cadence.test.js` — 62 assertions, `node tests/cadence.test.js` exit 0 standalone
+- `tests/cadence.test.js` — 71 assertions, `node tests/cadence.test.js` exit 0 standalone
 
 ---
 
@@ -203,7 +203,7 @@ Insert between the crosspost check and the planner comment:
    (Scratch-verified 2026-10-11 against the wave-26-in-flight tree: B1–B8
    applied cleanly, build clean at 19 tools.)
 2. `bash scripts/validate.sh` — expect 8/8 GREEN (16 passed, 0 failed in
-   scratch), including the 62 cadence assertions in stage 6 and the new
+   scratch), including the 71 cadence assertions in stage 6 and the new
    wf2 cadence schema pin in stage 8.
 3. Confirm `site/cadence.html` renders (TOOL // 0NN, last), `site/tools.html`
    carries the Cadence Coach card, `api/v1/tools.json` has the cadence record

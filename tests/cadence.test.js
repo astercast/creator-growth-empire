@@ -158,5 +158,34 @@ ok(!/will (earn|make|get you)/i.test(allCopy), "no income-promise phrasing");
 ok(!/promise[sd]? (you|views|growth|revenue)/i.test(allCopy), "no promise phrasing");
 ok(r.disclaimer === CC.DISCLAIMER, "recommend carries the disclaimer");
 
-console.log(failures === 0 ? "\nALL PASS" : "\n" + failures + " FAILURES");
+/* ---------- 6. web-craft contract (static checks on shipped UI/CSS) ----------
+   Oct-2026 design research (web-craft-20261011-2014 + -2025): typography
+   micro-craft, same-document view transitions, scroll-driven reveals with a
+   safe failure mode, hand-rolled SVG. All motion gated on no-preference;
+   all selectors .cc-scoped (no collision with other lanes). */
+console.log("web-craft contract");
+var fs = require("fs");
+var uiSrc = fs.readFileSync(path.join(ROOT, "assets", "js", "cadence-ui.js"), "utf8");
+var cssSrc = fs.readFileSync(path.join(ROOT, "assets", "css", "cadence.css"), "utf8");
+ok(/prefers-reduced-motion/.test(uiSrc) && /startViewTransition/.test(uiSrc),
+  "UI: view transition gated on prefers-reduced-motion");
+ok(/prefers-reduced-motion: no-preference/.test(cssSrc),
+  "CSS: motion only under no-preference");
+ok(/@supports\s*\(animation-timeline:\s*view\(\)\)/.test(cssSrc),
+  "CSS: scroll reveal is @supports-gated (progressive enhancement)");
+ok(/text-wrap:\s*balance/.test(cssSrc), "CSS: text-wrap balance on headings");
+ok(/tabular-nums/.test(cssSrc), "CSS: tabular-nums on stat numbers");
+ok(/65ch/.test(cssSrc), "CSS: 65ch measure on prose");
+ok(/@supports\s*\(text-wrap:\s*pretty\)/.test(cssSrc),
+  "CSS: text-wrap pretty stays @supports-gated (Firefox disputed)");
+ok(/\.cc-ring/.test(cssSrc) && /stroke-dasharray/.test(uiSrc),
+  "UI+CSS: hand-rolled SVG utilization ring");
+var cssNoComments = cssSrc.replace(/\/\*[\s\S]*?\*\//g, "");
+var uiNoComments = uiSrc.replace(/\/\*[\s\S]*?\*\//g, "");
+ok(!/\.platform-rules/.test(cssNoComments) && !/\.platform-rules/.test(uiNoComments),
+  "no selector collision with wave 28's .platform-rules scope");
+ok(/opacity:\s*1/.test(cssSrc) || /to\s*\{[^}]*opacity:\s*1/.test(cssSrc),
+  "CSS: reveal failure mode is visible content (finished state default)");
+
+console.log(failures === 0 ? "\nALL PASS (incl. craft contract)" : "\n" + failures + " FAILURES");
 process.exit(failures === 0 ? 0 : 1);
