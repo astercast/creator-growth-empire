@@ -230,8 +230,65 @@
     "negotiation_note": "Listed rates run ~23% above accepted rates — negotiate. Usage rights are the most-neglected line item: price paid-ad usage of your content SEPARATELY from the post fee (projectcasting.com, Sep 2026)",
     "note": "Common starting point: $20–$50 per 1,000 expected views for a dedicated integration in mid-value niches; finance/tech 2–3x, entertainment lower. Negotiate on audience quality, not just views. Verify with current creator rate reports."
   },
+  "usage_rights_benchmarks_2026": {
+    "date": "2026-10-11",
+    "source": "projectcasting 2026 usage-rights benchmarks (via the wave-25 Q4 2026 research sweep); the same figures are carried in prose in sponsorship_rate_card_2026.holiday_2026_note",
+    "note": "Add-ons are percentages ON TOP of the base post fee, priced as separate line items — never folded into the post fee. Ranges, not quotes. Verify against current creator rate reports before quoting.",
+    "tiers": [
+      {
+        "id": "organic_only",
+        "label": "Organic only",
+        "addon_pct": [
+          0,
+          0
+        ],
+        "note": "Base post fee covers organic placement on your channel only — the absence of a line item, not a market rate."
+      },
+      {
+        "id": "paid_3mo",
+        "label": "Paid ads, 3 months",
+        "addon_pct": [
+          25,
+          50
+        ],
+        "note": "Brand re-runs your content as paid ads for 3 months."
+      },
+      {
+        "id": "paid_6mo",
+        "label": "Paid ads, 3-6 months",
+        "addon_pct": [
+          50,
+          75
+        ],
+        "note": "Brand re-runs your content as paid ads for 3-6 months."
+      },
+      {
+        "id": "paid_12mo",
+        "label": "Paid ads, 6-12 months",
+        "addon_pct": [
+          75,
+          100
+        ],
+        "note": "Brand re-runs your content as paid ads for 6-12 months. Cap it in writing."
+      },
+      {
+        "id": "perpetual",
+        "label": "Perpetual / unlimited",
+        "addon_pct": [
+          100,
+          null
+        ],
+        "note": "From 2x the base fee (add-on of +100% or more) — price as its OWN line item, or refuse. A perpetual paid-ads license turns your post into the brand's permanent ad creative."
+      }
+    ],
+    "whitelisting_per_month_pct": [
+      30,
+      100
+    ],
+    "whitelisting_note": "Whitelisting (ads run from YOUR account) is priced monthly, separately from the post fee — always revocable, never perpetual."
+  },
   "updated": "2026-10-11",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "youtube_longform_rpm_bands": {
     "comedy_entertainment": [
       1,

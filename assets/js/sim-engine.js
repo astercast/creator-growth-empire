@@ -135,7 +135,7 @@
       { id: "algorithm-change",
         name: "Algorithm change — Shorts reach cut",
         assumedEffect: "From the event month: Shorts views ×0.6 every month (a channel-level reach cut). Long-form untouched. The 0.6 is our labeled assumption, not a published figure.",
-        basis: "The Oct-1-2026 Shorts originality update (platform-published: Rene Ritchie/Creator Insider): recommendations deprioritize re-uploaded/aggregator content, originals prioritized — see the algorithm signal map (Content Engine 2.0) and Phase 3." },
+        basis: "The Oct-1-2026 Shorts originality update (platform-published: Rene Ritchie/Creator Insider): recommendations deprioritize re-uploaded/aggregator content, originals prioritized — see the algorithm signal map (Content Engine 2.0) and Phase 3. Ten days on, no creator-reported before/after view data exists yet (Oct 11, 2026) — the ×0.6 is the engine's planning assumption, flagged as a gap to revisit." },
       { id: "viral-hit",
         name: "Viral hit — one video 10x's",
         assumedEffect: "Event month: long-form views ×10 (one breakout video); subs get a one-time +8% lift ONLY. Next month: views ×1.5 (the tail). Then back to normal. Reality check, built in: virality spikes views, not loyalty.",
@@ -775,6 +775,110 @@
     return ms;
   }
 
+  /* solveForGoal(): "what would it take?" — inverts the model by
+   * binary-searching ONE input variable (base growth rate or long-form
+   * cadence) until the simulation hits a target (subs, net revenue, or Money
+   * Map stage) by a given month. Pure math on simulate() — no new claims,
+   * no new data; the answer is the model's, labeled as such. Integer search
+   * space (whole % / half videos) so the reported value is directly usable. */
+  var STAGE_NET = [0, 100, 1000, 10000, 10000];
+  var STAGE_NAMES = ["The Start Line", "First $100", "The Engine Runs",
+                     "The Business", "The Company"];
+
+  function solveForGoal(inputs, cfg, goal) {
+    var g = goal || {};
+    var target = g.target;
+    if (target !== "subs" && target !== "net" && target !== "stage") {
+      return { ok: false, reason: "bad_target" };
+    }
+    var month = Math.max(1, Math.min(36, Math.round(g.month || 12)));
+    var variable = g.variable === "cadence" ? "cadence" : "growth";
+
+    var hires = normalizeHires(inputs.hires);
+    var teamActive = hires.length > 0;
+
+    var targetValue, targetLabel;
+    if (target === "subs") {
+      if (!(g.value > 0)) return { ok: false, reason: "bad_value" };
+      targetValue = Math.max(1, Math.round(g.value));
+      targetLabel = targetValue.toLocaleString("en-US") + " subscribers";
+    } else if (target === "net") {
+      if (!(g.value > 0)) return { ok: false, reason: "bad_value" };
+      targetValue = Math.max(1, g.value);
+      targetLabel = fmtMoney(targetValue) + " net revenue in one month";
+    } else {
+      var stage = Math.round(g.value || 0);
+      if (stage < 1 || stage > 4) return { ok: false, reason: "bad_value" };
+      if (stage === 4 && !teamActive) {
+        return { ok: false, reason: "stage4_needs_team",
+                 note: "Stage 4 (The Company) needs an active team hire plus \u2265$10K net — add a hire in the Team section first." };
+      }
+      targetValue = STAGE_NET[stage];
+      targetLabel = "Stage " + stage + " (" + STAGE_NAMES[stage] + ")";
+    }
+
+    /* integer search space: growth = whole % (2-60), cadence = half-videos (0-14) */
+    var lo = variable === "growth" ? 2 : 0;
+    var hi = variable === "growth" ? 60 : 14;
+    function toVar(u) { return variable === "growth" ? u / 100 : u / 2; }
+    function varLabel(u) {
+      return variable === "growth"
+        ? u + "% base monthly growth"
+        : (u / 2) + " long-form video" + (u === 2 ? "" : "s") + "/week";
+    }
+
+    function metricAt(u) {
+      var inp = JSON.parse(JSON.stringify(inputs || {}));
+      if (variable === "growth") inp.growthRate = toVar(u);
+      else inp.longformPerWeek = toVar(u);
+      inp.horizon = Math.max(month, Math.round(inp.horizon || DEFAULTS.months));
+      if (inp.horizon > 36) inp.horizon = 36;
+      var res = simulate(inp, cfg);
+      var m = res.months[month - 1];
+      return target === "subs" ? m.subs : m.net;
+    }
+
+    function fmtMetric(v) {
+      return target === "subs"
+        ? Math.round(v).toLocaleString("en-US") + " subs"
+        : fmtMoney(v) + " net";
+    }
+
+    if (metricAt(lo) >= targetValue) {
+      return { ok: true, variable: variable, value: toVar(lo),
+               valueLabel: varLabel(lo), achieved: metricAt(lo),
+               achievedLabel: fmtMetric(metricAt(lo)),
+               target: target, targetLabel: targetLabel, month: month,
+               alreadyThere: true,
+               note: "Your current settings already clear it — the model has you at " +
+                     fmtMetric(metricAt(lo)) + " by month " + month + "." };
+    }
+    if (metricAt(hi) < targetValue) {
+      return { ok: false, reason: "unreachable", variable: variable,
+               target: target, targetLabel: targetLabel, month: month,
+               maxLabel: varLabel(hi),
+               achievedAtMax: metricAt(hi),
+               achievedAtMaxLabel: fmtMetric(metricAt(hi)),
+               note: "Not reachable in this model — even at " + varLabel(hi) +
+                     " you would reach " + fmtMetric(metricAt(hi)) + " by month " + month +
+                     ". Extend the horizon, stack another lever (cadence x quality x niche), or shrink the target." };
+    }
+    var iterations = 0;
+    while (lo < hi && iterations < 48) {
+      var mid = Math.floor((lo + hi) / 2);
+      if (metricAt(mid) >= targetValue) hi = mid; else lo = mid + 1;
+      iterations++;
+    }
+    var achieved = metricAt(hi);
+    return { ok: true, variable: variable, value: toVar(hi),
+             valueLabel: varLabel(hi), achieved: achieved,
+             achievedLabel: fmtMetric(achieved),
+             target: target, targetLabel: targetLabel, month: month,
+             iterations: iterations,
+             note: "The model's answer, not a promise: hold every other input fixed and " +
+                   targetLabel + " lands by month " + month + " at " + varLabel(hi) +
+                   " (model says " + fmtMetric(achieved) + "). Reality has variance — treat it as a planning input." };
+  }
   return {
     DEFAULTS: DEFAULTS,
     STAGES: STAGES,
@@ -787,6 +891,7 @@
     compare: compare,
     assumptionLines: assumptionLines,
     exportPlan: exportPlan,
+    solveForGoal: solveForGoal,
     tierForSubs: tierForSubs,
     rpmForBand: rpmForBand
   };

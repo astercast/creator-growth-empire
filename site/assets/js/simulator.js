@@ -38,6 +38,16 @@
   var nicheSel = document.getElementById("s-niche");
   var nicheNote = document.getElementById("s-niche-rpm");
 
+  /* 4.0: reduced-motion-safe scrolling — smooth scroll only when the user
+   * hasn't asked for reduced motion. */
+  var REDUCED = typeof matchMedia === "function" &&
+    matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function scrollToEl(el) {
+    if (!el || !el.scrollIntoView) return;
+    if (REDUCED) el.scrollIntoView({ block: "start" });
+    else el.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
   function fmtMoney(n) { return "$" + Math.round(n).toLocaleString("en-US"); }
   function fmtSigned(n) {
     var v = Math.round(n);
@@ -277,7 +287,7 @@
     if (N === 12) return [1, 4, 7, 10, 12];
     return [1, Math.round(N / 4), Math.round(N / 2), Math.round(3 * N / 4), N];
   }
-  function subsChart(months) {
+  function subsChart(months, res) {
     var N = months.length;
     var W = 640, H = 260, pl = 46, pr = 14, pt = 18, pb = 30;
     var max = Math.max.apply(null, months.map(function (m) { return m.subs; })) * 1.08;
@@ -285,6 +295,14 @@
     var Y = function (v) { return pt + (H - pt - pb) * (1 - v / max); };
     var pts = months.map(function (m, i) { return X(i).toFixed(1) + "," + Y(m.subs).toFixed(1); });
     var area = pl + "," + Y(0).toFixed(1) + " " + pts.join(" ") + " " + X(N - 1).toFixed(1) + "," + Y(0).toFixed(1);
+    var slot = (W - pl - pr) / N;
+    /* 4.0: Money Map stage bands behind the curve — the journey, visible. */
+    var bands = months.map(function (m, i) {
+      return '<rect x="' + (pl + slot * i).toFixed(1) + '" y="' + pt + '" width="' +
+        (slot + 0.6).toFixed(1) + '" height="' + (H - pt - pb) + '" class="stage-band-' +
+        m.stage + '"><title>Month ' + m.month + " \u2014 Stage " + m.stage + " (" +
+        esc(EmpireSim.STAGES[m.stage].name) + ")</title></rect>";
+    }).join("");
     var ticks = [0, max / 2, max].map(function (v) {
       return '<line x1="' + pl + '" y1="' + Y(v) + '" x2="' + (W - pr) + '" y2="' + Y(v) +
         '" class="chart-grid"/><text x="' + (pl - 6) + '" y="' + (Y(v) + 4) +
@@ -294,19 +312,44 @@
       return '<text x="' + X(mm - 1) + '" y="' + (H - 8) +
         '" class="chart-tick" text-anchor="middle">M' + mm + "</text>";
     }).join("");
+    /* 4.0: milestone dots on the curve + what-if event markers. */
+    var dots = (res.milestones || []).map(function (ms) {
+      var i = Math.max(0, Math.min(N - 1, ms.month - 1));
+      return '<circle cx="' + X(i).toFixed(1) + '" cy="' + Y(months[i].subs).toFixed(1) +
+        '" r="4.5" class="chart-dot"><title>' + esc(ms.label) + " \u2014 month " +
+        ms.month + "</title></circle>";
+    }).join("");
+    var evMarks = months.map(function (m, i) {
+      if (!m.eventsActive.length) return "";
+      return '<text x="' + X(i).toFixed(1) + '" y="' + (Y(m.subs) - 14).toFixed(1) +
+        '" text-anchor="middle" class="chart-event">\u26a1<title>What-if active, month ' +
+        m.month + ": " + esc(m.eventsActive.map(cardName).join(", ")) + "</title></text>";
+    }).join("");
+    var endLabel = '<text x="' + (X(N - 1) - 4).toFixed(1) + '" y="' +
+      (Y(months[N - 1].subs) - 10).toFixed(1) +
+      '" text-anchor="end" class="chart-tick">' + fmtCompact(months[N - 1].subs) + " subs</text>";
+    var stageLegend = [0, 1, 2, 3, 4].map(function (s) {
+      return '<span class="legend-item"><span class="swatch stage-swatch-' + s +
+        '"></span>Stage ' + s + "</span>";
+    }).join("");
     return '<svg viewBox="0 0 ' + W + " " + H + '" class="chart" role="img" ' +
       'aria-label="Subscriber growth curve over ' + N + " months, ending at " + fmtCompact(months[N - 1].subs) + ' subscribers">' +
+      '<g aria-hidden="true">' + bands + "</g>" +
       ticks + '<polygon points="' + area + '" class="chart-area"/>' +
       '<polyline points="' + pts.join(" ") + '" class="chart-line"/>' +
-      months_ticks + "</svg>";
+      '<g aria-hidden="true">' + dots + evMarks + "</g>" +
+      endLabel + months_ticks + "</svg>" +
+      '<div class="chart-legend" aria-hidden="true">' + stageLegend + "</div>";
   }
 
-  function revenueChart(months) {
+  function revenueChart(months, res) {
     var N = months.length;
     var W = 640, H = 280, pl = 52, pr = 14, pt = 18, pb = 44;
     var max = Math.max.apply(null, months.map(function (m) { return m.total; })) * 1.08 || 1;
     var slot = (W - pl - pr) / N, bw = Math.min(34, slot * 0.62);
     var Y = function (v) { return pt + (H - pt - pb) * (1 - v / max); };
+    var best = months.reduce(function (a, b) { return b.total > a.total ? b : a; }, months[0]);
+    var labelEvery = N > 12 ? 3 : 1; /* 4.0: keep month labels readable at 24/36 mo */
     var bars = months.map(function (m, i) {
       var x = pl + slot * i + (slot - bw) / 2, y0 = Y(0), segs = "";
       var acc = 0;
@@ -319,9 +362,23 @@
           "<title>" + esc(s.label) + " M" + m.month + ": " + fmtMoney(v) + "</title></rect>";
         acc += v;
       });
-      return '<g><title>Month ' + m.month + " total " + fmtMoney(m.total) + "</title>" + segs +
-        '<text x="' + (x + bw / 2).toFixed(1) + '" y="' + (H - 24) +
-        '" class="chart-tick" text-anchor="middle">' + m.month + "</text></g>";
+      /* 4.0: what-if event marker above the bar + best-month value label. */
+      var mark = "";
+      if (m.eventsActive.length) {
+        mark = '<text x="' + (x + bw / 2).toFixed(1) + '" y="' + (Y(acc) - 8).toFixed(1) +
+          '" text-anchor="middle" class="chart-event">\u26a1<title>What-if active, month ' +
+          m.month + ": " + esc(m.eventsActive.map(cardName).join(", ")) + "</title></text>";
+      }
+      if (m.month === best.month && best.total > 0) {
+        mark += '<text x="' + (x + bw / 2).toFixed(1) + '" y="' + (Y(acc) - (m.eventsActive.length ? 22 : 8)).toFixed(1) +
+          '" text-anchor="middle" class="chart-tick">' + fmtMoney(best.total) + "</text>";
+      }
+      var mlabel = ((m.month - 1) % labelEvery === 0)
+        ? '<text x="' + (x + bw / 2).toFixed(1) + '" y="' + (H - 24) +
+          '" class="chart-tick" text-anchor="middle">' + m.month + "</text>"
+        : "";
+      return '<g aria-hidden="true"><title>Month ' + m.month + " total " + fmtMoney(m.total) + "</title>" + segs +
+        mark + mlabel + "</g>";
     }).join("");
     var ticks = [0, max / 2, max].map(function (v) {
       return '<line x1="' + pl + '" y1="' + Y(v) + '" x2="' + (W - pr) + '" y2="' + Y(v) +
@@ -341,15 +398,6 @@
 
   /* ---------- render ---------- */
   var STICKER_VARIANTS = ["", "sticker-coral", "sticker-gold", "sticker-violet"];
-
-  function hireSummary(res) {
-    var hires = res.meta.hires || [];
-    if (!hires.length) return "no hires — gross = net";
-    return hires.map(function (h) {
-      var t = EmpireSim.DEFAULTS.hireTypes[h.type];
-      return (t ? t.label : h.type) + " $" + Math.round(h.monthlyCost) + "/mo from M" + h.startMonth;
-    }).join(" · ");
-  }
 
   function hireSummary(res) {
     var hires = res.meta.hires || [];
@@ -381,7 +429,8 @@
     return html;
   }
 
-  function render(inputs, res) {
+  function render(inputs, res, opts) {
+    opts = opts || {};
     var months = res.months, totals = res.totals;
     var N = months.length;
     var best = months.reduce(function (a, b) { return b.total > a.total ? b : a; }, months[0]);
@@ -453,7 +502,7 @@
       "</div></div>";
 
     wireShare(inputs, res);
-    out.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (opts.scroll !== false) scrollToEl(out);
   }
 
   function stat(label, big, sub) {
@@ -589,7 +638,7 @@
       assumptionsPanel(cmp.nameB, B.inputs, cmp.b) + "</div>" +
       '<p class="muted" style="margin-top:1rem">Models, not predictions. Not financial, legal, or tax advice.</p>' +
       "</div></div>";
-    cmpOut.scrollIntoView({ behavior: "smooth", block: "start" });
+    scrollToEl(cmpOut);
   }
 
   var cmpA = document.getElementById("cmp-a");

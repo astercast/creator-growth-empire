@@ -23,60 +23,182 @@
   <button class="nav-toggle" aria-expanded="false" aria-controls="mobileNav" aria-label="Menu">☰</button>
 </header>
 <nav id="mobileNav" class="mobile-nav" aria-label="Mobile"><a href="index.html" class="nav-link">Empire Map</a><a href="tools.html" class="nav-link active">All tools</a><a href="quiz.html" class="nav-link">Niche Picker</a><a href="calculator.html" class="nav-link">Revenue Calc</a><a href="planner.html" class="nav-link">90-Day Plan</a><a href="deal-analyzer.html" class="nav-link">Deal Analyzer</a><a href="hiring-calculator.html" class="nav-link">Hire Calc</a><a href="repurpose.html" class="nav-link">Repurpose Plan</a><a href="simulator.html" class="nav-link">Simulator</a><a href="case-files.html" class="nav-link">All case files</a><a href="glossary.html" class="nav-link">Glossary</a><a href="agents.html" class="nav-link">Agents</a></nav>
-<main id="main"><div class="tool-page"><div class="hud-panel"><div class="hud-head"><span>TOOL // 04 — SPONSOR DEAL ANALYZER</span><span class="hud-status">SYSTEMS ONLINE</span></div><div class="hud-body"><h1>Sponsor Deal Analyzer</h1><p class="lede">Benchmark a sponsor offer against the 2026 rate card — verdict, red-flag checklist, counter-offer worksheet.</p></div></div><form id="deal-form" aria-label="Sponsor deal analyzer">
-  <div class="calc-grid">
-    <label>Platform
-      <select id="d-platform">
-        <option value="youtube" selected>YouTube</option>
-        <option value="tiktok">TikTok</option>
-        <option value="instagram">Instagram</option>
-      </select></label>
-    <label>Follower count
-      <input type="number" id="d-followers" min="0" value="50000" step="1000"></label>
-    <label>Deliverable
-      <select id="d-deliverable">
-        <option value="integrated" selected>Integrated slot (mid-roll mention)</option>
-        <option value="dedicated">Dedicated video (brand is the video)</option>
-        <option value="short">Short-form video (Short / TikTok / Reel)</option>
-      </select></label>
-    <label>Avg. views per video (last 10)
-      <input type="number" id="d-views" min="0" value="25000" step="1000"></label>
-    <label>Offered pay ($)
-      <input type="number" id="d-offer" min="0" value="1200" step="50"></label>
-    <label>Usage rights
-      <select id="d-usage">
-        <option value="organic" selected>Organic only — stays on my channel</option>
-        <option value="paid30">Paid ads, 30 days</option>
-        <option value="paid180">Paid ads, 6 months</option>
-        <option value="paid365">Paid ads, 12 months</option>
-        <option value="perpetual">Unlimited / perpetual</option>
-      </select></label>
-    <label>Whitelisting (ads from <em>your</em> account)
-      <select id="d-white">
-        <option value="none" selected>None</option>
-        <option value="30">Up to 30 days</option>
-        <option value="90">31–90 days</option>
-        <option value="perpetual">Perpetual</option>
-      </select></label>
-    <label>Exclusivity
-      <select id="d-excl">
-        <option value="none" selected>None</option>
-        <option value="30">No competitor sponsors, 30 days</option>
-        <option value="90">No competitor sponsors, 60–90 days</option>
-        <option value="broad">Broad / category lock, 6+ months</option>
-      </select></label>
-    <label>Payment terms
-      <select id="d-pay">
-        <option value="15">Net 15 or better</option>
-        <option value="30" selected>Net 30</option>
-        <option value="60">Net 60</option>
-        <option value="90">Net 90+</option>
-      </select></label>
-  </div>
-  <button type="submit" class="btn btn-primary">Analyze the deal →</button>
+<main id="main"><div class="tool-page"><div class="hud-panel"><div class="hud-head"><span>TOOL // 04 — SPONSOR DEAL ANALYZER</span><span class="hud-status">SYSTEMS ONLINE</span></div><div class="hud-body"><h1>Sponsor Deal Analyzer</h1><p class="lede">Benchmark a sponsor offer against the 2026 rate card — verdict, red-flag checklist, counter-offer worksheet.</p></div></div><div id="deal-analyzer">
+<nav class="breadcrumb no-print" aria-label="Breadcrumb"><a href="tools.html">All tools</a> <span aria-hidden="true">/</span> <span aria-current="page">The Deal Analyzer</span></nav>
+<p class="lede">Paste the brand's terms — every line item, not just the headline number. You get the rate-card verdict with platform multipliers, the offer-term flags, the wave-22 contract checklist applied to <em>this</em> deal, a counter-offer calculator, and the 2026 usage-rights add-on math. Save deals to build a negotiation history; tick two to compare them.</p>
+<p class="muted" id="da-data-note" role="status">Loading the 2026 rate data…</p>
+
+<form id="da-form" aria-label="Deal Analyzer — paste the brand's terms">
+  <fieldset class="hud-panel" style="margin-top:1rem">
+    <legend class="hud-head" style="width:100%"><span>THE OFFER // WHAT THEY PUT ON THE TABLE</span></legend>
+    <div class="hud-body"><div class="calc-grid">
+      <label>Brand (optional)
+        <input type="text" id="da-brand" autocomplete="off" placeholder="e.g. Ridge Wallets"></label>
+      <label>Platform
+        <select id="da-platform">
+          <option value="youtube" selected>YouTube</option>
+          <option value="tiktok">TikTok</option>
+          <option value="instagram">Instagram</option>
+        </select></label>
+      <label>Deliverable
+        <select id="da-deliverable">
+          <option value="integrated" selected>Integrated slot (mid-roll mention)</option>
+          <option value="dedicated">Dedicated video (brand is the video)</option>
+          <option value="short">Short-form video (Short / TikTok / Reel)</option>
+        </select></label>
+      <label>Your niche (adjusts the range)
+        <select id="da-niche">
+          <option value="" selected>Prefer not to say</option>
+          <option value="finance_investing">Finance / Investing (×2.5)</option>
+          <option value="tech_software">Tech / Software (×2.5)</option>
+          <option value="education">Education (×1)</option>
+          <option value="health_fitness">Health / Fitness (×1)</option>
+          <option value="lifestyle">Lifestyle (×1)</option>
+          <option value="gaming">Gaming (×0.6)</option>
+          <option value="comedy_entertainment">Comedy / Entertainment (×0.6)</option>
+          <option value="music">Music (×0.6)</option>
+        </select></label>
+      <label>Follower count
+        <input type="number" id="da-followers" min="0" value="50000" step="1000"></label>
+      <label>Expected views (leave 0 if unknown)
+        <input type="number" id="da-views" min="0" value="25000" step="1000"></label>
+      <label>Offered pay ($)
+        <input type="number" id="da-offer" min="0" value="1200" step="50"></label>
+      <label>Posts in this bundle
+        <input type="number" id="da-posts" min="1" max="50" value="1" step="1"></label>
+      <label>Delivery timeline
+        <select id="da-timeline">
+          <option value="unknown" selected>Not stated</option>
+          <option value="relaxed">Relaxed (3+ weeks)</option>
+          <option value="standard">Standard (1–2 weeks)</option>
+          <option value="rush">Rush (under 72 hours)</option>
+        </select></label>
+    </div></div>
+  </fieldset>
+
+  <fieldset class="hud-panel" style="margin-top:1.5rem">
+    <legend class="hud-head" style="width:100%"><span>THE TERMS // THE FINE PRINT THAT PRICES IT</span></legend>
+    <div class="hud-body"><div class="calc-grid">
+      <label>Usage rights
+        <select id="da-usage">
+          <option value="organic_only" selected>Organic only — stays on my channel</option>
+          <option value="paid_3mo">Paid ads, 3 months</option>
+          <option value="paid_6mo">Paid ads, 3–6 months</option>
+          <option value="paid_12mo">Paid ads, 6–12 months</option>
+          <option value="perpetual">Unlimited / perpetual</option>
+        </select></label>
+      <label>Whitelisting (ads from <em>your</em> account)
+        <select id="da-white">
+          <option value="none" selected>None</option>
+          <option value="30">Up to 30 days</option>
+          <option value="90">31–90 days</option>
+          <option value="perpetual">Perpetual</option>
+        </select></label>
+      <label>Exclusivity
+        <select id="da-excl">
+          <option value="none" selected>None</option>
+          <option value="30">No competitor sponsors, 30 days</option>
+          <option value="90">No competitor sponsors, 60–90 days</option>
+          <option value="broad">Broad / category lock, 6+ months</option>
+        </select></label>
+      <label>Payment terms
+        <select id="da-pay">
+          <option value="15">Net 15 or better</option>
+          <option value="30" selected>Net 30</option>
+          <option value="60">Net 60</option>
+          <option value="90">Net 90+</option>
+        </select></label>
+    </div></div>
+  </fieldset>
+
+  <fieldset class="hud-panel" style="margin-top:1.5rem">
+    <legend class="hud-head" style="width:100%"><span>THE CONTRACT // TEN QUESTIONS, STRAIGHT FROM THE CHECKLIST</span></legend>
+    <div class="hud-body">
+      <p class="muted" style="font-size:.9rem">Answer from the actual contract language — "I think so" counts as <em>unclear</em>. These ten map 1:1 onto the wave-22 contract red-flag checklist (<a href="outreach.html">Outreach Center</a>); anything you leave unclear scores as the risky reading.</p>
+      <div class="calc-grid">
+        <label>Who owns the video after payment?
+          <select id="da-c-ip">
+            <option value="mine" selected>I keep full ownership — brand gets a license</option>
+            <option value="brand_full">Brand gets full copyright assignment</option>
+            <option value="unclear">Not stated / unclear</option>
+          </select></label>
+        <label>Can the brand cancel anytime while you can't?
+          <select id="da-c-cancel">
+            <option value="no" selected>No — termination is mutual / defined</option>
+            <option value="yes">Yes — they can walk, I can't</option>
+          </select></label>
+        <label>How does the contract describe usage?
+          <select id="da-c-usagewords">
+            <option value="specific" selected>Names the exact window (e.g. paid ads, 12 months)</option>
+            <option value="all_media">"All media now known or hereafter devised"</option>
+            <option value="unclear">Vague / not stated</option>
+          </select></label>
+        <label>Does exclusivity auto-renew?
+          <select id="da-c-exclrenew">
+            <option value="no" selected>No auto-renew</option>
+            <option value="yes">Yes, it auto-renews</option>
+          </select></label>
+        <label>Is pay tied to guaranteed views?
+          <select id="da-c-paymetrics">
+            <option value="no" selected>No — flat fee</option>
+            <option value="yes">Yes — clawbacks if views miss</option>
+          </select></label>
+        <label>Morality clause?
+          <select id="da-c-morals">
+            <option value="none" selected>None</option>
+            <option value="mutual">Mutual — applies to both sides</option>
+            <option value="one_sided">One-sided — brand can drop me</option>
+          </select></label>
+        <label>Written payment schedule?
+          <select id="da-c-payschedule">
+            <option value="yes" selected>Yes — dates and amounts in writing</option>
+            <option value="no">No — "we'll sort it out"</option>
+          </select></label>
+        <label>Brand approval terms?
+          <select id="da-c-approval">
+            <option value="defined" selected>Defined — rounds and timeline stated</option>
+            <option value="vague">Vague "brand approval"</option>
+          </select></label>
+        <label>FTC disclosure language in the contract?
+          <select id="da-c-ftc">
+            <option value="yes" selected>Yes</option>
+            <option value="no">No</option>
+          </select></label>
+        <label>Deliverables say "and related content"?
+          <select id="da-c-scope">
+            <option value="no" selected>No — deliverables are specific</option>
+            <option value="yes">Yes — open-ended scope</option>
+          </select></label>
+      </div>
+    </div>
+  </fieldset>
+
+  <button type="submit" class="btn btn-primary" style="margin-top:1.5rem">Analyze the deal →</button>
 </form>
-<div id="deal-results" aria-live="polite" style="margin-top:1.5rem"><div class="empty-state" role="status"><span class="empty-icon" aria-hidden="true">⚖</span><strong>Nothing brewing yet.</strong>Your deal verdict lands here — paste the offer and hit Analyze.</div></div>
-<p class="muted">A negotiation aid, not financial advice. Ranges come from the <a href="rate-card.html">2026 rate card</a> — compiled third-party benchmarks, not quotes. See <a href="phase-5-monetization-stack.html">Phase 5</a> for the full negotiation playbook. Managing the whole deal, not just analyzing it? Log it in <a href="deal-room.html">The Deal Room</a> — tracker, usage-rights pricing, scripts, and your deal memo.</p>
+
+<div id="da-results" aria-live="polite" style="margin-top:1.5rem"><div class="empty-state" role="status"><span class="empty-icon" aria-hidden="true">⚖</span><strong>Nothing brewing yet.</strong>Your deal verdict lands here — paste the terms and hit Analyze.</div></div>
+
+<section aria-label="Saved deals" style="margin-top:2.5rem">
+  <h2>Deal history</h2>
+  <div id="da-history"><p class="muted">Loading…</p></div>
+</section>
+
+<noscript>
+  <div class="hud-panel" style="margin-top:1.5rem"><div class="hud-body">
+    <h2>How to read any offer (no-JS edition)</h2>
+    <ol>
+      <li>Find your tier on the <a href="rate-card.html">2026 rate card</a> (nano → mega) and your platform's range. Inside the band = fair; below = underpaid; above = strong.</li>
+      <li>Compute the implied CPM (offer ÷ expected views × 1000) and check it against the deliverable band — integrated $20–$35, dedicated $20–$50 (rule of thumb), short-form $10–$30.</li>
+      <li>Quote from the top of the range: creators list ~23% above what they accept.</li>
+      <li>Price usage rights as separate line items: paid ads 3 months +25–50%, 3–6 months +50–75%, 6–12 months +75–100%, perpetual from 2× the base fee. Whitelisting: 30–100% of base per month.</li>
+      <li>Run the ten contract questions above against the <a href="outreach.html">contract checklist</a> — any walk-away clause or 3+ points means don't sign as written.</li>
+    </ol>
+    <p class="muted">A negotiation aid, not financial, legal, or tax advice. The interactive analyzer needs JavaScript.</p>
+  </div></div>
+</noscript>
+
+<p class="muted">A negotiation aid, not financial, legal, or tax advice — and the contract checklist is not legal advice. Ranges come from the <a href="rate-card.html">2026 rate card</a> and the <a href="phase-5-monetization-stack.html">Phase 5</a> playbook. Managing the whole deal, not just analyzing it? Log it in <a href="deal-room.html">The Deal Room</a> — tracker, usage-rights pricing, scripts, and your deal memo. Running outbound instead? <a href="outreach.html">The Outreach Center</a> quotes from the same card.</p>
+</div>
 </div></main>
 <footer class="site-footer">
   <div class="footer-grid">
