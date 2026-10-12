@@ -1,7 +1,7 @@
 # AGENT.md — How an agent uses Creator Growth Empire
 
 > This site is a static machine-readable knowledge base for the creator
-> business: 9 phases, 13 tools, 12 skills, 7 case files, and a versioned JSON
+> business: 9 phases, 14 tools, 12 skills, 7 case files, and a versioned JSON
 > API. No API key, no server, no auth, no rate limits. Fetch and act.
 > Every workflow below was executed against the real `api/v1/` JSON files —
 > see `tests/agent-workflows.test.js` (run: `node tests/agent-workflows.test.js`).
@@ -33,7 +33,7 @@
 | `GET api/v1/calculators.json` | Per-niche RPM bands, Shorts RPM, platform thresholds w/ sources+dates, revenue splits, 2026 sponsorship rate card, 2026 research snapshots | The data contract every calculator and the sim engine read |
 | `GET api/v1/skills.json` | 12 skills: `name`, `description`, `path` | `skills/deal-negotiation/SKILL.md` for the full procedure |
 | `GET api/v1/case-files.json` | 5 creator-business deconstructions: `id`, `title`, `path`, `words`, `read_minutes` | Full text on the `case-*.html` pages |
-| `GET api/v1/tools.json` | 13 tools with programmatic `input_schema` (draft-07), output description, `drive_notes` | Replicate any tool's logic without the UI |
+| `GET api/v1/tools.json` | 14 tools with programmatic `input_schema` (draft-07), output description, `drive_notes` | Replicate any tool's logic without the UI |
 | `GET api/v1/schema/<name>.json` | JSON Schema draft-07 for every endpoint (per-doc and per-record) | Validate before you trust a payload |
 
 Skills are the executable layer: each `skills/<name>/SKILL.md` follows
@@ -204,6 +204,35 @@ via API.
    `exportCalendarText(deal)` renders the copy-my-calendar text. Sponsor slots
    are calendar commitments only — price them in the Deal Room before
    promising them.
+
+### Workflow 7 — Place a creator on the Money Map and generate their roadmap
+
+Goal: take a creator's 7 answers and return their stage + 3-move roadmap —
+all via API, no UI.
+
+1. `GET api/v1/tools.json` → tool `money-map` → `input_schema`. Build the
+   answer object: `{ platform, audience, revenue, cadence, team, bottleneck,
+   streams }`. The `revenue` band is the honest anchor ($0 / $1–99 /
+   $100–999 / $1K–9,999 / $10K+); audience and team only generate sanity
+   notes, never a big jump.
+2. Drive the logic with `require("assets/js/money-map.js")` (UMD, importable
+   in node). `MoneyMap.placeStage(answers)` → `{ stage, note, baseStage }`:
+   revenue bands map 0→0, 1-99→1, 100-999→2, 1k-9999→3, 10k-plus→4. A 100K+
+   audience at base stage ≤ 2 bumps +1 with an `audience-ahead` note
+   (monetize the attention); employees at stage ≤ 2 adds a `team-ahead` note
+   (check the team math in the Hiring Cost Calculator).
+3. `MoneyMap.roadmap(answers)` → `{ stage, note, moves[3], graduate, trap }`.
+   Move 1 is always the stage's signature move (Niche Atlas → Revenue
+   Calculator → Deal Room → First Hire → Simulator team P&L); moves 2–3 are
+   bottleneck-driven, deduped. `MoneyMap.STAGES[i]` carries the full playbook:
+   goal, 3 moves with tool/page/why, trap, graduate-when.
+4. Example: YouTube, 10K–100K subs, $100–999/mo, multi-weekly, solo,
+   monetization bottleneck, 1 stream → **Stage 2 (The Engine Runs)** →
+   moves: Deal Room → Revenue Calculator → Sponsor Deal Analyzer;
+   graduate-when: three consecutive $1K+ months from 2+ streams.
+5. Framing rule (non-negotiable): stages describe what creators at that level
+   **typically focus on** — never income promises, timelines, or guarantees.
+   This is a planning aid, not financial, legal, or tax advice.
 
 ## Rate & expectation notes
 

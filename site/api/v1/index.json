@@ -116,10 +116,10 @@
       "id": "tools",
       "kind": "json",
       "path": "api/v1/tools.json",
-      "description": "All ten interactive tools with programmatic input schemas (JSON Schema draft-07), output descriptions, and drive notes \u2014 replicate the tools' logic without the UI.",
+      "description": "All fourteen interactive tools with programmatic input schemas (JSON Schema draft-07), output descriptions, and drive notes \u2014 replicate the tools' logic without the UI.",
       "schema": "api/v1/schema/tools.json",
       "updated": "2026-10-11T00:00:00Z",
-      "records": 13,
+      "records": 14,
       "deprecated": false,
       "deprecation_note": null
     },
@@ -153,12 +153,13 @@
         "hook-builder.html",
         "idea-bank.html",
         "content-calendar.html",
-        "batching.html"
+        "batching.html",
+        "money-map.html"
       ],
-      "description": "The thirteen interactive tools' human UI pages. Agents should prefer api/v1/tools.json input schemas over scraping these pages.",
+      "description": "The fourteen interactive tools' human UI pages. Agents should prefer api/v1/tools.json input schemas over scraping these pages.",
       "schema": null,
       "updated": "2026-10-11T00:00:00Z",
-      "records": 13,
+      "records": 14,
       "deprecated": false,
       "deprecation_note": null
     },

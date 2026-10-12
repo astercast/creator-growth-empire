@@ -75,6 +75,7 @@ TOOLS = [
     ("idea-bank", "Idea Bank", "Capture ideas with hook-strength scores (1–5, Playbook structures), niche tags, and effort estimates — promote the best to production."),
     ("content-calendar", "90-Day Content Calendar", "Deal your idea bank into a 90-day grid: week-planner dealing rules, drag/keyboard moves, sponsor slots, copy-my-calendar export."),
     ("batching", "Batching Planner", "Film-day math: does your shoot capacity actually cover your cadence? Honest surplus/shortfall, consistency-beats-volume framing."),
+    ("money-map", "The Money Map", "Find your stage on the $0-to-company journey: 7 questions, 5 stage playbooks, your next 3 moves. Stages are focus guides, never income promises."),
 ]
 
 
@@ -367,6 +368,37 @@ TOOLS_API = [
       }},
      "Required vs capacity per month (long + short), deltas, and a verdict: surplus (bank it), balanced (no slack), or shortfall (add a shoot day / drop a slot / merge formats).",
      "Logic (assets/js/content-engine.js, UMD — importable in node): batchingMath(opts) — capacity = shoot_days_per_month × videos_per_shoot_day; required = cadence × 52/12 (the honest month); verdict surplus/balanced/shortfall with guidance text. Pure arithmetic on the creator's own inputs — never a promise. Planning aid, not financial/legal/tax advice."),
+    ("money-map", "The Money Map",
+     "Find your stage on the $0-to-company journey: 7 questions, 5 stage playbooks, your next 3 moves. Stages are focus guides, never income promises.",
+     "money-map.html",
+     {"$schema": "http://json-schema.org/draft-07/schema#", "title": "MoneyMapInput",
+      "type": "object",
+      "required": ["platform", "audience", "revenue", "cadence", "team", "bottleneck", "streams"],
+      "properties": {
+          "platform": {"type": "string",
+                       "enum": ["youtube", "tiktok", "instagram", "twitch", "newsletter", "not-yet"],
+                       "description": "Primary publishing platform."},
+          "audience": {"type": "string",
+                       "enum": ["zero", "under-1k", "1k-10k", "10k-100k", "100k-1m", "1m-plus"],
+                       "description": "Subscriber/follower band."},
+          "revenue": {"type": "string",
+                      "enum": ["0", "1-99", "100-999", "1k-9999", "10k-plus"],
+                      "description": "Typical monthly content revenue band. The honest anchor: placement is driven by this, not by audience or team size."},
+          "cadence": {"type": "string",
+                      "enum": ["irregular", "weekly", "multi-weekly", "daily-or-team"],
+                      "description": "Actual publishing cadence."},
+          "team": {"type": "string",
+                   "enum": ["just-me", "freelancers", "employees"],
+                   "description": "Who makes the content."},
+          "bottleneck": {"type": "string",
+                         "enum": ["ideas", "consistency", "growth", "monetization", "operations"],
+                         "description": "Biggest bottleneck right now — selects the bottleneck-driven roadmap moves."},
+          "streams": {"type": "string",
+                      "enum": ["0", "1", "2-3", "4-plus"],
+                      "description": "Revenue streams actually paying right now."},
+      }},
+     "Stage placement (0–4: The Start Line / First $100 / The Engine Runs / The Business / The Company), sanity notes (audience-ahead, team-ahead), and a 3-move roadmap (stage signature move + 2 bottleneck-driven moves), the stage trap, and the graduate-when criteria. Placement anchored on the creator's own reported revenue band; stages are focus guides, never income promises.",
+     "Logic (assets/js/money-map.js, UMD — importable in node): placeStage(a) — revenue band maps 0→0, 1-99→1, 100-999→2, 1k-9999→3, 10k-plus→4; if audience is 100k+ and base stage ≤ 2, stage+1 with an 'audience-ahead' note; employees with stage ≤ 2 adds a 'team-ahead' note. roadmap(a) — stage signature move (the stage's #1 tool) + two bottleneck-driven moves, deduped. STAGES carries the full playbook data (goal, 3 moves, trap, graduate). Planning aid, not financial/legal/tax advice."),
 ]
 
 # Tools hub (wave 9): grouped card index. Per tool: icon, "use when" one-liner,
@@ -398,6 +430,8 @@ TOOL_HUB_META = {
                       ["dealing", "sponsors", "Phase 1"]),
     "batching": ("🎬", "CONTENT", "coral", "you want to know if your shoot days really cover your cadence.",
                       ["film days", "capacity", "Phase 1"]),
+    "money-map": ("🗺", "PLAN", "gold", "you want to know where you stand and what to do next.",
+                      ["roadmap", "stages", "Phases 0 · 8"]),
 }
 TOOL_HUB_GROUPS = [
     ("PLAN", "Pick the battlefield",
@@ -661,6 +695,7 @@ def page_template(title, body, active="", extra_head=""):
       <a href="hiring-calculator.html">Hiring Cost Calculator</a>
       <a href="repurpose.html">Repurposing Planner</a>
       <a href="simulator.html">Empire Simulator</a>
+      <a href="money-map.html">The Money Map</a>
       <a href="api-explorer.html">API Explorer</a>
       <a href="glossary.html">Glossary</a>
       <a href="agents.html">Agents</a>
@@ -741,6 +776,11 @@ def build():
         else:
             cnav += '<a class="nav-next" href="quiz.html"><span class="nav-dir">Next step →</span><span class="nav-title">Pick your niche</span></a>'
         cnav += "</nav>"
+        # money-map ribbon (wave 18): every pillar chapter links to the capstone map
+        cnav += ('<div class="map-ribbon" role="note">'
+                 '<strong>🧭 Lost in the climb?</strong>'
+                 '<span>See where this phase fits on <a href="money-map.html">The Money Map</a> — 7 questions, your stage, your next 3 moves.</span>'
+                 '<a class="btn btn-ghost" href="money-map.html">Open the map →</a></div>')
         page = page_template(f"{phase}: {short}", f'<article class="chapter">{hero}{body_html}{cnav}</article>', active="")
         (SITE / f"{slug}.html").write_text(page, encoding="utf-8")
         chapters_meta.append({
@@ -838,6 +878,10 @@ def build():
         "idea-bank": ["assets/js/content-engine.js", "assets/js/idea-bank-ui.js"],
         "content-calendar": ["assets/js/content-engine.js", "assets/js/content-calendar-ui.js"],
         "batching": ["assets/js/content-engine.js", "assets/js/batching-ui.js"],
+        "money-map": ["assets/js/money-map.js"],
+    }
+    TOOL_CSS = {
+        "money-map": ["assets/css/moneymap.css"],
     }
     for slug, title, desc in TOOLS:
         body_src = PAGES / f"{slug}.html"
@@ -845,6 +889,8 @@ def build():
         extra = ""
         if slug in TOOL_SCRIPTS:
             extra = "".join(f'<script src="{src}"></script>' for src in TOOL_SCRIPTS[slug])
+        if slug in TOOL_CSS:
+            extra += "".join(f'<link rel="stylesheet" href="{href}">' for href in TOOL_CSS[slug])
         tool_idx = [t[0] for t in TOOLS].index(slug)
         hud_open = (f'<div class="tool-page"><div class="hud-panel"><div class="hud-head">'
                     f'<span>TOOL // 0{tool_idx + 1} — {esc(title).upper()}</span>'
@@ -904,13 +950,15 @@ def build():
             f'<div class="brief-grid">{cards}</div></section>')
     tools_body = (
         hub_hero("COMMAND CENTER", "All Tools",
-                 "Thirteen power tools, one command center. Pick the briefing that matches where you are.",
+                 "Fourteen power tools, one command center. Pick the briefing that matches where you are.",
                  "acid")
         + hub_sections
         + '<section class="section honesty"><h2>Pick by job, not by shine</h2>'
         "<p>Every tool on this page reads the same 2026 research the rest of the site is built on. "
         "Start with the Niche Picker if you're undecided, the Revenue Calculator if you have views, "
-        "and the Sponsor Deal Analyzer the moment a brand emails you.</p></section>")
+        "and the Sponsor Deal Analyzer the moment a brand emails you. "
+        "Not sure where you stand at all? Take <a href=\"money-map.html\">The Money Map</a> — "
+        "7 questions, your stage, your next 3 moves.</p></section>")
     (SITE / "tools.html").write_text(page_template("All Tools", tools_body, active="tools.html"), encoding="utf-8")
 
     # case-files hub: sourced headline cards + comparison table
@@ -992,7 +1040,7 @@ def build():
   <p class="lede">Nine phases. Zero to multi-million-dollar creator company — YouTube, TikTok, Facebook, merch, brand deals, LLC, taxes, scale. No guru hype. Just the playbook.</p>
   <div class="sticker-row reveal">
     <span class="sticker">9 phases</span>
-    <span class="sticker sticker-coral">13 power tools</span>
+    <span class="sticker sticker-coral">14 power tools</span>
     <span class="sticker sticker-violet">7 case files</span>
     <span class="sticker sticker-gold">2026 verified</span>
     <span class="sticker sticker-violet">Zero → empire</span>
@@ -1000,7 +1048,7 @@ def build():
   <div class="hero-stats">
     <div class="hero-stat reveal" style="--i:0"><strong>9</strong><span>phases</span></div>
     <div class="hero-stat reveal" style="--i:1"><strong>{total_words:,}</strong><span>words</span></div>
-    <div class="hero-stat reveal" style="--i:2"><strong>13</strong><span>interactive tools</span></div>
+    <div class="hero-stat reveal" style="--i:2"><strong>14</strong><span>interactive tools</span></div>
     <div class="hero-stat reveal" style="--i:3"><strong>LVL 01–09</strong><span>your climb</span></div>
   </div>
   <div class="hero-cta"><a class="btn btn-primary" href="phase-0-start-from-nothing.html">Start at Phase 0 →</a>
@@ -1013,7 +1061,7 @@ def build():
   <span>DIVERSIFY REVENUE</span><span>SEPARATE THE MONEY</span><span>SYSTEMS BEAT HUSTLE</span>
 </div></section>
 <section class="section"><div class="section-head"><h2>The Empire Map</h2><span class="section-tag">9 levels // clear them all</span></div><div class="phase-grid reveal-stagger">{cards}</div></section>
-<section class="section"><div class="section-head"><h2>Command Center</h2><span class="section-tag">weapons free</span><a href="tools.html" class="section-more">All 13 tools →</a></div><div class="tool-grid reveal-stagger">{tools_html}</div></section>
+<section class="section"><div class="section-head"><h2>Command Center</h2><span class="section-tag">weapons free</span><a href="tools.html" class="section-more">All 14 tools →</a></div><div class="tool-grid reveal-stagger">{tools_html}</div></section>
 {case_section}
 <section class="section"><div class="section-head"><h2>Hottest topics right now</h2><span class="section-tag">live feed // trend-machine</span></div>
 <div class="hud-panel trends-hud reveal">
@@ -1167,7 +1215,7 @@ def build():
             "id": "tools",
             "kind": "json",
             "path": "api/v1/tools.json",
-            "description": "All ten interactive tools with programmatic input schemas (JSON Schema draft-07), output descriptions, and drive notes — replicate the tools' logic without the UI.",
+            "description": "All fourteen interactive tools with programmatic input schemas (JSON Schema draft-07), output descriptions, and drive notes — replicate the tools' logic without the UI.",
             "schema": "api/v1/schema/tools.json",
             "updated": BUILD_TS,
             "records": len(TOOLS_API),
@@ -1191,7 +1239,7 @@ def build():
             "id": "tool-pages",
             "kind": "html",
             "paths": [f"{slug}.html" for slug, _, _ in TOOLS],
-            "description": "The thirteen interactive tools' human UI pages. Agents should prefer api/v1/tools.json input schemas over scraping these pages.",
+            "description": "The fourteen interactive tools' human UI pages. Agents should prefer api/v1/tools.json input schemas over scraping these pages.",
             "schema": None,
             "updated": BUILD_TS,
             "records": len(TOOLS),
@@ -1259,7 +1307,7 @@ def build():
     # ---- tools.json: every tool with its programmatic input schema ----
     (API / "tools.json").write_text(json.dumps({
         "version": "1.0.0", "updated": "2026-10-11",
-        "note": ("Programmatic input schemas for the thirteen interactive tools. "
+        "note": ("Programmatic input schemas for the fourteen interactive tools. "
                  "Agents replicate each tool's logic by feeding these inputs to the "
                  "documented formulas / shipped JS (assets/js/<id>.js); the UI pages "
                  "are the human front-end for the same logic."),
@@ -1676,7 +1724,7 @@ def build():
     for slug, title, desc in TOOLS:
         llms.append(f"- [{title}]({slug}.html) — {desc}")
     llms += ["- [Glossary](glossary.html)", "",
-             "All thirteen tools, grouped by job (Plan / Money / Content): [Tools hub](tools.html).",
+             "All fourteen tools, grouped by job (Plan / Money / Content): [Tools hub](tools.html).",
              "", "## Reference"]
     for m in reference_meta:
         llms.append(f"- [{m['badge']}: {m['title']}]({m['path']}) — {m['read_minutes']} min read")

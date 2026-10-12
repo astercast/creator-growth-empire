@@ -27,9 +27,10 @@ From $0 to a multi-million-dollar creator company.
 - [Idea Bank](idea-bank.html) — Capture ideas with hook-strength scores (1–5, Playbook structures), niche tags, and effort estimates — promote the best to production.
 - [90-Day Content Calendar](content-calendar.html) — Deal your idea bank into a 90-day grid: week-planner dealing rules, drag/keyboard moves, sponsor slots, copy-my-calendar export.
 - [Batching Planner](batching.html) — Film-day math: does your shoot capacity actually cover your cadence? Honest surplus/shortfall, consistency-beats-volume framing.
+- [The Money Map](money-map.html) — Find your stage on the $0-to-company journey: 7 questions, 5 stage playbooks, your next 3 moves. Stages are focus guides, never income promises.
 - [Glossary](glossary.html)
 
-All thirteen tools, grouped by job (Plan / Money / Content): [Tools hub](tools.html).
+All fourteen tools, grouped by job (Plan / Money / Content): [Tools hub](tools.html).
 
 ## Reference
 - [Reference: 2026 Rate Card](rate-card.html) — 3 min read

@@ -252,7 +252,7 @@ fi
 # ---------------------------------------------------------------- stage 6 ---
 stage 6 "engine test suites (sim + deal room + content engine)"
 TEST_FAIL=0
-for T in tests/sim-engine.test.js tests/deal-room.test.js tests/content-engine.test.js; do
+for T in tests/sim-engine.test.js tests/deal-room.test.js tests/content-engine.test.js tests/money-map.test.js; do
   node "$T" >/tmp/cge_validate_tests.log 2>&1
   if [ $? -eq 0 ]; then
     N=$(grep -c "PASS" /tmp/cge_validate_tests.log)

@@ -67,7 +67,7 @@ function check(name, cond, detail) {
 
   // tools.json drives the planner config shape
   const tools = load("tools.json").tools;
-  check("wf2: tools.json lists all 13 tools", tools.length === 13, String(tools.length));
+  check("wf2: tools.json lists all 14 tools", tools.length === 14, String(tools.length));
   const planner = tools.find((t) => t.id === "planner");
   const schema = planner && planner.input_schema;
   check("wf2: planner input schema exposes cadence fields",
@@ -314,6 +314,42 @@ function check(name, cond, detail) {
   const guardIds = CE.originalityGuardrails().map((g) => g.id).sort().join(",");
   const dataGuardIds = ce.originality_guardrails.map((g) => g.id).sort().join(",");
   check("wf6: originality guardrails match the data contract", guardIds === dataGuardIds);
+})();
+
+/* ============ Workflow 7: place a creator on the Money Map ============
+ * AGENT.md §Workflow 7: money-map input schema -> placeStage -> roadmap,
+ * all via the shipped UMD engine (no UI). */
+(function workflow7() {
+  const tools = load("tools.json").tools;
+  const moneyMap = tools.find((t) => t.id === "money-map");
+  check("wf7: tools.json lists the money-map tool", !!moneyMap);
+  const schema = moneyMap && moneyMap.input_schema;
+  check("wf7: money-map schema requires all 7 quiz answers",
+    !!(schema && ["platform", "audience", "revenue", "cadence", "team", "bottleneck", "streams"]
+      .every((k) => schema.required.includes(k) && schema.properties[k])));
+  check("wf7: revenue enum is the 5 honest bands",
+    JSON.stringify(schema.properties.revenue.enum) === JSON.stringify(["0", "1-99", "100-999", "1k-9999", "10k-plus"]));
+
+  // replicate the engine (same module the page ships)
+  const MM = require(path.join(__dirname, "..", "assets", "js", "money-map.js"));
+  const answers = {
+    platform: "youtube", audience: "10k-100k", revenue: "100-999",
+    cadence: "multi-weekly", team: "just-me", bottleneck: "monetization", streams: "1"
+  };
+  const placed = MM.placeStage(answers);
+  check("wf7: $100–999/mo -> stage 2 (The Engine Runs)",
+    placed.stage === 2 && placed.note === null, `${placed.stage}/${placed.note}`);
+  const road = MM.roadmap(answers);
+  check("wf7: roadmap opens with the stage signature move (Deal Room)",
+    road.moves[0].page === "deal-room.html", road.moves[0].page);
+  check("wf7: monetization bottleneck adds the calculator + deal analyzer",
+    road.moves[1].page === "calculator.html" && road.moves[2].page === "deal-analyzer.html",
+    road.moves.map((m) => m.page).join(","));
+  check("wf7: stage 2 graduate-when requires 3 consecutive $1K+ months",
+    /Three consecutive \$1K\+ months/.test(road.graduate));
+  const early = MM.placeStage(Object.assign({}, answers, { revenue: "0", audience: "100k-1m" }));
+  check("wf7: audience-ahead note fires, stage moves at most +1",
+    early.stage === 1 && early.note === "audience-ahead", `${early.stage}/${early.note}`);
 })();
 
 console.log(`\nagent-workflows: ${pass} passed, ${fail} failed`);

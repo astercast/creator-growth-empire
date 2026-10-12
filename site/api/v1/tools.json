@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
   "updated": "2026-10-11",
-  "note": "Programmatic input schemas for the thirteen interactive tools. Agents replicate each tool's logic by feeding these inputs to the documented formulas / shipped JS (assets/js/<id>.js); the UI pages are the human front-end for the same logic.",
+  "note": "Programmatic input schemas for the fourteen interactive tools. Agents replicate each tool's logic by feeding these inputs to the documented formulas / shipped JS (assets/js/<id>.js); the UI pages are the human front-end for the same logic.",
   "tools": [
     {
       "id": "quiz",
@@ -877,6 +877,105 @@
       },
       "output": "Required vs capacity per month (long + short), deltas, and a verdict: surplus (bank it), balanced (no slack), or shortfall (add a shoot day / drop a slot / merge formats).",
       "drive_notes": "Logic (assets/js/content-engine.js, UMD \u2014 importable in node): batchingMath(opts) \u2014 capacity = shoot_days_per_month \u00d7 videos_per_shoot_day; required = cadence \u00d7 52/12 (the honest month); verdict surplus/balanced/shortfall with guidance text. Pure arithmetic on the creator's own inputs \u2014 never a promise. Planning aid, not financial/legal/tax advice."
+    },
+    {
+      "id": "money-map",
+      "title": "The Money Map",
+      "description": "Find your stage on the $0-to-company journey: 7 questions, 5 stage playbooks, your next 3 moves. Stages are focus guides, never income promises.",
+      "page": "money-map.html",
+      "input_schema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "title": "MoneyMapInput",
+        "type": "object",
+        "required": [
+          "platform",
+          "audience",
+          "revenue",
+          "cadence",
+          "team",
+          "bottleneck",
+          "streams"
+        ],
+        "properties": {
+          "platform": {
+            "type": "string",
+            "enum": [
+              "youtube",
+              "tiktok",
+              "instagram",
+              "twitch",
+              "newsletter",
+              "not-yet"
+            ],
+            "description": "Primary publishing platform."
+          },
+          "audience": {
+            "type": "string",
+            "enum": [
+              "zero",
+              "under-1k",
+              "1k-10k",
+              "10k-100k",
+              "100k-1m",
+              "1m-plus"
+            ],
+            "description": "Subscriber/follower band."
+          },
+          "revenue": {
+            "type": "string",
+            "enum": [
+              "0",
+              "1-99",
+              "100-999",
+              "1k-9999",
+              "10k-plus"
+            ],
+            "description": "Typical monthly content revenue band. The honest anchor: placement is driven by this, not by audience or team size."
+          },
+          "cadence": {
+            "type": "string",
+            "enum": [
+              "irregular",
+              "weekly",
+              "multi-weekly",
+              "daily-or-team"
+            ],
+            "description": "Actual publishing cadence."
+          },
+          "team": {
+            "type": "string",
+            "enum": [
+              "just-me",
+              "freelancers",
+              "employees"
+            ],
+            "description": "Who makes the content."
+          },
+          "bottleneck": {
+            "type": "string",
+            "enum": [
+              "ideas",
+              "consistency",
+              "growth",
+              "monetization",
+              "operations"
+            ],
+            "description": "Biggest bottleneck right now \u2014 selects the bottleneck-driven roadmap moves."
+          },
+          "streams": {
+            "type": "string",
+            "enum": [
+              "0",
+              "1",
+              "2-3",
+              "4-plus"
+            ],
+            "description": "Revenue streams actually paying right now."
+          }
+        }
+      },
+      "output": "Stage placement (0\u20134: The Start Line / First $100 / The Engine Runs / The Business / The Company), sanity notes (audience-ahead, team-ahead), and a 3-move roadmap (stage signature move + 2 bottleneck-driven moves), the stage trap, and the graduate-when criteria. Placement anchored on the creator's own reported revenue band; stages are focus guides, never income promises.",
+      "drive_notes": "Logic (assets/js/money-map.js, UMD \u2014 importable in node): placeStage(a) \u2014 revenue band maps 0\u21920, 1-99\u21921, 100-999\u21922, 1k-9999\u21923, 10k-plus\u21924; if audience is 100k+ and base stage \u2264 2, stage+1 with an 'audience-ahead' note; employees with stage \u2264 2 adds a 'team-ahead' note. roadmap(a) \u2014 stage signature move (the stage's #1 tool) + two bottleneck-driven moves, deduped. STAGES carries the full playbook data (goal, 3 moves, trap, graduate). Planning aid, not financial/legal/tax advice."
     }
   ]
 }
