@@ -40,7 +40,7 @@ JSON parse, draft-07 schemas, 0 broken links (2,216 checked), byte-identical
 rebuild, 80 sim + 78 deal-room + 49 content-engine + 44 money-map engine
 assertions, 67 agent-workflow assertions).
 
-Commit: fbd1f27 (local) → <PENDING> (pushed 2026-10-11, remote tree verified via GitHub API).
+Commit: b01afa3 (local) → f6e67b4f90f491d207e060f2e5d0bc2d11c8714a (pushed 2026-10-11, remote tree verified via GitHub API).
 
 ## Wave 13 — Empire Simulator 2.0 (2026-10-11)
 
