@@ -25,7 +25,7 @@ What shipped:
 
 Validation: `scripts/build.py` clean (9 chapters, 18 tools, 12 skills, 9 case files, 18,028 words); `scripts/validate.sh` **8/8 GREEN** (JS syntax, JSON parse, draft-07 schemas incl. the 5-card events enum, 0 broken links (2,694 checked), byte-identical rebuild on the committed tree, 175 sim + 78 deal-room + 111 content-engine + 44 money-map + 184 video-doctor + 144 niche-atlas + 84 ypp-checker + 92 outreach engine assertions, 105 agent-workflow assertions). Honesty contract intact: no income promises; "not financial/legal/tax advice" copy preserved; all new figures sourced with single-source flags; the ×1.8 is the engine's labeled assumption, never platform data.
 
-Commit: 8ac3e47 (local) → [remote hash on push]
+Commit: 8ac3e47 (local) → 45561c83a51f489cf4690fe1fe64261a69056187 (pushed 2026-10-11, remote tree verified via GitHub API — all wave-25 files in the recursive tree).
 
 ## Wave 24 — Empire Simulator 3.0: 36-month projections, what-if event cards, stage transitions (2026-10-11)
 
