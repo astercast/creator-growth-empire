@@ -33,6 +33,8 @@ REFERENCE_PAGES = [
     ("niche-atlas", "content/niche-atlas.md", "Reference", "The Niche Atlas",
      ["assets/js/niche-atlas.js"]),
     ("metrics-glossary", "content/metrics-glossary.md", "Reference", "The Metrics Glossary"),
+    ("platform-rules-bible", "content/platform-rules-bible.md", "Reference", "The 2026 Platform Rules Bible",
+     ["assets/js/platform-rules-ui.js"]),
 ]
 
 # Interactive mount appended to the Niche Atlas reference page (wave 14).
@@ -145,6 +147,7 @@ TOOLS = [
     ("ypp-checker", "YPP 2027 Eligibility Checker", "Enter your subs, watch hours, and Shorts views — get your verdict under the current YPP bar and the Feb-2027 bar, the gap math, and a chapter-grounded plan to close it."),
     ("outreach", "The Outreach Center", "Run your sponsor pipeline outbound: track pitches in a CRM-lite, generate honest pitch emails, quote from the 2026 rate card, and flag contract red flags before you sign."),
     ("crosspost", "Cross-Post Optimizer", "Move one clip to every platform without getting throttled: per-destination adaptation checklists (aspect, captions, hooks, CTAs, disclosure labels) under the Oct-1 originality rules."),
+    ("cadence", "Cadence Coach", "How often should you actually post? Turn your honest weekly hours, formats, and platforms into a sustainable cadence — capacity math plus Oct-2026 platform realities. Consistency beats volume."),
 ]
 
 
@@ -601,6 +604,32 @@ TOOLS_API = [
       }},
      "Per-destination adaptation cards (aspect, captions, hook rework, CTA, audio, disclosure label, one-original-element changes) + the universal checks + the Oct-1 gate reminder. Adaptation guidance under the platforms' stated 2026 rules — never a promise of reach, views, or revenue.",
      "Engine (assets/js/content-engine.js, UMD — importable in node): adaptChecklist(source_platform, destinations) reads the adaptation matrix (12 source→destination rule sets + 6 universal checks); unknown platforms and the source itself are filtered out. Matrix + grammars + gate: api/v1/content-engine.json -> adaptation_matrix. Pairs with the content-repurposing skill. Planning aid, not financial/legal/tax advice."),
+    ("cadence", "Cadence Coach",
+     "How often should you actually post? Turn your honest weekly hours, formats, and platforms into a sustainable cadence — capacity math plus Oct-2026 platform realities. Consistency beats volume.",
+     "cadence.html",
+     {"$schema": "http://json-schema.org/draft-07/schema#", "title": "CadenceInput",
+      "type": "object", "required": ["platforms", "weeklyHours", "longMins", "shortMins"],
+      "properties": {
+          "platforms": {"type": "array", "minItems": 1,
+                      "items": {"type": "string", "enum": ["youtube", "shorts", "tiktok", "instagram"]},
+                      "description": "Platforms in the cadence."},
+          "weeklyHours": {"type": "number", "minimum": 1, "maximum": 80,
+                        "description": "Honest, repeatable hours per week."},
+          "longMins": {"type": "number", "minimum": 5, "maximum": 3000,
+                     "description": "Minutes per long-form video (film+edit+publish); adjustable starting estimate."},
+          "shortMins": {"type": "number", "minimum": 5, "maximum": 3000,
+                      "description": "Minutes per short-form post (film+edit+publish); adjustable starting estimate."},
+          "restDay": {"type": "integer", "minimum": 0, "maximum": 6, "default": 6,
+                    "description": "0=Mon … 6=Sun; non-negotiable, no posting."},
+          "stage": {"type": "integer", "minimum": 0, "maximum": 4, "default": 1,
+                  "description": "Money Map stage; 0 adds the tuition-phase caveat."},
+          "priority": {"type": "string", "enum": ["longs", "shorts", "balanced"], "default": "balanced",
+                     "description": "Which format gets production minutes first."},
+          "overheadPct": {"type": "number", "minimum": 0, "maximum": 0.9, "default": 0.2,
+                        "description": "Share of hours reserved for comments/admin/analytics."},
+      }},
+     "Recommended longs/week + shorts/week, utilization vs production time (holds/tight/over), a 7-day schedule grid (rest day empty), per-platform Oct-2026 revenue realities, the 2-week ramp suggestion, method notes. Capacity arithmetic only — never a promise of views, revenue, or growth.",
+     "Logic (assets/js/cadence.js, UMD): production minutes = weeklyHours*60*(1-overheadPct); longs-first/shorts-first/balanced-50-50 allocation by per-piece minutes; utilization = used/production minutes (holds ≤0.7, tight ≤0.95, over above); dealWeek() spreads longs evenly over non-rest days and round-robins shorts; platform notes are the Oct-11-2026 research facts (TikTok Rewards 1-min+ qualifier $0.40–$1.00/1K, Reels $0, Shorts $0.02–$0.20/1K + Feb-2027 10M floor + Oct-1 originality rule, 20M+ uploads/day). Planning aid, not financial/legal/tax advice."),
 ]
 
 # Tools hub (wave 9): grouped card index. Per tool: icon, "use when" one-liner,
@@ -642,6 +671,8 @@ TOOL_HUB_META = {
                       ["outreach", "pitch pipeline", "Phase 5"]),
     "crosspost":       ("⧉", "CONTENT", "coral", "one clip needs to live natively on four platforms.",
                       ["adaptation", "cross-post", "Phase 3"]),
+    "cadence":         ("◷", "PLAN",    "acid", "you keep asking how often to post and the answer starts with your hours.",
+                      ["consistency", "schedule", "Phase 1"]),
 }
 TOOL_HUB_GROUPS = [
     ("PLAN", "Pick the battlefield",
@@ -1116,11 +1147,13 @@ def build():
         "ypp-checker": ["assets/js/ypp-checker.js"],
         "outreach": ["assets/js/outreach.js", "assets/js/outreach-ui.js"],
         "crosspost": ["assets/js/content-engine.js", "assets/js/crosspost-ui.js"],
+        "cadence": ["assets/js/cadence.js", "assets/js/cadence-ui.js"],
     }
     TOOL_CSS = {
         "money-map": ["assets/css/moneymap.css"],
         "video-doctor": ["assets/css/videodoctor.css"],
         "ypp-checker": ["assets/css/yppchecker.css"],
+        "cadence": ["assets/css/cadence.css"],
     }
     for slug, title, desc in TOOLS:
         body_src = PAGES / f"{slug}.html"
@@ -1300,7 +1333,7 @@ def build():
   <span>DIVERSIFY REVENUE</span><span>SEPARATE THE MONEY</span><span>SYSTEMS BEAT HUSTLE</span>
 </div></section>
 <section class="section"><div class="section-head"><h2>The Empire Map</h2><span class="section-tag">9 levels // clear them all</span></div><div class="phase-grid reveal-stagger">{cards}</div></section>
-<section class="section"><div class="section-head"><h2>Command Center</h2><span class="section-tag">weapons free</span><a href="tools.html" class="section-more">All 18 tools →</a></div><div class="tool-grid reveal-stagger">{tools_html}</div></section>
+<section class="section"><div class="section-head"><h2>Command Center</h2><span class="section-tag">weapons free</span><a href="tools.html" class="section-more">All 19 tools →</a></div><div class="tool-grid reveal-stagger">{tools_html}</div></section>
 {case_section}
 <section class="section"><div class="section-head"><h2>Hottest topics right now</h2><span class="section-tag">live feed // trend-machine</span></div>
 <div class="hud-panel trends-hud reveal">
@@ -1458,7 +1491,7 @@ def build():
             "id": "tools",
             "kind": "json",
             "path": "api/v1/tools.json",
-            "description": "All seventeen interactive tools with programmatic input schemas (JSON Schema draft-07), output descriptions, and drive notes — replicate the tools' logic without the UI.",
+            "description": "All nineteen interactive tools with programmatic input schemas (JSON Schema draft-07), output descriptions, and drive notes — replicate the tools' logic without the UI.",
             "schema": "api/v1/schema/tools.json",
             "updated": BUILD_TS,
             "records": len(TOOLS_API),
@@ -1469,9 +1502,12 @@ def build():
             "id": "reference-pages",
             "kind": "html",
             "paths": [m["path"] for m in reference_meta],
-            "description": ("Human-readable reference pages (the 2026 sponsorship rate card, "
-                            "the Niche Atlas). Machine-readable equivalents: rate card in "
-                            "calculators.json sponsorship_rate_card_2026; the atlas in niches.json."),
+            "description": ("Human-readable reference pages: the 2026 sponsorship rate card, "
+                            "the Niche Atlas, the Metrics Glossary, and the 2026 Platform "
+                            "Rules Bible. Machine-readable equivalents: rate card in "
+                            "calculators.json sponsorship_rate_card_2026; the atlas in "
+                            "niches.json; glossary terms in glossary.json. Figures are "
+                            "creator-reported ranges and source-weighted research, never promises."),
             "schema": None,
             "updated": BUILD_TS,
             "records": len(reference_meta),
@@ -1482,7 +1518,7 @@ def build():
             "id": "tool-pages",
             "kind": "html",
             "paths": [f"{slug}.html" for slug, _, _ in TOOLS],
-            "description": "The eighteen interactive tools' human UI pages. Agents should prefer api/v1/tools.json input schemas over scraping these pages.",
+            "description": "The nineteen interactive tools' human UI pages. Agents should prefer api/v1/tools.json input schemas over scraping these pages.",
             "schema": None,
             "updated": BUILD_TS,
             "records": len(TOOLS),
@@ -1550,7 +1586,7 @@ def build():
     # ---- tools.json: every tool with its programmatic input schema ----
     (API / "tools.json").write_text(json.dumps({
         "version": "1.0.0", "updated": "2026-10-11",
-        "note": ("Programmatic input schemas for the eighteen interactive tools. "
+        "note": ("Programmatic input schemas for the nineteen interactive tools. "
                  "Agents replicate each tool's logic by feeding these inputs to the "
                  "documented formulas / shipped JS (assets/js/<id>.js); the UI pages "
                  "are the human front-end for the same logic."),
@@ -2100,7 +2136,7 @@ def build():
     for slug, title, desc in TOOLS:
         llms.append(f"- [{title}]({slug}.html) — {desc}")
     llms += ["- [Glossary](glossary.html)", "",
-             "All eighteen tools, grouped by job (Plan / Money / Content): [Tools hub](tools.html).",
+             "All nineteen tools, grouped by job (Plan / Money / Content): [Tools hub](tools.html).",
              "", "## Reference"]
     for m in reference_meta:
         llms.append(f"- [{m['badge']}: {m['title']}]({m['path']}) — {m['read_minutes']} min read")

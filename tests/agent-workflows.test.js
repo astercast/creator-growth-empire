@@ -73,7 +73,7 @@ function check(name, cond, detail) {
 
   // tools.json drives the planner config shape
   const tools = load("tools.json").tools;
-  check("wf2: tools.json lists all 18 tools", tools.length === 18, String(tools.length));
+  check("wf2: tools.json lists all 19 tools", tools.length === 19, String(tools.length));
   const oc = tools.find((t) => t.id === "outreach");
   const ocSchema = oc && oc.input_schema;
   check("wf2: outreach input schema exposes pipeline + quote + pitch + contract fields",
@@ -99,6 +99,14 @@ function check(name, cond, detail) {
        && crossSchema.properties.source_platform && crossSchema.properties.destinations
        && crossSchema.properties.photorealistic_ai)
     && cross.page === "crosspost.html");
+  const cad = tools.find((t) => t.id === "cadence");
+  const cadSchema = cad && cad.input_schema;
+  check("wf2: cadence input schema exposes hours/minutes/priority fields",
+    !!(cadSchema && cadSchema.title === "CadenceInput"
+       && cadSchema.properties.platforms && cadSchema.properties.weeklyHours
+       && cadSchema.properties.longMins && cadSchema.properties.shortMins
+       && cadSchema.properties.priority)
+    && cad.page === "cadence.html");
 
   // Replicate the planner's layout math (assets/js/planner.js) for
   // 1 long + 3 shorts/week, rest day = Sunday (6): 13 weeks

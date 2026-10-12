@@ -624,3 +624,98 @@ html[data-calm] *::after {
   .deal-report h2, .deal-report h3 { color: #111; border-color: #ccc; }
   .deal-report .muted { color: #444; }
 }
+
+/* ---- Wave 28: Platform Rules Bible craft (page-scoped; no other page affected) ----
+   Web-craft findings applied (report 2026-10-11):
+   - text-wrap: balance on headlines — Baseline 2024, safe to ship [verified]
+   - text-wrap: pretty on body — progressive enhancement (no Firefox) [verified]
+   - font-variant-numeric: tabular-nums on data tables [verified]
+   - max-inline-size: 65ch measure on prose [verified]
+   - scroll-driven animation-timeline for the progress bar — progressive
+     enhancement (~85%, Firefox behind flag), compositor-thread, always gated
+     behind prefers-reduced-motion [verified]
+   - content-visibility: auto + contain-intrinsic-size on table scroll
+     regions (long-page rendering cost, CLS<0.1 recipe) [single-source]
+   - :focus-visible perimeter on TOC links; motion tokens; reduced-motion as
+     a variant, not a kill switch (state indicators survive) [verified]
+   Convergence note (merge dedupe 2026-10-11): wave 26's design-craft layer
+   already ships global `h1, h2, h3 { text-wrap: balance }` above, so the
+   scoped balance declarations are omitted here — identical effect, no
+   duplication. The rest of this block is page-unique. */
+
+/* Long-form reference rhythm + anchored-heading offset (WCAG 2.4.11 scroll-padding family) */
+.platform-rules h2 { margin-top: 3rem; scroll-margin-top: 4.5rem; }
+.platform-rules h3 { margin-top: 2rem; scroll-margin-top: 4.5rem; }
+.platform-rules p,
+.platform-rules li { max-inline-size: 65ch; text-wrap: pretty; }
+
+/* Rule callouts: body blockquotes (the lede blockquote is lifted into the hero by build.py) */
+.platform-rules blockquote {
+  border-left: 3px solid var(--gold);
+  background: var(--bg-2);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: 1rem 1.25rem;
+  margin: 1.5rem 0;
+}
+.platform-rules blockquote strong { color: var(--gold); }
+
+/* Data tables: frame the scroll region, quiet header, tabular numerals,
+   skip offscreen rendering cost on this 6,700-word page */
+.platform-rules .table-wrap {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  margin: 1.5rem 0;
+  content-visibility: auto;
+  contain-intrinsic-size: auto 320px;
+}
+.platform-rules .table-wrap thead th {
+  background: var(--bg-3);
+  white-space: nowrap;
+}
+.platform-rules .table-wrap td {
+  font-variant-numeric: tabular-nums;
+}
+
+/* TOC: the static "What's inside" list, linkified at runtime */
+.rules-toc { list-style: none; padding: 0; display: grid; gap: 0.4rem; margin: 1.5rem 0 2.5rem; }
+.rules-toc a {
+  display: block; padding: 0.6rem 0.9rem;
+  border: 1px solid var(--line); border-radius: var(--radius-sm);
+  color: var(--ink); text-decoration: none;
+}
+.rules-toc a:hover { border-color: var(--gold); }
+.rules-toc a:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+.rules-toc a[aria-current="true"] {
+  border-color: var(--gold); border-left-width: 3px;
+  background: var(--bg-2);
+}
+@media (min-width: 900px) {
+  .rules-toc { grid-template-columns: 1fr 1fr; }
+}
+
+/* Scroll progress: thin state indicator. Primary = CSS scroll-driven
+   animation (compositor thread); the JS rAF width fallback only installs
+   where animation-timeline is unsupported (see platform-rules-ui.js). */
+.rules-progress {
+  position: fixed; top: 0; left: 0; right: 0; height: 3px;
+  z-index: 60; pointer-events: none;
+}
+.rules-progress span {
+  display: block; height: 100%; width: 100%;
+  transform: scaleX(0); transform-origin: 0 50%;
+  background: linear-gradient(90deg, var(--gold), var(--acid));
+}
+@media (prefers-reduced-motion: no-preference) {
+  .platform-rules-page { scroll-behavior: smooth; }
+  .rules-progress span {
+    animation: rules-fill linear both;
+    animation-timeline: scroll();
+  }
+}
+@keyframes rules-fill {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}

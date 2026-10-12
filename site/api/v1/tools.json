@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
   "updated": "2026-10-11",
-  "note": "Programmatic input schemas for the eighteen interactive tools. Agents replicate each tool's logic by feeding these inputs to the documented formulas / shipped JS (assets/js/<id>.js); the UI pages are the human front-end for the same logic.",
+  "note": "Programmatic input schemas for the nineteen interactive tools. Agents replicate each tool's logic by feeding these inputs to the documented formulas / shipped JS (assets/js/<id>.js); the UI pages are the human front-end for the same logic.",
   "tools": [
     {
       "id": "quiz",
@@ -1431,6 +1431,90 @@
       },
       "output": "Per-destination adaptation cards (aspect, captions, hook rework, CTA, audio, disclosure label, one-original-element changes) + the universal checks + the Oct-1 gate reminder. Adaptation guidance under the platforms' stated 2026 rules \u2014 never a promise of reach, views, or revenue.",
       "drive_notes": "Engine (assets/js/content-engine.js, UMD \u2014 importable in node): adaptChecklist(source_platform, destinations) reads the adaptation matrix (12 source\u2192destination rule sets + 6 universal checks); unknown platforms and the source itself are filtered out. Matrix + grammars + gate: api/v1/content-engine.json -> adaptation_matrix. Pairs with the content-repurposing skill. Planning aid, not financial/legal/tax advice."
+    },
+    {
+      "id": "cadence",
+      "title": "Cadence Coach",
+      "description": "How often should you actually post? Turn your honest weekly hours, formats, and platforms into a sustainable cadence \u2014 capacity math plus Oct-2026 platform realities. Consistency beats volume.",
+      "page": "cadence.html",
+      "input_schema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "title": "CadenceInput",
+        "type": "object",
+        "required": [
+          "platforms",
+          "weeklyHours",
+          "longMins",
+          "shortMins"
+        ],
+        "properties": {
+          "platforms": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "enum": [
+                "youtube",
+                "shorts",
+                "tiktok",
+                "instagram"
+              ]
+            },
+            "description": "Platforms in the cadence."
+          },
+          "weeklyHours": {
+            "type": "number",
+            "minimum": 1,
+            "maximum": 80,
+            "description": "Honest, repeatable hours per week."
+          },
+          "longMins": {
+            "type": "number",
+            "minimum": 5,
+            "maximum": 3000,
+            "description": "Minutes per long-form video (film+edit+publish); adjustable starting estimate."
+          },
+          "shortMins": {
+            "type": "number",
+            "minimum": 5,
+            "maximum": 3000,
+            "description": "Minutes per short-form post (film+edit+publish); adjustable starting estimate."
+          },
+          "restDay": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 6,
+            "default": 6,
+            "description": "0=Mon \u2026 6=Sun; non-negotiable, no posting."
+          },
+          "stage": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 4,
+            "default": 1,
+            "description": "Money Map stage; 0 adds the tuition-phase caveat."
+          },
+          "priority": {
+            "type": "string",
+            "enum": [
+              "longs",
+              "shorts",
+              "balanced"
+            ],
+            "default": "balanced",
+            "description": "Which format gets production minutes first."
+          },
+          "overheadPct": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.9,
+            "default": 0.2,
+            "description": "Share of hours reserved for comments/admin/analytics."
+          }
+        }
+      },
+      "output": "Recommended longs/week + shorts/week, utilization vs production time (holds/tight/over), a 7-day schedule grid (rest day empty), per-platform Oct-2026 revenue realities, the 2-week ramp suggestion, method notes. Capacity arithmetic only \u2014 never a promise of views, revenue, or growth.",
+      "drive_notes": "Logic (assets/js/cadence.js, UMD): production minutes = weeklyHours*60*(1-overheadPct); longs-first/shorts-first/balanced-50-50 allocation by per-piece minutes; utilization = used/production minutes (holds \u22640.7, tight \u22640.95, over above); dealWeek() spreads longs evenly over non-rest days and round-robins shorts; platform notes are the Oct-11-2026 research facts (TikTok Rewards 1-min+ qualifier $0.40\u2013$1.00/1K, Reels $0, Shorts $0.02\u2013$0.20/1K + Feb-2027 10M floor + Oct-1 originality rule, 20M+ uploads/day). Planning aid, not financial/legal/tax advice."
     }
   ]
 }

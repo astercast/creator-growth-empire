@@ -1,5 +1,182 @@
 # Creator Growth Empire — Wave Log
 
+## Wave 28 — "The 2026 Platform Rules Bible" reference chapter + wayfinding craft layer (2026-10-11)
+
+The densest reference page on the site: a 6,700-word single-page bible consolidating every platform rule that decides whether a creator's work gets seen and gets paid — the 2026 algorithm mechanics (YouTube/TikTok/Reels), the YPP 2027 rulebook, the Oct-1-2026 Shorts originality gate, the real RPM bands, FTC disclosure escalation, and the 2026 1099 tax change. Every figure carries a source-weight label (verified / single-source / platform-stated); honesty contract intact throughout (no income promises; "not financial, legal, or tax advice" copy present and pinned in-test).
+
+**Research (integrated today, Oct 11, 2026 — genuinely new to the site, not a re-skin):**
+- **Creator-economy scout (dispatched 20:10 PDT, reports landed):** 7 angle notes — algorithm changes (TikTok hierarchy, Social Pilot's no-change Aug/Sep 2026, Oracle US model, DSA minors, IG April 2026 originality rules), monetization rates (AIR 300-channel RPM medians + P25–P75, Tier-1 geography premiums, Lilach's regional Creator Rewards tiers, the top-10%-take-58% concentration), growing niches/formats (microdrama 6.5B H1 views, Shorts seasons/episodes Sept 2026, China AI-drama output, dubbing 6M viewers/day with the 4–10x professional-dubbing retention gap), creator tools (Made on YouTube Sept 23: Ask Studio mobile, draft feedback, research feed, dynamic thumbnails + 40M A/B tests + auto-swap, 3-cut video A/B from 2027, explain-why analytics, Gemini conversational editing, AI product auto-tagging, Shopping affiliate to 35 countries / 1.3M creators, voice+face likeness protection; IG Edits AI assistant Sept 30 + Meta One gate; 20M videos/day), brand deals (AIR agency compilation vs projectcasting 2–3x disagreement, Cheerful quoted medians IG Reel $1,800 / TikTok $2,000 / YT integration $3,000 / UGC $500, category sponsored CPMs, nano 6.23% vs macro 0.61% engagement), tax/legal (OBBBA $600→$2,000 1099-NEC/MISC from Jan 1 2026 + inflation indexing 2027+, royalties $10 exception, 24% backup withholding, 1099-K restored $20K/200txns for 2025 tax year, NEC+K double-reporting trap, IRS AI-filter scrutiny band [uncertain], X Money Sept 2026; FTC fines $51,744–$53,088/violation [uncertain], enforcement +40% in 2025 with individual creators targeted at scale first time, #ad-first + verbal + platform-label-insufficient rules [verified multi-source], "double disclosure" AI+paid [single-source], fake-reviews rule, UK DMCC 10% turnover [single-source]), Shorts original-content update (announcement scope, channel-level judgment, what's-original vs not-enough, recommendations-only-not-payouts, the four gaps — no start date / no re-evaluation / no appeal / no Studio indicator — clipping $1.4M context, panstag self-audit method).
+- **Wave-fuel forward-looking research (landed earlier today):** TikTok three-source hierarchy + lore flags (40–50% weight, 300–500 test pool, 3s→5s qualified view), Shorts Oct-1 update via 6 outlets, Reels sends-#1 Mosseri-stated + 3–5x debunk, breakout-growth consensus (retention / shareability / originality / searchability / new containers), niche CPM/RPM cross-checks (OutlierKit Sep-2026, UTubeKit, Famety, upGrowth), the kids paradox (1.59% growth / $0.33 RPM), Jan-2026 inauthentic wave (16 channels, 4.7B views), Lilach's <1% reach-100K reality check.
+- **Design domain:** the research coordinator's permanent web-craft domain completed round 1 at 20:18 PDT (`research_notes/web-craft-20261011-2014/` — report.md + 8 angle notes: design-trends, new-css, motion, typography, accessibility, performance, dataviz-storytelling, static-workflows; 20 site-mapped content ideas). Findings applied to this wave's wayfinding/CSS layer where they genuinely elevate a reference chapter (see "Design findings applied" below); deliberately-not-applied items documented with rationale in the fragment's §D. Wave 26's worker independently shipped a "design-craft layer" in `assets/css/components.css` (global `text-wrap: balance`, `:has()` focus, chart tokens) — wave 28's staged CSS is page-scoped under `.platform-rules`, so the two converge without conflict; the merge worker may dedupe the balance rule.
+
+What shipped (this lane only — parallel lanes' files untouched):
+1. **`content/platform-rules-bible.md`** (new, ~6,730 words — the longest page on the site; niche-atlas was 2,971): 13 content sections — §1 how to read (source labels + golden rule), §2 YouTube long-form 2026 (CTR/AVD mechanics, Aug-24-2026 public-view change, the Studio feedback loop, video A/B 2027), §3 Shorts original-content era (Oct-1 update in full + the 5-event 2026 timeline table + Shorts RPM + microdrama/dubbing/clipping), §4 YPP 2027 rulebook (current-vs-2027 thresholds table, 10M/90d monthly floor, activity test, Premium Lite 60%-vs-30% pool, May-2026 AI auto-labeling, Jan-2026 inauthentic wave), §5 RPM bands (AIR 300-channel medians table with P25–P75, cross-checks, seasonality + Q1 finance exception), §6 TikTok algorithm (verified hierarchy + lore flags), §7 TikTok money (Creator Rewards tiers + short-form payout comparison table + Shop H1 $50.3B GMV), §8 Reels sends economy (Mosseri hierarchy + 3–5x debunk + April 2026 rules + $0/view reality), §9 2026 platform tooling loop, §10 FTC disclosure escalation (NOT legal advice), §11 1099 tax change (NOT tax advice), §12 one-page cheat sheet, "What to do with this" (4 moves), 26-item Sources section. 5 data tables, 18 internal cross-links (all resolve to real site/ pages), static "What's inside" TOC list. Follows the reference-page markdown conventions (h1 + lede blockquote → hero, honesty banner, read-next link blocks).
+2. **`assets/js/platform-rules-ui.js`** (new, 4.2KB, IIFE/"use strict" per site convention): progressive-enhancement wayfinding — adds the `platform-rules` + `platform-rules-page` scoping hooks, slugifies h2s into anchor ids, linkifies the static TOC (pairs by index, bails if counts mismatch), active-section highlighting via IntersectionObserver (`aria-current`, state not motion), rAF-throttled passive scroll-progress indicator. Never initiates motion itself: no `.animate()`, no `setInterval`, no JS smooth-scroll (left to CSS under `prefers-reduced-motion: no-preference`). No-ops silently if the expected elements are absent (pre-wire).
+3. **`tests/platform-rules-bible.test.js`** (new, 47 assertions): structure pins (1 h1, 15 h2s, 11 numbered sections in order, 13-item TOC ↔ 13 content h2s), source-labeling discipline floors (≥40 single-source / ≥25 verified / ≥5 platform-stated; every numbered section carries ≥1 label), honesty contract (not-financial/legal/tax-advice line, no guarantee/income-promise phrasing, ranges-not-rates framing), all 18 internal links resolve to site/ pages, no in-page #anchors, no absolute URLs, table column-count consistency, freshness + ≥20-item sources, wayfinding-JS contracts (guards, passive listener, aria-current, page-scoped hooks, no self-initiated motion, CSS scroll-timeline feature-detection with JS fallback only when unsupported), lane discipline (no wave-26/27 references).
+4. **Design findings applied** — the web-craft report (`research_notes/web-craft-20261011-2014/`, landed 20:18 PDT, i.e. mid-wave) was read in full and applied where it genuinely elevates this page; site identity untouched (dark-first theme, Archivo/Space Grotesk/JetBrains Mono, acid/coral/gold/violet tokens, existing `.table-wrap` scroll pattern):
+   - *Typography* (report §4, verified): `text-wrap: balance` on headlines (Baseline 2024, safe), `text-wrap: pretty` on body as progressive enhancement (no Firefox), `font-variant-numeric: tabular-nums` on the data tables, `max-inline-size: 65ch` measure on prose — all page-scoped in the staged CSS (§D).
+   - *Scroll-driven animation* (report §2, verified): the progress bar's primary mechanism is now CSS `animation-timeline: scroll()` — compositor-thread, zero jank — gated behind `prefers-reduced-motion: no-preference`; the JS installs its rAF width fallback only where `CSS.supports("animation-timeline: scroll()")` is false (near-zero-JS = INP protection, report §6).
+   - *Wayfinding* (follow-up + report §1): static numbered TOC in the markdown (zero-JS readable) + runtime linkification with `aria-current` section tracking via IntersectionObserver; `scroll-margin-top` on anchored headings (WCAG 2.4.11 family); `:focus-visible` gold perimeter on TOC links; every section ends with read-next cross-links (18 total).
+   - *Reduced motion as a variant* (report §3, verified): the JS never initiates motion (no `.animate()`, no `setInterval`, no JS smooth-scroll); state indicators (progress bar, `aria-current`) survive under reduced motion; the single transition is no-preference-gated.
+   - *Native-first a11y* (report §5, verified): only `aria-label` + `aria-current` added — no ARIA-heavy widgets; TOC is plain anchor links (free keyboard behavior).
+   - *Performance* (report §6): 4.2KB vanilla JS, passive listeners, no libraries, no scroll listener at all where the CSS timeline is supported; `content-visibility: auto` + `contain-intrinsic-size` staged for the table scroll regions.
+   - *Deliberately not applied*: view transitions (no in-page state to smooth; cross-document VT is a site-wide MPA call — flagged for the fleet), reveal-on-scroll (would punish the TOC-jump reading pattern), kinetic typography / bento / scrollytelling (wrong genre — the report maps those to Film/Trend/Marvel/Artist), `<details>` accordions (would hide reference content). Full rationale in §D.
+
+**Tests**: `node tests/platform-rules-bible.test.js` — **47/47 PASS**. `node --check` clean on the new JS. Full `scripts/validate.sh` status (run 2026-10-11 ~20:35 PDT): **14 passed, 1 failed — only stage 5** (build reproducibility). The stage-5 drift is entirely parallel-lane: wave 26's in-progress sources (`data/calculators.json`, `data/deal-templates.json`, `pages/deal-analyzer.html`, `assets/js/deal-analyzer.js`, `assets/js/deal-analyzer-ui.js`, `assets/js/sim-engine.js`, `assets/js/simulator.js`, plus their own `assets/css/components.css` design-craft layer — all uncommitted and actively being edited during this wave) regenerate drifted output (`api/v1/calculators.json`, `api/v1/deal-templates.json`, `site/deal-analyzer.html`, `site/assets/js/*`). Wave 28 adds no rendered output yet (the chapter is staged, unwired; its JS copies to `site/assets/js/` as an untracked file invisible to `git diff`), so it contributes zero tracked drift. The merge worker must run validate.sh green after all lanes land and wiring (§A–§D) is applied.
+
+Validation note for the merge worker: wave 28's own suite is not yet in validate.sh's stage-6 loop (shared file — staged below instead of edited).
+
+Commit: 8ce0e616cf8e3cd5509e9e6a97b6782bbc40895b (local) → ba4dfaa456df1e09bc1dec2a84e604506018454a (pushed 2026-10-11, remote tree verified via GitHub Trees API 200 — all 4 wave-28 files in the recursive tree, not truncated).
+
+**Merge complete 2026-10-11 (merge worker):** §A–§G applied — `REFERENCE_PAGES` gained the platform-rules-bible tuple (+ wayfinding script injection), `reference-pages` API description rewritten for all four pages, `tests/platform-rules-bible.test.js` appended to validate.sh stage 6, the staged CSS block appended to `assets/css/components.css` with the `text-wrap: balance` convergence deduped (wave 26's global `h1,h2,h3` rule covers it). Rebuild clean (9 chapters, 19 tools, 4 reference pages); validate.sh 8/8 green. Both fragments folded; fragment files deleted.
+
+---
+
+# Wave 27 — Cadence Coach: the Posting Cadence Optimizer (tool #19) (2026-10-11)
+
+The flagship "how often should I post?" tool — the missing first link of the
+cadence pipeline. Every other cadence-adjacent tool takes cadence as an
+*input* (90-Day Planner schedules it, Batching Planner capacity-checks it,
+Content Calendar deals into it, the Simulator models it); none of them
+*recommends* one. Cadence Coach closes that gap: honest weekly hours +
+formats + platforms → a sustainable weekly posting cadence, with a 7-day
+schedule grid, per-platform Oct-2026 revenue realities, and a 2-week ramp
+method. Engine is pure capacity arithmetic plus platform facts — it says
+so on every output, because no peer-reviewed cadence science exists.
+
+**Parallel-lane discipline:** wave 26 (Deal Analyzer #19 + Empire Simulator
+4.0) is live on the same repo with uncommitted changes to
+`assets/js/deal-analyzer.js`, `assets/js/sim-engine.js`,
+`data/calculators.json`, `pages/deal-analyzer.html` (+ new
+`assets/js/deal-analyzer-ui.js`). None of those files were read beyond
+`git status` or touched. `scripts/build.py` / `scripts/validate.sh` /
+`tests/agent-workflows.test.js` / `AGENT.md` / `README.md` / `API.md` /
+`pages/agents.md` were deliberately NOT edited — the wiring is staged in
+`MERGE-fragment-w27-tools.md` (blocks B1–B8, exact search/replace) for the
+parent to apply after wave 26 merges. New files only.
+
+**Research integrated (read 2026-10-11):**
+- `~/workspace/research_notes/RESEARCH_LOG.md` + the fresh creator-economy
+  scout report (`creator-economy-20261011-2010/report.md`, Oct-11-2026):
+  TikTok Creator Rewards $0.40–$1.00/1K qualified views with the 1-min+
+  qualifier [verified, AIR]; Reels $0 per view in 2026 [verified, AIR];
+  Shorts $0.02–$0.20/1K views [verified, AIR]; Feb-2027 10M qualified
+  Shorts views/90d floor checked monthly [multi-source]; Oct-1-2026
+  originality rule — straight re-uploads lose reach [verified 6+ outlets];
+  20M+ videos uploaded to YouTube/day (Mohan, Made on YouTube Sept 2026).
+  Every platform note carries its source label; ranges are creator-reported,
+  never promises. The report's "retention craft beats volume" thesis is the
+  tool's framing line (consistency beats volume).
+- **Web-craft design reports LANDED mid-wave** (`web-craft-20261011-2014/`
+  + `web-craft-20261011-2025/`, read in full): applied to tool #19 —
+  typography micro-craft (`text-wrap: balance` on result headings,
+  `font-variant-numeric: tabular-nums` on stat numbers, 65ch measure on
+  prose, `text-wrap: pretty` kept `@supports`-gated per the round-2
+  Firefox dispute); same-document view transitions on results render
+  (Baseline Oct 2025), gated on `prefers-reduced-motion: no-preference`
+  with a plain-swap fallback; scroll-driven week-cell reveals
+  (`animation-timeline: view()`, transform+opacity only, compositor),
+  `@supports`-gated with the finished-visible state as CSS default
+  (failure-mode rule) and no-preference gating; motion tokens
+  (120/200ms, standard + decelerate easings); hand-rolled SVG utilization
+  ring (angle-6 recipe — the number is the encoding, color redundant).
+  Deliberately NOT applied: scroll progress bar (wave 28 owns that
+  pattern on their page — no duplication), blur-reveal signature and
+  kinetic type (wrong register for a utilitarian tool; restraint wins),
+  font-pipeline changes (fleet-level decision, out of wave scope).
+  Everything scoped to `.cc-*` / `#cc-results` — zero collision with wave
+  28's `.platform-rules` scope (asserted in-test). Reduced-motion safe
+  throughout; site identity untouched.
+
+**Honesty contract:** no income promises, no growth promises — the engine
+emits "Posting more never guarantees views, revenue, or growth" and
+"no peer-reviewed cadence science exists"; per-piece minutes are labeled
+"adjustable starting estimates, not benchmarks"; the 70%-of-max 2-week ramp
+is labeled the tool's house method, not science; "not financial, legal, or
+tax advice" on-page and in every output object. The test suite enforces
+the contract (no guarantee / income-promise phrasing, disclaimer present).
+
+What shipped (all new files):
+1. **Engine** (`assets/js/cadence.js`, UMD — browser + node): `validInput()`,
+   `capacityMath()` (production minutes = weeklyHours×60×(1−overheadPct);
+   default 20% overhead reserve), `recommend()` (longs-first / shorts-first /
+   balanced-50-50 allocation by per-piece minutes; utilization vs
+   *production* minutes — holds ≤0.7, tight ≤0.95, over above; platform-note
+   gating; tuition-phase caveat at Money Map stage 0; ramp = 70% of max,
+   min 1), `dealWeek()` (longs spread evenly over non-rest days, shorts
+   round-robin, rest day always empty). `PLATFORM_NOTES` carries the four
+   Oct-2026 platform facts with source labels.
+2. **UI** (`assets/js/cadence-ui.js`, pure-math-free): platform checkboxes,
+   priority radios, honest-hours input, Money Map stage + rest-day selects,
+   optional per-piece-minute overrides; results swap via same-document view
+   transition gated on `prefers-reduced-motion: no-preference` (plain-swap
+   fallback); hand-rolled SVG utilization ring (role=img, number as the
+   encoding); aria-live results; localStorage `cge.cadence.v1` last-input
+   restore; "Copy my cadence →" clipboard bridge
+   (`{longform_per_week, shorts_per_week, rest_day}`) feeding the Planner /
+   Simulator; error-state on invalid input.
+3. **Page** (`pages/cadence.html`): form, empty-state, full `<noscript>`
+   fallback (the honest one-paragraph version: the formula + platform facts),
+   "The cadence pipeline" cross-link section (Batching → Planner → Calendar
+   → Simulator), honesty footer. Own stylesheet `assets/css/cadence.css`
+   (mobile-first week grid; `@supports`-guarded container-query week strip;
+   web-craft layer: balance/tabular-nums/65ch/pretty-gated typography,
+   motion tokens, scroll-driven cell reveals with visible-by-default
+   failure mode — all `.cc-`-scoped, reduced-motion safe).
+4. **Tests** (`tests/cadence.test.js`, **71 assertions** — validation,
+   capacity pins (20h→960 prod mins→1 long/10 shorts), per-priority
+   allocation pins, verdict-band pins, ramp bounds, dealWeek shape/spread/
+   rest-day pins, platform-note gating, tuition/method notes, honesty
+   contract, + a web-craft contract section: view-transition
+   reduced-motion gating, scroll-reveal `@supports` gating + visible
+   failure mode, balance/tabular-nums/65ch/pretty-gated CSS, SVG ring,
+   no `.platform-rules` selector collision). Exit 0 standalone.
+5. **`MERGE-fragment-w27-tools.md`** — the staged wiring (B1: TOOLS entry;
+   B2: TOOL_HUB_META PLAN-group card; B3: TOOLS_API record with draft-07
+   `CadenceInput` schema + drive notes; B4: TOOL_SCRIPTS; B5: TOOL_CSS;
+   B6: tool-count strings; B7: validate.sh stage-6 suite line; B8:
+   agent-workflows wf2 count + cadence schema pin) plus manual doc
+   touch-ups (AGENT.md tool-drive row, README/API.md/agents.md counts).
+
+**Merge-fragment proven in scratch:** the full B1–B8 set was applied to a
+scratch copy of the tree (including wave 26's in-flight changes), then
+`scripts/build.py` (clean — 9 chapters, 19 tools, 12 skills, 9 case files)
+and `scripts/validate.sh` — **16 passed, 0 failed, ALL STAGES PASS**:
+`site/cadence.html` renders as TOOL // 019 with both scripts + CSS wired
+(incl. the web-craft layer); tools hub carries the Cadence Coach card;
+`api/v1/tools.json` 19th record is cadence with the draft-07-validated
+CadenceInput schema; llms.txt fresh; 0 broken links; byte-identical
+rebuild; 71 cadence assertions in stage 6; agent workflows 105→106 with
+the new wf2 cadence schema pin.
+
+Validation (real tree, fragment NOT applied — the committed tree is
+build-consistent without it): `scripts/build.py` untouched inputs;
+`scripts/validate.sh` **8/8 GREEN** (JS syntax incl. the 2 new files, JSON
+parse, draft-07 schemas, 0 broken links, byte-identical rebuild on the
+committed tree, all existing engine suites green — cadence suite runs
+standalone at 62/62 via `node tests/cadence.test.js`).
+
+Design findings applied (per the new mandatory design input): both
+web-craft reports read in full; applied — balance/tabular-nums/65ch/
+pretty-gated typography, no-preference-gated same-document view
+transitions, @supports-gated scroll-driven reveals with visible failure
+mode, motion tokens, hand-rolled SVG ring; deliberately skipped — wave 28's
+scroll progress bar (their pattern), blur-reveal/kinetic-type (wrong
+register), font-pipeline changes (fleet scope). All `.cc-`-scoped; no
+collision with wave 28's `.platform-rules` (asserted in-test).
+
+Commits (local → remote, both pushed 2026-10-11, remote trees verified via GitHub Trees API):
+- 40cce22 → b242b0abe94f91f906edf16a6e7d4b24cd65a99c (7 new files)
+- 9bad039 → 54a055cae16ef217d3a66f0ac74cc6101ba85dad (web-craft design application + UI defaults fix; parented on b242b0a)
+- b1664d0 → 58ded0e970cbaa8a0d956c7e293dc5560746b2b8 (hash fill; parented on 54a055c)
+All 7 wave-27 files confirmed present on remote main; sibling lanes' committed files intact.
+Merge attention needed: apply `MERGE-fragment-w27-tools.md` (B1–B8) after
+wave 26 merges, then rebuild + revalidate; if wave 26 renumbered tools or
+moved anchors, re-anchor per the fragment's notes. `WAVELOG.md` itself was
+not touched per instructions — this fragment is the wave-27 entry.
+
+**Merge complete 2026-10-11 (merge worker):** B1–B8 applied and re-anchored — wave 26 rebuilt Deal Analyzer in place (tool count stayed 18), so Cadence Coach lands as tool **#19**, not #20; all count strings now read 19/nineteen (plus the pre-existing "seventeen" drift on the `tools.json` endpoint description). Doc touch-ups applied (AGENT.md/README/API.md/agents.md + tool-drive row). Rebuild clean (9 chapters, 19 tools); validate.sh 8/8 green. Both fragments folded; fragment files deleted.
+
 ## Wave 26 — "The Deal Analyzer" 2.0 + Empire Simulator 4.0 UX leap (2026-10-11)
 
 Scope decision (do not repeat): the wave-3 Sponsor Deal Analyzer already existed as tool #4 of 18 (slug `deal-analyzer`). Per the "know what exists" rule it was **rebuilt in place as "The Deal Analyzer" 2.0** — not a new tool #19. Tool count stays 18. The brief's "Deal Analyzer" name replaces "Sponsor Deal Analyzer" everywhere (TOOLS, TOOLS_API, footer, README, AGENT.md, agents.md).

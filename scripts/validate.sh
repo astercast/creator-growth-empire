@@ -16,7 +16,8 @@
 #                         + tests/content-engine.test.js + tests/money-map.test.js
 #                         + tests/video-doctor.test.js + tests/niche-atlas.test.js
 #                         + tests/ypp-checker.test.js + tests/outreach.test.js
-#                         + tests/deal-analyzer.test.js
+#                         + tests/deal-analyzer.test.js + tests/cadence.test.js
+#                         + tests/platform-rules-bible.test.js
 #   7. llms.txt fresh ... chapter/tool/reference/guide/case-file/skill counts match
 #                         build.py; every chapter marker present in llms-full.txt
 #   8. Agent workflows ... node tests/agent-workflows.test.js — the AGENT.md
@@ -255,7 +256,7 @@ fi
 # ---------------------------------------------------------------- stage 6 ---
 stage 6 "engine test suites (sim + deal room + content engine + outreach)"
 TEST_FAIL=0
-for T in tests/sim-engine.test.js tests/deal-room.test.js tests/content-engine.test.js tests/money-map.test.js tests/video-doctor.test.js tests/niche-atlas.test.js tests/ypp-checker.test.js tests/outreach.test.js tests/deal-analyzer.test.js; do
+for T in tests/sim-engine.test.js tests/deal-room.test.js tests/content-engine.test.js tests/money-map.test.js tests/video-doctor.test.js tests/niche-atlas.test.js tests/ypp-checker.test.js tests/outreach.test.js tests/deal-analyzer.test.js tests/cadence.test.js tests/platform-rules-bible.test.js; do
   node "$T" >/tmp/cge_validate_tests.log 2>&1
   if [ $? -eq 0 ]; then
     N=$(grep -c "PASS" /tmp/cge_validate_tests.log)

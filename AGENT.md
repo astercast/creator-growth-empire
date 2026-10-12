@@ -1,7 +1,7 @@
 # AGENT.md — How an agent uses Creator Growth Empire
 
 > This site is a static machine-readable knowledge base for the creator
-> business: 9 phases, 18 tools, 12 skills, 9 case files, and a versioned JSON
+> business: 9 phases, 19 tools, 12 skills, 9 case files, and a versioned JSON
 > API. No API key, no server, no auth, no rate limits. Fetch and act.
 > Every workflow below was executed against the real `api/v1/` JSON files —> see `tests/agent-workflows.test.js` (run: `node tests/agent-workflows.test.js`).
 
@@ -32,7 +32,7 @@
 | `GET api/v1/calculators.json` | Per-niche RPM bands, Shorts RPM, platform thresholds w/ sources+dates, revenue splits, 2026 sponsorship rate card, 2026 research snapshots | The data contract every calculator and the sim engine read |
 | `GET api/v1/skills.json` | 12 skills: `name`, `description`, `path` | `skills/deal-negotiation/SKILL.md` for the full procedure |
 | `GET api/v1/case-files.json` | 9 creator-business deconstructions: `id`, `title`, `path`, `words`, `read_minutes` | Full text on the `case-*.html` pages |
-| `GET api/v1/tools.json` | 18 tools with programmatic `input_schema` (draft-07), output description, `drive_notes` | Replicate any tool's logic without the UI |
+| `GET api/v1/tools.json` | 19 tools with programmatic `input_schema` (draft-07), output description, `drive_notes` | Replicate any tool's logic without the UI |
 | `GET api/v1/schema/<name>.json` | JSON Schema draft-07 for every endpoint (per-doc and per-record) | Validate before you trust a payload |
 
 Skills are the executable layer: each `skills/<name>/SKILL.md` follows
@@ -493,6 +493,7 @@ explaining how to replicate the logic:
 | Hook Builder | `topic` (one line) | One hook per Short-Form Playbook structure + the anti-hook checklist |
 | The Outreach Center | `brand`, `contactName`, `email`, `status` (pitched → replied → negotiating → signed → passed), `followUpDate`, `followers`, `platform`, `deliverable`, `expectedViews`, `pitchTemplate` (cold_pitch/follow_up_nudge/warm_intro), `pitchVars{}`, `contractFlags[]` | `require("assets/js/outreach.js")` — `validDeal()` for pipeline records, `pipelineStats()` for response/close rates, `dueFollowUps()` for the one-nudge buckets, `quoteCalc()` for the tier range + CPM cross-check (top-of-range quote, ~23% expected-close math), `renderPitch()` for the 3 honest templates (unfilled `[brackets]` stay visible — never invent stats), `contractRisk()` for the checklist (any walk_away flag or 3+ points → don't sign); templates + contract flags from `api/v1/deal-templates.json` — see Workflow 9 |
 | Cross-Post Optimizer | `source_platform` (tiktok/shorts/reels/facebook), `destinations[]`, `photorealistic_ai` (boolean) | `require("assets/js/content-engine.js")` — `adaptChecklist(source, dests)` → per-destination cards (hook rework, caption rewrite, CTA swap, audio rights, disclosure label) + 6 universal checks + the Oct-1 gate; matrix from `api/v1/content-engine.json` → `adaptation_matrix`; pairs with the `content-repurposing` skill — see Workflow 10 |
+| Cadence Coach | `platforms`, `weeklyHours`, `longMins`, `shortMins`, `restDay`, `stage`, `priority` (longs/shorts/balanced) | `require("assets/js/cadence.js")` — `recommend(i)` → longs/week + shorts/week, holds/tight/over utilization, 7-day grid, Oct-2026 platform revenue realities, 2-week ramp — capacity math only, never a growth promise |
 
 Full per-tool schemas, formulas, and honesty notes live in `tools.json`;
 the UI pages (`quiz.html`, `calculator.html`, …) are the human front-end for

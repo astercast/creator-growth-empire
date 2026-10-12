@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cadence Coach — Creator Growth Empire</title>
+<meta name="description" content="From $0 to a multi-million-dollar creator company.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,600;0,800;0,900;1,900&family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/layout.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/hub.css">
+<script src="assets/js/cadence.js"></script><script src="assets/js/cadence-ui.js"></script><link rel="stylesheet" href="assets/css/cadence.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <a class="brand" href="index.html"><span class="brand-mark">▲</span> Creator Growth Empire</a>
+  <nav class="site-nav" aria-label="Primary"><a href="index.html" class="nav-link">Empire Map</a><a href="tools.html" class="nav-link active">Tools</a><a href="case-files.html" class="nav-link">Case Files</a><a href="glossary.html" class="nav-link">Glossary</a><a href="agents.html" class="nav-link">Agents</a></nav>
+  <button class="nav-toggle" aria-expanded="false" aria-controls="mobileNav" aria-label="Menu">☰</button>
+</header>
+<nav id="mobileNav" class="mobile-nav" aria-label="Mobile"><a href="index.html" class="nav-link">Empire Map</a><a href="tools.html" class="nav-link active">All tools</a><a href="quiz.html" class="nav-link">Niche Picker</a><a href="calculator.html" class="nav-link">Revenue Calc</a><a href="planner.html" class="nav-link">90-Day Plan</a><a href="deal-analyzer.html" class="nav-link">Deal Analyzer</a><a href="hiring-calculator.html" class="nav-link">Hire Calc</a><a href="repurpose.html" class="nav-link">Repurpose Plan</a><a href="simulator.html" class="nav-link">Simulator</a><a href="case-files.html" class="nav-link">All case files</a><a href="glossary.html" class="nav-link">Glossary</a><a href="agents.html" class="nav-link">Agents</a></nav>
+<main id="main"><div class="tool-page"><div class="hud-panel"><div class="hud-head"><span>TOOL // 019 — CADENCE COACH</span><span class="hud-status">SYSTEMS ONLINE</span></div><div class="hud-body"><h1>Cadence Coach</h1><p class="lede">How often should you actually post? Turn your honest weekly hours, formats, and platforms into a sustainable cadence — capacity math plus Oct-2026 platform realities. Consistency beats volume.</p></div></div><form id="cc-form" aria-label="Cadence Coach">
+  <div class="calc-grid">
+    <fieldset style="border:1px solid var(--line,#2a2a3a);border-radius:10px;padding:.75rem 1rem">
+      <legend style="padding:0 .5rem;font-weight:600">Platforms</legend>
+      <label style="display:block;margin:.25rem 0"><input type="checkbox" name="cc-plat" value="youtube" checked> YouTube long-form</label>
+      <label style="display:block;margin:.25rem 0"><input type="checkbox" name="cc-plat" value="shorts" checked> YouTube Shorts</label>
+      <label style="display:block;margin:.25rem 0"><input type="checkbox" name="cc-plat" value="tiktok"> TikTok</label>
+      <label style="display:block;margin:.25rem 0"><input type="checkbox" name="cc-plat" value="instagram"> Instagram Reels</label>
+    </fieldset>
+    <fieldset style="border:1px solid var(--line,#2a2a3a);border-radius:10px;padding:.75rem 1rem">
+      <legend style="padding:0 .5rem;font-weight:600">Time split</legend>
+      <label style="display:block;margin:.25rem 0"><input type="radio" name="cc-priority" value="longs"> Long-form first</label>
+      <label style="display:block;margin:.25rem 0"><input type="radio" name="cc-priority" value="shorts"> Short-form first</label>
+      <label style="display:block;margin:.25rem 0"><input type="radio" name="cc-priority" value="balanced" checked> Balanced 50/50</label>
+    </fieldset>
+    <label>Honest hours per week
+      <input type="number" id="cc-hours" min="1" max="80" step="0.5" value="10" required aria-describedby="cc-hint"></label>
+    <label>Money Map stage
+      <select id="cc-stage">
+        <option value="0">Stage 0 — The Start Line ($0)</option>
+        <option value="1" selected>Stage 1 — First $100</option>
+        <option value="2">Stage 2 — The Engine Runs ($1K/mo)</option>
+        <option value="3">Stage 3 — The Business ($10K/mo)</option>
+        <option value="4">Stage 4 — The Company</option>
+      </select></label>
+    <label>Rest day
+      <select id="cc-rest">
+        <option value="0">Monday</option><option value="1">Tuesday</option>
+        <option value="2">Wednesday</option><option value="3">Thursday</option>
+        <option value="4">Friday</option><option value="5">Saturday</option>
+        <option value="6" selected>Sunday</option>
+      </select></label>
+  </div>
+  <p id="cc-hint" class="muted" style="margin-top:-0.5rem">Only hours you actually have, week after week. Wishful hours are how cadences die in week three.</p>
+  <details style="margin-bottom:1rem">
+    <summary style="cursor:pointer;font-weight:600">Per-piece minutes (optional — defaults are starting estimates, not benchmarks)</summary>
+    <div class="calc-grid" style="margin-top:.75rem">
+      <label>Long-form: minutes per video<input type="number" id="cc-longmins" min="5" step="5" placeholder="570"></label>
+      <label>Short-form: minutes per post<input type="number" id="cc-shortmins" min="5" step="5" placeholder="90"></label>
+    </div>
+    <p class="muted">Your footage, your edit speed, your reality. Time one real video of each type and replace these — the single highest-leverage calibration on this page.</p>
+  </details>
+  <button type="submit" class="btn btn-primary">Build my cadence →</button>
+</form>
+<div id="cc-results" aria-live="polite" style="margin-top:1.5rem"><div class="empty-state" role="status"><span class="empty-icon" aria-hidden="true">◷</span><strong>No cadence yet.</strong>Plug in your honest hours and the coach deals your week into a posting cadence you can actually hold — and tells you straight what each platform pays in Oct 2026.</div></div>
+
+<noscript>
+  <div class="callout"><strong>How often should you post?</strong>
+  <p>Without JavaScript, here is the honest version: there is no peer-reviewed cadence science. Take your real weekly hours, subtract ~20% for comments/admin/analytics, divide what is left by how long one video actually takes you — that is your sustainable cadence. Rest one full day. Start one notch below your max for two weeks. Consistency beats volume: a schedule you keep for 90 days outperforms an ambitious one you abandon in week three. Platform facts (Oct 2026): TikTok Creator Rewards only pays videos over 1 minute ($0.40–$1.00 per 1K qualified views); Instagram Reels pay $0 per view; Shorts run $0.02–$0.20 per 1K views; long-form carries the highest ad RPM in most niches.</p></div>
+</noscript>
+
+<section aria-labelledby="cc-links-title" style="margin-top:2rem">
+  <h2 id="cc-links-title">The cadence pipeline</h2>
+  <ul>
+    <li><strong>Batching Planner</strong> (<a href="batching.html">batching.html</a>) — do your film days actually cover this cadence?</li>
+    <li><strong>90-Day Planner</strong> (<a href="planner.html">planner.html</a>) — turn the cadence into the 13-week posting schedule.</li>
+    <li><strong>Content calendar</strong> (<a href="content-calendar.html">content-calendar.html</a>) — deal your idea bank into that schedule.</li>
+    <li><strong>Simulator</strong> (<a href="simulator.html">simulator.html</a>) — model what a sustainable cadence could compound into. A model, not a prediction.</li>
+  </ul>
+</section>
+<p class="muted">No peer-reviewed cadence science exists — this is capacity arithmetic on your own hours plus platform facts. Posting more never guarantees views, revenue, or growth. A planning aid, not financial, legal, or tax advice.</p>
+</div></main>
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <div class="foot-brand"><span class="brand-mark">▲</span> Creator Growth Empire</div>
+      <p class="muted">From $0 to a multi-million-dollar creator company.</p>
+      <div class="sticker-row" style="margin:1rem 0 0">
+        <span class="sticker sticker-ghost">No guru hype</span>
+        <span class="sticker sticker-ghost">2026 verified</span>
+      </div>
+    </div>
+    <nav aria-label="Phases">
+      <strong class="muted" style="font-size:.78rem;letter-spacing:.12em">PHASES</strong>
+      <a href="phase-0-start-from-nothing.html">Phase 0 — Start From Nothing</a>
+      <a href="phase-2-youtube-mastery.html">Phase 2 — YouTube Mastery</a>
+      <a href="phase-5-monetization-stack.html">Phase 5 — Monetization Stack</a>
+      <a href="phase-7-the-business.html">Phase 7 — The Business</a>
+    </nav>
+    <nav aria-label="Tools">
+      <strong class="muted" style="font-size:.78rem;letter-spacing:.12em">TOOLS</strong>
+      <a href="tools.html">All tools →</a>
+      <a href="quiz.html">Niche Picker</a>
+      <a href="calculator.html">Revenue Calculator</a>
+      <a href="planner.html">90-Day Planner</a>
+      <a href="deal-analyzer.html">The Deal Analyzer</a>
+      <a href="hiring-calculator.html">Hiring Cost Calculator</a>
+      <a href="repurpose.html">Repurposing Planner</a>
+      <a href="simulator.html">Empire Simulator</a>
+      <a href="money-map.html">The Money Map</a>
+      <a href="api-explorer.html">API Explorer</a>
+      <a href="glossary.html">Glossary</a>
+      <a href="agents.html">Agents</a>
+    </nav>
+    <nav aria-label="Case Files">
+      <strong class="muted" style="font-size:.78rem;letter-spacing:.12em">CASE FILES</strong>
+      <a href="case-files.html">All case files →</a>
+      <a href="case-budget-grocery.html">The Budget-Grocery Newsletter</a>
+      <a href="case-bens-bites.html">Ben's Bites</a>
+      <a href="case-sleep-channels.html">The Sleep-Channel Network</a>
+      <a href="case-mavwicks.html">Mavwicks on TikTok Shop</a>
+      <a href="case-ptya.html">The Cohort Course</a>
+      <a href="case-poly-couple.html">The Poly Couple</a>
+      <a href="case-gibi-asmr.html">Gibi ASMR</a>
+    </nav>
+  </div>
+  <div class="footer-fine">PRIVATE RESEARCH ARCHIVE · PLATFORM FACTS VERIFIED OCT 2026 — VERIFY LIVE BEFORE ACTING · NOT FINANCIAL, LEGAL, OR TAX ADVICE</div>
+</footer>
+<script src="assets/js/site.js"></script>
+</body>
+</html>

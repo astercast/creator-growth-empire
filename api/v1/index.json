@@ -116,10 +116,10 @@
       "id": "tools",
       "kind": "json",
       "path": "api/v1/tools.json",
-      "description": "All seventeen interactive tools with programmatic input schemas (JSON Schema draft-07), output descriptions, and drive notes \u2014 replicate the tools' logic without the UI.",
+      "description": "All nineteen interactive tools with programmatic input schemas (JSON Schema draft-07), output descriptions, and drive notes \u2014 replicate the tools' logic without the UI.",
       "schema": "api/v1/schema/tools.json",
       "updated": "2026-10-11T00:00:00Z",
-      "records": 18,
+      "records": 19,
       "deprecated": false,
       "deprecation_note": null
     },
@@ -129,12 +129,13 @@
       "paths": [
         "rate-card.html",
         "niche-atlas.html",
-        "metrics-glossary.html"
+        "metrics-glossary.html",
+        "platform-rules-bible.html"
       ],
-      "description": "Human-readable reference pages (the 2026 sponsorship rate card, the Niche Atlas). Machine-readable equivalents: rate card in calculators.json sponsorship_rate_card_2026; the atlas in niches.json.",
+      "description": "Human-readable reference pages: the 2026 sponsorship rate card, the Niche Atlas, the Metrics Glossary, and the 2026 Platform Rules Bible. Machine-readable equivalents: rate card in calculators.json sponsorship_rate_card_2026; the atlas in niches.json; glossary terms in glossary.json. Figures are creator-reported ranges and source-weighted research, never promises.",
       "schema": null,
       "updated": "2026-10-11T00:00:00Z",
-      "records": 3,
+      "records": 4,
       "deprecated": false,
       "deprecation_note": null
     },
@@ -159,12 +160,13 @@
         "video-doctor.html",
         "ypp-checker.html",
         "outreach.html",
-        "crosspost.html"
+        "crosspost.html",
+        "cadence.html"
       ],
-      "description": "The eighteen interactive tools' human UI pages. Agents should prefer api/v1/tools.json input schemas over scraping these pages.",
+      "description": "The nineteen interactive tools' human UI pages. Agents should prefer api/v1/tools.json input schemas over scraping these pages.",
       "schema": null,
       "updated": "2026-10-11T00:00:00Z",
-      "records": 18,
+      "records": 19,
       "deprecated": false,
       "deprecation_note": null
     },
