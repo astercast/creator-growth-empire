@@ -23,7 +23,7 @@ What shipped:
 
 Validation: `scripts/build.py` clean (9 chapters, 17 tools, 12 skills, 9 case files, 16,844 words); `scripts/validate.sh` **8/8 GREEN** (JS syntax, JSON parse, draft-07 schemas incl. the extended deal-templates doc, 0 broken links (2,626 checked), byte-identical rebuild on the committed tree, 84 sim + 78 deal-room + 49 content-engine + 44 money-map + 184 video-doctor + 144 niche-atlas + 84 ypp-checker + 92 outreach engine assertions, 79 agent-workflow assertions).
 
-Commit: <local> (local) → <remote> (pushed 2026-10-11, remote tree verified via GitHub API — all wave-22 files in the recursive tree).
+Commit: b366a1ed12f61f83cb511f5865d67ca078db18e9 (local) → 94633616a3052d65da72a6732cb3898991972336 (pushed 2026-10-11, remote tree verified via GitHub API — all wave-22 files in the recursive tree).
 
 ## Wave 21 — YPP 2027 Eligibility Checker + monetization chapter refresh (2026-10-11)
 
