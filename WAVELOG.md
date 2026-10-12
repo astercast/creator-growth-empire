@@ -21,7 +21,7 @@ The user's top-priority directive, executed at the award-winning bar: a full vis
 
 **Tests:** `bash scripts/validate.sh` — **8/8 green** (17 passed, 0 failed; 0 broken links; clean rebuild byte-identical). All 11 engine suites green (1,146 assertions incl. sim-engine 189, platform-rules-bible 47).
 
-Commit: 5aa7d71705326e7a10b513650fd320eff0ba77d0 (local) → <pushed> (pushed 2026-10-11, remote tree verified via GitHub Trees API 200).
+Commit: 5aa7d71705326e7a10b513650fd320eff0ba77d0 (local) → 3d316dca75d3d4728d9feebe01c15b1880c9ecc5 (pushed 2026-10-11, remote tree verified via GitHub Trees API 200 — 294 entries, not truncated; all wave-29 files present).
 
 ---
 
