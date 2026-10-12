@@ -28,7 +28,7 @@ Thirteen tools (`pages/*.html` → `site/*.html`): **Niche Picker** (quiz), **Re
 
 - `api/v1/` — versioned JSON: `index.json` (self-describing manifest), `chapters.json`, `glossary.json`, `calculators.json`, `skills.json`, `case-files.json`, `tools.json`, plus `schema/` (15 JSON Schema draft-07 files)
 - `AGENT.md` — how an agent uses this site: base URL pattern, example requests, 6 end-to-end workflows (executed by `tests/agent-workflows.test.js`), tool input schemas
-- `llms.txt` + `llms-full.txt` — LLM-ready summaries of the full guide (9 phases, 13 tools, guides & playbooks, 5 case files, 12 skills)
+- `llms.txt` + `llms-full.txt` — LLM-ready summaries of the full guide (9 phases, 13 tools, guides & playbooks, 7 case files, 12 skills)
 - `skills/` — twelve skills in the standard format: `niche-validation`, `hook-writing`, `shortform-hook-craft`, `thumbnail-teardown`, `content-repurposing`, `repurposing-sprint`, `analytics-review`, `sponsorship-pitch`, `deal-negotiation`, `rate-card-reader`, `first-hire-planner`, `live-shopping-playbook`
 - `API.md` — full API reference (includes the shared cross-site API conventions block)
 

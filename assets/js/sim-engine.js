@@ -200,6 +200,32 @@
         quality: "solid", growthRate: 0.12, rpmLevel: "mid", q4Uplift: 0.6,
         ads: true, sponsors: false, affiliates: true,
         digital: true, digitalStartMonth: 9, digitalPrice: 49, digitalConvPerMonth: 0.001 }
+    },
+    {
+      /* Wave 17: modeled on a public case — inputs are planning assumptions,
+         not a replay of the creator's historical trajectory. Proxies declared. */
+      id: "serialized-mini-drama",
+      name: "Serialized Mini-Drama",
+      tagline: "Multi-part story arcs with cliffhangers; the backlog binges.",
+      source: "Case File: The Poly Couple (Dana and the Wolf) — hundreds of episodes, TikTok/Instagram-first, picked up by Electric Now",
+      nicheProxyNote: "Modeled on a real serialized micro-drama case. Uses the comedy_entertainment RPM band (a real engine niche key). Cadence is a forward-looking planning input, not the case's 5-year historical arc — the case documents years of shorts, this scenario models the batching discipline it took.",
+      inputs: { niche: "comedy_entertainment", startSubs: 100, longformPerWeek: 1, shortsPerWeek: 4,
+        quality: "solid", growthRate: 0.15, rpmLevel: "low", q4Uplift: 0.6,
+        ads: true, sponsors: false, affiliates: false,
+        digital: false, digitalStartMonth: 6, digitalPrice: 49, digitalConvPerMonth: 0.001 }
+    },
+    {
+      /* Wave 17: modeled on a public case — inputs are planning assumptions,
+         not a replay of the creator's historical trajectory. Proxies declared. */
+      id: "asmr-roleplay",
+      name: "ASMR Roleplay Channel",
+      tagline: "Character-driven roleplays, longform volume, loyal binge audiences.",
+      source: "Case File: Gibi ASMR — 0 to 5M subscribers over 8 years, ~2,000 videos",
+      nicheProxyNote: "Modeled on a real ASMR creator case. ASMR is not an engine niche key, so proxies are declared: growth uses lifestyle 1.05x, RPM uses the lifestyle band at mid ($4–10) — roleplay ASMR sits mid-band per the atlas. The 8-year historical arc is not replayed; this is a 12-month planning sandbox.",
+      inputs: { niche: "lifestyle", startSubs: 300, longformPerWeek: 2, shortsPerWeek: 3,
+        quality: "solid", growthRate: 0.13, rpmLevel: "mid", q4Uplift: 0.6,
+        ads: true, sponsors: true, affiliates: false,
+        digital: false, digitalStartMonth: 6, digitalPrice: 29, digitalConvPerMonth: 0.001 }
     }
   ];
 

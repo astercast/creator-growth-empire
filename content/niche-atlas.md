@@ -95,7 +95,7 @@ A few under-covered corners surfaced by one source each — real signals, lighte
 
 1. **Shortlist 3 niches** from the explorer below by your skill fit (teaching, research, personality, hands-on, voice) and startup cost.
 2. **Run them through the [Niche Picker](quiz.html)** — it scores fit against your answers.
-3. **Model one in the [Empire Simulator](simulator.html)** — ASMR, betrayal mini-dramas, cooking, and personal finance ship as one-click scenarios.
+3. **Model one in the [Empire Simulator](simulator.html)** — eight one-click scenarios, including an ASMR roleplay channel modeled on Gibi ASMR and a serialized mini-drama modeled on Dana and the Wolf.
 4. **Read the linked phase** before you commit — monetization (Phase 5) and the short-form playbook are linked from every niche record.
 
 The full machine-readable dataset — all 20 niches, the avoid list, sources, and the reality check — is [`api/v1/niches.json`](api/v1/niches.json).

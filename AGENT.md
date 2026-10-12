@@ -1,7 +1,7 @@
 # AGENT.md — How an agent uses Creator Growth Empire
 
 > This site is a static machine-readable knowledge base for the creator
-> business: 9 phases, 13 tools, 12 skills, 5 case files, and a versioned JSON
+> business: 9 phases, 13 tools, 12 skills, 7 case files, and a versioned JSON
 > API. No API key, no server, no auth, no rate limits. Fetch and act.
 > Every workflow below was executed against the real `api/v1/` JSON files —
 > see `tests/agent-workflows.test.js` (run: `node tests/agent-workflows.test.js`).

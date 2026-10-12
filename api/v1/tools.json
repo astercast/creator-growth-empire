@@ -594,7 +594,9 @@
               "betrayal-dramas",
               "cooking-channel",
               "personal-finance",
-              "fitness-coach"
+              "fitness-coach",
+              "serialized-mini-drama",
+              "asmr-roleplay"
             ],
             "description": "One-click preset: loads a full named starting config from the engine's SCENARIOS library (research-sourced assumptions)."
           },

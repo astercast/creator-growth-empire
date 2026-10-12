@@ -108,7 +108,7 @@
       "description": "Index of the documented creator-business deconstructions: id, badge, title, path, words, read_minutes. Full text on the case-*.html pages. Figures are source-reported, not audited \u2014 never present as promises.",
       "schema": "api/v1/schema/case-files.json",
       "updated": "2026-10-11T00:00:00Z",
-      "records": 5,
+      "records": 7,
       "deprecated": false,
       "deprecation_note": null
     },

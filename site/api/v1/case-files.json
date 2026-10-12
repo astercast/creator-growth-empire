@@ -42,6 +42,22 @@
       "path": "case-ptya.html",
       "words": 853,
       "read_minutes": 4
+    },
+    {
+      "id": "case-poly-couple",
+      "badge": "Case File",
+      "title": "The Poly Couple",
+      "path": "case-poly-couple.html",
+      "words": 1137,
+      "read_minutes": 6
+    },
+    {
+      "id": "case-gibi-asmr",
+      "badge": "Case File",
+      "title": "Gibi ASMR",
+      "path": "case-gibi-asmr.html",
+      "words": 1155,
+      "read_minutes": 6
     }
   ]
 }

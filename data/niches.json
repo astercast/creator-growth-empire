@@ -1,1 +1,1199 @@
-{"avoid_list":[{"detail":"Post-October-2026 tightening: the clipping industry's revenue was hit (payments KSh 130-520 per 1K views, Kenyan Mirror, Oct 5 2026), Shorts re-upload channels face reach reduction from Oct 1, 2026 (this site's October 2026 research snapshot), and reposted clips with little commentary are flagged unoriginal and FYP-ineligible on TikTok.","id":"clipping-reposts","name":"Clipping / repost channels","sources":["kenyanmirror","buytiktok"]},{"detail":"YouTube's January 2026 inauthentic-content enforcement removed 16 major channels (4.7B combined views) and demonetized thousands of low-effort AI channels (UTubeKit, Jul 2026). Risky faceless formats: AI personas giving money or health advice (unmonetizable), article readings, clip compilations, templated top-5 lists (Synthesys, Oct 2026). Faceless still works — but only with visible human creativity.","id":"ai-slop","name":"Low-effort AI slop","sources":["utubekit","synthesys","lilachbullock"]},{"detail":"Fastest channel growth measured (1.59%/mo) but the worst pay: $0.33 RPM — about 3M views to earn $1,000 (AIR Media-Tech). Growth is not revenue. Made-for-kids content also faces strict ad rules.","id":"kids-trap","name":"The kids-content trap","sources":["air-tubeai"]},{"detail":"Documented removal risk on TikTok (buyTikTokAccount, Aug 2026).","id":"tiktok-gambling-crypto","name":"Gambling / crypto on TikTok","sources":["buytiktok"]},{"detail":"Flagged and FYP-ineligible (buyTikTokAccount, Aug 2026). Health education is fine; claims and diagnoses are not.","id":"tiktok-medical-claims","name":"Medical-advice claims on TikTok","sources":["buytiktok"]},{"detail":"FYP-ineligible as a category (buyTikTokAccount, Aug 2026).","id":"tiktok-news-politics","name":"Pure news / politics on TikTok","sources":["buytiktok"]}],"growth_context":"Channel-growth figures below are median monthly subscriber growth among 10K-100K-subscriber YouTube channels in the AIR Media-Tech / TubeAI study (Sep 7-27, 2026). The all-channel median was 0.97%/mo. Medians hide huge variance — they describe the middle of a cohort, not your outcome.","niches":[{"breakout_rate":"10.0% of videos beat channel average 10x","case_file":null,"caveats":["Channel growth 1.44%/mo is the AI & ML cohort median (TubeAI, Sep 2026).","Competition rising fast — speed and specificity beat breadth here."],"channel_growth_monthly_pct":1.44,"chapter_links":[{"label":"Phase 2: YouTube Mastery","page":"phase-2-youtube-mastery.html"},{"label":"Phase 5: The Monetization Stack","page":"phase-5-monetization-stack.html"}],"competition":"medium","formats":["long-form","shorts"],"id":"ai-tools","name":"AI Tools & Automation","platforms":["YouTube long-form","TikTok","YouTube Shorts"],"revenue_figures":[{"hi":20,"kind":"CPM","lo":8,"note":"creator-reported (OutlierKit, Sep 2026)"}],"revenue_tier":"high","search_growth_pct":340,"simulator_scenario":null,"single_source":false,"skill_fit":["teaching","research"],"sources":["air-tubeai","outlierkit-search","outlierkit-breakout"],"startup_cost":"low","summary":"Tutorials and breakdowns of AI tools, prompts, and automation workflows — the fastest-rising search niche of 2026."},{"breakout_rate":null,"case_file":null,"caveats":["'Most underserved' and the $10-25 CPM range both come from one source (OutlierKit). Screen-recorded tutorials keep startup cost near zero."],"channel_growth_monthly_pct":null,"chapter_links":[{"label":"Phase 2: YouTube Mastery","page":"phase-2-youtube-mastery.html"},{"label":"Phase 5: The Monetization Stack","page":"phase-5-monetization-stack.html"}],"competition":"low","formats":["long-form","shorts"],"id":"no-code-automation","name":"No-Code & Automation Workflows","platforms":["YouTube long-form","YouTube Shorts"],"revenue_figures":[{"hi":25,"kind":"CPM","lo":10,"note":"creator-reported (OutlierKit, Sep 2026)"}],"revenue_tier":"high","search_growth_pct":220,"simulator_scenario":null,"single_source":true,"skill_fit":["teaching","research"],"sources":["outlierkit-search"],"startup_cost":"low","summary":"No-code tools, Zapier/Make-style automations, and AI-agent workflows for businesses — called the most underserved niche in the 2026 research."},{"breakout_rate":"16.7% of videos beat channel average 10x","case_file":{"page":"case-ptya.html","title":"The Cohort Course"},"caveats":["The math forgives a small audience — but never present ranges as earnings. Educational content, not financial advice."],"channel_growth_monthly_pct":null,"chapter_links":[{"label":"Phase 5: The Monetization Stack","page":"phase-5-monetization-stack.html"},{"label":"Phase 7: The Business","page":"phase-7-the-business.html"}],"competition":"high","formats":["long-form","shorts"],"id":"gen-z-finance","name":"Gen Z Personal Finance","platforms":["YouTube long-form","TikTok","YouTube Shorts"],"revenue_figures":[{"hi":45,"kind":"CPM","lo":18,"note":"creator-reported (OutlierKit/Famety, 2026)"},{"hi":35,"kind":"RPM","lo":8,"note":"finance/business band (OutlierKit, Jun 2026); roughly 7x gaming/entertainment"}],"revenue_tier":"high","search_growth_pct":180,"simulator_scenario":"personal-finance","single_source":false,"skill_fit":["teaching","research"],"sources":["outlierkit-search","outlierkit-cpm","famety","outlierkit-breakout"],"startup_cost":"low","summary":"Budgeting, investing basics, and money psychology for a young audience — the highest breakout rate of any niche measured."},{"breakout_rate":null,"case_file":null,"caveats":["Search growth +160% and the $12-28 CPM range both come from one source (OutlierKit)."],"channel_growth_monthly_pct":null,"chapter_links":[{"label":"Phase 2: YouTube Mastery","page":"phase-2-youtube-mastery.html"}],"competition":"low","formats":["long-form","shorts"],"id":"cybersecurity","name":"Cybersecurity & Privacy","platforms":["YouTube long-form","YouTube Shorts"],"revenue_figures":[{"hi":28,"kind":"CPM","lo":12,"note":"creator-reported (OutlierKit, Sep 2026)"}],"revenue_tier":"high","search_growth_pct":160,"simulator_scenario":null,"single_source":true,"skill_fit":["teaching","research"],"sources":["outlierkit-search"],"startup_cost":"low","summary":"Hacking explained, privacy tools, and scam breakdowns — high advertiser demand, thin competition."},{"breakout_rate":"21x growth","case_file":null,"caveats":["Short-form RPMs are the lowest per view ($0.04-0.50 per 1K Shorts views, site data) — volume and series retention do the work here."],"channel_growth_monthly_pct":null,"chapter_links":[{"label":"Playbook: The Short-Form Playbook","page":"shortform-playbook.html"},{"label":"Phase 3: The Everywhere Engine","page":"phase-3-everywhere-engine.html"}],"competition":"low","formats":["shorts","tiktok"],"id":"betrayal-dramas","name":"Betrayal & Revenge Mini-Dramas","platforms":["TikTok","YouTube Shorts","Reels"],"revenue_figures":[{"hi":25,"kind":"CPM","lo":20,"note":"creator-reported (OutlierKit, 2026)"}],"revenue_tier":"high","search_growth_pct":null,"simulator_scenario":"betrayal-dramas","single_source":false,"skill_fit":["personality","voice"],"sources":["outlierkit-trending","buytiktok"],"startup_cost":"low","summary":"Serialized betrayal/revenge storytelling — 21x breakout growth with low competition, and TikTok's fastest-growing new category."},{"breakout_rate":"21x growth","case_file":null,"caveats":[],"channel_growth_monthly_pct":null,"chapter_links":[{"label":"Phase 2: YouTube Mastery","page":"phase-2-youtube-mastery.html"},{"label":"Phase 3: The Everywhere Engine","page":"phase-3-everywhere-engine.html"}],"competition":"low","formats":["long-form"],"id":"english-learning","name":"English Learning Podcasts","platforms":["YouTube long-form","Podcast"],"revenue_figures":[{"hi":22,"kind":"CPM","lo":18,"note":"creator-reported (OutlierKit, 2026)"},{"hi":11.88,"kind":"RPM","lo":11.88,"note":"English learning podcasts, reported (UTubeKit, Jul 2026)"}],"revenue_tier":"high","search_growth_pct":null,"simulator_scenario":null,"single_source":false,"skill_fit":["teaching","voice"],"sources":["outlierkit-trending","utubekit"],"startup_cost":"low","summary":"English-learning podcasts and lessons — 21x breakout growth with premium advertiser rates."},{"breakout_rate":"19x growth","case_file":null,"caveats":["No creator-reported revenue range found in the October 2026 research.","Health topics must stay educational — medical-advice claims are FYP-ineligible on TikTok and risky everywhere."],"channel_growth_monthly_pct":null,"chapter_links":[{"label":"Phase 2: YouTube Mastery","page":"phase-2-youtube-mastery.html"},{"label":"Phase 4: Audience to Community","page":"phase-4-audience-to-community.html"}],"competition":"very-low","formats":["long-form"],"id":"senior-health","name":"Senior Health & Digital Literacy","platforms":["YouTube long-form"],"revenue_figures":[],"revenue_tier":"unknown","search_growth_pct":null,"simulator_scenario":null,"single_source":false,"skill_fit":["teaching","personality"],"sources":["outlierkit-trending","vidiq"],"startup_cost":"low","summary":"Health explainers and tech literacy for older adults — 19x breakout growth, ultra-low competition."},{"breakout_rate":"14x growth","case_file":{"page":"case-sleep-channels.html","title":"The Sleep-Channel Network"},"caveats":["The $40-60K/mo network figure is reported by Fortune (Dec 2025) — structures proven, figures directional.","Post-Jan-2026, faceless works only with visible human creativity — original audio and real production, not templates."],"channel_growth_monthly_pct":null,"chapter_links":[{"label":"Phase 1: The Content Engine","page":"phase-1-content-engine.html"}],"competition":"low","formats":["long-form"],"id":"sleep-ambient","name":"Sleep & Ambient Channels","platforms":["YouTube long-form"],"revenue_figures":[{"hi":10,"kind":"RPM","lo":4,"note":"site lifestyle band used as proxy (calculators.json)"}],"revenue_tier":"mid","search_growth_pct":null,"simulator_scenario":"asmr-bedroom","single_source":true,"skill_fit":["voice","hands-on"],"sources":["outlierkit-trending"],"startup_cost":"low","summary":"Sleep soundscapes and ambient long-form — 14x breakout growth, low competition, and a documented 5-channel network doing $40-60K/mo."},{"breakout_rate":null,"case_file":{"page":"case-sleep-channels.html","title":"The Sleep-Channel Network"},"caveats":["Growth figure from AIR/TubeAI; revenue uses this site's lifestyle band as a declared proxy — ASMR is low-to-mid RPM."],"channel_growth_monthly_pct":1.56,"chapter_links":[{"label":"Phase 1: The Content Engine","page":"phase-1-content-engine.html"}],"competition":"medium","formats":["long-form"],"id":"asmr","name":"ASMR","platforms":["YouTube long-form","YouTube Shorts"],"revenue_figures":[{"hi":10,"kind":"RPM","lo":4,"note":"site lifestyle band used as proxy (calculators.json)"}],"revenue_tier":"mid","search_growth_pct":null,"simulator_scenario":"asmr-bedroom","single_source":true,"skill_fit":["voice","hands-on"],"sources":["air-tubeai"],"startup_cost":"low","summary":"The second-fastest-growing channel niche in the TubeAI study — loyal, binge-watching audiences at mid-tier ad rates."},{"breakout_rate":null,"case_file":null,"caveats":["No creator-reported revenue range in the October 2026 research — money here is sponsorships and B2B, not ads.","'Window narrowing' (OutlierKit, Sep 2026) — arrive with a differentiated angle or don't arrive."],"channel_growth_monthly_pct":1.5,"chapter_links":[{"label":"Phase 4: Audience to Community","page":"phase-4-audience-to-community.html"},{"label":"Phase 8: Scale","page":"phase-8-scale.html"}],"competition":"high","formats":["long-form"],"id":"creator-economy","name":"Creator Economy","platforms":["YouTube long-form","Newsletter"],"revenue_figures":[],"revenue_tier":"unknown","search_growth_pct":95,"simulator_scenario":null,"single_source":false,"skill_fit":["research","personality"],"sources":["air-tubeai","outlierkit-search"],"startup_cost":"low","summary":"Covering the creator business itself — fast channel growth, but the research flags the window as narrowing."},{"breakout_rate":null,"case_file":null,"caveats":["Low RPM means you need real scale — or a format cheap enough to run weekly."],"channel_growth_monthly_pct":1.47,"chapter_links":[{"label":"Playbook: The Short-Form Playbook","page":"shortform-playbook.html"},{"label":"Phase 1: The Content Engine","page":"phase-1-content-engine.html"}],"competition":"high","formats":["long-form","shorts"],"id":"challenges-stunts","name":"Challenges & Stunts","platforms":["YouTube long-form","YouTube Shorts"],"revenue_figures":[{"hi":5,"kind":"RPM","lo":1,"note":"site entertainment band used as proxy (calculators.json)"}],"revenue_tier":"low","search_growth_pct":null,"simulator_scenario":null,"single_source":true,"skill_fit":["personality","hands-on"],"sources":["air-tubeai"],"startup_cost":"medium","summary":"Big-swing challenge and stunt formats — above-average growth at entertainment ad rates, and the production budget shows."},{"breakout_rate":"12.5% of videos beat channel average 10x","case_file":null,"caveats":["Research-heavy: every episode is a small investigation. Handle real cases with care — defamation risk is real and this site is not legal advice."],"channel_growth_monthly_pct":1.34,"chapter_links":[{"label":"Phase 2: YouTube Mastery","page":"phase-2-youtube-mastery.html"}],"competition":"high","formats":["long-form"],"id":"true-crime","name":"True Crime","platforms":["YouTube long-form","Podcast"],"revenue_figures":[{"hi":5,"kind":"RPM","lo":1,"note":"site entertainment band used as proxy (calculators.json)"}],"revenue_tier":"low","search_growth_pct":null,"simulator_scenario":null,"single_source":false,"skill_fit":["research","voice","personality"],"sources":["air-tubeai","outlierkit-breakout"],"startup_cost":"low","summary":"Investigative storytelling with one of the strongest breakout rates measured — one in eight videos beats the channel average 10x."},{"breakout_rate":null,"case_file":null,"caveats":["One great explainer earns for years — but the first 20 videos are a research grind with little feedback."],"channel_growth_monthly_pct":1.3,"chapter_links":[{"label":"Phase 2: YouTube Mastery","page":"phase-2-youtube-mastery.html"}],"competition":"medium","formats":["long-form","shorts"],"id":"education","name":"Education & Explainers","platforms":["YouTube long-form","YouTube Shorts"],"revenue_figures":[{"hi":10.22,"kind":"RPM","lo":10.22,"note":"Education & Science, reported (AIR Media-Tech, May 2025-May 2026)"}],"revenue_tier":"high","search_growth_pct":null,"simulator_scenario":null,"single_source":true,"skill_fit":["teaching","research"],"sources":["air-tubeai"],"startup_cost":"low","summary":"History, economics, how-things-work — evergreen catalog content at one of the highest measured RPMs."},{"breakout_rate":null,"case_file":null,"caveats":["Pick this only if you'd do it for free — the ad math is the worst on the board. Brand deals are where the money actually lives."],"channel_growth_monthly_pct":1.27,"chapter_links":[{"label":"Playbook: The Short-Form Playbook","page":"shortform-playbook.html"},{"label":"Phase 3: The Everywhere Engine","page":"phase-3-everywhere-engine.html"}],"competition":"high","formats":["long-form","shorts","tiktok"],"id":"entertainment-comedy","name":"Entertainment & Comedy","platforms":["YouTube long-form","TikTok","YouTube Shorts"],"revenue_figures":[{"hi":2.43,"kind":"RPM","lo":2.43,"note":"Entertainment, reported (AIR Media-Tech, May 2025-May 2026)"},{"hi":0.7,"kind":"RPM","lo":0.3,"note":"TikTok Creator Rewards, reported (buyTikTokAccount, Aug 2026)"}],"revenue_tier":"low","search_growth_pct":null,"simulator_scenario":null,"single_source":false,"skill_fit":["personality"],"sources":["air-tubeai","buytiktok"],"startup_cost":"low","summary":"Comedy and entertainment — the biggest audiences, the lowest ad rates, the highest viral upside."},{"breakout_rate":null,"case_file":null,"caveats":["Accuracy is the brand — one viral correction can undo a year of trust. Cite sources on-screen."],"channel_growth_monthly_pct":1.2,"chapter_links":[{"label":"Phase 2: YouTube Mastery","page":"phase-2-youtube-mastery.html"}],"competition":"medium","formats":["long-form","shorts"],"id":"science","name":"Science Explainers","platforms":["YouTube long-form","YouTube Shorts"],"revenue_figures":[{"hi":10.22,"kind":"RPM","lo":10.22,"note":"Education & Science, reported (AIR Media-Tech, May 2025-May 2026)"}],"revenue_tier":"high","search_growth_pct":null,"simulator_scenario":null,"single_source":true,"skill_fit":["research","teaching"],"sources":["air-tubeai"],"startup_cost":"low","summary":"Science communication at education-tier ad rates — curiosity as a product with an evergreen catalog."},{"breakout_rate":null,"case_file":null,"caveats":["Wins come from personality plus format innovation — not from playing games well."],"channel_growth_monthly_pct":1.2,"chapter_links":[{"label":"Phase 2: YouTube Mastery","page":"phase-2-youtube-mastery.html"},{"label":"Phase 3: The Everywhere Engine","page":"phase-3-everywhere-engine.html"}],"competition":"high","formats":["long-form","shorts","live"],"id":"gaming","name":"Gaming","platforms":["YouTube long-form","Twitch","YouTube Shorts","Live"],"revenue_figures":[{"hi":2.05,"kind":"RPM","lo":2.05,"note":"Gaming, reported (AIR Media-Tech, May 2025-May 2026)"}],"revenue_tier":"low","search_growth_pct":null,"simulator_scenario":null,"single_source":true,"skill_fit":["personality","hands-on"],"sources":["air-tubeai"],"startup_cost":"low","summary":"The most crowded niche on earth — still growing, but at low ad rates and extreme competition."},{"breakout_rate":null,"case_file":null,"caveats":["Fastest channel growth (1.59%/mo) but $0.33 RPM — growth is not revenue. Made-for-kids content also faces strict ad rules; verify live."],"channel_growth_monthly_pct":1.59,"chapter_links":[{"label":"Phase 2: YouTube Mastery","page":"phase-2-youtube-mastery.html"},{"label":"Phase 5: The Monetization Stack","page":"phase-5-monetization-stack.html"}],"competition":"high","formats":["long-form","shorts"],"id":"kids","name":"Kids Content","platforms":["YouTube long-form","YouTube Shorts"],"revenue_figures":[{"hi":0.33,"kind":"RPM","lo":0.33,"note":"Kids & Teens, reported (AIR Media-Tech, May 2025-May 2026) — ~3M views to earn $1,000"}],"revenue_tier":"low","search_growth_pct":null,"simulator_scenario":null,"single_source":true,"skill_fit":["personality","hands-on"],"sources":["air-tubeai"],"startup_cost":"medium","summary":"The fastest-growing channel niche measured — and the worst-paying. The textbook growth-vs-revenue trap."},{"breakout_rate":"11.7% of videos beat channel average 10x","case_file":{"page":"case-budget-grocery.html","title":"The Budget-Grocery Newsletter"},"caveats":["No creator-reported ad range in the October 2026 research — the documented money path is a paid newsletter (~$670K/yr in the case file), not ads."],"channel_growth_monthly_pct":null,"chapter_links":[{"label":"Phase 1: The Content Engine","page":"phase-1-content-engine.html"},{"label":"Phase 5: The Monetization Stack","page":"phase-5-monetization-stack.html"}],"competition":"medium","formats":["long-form","shorts","tiktok"],"id":"cooking","name":"Cooking & Food","platforms":["YouTube long-form","TikTok","YouTube Shorts"],"revenue_figures":[],"revenue_tier":"unknown","search_growth_pct":null,"simulator_scenario":"cooking-channel","single_source":true,"skill_fit":["hands-on","personality"],"sources":["outlierkit-breakout"],"startup_cost":"low","summary":"Strong breakout rate and the classic newsletter-first monetization path — the audience converts off-platform."},{"breakout_rate":null,"case_file":null,"caveats":["Educational content, not legal or tax advice — say so on every video.","Advertiser demand skews to tax season; expect seasonality."],"channel_growth_monthly_pct":null,"chapter_links":[{"label":"Phase 5: The Monetization Stack","page":"phase-5-monetization-stack.html"},{"label":"Phase 7: The Business","page":"phase-7-the-business.html"}],"competition":"low","formats":["long-form","shorts"],"id":"legal-tax","name":"Legal & Tax Education","platforms":["YouTube long-form","YouTube Shorts"],"revenue_figures":[{"hi":40,"kind":"CPM","lo":15,"note":"creator-reported (Famety, Sep 2026)"}],"revenue_tier":"high","search_growth_pct":null,"simulator_scenario":null,"single_source":false,"skill_fit":["teaching","research"],"sources":["famety","utubekit"],"startup_cost":"low","summary":"Called the most underserved high-paying niche in the 2026 research — premium rates, thin competition."},{"breakout_rate":null,"case_file":null,"caveats":["The $12.82 RPM figure is single-sourced (UTubeKit). Post-Jan-2026, AI-narrated readings count as reused content — bring a human voice and real production."],"channel_growth_monthly_pct":null,"chapter_links":[{"label":"Phase 2: YouTube Mastery","page":"phase-2-youtube-mastery.html"},{"label":"Phase 1: The Content Engine","page":"phase-1-content-engine.html"}],"competition":"low","formats":["long-form"],"id":"story-narration","name":"Story Narration & Audio Dramas","platforms":["YouTube long-form","Podcast"],"revenue_figures":[{"hi":12.82,"kind":"RPM","lo":12.82,"note":"story narration, reported (UTubeKit, Jul 2026)"}],"revenue_tier":"high","search_growth_pct":null,"simulator_scenario":null,"single_source":false,"skill_fit":["voice","personality"],"sources":["utubekit","lilachbullock"],"startup_cost":"low","summary":"Narrated stories and long-form audio dramas — strong reported RPMs and named as having room in the 2026 research."}],"note":"The Niche Atlas dataset: 20 creator niches researched October 2026. All CPM/RPM figures are creator-reported ranges compiled from industry benchmarks — ranges, never promises. They vary by geography, season (Q4 uplift), and audience tier. Channel-growth figures are cohort medians from the AIR Media-Tech / TubeAI study (144,370 YouTube channels, 10K-100K subs, Sep 7-27, 2026), not predictions. Single-source claims are flagged on each niche record. Not financial, legal, or tax advice.","reality_check":{"detail":"Plan a business model around 10K-30K loyal subscribers — sponsorships, affiliates, products — not a million. Pick a niche where a small audience pays (high RPM), not one where you need millions of views to matter.","headline":"Fewer than 1% of YouTube channels ever reach 100K subscribers.","source":"lilachbullock"},"revenue_tier_legend":{"high":"reported ranges reaching about $8+ per 1,000 views","low":"below about $3 per 1,000 views","mid":"about $3-$8 per 1,000 views","unknown":"no creator-reported revenue range in the October 2026 research"},"sources":[{"id":"air-tubeai","note":"TubeAI study of 144,370 channels (10K-100K subs), Sep 7-27, 2026. RPMs from 300 channels, May 2025-May 2026.","observed":"2026-10-11","publisher":"AIR Media-Tech","title":"Who's growing fastest on YouTube and which niches are hot in 2025","url":"https://air.io/en/audience-growth/whos-growing-fastest-on-youtube-and-which-niches-are-hot-in-2025"},{"id":"outlierkit-search","note":"Search-growth rankings, published ~Sep 2026.","observed":"2026-10-11","publisher":"OutlierKit","title":"Top 10 most profitable YouTube niches in 2026","url":"https://outlierkit.com/resources/articles/top-10-most-profitable-youtube-niches-in-2026/"},{"id":"outlierkit-breakout","note":"August 2026 breakout data: share of videos beating the channel average by 10x.","observed":"2026-10-11","publisher":"OutlierKit","title":"Most profitable YouTube niches (blog)","url":"https://outlierkit.com/blog/most-profitable-youtube-niches"},{"id":"outlierkit-trending","note":"Breakout format growth multiples and CPM ranges.","observed":"2026-10-11","publisher":"OutlierKit","title":"Trending niches on YouTube (blog)","url":"https://outlierkit.com/blog/trending-niches-on-youtube"},{"id":"outlierkit-cpm","note":"Updated June 2026. Finance RPM $8-35 vs gaming/entertainment $1-5 (roughly a 7x gap).","observed":"2026-10-11","publisher":"OutlierKit","title":"Highest-paying YouTube niches","url":"https://outlierkit.com/blog/highest-paying-youtube-niches"},{"id":"famety","note":"Updated Sep 2026. Personal finance/investing $18-45 CPM; legal & tax education $15-40.","observed":"2026-10-11","publisher":"Famety","title":"The 15 most profitable YouTube niches","url":"https://www.famety.net/blog/the-15-most-profitable-youtube-niches"},{"id":"upgrowth","note":"Published ~Sep 2026. Finance $15-50, insurance $12-38, legal $10-35, B2B software $10-30.","observed":"2026-10-11","publisher":"upGrowth","title":"YouTube CPM overview: highest-paying niches","url":"https://upgrowth.in/youtube-cpm-overview-highest-paying-niches/"},{"id":"utubekit","note":"Legal & tax most underserved high-payer; story narration $12.82 RPM; English learning podcasts $11.88 RPM; Jan 2026 inauthentic-content enforcement.","observed":"2026-10-11","publisher":"UTubeKit","title":"Most profitable YouTube niches (July 2026)","url":"https://utubekit.com/articles/most-profitable-youtube-niches-july-2026"},{"id":"vidiq","note":"Low-competition/high-demand niches, published ~mid-2026.","observed":"2026-10-11","publisher":"vidIQ","title":"Best YouTube niches","url":"https://vidiq.com/blog/post/best-youtube-niches/"},{"id":"tikhub","note":"Published ~Sep 2026. Business CPM $9-18; Creator Rewards gate: 10K followers + 100K views/30 days.","observed":"2026-10-11","publisher":"TikHub","title":"Top 10 TikTok niches to explore in 2026","url":"https://tikhub.eu/resources/en/top-10-tiktok-niches-to-explore-in-2026"},{"id":"buytiktok","note":"Published ~Aug 2026. Watch-time leaders, fastest-growing categories, FYP-ineligible categories.","observed":"2026-10-11","publisher":"buyTikTokAccount","title":"Top 10 best TikTok niches USA in 2026","url":"https://buytiktokaccount.com/top-10-best-tiktok-niches-usa-in-2026-to-grow-faster/"},{"id":"influenceflow","note":"Published ~Sep 2026. Underserved TikTok niches; brand deals 10-50x Creator Fund.","observed":"2026-10-11","publisher":"InfluenceFlow","title":"TikTok creator earnings by niche: the complete 2026 guide","url":"https://influenceflow.io/resources/tiktok-creator-earnings-by-niche-the-complete-2026-guide/"},{"id":"lilachbullock","note":"Updated ~Oct 10, 2026. AI-slop saturation; niches with room; the <1% reality check.","observed":"2026-10-11","publisher":"Lilach Bullock","title":"Grow a faceless YouTube channel with AI","url":"https://www.lilachbullock.com/grow-faceless-youtube-channel-with-ai/"},{"id":"synthesys","note":"Published ~Oct 1, 2026. Risky faceless formats (unmonetizable advice personas, reused content).","observed":"2026-10-11","publisher":"Synthesys","title":"Faceless YouTube channel (blog)","url":"https://synthesys.io/blog/faceless-youtube-channel/"},{"id":"kenyanmirror","note":"Published Oct 5, 2026. Clipping payments KSh 130-520 per 1K views.","observed":"2026-10-11","publisher":"Kenyan Mirror","title":"YouTube tightens grip on reposted clips, hurting clippers' revenue sources","url":"https://kenyanmirror.com/article/youtube-tightens-grip-on-reposted-clips-hurting-clippers-revenue-sources"}],"updated":"2026-10-11","version":"1.0.0"}
+{
+  "avoid_list": [
+    {
+      "detail": "Post-October-2026 tightening: the clipping industry's revenue was hit (payments KSh 130-520 per 1K views, Kenyan Mirror, Oct 5 2026), Shorts re-upload channels face reach reduction from Oct 1, 2026 (this site's October 2026 research snapshot), and reposted clips with little commentary are flagged unoriginal and FYP-ineligible on TikTok.",
+      "id": "clipping-reposts",
+      "name": "Clipping / repost channels",
+      "sources": [
+        "kenyanmirror",
+        "buytiktok"
+      ]
+    },
+    {
+      "detail": "YouTube's January 2026 inauthentic-content enforcement removed 16 major channels (4.7B combined views) and demonetized thousands of low-effort AI channels (UTubeKit, Jul 2026). Risky faceless formats: AI personas giving money or health advice (unmonetizable), article readings, clip compilations, templated top-5 lists (Synthesys, Oct 2026). Faceless still works \u2014 but only with visible human creativity.",
+      "id": "ai-slop",
+      "name": "Low-effort AI slop",
+      "sources": [
+        "utubekit",
+        "synthesys",
+        "lilachbullock"
+      ]
+    },
+    {
+      "detail": "Fastest channel growth measured (1.59%/mo) but the worst pay: $0.33 RPM \u2014 about 3M views to earn $1,000 (AIR Media-Tech). Growth is not revenue. Made-for-kids content also faces strict ad rules.",
+      "id": "kids-trap",
+      "name": "The kids-content trap",
+      "sources": [
+        "air-tubeai"
+      ]
+    },
+    {
+      "detail": "Documented removal risk on TikTok (buyTikTokAccount, Aug 2026).",
+      "id": "tiktok-gambling-crypto",
+      "name": "Gambling / crypto on TikTok",
+      "sources": [
+        "buytiktok"
+      ]
+    },
+    {
+      "detail": "Flagged and FYP-ineligible (buyTikTokAccount, Aug 2026). Health education is fine; claims and diagnoses are not.",
+      "id": "tiktok-medical-claims",
+      "name": "Medical-advice claims on TikTok",
+      "sources": [
+        "buytiktok"
+      ]
+    },
+    {
+      "detail": "FYP-ineligible as a category (buyTikTokAccount, Aug 2026).",
+      "id": "tiktok-news-politics",
+      "name": "Pure news / politics on TikTok",
+      "sources": [
+        "buytiktok"
+      ]
+    }
+  ],
+  "growth_context": "Channel-growth figures below are median monthly subscriber growth among 10K-100K-subscriber YouTube channels in the AIR Media-Tech / TubeAI study (Sep 7-27, 2026). The all-channel median was 0.97%/mo. Medians hide huge variance \u2014 they describe the middle of a cohort, not your outcome.",
+  "niches": [
+    {
+      "breakout_rate": "10.0% of videos beat channel average 10x",
+      "case_file": null,
+      "caveats": [
+        "Channel growth 1.44%/mo is the AI & ML cohort median (TubeAI, Sep 2026).",
+        "Competition rising fast \u2014 speed and specificity beat breadth here."
+      ],
+      "channel_growth_monthly_pct": 1.44,
+      "chapter_links": [
+        {
+          "label": "Phase 2: YouTube Mastery",
+          "page": "phase-2-youtube-mastery.html"
+        },
+        {
+          "label": "Phase 5: The Monetization Stack",
+          "page": "phase-5-monetization-stack.html"
+        }
+      ],
+      "competition": "medium",
+      "formats": [
+        "long-form",
+        "shorts"
+      ],
+      "id": "ai-tools",
+      "name": "AI Tools & Automation",
+      "platforms": [
+        "YouTube long-form",
+        "TikTok",
+        "YouTube Shorts"
+      ],
+      "revenue_figures": [
+        {
+          "hi": 20,
+          "kind": "CPM",
+          "lo": 8,
+          "note": "creator-reported (OutlierKit, Sep 2026)"
+        }
+      ],
+      "revenue_tier": "high",
+      "search_growth_pct": 340,
+      "simulator_scenario": null,
+      "single_source": false,
+      "skill_fit": [
+        "teaching",
+        "research"
+      ],
+      "sources": [
+        "air-tubeai",
+        "outlierkit-search",
+        "outlierkit-breakout"
+      ],
+      "startup_cost": "low",
+      "summary": "Tutorials and breakdowns of AI tools, prompts, and automation workflows \u2014 the fastest-rising search niche of 2026."
+    },
+    {
+      "breakout_rate": null,
+      "case_file": null,
+      "caveats": [
+        "'Most underserved' and the $10-25 CPM range both come from one source (OutlierKit). Screen-recorded tutorials keep startup cost near zero."
+      ],
+      "channel_growth_monthly_pct": null,
+      "chapter_links": [
+        {
+          "label": "Phase 2: YouTube Mastery",
+          "page": "phase-2-youtube-mastery.html"
+        },
+        {
+          "label": "Phase 5: The Monetization Stack",
+          "page": "phase-5-monetization-stack.html"
+        }
+      ],
+      "competition": "low",
+      "formats": [
+        "long-form",
+        "shorts"
+      ],
+      "id": "no-code-automation",
+      "name": "No-Code & Automation Workflows",
+      "platforms": [
+        "YouTube long-form",
+        "YouTube Shorts"
+      ],
+      "revenue_figures": [
+        {
+          "hi": 25,
+          "kind": "CPM",
+          "lo": 10,
+          "note": "creator-reported (OutlierKit, Sep 2026)"
+        }
+      ],
+      "revenue_tier": "high",
+      "search_growth_pct": 220,
+      "simulator_scenario": null,
+      "single_source": true,
+      "skill_fit": [
+        "teaching",
+        "research"
+      ],
+      "sources": [
+        "outlierkit-search"
+      ],
+      "startup_cost": "low",
+      "summary": "No-code tools, Zapier/Make-style automations, and AI-agent workflows for businesses \u2014 called the most underserved niche in the 2026 research."
+    },
+    {
+      "breakout_rate": "16.7% of videos beat channel average 10x",
+      "case_file": {
+        "page": "case-ptya.html",
+        "title": "The Cohort Course"
+      },
+      "caveats": [
+        "The math forgives a small audience \u2014 but never present ranges as earnings. Educational content, not financial advice."
+      ],
+      "channel_growth_monthly_pct": null,
+      "chapter_links": [
+        {
+          "label": "Phase 5: The Monetization Stack",
+          "page": "phase-5-monetization-stack.html"
+        },
+        {
+          "label": "Phase 7: The Business",
+          "page": "phase-7-the-business.html"
+        }
+      ],
+      "competition": "high",
+      "formats": [
+        "long-form",
+        "shorts"
+      ],
+      "id": "gen-z-finance",
+      "name": "Gen Z Personal Finance",
+      "platforms": [
+        "YouTube long-form",
+        "TikTok",
+        "YouTube Shorts"
+      ],
+      "revenue_figures": [
+        {
+          "hi": 45,
+          "kind": "CPM",
+          "lo": 18,
+          "note": "creator-reported (OutlierKit/Famety, 2026)"
+        },
+        {
+          "hi": 35,
+          "kind": "RPM",
+          "lo": 8,
+          "note": "finance/business band (OutlierKit, Jun 2026); roughly 7x gaming/entertainment"
+        }
+      ],
+      "revenue_tier": "high",
+      "search_growth_pct": 180,
+      "simulator_scenario": "personal-finance",
+      "single_source": false,
+      "skill_fit": [
+        "teaching",
+        "research"
+      ],
+      "sources": [
+        "outlierkit-search",
+        "outlierkit-cpm",
+        "famety",
+        "outlierkit-breakout"
+      ],
+      "startup_cost": "low",
+      "summary": "Budgeting, investing basics, and money psychology for a young audience \u2014 the highest breakout rate of any niche measured."
+    },
+    {
+      "breakout_rate": null,
+      "case_file": null,
+      "caveats": [
+        "Search growth +160% and the $12-28 CPM range both come from one source (OutlierKit)."
+      ],
+      "channel_growth_monthly_pct": null,
+      "chapter_links": [
+        {
+          "label": "Phase 2: YouTube Mastery",
+          "page": "phase-2-youtube-mastery.html"
+        }
+      ],
+      "competition": "low",
+      "formats": [
+        "long-form",
+        "shorts"
+      ],
+      "id": "cybersecurity",
+      "name": "Cybersecurity & Privacy",
+      "platforms": [
+        "YouTube long-form",
+        "YouTube Shorts"
+      ],
+      "revenue_figures": [
+        {
+          "hi": 28,
+          "kind": "CPM",
+          "lo": 12,
+          "note": "creator-reported (OutlierKit, Sep 2026)"
+        }
+      ],
+      "revenue_tier": "high",
+      "search_growth_pct": 160,
+      "simulator_scenario": null,
+      "single_source": true,
+      "skill_fit": [
+        "teaching",
+        "research"
+      ],
+      "sources": [
+        "outlierkit-search"
+      ],
+      "startup_cost": "low",
+      "summary": "Hacking explained, privacy tools, and scam breakdowns \u2014 high advertiser demand, thin competition."
+    },
+    {
+      "breakout_rate": "21x growth",
+      "case_file": {
+        "page": "case-poly-couple.html",
+        "title": "The Poly Couple"
+      },
+      "caveats": [
+        "Short-form RPMs are the lowest per view ($0.04-0.50 per 1K Shorts views, site data) \u2014 volume and series retention do the work here."
+      ],
+      "channel_growth_monthly_pct": null,
+      "chapter_links": [
+        {
+          "label": "Playbook: The Short-Form Playbook",
+          "page": "shortform-playbook.html"
+        },
+        {
+          "label": "Phase 3: The Everywhere Engine",
+          "page": "phase-3-everywhere-engine.html"
+        }
+      ],
+      "competition": "low",
+      "formats": [
+        "shorts",
+        "tiktok"
+      ],
+      "id": "betrayal-dramas",
+      "name": "Betrayal & Revenge Mini-Dramas",
+      "platforms": [
+        "TikTok",
+        "YouTube Shorts",
+        "Reels"
+      ],
+      "revenue_figures": [
+        {
+          "hi": 25,
+          "kind": "CPM",
+          "lo": 20,
+          "note": "creator-reported (OutlierKit, 2026)"
+        }
+      ],
+      "revenue_tier": "high",
+      "search_growth_pct": null,
+      "simulator_scenario": "serialized-mini-drama",
+      "single_source": false,
+      "skill_fit": [
+        "personality",
+        "voice"
+      ],
+      "sources": [
+        "outlierkit-trending",
+        "buytiktok"
+      ],
+      "startup_cost": "low",
+      "summary": "Serialized betrayal/revenge storytelling \u2014 21x breakout growth with low competition, and TikTok's fastest-growing new category."
+    },
+    {
+      "breakout_rate": "21x growth",
+      "case_file": null,
+      "caveats": [],
+      "channel_growth_monthly_pct": null,
+      "chapter_links": [
+        {
+          "label": "Phase 2: YouTube Mastery",
+          "page": "phase-2-youtube-mastery.html"
+        },
+        {
+          "label": "Phase 3: The Everywhere Engine",
+          "page": "phase-3-everywhere-engine.html"
+        }
+      ],
+      "competition": "low",
+      "formats": [
+        "long-form"
+      ],
+      "id": "english-learning",
+      "name": "English Learning Podcasts",
+      "platforms": [
+        "YouTube long-form",
+        "Podcast"
+      ],
+      "revenue_figures": [
+        {
+          "hi": 22,
+          "kind": "CPM",
+          "lo": 18,
+          "note": "creator-reported (OutlierKit, 2026)"
+        },
+        {
+          "hi": 11.88,
+          "kind": "RPM",
+          "lo": 11.88,
+          "note": "English learning podcasts, reported (UTubeKit, Jul 2026)"
+        }
+      ],
+      "revenue_tier": "high",
+      "search_growth_pct": null,
+      "simulator_scenario": null,
+      "single_source": false,
+      "skill_fit": [
+        "teaching",
+        "voice"
+      ],
+      "sources": [
+        "outlierkit-trending",
+        "utubekit"
+      ],
+      "startup_cost": "low",
+      "summary": "English-learning podcasts and lessons \u2014 21x breakout growth with premium advertiser rates."
+    },
+    {
+      "breakout_rate": "19x growth",
+      "case_file": null,
+      "caveats": [
+        "No creator-reported revenue range found in the October 2026 research.",
+        "Health topics must stay educational \u2014 medical-advice claims are FYP-ineligible on TikTok and risky everywhere."
+      ],
+      "channel_growth_monthly_pct": null,
+      "chapter_links": [
+        {
+          "label": "Phase 2: YouTube Mastery",
+          "page": "phase-2-youtube-mastery.html"
+        },
+        {
+          "label": "Phase 4: Audience to Community",
+          "page": "phase-4-audience-to-community.html"
+        }
+      ],
+      "competition": "very-low",
+      "formats": [
+        "long-form"
+      ],
+      "id": "senior-health",
+      "name": "Senior Health & Digital Literacy",
+      "platforms": [
+        "YouTube long-form"
+      ],
+      "revenue_figures": [],
+      "revenue_tier": "unknown",
+      "search_growth_pct": null,
+      "simulator_scenario": null,
+      "single_source": false,
+      "skill_fit": [
+        "teaching",
+        "personality"
+      ],
+      "sources": [
+        "outlierkit-trending",
+        "vidiq"
+      ],
+      "startup_cost": "low",
+      "summary": "Health explainers and tech literacy for older adults \u2014 19x breakout growth, ultra-low competition."
+    },
+    {
+      "breakout_rate": "14x growth",
+      "case_file": {
+        "page": "case-sleep-channels.html",
+        "title": "The Sleep-Channel Network"
+      },
+      "caveats": [
+        "The $40-60K/mo network figure is reported by Fortune (Dec 2025) \u2014 structures proven, figures directional.",
+        "Post-Jan-2026, faceless works only with visible human creativity \u2014 original audio and real production, not templates."
+      ],
+      "channel_growth_monthly_pct": null,
+      "chapter_links": [
+        {
+          "label": "Phase 1: The Content Engine",
+          "page": "phase-1-content-engine.html"
+        }
+      ],
+      "competition": "low",
+      "formats": [
+        "long-form"
+      ],
+      "id": "sleep-ambient",
+      "name": "Sleep & Ambient Channels",
+      "platforms": [
+        "YouTube long-form"
+      ],
+      "revenue_figures": [
+        {
+          "hi": 10,
+          "kind": "RPM",
+          "lo": 4,
+          "note": "site lifestyle band used as proxy (calculators.json)"
+        }
+      ],
+      "revenue_tier": "mid",
+      "search_growth_pct": null,
+      "simulator_scenario": "asmr-bedroom",
+      "single_source": true,
+      "skill_fit": [
+        "voice",
+        "hands-on"
+      ],
+      "sources": [
+        "outlierkit-trending"
+      ],
+      "startup_cost": "low",
+      "summary": "Sleep soundscapes and ambient long-form \u2014 14x breakout growth, low competition, and a documented 5-channel network doing $40-60K/mo."
+    },
+    {
+      "breakout_rate": null,
+      "case_file": {
+        "page": "case-gibi-asmr.html",
+        "title": "Gibi ASMR"
+      },
+      "caveats": [
+        "Growth figure from AIR/TubeAI; revenue uses this site's lifestyle band as a declared proxy \u2014 ASMR is low-to-mid RPM."
+      ],
+      "channel_growth_monthly_pct": 1.56,
+      "chapter_links": [
+        {
+          "label": "Phase 1: The Content Engine",
+          "page": "phase-1-content-engine.html"
+        }
+      ],
+      "competition": "medium",
+      "formats": [
+        "long-form"
+      ],
+      "id": "asmr",
+      "name": "ASMR",
+      "platforms": [
+        "YouTube long-form",
+        "YouTube Shorts"
+      ],
+      "revenue_figures": [
+        {
+          "hi": 10,
+          "kind": "RPM",
+          "lo": 4,
+          "note": "site lifestyle band used as proxy (calculators.json)"
+        }
+      ],
+      "revenue_tier": "mid",
+      "search_growth_pct": null,
+      "simulator_scenario": "asmr-roleplay",
+      "single_source": true,
+      "skill_fit": [
+        "voice",
+        "hands-on"
+      ],
+      "sources": [
+        "air-tubeai"
+      ],
+      "startup_cost": "low",
+      "summary": "The second-fastest-growing channel niche in the TubeAI study \u2014 loyal, binge-watching audiences at mid-tier ad rates."
+    },
+    {
+      "breakout_rate": null,
+      "case_file": null,
+      "caveats": [
+        "No creator-reported revenue range in the October 2026 research \u2014 money here is sponsorships and B2B, not ads.",
+        "'Window narrowing' (OutlierKit, Sep 2026) \u2014 arrive with a differentiated angle or don't arrive."
+      ],
+      "channel_growth_monthly_pct": 1.5,
+      "chapter_links": [
+        {
+          "label": "Phase 4: Audience to Community",
+          "page": "phase-4-audience-to-community.html"
+        },
+        {
+          "label": "Phase 8: Scale",
+          "page": "phase-8-scale.html"
+        }
+      ],
+      "competition": "high",
+      "formats": [
+        "long-form"
+      ],
+      "id": "creator-economy",
+      "name": "Creator Economy",
+      "platforms": [
+        "YouTube long-form",
+        "Newsletter"
+      ],
+      "revenue_figures": [],
+      "revenue_tier": "unknown",
+      "search_growth_pct": 95,
+      "simulator_scenario": null,
+      "single_source": false,
+      "skill_fit": [
+        "research",
+        "personality"
+      ],
+      "sources": [
+        "air-tubeai",
+        "outlierkit-search"
+      ],
+      "startup_cost": "low",
+      "summary": "Covering the creator business itself \u2014 fast channel growth, but the research flags the window as narrowing."
+    },
+    {
+      "breakout_rate": null,
+      "case_file": null,
+      "caveats": [
+        "Low RPM means you need real scale \u2014 or a format cheap enough to run weekly."
+      ],
+      "channel_growth_monthly_pct": 1.47,
+      "chapter_links": [
+        {
+          "label": "Playbook: The Short-Form Playbook",
+          "page": "shortform-playbook.html"
+        },
+        {
+          "label": "Phase 1: The Content Engine",
+          "page": "phase-1-content-engine.html"
+        }
+      ],
+      "competition": "high",
+      "formats": [
+        "long-form",
+        "shorts"
+      ],
+      "id": "challenges-stunts",
+      "name": "Challenges & Stunts",
+      "platforms": [
+        "YouTube long-form",
+        "YouTube Shorts"
+      ],
+      "revenue_figures": [
+        {
+          "hi": 5,
+          "kind": "RPM",
+          "lo": 1,
+          "note": "site entertainment band used as proxy (calculators.json)"
+        }
+      ],
+      "revenue_tier": "low",
+      "search_growth_pct": null,
+      "simulator_scenario": null,
+      "single_source": true,
+      "skill_fit": [
+        "personality",
+        "hands-on"
+      ],
+      "sources": [
+        "air-tubeai"
+      ],
+      "startup_cost": "medium",
+      "summary": "Big-swing challenge and stunt formats \u2014 above-average growth at entertainment ad rates, and the production budget shows."
+    },
+    {
+      "breakout_rate": "12.5% of videos beat channel average 10x",
+      "case_file": null,
+      "caveats": [
+        "Research-heavy: every episode is a small investigation. Handle real cases with care \u2014 defamation risk is real and this site is not legal advice."
+      ],
+      "channel_growth_monthly_pct": 1.34,
+      "chapter_links": [
+        {
+          "label": "Phase 2: YouTube Mastery",
+          "page": "phase-2-youtube-mastery.html"
+        }
+      ],
+      "competition": "high",
+      "formats": [
+        "long-form"
+      ],
+      "id": "true-crime",
+      "name": "True Crime",
+      "platforms": [
+        "YouTube long-form",
+        "Podcast"
+      ],
+      "revenue_figures": [
+        {
+          "hi": 5,
+          "kind": "RPM",
+          "lo": 1,
+          "note": "site entertainment band used as proxy (calculators.json)"
+        }
+      ],
+      "revenue_tier": "low",
+      "search_growth_pct": null,
+      "simulator_scenario": null,
+      "single_source": false,
+      "skill_fit": [
+        "research",
+        "voice",
+        "personality"
+      ],
+      "sources": [
+        "air-tubeai",
+        "outlierkit-breakout"
+      ],
+      "startup_cost": "low",
+      "summary": "Investigative storytelling with one of the strongest breakout rates measured \u2014 one in eight videos beats the channel average 10x."
+    },
+    {
+      "breakout_rate": null,
+      "case_file": null,
+      "caveats": [
+        "One great explainer earns for years \u2014 but the first 20 videos are a research grind with little feedback."
+      ],
+      "channel_growth_monthly_pct": 1.3,
+      "chapter_links": [
+        {
+          "label": "Phase 2: YouTube Mastery",
+          "page": "phase-2-youtube-mastery.html"
+        }
+      ],
+      "competition": "medium",
+      "formats": [
+        "long-form",
+        "shorts"
+      ],
+      "id": "education",
+      "name": "Education & Explainers",
+      "platforms": [
+        "YouTube long-form",
+        "YouTube Shorts"
+      ],
+      "revenue_figures": [
+        {
+          "hi": 10.22,
+          "kind": "RPM",
+          "lo": 10.22,
+          "note": "Education & Science, reported (AIR Media-Tech, May 2025-May 2026)"
+        }
+      ],
+      "revenue_tier": "high",
+      "search_growth_pct": null,
+      "simulator_scenario": null,
+      "single_source": true,
+      "skill_fit": [
+        "teaching",
+        "research"
+      ],
+      "sources": [
+        "air-tubeai"
+      ],
+      "startup_cost": "low",
+      "summary": "History, economics, how-things-work \u2014 evergreen catalog content at one of the highest measured RPMs."
+    },
+    {
+      "breakout_rate": null,
+      "case_file": null,
+      "caveats": [
+        "Pick this only if you'd do it for free \u2014 the ad math is the worst on the board. Brand deals are where the money actually lives."
+      ],
+      "channel_growth_monthly_pct": 1.27,
+      "chapter_links": [
+        {
+          "label": "Playbook: The Short-Form Playbook",
+          "page": "shortform-playbook.html"
+        },
+        {
+          "label": "Phase 3: The Everywhere Engine",
+          "page": "phase-3-everywhere-engine.html"
+        }
+      ],
+      "competition": "high",
+      "formats": [
+        "long-form",
+        "shorts",
+        "tiktok"
+      ],
+      "id": "entertainment-comedy",
+      "name": "Entertainment & Comedy",
+      "platforms": [
+        "YouTube long-form",
+        "TikTok",
+        "YouTube Shorts"
+      ],
+      "revenue_figures": [
+        {
+          "hi": 2.43,
+          "kind": "RPM",
+          "lo": 2.43,
+          "note": "Entertainment, reported (AIR Media-Tech, May 2025-May 2026)"
+        },
+        {
+          "hi": 0.7,
+          "kind": "RPM",
+          "lo": 0.3,
+          "note": "TikTok Creator Rewards, reported (buyTikTokAccount, Aug 2026)"
+        }
+      ],
+      "revenue_tier": "low",
+      "search_growth_pct": null,
+      "simulator_scenario": null,
+      "single_source": false,
+      "skill_fit": [
+        "personality"
+      ],
+      "sources": [
+        "air-tubeai",
+        "buytiktok"
+      ],
+      "startup_cost": "low",
+      "summary": "Comedy and entertainment \u2014 the biggest audiences, the lowest ad rates, the highest viral upside."
+    },
+    {
+      "breakout_rate": null,
+      "case_file": null,
+      "caveats": [
+        "Accuracy is the brand \u2014 one viral correction can undo a year of trust. Cite sources on-screen."
+      ],
+      "channel_growth_monthly_pct": 1.2,
+      "chapter_links": [
+        {
+          "label": "Phase 2: YouTube Mastery",
+          "page": "phase-2-youtube-mastery.html"
+        }
+      ],
+      "competition": "medium",
+      "formats": [
+        "long-form",
+        "shorts"
+      ],
+      "id": "science",
+      "name": "Science Explainers",
+      "platforms": [
+        "YouTube long-form",
+        "YouTube Shorts"
+      ],
+      "revenue_figures": [
+        {
+          "hi": 10.22,
+          "kind": "RPM",
+          "lo": 10.22,
+          "note": "Education & Science, reported (AIR Media-Tech, May 2025-May 2026)"
+        }
+      ],
+      "revenue_tier": "high",
+      "search_growth_pct": null,
+      "simulator_scenario": null,
+      "single_source": true,
+      "skill_fit": [
+        "research",
+        "teaching"
+      ],
+      "sources": [
+        "air-tubeai"
+      ],
+      "startup_cost": "low",
+      "summary": "Science communication at education-tier ad rates \u2014 curiosity as a product with an evergreen catalog."
+    },
+    {
+      "breakout_rate": null,
+      "case_file": null,
+      "caveats": [
+        "Wins come from personality plus format innovation \u2014 not from playing games well."
+      ],
+      "channel_growth_monthly_pct": 1.2,
+      "chapter_links": [
+        {
+          "label": "Phase 2: YouTube Mastery",
+          "page": "phase-2-youtube-mastery.html"
+        },
+        {
+          "label": "Phase 3: The Everywhere Engine",
+          "page": "phase-3-everywhere-engine.html"
+        }
+      ],
+      "competition": "high",
+      "formats": [
+        "long-form",
+        "shorts",
+        "live"
+      ],
+      "id": "gaming",
+      "name": "Gaming",
+      "platforms": [
+        "YouTube long-form",
+        "Twitch",
+        "YouTube Shorts",
+        "Live"
+      ],
+      "revenue_figures": [
+        {
+          "hi": 2.05,
+          "kind": "RPM",
+          "lo": 2.05,
+          "note": "Gaming, reported (AIR Media-Tech, May 2025-May 2026)"
+        }
+      ],
+      "revenue_tier": "low",
+      "search_growth_pct": null,
+      "simulator_scenario": null,
+      "single_source": true,
+      "skill_fit": [
+        "personality",
+        "hands-on"
+      ],
+      "sources": [
+        "air-tubeai"
+      ],
+      "startup_cost": "low",
+      "summary": "The most crowded niche on earth \u2014 still growing, but at low ad rates and extreme competition."
+    },
+    {
+      "breakout_rate": null,
+      "case_file": null,
+      "caveats": [
+        "Fastest channel growth (1.59%/mo) but $0.33 RPM \u2014 growth is not revenue. Made-for-kids content also faces strict ad rules; verify live."
+      ],
+      "channel_growth_monthly_pct": 1.59,
+      "chapter_links": [
+        {
+          "label": "Phase 2: YouTube Mastery",
+          "page": "phase-2-youtube-mastery.html"
+        },
+        {
+          "label": "Phase 5: The Monetization Stack",
+          "page": "phase-5-monetization-stack.html"
+        }
+      ],
+      "competition": "high",
+      "formats": [
+        "long-form",
+        "shorts"
+      ],
+      "id": "kids",
+      "name": "Kids Content",
+      "platforms": [
+        "YouTube long-form",
+        "YouTube Shorts"
+      ],
+      "revenue_figures": [
+        {
+          "hi": 0.33,
+          "kind": "RPM",
+          "lo": 0.33,
+          "note": "Kids & Teens, reported (AIR Media-Tech, May 2025-May 2026) \u2014 ~3M views to earn $1,000"
+        }
+      ],
+      "revenue_tier": "low",
+      "search_growth_pct": null,
+      "simulator_scenario": null,
+      "single_source": true,
+      "skill_fit": [
+        "personality",
+        "hands-on"
+      ],
+      "sources": [
+        "air-tubeai"
+      ],
+      "startup_cost": "medium",
+      "summary": "The fastest-growing channel niche measured \u2014 and the worst-paying. The textbook growth-vs-revenue trap."
+    },
+    {
+      "breakout_rate": "11.7% of videos beat channel average 10x",
+      "case_file": {
+        "page": "case-budget-grocery.html",
+        "title": "The Budget-Grocery Newsletter"
+      },
+      "caveats": [
+        "No creator-reported ad range in the October 2026 research \u2014 the documented money path is a paid newsletter (~$670K/yr in the case file), not ads."
+      ],
+      "channel_growth_monthly_pct": null,
+      "chapter_links": [
+        {
+          "label": "Phase 1: The Content Engine",
+          "page": "phase-1-content-engine.html"
+        },
+        {
+          "label": "Phase 5: The Monetization Stack",
+          "page": "phase-5-monetization-stack.html"
+        }
+      ],
+      "competition": "medium",
+      "formats": [
+        "long-form",
+        "shorts",
+        "tiktok"
+      ],
+      "id": "cooking",
+      "name": "Cooking & Food",
+      "platforms": [
+        "YouTube long-form",
+        "TikTok",
+        "YouTube Shorts"
+      ],
+      "revenue_figures": [],
+      "revenue_tier": "unknown",
+      "search_growth_pct": null,
+      "simulator_scenario": "cooking-channel",
+      "single_source": true,
+      "skill_fit": [
+        "hands-on",
+        "personality"
+      ],
+      "sources": [
+        "outlierkit-breakout"
+      ],
+      "startup_cost": "low",
+      "summary": "Strong breakout rate and the classic newsletter-first monetization path \u2014 the audience converts off-platform."
+    },
+    {
+      "breakout_rate": null,
+      "case_file": null,
+      "caveats": [
+        "Educational content, not legal or tax advice \u2014 say so on every video.",
+        "Advertiser demand skews to tax season; expect seasonality."
+      ],
+      "channel_growth_monthly_pct": null,
+      "chapter_links": [
+        {
+          "label": "Phase 5: The Monetization Stack",
+          "page": "phase-5-monetization-stack.html"
+        },
+        {
+          "label": "Phase 7: The Business",
+          "page": "phase-7-the-business.html"
+        }
+      ],
+      "competition": "low",
+      "formats": [
+        "long-form",
+        "shorts"
+      ],
+      "id": "legal-tax",
+      "name": "Legal & Tax Education",
+      "platforms": [
+        "YouTube long-form",
+        "YouTube Shorts"
+      ],
+      "revenue_figures": [
+        {
+          "hi": 40,
+          "kind": "CPM",
+          "lo": 15,
+          "note": "creator-reported (Famety, Sep 2026)"
+        }
+      ],
+      "revenue_tier": "high",
+      "search_growth_pct": null,
+      "simulator_scenario": null,
+      "single_source": false,
+      "skill_fit": [
+        "teaching",
+        "research"
+      ],
+      "sources": [
+        "famety",
+        "utubekit"
+      ],
+      "startup_cost": "low",
+      "summary": "Called the most underserved high-paying niche in the 2026 research \u2014 premium rates, thin competition."
+    },
+    {
+      "breakout_rate": null,
+      "case_file": null,
+      "caveats": [
+        "The $12.82 RPM figure is single-sourced (UTubeKit). Post-Jan-2026, AI-narrated readings count as reused content \u2014 bring a human voice and real production."
+      ],
+      "channel_growth_monthly_pct": null,
+      "chapter_links": [
+        {
+          "label": "Phase 2: YouTube Mastery",
+          "page": "phase-2-youtube-mastery.html"
+        },
+        {
+          "label": "Phase 1: The Content Engine",
+          "page": "phase-1-content-engine.html"
+        }
+      ],
+      "competition": "low",
+      "formats": [
+        "long-form"
+      ],
+      "id": "story-narration",
+      "name": "Story Narration & Audio Dramas",
+      "platforms": [
+        "YouTube long-form",
+        "Podcast"
+      ],
+      "revenue_figures": [
+        {
+          "hi": 12.82,
+          "kind": "RPM",
+          "lo": 12.82,
+          "note": "story narration, reported (UTubeKit, Jul 2026)"
+        }
+      ],
+      "revenue_tier": "high",
+      "search_growth_pct": null,
+      "simulator_scenario": null,
+      "single_source": false,
+      "skill_fit": [
+        "voice",
+        "personality"
+      ],
+      "sources": [
+        "utubekit",
+        "lilachbullock"
+      ],
+      "startup_cost": "low",
+      "summary": "Narrated stories and long-form audio dramas \u2014 strong reported RPMs and named as having room in the 2026 research."
+    }
+  ],
+  "note": "The Niche Atlas dataset: 20 creator niches researched October 2026. All CPM/RPM figures are creator-reported ranges compiled from industry benchmarks \u2014 ranges, never promises. They vary by geography, season (Q4 uplift), and audience tier. Channel-growth figures are cohort medians from the AIR Media-Tech / TubeAI study (144,370 YouTube channels, 10K-100K subs, Sep 7-27, 2026), not predictions. Single-source claims are flagged on each niche record. Not financial, legal, or tax advice.",
+  "reality_check": {
+    "detail": "Plan a business model around 10K-30K loyal subscribers \u2014 sponsorships, affiliates, products \u2014 not a million. Pick a niche where a small audience pays (high RPM), not one where you need millions of views to matter.",
+    "headline": "Fewer than 1% of YouTube channels ever reach 100K subscribers.",
+    "source": "lilachbullock"
+  },
+  "revenue_tier_legend": {
+    "high": "reported ranges reaching about $8+ per 1,000 views",
+    "low": "below about $3 per 1,000 views",
+    "mid": "about $3-$8 per 1,000 views",
+    "unknown": "no creator-reported revenue range in the October 2026 research"
+  },
+  "sources": [
+    {
+      "id": "air-tubeai",
+      "note": "TubeAI study of 144,370 channels (10K-100K subs), Sep 7-27, 2026. RPMs from 300 channels, May 2025-May 2026.",
+      "observed": "2026-10-11",
+      "publisher": "AIR Media-Tech",
+      "title": "Who's growing fastest on YouTube and which niches are hot in 2025",
+      "url": "https://air.io/en/audience-growth/whos-growing-fastest-on-youtube-and-which-niches-are-hot-in-2025"
+    },
+    {
+      "id": "outlierkit-search",
+      "note": "Search-growth rankings, published ~Sep 2026.",
+      "observed": "2026-10-11",
+      "publisher": "OutlierKit",
+      "title": "Top 10 most profitable YouTube niches in 2026",
+      "url": "https://outlierkit.com/resources/articles/top-10-most-profitable-youtube-niches-in-2026/"
+    },
+    {
+      "id": "outlierkit-breakout",
+      "note": "August 2026 breakout data: share of videos beating the channel average by 10x.",
+      "observed": "2026-10-11",
+      "publisher": "OutlierKit",
+      "title": "Most profitable YouTube niches (blog)",
+      "url": "https://outlierkit.com/blog/most-profitable-youtube-niches"
+    },
+    {
+      "id": "outlierkit-trending",
+      "note": "Breakout format growth multiples and CPM ranges.",
+      "observed": "2026-10-11",
+      "publisher": "OutlierKit",
+      "title": "Trending niches on YouTube (blog)",
+      "url": "https://outlierkit.com/blog/trending-niches-on-youtube"
+    },
+    {
+      "id": "outlierkit-cpm",
+      "note": "Updated June 2026. Finance RPM $8-35 vs gaming/entertainment $1-5 (roughly a 7x gap).",
+      "observed": "2026-10-11",
+      "publisher": "OutlierKit",
+      "title": "Highest-paying YouTube niches",
+      "url": "https://outlierkit.com/blog/highest-paying-youtube-niches"
+    },
+    {
+      "id": "famety",
+      "note": "Updated Sep 2026. Personal finance/investing $18-45 CPM; legal & tax education $15-40.",
+      "observed": "2026-10-11",
+      "publisher": "Famety",
+      "title": "The 15 most profitable YouTube niches",
+      "url": "https://www.famety.net/blog/the-15-most-profitable-youtube-niches"
+    },
+    {
+      "id": "upgrowth",
+      "note": "Published ~Sep 2026. Finance $15-50, insurance $12-38, legal $10-35, B2B software $10-30.",
+      "observed": "2026-10-11",
+      "publisher": "upGrowth",
+      "title": "YouTube CPM overview: highest-paying niches",
+      "url": "https://upgrowth.in/youtube-cpm-overview-highest-paying-niches/"
+    },
+    {
+      "id": "utubekit",
+      "note": "Legal & tax most underserved high-payer; story narration $12.82 RPM; English learning podcasts $11.88 RPM; Jan 2026 inauthentic-content enforcement.",
+      "observed": "2026-10-11",
+      "publisher": "UTubeKit",
+      "title": "Most profitable YouTube niches (July 2026)",
+      "url": "https://utubekit.com/articles/most-profitable-youtube-niches-july-2026"
+    },
+    {
+      "id": "vidiq",
+      "note": "Low-competition/high-demand niches, published ~mid-2026.",
+      "observed": "2026-10-11",
+      "publisher": "vidIQ",
+      "title": "Best YouTube niches",
+      "url": "https://vidiq.com/blog/post/best-youtube-niches/"
+    },
+    {
+      "id": "tikhub",
+      "note": "Published ~Sep 2026. Business CPM $9-18; Creator Rewards gate: 10K followers + 100K views/30 days.",
+      "observed": "2026-10-11",
+      "publisher": "TikHub",
+      "title": "Top 10 TikTok niches to explore in 2026",
+      "url": "https://tikhub.eu/resources/en/top-10-tiktok-niches-to-explore-in-2026"
+    },
+    {
+      "id": "buytiktok",
+      "note": "Published ~Aug 2026. Watch-time leaders, fastest-growing categories, FYP-ineligible categories.",
+      "observed": "2026-10-11",
+      "publisher": "buyTikTokAccount",
+      "title": "Top 10 best TikTok niches USA in 2026",
+      "url": "https://buytiktokaccount.com/top-10-best-tiktok-niches-usa-in-2026-to-grow-faster/"
+    },
+    {
+      "id": "influenceflow",
+      "note": "Published ~Sep 2026. Underserved TikTok niches; brand deals 10-50x Creator Fund.",
+      "observed": "2026-10-11",
+      "publisher": "InfluenceFlow",
+      "title": "TikTok creator earnings by niche: the complete 2026 guide",
+      "url": "https://influenceflow.io/resources/tiktok-creator-earnings-by-niche-the-complete-2026-guide/"
+    },
+    {
+      "id": "lilachbullock",
+      "note": "Updated ~Oct 10, 2026. AI-slop saturation; niches with room; the <1% reality check.",
+      "observed": "2026-10-11",
+      "publisher": "Lilach Bullock",
+      "title": "Grow a faceless YouTube channel with AI",
+      "url": "https://www.lilachbullock.com/grow-faceless-youtube-channel-with-ai/"
+    },
+    {
+      "id": "synthesys",
+      "note": "Published ~Oct 1, 2026. Risky faceless formats (unmonetizable advice personas, reused content).",
+      "observed": "2026-10-11",
+      "publisher": "Synthesys",
+      "title": "Faceless YouTube channel (blog)",
+      "url": "https://synthesys.io/blog/faceless-youtube-channel/"
+    },
+    {
+      "id": "kenyanmirror",
+      "note": "Published Oct 5, 2026. Clipping payments KSh 130-520 per 1K views.",
+      "observed": "2026-10-11",
+      "publisher": "Kenyan Mirror",
+      "title": "YouTube tightens grip on reposted clips, hurting clippers' revenue sources",
+      "url": "https://kenyanmirror.com/article/youtube-tightens-grip-on-reposted-clips-hurting-clippers-revenue-sources"
+    }
+  ],
+  "updated": "2026-10-11",
+  "version": "1.0.0"
+}

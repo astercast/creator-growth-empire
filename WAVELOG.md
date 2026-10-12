@@ -715,3 +715,58 @@ assertions, 47 agent-workflow assertions — incl. the new Workflow 6 against
 the real JSONs, llms counts fresh).
 
 Commit: 868a16f (local) → d793f2d08b79e36ee8035cfabfbdc7aa4b1c3aeb (pushed 2026-10-11, remote tree verified via GitHub API).
+
+
+## Wave 17 — Case files 6–7: The Poly Couple + Gibi ASMR (2026-10-11)
+
+Deep sourced content wave. Two new case files in the existing format, both
+with public, verifiable trajectories — zero invented numbers, zero income
+claims (revenue is never stated or implied in either file):
+
+1. **The Poly Couple** (`pages/case-poly-couple.md`) — Dana and the Wolf's
+   serialized micro-drama, from the wave-7 21x breakout-format territory.
+   Music covers → vlogs → a fictionalized-relationship shorts series;
+   the Oatly casting (Lana Spring) and love-triangle arc shot it to
+   popularity. Sourced numbers: nearly 400K YouTube subs, 10K+ consistent
+   viewers/episode, hundreds of episodes deep (Trill Magazine, Oct 2026);
+   the 11,000-view turning point and Electric Now pickup after TikTok
+   discovery by Dean Devlin (Dope Interviews); series underway by ~2021
+   (podcast archive, flagged as estimate). Takeaways tie to Playbook
+   serialized-drama mechanics (numbered series, recurring characters),
+   Niche Atlas betrayal-dramas card, Content Engine batching, and the new
+   `serialized-mini-drama` simulator scenario.
+
+2. **Gibi ASMR** (`pages/case-gibi-asmr.md`) — the ASMR case from the same
+   territory. June 2016 channel creation, full-time from day one (took
+   winter quarter off), 100K by Jan 2017, then public milestone dates:
+   1M (Jun 7, 2018) → 5M (Jun 3, 2024), ~5.2M subs / 2.56B views /
+   ~2,000 videos (SocialBlade, Oct 2026 — flagged verify-live). Mechanics:
+   cosplay-convention crossover into roleplay ASMR, original + licensed
+   characters, Twitch/sideways expansion, mainstream crossovers (Rooster
+   Teeth, Polydor, Reese The Movie), then the talent-agency stack. Takeaways
+   tie to Content Engine batching, Niche Atlas ASMR card, the new
+   `asmr-roleplay` simulator scenario, and the avoid-list lesson (visible
+   human creativity as the moat under the 2026 inauthentic-content
+   enforcement).
+
+**Simulator scenarios** (both case-modeled, proxies declared in
+`nicheProxyNote`, labeled as planning assumptions not historical replays):
+`serialized-mini-drama` (comedy_entertainment, 1 longform + 4 shorts/wk) and
+`asmr-roleplay` (lifestyle proxy, 2 longform + 3 shorts/wk, sponsors on).
+Scenario library now 8; the `scenario_id` enum in the simulator tool schema
+grew 6 → 8, and the wf4 workflow tests were updated to match.
+
+**Cross-links**: case-files hub (CASE_HUB + 7-file nav chain
+ptya → poly-couple → gibi-asmr → agents), footer nav, home sticker
+("7 case files"), Niche Atlas niche cards (betrayal-dramas →
+case-poly-couple.html; asmr → case-gibi-asmr.html, simulator_scenario
+pointers updated), Short-Form Playbook serialized mini-dramas bullet,
+AGENT.md/README.md counts.
+
+Validation: `scripts/build.py` clean (9 chapters, 13 tools, 12 skills,
+7 case files, 16,153 words); `scripts/validate.sh` **8/8 GREEN** (23 JS
+files node --check, JSON parse, draft-07 schemas, 0 broken links (2,076
+checked), byte-identical rebuild, 80 sim + 78 deal-room + 49 content-engine
+engine assertions, 59 agent-workflow assertions).
+
+Commit: df3d813 (local; pushed — remote tree verified via GitHub API).

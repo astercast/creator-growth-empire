@@ -263,7 +263,8 @@ TOOLS_API = [
           "digital_price_usd": {"type": "number", "minimum": 1, "default": 49},
           "scenario_id": {"type": "string",
                     "enum": ["asmr-bedroom", "tech-reviewer", "betrayal-dramas",
-                             "cooking-channel", "personal-finance", "fitness-coach"],
+                             "cooking-channel", "personal-finance", "fitness-coach",
+                             "serialized-mini-drama", "asmr-roleplay"],
                     "description": "One-click preset: loads a full named starting config from the engine's SCENARIOS library (research-sourced assumptions)."},
           "horizon": {"type": "integer", "enum": [12, 24], "default": 12,
                       "description": "12 or 24 months. 24 adds year-2 diminishing returns: monthly growth decays x0.94/mo after month 12 (the engine's labeled curve)."},
@@ -451,6 +452,22 @@ CASE_HUB = [
      "primary": "YouTube ad revenue (5 channels)",
      "team": "Davis + business partner",
      "timeline": "2020 dropout → 5-channel network"},
+    {"id": "case-poly-couple",
+     "headline": "Nearly 400K YouTube subs on a serialized micro-drama",
+     "stat": "100s of episodes · 10K+ viewers/episode · landed on Electric Now",
+     "source": "Trill Magazine (Oct 2026); Dope Interviews; ScreenChatter",
+     "niche": "Serialized mini-drama / short-form storytelling",
+     "primary": "Audience → streaming pickup (Electric Now)",
+     "team": "Duo + cast and crew",
+     "timeline": "~2021 TikTok series → 2026 Electric Now pickup"},
+    {"id": "case-gibi-asmr",
+     "headline": "0 → 5M subscribers in 8 years on ASMR roleplay",
+     "stat": "2.3B+ lifetime views · ~2,000 videos",
+     "source": "Wikipedia; The Daily Northwestern (2019); Wikitubia; SocialBlade",
+     "niche": "ASMR / roleplay",
+     "primary": "YouTube ad revenue + brand work + talent agency",
+     "team": "Solo → agency (Human Media Group / Mana Talent)",
+     "timeline": "Jun 2016 channel → 1M (2018) → 5M (2024)"},
 ]
 
 # Markdown landing pages rendered like chapters (pages/*.md -> site/*.html).
@@ -467,6 +484,10 @@ MARKDOWN_PAGES = [
     ("case-mavwicks", "pages/case-mavwicks.md", "Mavwicks on TikTok Shop", "Case File",
      ("case-ptya", "The Cohort Course")),
     ("case-ptya", "pages/case-ptya.md", "The Cohort Course", "Case File",
+     ("case-poly-couple", "The Poly Couple")),
+    ("case-poly-couple", "pages/case-poly-couple.md", "The Poly Couple", "Case File",
+     ("case-gibi-asmr", "Gibi ASMR")),
+    ("case-gibi-asmr", "pages/case-gibi-asmr.md", "Gibi ASMR", "Case File",
      ("agents", "The Agent Surface")),
     ("hiring", "pages/hiring.md", "The First Hire", "Guide",
      ("hiring-calculator", "Try the Hiring Cost Calculator")),
@@ -652,6 +673,8 @@ def page_template(title, body, active="", extra_head=""):
       <a href="case-sleep-channels.html">The Sleep-Channel Network</a>
       <a href="case-mavwicks.html">Mavwicks on TikTok Shop</a>
       <a href="case-ptya.html">The Cohort Course</a>
+      <a href="case-poly-couple.html">The Poly Couple</a>
+      <a href="case-gibi-asmr.html">Gibi ASMR</a>
     </nav>
   </div>
   <div class="footer-fine">PRIVATE RESEARCH ARCHIVE · PLATFORM FACTS VERIFIED OCT 2026 — VERIFY LIVE BEFORE ACTING · NOT FINANCIAL, LEGAL, OR TAX ADVICE</div>
@@ -911,7 +934,7 @@ def build():
         for c in CASE_HUB)
     case_body = (
         hub_hero("DOCUMENTED DECONSTRUCTIONS", "Case Files",
-                 "Five real creator businesses, taken apart: the stack, the decisions, the numbers — reported, not audited.",
+                 "Seven real creator businesses, taken apart: the stack, the decisions, the numbers — reported, not audited.",
                  "violet")
         + '<section class="hub-group" aria-label="Case files">'
         f'<div class="brief-grid">{case_cards}</div></section>'
@@ -959,7 +982,7 @@ def build():
         for i, m in enumerate(m for m in mdpage_meta if m["badge"] == "Case File"))
     case_section = (f'<section class="section"><div class="section-head"><h2>Empire Case Files</h2>'
                     f'<span class="section-tag">documented deconstructions // no guru hype</span>'
-                    f'<a href="case-files.html" class="section-more">All 5 case files →</a></div>'
+                    f'<a href="case-files.html" class="section-more">All 7 case files →</a></div>'
                     f'<div class="phase-grid reveal-stagger">{case_cards}</div></section>')
     index_body = f"""
 <section class="hero">
@@ -970,7 +993,7 @@ def build():
   <div class="sticker-row reveal">
     <span class="sticker">9 phases</span>
     <span class="sticker sticker-coral">13 power tools</span>
-    <span class="sticker sticker-violet">5 case files</span>
+    <span class="sticker sticker-violet">7 case files</span>
     <span class="sticker sticker-gold">2026 verified</span>
     <span class="sticker sticker-violet">Zero → empire</span>
   </div>
