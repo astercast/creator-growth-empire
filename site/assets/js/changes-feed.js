@@ -15,7 +15,7 @@
   // relative (not root-absolute): matches the site's asset convention and keeps
   // the fallback working from any origin that serves this page at root —
   // including a local file:// copy of the built site.
-  var STATIC_PATH = "api/v1/changes.json";
+  var STATIC_PATH = "data/v1/changes.json";
   var PLATFORM_ORDER = ["youtube", "tiktok", "instagram", "facebook", "x", "other"];
   var PLATFORM_LABELS = {
     youtube: "YouTube", tiktok: "TikTok", instagram: "Instagram",

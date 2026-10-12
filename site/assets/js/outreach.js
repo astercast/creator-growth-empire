@@ -2,7 +2,7 @@
  * UMD: works in the browser (window.Outreach) and in node (module.exports).
  *
  * HONESTY CONTRACT: every benchmark is a reported range from the 2026 rate
- * card (api/v1/calculators.json sponsorship_rate_card_2026), never a quote.
+ * card (data/v1/calculators.json sponsorship_rate_card_2026), never a quote.
  * Pitch templates never invent metrics — every stat is a [bracketed]
  * placeholder the creator fills with their own real numbers. The contract
  * checklist is a negotiation aid, NOT legal advice. Not financial, legal, or

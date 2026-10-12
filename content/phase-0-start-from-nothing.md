@@ -59,7 +59,7 @@ Before you lock your niche statement, here's what the actual data says about whe
 - **Clipping / re-upload channels.** YouTube's October 1, 2026 Shorts update cuts the *channel-level* reach of aggregator accounts that repost others' content without adding anything of their own. The era of the zero-effort clip channel is ending; originals are prioritized (Phase 2 has the details).
 - **Low-effort AI-slop faceless channels.** YouTube's January 2026 inauthentic-content enforcement removed 16 major channels (4.7 billion combined views) and demonetized thousands of low-effort AI channels. Faceless still works — but only with visible human creativity: real commentary, real editing, a real perspective. Generic templated automation had one of the lowest breakout rates measured (3.1%).
 
-Machine-readable: `api/v1/calculators.json` → `niche_growth_2026` and `platform_rules_2026`.
+Machine-readable: `data/v1/calculators.json` → `niche_growth_2026` and `platform_rules_2026`.
 
 ## Positioning: why YOU and not them
 

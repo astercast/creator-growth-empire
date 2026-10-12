@@ -346,7 +346,7 @@
 
   /* ---------- Content Engine 2.0: algorithm signals (Oct 2026) ---------- */
 
-  /* Mirrors api/v1/content-engine.json -> algorithm_signals. source_label is
+  /* Mirrors data/v1/content-engine.json -> algorithm_signals. source_label is
    * one of: platform-published | verified-multi-source | single-source |
    * creator-lore. The map is a planning reference — platforms change the
    * rules; verify live before acting on anything that matters. */

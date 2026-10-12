@@ -4,7 +4,7 @@
  * (module.exports).
  *
  * HONESTY CONTRACT: every rate is a reported range read from the real
- * 2026 rate card (api/v1/calculators.json sponsorship_rate_card_2026)
+ * 2026 rate card (data/v1/calculators.json sponsorship_rate_card_2026)
  * and the 2026 usage-rights benchmarks (usage_rights_benchmarks_2026) —
  * never a quote, never a promise. The quote is the TOP of the range
  * (creators list ~23% above what they accept; the expected close lands

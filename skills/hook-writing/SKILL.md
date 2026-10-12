@@ -38,7 +38,7 @@ Video: budget home studio build. Title: "I Built a $200 Home Studio."
 - Winner: v4 for long-form; v3's text-on-screen version for the short-form cut.
 
 ## API references
-- `GET api/v1/chapters.json` → Phase 1 chapter (scripting, hook rewrite teardown)
+- `GET data/v1/chapters.json` → Phase 1 chapter (scripting, hook rewrite teardown)
 
 ## Pitfalls
 - Burying the hook after branding — no animated logo before the payoff. Ever.

@@ -30,7 +30,7 @@ Month: 8 videos. Outliers: "Studio build" (12x), "Gear I regret" (7x). Both high
 - Three decisions: (1) double honest-gear format, (2) fix sponsor-read placement, (3) experiment: one contrarian take video.
 
 ## API references
-- `GET api/v1/chapters.json` → Phase 2 chapter (analytics that matter, retention repair)
+- `GET data/v1/chapters.json` → Phase 2 chapter (analytics that matter, retention repair)
 
 ## Pitfalls
 - Reviewing too often — weekly analytics-checking is anxiety, not strategy. Monthly.

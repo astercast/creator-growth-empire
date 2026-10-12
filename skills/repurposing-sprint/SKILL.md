@@ -36,7 +36,7 @@ Pillar: 12-minute video — "I tested 5 budget mics; the $30 one won." Core insi
 - Total marginal effort: ~2.5 hours for five platform-native assets from one shoot.
 
 ## API references
-- `GET api/v1/chapters.json` → Phase 3 chapter (the full pillar-to-everywhere SOP, native-grammar rules)
+- `GET data/v1/chapters.json` → Phase 3 chapter (the full pillar-to-everywhere SOP, native-grammar rules)
 - Tool: `repurpose.html` (interactive mission-card generator — same SOP, hook adaptations auto-built from your idea line)
 - `skills/content-repurposing/` (sibling skill — the strategy-level repackaging system; this skill is the execution SOP)
 

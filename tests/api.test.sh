@@ -130,8 +130,8 @@ done
 
 # 10. static fallbacks present (the §3 fallback contract files)
 for f in "changes.json" "niches.json" "schema/envelope.json" "schema/changes.json"; do
-  if curl -sf -m 10 -o /dev/null "$BASE/api/v1/$f"; then ok "static /api/v1/$f";
-  else nope "static /api/v1/$f"; fi
+  if curl -sf -m 10 -o /dev/null "$BASE/data/v1/$f"; then ok "static /data/v1/$f";
+  else nope "static /data/v1/$f"; fi
 done
 
 # 11. cache headers: GET functions carry the §1.6 edge policy
@@ -147,8 +147,13 @@ v = json.load(open("vercel.json"))
 assert v["outputDirectory"] == "site", "outputDirectory"
 assert v["buildCommand"] == "python3 scripts/build.py", "buildCommand"
 fns = v["functions"]
-assert set(fns) == {"api/health.js", "api/changes.js", "api/niches.js",
-                    "api/cron/algorithm-watch.js"}, "explicit function paths, no globs"
+assert set(fns) == {"api/functions/health.js", "api/functions/changes.js",
+                    "api/functions/niches.js",
+                    "api/functions/cron/algorithm-watch.js"}, \
+    "explicit function paths, no globs"
+import os
+for fp in fns:
+    assert os.path.isfile(fp), f"functions-map path must exist: {fp}"
 assert all("runtime" not in cfg for cfg in fns.values()), \
     "no runtime key on any function"
 assert all(cfg.get("maxDuration") == 10 for cfg in fns.values()), \

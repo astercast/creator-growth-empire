@@ -28,9 +28,9 @@ Creator: 30K TikTok followers, one POD hoodie ($42 retail, $14 profit) + one own
 - Math check: 500 live viewers × 4% conversion × $15 avg profit ≈ **$300/session** — illustrative, not a promise; first sessions usually run lower while the format finds its audience.
 
 ## API references
-- `GET api/v1/chapters.json` → Phase 6 chapter (POD margins, the samples rule, the 100-unit kill rule, owned-inventory upgrade path)
-- `GET api/v1/chapters.json` → Phase 5 chapter (TikTok live shopping +60% YoY, affiliate engagement benchmarks)
-- `GET api/v1/calculators.json` → `revenue_splits` for platform take-rate context
+- `GET data/v1/chapters.json` → Phase 6 chapter (POD margins, the samples rule, the 100-unit kill rule, owned-inventory upgrade path)
+- `GET data/v1/chapters.json` → Phase 5 chapter (TikTok live shopping +60% YoY, affiliate engagement benchmarks)
+- `GET data/v1/calculators.json` → `revenue_splits` for platform take-rate context
 
 ## Pitfalls
 - Running a live with no samples — what arrives must match what you hold up on camera.

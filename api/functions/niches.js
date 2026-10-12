@@ -1,7 +1,7 @@
 'use strict';
 /* GET /api/niches — niche dataset passthrough (§7.5).
-   No inputs. Returns api/v1/niches.json with its generated_at freshness
-   surfaced in the payload. Fallback: api/v1/niches.json (same file). */
+   No inputs. Returns data/v1/niches.json with its generated_at freshness
+   surfaced in the payload. Fallback: data/v1/niches.json (same file). */
 
 const fs = require('fs');
 const path = require('path');
@@ -11,8 +11,13 @@ const { checkLimit, clientIp, ipHash } = require('../lib/ratelimit.js');
 const SERVICE = 'creator-algwatch';
 const VERSION = '1.0.0';
 
+// Data file resolution: static data lives at repo-root data/v1/ (never under
+// api/ — Vercel does not serve static files from api/). Candidates cover the
+// repo layout (api/functions/*.js -> ../../data/v1), the Vercel bundle (same
+// relative layout; file tracing bundles data/v1), and the served site/ mirror
+// (site/api/*.js -> ../data/v1). First readable candidate wins.
 function dataFile(name) {
-  const cands = [path.join(__dirname, 'v1', name), path.join(__dirname, '..', 'v1', name)];
+  const cands = [path.join(__dirname, '..', '..', 'data', 'v1', name), path.join(__dirname, '..', 'data', 'v1', name)];
   for (const c of cands) {
     try { fs.accessSync(c, fs.constants.R_OK); return c; } catch (e) { /* try next */ }
   }
@@ -41,7 +46,7 @@ module.exports = (req, res) => {
   } catch (e) {
     console.log('[upstream] niches-feed fail error=' + (e.message || e));
     return env.err(res, SERVICE, VERSION, 502, 'UPSTREAM_UNAVAILABLE',
-      'The niche dataset is unavailable right now; try the static fallback at /api/v1/niches.json.',
+      'The niche dataset is unavailable right now; try the static fallback at /data/v1/niches.json.',
       { sources: ['niches-feed'] });
   }
   env.ok(res, SERVICE, VERSION, {

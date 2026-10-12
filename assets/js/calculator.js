@@ -19,7 +19,7 @@
         sviews = v("c-sviews"), aff = v("c-aff");
     var niche = document.getElementById("c-niche").value;
 
-    fetch("api/v1/calculators.json").then(function (r) { return r.json(); }).then(function (cfg) {
+    fetch("data/v1/calculators.json").then(function (r) { return r.json(); }).then(function (cfg) {
       var band = (cfg.youtube_longform_rpm_bands[niche] || [2, 10]);
       var adLo = views / 1000 * band[0], adHi = views / 1000 * band[1];
       var sh = cfg.shorts_rpm_per_1000;
@@ -42,8 +42,8 @@
     }).catch(function () {
       out.innerHTML = '<div class="error-state" role="alert" style="grid-column:1/-1">' +
         "<strong>CONFIG LOAD FAILED</strong>" +
-        "<p>Could not load the calculator config (<code>api/v1/calculators.json</code>). " +
-        "Check that <code>api/v1/</code> is deployed alongside this page, then try again — your inputs are still here.</p>" +
+        "<p>Could not load the calculator config (<code>data/v1/calculators.json</code>). " +
+        "Check that <code>data/v1/</code> is deployed alongside this page, then try again — your inputs are still here.</p>" +
         '<button type="button" class="btn btn-ghost" data-retry>Try again</button></div>';
     });
   });

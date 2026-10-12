@@ -3,15 +3,15 @@
 #
 # Stages:
 #   1. JS syntax ......... node --check every source JS file (assets/js, tests)
-#   2. JSON parse ........ every JSON file under api/, data/, skills/, scripts/
+#   2. JSON parse ........ every JSON file under data/, skills/, scripts/ (api/ holds only function handlers)
 #   3. JSON Schema ....... draft-07 validation of index / chapters / case-files /
 #                         glossary / calculators / skills / tools against
-#                         api/v1/schema/ (doc-level + per-record, $refs resolved)
+#                         data/v1/schema/ (doc-level + per-record, $refs resolved)
 #   4. Relative links .... every href/src in every site/ page resolves on disk;
-#                         JS fetch() literals resolve too; api/v1/index.json
+#                         JS fetch() literals resolve too; data/v1/index.json
 #                         endpoint paths + schema URLs all exist
 #   5. Build reproduc. ... scripts/build.py clean rebuild leaves zero git diff
-#                         on site/, api/, llms.txt, llms-full.txt, skills/index.json
+#                         on site/, data/, llms.txt, llms-full.txt, skills/index.json
 #   6. Engine tests ..... node tests/sim-engine.test.js + tests/deal-room.test.js
 #                         + tests/content-engine.test.js + tests/money-map.test.js
 #                         + tests/video-doctor.test.js + tests/niche-atlas.test.js
@@ -22,7 +22,7 @@
 #   7. llms.txt fresh ... chapter/tool/reference/guide/case-file/skill counts match
 #                         build.py; every chapter marker present in llms-full.txt
 #   8. Agent workflows ... node tests/agent-workflows.test.js — the AGENT.md
-#                         example workflows executed against the real api/v1 JSON
+#                         example workflows executed against the real data/v1 JSON
 #
 # Exit code: 0 only if every stage passes. Anything failing is a real issue
 # to fix, not cosmetic churn.
@@ -71,7 +71,7 @@ from pathlib import Path
 from jsonschema import Draft7Validator, RefResolver
 
 ROOT = Path(".")
-SCH = ROOT / "api" / "v1" / "schema"
+SCH = ROOT / "data" / "v1" / "schema"
 failures = []
 
 def schema(name):
@@ -103,7 +103,7 @@ checks = [
     ("changes.json", "changes", changes_schema_rec, "change"),
 ]
 for fname, key, val, label in checks:
-    for i, rec in enumerate(json.loads((ROOT / "api" / "v1" / fname).read_text())[key]):
+    for i, rec in enumerate(json.loads((ROOT / "data" / "v1" / fname).read_text())[key]):
         for e in val.iter_errors(rec):
             failures.append(f"{fname}[{i}] {label}: {e.message}")
 
@@ -119,12 +119,12 @@ for fname, sname in [("index.json", "index.json"),
                      ("deal-templates.json", "deal-templates.json"),
                      ("content-engine.json", "content-engine.json"),
                      ("changes.json", "changes.json")]:
-    for e in schema(sname).iter_errors(json.loads((ROOT / "api" / "v1" / fname).read_text())):
+    for e in schema(sname).iter_errors(json.loads((ROOT / "data" / "v1" / fname).read_text())):
         failures.append(f"{fname}: {e.message}")
 
 # manifest coherence: every json endpoint's schema URL must exist on disk,
 # and every schema file must be referenced by the manifest
-idx = json.loads((ROOT / "api" / "v1" / "index.json").read_text())
+idx = json.loads((ROOT / "data" / "v1" / "index.json").read_text())
 manifest_schemas = set()
 for ep in idx["endpoints"]:
     if ep.get("schema"):
@@ -141,11 +141,11 @@ if on_disk != manifest_schemas:
 
 # every record's path must resolve to a generated page
 for fname, key in [("chapters.json", "chapters"), ("case-files.json", "case_files")]:
-    for rec in json.loads((ROOT / "api" / "v1" / fname).read_text())[key]:
+    for rec in json.loads((ROOT / "data" / "v1" / fname).read_text())[key]:
         if not (ROOT / "site" / rec["path"]).exists():
             failures.append(f"{fname}: path '{rec['path']}' has no site/ page")
 # every tool record's page must resolve too
-for rec in json.loads((ROOT / "api" / "v1" / "tools.json").read_text())["tools"]:
+for rec in json.loads((ROOT / "data" / "v1" / "tools.json").read_text())["tools"]:
     if not (ROOT / "site" / rec["page"]).exists():
         failures.append(f"tools.json: page '{rec['page']}' has no site/ page")
 
@@ -214,25 +214,25 @@ for js in sorted((ROOT / "site" / "assets" / "js").glob("*.js")):
             continue
         check_link(ROOT / "site", m.group(1), js.relative_to(ROOT))
 
-# api/v1/index.json endpoints must all exist on disk (the API Explorer BASE+name pattern).
+# data/v1/index.json endpoints must all exist on disk (the API Explorer BASE+name pattern).
 # Wave 12: the manifest is a list of endpoint records — json endpoints have a
 # single `path`, html endpoints have `paths[]` (site-root-relative), the
 # schemas record has `files[]` (schema-dir-relative). Each json endpoint's
 # schema URL must resolve too.
-idx = json.loads((ROOT / "api" / "v1" / "index.json").read_text())
+idx = json.loads((ROOT / "data" / "v1" / "index.json").read_text())
 for ep in idx["endpoints"]:
     kind = ep.get("kind")
     if kind == "json":
-        check_link(ROOT, ep["path"], "api/v1/index.json")
+        check_link(ROOT, ep["path"], "data/v1/index.json")
         if ep.get("schema"):
-            check_link(ROOT, ep["schema"], "api/v1/index.json")
+            check_link(ROOT, ep["schema"], "data/v1/index.json")
     elif kind == "html":
         for p in ep.get("paths", []):
-            check_link(ROOT / "site", p, "api/v1/index.json")
+            check_link(ROOT / "site", p, "data/v1/index.json")
     elif kind == "directory":
         d = ROOT / ep["path"]
         for f in ep.get("files", []):
-            check_link(d, f.split(" — ")[0], "api/v1/index.json")
+            check_link(d, f.split(" — ")[0], "data/v1/index.json")
 
 print(f"  checked {total} links")
 if broken:
@@ -252,7 +252,7 @@ python3 scripts/build.py >/dev/null 2>&1
 if [ $? -ne 0 ]; then
   fail "scripts/build.py crashed"
 else
-  DIFF=$(git diff --stat -- site api llms.txt llms-full.txt skills/index.json 2>/dev/null)
+  DIFF=$(git diff --stat -- site data llms.txt llms-full.txt skills/index.json 2>/dev/null)
   if [ -z "$DIFF" ]; then
     pass "clean rebuild produces byte-identical generated output"
   else
@@ -348,7 +348,7 @@ EOF
 [ $? -eq 0 ] && pass "llms.txt/llms-full.txt fresh" || FAIL=$((FAIL+1))
 
 # ---------------------------------------------------------------- stage 8 ---
-stage 8 "agent workflows (AGENT.md examples vs real api/v1 JSON)"
+stage 8 "agent workflows (AGENT.md examples vs real data/v1 JSON)"
 node tests/agent-workflows.test.js >/tmp/cge_validate_agent.log 2>&1
 if [ $? -eq 0 ]; then
   N=$(grep -c "PASS" /tmp/cge_validate_agent.log)

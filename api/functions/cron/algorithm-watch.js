@@ -21,7 +21,7 @@ const { readJson, writeJsonIfChanged } = require('../../lib/github.js');
 const SERVICE = 'creator-algwatch';
 const VERSION = '1.0.0';
 const JOB = 'algorithm-watch';
-const REPO_FILE = 'api/v1/changes.json'; // served at site/api/v1/changes.json (§2.1)
+const REPO_FILE = 'data/v1/changes.json'; // served at site/data/v1/changes.json (§2.1)
 const RETENTION_DAYS = 90;
 const MAX_NEW_PER_RUN = 25;
 
@@ -252,7 +252,7 @@ module.exports = async (req, res) => {
   } catch (e) {
     console.log('[cron] ' + JOB + ' fail stage=' + (e.stage || 'run') + ' error=' + (e.message || e) + ' request_id=' + requestId);
     return env.err(res, SERVICE, VERSION, 500, 'REFRESH_FAILED',
-      'The algorithm-watch refresh failed partway through; yesterday\u2019s feed is still served from /api/changes and /api/v1/changes.json.',
+      'The algorithm-watch refresh failed partway through; yesterday\u2019s feed is still served from /api/changes and /data/v1/changes.json.',
       { stage: e.stage || 'run' });
   }
 };

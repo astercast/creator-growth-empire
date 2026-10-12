@@ -58,26 +58,26 @@ All twenty-one tools, grouped by job (Plan / Money / Content): [Tools hub](tools
 - [Case File: The Clipping Squeeze](case-clippers-squeeze.html) — 6 min read
 - [Case File: The Monthly Floor](case-shorts-floor.html) — 6 min read
 - [All case files — index + comparison table](case-files.html)
-- api/v1/case-files.json — machine-readable case-file index
+- data/v1/case-files.json — machine-readable case-file index
 
 ## Guides & Playbooks
 - [Guide: The First Hire](hiring.html) — 14 min read
 - [Playbook: The Short-Form Playbook](shortform-playbook.html) — 15 min read
 
 ## API
-- api/v1/index.json — self-describing manifest: every endpoint, schema URL, updated timestamp, record counts
-- api/v1/chapters.json
-- api/v1/niches.json — the Niche Atlas dataset v2.1.0: 20 researched niches, 2027 outlook layer (trajectory badges, breakout spotlights, platform signals, stream-fit matrix), ten breakout-format dossiers, avoid list, sources, reality check
-- api/v1/glossary.json
-- api/v1/calculators.json
-- api/v1/skills.json
-- api/v1/case-files.json
-- api/v1/tools.json — every tool's programmatic input schema
-- api/v1/deal-templates.json — Deal Room data: negotiation scripts, red-flag checklist, usage-rights tiers, pitch templates, contract red-flag checklist
-- api/v1/content-engine.json — Content Engine data: idea formats, Playbook hook structures, dealing rules, Repurposing 2.0 map, originality guardrails, deal-slot guidance
-- api/v1/changes.json — Algorithm Watch feed: dated algorithm/policy/monetization changes with sources + confidence flags (verified/single-source); live at /api/changes
-- what-changed.html — Algorithm Watch 'what changed' feed page: pre-rendered from api/v1/changes.json, live-updated from /api/changes when reachable (status badge reports live/cached honestly)
-- api/v1/schema/ — JSON Schema (draft-07) for every endpoint
+- data/v1/index.json — self-describing manifest: every endpoint, schema URL, updated timestamp, record counts
+- data/v1/chapters.json
+- data/v1/niches.json — the Niche Atlas dataset v2.1.0: 20 researched niches, 2027 outlook layer (trajectory badges, breakout spotlights, platform signals, stream-fit matrix), ten breakout-format dossiers, avoid list, sources, reality check
+- data/v1/glossary.json
+- data/v1/calculators.json
+- data/v1/skills.json
+- data/v1/case-files.json
+- data/v1/tools.json — every tool's programmatic input schema
+- data/v1/deal-templates.json — Deal Room data: negotiation scripts, red-flag checklist, usage-rights tiers, pitch templates, contract red-flag checklist
+- data/v1/content-engine.json — Content Engine data: idea formats, Playbook hook structures, dealing rules, Repurposing 2.0 map, originality guardrails, deal-slot guidance
+- data/v1/changes.json — Algorithm Watch feed: dated algorithm/policy/monetization changes with sources + confidence flags (verified/single-source); live at /api/changes
+- what-changed.html — Algorithm Watch 'what changed' feed page: pre-rendered from data/v1/changes.json, live-updated from /api/changes when reachable (status badge reports live/cached honestly)
+- data/v1/schema/ — JSON Schema (draft-07) for every endpoint
 
 ## Agents
 - AGENT.md — how an agent uses this site: base URL pattern, example requests, 14 end-to-end workflows, tool input schemas

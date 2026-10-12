@@ -1,7 +1,7 @@
 /* tests/agent-workflows.test.js — wave 12.
  *
  * Executes the 5 end-to-end workflows documented in AGENT.md against the
- * REAL local api/v1 JSON files (plus the shipped sim engine, which is UMD
+ * REAL local data/v1 JSON files (plus the shipped sim engine, which is UMD
  * and require()-able in node). This proves the agent workflows actually
  * work — they are not aspirational pseudocode.
  *
@@ -11,7 +11,7 @@
 const fs = require("fs");
 const path = require("path");
 
-const API = path.join(__dirname, "..", "api", "v1");
+const API = path.join(__dirname, "..", "data", "v1");
 const load = (f) => JSON.parse(fs.readFileSync(path.join(API, f), "utf8"));
 
 let pass = 0, fail = 0;
@@ -394,7 +394,7 @@ function check(name, cond, detail) {
 
 /* ============ Workflow 6: run the content engine end-to-end ============
  * AGENT.md §Workflow 6: ideas -> 90-day calendar -> batching check ->
- * repurposing 2.0, all via api/v1/content-engine.json + the shipped engine. */
+ * repurposing 2.0, all via data/v1/content-engine.json + the shipped engine. */
 (function workflow6() {
   const CE = require("../assets/js/content-engine.js");
   const ce = load("content-engine.json");

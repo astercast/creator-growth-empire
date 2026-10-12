@@ -1,8 +1,8 @@
 /* The Outreach Center — browser UI wiring (no pure math here).
  * Storage: localStorage only (keys cge.outreach.*), no accounts, no network
  * writes. Math lives in window.Outreach (assets/js/outreach.js, UMD);
- * benchmarks come from api/v1/calculators.json, templates + contract flags
- * from api/v1/deal-templates.json. Negotiation aid — not financial, legal,
+ * benchmarks come from data/v1/calculators.json, templates + contract flags
+ * from data/v1/deal-templates.json. Negotiation aid — not financial, legal,
  * or tax advice. */
 (function () {
   "use strict";
@@ -287,8 +287,8 @@
 
   /* ---------------- boot ---------------- */
   Promise.all([
-    fetch("api/v1/calculators.json").then(function (r) { return r.json(); }),
-    fetch("api/v1/deal-templates.json").then(function (r) { return r.json(); })
+    fetch("data/v1/calculators.json").then(function (r) { return r.json(); }),
+    fetch("data/v1/deal-templates.json").then(function (r) { return r.json(); })
   ]).then(function (arr) {
     cfg = arr[0];
     tpl = arr[1];
@@ -303,6 +303,6 @@
     }
     renderContract();
   }).catch(function () {
-    announce("Couldn't load the rate data (api/v1 JSON unreachable). The benchmarks live at api/v1/calculators.json and api/v1/deal-templates.json.");
+    announce("Couldn't load the rate data (api/v1 JSON unreachable). The benchmarks live at data/v1/calculators.json and data/v1/deal-templates.json.");
   });
 })();

@@ -43,7 +43,7 @@ or
 ```
 
 No URL is hardcoded anywhere. Set it once per page template; the widget
-fetches `${base}/api/v1/trends.json`.
+fetches `${base}/data/v1/trends.json`.
 
 - **Production:** point at the deployed trend-machine origin
   (e.g. `https://trend-machine.example.com`) once it is deployed and serving
@@ -53,10 +53,10 @@ fetches `${base}/api/v1/trends.json`.
   (e.g. `python3 -m http.server` inside it) and set the base to
   `http://localhost:8000`. Same-directory dev (both sites from one server) works too.
 
-## Expected schema (`api/v1/trends.json`)
+## Expected schema (`data/v1/trends.json`)
 
 The trend-machine's live feed (confirmed 2026-10-11 from its wave-1
-`data/trends.json` seed — the published `api/v1/trends.json` mirrors this):
+`data/trends.json` seed — the published `data/v1/trends.json` mirrors this):
 
 ```json
 {

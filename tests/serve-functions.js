@@ -4,7 +4,7 @@
    does for these plain CommonJS handlers: route -> require(handler) -> (req,res)).
    Serves:
      /api/health, /api/changes, /api/niches, /api/cron/algorithm-watch  (functions)
-     /api/v1/*  (static files from site/api/v1)
+     /data/v1/* (static files from site/data/v1)
    Usage: node tests/serve-functions.js [port]   (default 32113) */
 
 const http = require('http');
@@ -24,9 +24,9 @@ const ROUTES = {
 const MIME = { '.json': 'application/json; charset=utf-8', '.html': 'text/html; charset=utf-8' };
 
 function loadStatic(urlPath, res) {
-  const rel = urlPath.replace(/^\/api\/v1\//, '');
+  const rel = urlPath.replace(/^\/data\/v1\//, '');
   if (rel.includes('..')) { res.statusCode = 400; res.end('bad path'); return; }
-  const file = path.join(SITE, 'api', 'v1', rel);
+  const file = path.join(SITE, 'data', 'v1', rel);
   fs.readFile(file, (err, data) => {
     if (err) { res.statusCode = 404; res.end('not found'); return; }
     res.setHeader('Content-Type', MIME[path.extname(file)] || 'application/octet-stream');
@@ -40,7 +40,7 @@ const server = http.createServer((req, res) => {
   const u = new URL(req.url || '/', 'http://localhost');
   const p = u.pathname.replace(/\/$/, '') || '/';
 
-  if (p.startsWith('/api/v1/')) return loadStatic(p, res);
+  if (p.startsWith('/data/v1/')) return loadStatic(p, res);
 
   const modPath = ROUTES[p];
   if (!modPath) { res.statusCode = 404; res.end('no such function'); return; }

@@ -16,8 +16,13 @@ const FUNCTIONS = ['health', 'changes', 'niches', 'cron/algorithm-watch'];
 
 // Static files the functions depend on, with freshness SLAs (§7.5: 24h).
 // Resolved like the readers: deployed layout first, repo source fallback.
+// Data file resolution: static data lives at repo-root data/v1/ (never under
+// api/ — Vercel does not serve static files from api/). Candidates cover the
+// repo layout (api/functions/*.js -> ../../data/v1), the Vercel bundle (same
+// relative layout; file tracing bundles data/v1), and the served site/ mirror
+// (site/api/*.js -> ../data/v1). First readable candidate wins.
 function dataFile(name) {
-  const cands = [path.join(__dirname, 'v1', name), path.join(__dirname, '..', 'v1', name)];
+  const cands = [path.join(__dirname, '..', '..', 'data', 'v1', name), path.join(__dirname, '..', 'data', 'v1', name)];
   for (const c of cands) {
     try { fs.accessSync(c, fs.constants.R_OK); return c; } catch (e) { /* try next */ }
   }

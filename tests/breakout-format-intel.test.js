@@ -155,14 +155,14 @@ doss.forEach(function (d) {
 });
 ok(badSrcs.length === 0, "every dossier source id exists in niches.json sources" +
   (badSrcs.length ? " BAD: " + badSrcs.join(", ") : ""));
-var apiNichesPath = path.join(ROOT, "api", "v1", "niches.json");
+var apiNichesPath = path.join(ROOT, "data", "v1", "niches.json");
 if (fs.existsSync(apiNichesPath)) {
   var apiNiches = JSON.parse(fs.readFileSync(apiNichesPath, "utf8"));
   ok(Array.isArray(apiNiches.breakout_format_dossiers) &&
      apiNiches.breakout_format_dossiers.length === 10,
-     "built api/v1/niches.json carries the 10 dossiers");
+     "built data/v1/niches.json carries the 10 dossiers");
 }
-var schemaPath = path.join(ROOT, "api", "v1", "schema", "niches.json");
+var schemaPath = path.join(ROOT, "data", "v1", "schema", "niches.json");
 if (fs.existsSync(schemaPath)) {
   var schema = JSON.parse(fs.readFileSync(schemaPath, "utf8"));
   ok(schema.properties && schema.properties.breakout_format_dossiers,

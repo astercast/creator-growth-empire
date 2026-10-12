@@ -3,7 +3,7 @@
    Reads the committed changes.json (the repo is the database, §5) and applies
    ?platform= ?since= ?limit= filters. Every entry carries its source +
    confidence flag (verified | single-source); no change is ever stated
-   without a source. Fallback: api/v1/changes.json. */
+   without a source. Fallback: data/v1/changes.json. */
 
 const fs = require('fs');
 const path = require('path');
@@ -13,12 +13,13 @@ const { checkLimit, clientIp, ipHash } = require('../lib/ratelimit.js');
 const SERVICE = 'creator-algwatch';
 const VERSION = '1.0.0';
 
-// Data file resolution: functions run at <servedRoot>/api/*.js on Vercel
-// (data at <servedRoot>/api/v1/), but the canonical sources live at
-// repo-root api/functions/ + api/v1/ for local test runs. Prefer the
-// deployed layout, fall back to the repo source.
+// Data file resolution: static data lives at repo-root data/v1/ (never under
+// api/ — Vercel does not serve static files from api/). Candidates cover the
+// repo layout (api/functions/*.js -> ../../data/v1), the Vercel bundle (same
+// relative layout; file tracing bundles data/v1), and the served site/ mirror
+// (site/api/*.js -> ../data/v1). First readable candidate wins.
 function dataFile(name) {
-  const cands = [path.join(__dirname, 'v1', name), path.join(__dirname, '..', 'v1', name)];
+  const cands = [path.join(__dirname, '..', '..', 'data', 'v1', name), path.join(__dirname, '..', 'data', 'v1', name)];
   for (const c of cands) {
     try { fs.accessSync(c, fs.constants.R_OK); return c; } catch (e) { /* try next */ }
   }
@@ -96,7 +97,7 @@ module.exports = (req, res) => {
   } catch (e) {
     console.log('[upstream] changes-feed fail error=' + (e.message || e));
     return env.err(res, SERVICE, VERSION, 502, 'UPSTREAM_UNAVAILABLE',
-      'The algorithm-change feed is unavailable right now; try the static fallback at /api/v1/changes.json.',
+      'The algorithm-change feed is unavailable right now; try the static fallback at /data/v1/changes.json.',
       { sources: ['changes-feed'] });
   }
 

@@ -34,7 +34,7 @@ Video: "I built a $200 home studio" — CTR 1.4%, retention 52% (good).
 - Result after repackage: CTR 4.1%.
 
 ## API references
-- `GET api/v1/chapters.json` → Phase 1 (packaging) and Phase 2 (48-hour playbook)
+- `GET data/v1/chapters.json` → Phase 1 (packaging) and Phase 2 (48-hour playbook)
 
 ## Pitfalls
 - Redesigning the thumbnail when retention is the problem — packaging can't save bad content.

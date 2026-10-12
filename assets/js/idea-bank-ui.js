@@ -36,7 +36,7 @@
 
   /* niche tag datalist from the Niche Atlas — graceful fallback to free text */
   if (nicheInput) {
-    fetch("api/v1/niches.json").then(function (r) { return r.json(); }).then(function (d) {
+    fetch("data/v1/niches.json").then(function (r) { return r.json(); }).then(function (d) {
       var dl = document.getElementById("ib-niche-list");
       if (!dl || !d.niches) return;
       dl.innerHTML = d.niches.map(function (n) {

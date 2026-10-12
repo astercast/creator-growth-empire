@@ -37,7 +37,7 @@
     var views = v("h-views"), niche = document.getElementById("h-niche").value;
     var role = ROLE_LABEL[roleSel.value] || "Hire";
 
-    fetch("api/v1/calculators.json").then(function (r) { return r.json(); }).then(function (cfg) {
+    fetch("data/v1/calculators.json").then(function (r) { return r.json(); }).then(function (cfg) {
       var monthly;
       var basis;
       if (model === "hourly") {
@@ -80,8 +80,8 @@
     }).catch(function () {
       out.innerHTML = '<div class="error-state" role="alert" style="grid-column:1/-1">' +
         "<strong>CONFIG LOAD FAILED</strong>" +
-        "<p>Could not load the calculator config (<code>api/v1/calculators.json</code>). " +
-        "Check that <code>api/v1/</code> is deployed alongside this page, then try again — your inputs are still here.</p>" +
+        "<p>Could not load the calculator config (<code>data/v1/calculators.json</code>). " +
+        "Check that <code>data/v1/</code> is deployed alongside this page, then try again — your inputs are still here.</p>" +
         '<button type="button" class="btn btn-ghost" data-retry>Try again</button></div>';
     });
   });

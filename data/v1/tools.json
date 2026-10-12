@@ -533,7 +533,7 @@
         }
       },
       "output": "Tracked deal records with rate-card verdicts (UNDERPAID / FAIR / STRONG + the ~23% listed-vs-accepted note), usage-rights line-item pricing (reported +50/+75/+100% band; no invented whitelisting/buyout multipliers), per-situation negotiation scripts, interactive red-flag checklist scoring, and a one-page deal memo.",
-      "drive_notes": "Logic (assets/js/deal-room.js, UMD \u2014 importable in node): scoreOffer(offer, lo, hi) benchmarks against sponsorship_rate_card_2026; priceUsage(baseFee, tierId, usage_rights_tiers) applies the reported multipliers, returning guidance instead of numbers for whitelisting/buyout; redFlagScore(checkedIds, red_flags) scores contract structure (any walk_away flag or 3+ points -> walk away); renderScript(script, vars) fills {{placeholders}}; dealMemo(deal, scored, flags) builds the one-page record. Scripts + checklist + tiers live in api/v1/deal-templates.json. Negotiation aid, not financial/legal/tax advice."
+      "drive_notes": "Logic (assets/js/deal-room.js, UMD \u2014 importable in node): scoreOffer(offer, lo, hi) benchmarks against sponsorship_rate_card_2026; priceUsage(baseFee, tierId, usage_rights_tiers) applies the reported multipliers, returning guidance instead of numbers for whitelisting/buyout; redFlagScore(checkedIds, red_flags) scores contract structure (any walk_away flag or 3+ points -> walk away); renderScript(script, vars) fills {{placeholders}}; dealMemo(deal, scored, flags) builds the one-page record. Scripts + checklist + tiers live in data/v1/deal-templates.json. Negotiation aid, not financial/legal/tax advice."
     },
     {
       "id": "hiring-calculator",
@@ -641,7 +641,7 @@
         }
       },
       "output": "Five mission cards (YouTube Day 0, Short Day +1, TikTok Day +2, Reel Day +3, Facebook Day +4) each with a hook rewrite, atom test, and native-grammar checklist.",
-      "drive_notes": "Logic (assets/js/repurpose.js + assets/js/content-engine.js): atom test (does the insight survive standalone?), pillar prep (hook in first 15s), then the five staggered mission cards. Enforce native grammar \u2014 no watermarks, no copy-paste. 2.0 adds the full derivative map via ContentEngine.repurposeMap (7 derivatives: short clip, community reaction, TikTok cut, Reel cut, newsletter issue, X thread, Facebook post) \u2014 every derivative carries a required original element (repurposing is not re-uploading) plus the Oct-1 originality guardrails (ContentEngine.originalityGuardrails). Machine-readable map + guardrails: api/v1/content-engine.json repurposing_2_0 / originality_guardrails."
+      "drive_notes": "Logic (assets/js/repurpose.js + assets/js/content-engine.js): atom test (does the insight survive standalone?), pillar prep (hook in first 15s), then the five staggered mission cards. Enforce native grammar \u2014 no watermarks, no copy-paste. 2.0 adds the full derivative map via ContentEngine.repurposeMap (7 derivatives: short clip, community reaction, TikTok cut, Reel cut, newsletter issue, X thread, Facebook post) \u2014 every derivative carries a required original element (repurposing is not re-uploading) plus the Oct-1 originality guardrails (ContentEngine.originalityGuardrails). Machine-readable map + guardrails: data/v1/content-engine.json repurposing_2_0 / originality_guardrails."
     },
     {
       "id": "simulator",
@@ -858,8 +858,8 @@
         "properties": {},
         "description": "No inputs \u2014 this tool is a read-only browser over the API itself."
       },
-      "output": "Live in-browser JSON previews of every endpoint, discovered from api/v1/index.json with a static fallback list.",
-      "drive_notes": "Discovery (assets/js/api-explorer.js): fetches api/v1/index.json, renders one GET button per endpoint record, pretty-prints responses. Agents can skip the UI and fetch the endpoints directly."
+      "output": "Live in-browser JSON previews of every endpoint, discovered from data/v1/index.json with a static fallback list.",
+      "drive_notes": "Discovery (assets/js/api-explorer.js): fetches data/v1/index.json, renders one GET button per endpoint record, pretty-prints responses. Agents can skip the UI and fetch the endpoints directly."
     },
     {
       "id": "hook-builder",
@@ -915,7 +915,7 @@
           },
           "niche": {
             "type": "string",
-            "description": "Niche tag \u2014 a Niche Atlas niche id from api/v1/niches.json (free text accepted)."
+            "description": "Niche tag \u2014 a Niche Atlas niche id from data/v1/niches.json (free text accepted)."
           },
           "effort": {
             "type": "string",
@@ -932,7 +932,7 @@
             "minimum": 1,
             "maximum": 5,
             "default": 3,
-            "description": "Hook strength self-score against the five Short-Form Playbook structures (see api/v1/content-engine.json hook_structures)."
+            "description": "Hook strength self-score against the five Short-Form Playbook structures (see data/v1/content-engine.json hook_structures)."
           }
         }
       },
@@ -1377,12 +1377,12 @@
             "items": {
               "type": "string"
             },
-            "description": "Checked contract_flags[].id values from api/v1/deal-templates.json."
+            "description": "Checked contract_flags[].id values from data/v1/deal-templates.json."
           }
         }
       },
       "output": "Pipeline stats (contacted, response rate, active deals, close rate) + follow-up buckets (overdue / due today / upcoming); rendered pitch email from the 3 templates with unfilled [brackets] left visible; rate-card quote (tier range, top-of-range quote point, 23% expected-close math, CPM cross-check vs the deliverable band); contract risk summary (per-item plain-language fix + clean / caution / don't-sign verdict). All ranges and guidance, never promises.",
-      "drive_notes": "Engine (assets/js/outreach.js, UMD \u2014 importable in node): validDeal(d) validates pipeline records; pipelineStats(deals) computes response/close rates; dueFollowUps(deals, nowIso) buckets follow-ups; quoteCalc(input, rateCard, ruleOfThumb) reads sponsorship_rate_card_2026 (tier ranges, platform multipliers, sponsored_cpms) and sponsorship_rule_of_thumb.dedicated_cpm_range \u2014 output carries the ~23% listed-vs-accepted note, the 41% package-discount figure, and the never-a-quote disclaimer; renderPitch(template, vars) fills placeholders and leaves unknown ones visible; contractRisk(ids, contract_flags) scores contract structure (any walk_away flag or 3+ points -> don't sign) with a NOT-legal-advice disclaimer. Templates + contract flags from api/v1/deal-templates.json. Negotiation aid, not financial/legal/tax advice."
+      "drive_notes": "Engine (assets/js/outreach.js, UMD \u2014 importable in node): validDeal(d) validates pipeline records; pipelineStats(deals) computes response/close rates; dueFollowUps(deals, nowIso) buckets follow-ups; quoteCalc(input, rateCard, ruleOfThumb) reads sponsorship_rate_card_2026 (tier ranges, platform multipliers, sponsored_cpms) and sponsorship_rule_of_thumb.dedicated_cpm_range \u2014 output carries the ~23% listed-vs-accepted note, the 41% package-discount figure, and the never-a-quote disclaimer; renderPitch(template, vars) fills placeholders and leaves unknown ones visible; contractRisk(ids, contract_flags) scores contract structure (any walk_away flag or 3+ points -> don't sign) with a NOT-legal-advice disclaimer. Templates + contract flags from data/v1/deal-templates.json. Negotiation aid, not financial/legal/tax advice."
     },
     {
       "id": "crosspost",
@@ -1430,7 +1430,7 @@
         }
       },
       "output": "Per-destination adaptation cards (aspect, captions, hook rework, CTA, audio, disclosure label, one-original-element changes) + the universal checks + the Oct-1 gate reminder. Adaptation guidance under the platforms' stated 2026 rules \u2014 never a promise of reach, views, or revenue.",
-      "drive_notes": "Engine (assets/js/content-engine.js, UMD \u2014 importable in node): adaptChecklist(source_platform, destinations) reads the adaptation matrix (12 source\u2192destination rule sets + 6 universal checks); unknown platforms and the source itself are filtered out. Matrix + grammars + gate: api/v1/content-engine.json -> adaptation_matrix. Pairs with the content-repurposing skill. Planning aid, not financial/legal/tax advice."
+      "drive_notes": "Engine (assets/js/content-engine.js, UMD \u2014 importable in node): adaptChecklist(source_platform, destinations) reads the adaptation matrix (12 source\u2192destination rule sets + 6 universal checks); unknown platforms and the source itself are filtered out. Matrix + grammars + gate: data/v1/content-engine.json -> adaptation_matrix. Pairs with the content-repurposing skill. Planning aid, not financial/legal/tax advice."
     },
     {
       "id": "cadence",

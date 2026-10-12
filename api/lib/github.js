@@ -8,7 +8,7 @@
  *     new content, returns {committed:false, reason:'no-token'}, and the cron
  *     job reports the would-be diff in its envelope instead of committing.
  *   - readJson() falls back to the deployment bundle's static file
- *     (<servedRoot>/api/v1/<file>) — same bytes the last successful deploy
+ *     (<servedRoot>/data/v1/<file>) — same bytes the last successful deploy
  *     shipped — so readers keep working with zero credentials.
  * Once the PAT exists, no code changes are needed: set GITHUB_REPO_TOKEN,
  * GITHUB_REPO (owner/name), REPO_STATIC_PREFIX ('site/' here) in the Vercel
@@ -39,7 +39,7 @@ function ghHeaders(token) {
 }
 
 function repoPath(file) {
-  // file like 'api/v1/changes.json' -> 'site/api/v1/changes.json'
+  // file like 'data/v1/changes.json' -> 'site/data/v1/changes.json'
   return cfg().prefix + file.replace(/^\/+/, '');
 }
 
@@ -87,8 +87,8 @@ async function readJson(repoFile) {
   }
   try {
     // Served root layout: site/api/*.js functions, site/lib/*.js helpers,
-    // site/api/v1/*.json static data (this file lives in site/lib/).
-    // Repo source layout: api/functions/*.js, api/lib/*.js, api/v1/*.json
+    // site/data/v1/*.json static data (this file lives in site/lib/).
+    // Repo source layout: api/functions/*.js, api/lib/*.js, data/v1/*.json
     // (this file lives in api/lib/). Try both.
     const cands = [
       path.join(__dirname, '..', repoFile),

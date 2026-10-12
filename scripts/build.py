@@ -4,7 +4,7 @@
 Outputs:
   site/                 - generated HTML site (index, phases, tools, glossary)
   site/assets/          - copied CSS/JS
-  api/v1/*.json         - versioned JSON API (+ schema/)
+  data/v1/*.json         - versioned JSON API (+ schema/)
   llms.txt / llms-full.txt - agent-oriented surfaces
 """
 import json, re, shutil, html
@@ -16,7 +16,7 @@ PAGES = ROOT / "pages"
 ASSETS = ROOT / "assets"
 DATA = ROOT / "data"
 SITE = ROOT / "site"
-API = ROOT / "api" / "v1"
+DATA_V1 = ROOT / "data" / "v1"
 
 SITE_NAME = "Creator Growth Empire"
 TAGLINE = "From $0 to a multi-million-dollar creator company."
@@ -106,7 +106,7 @@ REFERENCE_PAGES = [
 
 # Interactive mount appended to the Niche Atlas reference page (wave 14).
 # The explorer UI itself is rendered by assets/js/niche-atlas.js from
-# api/v1/niches.json; the article above carries static tables so the page
+# data/v1/niches.json; the article above carries static tables so the page
 # reads fully without JavaScript.
 NICHE_EXPLORER_MOUNT = (
     '<section class="niche-explorer" aria-labelledby="ne-mount-title">'
@@ -115,7 +115,7 @@ NICHE_EXPLORER_MOUNT = (
     "<noscript><p>The niche explorer needs JavaScript. The full niche tables — "
     "growth rates, search demand, breakout formats, revenue bands, and the avoid "
     "list — are in the article above, and the dataset is "
-    '<a href="api/v1/niches.json">api/v1/niches.json</a>.</p></noscript>'
+    '<a href="data/v1/niches.json">data/v1/niches.json</a>.</p></noscript>'
     "</section>"
 )
 
@@ -223,7 +223,7 @@ TOOLS = [
 
 # TOOLS_API: programmatic input schemas for every interactive tool (wave 12).
 # Agents drive the tools' logic without the UI by replicating these inputs
-# against the shipped JS logic (assets/js/<slug>.js) and api/v1/calculators.json.
+# against the shipped JS logic (assets/js/<slug>.js) and data/v1/calculators.json.
 # Each entry: (id, title, description, page, input_schema [JSON Schema draft-07],
 #              output_description, drive_notes).
 TOOLS_API = [
@@ -371,7 +371,7 @@ TOOLS_API = [
                      "description": "Where the deal sits in the offer → paid pipeline."},
       }},
      "Tracked deal records with rate-card verdicts (UNDERPAID / FAIR / STRONG + the ~23% listed-vs-accepted note), usage-rights line-item pricing (reported +50/+75/+100% band; no invented whitelisting/buyout multipliers), per-situation negotiation scripts, interactive red-flag checklist scoring, and a one-page deal memo.",
-     "Logic (assets/js/deal-room.js, UMD — importable in node): scoreOffer(offer, lo, hi) benchmarks against sponsorship_rate_card_2026; priceUsage(baseFee, tierId, usage_rights_tiers) applies the reported multipliers, returning guidance instead of numbers for whitelisting/buyout; redFlagScore(checkedIds, red_flags) scores contract structure (any walk_away flag or 3+ points -> walk away); renderScript(script, vars) fills {{placeholders}}; dealMemo(deal, scored, flags) builds the one-page record. Scripts + checklist + tiers live in api/v1/deal-templates.json. Negotiation aid, not financial/legal/tax advice."),
+     "Logic (assets/js/deal-room.js, UMD — importable in node): scoreOffer(offer, lo, hi) benchmarks against sponsorship_rate_card_2026; priceUsage(baseFee, tierId, usage_rights_tiers) applies the reported multipliers, returning guidance instead of numbers for whitelisting/buyout; redFlagScore(checkedIds, red_flags) scores contract structure (any walk_away flag or 3+ points -> walk away); renderScript(script, vars) fills {{placeholders}}; dealMemo(deal, scored, flags) builds the one-page record. Scripts + checklist + tiers live in data/v1/deal-templates.json. Negotiation aid, not financial/legal/tax advice."),
     ("hiring-calculator", "Hiring Cost Calculator",
      "Price your first hire: monthly/annual cost and the ad revenue needed to cover it — honest math, no promises.",
      "hiring-calculator.html",
@@ -409,7 +409,7 @@ TOOLS_API = [
                             "default": "longform"},
       }},
      "Five mission cards (YouTube Day 0, Short Day +1, TikTok Day +2, Reel Day +3, Facebook Day +4) each with a hook rewrite, atom test, and native-grammar checklist.",
-     "Logic (assets/js/repurpose.js + assets/js/content-engine.js): atom test (does the insight survive standalone?), pillar prep (hook in first 15s), then the five staggered mission cards. Enforce native grammar — no watermarks, no copy-paste. 2.0 adds the full derivative map via ContentEngine.repurposeMap (7 derivatives: short clip, community reaction, TikTok cut, Reel cut, newsletter issue, X thread, Facebook post) — every derivative carries a required original element (repurposing is not re-uploading) plus the Oct-1 originality guardrails (ContentEngine.originalityGuardrails). Machine-readable map + guardrails: api/v1/content-engine.json repurposing_2_0 / originality_guardrails."),
+     "Logic (assets/js/repurpose.js + assets/js/content-engine.js): atom test (does the insight survive standalone?), pillar prep (hook in first 15s), then the five staggered mission cards. Enforce native grammar — no watermarks, no copy-paste. 2.0 adds the full derivative map via ContentEngine.repurposeMap (7 derivatives: short clip, community reaction, TikTok cut, Reel cut, newsletter issue, X thread, Facebook post) — every derivative carries a required original element (repurposing is not re-uploading) plus the Oct-1 originality guardrails (ContentEngine.originalityGuardrails). Machine-readable map + guardrails: data/v1/content-engine.json repurposing_2_0 / originality_guardrails."),
     ("simulator", "Empire Simulator",
      "Simulate 12–36 months of channel growth + revenue — 12-scenario library, A/B comparison, team hiring P&L, what-if event cards, Money Map stage transitions, the \u201cwhat would it take?\u201d goal solver, live re-run — a model, not a prediction.",
      "simulator.html",
@@ -478,8 +478,8 @@ TOOLS_API = [
      {"$schema": "http://json-schema.org/draft-07/schema#", "title": "ApiExplorerInput",
       "type": "object", "properties": {},
       "description": "No inputs — this tool is a read-only browser over the API itself."},
-     "Live in-browser JSON previews of every endpoint, discovered from api/v1/index.json with a static fallback list.",
-     "Discovery (assets/js/api-explorer.js): fetches api/v1/index.json, renders one GET button per endpoint record, pretty-prints responses. Agents can skip the UI and fetch the endpoints directly."),
+     "Live in-browser JSON previews of every endpoint, discovered from data/v1/index.json with a static fallback list.",
+     "Discovery (assets/js/api-explorer.js): fetches data/v1/index.json, renders one GET button per endpoint record, pretty-prints responses. Agents can skip the UI and fetch the endpoints directly."),
     ("hook-builder", "Hook Builder",
      "Type your video topic, get five filmed-ready hooks — one per Short-Form Playbook structure. Flip-through cards.",
      "hook-builder.html",
@@ -503,12 +503,12 @@ TOOLS_API = [
                    "default": "long",
                    "description": "Long-form pillar, short-form post, or community text post."},
           "niche": {"type": "string",
-                  "description": "Niche tag — a Niche Atlas niche id from api/v1/niches.json (free text accepted)."},
+                  "description": "Niche tag — a Niche Atlas niche id from data/v1/niches.json (free text accepted)."},
           "effort": {"type": "string", "enum": ["quick", "afternoon", "week"],
                    "default": "afternoon",
                    "description": "quick < 2h, afternoon = half day, week = full week build."},
           "hook_score": {"type": "integer", "minimum": 1, "maximum": 5, "default": 3,
-                       "description": "Hook strength self-score against the five Short-Form Playbook structures (see api/v1/content-engine.json hook_structures)."},
+                       "description": "Hook strength self-score against the five Short-Form Playbook structures (see data/v1/content-engine.json hook_structures)."},
       }},
      "Banked ideas sorted by hook score (ties by FIFO), filterable by format, promotable to production (they deal into the content calendar). localStorage only.",
      "Logic (assets/js/content-engine.js, UMD — importable in node): hookScore(n) clamps 1–5; sortIdeas(ideas) sorts by hook score desc, ties by created asc, no mutation; filterIdeas(ideas, format) filters. Storage is the browser's localStorage (key cge_idea_bank_v1) — agents feed idea records directly to the engine functions."),
@@ -653,10 +653,10 @@ TOOLS_API = [
           "pitchVars": {"type": "object",
                        "description": "Values for the template's [bracketed] placeholders (your_name, channel_name, avg_views, …). Unfilled placeholders stay visible — never invent stats."},
           "contractFlags": {"type": "array", "items": {"type": "string"},
-                           "description": "Checked contract_flags[].id values from api/v1/deal-templates.json."},
+                           "description": "Checked contract_flags[].id values from data/v1/deal-templates.json."},
       }},
      "Pipeline stats (contacted, response rate, active deals, close rate) + follow-up buckets (overdue / due today / upcoming); rendered pitch email from the 3 templates with unfilled [brackets] left visible; rate-card quote (tier range, top-of-range quote point, 23% expected-close math, CPM cross-check vs the deliverable band); contract risk summary (per-item plain-language fix + clean / caution / don't-sign verdict). All ranges and guidance, never promises.",
-     "Engine (assets/js/outreach.js, UMD — importable in node): validDeal(d) validates pipeline records; pipelineStats(deals) computes response/close rates; dueFollowUps(deals, nowIso) buckets follow-ups; quoteCalc(input, rateCard, ruleOfThumb) reads sponsorship_rate_card_2026 (tier ranges, platform multipliers, sponsored_cpms) and sponsorship_rule_of_thumb.dedicated_cpm_range — output carries the ~23% listed-vs-accepted note, the 41% package-discount figure, and the never-a-quote disclaimer; renderPitch(template, vars) fills placeholders and leaves unknown ones visible; contractRisk(ids, contract_flags) scores contract structure (any walk_away flag or 3+ points -> don't sign) with a NOT-legal-advice disclaimer. Templates + contract flags from api/v1/deal-templates.json. Negotiation aid, not financial/legal/tax advice."),
+     "Engine (assets/js/outreach.js, UMD — importable in node): validDeal(d) validates pipeline records; pipelineStats(deals) computes response/close rates; dueFollowUps(deals, nowIso) buckets follow-ups; quoteCalc(input, rateCard, ruleOfThumb) reads sponsorship_rate_card_2026 (tier ranges, platform multipliers, sponsored_cpms) and sponsorship_rule_of_thumb.dedicated_cpm_range — output carries the ~23% listed-vs-accepted note, the 41% package-discount figure, and the never-a-quote disclaimer; renderPitch(template, vars) fills placeholders and leaves unknown ones visible; contractRisk(ids, contract_flags) scores contract structure (any walk_away flag or 3+ points -> don't sign) with a NOT-legal-advice disclaimer. Templates + contract flags from data/v1/deal-templates.json. Negotiation aid, not financial/legal/tax advice."),
     ("crosspost", "Cross-Post Optimizer",
      "Take one clip to every platform without getting throttled: per-destination adaptation checklists (aspect, captions, hooks, CTAs, disclosure labels) under the Oct-1 originality rules.",
      "crosspost.html",
@@ -672,7 +672,7 @@ TOOLS_API = [
                               "description": "The clip uses photorealistic AI visuals — triggers the YouTube disclosure-label reminder (labeled = normal distribution; undisclosed = reduced recommendations or removal)."},
       }},
      "Per-destination adaptation cards (aspect, captions, hook rework, CTA, audio, disclosure label, one-original-element changes) + the universal checks + the Oct-1 gate reminder. Adaptation guidance under the platforms' stated 2026 rules — never a promise of reach, views, or revenue.",
-     "Engine (assets/js/content-engine.js, UMD — importable in node): adaptChecklist(source_platform, destinations) reads the adaptation matrix (12 source→destination rule sets + 6 universal checks); unknown platforms and the source itself are filtered out. Matrix + grammars + gate: api/v1/content-engine.json -> adaptation_matrix. Pairs with the content-repurposing skill. Planning aid, not financial/legal/tax advice."),
+     "Engine (assets/js/content-engine.js, UMD — importable in node): adaptChecklist(source_platform, destinations) reads the adaptation matrix (12 source→destination rule sets + 6 universal checks); unknown platforms and the source itself are filtered out. Matrix + grammars + gate: data/v1/content-engine.json -> adaptation_matrix. Pairs with the content-repurposing skill. Planning aid, not financial/legal/tax advice."),
     ("cadence", "Cadence Coach",
      "How often should you actually post? Turn your honest weekly hours, formats, and platforms into a sustainable cadence — capacity math plus Oct-2026 platform realities. Consistency beats volume.",
      "cadence.html",
@@ -1215,8 +1215,8 @@ def build():
         shutil.rmtree(SITE)
     (SITE / "assets" / "css").mkdir(parents=True)
     (SITE / "assets" / "js").mkdir(parents=True)
-    API.mkdir(parents=True, exist_ok=True)
-    (API / "schema").mkdir(exist_ok=True)
+    DATA_V1.mkdir(parents=True, exist_ok=True)
+    (DATA_V1 / "schema").mkdir(exist_ok=True)
 
     for f in (ASSETS / "css").glob("*.css"):
         shutil.copy(f, SITE / "assets" / "css" / f.name)
@@ -1698,7 +1698,7 @@ def build():
                            "path": rel})
     (ROOT / "skills" / "index.json").write_text(json.dumps({"skills": skills_idx}, indent=2), encoding="utf-8")
 
-    # ---- API ----
+    # ---- data/v1 (static JSON API) ----
     # Wave 12: full self-describing manifest. Every endpoint carries its
     # description, schema URL, ISO-8601 UTC updated timestamp, record count,
     # and deprecation status. Existing payload shapes are untouched.
@@ -1709,9 +1709,9 @@ def build():
         {
             "id": "index",
             "kind": "json",
-            "path": "api/v1/index.json",
+            "path": "data/v1/index.json",
             "description": "This manifest — self-describing list of every endpoint with schema URLs, updated timestamps, record counts, and deprecation notes. Start here.",
-            "schema": "api/v1/schema/index.json",
+            "schema": "data/v1/schema/index.json",
             "updated": BUILD_TS,
             "records": None,
             "deprecated": False,
@@ -1720,9 +1720,9 @@ def build():
         {
             "id": "chapters",
             "kind": "json",
-            "path": "api/v1/chapters.json",
+            "path": "data/v1/chapters.json",
             "description": "All nine phases: id, phase label, title, site-relative path, word count, read minutes. Use headings to navigate before fetching full text from llms-full.txt or the chapter page.",
-            "schema": "api/v1/schema/chapters.json",
+            "schema": "data/v1/schema/chapters.json",
             "updated": BUILD_TS,
             "records": len(chapters_meta),
             "deprecated": False,
@@ -1731,7 +1731,7 @@ def build():
         {
             "id": "niches",
             "kind": "json",
-            "path": "api/v1/niches.json",
+            "path": "data/v1/niches.json",
             "description": ("The Niche Atlas dataset v2.1.0: 20 October-2026-researched niches — "
                             "channel growth, search growth, breakout formats, creator-reported "
                             "revenue ranges (CPM/RPM), competition, startup cost, skill fit, "
@@ -1744,7 +1744,7 @@ def build():
                             "ranges, competition, entry requirements, who-it-suits, risks, "
                             "2027 read, source weights) backing the Breakout-Format Intel "
                             "reference page. Ranges, never promises."),
-            "schema": "api/v1/schema/niches.json",
+            "schema": "data/v1/schema/niches.json",
             "updated": BUILD_TS,
             "records": len(niches_cfg["niches"]),
             "deprecated": False,
@@ -1754,9 +1754,9 @@ def build():
         {
             "id": "glossary",
             "kind": "json",
-            "path": "api/v1/glossary.json",
+            "path": "data/v1/glossary.json",
             "description": "Creator-economy definitions: { terms: [{ term, definition }] }.",
-            "schema": "api/v1/schema/glossary.json",
+            "schema": "data/v1/schema/glossary.json",
             "updated": BUILD_TS,
             "records": len(glossary["terms"]),
             "deprecated": False,
@@ -1765,9 +1765,9 @@ def build():
         {
             "id": "calculators",
             "kind": "json",
-            "path": "api/v1/calculators.json",
+            "path": "data/v1/calculators.json",
             "description": "Calculator config: per-niche long-form RPM bands, Shorts RPM, platform thresholds (YPP tiers, TikTok Rewards, Facebook CMP — with sources and dates), revenue splits, the 2026 sponsorship rate card, and 2026 niche/platform research snapshots. The data contract the sim engine, revenue calculator, deal analyzer, and hiring calculator read.",
-            "schema": "api/v1/schema/calculators.json",
+            "schema": "data/v1/schema/calculators.json",
             "updated": BUILD_TS,
             "records": None,
             "records_note": "Config snapshot, not a record list: "
@@ -1780,9 +1780,9 @@ def build():
         {
             "id": "deal-templates",
             "kind": "json",
-            "path": "api/v1/deal-templates.json",
+            "path": "data/v1/deal-templates.json",
             "description": "The Deal Room data contract: negotiation scripts (lowball counter, usage-rights upsell, exclusivity pushback, rush-fee ask — with {{placeholders}}), the red-flag checklist with severity levels and scoring rules, and usage-rights pricing tiers with reported vs. definitional multiplier basis, 3 honest pitch email templates (cold pitch, one follow-up nudge, warm intro — [bracketed] placeholders, never invented stats), and the 10-item contract red-flag checklist with scoring rules. A negotiation aid, not financial/legal/tax advice.",
-            "schema": "api/v1/schema/deal-templates.json",
+            "schema": "data/v1/schema/deal-templates.json",
             "updated": BUILD_TS,
             "records": None,
             "records_note": "Data contract, not a record list: 4 negotiation scripts, 6 red-flag items, 6 usage-rights tiers, 3 pitch email templates, 10 contract red-flag items.",
@@ -1793,27 +1793,27 @@ def build():
         {
             "id": "content-engine",
             "kind": "json",
-            "path": "api/v1/content-engine.json",
+            "path": "data/v1/content-engine.json",
             "description": "The Content Engine data contract v1.1.0: idea formats, the five Short-Form Playbook hook structures, calendar dealing rules, batching guidance (consistency-beats-volume), the Repurposing 2.0 derivative map (each derivative's required original element), the Oct-1 originality guardrails, deal-slot guidance, the simulator bridge — plus the 2.0 additions: the Oct-2026 algorithm signal map (TikTok/Shorts/Reels, every claim source-labeled), 6 trend-derived hook patterns, the cross-post adaptation matrix (12 source→destination rule sets + universal checks), and the weekly batch scheduler defaults. A planning aid, not financial/legal/tax advice.",
-            "schema": "api/v1/schema/content-engine.json",
+            "schema": "data/v1/schema/content-engine.json",
             "updated": BUILD_TS,
             "records": None,
             "records_note": "Data contract, not a record list: 3 idea formats, 5 hook structures, 7 dealing rules, 7 repurposing-2.0 derivatives, 5 originality guardrails.",
             "deprecated": False,
             "deprecation_note": None,
-            "freshness_note": "Hook structures are craft formulas from the Short-Form Playbook, not platform documentation. Niche tags resolve against api/v1/niches.json.",
+            "freshness_note": "Hook structures are craft formulas from the Short-Form Playbook, not platform documentation. Niche tags resolve against data/v1/niches.json.",
         },
         {
             "id": "changes",
             "kind": "json",
-            "path": "api/v1/changes.json",
+            "path": "data/v1/changes.json",
             "description": ("Algorithm Watch feed: dated platform algorithm, policy, and monetization changes — "
                             "id, platform, title, summary, detected_at, announced_at, effective_at, source_url(s), "
                             "category (algorithm/policy/monetization/legal), confidence (verified/single-source). "
                             "Every entry carries its source and confidence flag; no change is ever stated as fact without one. "
                             "Refreshed by the daily /api/cron/algorithm-watch job; 90-day retention. Live function: /api/changes. "
                             "A planning aid, not financial/legal/tax advice. RPM/CPM figures are creator-reported ranges, never promises."),
-            "schema": "api/v1/schema/changes.json",
+            "schema": "data/v1/schema/changes.json",
             "updated": BUILD_TS,
             "records": len(json.loads((DATA / "changes.json").read_text(encoding="utf-8"))["changes"]),
             "deprecated": False,
@@ -1823,9 +1823,9 @@ def build():
         {
             "id": "skills",
             "kind": "json",
-            "path": "api/v1/skills.json",
+            "path": "data/v1/skills.json",
             "description": "Skill index: name, description, repo-relative path for every executable skill. Full skill content lives in skills/<name>/SKILL.md.",
-            "schema": "api/v1/schema/skills.json",
+            "schema": "data/v1/schema/skills.json",
             "updated": BUILD_TS,
             "records": len(skills_idx),
             "deprecated": False,
@@ -1834,9 +1834,9 @@ def build():
         {
             "id": "case-files",
             "kind": "json",
-            "path": "api/v1/case-files.json",
+            "path": "data/v1/case-files.json",
             "description": "Index of the documented creator-business deconstructions: id, badge, title, path, words, read_minutes. Full text on the case-*.html pages. Figures are source-reported, not audited — never present as promises.",
-            "schema": "api/v1/schema/case-files.json",
+            "schema": "data/v1/schema/case-files.json",
             "updated": BUILD_TS,
             "records": sum(1 for m in mdpage_meta if m["badge"] == "Case File"),
             "deprecated": False,
@@ -1845,9 +1845,9 @@ def build():
         {
             "id": "tools",
             "kind": "json",
-            "path": "api/v1/tools.json",
+            "path": "data/v1/tools.json",
             "description": "All twenty-one interactive tools with programmatic input schemas (JSON Schema draft-07), output descriptions, and drive notes — replicate the tools' logic without the UI.",
-            "schema": "api/v1/schema/tools.json",
+            "schema": "data/v1/schema/tools.json",
             "updated": BUILD_TS,
             "records": len(TOOLS_API),
             "deprecated": False,
@@ -1877,7 +1877,7 @@ def build():
             "id": "tool-pages",
             "kind": "html",
             "paths": [f"{slug}.html" for slug, _, _ in TOOLS],
-            "description": "The twenty-one interactive tools' human UI pages. Agents should prefer api/v1/tools.json input schemas over scraping these pages.",
+            "description": "The twenty-one interactive tools' human UI pages. Agents should prefer data/v1/tools.json input schemas over scraping these pages.",
             "schema": None,
             "updated": BUILD_TS,
             "records": len(TOOLS),
@@ -1889,10 +1889,10 @@ def build():
             "kind": "html",
             "paths": ["what-changed.html"],
             "description": ("Algorithm Watch — the 'what changed' feed's human front-end: dated platform "
-                            "algorithm, policy, and monetization changes, pre-rendered from api/v1/changes.json "
+                            "algorithm, policy, and monetization changes, pre-rendered from data/v1/changes.json "
                             "and live-updated from /api/changes when the server is reachable. Fully readable with "
                             "JavaScript disabled; the status badge reports live / cached state honestly. "
-                            "Machine-readable feed: api/v1/changes.json; live function: /api/changes."),
+                            "Machine-readable feed: data/v1/changes.json; live function: /api/changes."),
             "schema": None,
             "updated": BUILD_TS,
             "records": len(json.loads((DATA / "changes.json").read_text(encoding="utf-8"))["changes"]),
@@ -1902,7 +1902,7 @@ def build():
         {
             "id": "schemas",
             "kind": "directory",
-            "path": "api/v1/schema/",
+            "path": "data/v1/schema/",
             "description": "JSON Schema (draft-07) for every JSON endpoint, per-endpoint and per-record.",
             "files": [
                 "index.json — the manifest itself",
@@ -1935,16 +1935,16 @@ def build():
         "tagline": TAGLINE,
         "version": "1.0.0",
         "updated": BUILD_TS,
-        "base": "api/v1/",
-        "notes": ("Self-describing manifest. Base is api/v1/ relative to the site root — "
+        "base": "data/v1/",
+        "notes": ("Self-describing manifest. Base is data/v1/ relative to the site root — "
                   "works on any static host; no auth, no keys, no rate limits. "
                   "Timestamps are ISO-8601 UTC. The deployed site ships its own api/ mirror, "
                   "so the explorer works live too."),
         "endpoints": api_endpoints,
     }
-    (API / "index.json").write_text(json.dumps(api_index, indent=2), encoding="utf-8")
-    (API / "chapters.json").write_text(json.dumps({"chapters": chapters_meta}, indent=2), encoding="utf-8")
-    (API / "case-files.json").write_text(json.dumps({
+    (DATA_V1 / "index.json").write_text(json.dumps(api_index, indent=2), encoding="utf-8")
+    (DATA_V1 / "chapters.json").write_text(json.dumps({"chapters": chapters_meta}, indent=2), encoding="utf-8")
+    (DATA_V1 / "case-files.json").write_text(json.dumps({
         "version": "1.0.0", "updated": "2026-10-11",
         "note": "Documented creator-business deconstructions. Figures are reported by the cited sources, not audited — never present as promises.",
         "case_files": [
@@ -1953,15 +1953,15 @@ def build():
             for m in mdpage_meta if m["badge"] == "Case File"
         ],
     }, indent=2), encoding="utf-8")
-    shutil.copy(DATA / "glossary.json", API / "glossary.json")
-    shutil.copy(DATA / "calculators.json", API / "calculators.json")
-    shutil.copy(DATA / "niches.json", API / "niches.json")
-    shutil.copy(DATA / "deal-templates.json", API / "deal-templates.json")
-    shutil.copy(DATA / "content-engine.json", API / "content-engine.json")
-    shutil.copy(DATA / "changes.json", API / "changes.json")
+    shutil.copy(DATA / "glossary.json", DATA_V1 / "glossary.json")
+    shutil.copy(DATA / "calculators.json", DATA_V1 / "calculators.json")
+    shutil.copy(DATA / "niches.json", DATA_V1 / "niches.json")
+    shutil.copy(DATA / "deal-templates.json", DATA_V1 / "deal-templates.json")
+    shutil.copy(DATA / "content-engine.json", DATA_V1 / "content-engine.json")
+    shutil.copy(DATA / "changes.json", DATA_V1 / "changes.json")
 
     # ---- tools.json: every tool with its programmatic input schema ----
-    (API / "tools.json").write_text(json.dumps({
+    (DATA_V1 / "tools.json").write_text(json.dumps({
         "version": "1.0.0", "updated": "2026-10-11",
         "note": ("Programmatic input schemas for the twenty-one interactive tools. "
                  "Agents replicate each tool's logic by feeding these inputs to the "
@@ -1986,7 +1986,7 @@ def build():
             "read_minutes": {"type": "integer", "minimum": 1},
         },
     }
-    (API / "schema" / "chapter.json").write_text(json.dumps(chapter_schema, indent=2), encoding="utf-8")
+    (DATA_V1 / "schema" / "chapter.json").write_text(json.dumps(chapter_schema, indent=2), encoding="utf-8")
     glossary_schema = {
         "$schema": "http://json-schema.org/draft-07/schema#",
         "title": "Glossary",
@@ -1997,7 +1997,7 @@ def build():
             "properties": {"term": {"type": "string"}, "definition": {"type": "string"}},
         }}},
     }
-    (API / "schema" / "glossary.json").write_text(json.dumps(glossary_schema, indent=2), encoding="utf-8")
+    (DATA_V1 / "schema" / "glossary.json").write_text(json.dumps(glossary_schema, indent=2), encoding="utf-8")
     case_file_schema = {
         "$schema": "http://json-schema.org/draft-07/schema#",
         "title": "CaseFile",
@@ -2010,7 +2010,7 @@ def build():
             "read_minutes": {"type": "integer", "minimum": 1},
         },
     }
-    (API / "schema" / "case-file.json").write_text(json.dumps(case_file_schema, indent=2), encoding="utf-8")
+    (DATA_V1 / "schema" / "case-file.json").write_text(json.dumps(case_file_schema, indent=2), encoding="utf-8")
 
     # calculators schema: locks the data contract the sim engine, revenue
     # calculator, and deal analyzer read (rpm band shape + research blocks).
@@ -2072,7 +2072,7 @@ def build():
             "revenue_splits": {"type": "object"},
         },
     }
-    (API / "schema" / "calculators.json").write_text(json.dumps(calculators_schema, indent=2), encoding="utf-8")
+    (DATA_V1 / "schema" / "calculators.json").write_text(json.dumps(calculators_schema, indent=2), encoding="utf-8")
 
     # ---- schemas for the Niche Atlas endpoint (wave 14) ----
     # Revenue figures are creator-reported ranges: `kind` says which (CPM or
@@ -2146,7 +2146,7 @@ def build():
                 }},
         },
     }
-    (API / "schema" / "niche.json").write_text(json.dumps(niche_schema, indent=2), encoding="utf-8")
+    (DATA_V1 / "schema" / "niche.json").write_text(json.dumps(niche_schema, indent=2), encoding="utf-8")
     niches_schema = {
         "$schema": "http://json-schema.org/draft-07/schema#",
         "title": "Niches",
@@ -2203,7 +2203,7 @@ def build():
             }},
         },
     }
-    (API / "schema" / "niches.json").write_text(json.dumps(niches_schema, indent=2), encoding="utf-8")
+    (DATA_V1 / "schema" / "niches.json").write_text(json.dumps(niches_schema, indent=2), encoding="utf-8")
 
     # Wave 12: schema for EVERY endpoint — doc-level + per-record where it
     # applies. All draft-07, all checked by scripts/validate.sh.
@@ -2237,7 +2237,7 @@ def build():
             }},
         },
     }
-    (API / "schema" / "index.json").write_text(json.dumps(index_schema, indent=2), encoding="utf-8")
+    (DATA_V1 / "schema" / "index.json").write_text(json.dumps(index_schema, indent=2), encoding="utf-8")
     chapters_schema = {
         "$schema": "http://json-schema.org/draft-07/schema#",
         "title": "Chapters",
@@ -2245,7 +2245,7 @@ def build():
         "required": ["chapters"],
         "properties": {"chapters": {"type": "array", "items": {"$ref": "chapter.json"}}},
     }
-    (API / "schema" / "chapters.json").write_text(json.dumps(chapters_schema, indent=2), encoding="utf-8")
+    (DATA_V1 / "schema" / "chapters.json").write_text(json.dumps(chapters_schema, indent=2), encoding="utf-8")
     skill_schema = {
         "$schema": "http://json-schema.org/draft-07/schema#",
         "title": "Skill",
@@ -2256,7 +2256,7 @@ def build():
             "path": {"type": "string"},
         },
     }
-    (API / "schema" / "skill.json").write_text(json.dumps(skill_schema, indent=2), encoding="utf-8")
+    (DATA_V1 / "schema" / "skill.json").write_text(json.dumps(skill_schema, indent=2), encoding="utf-8")
     skills_schema = {
         "$schema": "http://json-schema.org/draft-07/schema#",
         "title": "Skills",
@@ -2267,7 +2267,7 @@ def build():
             "skills": {"type": "array", "items": {"$ref": "skill.json"}},
         },
     }
-    (API / "schema" / "skills.json").write_text(json.dumps(skills_schema, indent=2), encoding="utf-8")
+    (DATA_V1 / "schema" / "skills.json").write_text(json.dumps(skills_schema, indent=2), encoding="utf-8")
     case_files_schema = {
         "$schema": "http://json-schema.org/draft-07/schema#",
         "title": "CaseFiles",
@@ -2279,7 +2279,7 @@ def build():
             "case_files": {"type": "array", "items": {"$ref": "case-file.json"}},
         },
     }
-    (API / "schema" / "case-files.json").write_text(json.dumps(case_files_schema, indent=2), encoding="utf-8")
+    (DATA_V1 / "schema" / "case-files.json").write_text(json.dumps(case_files_schema, indent=2), encoding="utf-8")
     tool_schema = {
         "$schema": "http://json-schema.org/draft-07/schema#",
         "title": "Tool",
@@ -2292,7 +2292,7 @@ def build():
             "output": {"type": "string"}, "drive_notes": {"type": "string"},
         },
     }
-    (API / "schema" / "tool.json").write_text(json.dumps(tool_schema, indent=2), encoding="utf-8")
+    (DATA_V1 / "schema" / "tool.json").write_text(json.dumps(tool_schema, indent=2), encoding="utf-8")
     tools_schema = {
         "$schema": "http://json-schema.org/draft-07/schema#",
         "title": "Tools",
@@ -2304,7 +2304,7 @@ def build():
             "tools": {"type": "array", "items": {"$ref": "tool.json"}},
         },
     }
-    (API / "schema" / "tools.json").write_text(json.dumps(tools_schema, indent=2), encoding="utf-8")
+    (DATA_V1 / "schema" / "tools.json").write_text(json.dumps(tools_schema, indent=2), encoding="utf-8")
 
     # ---- schema for the Content Engine data contract (wave 16) ----
     # Derivative ids must match the set the engine's repurposeMap() emits
@@ -2491,21 +2491,21 @@ def build():
             "source": {"type": "string"},
         },
     }
-    (API / "schema" / "content-engine.json").write_text(
+    (DATA_V1 / "schema" / "content-engine.json").write_text(
         json.dumps(content_engine_schema, indent=2), encoding="utf-8")
 
     # ---- skills index outputs (index computed before the API block) ----
-    (API / "skills.json").write_text(json.dumps(
+    (DATA_V1 / "skills.json").write_text(json.dumps(
         {"version": "1.0.0", "updated": "2026-10-11", "skills": skills_idx}, indent=2), encoding="utf-8")
 
-    # ---- ship an api/ mirror inside site/ so the deployed site serves its own
-    #      API (the API explorer fetches relative paths). This must come AFTER
-    #      every api/v1 write (including schemas + skills.json) so a clean
+    # ---- ship a data/ mirror inside site/ so the deployed site serves its own
+    #      static API (the API explorer fetches relative paths). This must come
+    #      AFTER every data/v1 write (including schemas + skills.json) so a clean
     #      build mirrors the final state, not a mid-build snapshot. ----
-    site_api = SITE / "api" / "v1"
-    if site_api.exists():
-        shutil.rmtree(site_api)
-    shutil.copytree(API, site_api)
+    site_data = SITE / "data" / "v1"
+    if site_data.exists():
+        shutil.rmtree(site_data)
+    shutil.copytree(DATA_V1, site_data)
 
     # ---- ship serverless functions + shared lib into the served root ----
     # (site/ is rebuilt from scratch every run, so these live canonically
@@ -2534,23 +2534,23 @@ def build():
     for m in (m for m in mdpage_meta if m["badge"] == "Case File"):
         llms.append(f"- [Case File: {m['title']}]({m['path']}) — {m['read_minutes']} min read")
     llms += ["- [All case files — index + comparison table](case-files.html)",
-             "- api/v1/case-files.json — machine-readable case-file index", "",
+             "- data/v1/case-files.json — machine-readable case-file index", "",
              "## Guides & Playbooks"]
     for m in (m for m in mdpage_meta if m["badge"] in ("Guide", "Playbook")):
         llms.append(f"- [{m['badge']}: {m['title']}]({m['path']}) — {m['read_minutes']} min read")
-    llms += ["", "## API", "- api/v1/index.json — self-describing manifest: every endpoint, schema URL, updated timestamp, record counts",
-             "- api/v1/chapters.json",
-             "- api/v1/niches.json — the Niche Atlas dataset v2.1.0: 20 researched niches, 2027 outlook layer (trajectory badges, breakout spotlights, platform signals, stream-fit matrix), ten breakout-format dossiers, avoid list, sources, reality check",
-             "- api/v1/glossary.json",
-             "- api/v1/calculators.json",
-             "- api/v1/skills.json",
-             "- api/v1/case-files.json",
-             "- api/v1/tools.json — every tool's programmatic input schema",
-             "- api/v1/deal-templates.json — Deal Room data: negotiation scripts, red-flag checklist, usage-rights tiers, pitch templates, contract red-flag checklist",
-             "- api/v1/content-engine.json — Content Engine data: idea formats, Playbook hook structures, dealing rules, Repurposing 2.0 map, originality guardrails, deal-slot guidance",
-             "- api/v1/changes.json — Algorithm Watch feed: dated algorithm/policy/monetization changes with sources + confidence flags (verified/single-source); live at /api/changes",
-             "- what-changed.html — Algorithm Watch 'what changed' feed page: pre-rendered from api/v1/changes.json, live-updated from /api/changes when reachable (status badge reports live/cached honestly)",
-             "- api/v1/schema/ — JSON Schema (draft-07) for every endpoint",
+    llms += ["", "## API", "- data/v1/index.json — self-describing manifest: every endpoint, schema URL, updated timestamp, record counts",
+             "- data/v1/chapters.json",
+             "- data/v1/niches.json — the Niche Atlas dataset v2.1.0: 20 researched niches, 2027 outlook layer (trajectory badges, breakout spotlights, platform signals, stream-fit matrix), ten breakout-format dossiers, avoid list, sources, reality check",
+             "- data/v1/glossary.json",
+             "- data/v1/calculators.json",
+             "- data/v1/skills.json",
+             "- data/v1/case-files.json",
+             "- data/v1/tools.json — every tool's programmatic input schema",
+             "- data/v1/deal-templates.json — Deal Room data: negotiation scripts, red-flag checklist, usage-rights tiers, pitch templates, contract red-flag checklist",
+             "- data/v1/content-engine.json — Content Engine data: idea formats, Playbook hook structures, dealing rules, Repurposing 2.0 map, originality guardrails, deal-slot guidance",
+             "- data/v1/changes.json — Algorithm Watch feed: dated algorithm/policy/monetization changes with sources + confidence flags (verified/single-source); live at /api/changes",
+             "- what-changed.html — Algorithm Watch 'what changed' feed page: pre-rendered from data/v1/changes.json, live-updated from /api/changes when reachable (status badge reports live/cached honestly)",
+             "- data/v1/schema/ — JSON Schema (draft-07) for every endpoint",
              "", "## Agents",
              "- AGENT.md — how an agent uses this site: base URL pattern, example requests, 14 end-to-end workflows, tool input schemas",
              "- [Agents](agents.html) — the agent surface: endpoint table, all skills, data freshness policy, 6 worked agent workflows",

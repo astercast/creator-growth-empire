@@ -3,9 +3,9 @@
  * (module.exports).
  *
  * HONESTY CONTRACT: every benchmark is a reported range from the 2026 rate
- * card (api/v1/calculators.json: sponsorship_rate_card_2026 +
+ * card (data/v1/calculators.json: sponsorship_rate_card_2026 +
  * usage_rights_benchmarks_2026 v1.4.0) or the site's chapters, never a quote.
- * The contract checklist is wave 22's data (api/v1/deal-templates.json
+ * The contract checklist is wave 22's data (data/v1/deal-templates.json
  * contract_flags) — a negotiation aid, NOT legal advice. RPM/CPM figures are
  * creator-reported ranges, not platform-published. Not financial, legal, or
  * tax advice.
@@ -361,7 +361,7 @@
   /* ---------- (b) wave-22 contract checklist, applied to the deal ----------
    * Maps the deal's contract answers onto deal-templates.json contract_flags,
    * then scores with the same rules as the Outreach Center (single data
-   * source for flags + scoring: api/v1/deal-templates.json). */
+   * source for flags + scoring: data/v1/deal-templates.json). */
   function mapTermsToFlags(deal) {
     var c = deal.contract || {};
     var ids = [];

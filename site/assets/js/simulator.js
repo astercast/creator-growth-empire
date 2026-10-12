@@ -163,7 +163,7 @@
     }
   }
 
-  fetch("api/v1/calculators.json").then(function (r) { return r.json(); }).then(function (c) {
+  fetch("data/v1/calculators.json").then(function (r) { return r.json(); }).then(function (c) {
     cfg = c;
     var bands = c.youtube_longform_rpm_bands || {};
     var cur = nicheSel.value;

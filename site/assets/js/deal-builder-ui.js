@@ -222,7 +222,7 @@
       return;
     }
     $("db-errors").textContent = "";
-    fetch("api/v1/calculators.json").then(function (r) { return r.json(); }).then(function (calc) {
+    fetch("data/v1/calculators.json").then(function (r) { return r.json(); }).then(function (calc) {
       var q = DB.buildQuote(input, calc, calc.usage_rights_benchmarks_2026);
       if (!q.ok) { $("db-errors").textContent = q.errors.join(" "); return; }
       lastQuote = { input: input, quote: q };
@@ -232,7 +232,7 @@
       $("db-pitch-actions").style.display = "none";
       $("db-pitch-out").innerHTML = "";
     }).catch(function () {
-      $("db-errors").textContent = "Couldn't load the rate-card data (api/v1/calculators.json). Check your connection and retry.";
+      $("db-errors").textContent = "Couldn't load the rate-card data (data/v1/calculators.json). Check your connection and retry.";
     });
   }
 

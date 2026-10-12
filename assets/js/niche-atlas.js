@@ -2,14 +2,14 @@
    Wave 20 (Niche Atlas 2.0): 2027 outlook layer — trajectory badges + filter +
    sort, a competition-vs-reward scatter view, breakout-format spotlights,
    a red-flag niches panel, and the niche-to-revenue-stream fit matrix.
-   Data contract: api/v1/niches.json (data/niches.json is the source of truth,
+   Data contract: data/v1/niches.json (data/niches.json is the source of truth,
    v2.0.0). Revenue ranges are creator-reported; sorting uses range midpoints,
    which are a sorting convenience, NOT a rate. */
 (function () {
   "use strict";
 
   var MOUNT = "niche-explorer";
-  var DATA_URL = "api/v1/niches.json";
+  var DATA_URL = "data/v1/niches.json";
 
   var mount = document.getElementById(MOUNT);
   if (!mount) return;
@@ -499,6 +499,6 @@
     .catch(function () {
       document.getElementById("ne-status").textContent = "DATA FAILED";
       document.getElementById("ne-count").textContent =
-        "The explorer couldn't load its data. The full niche tables are in the article above, and the dataset is api/v1/niches.json.";
+        "The explorer couldn't load its data. The full niche tables are in the article above, and the dataset is data/v1/niches.json.";
     });
 })();

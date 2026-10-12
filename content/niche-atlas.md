@@ -185,7 +185,7 @@ A few under-covered corners surfaced by one source each — real signals, lighte
 3. **Model one in the [Empire Simulator](simulator.html)** — eight one-click scenarios, including an ASMR roleplay channel modeled on Gibi ASMR and a serialized mini-drama modeled on Dana and the Wolf.
 4. **Read the linked phase** before you commit — monetization (Phase 5) and the short-form playbook are linked from every niche record.
 
-The full machine-readable dataset — all 20 niches with 2027 trajectory badges and stream-fit ratings, breakout-format spotlights, the avoid list, sources, and the reality check — is [`api/v1/niches.json`](api/v1/niches.json).
+The full machine-readable dataset — all 20 niches with 2027 trajectory badges and stream-fit ratings, breakout-format spotlights, the avoid list, sources, and the reality check — is [`data/v1/niches.json`](data/v1/niches.json).
 
 ## Sources
 

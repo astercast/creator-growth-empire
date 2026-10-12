@@ -9,7 +9,7 @@ description: Plan a creator's first hire end to end — bottleneck test (editor 
 - A creator asks "should I hire?" or "who should I hire first?" — Phase: The First Hire guide
 - Pricing a specific hire (monthly cost, loaded cost, views needed to cover it)
 - Building the trial task, rubric, or SOPs for a new contractor
-- Driving the Hiring Cost Calculator's logic programmatically (input schema in `api/v1/tools.json`, tool `hiring-calculator`)
+- Driving the Hiring Cost Calculator's logic programmatically (input schema in `data/v1/tools.json`, tool `hiring-calculator`)
 
 ## Inputs
 - The creator's bottleneck: what eats 8–10+ hours/week (editing, packaging, admin, managing)
@@ -27,7 +27,7 @@ description: Plan a creator's first hire end to end — bottleneck test (editor 
 3. **Run the coverage math** (Hiring Cost Calculator logic):
    - hourly → rate × hours/week × 52/12; per-video → rate × units/month; monthly → retainer
    - **Loaded cost = sticker × 1.15** (management time, revisions, payment fees)
-   - Share of ad revenue = loaded ÷ mid-range ad revenue (monthly views × niche RPM band from `api/v1/calculators.json`)
+   - Share of ad revenue = loaded ÷ mid-range ad revenue (monthly views × niche RPM band from `data/v1/calculators.json`)
    - Views needed to cover = loaded ÷ RPM band × 1000 (compute at both band ends)
    - **The hiring rule: cover 3 months of loaded cost from revenue before you sign.** Not a guarantee — a math check.
 4. **Sanity-check the rate** against 2026 ranges: long-form edit $150–$500/video (premium $500–$800), hourly mid-level $50–$125/hr, retainer 4 vids/mo $800–$2,500, short-form clips $25–$150/clip, full-time remote editor (LatAm) $2,500–$3,000/mo. Ranges are market benchmarks, wide because the work varies wildly.
@@ -44,8 +44,8 @@ Creator: 120K monthly views, education niche (RPM band ~$4–$12). Bottleneck: e
 - Verdict: math says wait or fund from sponsors; if sponsors pay $2K/mo, the trial can start.
 
 ## API references
-- `GET api/v1/tools.json` → tool `hiring-calculator` → `input_schema` (the programmatic contract: role, billing_model, rate_usd, hours_per_week, units_per_month, monthly_views, niche)
-- `GET api/v1/calculators.json` → `youtube_longform_rpm_bands` (coverage math needs the niche band)
+- `GET data/v1/tools.json` → tool `hiring-calculator` → `input_schema` (the programmatic contract: role, billing_model, rate_usd, hours_per_week, units_per_month, monthly_views, niche)
+- `GET data/v1/calculators.json` → `youtube_longform_rpm_bands` (coverage math needs the niche band)
 - The First Hire guide page (`hiring.html`) — full 2026 rate tables, trial rubric, SOP templates, sources
 
 ## Pitfalls

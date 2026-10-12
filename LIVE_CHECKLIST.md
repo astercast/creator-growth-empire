@@ -7,7 +7,7 @@ tracks what's wired in the live track.
 
 ## Snapshot contents (repo root = publish dir)
 
-- Static frontend + `api/v1/` static API twins (pre-rendered data; the site
+- Static frontend + `data/v1/` static API twins (pre-rendered data; the site
   never errors when functions are cold/down).
 - Serverless functions, zero npm dependencies, **no `runtime` key** (4 total, ≤12 limit; explicit paths, never globs):
 
@@ -35,22 +35,30 @@ tracks what's wired in the live track.
 
 ## Known-good status
 
-- vercel.json parses; functions are the 4 explicit paths (`api/health.js`,
-  `api/changes.js`, `api/niches.js`, `api/cron/algorithm-watch.js`), each
+- vercel.json parses; functions are the 4 explicit paths
+  (`api/functions/health.js`, `api/functions/changes.js`,
+  `api/functions/niches.js`, `api/functions/cron/algorithm-watch.js`), each
   `{"maxDuration": 10}` (matches the 10s Hobby execution limit; cron fetches
-  are parallel 4s-bounded).
+  are parallel 4s-bounded). A `rewrites` entry maps the cron path
+  `/api/cron/algorithm-watch` to the real handler route
+  `/api/functions/cron/algorithm-watch`.
 - Vercel functions entries need ≥1 valid property — use `{"maxDuration": 10}`
   per explicit function path; never set runtime for Node (omit it); never
   broad globs (2026-10-12).
 - No static .js data files under api/ ever — Vercel deploys every .js there
   as a function (functions map is not an allowlist); basename collisions
   (x.js + x.json) fail the build (2026-10-12). Audit 2026-10-12: clean —
-  `api/` holds only `functions/*.js` (4 real functions), `lib/*.js`
-  (shared, not functions), and `v1/*.json` data.
+  `api/` holds only `functions/*.js` (4 real handlers) and `lib/*.js`
+  (shared helpers, not functions).
+- Vercel never serves static files under api/ — all static data lives in
+  data/v1/; only real function handlers under api/ (2026-10-12). The
+  generator emits to `data/v1/`, the build mirrors it to `site/data/v1/`,
+  and every frontend fetch + function reader + doc reference uses
+  `data/v1/`, never `api/v1/`.
 - Pre-built snapshot: `buildCommand` is an echo (no build step on Vercel);
   `installCommand` is an echo (no dependencies).
 - Build machine: Standard, never Turbo.
-- Last verified: 2026-10-12 (static pages 200, api/v1 JSON 200, functions
+- Last verified: 2026-10-12 (static pages 200, data/v1 JSON 200, functions
   node-syntax-checked).
 
 ## Track rule

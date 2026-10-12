@@ -61,7 +61,7 @@ Before you lock your niche statement, here's what the actual data says about whe
 - **Clipping / re-upload channels.** YouTube's October 1, 2026 Shorts update cuts the *channel-level* reach of aggregator accounts that repost others' content without adding anything of their own. The era of the zero-effort clip channel is ending; originals are prioritized (Phase 2 has the details).
 - **Low-effort AI-slop faceless channels.** YouTube's January 2026 inauthentic-content enforcement removed 16 major channels (4.7 billion combined views) and demonetized thousands of low-effort AI channels. Faceless still works — but only with visible human creativity: real commentary, real editing, a real perspective. Generic templated automation had one of the lowest breakout rates measured (3.1%).
 
-Machine-readable: `api/v1/calculators.json` → `niche_growth_2026` and `platform_rules_2026`.
+Machine-readable: `data/v1/calculators.json` → `niche_growth_2026` and `platform_rules_2026`.
 
 ## Positioning: why YOU and not them
 
@@ -508,7 +508,7 @@ Everyone under 25 ignores Facebook. That's the opportunity. Facebook's **Content
 
 ## The algorithm cheat sheet (Oct 2026)
 
-The full mechanics — with every claim labeled platform-published, verified multi-source, single-source, or creator lore — live in the [Short-Form Playbook](shortform-playbook.html) and in `api/v1/content-engine.json` → `algorithm_signals`. The working version fits on an index card:
+The full mechanics — with every claim labeled platform-published, verified multi-source, single-source, or creator lore — live in the [Short-Form Playbook](shortform-playbook.html) and in `data/v1/content-engine.json` → `algorithm_signals`. The working version fits on an index card:
 
 | Platform | Optimize for | The hierarchy that matters |
 |---|---|---|
@@ -1619,7 +1619,7 @@ A few under-covered corners surfaced by one source each — real signals, lighte
 3. **Model one in the [Empire Simulator](simulator.html)** — eight one-click scenarios, including an ASMR roleplay channel modeled on Gibi ASMR and a serialized mini-drama modeled on Dana and the Wolf.
 4. **Read the linked phase** before you commit — monetization (Phase 5) and the short-form playbook are linked from every niche record.
 
-The full machine-readable dataset — all 20 niches with 2027 trajectory badges and stream-fit ratings, breakout-format spotlights, the avoid list, sources, and the reality check — is [`api/v1/niches.json`](api/v1/niches.json).
+The full machine-readable dataset — all 20 niches with 2027 trajectory badges and stream-fit ratings, breakout-format spotlights, the avoid list, sources, and the reality check — is [`data/v1/niches.json`](data/v1/niches.json).
 
 ## Sources
 
@@ -2469,7 +2469,7 @@ Not "saturated" — *structurally* broken in late 2026. Each entry is the failur
 4. **Read the money layer before you commit** — [The Monetization Stack](phase-5-monetization-stack.html) for the revenue streams beyond ads, [The 2026 Rate Card](rate-card.html) for what sponsors actually pay, and [The 2026 Platform Rules Bible](platform-rules-bible.html) for the gates that decide whether a format can earn at all.
 5. **Re-verify before acting.** Platform rules change constantly — the October 1 update is eleven days old as this file is written, and its impact is still unmeasured. Verify live in YouTube Studio, TikTok's Creator Portal, or Meta's Account Status before you build on any claim here.
 
-The machine-readable dataset behind the dossiers — all ten formats with signals, reported ranges, competition, entry requirements, and source weights, plus the watch corners and the avoid list — is [`api/v1/niches.json`](api/v1/niches.json), in the `breakout_format_dossiers` block.
+The machine-readable dataset behind the dossiers — all ten formats with signals, reported ranges, competition, entry requirements, and source weights, plus the watch corners and the avoid list — is [`data/v1/niches.json`](data/v1/niches.json), in the `breakout_format_dossiers` block.
 
 ## Sources
 
@@ -2600,7 +2600,7 @@ Storika's corroborating shape ([single-source], Oct 2026): +25–40% for expande
 
 **The math that makes it click.** Take a micro creator whose dedicated video benchmarks at $4,000 (mid-range of the $1K–$10K micro/YouTube band). Paid-ad usage for 12 months adds +75–100% — $3,000–$4,000 — as its own line. Whitelisting for 2 months at 30–100%/month adds another $2,400–$8,000. The post was $4,000; the *deal* is $9,400–$16,000. Every line you let the brand fold into the post fee is a line you're giving away. This is a worked illustration of the benchmark mechanics, not a quote — your tier range is yours.
 
-**Perpetual usage deserves its own paragraph.** "Perpetual, irrevocable, worldwide, in all media now known or hereafter devised" is boilerplate that turns your post into the brand's permanent ad creative for the price of one post. Two honest options: price it from 2× the base fee as its own line item, or refuse outright. There is no third option where you sign it at organic price and feel fine later. If the brand insists, the negotiation script in the [Deal Room](deal-room.html) and the usage-rights upsell template in [deal-templates.json](api/v1/deal-templates.json) carry the exact language.
+**Perpetual usage deserves its own paragraph.** "Perpetual, irrevocable, worldwide, in all media now known or hereafter devised" is boilerplate that turns your post into the brand's permanent ad creative for the price of one post. Two honest options: price it from 2× the base fee as its own line item, or refuse outright. There is no third option where you sign it at organic price and feel fine later. If the brand insists, the negotiation script in the [Deal Room](deal-room.html) and the usage-rights upsell template in [deal-templates.json](data/v1/deal-templates.json) carry the exact language.
 
 **Why brands ask to fold usage into the post fee:** because it works. "We don't do usage fees, it's just part of the partnership" is a negotiation position, not a market fact. The benchmark grid exists precisely so you can name the tier, name the multiplier, and name the end date. Specificity is what turns a hope into a line item.
 
@@ -2652,7 +2652,7 @@ Exclusivity is the clause creators underestimate most. It doesn't cost you the d
 
 ## 7. Red flags — the ten traps, explained with the math
 
-The contract red-flag checklist lives in the [Outreach Center](outreach.html) and as machine-readable data in [deal-templates.json](api/v1/deal-templates.json) — ten flags, scored (any walk-away flag, or 3+ points, means don't sign as written). The flag data lives in deal-templates.json [single-source]. This section is the *why* behind each flag — the math and the mechanism that make them expensive.
+The contract red-flag checklist lives in the [Outreach Center](outreach.html) and as machine-readable data in [deal-templates.json](data/v1/deal-templates.json) — ten flags, scored (any walk-away flag, or 3+ points, means don't sign as written). The flag data lives in deal-templates.json [single-source]. This section is the *why* behind each flag — the math and the mechanism that make them expensive.
 
 1. **Perpetual usage for organic price.** The brand's ad creative, forever, for the price of one post. The fix is arithmetic: price perpetual from 2× base as its own line item, or refuse. (Section 3.)
 2. **Net-90+ payment with no escrow.** You're financing their marketing for a quarter with zero leverage if they ghost. Counter: net-30, 50% upfront from any brand you haven't worked with.
@@ -2773,24 +2773,24 @@ The tools on this site form a pipeline. In order:
 |---|---|---|
 | Orientation | `llms.txt` | Chapters, tools, skills, reference — one screen |
 | Full guide text | `llms-full.txt` | All 9 phases + reference, complete |
-| API index | `api/v1/index.json` | Manifest: endpoints, version |
-| Chapters | `api/v1/chapters.json` | 9 phases: id, title, word count, read time, path |
-| Niche atlas | `api/v1/niches.json` | 20 October-2026-researched niches: growth, revenue ranges, competition, startup cost, skill fit, avoid list, sources, reality check — ranges, never promises |
-| Glossary | `api/v1/glossary.json` | Creator-economy terms + definitions |
-| Calculators data | `api/v1/calculators.json` | RPM bands, thresholds, splits, 2026 rate card, usage-rights notes |
-| Deal templates | `api/v1/deal-templates.json` | 4 negotiation scripts, 6-item red-flag checklist, 6 usage-rights tiers with reported multiplier basis — the Deal Room data contract |
-| Content engine | `api/v1/content-engine.json` | 3 idea formats, 5 Playbook hook structures, dealing rules, batching guidance, Repurposing 2.0 derivative map, Oct-1 originality guardrails, deal-slot guidance — the Content Engine data contract (v1.1.0 adds: the Oct-2026 algorithm signal map with source-labeled claims, 6 trend-derived hook patterns, the cross-post adaptation matrix, and the weekly batch scheduler defaults) |
-| Skill index | `api/v1/skills.json` | 12 skills: name, description, path |
-| Case files | `api/v1/case-files.json` + `case-*.html` | 5 documented creator-business deconstructions: budget-grocery newsletter, Ben's Bites, faceless sleep-channel network, Mavwicks on TikTok Shop, cohort course — figures source-reported, never promises |
-| Reference | `rate-card.html`, `niche-atlas.html`, `sponsor-playbook.html` + `api/v1/calculators.json`, `api/v1/niches.json` | The 2026 sponsorship rate card + the Niche Atlas (interactive explorer) + the 2026 Sponsor Playbook (deal structures, usage-rights math, negotiation, contracts, FTC disclosure) |
-| Interactive tools | `quiz.html`, `calculator.html`, `planner.html`, `deal-analyzer.html`, `deal-room.html`, `hiring-calculator.html`, `repurpose.html`, `simulator.html`, `hook-builder.html`, `idea-bank.html`, `content-calendar.html`, `batching.html`, `crosspost.html`, `cadence.html`, `format-fit.html`, `deal-builder.html`, `api-explorer.html` | Human-facing; agents should use the API data behind them (`api/v1/tools.json` carries every tool's programmatic input schema) |
+| API index | `data/v1/index.json` | Manifest: endpoints, version |
+| Chapters | `data/v1/chapters.json` | 9 phases: id, title, word count, read time, path |
+| Niche atlas | `data/v1/niches.json` | 20 October-2026-researched niches: growth, revenue ranges, competition, startup cost, skill fit, avoid list, sources, reality check — ranges, never promises |
+| Glossary | `data/v1/glossary.json` | Creator-economy terms + definitions |
+| Calculators data | `data/v1/calculators.json` | RPM bands, thresholds, splits, 2026 rate card, usage-rights notes |
+| Deal templates | `data/v1/deal-templates.json` | 4 negotiation scripts, 6-item red-flag checklist, 6 usage-rights tiers with reported multiplier basis — the Deal Room data contract |
+| Content engine | `data/v1/content-engine.json` | 3 idea formats, 5 Playbook hook structures, dealing rules, batching guidance, Repurposing 2.0 derivative map, Oct-1 originality guardrails, deal-slot guidance — the Content Engine data contract (v1.1.0 adds: the Oct-2026 algorithm signal map with source-labeled claims, 6 trend-derived hook patterns, the cross-post adaptation matrix, and the weekly batch scheduler defaults) |
+| Skill index | `data/v1/skills.json` | 12 skills: name, description, path |
+| Case files | `data/v1/case-files.json` + `case-*.html` | 5 documented creator-business deconstructions: budget-grocery newsletter, Ben's Bites, faceless sleep-channel network, Mavwicks on TikTok Shop, cohort course — figures source-reported, never promises |
+| Reference | `rate-card.html`, `niche-atlas.html`, `sponsor-playbook.html` + `data/v1/calculators.json`, `data/v1/niches.json` | The 2026 sponsorship rate card + the Niche Atlas (interactive explorer) + the 2026 Sponsor Playbook (deal structures, usage-rights math, negotiation, contracts, FTC disclosure) |
+| Interactive tools | `quiz.html`, `calculator.html`, `planner.html`, `deal-analyzer.html`, `deal-room.html`, `hiring-calculator.html`, `repurpose.html`, `simulator.html`, `hook-builder.html`, `idea-bank.html`, `content-calendar.html`, `batching.html`, `crosspost.html`, `cadence.html`, `format-fit.html`, `deal-builder.html`, `api-explorer.html` | Human-facing; agents should use the API data behind them (`data/v1/tools.json` carries every tool's programmatic input schema) |
 | API explorer | `api-explorer.html` | Browse every `api/v1` endpoint and preview JSON in-browser |
 
-All endpoints are `GET` on static JSON. Base path: `api/v1/` (relative to the site root; the deployed site ships its own `api/` mirror, so the explorer works live too). Schemas: `api/v1/schema/` (JSON Schema draft-07).
+All endpoints are `GET` on static JSON. Base path: `data/v1/` (relative to the site root; the deployed site ships its own `api/` mirror, so the explorer works live too). Schemas: `data/v1/schema/` (JSON Schema draft-07).
 
 ## Skills — the executable layer
 
-Twelve skills live in `skills/<name>/SKILL.md`, indexed by `api/v1/skills.json`. Each skill has the same structure: Use when / Inputs / Procedure / Worked example / API references / Pitfalls.
+Twelve skills live in `skills/<name>/SKILL.md`, indexed by `data/v1/skills.json`. Each skill has the same structure: Use when / Inputs / Procedure / Worked example / API references / Pitfalls.
 
 | Skill | Use when |
 |---|---|
@@ -2809,7 +2809,7 @@ Twelve skills live in `skills/<name>/SKILL.md`, indexed by `api/v1/skills.json`.
 
 ## Data freshness policy
 
-- `api/v1/calculators.json` carries `version` (currently 1.3.0) and `updated` (currently 2026-10-11). Check these before quoting any platform number.
+- `data/v1/calculators.json` carries `version` (currently 1.3.0) and `updated` (currently 2026-10-11). Check these before quoting any platform number.
 - Platform thresholds include their source and observation date — treat as **verify live**, not gospel. Platforms change rules constantly; the most dangerous number on the internet is a stale one.
 - Rate-card figures are negotiation ranges compiled from 2026 agency benchmarks that disagree 2–3x within tiers — never present them as quotes.
 - The guide's honesty policy: platform facts verified October 2026. Income ranges are illustrative, never promises. Business/tax content is educational — **not financial, legal, or tax advice**.
@@ -2820,7 +2820,7 @@ Twelve skills live in `skills/<name>/SKILL.md`, indexed by `api/v1/skills.json`.
 
 Goal: give a creator a go/no-go with a counter-offer, in one pass.
 
-1. `GET api/v1/calculators.json` → `sponsorship_rate_card_2026`. Creator: 60K YouTube subs → micro tier (10K–100K) → YouTube range **$1,000–$10,000**.
+1. `GET data/v1/calculators.json` → `sponsorship_rate_card_2026`. Creator: 60K YouTube subs → micro tier (10K–100K) → YouTube range **$1,000–$10,000**.
 2. $5,000 is inside the band → fair, not strong. Implied CPM check: $5,000 ÷ 85K expected views × 1000 = **$58.82** vs the integrated-slot benchmark ($20–$35) — priced like a dedication, so the counter is justified.
 3. Red flags from the offer's terms (perpetual usage? broad exclusivity? net-60?): price paid-ad usage +50–100% and exclusivity +25%+ as separate line items; counter net-30 with 50% upfront.
 4. Build the counter per the `deal-negotiation` skill: base = top of the niche-adjusted range + line items. The interactive [The Deal Analyzer](deal-analyzer.html) runs the identical logic for humans — verdict, flag scans, contract checklist, counter worksheet, shareable report.
@@ -2830,16 +2830,16 @@ Goal: give a creator a go/no-go with a counter-offer, in one pass.
 
 Goal: a new creator gets niche → content plan → launch schedule.
 
-1. `GET api/v1/chapters.json` → read the Phase 0 and Phase 1 chapters from `llms-full.txt` for the start-from-nothing system and the content engine.
+1. `GET data/v1/chapters.json` → read the Phase 0 and Phase 1 chapters from `llms-full.txt` for the start-from-nothing system and the content engine.
 2. Run the `niche-validation` skill: score demand, competition, monetization, winnability. Feed the result into the human-facing [Niche Picker](quiz.html) or the [90-Day Planner](planner.html).
-3. `GET api/v1/calculators.json` → `youtube_longform_rpm_bands` and `platform_thresholds` to set realistic monetization expectations (bands, not promises).
+3. `GET data/v1/calculators.json` → `youtube_longform_rpm_bands` and `platform_thresholds` to set realistic monetization expectations (bands, not promises).
 4. Output: validated niche + 90-day posting schedule + the monetization thresholds to watch for. All platform numbers carry the verify-live flag.
 
 ### 3. Build a repurposing sprint for one video idea
 
 Goal: turn "I tested 5 budget mics" into five platform-native posts.
 
-1. Read the Phase 3 chapter (`api/v1/chapters.json` → `llms-full.txt`) for the pillar-to-everywhere SOP and native-grammar rules.
+1. Read the Phase 3 chapter (`data/v1/chapters.json` → `llms-full.txt`) for the pillar-to-everywhere SOP and native-grammar rules.
 2. Run the `repurposing-sprint` skill: atom test (does the insight survive standalone?), pillar prep (hook in first 15 seconds), then the five mission cards — YouTube Day 0, Short Day +1, TikTok Day +2, Reel Day +3, Facebook Day +4 — each with its hook rewrite from the idea line.
 3. The [Repurposing Planner](repurpose.html) generates the same mission cards interactively (checkboxes, printable) for the human.
 4. Output: the five mission cards with per-platform hook adaptations and the staggered posting order. Enforce native grammar — no watermarks, no copy-paste.
@@ -2848,7 +2848,7 @@ Goal: turn "I tested 5 budget mics" into five platform-native posts.
 
 Goal: run two paths over the same 12 months and get the delta table plus a plain-language verdict.
 
-1. `GET api/v1/tools.json` → tool `simulator` → `input_schema`: the 3.0 inputs are `scenario_id` (12 presets), `horizon` (12 | 24 | 36), `hires[]` (First Hire guide roles), `events[]` (the 5 what-if cards), and `compare_with` for A/B mode.
+1. `GET data/v1/tools.json` → tool `simulator` → `input_schema`: the 3.0 inputs are `scenario_id` (12 presets), `horizon` (12 | 24 | 36), `hires[]` (First Hire guide roles), `events[]` (the 5 what-if cards), and `compare_with` for A/B mode.
 2. `EmpireSim.scenarioInputs("asmr-bedroom")` vs `EmpireSim.scenarioInputs("tech-reviewer")` — the ASMR scenario declares its proxies (`lifestyle` growth 1.05x + lifestyle RPM band at low, $4).
 3. `EmpireSim.compare("ASMR bedroom", asmr, "Tech reviewer", tech, cfg)`: ASMR bedroom → **6,434** subs, **$909.02** net; Tech reviewer → **5,323** subs, **$7,955.56** net. Verdict: Path Tech reviewer leads on net revenue by **775%** — RPM $4.00 vs $14.00; growth 19.0% vs 11.1%; the net-revenue winner is NOT the subscriber winner.
 4. Return the verdict as a model, not a prediction: deltas explained by the drivers, the honesty caveat quoted, assumptions from `assumptionLines()` attached. Never present scenario revenue as expected income.
@@ -2857,7 +2857,7 @@ Goal: run two paths over the same 12 months and get the delta table plus a plain
 
 Goal: a 3-year projection — compounding growth, year-2/year-3 decay, Money Map stage transitions, and a named shock card.
 
-1. `GET api/v1/tools.json` → tool `simulator` → `input_schema`: `horizon` (12 | 24 | 36) and `events[]` (the 5 what-if cards, incl. the wave-25 `holiday-shopping-surge` — affiliate revenue ×1.8 for the event month + the next one). Engine: `require("assets/js/sim-engine.js")` (UMD, importable in node).
+1. `GET data/v1/tools.json` → tool `simulator` → `input_schema`: `horizon` (12 | 24 | 36) and `events[]` (the 5 what-if cards, incl. the wave-25 `holiday-shopping-surge` — affiliate revenue ×1.8 for the event month + the next one). Engine: `require("assets/js/sim-engine.js")` (UMD, importable in node).
 2. `EmpireSim.scenarioInputs("english-learning")` (21x breakout, 2027 outlook) → set `inputs.horizon = 36`, `inputs.events = [{ id: "algorithm-change", startMonth: 12 }]`.
 3. `EmpireSim.simulate(inputs, cfg)`: 36 months; month-12 → month-13 growth ×0.94 (year-2), month-24 → month-25 ×0.97 (year-3); `stages` lists each Money Map stage's first month (rule: `EmpireSim.stageForNet(net, teamActive)`); the card's labeled effect (Shorts views ×0.6 from month 12) cites the Oct-1-2026 originality update.
 4. `EmpireSim.compare("English learning", base36, "English learning + algo cut", shocked36, cfg)` — deltas are B minus A; the verdict names the net-revenue winner with the honesty caveat.
@@ -2867,7 +2867,7 @@ Goal: a 3-year projection — compounding growth, year-2/year-3 decay, Money Map
 
 Goal: take a live offer from first read to a signed-paper record — scored, priced, flag-checked, scripted, and memorized.
 
-1. `GET api/v1/deal-templates.json` → scripts, red-flag checklist, usage-rights tiers. Drive the logic with `require("assets/js/deal-room.js")` (UMD, importable in node).
+1. `GET data/v1/deal-templates.json` → scripts, red-flag checklist, usage-rights tiers. Drive the logic with `require("assets/js/deal-room.js")` (UMD, importable in node).
 2. Score: 60K YouTube subs → micro tier → range **$1,000–$10,000**; $5,000 → **FAIR** with the ~23% listed-vs-accepted honesty note.
 3. Price usage rights separately: 6-month paid-ads window on a $10,000 base → **+$7,500** (reported +75%, midpoint of the +50–100% research band). Whitelisting and buyout return guidance, never invented numbers.
 4. Check red flags: unlimited revisions → **walk away**. Four walk-away signals total: perpetual-usage-for-organic-price, net-90+ without escrow, unlimited revisions, no kill fee.
@@ -2878,7 +2878,7 @@ Goal: take a live offer from first read to a signed-paper record — scored, pri
 
 Goal: take raw ideas through the whole production pipeline — banked, scored, dealt into a 90-day calendar, film-day-checked, repurposed.
 
-1. `GET api/v1/content-engine.json` → the Content Engine data contract (idea formats, 5 Playbook hook structures, dealing rules, batching guidance, Repurposing 2.0 map, originality guardrails, deal-slot guidance). Drive the logic with `require("assets/js/content-engine.js")` (UMD, importable in node).
+1. `GET data/v1/content-engine.json` → the Content Engine data contract (idea formats, 5 Playbook hook structures, dealing rules, batching guidance, Repurposing 2.0 map, originality guardrails, deal-slot guidance). Drive the logic with `require("assets/js/content-engine.js")` (UMD, importable in node).
 2. Bank + score: `ContentEngine.sortIdeas(ideas)` (hook score desc, ties by created, no mutation); `hookScore(n)` clamps 1–5. Promote the best — they deal into the calendar.
 3. Deal: `ContentEngine.dealIdeas(ideas, {longsPerWeek, shortsPerWeek, restDay, weeks: 13})` — week-planner dealing rules: longs sorted by score then round-robin across non-rest work days, shorts every other work day, empty slots stay OPEN (never filler), surplus ideas in `unplaced`, week 7 = midpoint review.
 4. Batch: `ContentEngine.batchingMath({videosPerShootDay, shootDaysPerMonth, longsPerWeek, shortsPerWeek})` — capacity = shoot days × videos/day, required = cadence × 52/12; verdict surplus/balanced/shortfall with the consistency-beats-volume guidance. Arithmetic on the creator's inputs, never a promise.
@@ -2896,7 +2896,7 @@ Goal: take raw ideas through the whole production pipeline — banked, scored, d
 
 Goal: turn a deliverable list into a line-item quote, a proposal, and a deal checklist.
 
-1. `GET api/v1/tools.json` → tool `deal-builder` → `input_schema`: `followers`, `deliverables[]` (platform + kind + count), `viewsAvg`, `usage` (organic_only/paid_3mo/paid_6mo/paid_12mo/perpetual), `whitelistingMonths`, `exclusivity{scope, months}`, `affiliate{include, commissionPct}`. Engine: `require("assets/js/deal-builder.js")` (UMD, importable in node).
+1. `GET data/v1/tools.json` → tool `deal-builder` → `input_schema`: `followers`, `deliverables[]` (platform + kind + count), `viewsAvg`, `usage` (organic_only/paid_3mo/paid_6mo/paid_12mo/perpetual), `whitelistingMonths`, `exclusivity{scope, months}`, `affiliate{include, commissionPct}`. Engine: `require("assets/js/deal-builder.js")` (UMD, importable in node).
 2. `DealBuilder.buildQuote(input, cfg, cfg.usage_rights_benchmarks_2026)` — per-deliverable lines from the 2026 rate card (dedicated = tier band; integrated/short = sponsored-CPM × viewsAvg; UGC = Storika $150–$1,000), then usage (+25–50% / +50–75% / +75–100% / perpetual from 2×), whitelisting (30–100%/mo), and exclusivity (named +25%/+50%; broad locks flagged, never invented) stacked as separate lines. Package total, top-of-range ask, expected landing zone (×0.77).
 3. `DealBuilder.exclusivityConflicts(input)` — window mismatches and broad-lock walk-away flags; the tool can't see other contracts and says so.
 4. `DealBuilder.buildChecklist(quote)` — the 7-group checklist (usage, payment, revisions, exclusivity, FTC disclosure, deliverables, walk-away) customized to the quote; `DealBuilder.renderPitch(input, quote)` — the proposal with unsupplied stats as `[brackets]`, never invented.

@@ -210,7 +210,7 @@
       "shorts_per_week": "shorts_per_week from the calendar"
     }
   },
-  "source": "Wave 16 — The Content Engine; wave 23 (2.0) adds the Oct-2026 algorithm signal map (TikTok/Shorts/Reels, source-labeled), 6 trend-derived hook patterns, the cross-post adaptation matrix, and the weekly batch scheduler. Hook structures from the Short-Form Playbook (hook-builder.html); niche tags from api/v1/niches.json; dealing arithmetic mirrors assets/js/planner.js.",
+  "source": "Wave 16 — The Content Engine; wave 23 (2.0) adds the Oct-2026 algorithm signal map (TikTok/Shorts/Reels, source-labeled), 6 trend-derived hook patterns, the cross-post adaptation matrix, and the weekly batch scheduler. Hook structures from the Short-Form Playbook (hook-builder.html); niche tags from data/v1/niches.json; dealing arithmetic mirrors assets/js/planner.js.",
   "updated": "2026-10-11",
   "version": "1.1.0",
   "algorithm_signals": {

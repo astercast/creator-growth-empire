@@ -2,7 +2,7 @@
  * UMD: works in the browser (window.DealRoom) and in node (module.exports).
  *
  * HONESTY CONTRACT: every benchmark is a reported range from the 2026 rate
- * card (api/v1/calculators.json sponsorship_rate_card_2026), never a quote.
+ * card (data/v1/calculators.json sponsorship_rate_card_2026), never a quote.
  * Usage-rights multipliers are the wave-2 research band (+50–100%), flagged
  * per tier as reported vs. definitional. Not financial, legal, or tax advice.
  */

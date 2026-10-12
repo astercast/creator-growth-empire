@@ -9,7 +9,7 @@ description: Craft and stress-test short-form hooks using the five Short-Form Pl
 - Scripting any short-form video (TikTok, YouTube Shorts, Instagram Reels) — Phase: the Short-Form Playbook
 - A short gets impressions but dies in the first 3 seconds
 - Re-hooking long-form content for short-form cuts
-- Driving the Hook Builder tool's logic programmatically (input schema in `api/v1/tools.json`, tool `hook-builder`)
+- Driving the Hook Builder tool's logic programmatically (input schema in `data/v1/tools.json`, tool `hook-builder`)
 
 ## Inputs
 - The video topic in one line (the payoff works best — what does the viewer *get*?)
@@ -39,9 +39,9 @@ Topic: "I tested 5 budget microphones."
 - Winner: cold start for TikTok (immediate proof, no throat-clearing); numbered promise for the Shorts cut (educational skew).
 
 ## API references
-- `GET api/v1/tools.json` → tool `hook-builder` → `input_schema` (the programmatic contract: `{ topic }` → 5 hooks)
-- `GET api/v1/chapters.json` → the Short-Form Playbook chapter id; full text in `llms-full.txt`
-- `GET api/v1/calculators.json` → `platform_rules_2026` (TikTok / Shorts / Reels 2026 rules with sources and dates — verify live)
+- `GET data/v1/tools.json` → tool `hook-builder` → `input_schema` (the programmatic contract: `{ topic }` → 5 hooks)
+- `GET data/v1/chapters.json` → the Short-Form Playbook chapter id; full text in `llms-full.txt`
+- `GET data/v1/calculators.json` → `platform_rules_2026` (TikTok / Shorts / Reels 2026 rules with sources and dates — verify live)
 
 ## Pitfalls
 - Hook formulas are craft technique, not platform documentation — never present them as how the algorithm works.

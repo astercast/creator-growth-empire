@@ -1,8 +1,8 @@
 /* The Deal Room — browser UI wiring (no pure math here).
  * Storage: localStorage only (keys cge.deal-room.*), no accounts, no network
  * writes. Math lives in window.DealRoom (assets/js/deal-room.js, UMD);
- * benchmarks come from api/v1/calculators.json, scripts/checklists/tiers from
- * api/v1/deal-templates.json. Negotiation aid, not financial/legal advice. */
+ * benchmarks come from data/v1/calculators.json, scripts/checklists/tiers from
+ * data/v1/deal-templates.json. Negotiation aid, not financial/legal advice. */
 (function () {
   "use strict";
   var root = document.getElementById("deal-room");
@@ -298,16 +298,16 @@
   /* ---------------- data boot ---------------- */
   function boot() {
     Promise.all([
-      fetch("api/v1/calculators.json").then(function (r) { return r.json(); }),
-      fetch("api/v1/deal-templates.json").then(function (r) { return r.json(); })
+      fetch("data/v1/calculators.json").then(function (r) { return r.json(); }),
+      fetch("data/v1/deal-templates.json").then(function (r) { return r.json(); })
     ]).then(function (res) {
       cfg = res[0]; tpl = res[1];
       renderDeals(); renderUsage(); renderScripts(); renderFlags(); refreshMemoSelect();
     }).catch(function () {
       root.innerHTML = '<div class="error-state" role="alert">' +
         "<strong>CONFIG LOAD FAILED</strong>" +
-        "<p>Could not load the rate card or deal templates (<code>api/v1/calculators.json</code>, <code>api/v1/deal-templates.json</code>). " +
-        "Check that <code>api/v1/</code> is deployed alongside this page, then try again.</p>" +
+        "<p>Could not load the rate card or deal templates (<code>data/v1/calculators.json</code>, <code>data/v1/deal-templates.json</code>). " +
+        "Check that <code>data/v1/</code> is deployed alongside this page, then try again.</p>" +
         '<button type="button" class="btn btn-ghost" data-retry>Try again</button></div>';
     });
   }

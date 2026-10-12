@@ -79,7 +79,7 @@ Storika's corroborating shape ([single-source], Oct 2026): +25–40% for expande
 
 **The math that makes it click.** Take a micro creator whose dedicated video benchmarks at $4,000 (mid-range of the $1K–$10K micro/YouTube band). Paid-ad usage for 12 months adds +75–100% — $3,000–$4,000 — as its own line. Whitelisting for 2 months at 30–100%/month adds another $2,400–$8,000. The post was $4,000; the *deal* is $9,400–$16,000. Every line you let the brand fold into the post fee is a line you're giving away. This is a worked illustration of the benchmark mechanics, not a quote — your tier range is yours.
 
-**Perpetual usage deserves its own paragraph.** "Perpetual, irrevocable, worldwide, in all media now known or hereafter devised" is boilerplate that turns your post into the brand's permanent ad creative for the price of one post. Two honest options: price it from 2× the base fee as its own line item, or refuse outright. There is no third option where you sign it at organic price and feel fine later. If the brand insists, the negotiation script in the [Deal Room](deal-room.html) and the usage-rights upsell template in [deal-templates.json](api/v1/deal-templates.json) carry the exact language.
+**Perpetual usage deserves its own paragraph.** "Perpetual, irrevocable, worldwide, in all media now known or hereafter devised" is boilerplate that turns your post into the brand's permanent ad creative for the price of one post. Two honest options: price it from 2× the base fee as its own line item, or refuse outright. There is no third option where you sign it at organic price and feel fine later. If the brand insists, the negotiation script in the [Deal Room](deal-room.html) and the usage-rights upsell template in [deal-templates.json](data/v1/deal-templates.json) carry the exact language.
 
 **Why brands ask to fold usage into the post fee:** because it works. "We don't do usage fees, it's just part of the partnership" is a negotiation position, not a market fact. The benchmark grid exists precisely so you can name the tier, name the multiplier, and name the end date. Specificity is what turns a hope into a line item.
 
@@ -131,7 +131,7 @@ Exclusivity is the clause creators underestimate most. It doesn't cost you the d
 
 ## 7. Red flags — the ten traps, explained with the math
 
-The contract red-flag checklist lives in the [Outreach Center](outreach.html) and as machine-readable data in [deal-templates.json](api/v1/deal-templates.json) — ten flags, scored (any walk-away flag, or 3+ points, means don't sign as written). The flag data lives in deal-templates.json [single-source]. This section is the *why* behind each flag — the math and the mechanism that make them expensive.
+The contract red-flag checklist lives in the [Outreach Center](outreach.html) and as machine-readable data in [deal-templates.json](data/v1/deal-templates.json) — ten flags, scored (any walk-away flag, or 3+ points, means don't sign as written). The flag data lives in deal-templates.json [single-source]. This section is the *why* behind each flag — the math and the mechanism that make them expensive.
 
 1. **Perpetual usage for organic price.** The brand's ad creative, forever, for the price of one post. The fix is arithmetic: price perpetual from 2× base as its own line item, or refuse. (Section 3.)
 2. **Net-90+ payment with no escrow.** You're financing their marketing for a quarter with zero leverage if they ghost. Counter: net-30, 50% upfront from any brand you haven't worked with.

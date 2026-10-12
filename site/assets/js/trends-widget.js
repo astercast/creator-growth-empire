@@ -1,7 +1,7 @@
 /* trends-widget.js — "Hottest topics to cover" widget for Creator Growth Empire.
  *
  * Live trend feed from the trend-machine sibling site. Fetches
- * ${TRENDS_API_BASE}/api/v1/trends.json and renders the top-N trends.
+ * ${TRENDS_API_BASE}/data/v1/trends.json and renders the top-N trends.
  *
  * Graceful degradation: on ANY failure (no config, network error, timeout,
  * non-JSON, unrecognized schema) the widget hides itself silently — no
@@ -178,7 +178,7 @@
     try { ctrl = new AbortController(); } catch (e) { ctrl = null; }
     var timer = null;
     if (ctrl) timer = setTimeout(function () { try { ctrl.abort(); } catch (e) {} }, FETCH_TIMEOUT_MS);
-    var url = base + "/api/v1/trends.json";
+    var url = base + "/data/v1/trends.json";
     var opts = ctrl ? { signal: ctrl.signal, mode: "cors", credentials: "omit" } : { mode: "cors" };
     return fetch(url, opts)
       .then(function (res) {

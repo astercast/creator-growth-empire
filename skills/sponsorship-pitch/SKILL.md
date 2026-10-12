@@ -13,7 +13,7 @@ description: Build a complete sponsor outreach system — targeting, email, pric
 ## Inputs
 - Channel analytics: last-10-video average views, audience demographics, top geographies
 - List of 20 target brands in your niche (start with brands already sponsoring adjacent channels)
-- Your rate card (from `api/v1/calculators.json` sponsor CPM rule of thumb)
+- Your rate card (from `data/v1/calculators.json` sponsor CPM rule of thumb)
 
 ## Procedure
 1. **Build the target list.** 20 brands/week. Prioritize: brands sponsoring channels 1 size above yours (they have budget and creator experience), then direct competitors of those brands (FOMO is real).
@@ -31,8 +31,8 @@ Channel: 25k subs, tech niche, last-10 average 40k views.
 - Math: 40k views × $40 CPM = $1,600. Clean, defensible, closes.
 
 ## API references
-- `GET api/v1/calculators.json` → `sponsorship_rule_of_thumb` for CPM ranges
-- `GET api/v1/chapters.json` → Phase 5 chapter (outreach system, negotiation)
+- `GET data/v1/calculators.json` → `sponsorship_rule_of_thumb` for CPM ranges
+- `GET data/v1/chapters.json` → Phase 5 chapter (outreach system, negotiation)
 
 ## Pitfalls
 - Pitching subscriber count instead of views — sponsors buy views, not subs.

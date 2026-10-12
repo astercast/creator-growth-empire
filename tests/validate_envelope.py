@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """tests/validate_envelope.py — validate one function response against
-api/v1/schema/envelope.json (§1.10). Usage: curl -s URL | python3 tests/validate_envelope.py
+data/v1/schema/envelope.json (§1.10). Usage: curl -s URL | python3 tests/validate_envelope.py
 Exit 0 when valid, 1 with the violation printed otherwise."""
 import json
 import sys
@@ -9,7 +9,7 @@ from pathlib import Path
 from jsonschema import Draft202012Validator
 
 ROOT = Path(__file__).resolve().parent.parent
-SCHEMA = json.loads((ROOT / "api" / "v1" / "schema" / "envelope.json").read_text())
+SCHEMA = json.loads((ROOT / "data" / "v1" / "schema" / "envelope.json").read_text())
 
 
 def main():

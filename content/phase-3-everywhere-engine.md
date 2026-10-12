@@ -49,7 +49,7 @@ Everyone under 25 ignores Facebook. That's the opportunity. Facebook's **Content
 
 ## The algorithm cheat sheet (Oct 2026)
 
-The full mechanics — with every claim labeled platform-published, verified multi-source, single-source, or creator lore — live in the [Short-Form Playbook](shortform-playbook.html) and in `api/v1/content-engine.json` → `algorithm_signals`. The working version fits on an index card:
+The full mechanics — with every claim labeled platform-published, verified multi-source, single-source, or creator lore — live in the [Short-Form Playbook](shortform-playbook.html) and in `data/v1/content-engine.json` → `algorithm_signals`. The working version fits on an index card:
 
 | Platform | Optimize for | The hierarchy that matters |
 |---|---|---|

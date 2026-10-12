@@ -278,7 +278,7 @@ Not "saturated" — *structurally* broken in late 2026. Each entry is the failur
 4. **Read the money layer before you commit** — [The Monetization Stack](phase-5-monetization-stack.html) for the revenue streams beyond ads, [The 2026 Rate Card](rate-card.html) for what sponsors actually pay, and [The 2026 Platform Rules Bible](platform-rules-bible.html) for the gates that decide whether a format can earn at all.
 5. **Re-verify before acting.** Platform rules change constantly — the October 1 update is eleven days old as this file is written, and its impact is still unmeasured. Verify live in YouTube Studio, TikTok's Creator Portal, or Meta's Account Status before you build on any claim here.
 
-The machine-readable dataset behind the dossiers — all ten formats with signals, reported ranges, competition, entry requirements, and source weights, plus the watch corners and the avoid list — is [`api/v1/niches.json`](api/v1/niches.json), in the `breakout_format_dossiers` block.
+The machine-readable dataset behind the dossiers — all ten formats with signals, reported ranges, competition, entry requirements, and source weights, plus the watch corners and the avoid list — is [`data/v1/niches.json`](data/v1/niches.json), in the `breakout_format_dossiers` block.
 
 ## Sources
 

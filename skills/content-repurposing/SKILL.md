@@ -35,7 +35,7 @@ Pillar: "I tried 5 AI video tools for 30 days" (12 min, atom score 4).
 - Total marginal time: ~2 hours. Total touchpoints: 8+.
 
 ## API references
-- `GET api/v1/chapters.json` → Phase 3 chapter (platform grammars, the SOP)
+- `GET data/v1/chapters.json` → Phase 3 chapter (platform grammars, the SOP)
 
 ## Pitfalls
 - Blind cross-posting the identical file — each platform has a native grammar; adapt or get throttled.

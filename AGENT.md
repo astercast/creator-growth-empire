@@ -3,37 +3,37 @@
 > This site is a static machine-readable knowledge base for the creator
 > business: 9 phases, 21 tools, 12 skills, 9 case files, and a versioned JSON
 > API. No API key, no server, no auth, no rate limits. Fetch and act.
-> Every workflow below was executed against the real `api/v1/` JSON files —> see `tests/agent-workflows.test.js` (run: `node tests/agent-workflows.test.js`).
+> Every workflow below was executed against the real `data/v1/` JSON files —> see `tests/agent-workflows.test.js` (run: `node tests/agent-workflows.test.js`).
 
 ## Base URL pattern
 
-- **Base:** `api/v1/` relative to the site root.
+- **Base:** `data/v1/` relative to the site root.
 - Works on any static host. The deployed site ships its own `api/` mirror, so
   the same relative paths work on the live site, on GitHub Pages, or from a
   local clone.
-- **Manifest first:** `GET api/v1/index.json` lists every endpoint with its
-  description, schema URL (`api/v1/schema/*.json`, JSON Schema draft-07),
+- **Manifest first:** `GET data/v1/index.json` lists every endpoint with its
+  description, schema URL (`data/v1/schema/*.json`, JSON Schema draft-07),
   ISO-8601 UTC `updated` timestamp, record counts, and deprecation status.
   Start here; never hardcode endpoint paths.
 - **Orientation:** `llms.txt` (one screen: phases, tools, guides, skills, API),
   `llms-full.txt` (complete guide text — all 9 phases + reference + guides).
 - **Fetch pattern:** plain `GET` on static JSON. Example with curl:
-  `curl https://<site>/api/v1/calculators.json` — or `fetch("api/v1/calculators.json")`
+  `curl https://<site>/data/v1/calculators.json` — or `fetch("data/v1/calculators.json")`
   from a page on the same host.
 
 ## Key endpoints (with example requests)
 
 | Endpoint | What you get | Example |
 |---|---|---|
-| `GET api/v1/index.json` | Self-describing manifest: every endpoint, schema URL, `updated`, record counts | `curl …/api/v1/index.json` → pick `endpoints[].path` |
-| `GET api/v1/chapters.json` | 9 phases: `id`, `phase`, `title`, `path`, `words`, `read_minutes` | Find `phase-5-monetization-stack`, then read its full text in `llms-full.txt` |
-| `GET api/v1/niches.json` | The Niche Atlas v2.1.0: 20 researched niches (growth, revenue ranges, competition, startup cost, skill fit, avoid list, sources) + the 2027 outlook layer (`outlook_2027` trajectory badge + basis + signals per niche, `breakout_spotlights`, `outlook_2027.platform_signals`, `stream_fit` per niche) + the 10 breakout-format dossiers (`breakout_format_dossiers`: signal, pay, competition, `entry_requirements`, `who_it_suits`, risks, `read_2027`, source weights) | `curl …/api/v1/niches.json` → filter `niches[]` by `revenue_tier`/`skill_fit`/`outlook_2027.trajectory`; read `stream_fit` for the right second revenue stream; read `breakout_format_dossiers[]` for the per-format deep files |
-| `GET api/v1/glossary.json` | 26 creator-economy terms + definitions | Look up "RPM", "YPP", "whitelisting" before quoting them |
-| `GET api/v1/calculators.json` | Per-niche RPM bands, Shorts RPM, platform thresholds w/ sources+dates, revenue splits, 2026 sponsorship rate card, 2026 research snapshots | The data contract every calculator and the sim engine read |
-| `GET api/v1/skills.json` | 12 skills: `name`, `description`, `path` | `skills/deal-negotiation/SKILL.md` for the full procedure |
-| `GET api/v1/case-files.json` | 9 creator-business deconstructions: `id`, `title`, `path`, `words`, `read_minutes` | Full text on the `case-*.html` pages |
-| `GET api/v1/tools.json` | 21 tools with programmatic `input_schema` (draft-07), output description, `drive_notes` | Replicate any tool's logic without the UI |
-| `GET api/v1/schema/<name>.json` | JSON Schema draft-07 for every endpoint (per-doc and per-record) | Validate before you trust a payload |
+| `GET data/v1/index.json` | Self-describing manifest: every endpoint, schema URL, `updated`, record counts | `curl …/data/v1/index.json` → pick `endpoints[].path` |
+| `GET data/v1/chapters.json` | 9 phases: `id`, `phase`, `title`, `path`, `words`, `read_minutes` | Find `phase-5-monetization-stack`, then read its full text in `llms-full.txt` |
+| `GET data/v1/niches.json` | The Niche Atlas v2.1.0: 20 researched niches (growth, revenue ranges, competition, startup cost, skill fit, avoid list, sources) + the 2027 outlook layer (`outlook_2027` trajectory badge + basis + signals per niche, `breakout_spotlights`, `outlook_2027.platform_signals`, `stream_fit` per niche) + the 10 breakout-format dossiers (`breakout_format_dossiers`: signal, pay, competition, `entry_requirements`, `who_it_suits`, risks, `read_2027`, source weights) | `curl …/data/v1/niches.json` → filter `niches[]` by `revenue_tier`/`skill_fit`/`outlook_2027.trajectory`; read `stream_fit` for the right second revenue stream; read `breakout_format_dossiers[]` for the per-format deep files |
+| `GET data/v1/glossary.json` | 26 creator-economy terms + definitions | Look up "RPM", "YPP", "whitelisting" before quoting them |
+| `GET data/v1/calculators.json` | Per-niche RPM bands, Shorts RPM, platform thresholds w/ sources+dates, revenue splits, 2026 sponsorship rate card, 2026 research snapshots | The data contract every calculator and the sim engine read |
+| `GET data/v1/skills.json` | 12 skills: `name`, `description`, `path` | `skills/deal-negotiation/SKILL.md` for the full procedure |
+| `GET data/v1/case-files.json` | 9 creator-business deconstructions: `id`, `title`, `path`, `words`, `read_minutes` | Full text on the `case-*.html` pages |
+| `GET data/v1/tools.json` | 21 tools with programmatic `input_schema` (draft-07), output description, `drive_notes` | Replicate any tool's logic without the UI |
+| `GET data/v1/schema/<name>.json` | JSON Schema draft-07 for every endpoint (per-doc and per-record) | Validate before you trust a payload |
 
 Skills are the executable layer: each `skills/<name>/SKILL.md` follows
 **Use when / Inputs / Procedure / Worked example / API references / Pitfalls**.
@@ -45,7 +45,7 @@ Prefer running a skill over improvising the same task.
 
 Goal: verdict + counter-offer via The Deal Analyzer 2.0 engine — all via API.
 
-1. `GET api/v1/calculators.json` → `sponsorship_rate_card_2026`.
+1. `GET data/v1/calculators.json` → `sponsorship_rate_card_2026`.
    50K followers → `micro_10k_100k` tier → YouTube base range **$1,000–$10,000**.
 2. Niche-adjust: tech ×2.5 (the simulator's `sponsorNicheMult`, same single
    source) → verdict range **$2,500–$25,000**. Offer **$5,000** is inside →
@@ -60,7 +60,7 @@ Goal: verdict + counter-offer via The Deal Analyzer 2.0 engine — all via API.
    Red-flag scan: 3-month paid window → ok, but price it as a line item
    (+25–50% per the 2026 usage benchmarks); net-30 → sane.
    Contract answers (10 questions) map onto the wave-22 checklist
-   (`api/v1/deal-templates.json` `contract_flags`); any `walk_away` flag or
+   (`data/v1/deal-templates.json` `contract_flags`); any `walk_away` flag or
    3+ points → don't sign. NOT legal advice.
 5. Counter-offer worksheet (`DealAnalyzer.counterOffer`): base = top of the
    niche-adjusted range **$25,000** (creators list ~23% above what they accept;
@@ -75,15 +75,15 @@ Goal: verdict + counter-offer via The Deal Analyzer 2.0 engine — all via API.
 
 Goal: niche → content plan → launch schedule, with monetization gates.
 
-1. `GET api/v1/chapters.json` → read Phase 0 (start-from-nothing system) and
+1. `GET data/v1/chapters.json` → read Phase 0 (start-from-nothing system) and
    Phase 1 (content engine) from `llms-full.txt`.
-2. `GET api/v1/tools.json` → tool `planner` → `input_schema`. Build the config:
+2. `GET data/v1/tools.json` → tool `planner` → `input_schema`. Build the config:
    `{ longform_per_week: 1, shorts_per_week: 3, platforms: ["TikTok", "Instagram Reels", "YouTube Shorts"], rest_day: 6 }`.
 3. Replicate the planner's layout (same math as `assets/js/planner.js`):
    13 weeks → **13 long-form + 39 shorts = 52 pieces**, rest Sundays (analytics
    review only), week 7 flagged as the midpoint review, day-45 checkpoint:
    kill the worst format, double the best outlier.
-4. `GET api/v1/calculators.json` → `platform_thresholds`:
+4. `GET data/v1/calculators.json` → `platform_thresholds`:
    YouTube YPP full monetization = **1,000 subs + 4,000 watch hours/12mo**
    (or 10M Shorts views/90d); TikTok Creator Rewards food niche =
    **$0.60–$1.30 RPM** on qualified views (10K followers + 100K views/30d gate).
@@ -94,9 +94,9 @@ Goal: niche → content plan → launch schedule, with monetization gates.
 
 Goal: a 12-month growth + revenue model with every assumption named (36-month runs and what-if events: Workflow 11).
 
-1. `GET api/v1/tools.json` → tool `simulator` → `input_schema` + `drive_notes`.
+1. `GET data/v1/tools.json` → tool `simulator` → `input_schema` + `drive_notes`.
    The engine is `assets/js/sim-engine.js` (UMD — `require()` it in node):
-   `simulate(inputs, cfg)` with `cfg` = `api/v1/calculators.json`.
+   `simulate(inputs, cfg)` with `cfg` = `data/v1/calculators.json`.
 2. ASMR is not a key in the engine's niche maps — declare proxies explicitly:
    `niche: "lifestyle"` (growth factor 1.05, closest supported key for ambient
    content) + `rpmLevel: "low"` (lifestyle band $4–$10 at the floor — ASMR is
@@ -132,7 +132,7 @@ Goal: a 12-month growth + revenue model with every assumption named (36-month ru
 Goal: run two paths over the same 12 months, get the delta table and the
 "which path wins and why" verdict — all via API.
 
-1. `GET api/v1/tools.json` → tool `simulator` → `input_schema`: new wave-13
+1. `GET data/v1/tools.json` → tool `simulator` → `input_schema`: new wave-13
    inputs are `scenario_id` (enum of the 12 presets), `horizon` (12 | 24 | 36),
    `hires[]` (First Hire guide roles + costs), `events[]` (the 5 what-if cards —
    see Workflow 11), and `compare_with`
@@ -161,7 +161,7 @@ Goal: run two paths over the same 12 months, get the delta table and the
 Goal: take a live offer from first read to a signed-paper record — scored,
 priced, flag-checked, scripted, and memorized — all via API.
 
-1. `GET api/v1/deal-templates.json` → the Deal Room data contract: 4
+1. `GET data/v1/deal-templates.json` → the Deal Room data contract: 4
    negotiation scripts, 6 red-flag items, 6 usage-rights tiers, and the
    scoring rules. Drive the logic with
    `require("assets/js/deal-room.js")` (UMD, importable in node).
@@ -193,7 +193,7 @@ Goal: take three raw ideas and walk the whole production pipeline — banked,
 scored, dealt into a 90-day calendar, film-day-checked, and repurposed — all
 via API.
 
-1. `GET api/v1/content-engine.json` → the Content Engine data contract: 3 idea
+1. `GET data/v1/content-engine.json` → the Content Engine data contract: 3 idea
    formats, the 5 Short-Form Playbook hook structures, dealing rules, batching
    guidance, the Repurposing 2.0 derivative map, and the Oct-1 originality
    guardrails. Drive the logic with
@@ -234,14 +234,14 @@ via API.
    blocks the week into film/edit/publish day-blocks (8h/day cap, rest day
    untouched) → verdict holds/tight/over with lever guidance; task-minute
    defaults are starting estimates, never benchmarks. All of it mirrors
-   `api/v1/content-engine.json` (v1.1.0).
+   `data/v1/content-engine.json` (v1.1.0).
 
 ### Workflow 7 — Place a creator on the Money Map and generate their roadmap
 
 Goal: take a creator's 7 answers and return their stage + 3-move roadmap —
 all via API, no UI.
 
-1. `GET api/v1/tools.json` → tool `money-map` → `input_schema`. Build the
+1. `GET data/v1/tools.json` → tool `money-map` → `input_schema`. Build the
    answer object: `{ platform, audience, revenue, cadence, team, bottleneck,
    streams }`. The `revenue` band is the honest anchor ($0 / $1–99 /
    $100–999 / $1K–9,999 / $10K+); audience and team only generate sanity
@@ -280,7 +280,7 @@ Goal: take a creator's channel stats and return their YPP verdict under the
 current bar and the Feb-2027 bar, the gap math, and the close-the-gap plan —
 all via API, no UI.
 
-1. `GET api/v1/tools.json` → tool `ypp-checker` → `input_schema`. Build the
+1. `GET data/v1/tools.json` → tool `ypp-checker` → `input_schema`. Build the
    input: `{ subs, watchHours, shortsViews, uploads90d, originality, formatMix }`.
    Example: `{ subs: 1200, watchHours: 6500, shortsViews: 5000000,
    uploads90d: 60, originality: "original", formatMix: "both" }`.
@@ -313,15 +313,15 @@ all via API, no UI.
 Goal: take a creator's stats and a brand list, and run the whole outbound
 loop — pipeline, pitch, quote, contract read — all via API, no UI.
 
-1. `GET api/v1/tools.json` → tool `outreach` → `input_schema` (`OutreachInput`).
+1. `GET data/v1/tools.json` → tool `outreach` → `input_schema` (`OutreachInput`).
    Build the input: `{ brand, contactName, email, status, followUpDate,
    followers, platform, deliverable, expectedViews, pitchTemplate, pitchVars,
    contractFlags }`. Example: `{ brand: "Acme", followers: 50000,
    platform: "youtube", deliverable: "integrated", expectedViews: 40000,
    pitchTemplate: "cold_pitch", contractFlags: [] }`.
 2. Drive the logic with `require("assets/js/outreach.js")` (UMD, importable
-   in node) against `api/v1/calculators.json` (`sponsorship_rate_card_2026` +
-   `sponsorship_rule_of_thumb`) and `api/v1/deal-templates.json`
+   in node) against `data/v1/calculators.json` (`sponsorship_rate_card_2026` +
+   `sponsorship_rule_of_thumb`) and `data/v1/deal-templates.json`
    (`pitch_templates`, `contract_flags`):
    - **Pipeline.** `validDeal(d)` validates records; `pipelineStats(deals)` →
      `{ contacted, responded, activeDeals, signed, responseRate, closeRate }`
@@ -353,12 +353,12 @@ Goal: take a finished clip and build the per-destination adaptation plan —
 aspect, captions, hooks, CTAs, disclosure labels — under the Oct-1
 originality rules, all via API, no UI.
 
-1. `GET api/v1/tools.json` → tool `crosspost` → `input_schema` (`CrossPostInput`).
+1. `GET data/v1/tools.json` → tool `crosspost` → `input_schema` (`CrossPostInput`).
    Build the input: `{ source_platform, destinations[], photorealistic_ai }`.
    Example: `{ source_platform: "tiktok", destinations: ["shorts", "reels"],
    photorealistic_ai: false }`.
 2. Drive the logic with `require("assets/js/content-engine.js")` (UMD,
-   importable in node) against `api/v1/content-engine.json` (`adaptation_matrix`):
+   importable in node) against `data/v1/content-engine.json` (`adaptation_matrix`):
    - **Plan.** `adaptChecklist(source_platform, destinations)` → per-destination
      cards (grammar note + ordered changes: hook rework, caption rewrite, CTA
      swap, audio rights, disclosure label); the source itself and unknown
@@ -383,7 +383,7 @@ originality rules, all via API, no UI.
 Goal: a 3-year projection with compounding growth, year-2/year-3 decay,
 Money Map stage transitions, and a named shock card — all via API, no UI.
 
-1. `GET api/v1/tools.json` → tool `simulator` → `input_schema`: `horizon`
+1. `GET data/v1/tools.json` → tool `simulator` → `input_schema`: `horizon`
    (12 | 24 | 36) and `events[]` (the 5 what-if cards with their assumed
    effects — incl. the wave-25 `holiday-shopping-surge`: affiliate revenue
    ×1.8 for the event month + the next one, the two-month holiday buying
@@ -393,7 +393,7 @@ Money Map stage transitions, and a named shock card — all via API, no UI.
    and `inputs.events = [{ id: "algorithm-change", startMonth: 12 }]` —
    the Oct-1-2026 Shorts reach-cut card landing at month 12.
 3. `EmpireSim.simulate(inputs, cfg)` with `cfg` =
-   `api/v1/calculators.json`. Verified result (executed against the real
+   `data/v1/calculators.json`. Verified result (executed against the real
    files): 36 months, month-12 → month-13 growth drops ×0.94 (the year-2
    curve), month-24 → month-25 ×0.97 (year-3), `stages` lists the first
    month each Money Map stage was reached (stage rule:
@@ -418,8 +418,8 @@ Goal: paste-the-terms → verdict + flag scans + contract checklist + counter
 + shareable report, all through the real engine (`require("assets/js/deal-analyzer.js")`
 — UMD, the same code the page runs).
 
-1. `GET api/v1/calculators.json` → `sponsorship_rate_card_2026` +
-   `usage_rights_benchmarks_2026` (v1.4.0); `GET api/v1/deal-templates.json`
+1. `GET data/v1/calculators.json` → `sponsorship_rate_card_2026` +
+   `usage_rights_benchmarks_2026` (v1.4.0); `GET data/v1/deal-templates.json`
    → `contract_flags` (the wave-22 checklist, 10 flags, single data source).
 2. `DealAnalyzer.validInput({...})` — platform, deliverable, followers,
    expected views, offer, usage/whitelisting/exclusivity/payment terms,
@@ -450,7 +450,7 @@ Goal: paste-the-terms → verdict + flag scans + contract checklist + counter
 Goal: invert the Empire Simulator — find the growth rate or cadence that
 lands a target by a target month, via API.
 
-1. `GET api/v1/calculators.json` as `cfg`; engine =
+1. `GET data/v1/calculators.json` as `cfg`; engine =
    `require("assets/js/sim-engine.js")`.
 2. `EmpireSim.solveForGoal(inputs, cfg, {target: "subs"|"net"|"stage",
    value, month, variable: "growth"|"cadence"})` — integer binary search:
@@ -473,7 +473,7 @@ lands a target by a target month, via API.
 Goal: turn a deliverable list into a line-item quote, a proposal, and a
 deal checklist — via API, against the real 2026 rate card.
 
-1. `GET api/v1/calculators.json` as `cfg`; engine =
+1. `GET data/v1/calculators.json` as `cfg`; engine =
    `require("assets/js/deal-builder.js")`.
 2. `DealBuilder.buildQuote({followers: 50000, deliverables: [{platform:
    "youtube", kind: "dedicated", count: 1}, {platform: "tiktok", kind:
@@ -524,7 +524,7 @@ deal checklist — via API, against the real 2026 rate card.
 ## Driving the tools programmatically
 
 Every tool's input contract is a JSON Schema (draft-07) in
-`api/v1/tools.json` → `tools[].input_schema`, with `output` and `drive_notes`
+`data/v1/tools.json` → `tools[].input_schema`, with `output` and `drive_notes`
 explaining how to replicate the logic:
 
 | Tool | Inputs (shape) | How to drive it |
@@ -533,15 +533,15 @@ explaining how to replicate the logic:
 | Revenue Calculator | `niche` (RPM-band key) + monthly long-form/shorts views + sponsor deals + sponsor views + affiliate $ | `views/1000 × RPM band` per stream from `calculators.json`; affiliate ±30% |
 | 90-Day Planner | `longform_per_week` (0–7), `shorts_per_week` (0–21), `platforms[]`, `rest_day` (0–6) | Spread long-form across non-rest days, shorts 2 days apart, 13 weeks |
 | The Deal Analyzer | `platform`, `deliverable`, `followers`, `offer_usd` + `niche`, `expected_views`, `usage_rights`, `whitelisting`, `exclusivity`, `payment_terms`, `timeline`, `post_count`, `contract{}` (10 answers) | `require("assets/js/deal-analyzer.js")` — `evaluate()` for the niche-adjusted verdict + implied-CPM + category cross-check, `offerTermFlags()` for the term scan, `mapTermsToFlags()` + `contractRisk()` for the wave-22 checklist, `counterOffer()` for the worksheet, `exportReport()` for the shareable report, `compareDeals()` for 2-deal comparison — see Workflows 1, 12 |
-| The Deal Room | `brand`, `platform`, `followers`, `deliverable`, `expected_views`, `offer_usd`, `usage_rights`, `exclusivity`, `payment_terms`, `timeline`, `status` (offer → negotiating → signed → delivered → paid) | `require("assets/js/deal-room.js")` — `scoreOffer()` for the verdict, `priceUsage()` for usage line items (reported +50/+75/+100% band; no invented whitelisting/buyout multipliers), `redFlagScore()` for the checklist, `renderScript()` for the 4 negotiation scripts, `dealMemo()` for the one-page record; scripts + checklist + tiers from `api/v1/deal-templates.json` — see Workflow 5 |
+| The Deal Room | `brand`, `platform`, `followers`, `deliverable`, `expected_views`, `offer_usd`, `usage_rights`, `exclusivity`, `payment_terms`, `timeline`, `status` (offer → negotiating → signed → delivered → paid) | `require("assets/js/deal-room.js")` — `scoreOffer()` for the verdict, `priceUsage()` for usage line items (reported +50/+75/+100% band; no invented whitelisting/buyout multipliers), `redFlagScore()` for the checklist, `renderScript()` for the 4 negotiation scripts, `dealMemo()` for the one-page record; scripts + checklist + tiers from `data/v1/deal-templates.json` — see Workflow 5 |
 | Hiring Cost Calculator | `role`, `billing_model`, `rate_usd` + hours/units/views/`niche` | Sticker → loaded ×1.15; coverage views = loaded ÷ RPM band × 1000; 3-month reserve rule |
 | Repurposing Planner | `idea` (one sentence) + `source_format` | Atom test → pillar prep → 5 staggered mission cards (YT Day 0, Short +1, TikTok +2, Reel +3, FB +4) |
 | Empire Simulator | `niche`, `startSubs`, cadence, `quality`, `growthRate`, `q4Uplift`, monetization toggles, `scenario_id`, `horizon` (12/24/36), `hires[]`, `events[]`, `compare_with` | `require("assets/js/sim-engine.js").simulate(inputs, calculatorsJson)` — plus `scenarioInputs(id)`, `compare(nameA,a,nameB,b,cfg)`, `assumptionLines()`, `exportPlan()`, `normalizeEvents()`, `stageForNet(net, teamActive)`, `solveForGoal(inputs, cfg, goal)` — see Workflows 3–4, 11, 13 |
 | API Explorer | none (read-only browser over the API) | Skip the UI; fetch the endpoints directly |
 | YPP 2027 Eligibility Checker | `subs`, `watchHours`, `shortsViews`, `uploads90d`, `originality` (original/repurposed/reposted), `formatMix` (longform/shorts/both) | `require("assets/js/ypp-checker.js")` — `check(i)` returns current-vs-2027 verdicts, Shorts floor, activity test, gap math, chapter-grounded plan — see Workflow 8 |
 | Hook Builder | `topic` (one line) | One hook per Short-Form Playbook structure + the anti-hook checklist |
-| The Outreach Center | `brand`, `contactName`, `email`, `status` (pitched → replied → negotiating → signed → passed), `followUpDate`, `followers`, `platform`, `deliverable`, `expectedViews`, `pitchTemplate` (cold_pitch/follow_up_nudge/warm_intro), `pitchVars{}`, `contractFlags[]` | `require("assets/js/outreach.js")` — `validDeal()` for pipeline records, `pipelineStats()` for response/close rates, `dueFollowUps()` for the one-nudge buckets, `quoteCalc()` for the tier range + CPM cross-check (top-of-range quote, ~23% expected-close math), `renderPitch()` for the 3 honest templates (unfilled `[brackets]` stay visible — never invent stats), `contractRisk()` for the checklist (any walk_away flag or 3+ points → don't sign); templates + contract flags from `api/v1/deal-templates.json` — see Workflow 9 |
-| Cross-Post Optimizer | `source_platform` (tiktok/shorts/reels/facebook), `destinations[]`, `photorealistic_ai` (boolean) | `require("assets/js/content-engine.js")` — `adaptChecklist(source, dests)` → per-destination cards (hook rework, caption rewrite, CTA swap, audio rights, disclosure label) + 6 universal checks + the Oct-1 gate; matrix from `api/v1/content-engine.json` → `adaptation_matrix`; pairs with the `content-repurposing` skill — see Workflow 10 |
+| The Outreach Center | `brand`, `contactName`, `email`, `status` (pitched → replied → negotiating → signed → passed), `followUpDate`, `followers`, `platform`, `deliverable`, `expectedViews`, `pitchTemplate` (cold_pitch/follow_up_nudge/warm_intro), `pitchVars{}`, `contractFlags[]` | `require("assets/js/outreach.js")` — `validDeal()` for pipeline records, `pipelineStats()` for response/close rates, `dueFollowUps()` for the one-nudge buckets, `quoteCalc()` for the tier range + CPM cross-check (top-of-range quote, ~23% expected-close math), `renderPitch()` for the 3 honest templates (unfilled `[brackets]` stay visible — never invent stats), `contractRisk()` for the checklist (any walk_away flag or 3+ points → don't sign); templates + contract flags from `data/v1/deal-templates.json` — see Workflow 9 |
+| Cross-Post Optimizer | `source_platform` (tiktok/shorts/reels/facebook), `destinations[]`, `photorealistic_ai` (boolean) | `require("assets/js/content-engine.js")` — `adaptChecklist(source, dests)` → per-destination cards (hook rework, caption rewrite, CTA swap, audio rights, disclosure label) + 6 universal checks + the Oct-1 gate; matrix from `data/v1/content-engine.json` → `adaptation_matrix`; pairs with the `content-repurposing` skill — see Workflow 10 |
 | Cadence Coach | `platforms`, `weeklyHours`, `longMins`, `shortMins`, `restDay`, `stage`, `priority` (longs/shorts/balanced) | `require("assets/js/cadence.js")` — `recommend(i)` → longs/week + shorts/week, holds/tight/over utilization, 7-day grid, Oct-2026 platform revenue realities, 2-week ramp — capacity math only, never a growth promise |
 | Format Fit Finder | `experience` (teacher/tech/finance/legal/health/audio/writer/operator/none-yet), `weeklyHours`, `camera` (face/voice/hands/anything), `budget` (free/modest/real), `goal` (fast/mid/slow), `risk` (safe/balanced/bold) | `require("assets/js/format-fit.js")` — `recommend(i)` → 10 breakout formats ranked by axis scores (experience/camera/hours/budget/goal/risk = 13 max, strong ≥9), per-match why-it-fits, the catch from dossier risks, creator-reported pay ranges, first 3 moves, per-match + global mismatch flags — matching arithmetic, never a promise |
 | Deal Builder | `followers`, `deliverables[]` (`platform` youtube/tiktok/instagram, `kind` dedicated/integrated/short/ugc, `count` 1–12), `viewsAvg`, `usage` (organic_only/paid_3mo/paid_6mo/paid_12mo/perpetual), `whitelistingMonths` (0–24), `exclusivity{scope, months}`, `affiliate{include, commissionPct}` | `require("assets/js/deal-builder.js")` — `buildQuote()` for the stacked line-item quote (usage/whitelisting/exclusivity as separate lines, expected close ×0.77), `exclusivityConflicts()` for window checks, `buildChecklist()` for the 7-group checklist, `renderPitch()` for the proposal ([brackets] for unsupplied stats); tier math parity-pinned with Outreach — see Workflow 14 |

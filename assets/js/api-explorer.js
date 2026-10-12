@@ -2,7 +2,7 @@
    Fetches relative to the site root (the deployed site ships its own api/ mirror). */
 (function () {
   "use strict";
-  var BASE = "api/v1/";
+  var BASE = "data/v1/";
   var list = document.getElementById("explorer-list");
   var out = document.getElementById("explorer-code");
   var meta = document.getElementById("explorer-meta");
@@ -12,7 +12,7 @@
   if (!list || !out) return;
 
   /* Static fallback catalogue if index.json itself can't be reached.
-     Kept in sync with api/v1/index.json by hand — update both together. */
+     Kept in sync with data/v1/index.json by hand — update both together. */
   var FALLBACK = [
     { name: "index.json", desc: "Self-describing manifest: every endpoint, schema URL, timestamp, record counts." },
     { name: "chapters.json", desc: "All 9 phases: id, title, words, read time, path." },
@@ -87,7 +87,7 @@
       .catch(function (e) {
         showError("Could not load " + BASE + name + " — fetch failed (" +
           (e && e.message ? e.message : "unknown error") + "). " +
-          "Check that api/v1/ is deployed alongside this page and try again.");
+          "Check that data/v1/ is deployed alongside this page and try again.");
       });
   }
 

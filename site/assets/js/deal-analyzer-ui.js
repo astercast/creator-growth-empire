@@ -2,9 +2,9 @@
  * Storage: localStorage only (keys cge.dealanalyzer.*), no accounts, no
  * network writes. Math lives in window.DealAnalyzer
  * (assets/js/deal-analyzer.js, UMD); benchmarks come from
- * api/v1/calculators.json (sponsorship_rate_card_2026 +
+ * data/v1/calculators.json (sponsorship_rate_card_2026 +
  * usage_rights_benchmarks_2026 v1.4.0), the contract checklist from
- * api/v1/deal-templates.json contract_flags. A negotiation aid — not
+ * data/v1/deal-templates.json contract_flags. A negotiation aid — not
  * financial, legal, or tax advice; the contract checklist is not legal
  * advice. */
 (function () {
@@ -413,10 +413,10 @@
           " · contract checklist v" + dealData.version + ".";
       }
     }
-    fetch("api/v1/calculators.json").then(function (r) { return r.json(); })
+    fetch("data/v1/calculators.json").then(function (r) { return r.json(); })
       .then(function (c) { cfg = c; ready(); })
       .catch(function () { cfg = null; ready(); });
-    fetch("api/v1/deal-templates.json").then(function (r) { return r.json(); })
+    fetch("data/v1/deal-templates.json").then(function (r) { return r.json(); })
       .then(function (d) { dealData = d; ready(); })
       .catch(function () { dealData = null; ready(); });
   }

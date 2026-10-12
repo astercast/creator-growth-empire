@@ -30,9 +30,9 @@ explicit, never globs):
 | `/api/niches` | `niches.json` passthrough with `generated_at` freshness. |
 | `/api/cron/algorithm-watch` | Daily job: fetches upstream RSS, keyword-gates, classifies, dedupes, prunes to the 90-day retention window, commits via `writeJsonIfChanged` only when the feed actually changed. |
 
-**Static fallback twins** (served from `site/api/v1/`, always available even if
-every function is down): `api/v1/changes.json`, `api/v1/niches.json`,
-`api/v1/schema/*.json`.
+**Static fallback twins** (served from `site/data/v1/`, always available even if
+every function is down): `data/v1/changes.json`, `data/v1/niches.json`,
+`data/v1/schema/*.json`.
 
 **Cron:** `/api/cron/algorithm-watch` at `0 12 * * *` UTC (daily — Hobby minimum).
 
@@ -84,7 +84,7 @@ state, spinner, or blank widget because the backend was cold or down.
    curl -s $BASE/api/health | python3 -c "import json,sys; e=json.load(sys.stdin); assert e['ok'] is True"
    curl -s "$BASE/api/changes?limit=3" | python3 -c "import json,sys; e=json.load(sys.stdin); assert e['ok'] is True and len(e['data']['changes'])>0"
    curl -s $BASE/api/niches | python3 -c "import json,sys; e=json.load(sys.stdin); assert e['ok'] is True"
-   curl -s $BASE/api/v1/changes.json | python3 -c "import json,sys; d=json.load(sys.stdin); assert len(d['changes'])>0"
+   curl -s $BASE/data/v1/changes.json | python3 -c "import json,sys; d=json.load(sys.stdin); assert len(d['changes'])>0"
    ```
 8. **Disable test:** block `/api/*` (or stop the functions) → reload
    `what-changed.html` → assert the full pre-rendered feed shows with an
@@ -98,7 +98,7 @@ state, spinner, or blank widget because the backend was cold or down.
 | `CRON_SECRET` | **yes** (cron 401s fail-closed without it) | Vercel → Project → Settings → Environment Variables (Production). Vercel auto-sends `Authorization: Bearer <secret>` on cron invocations. | Regenerate with `openssl rand -hex 32`; update the Vercel var; no code change needed. ≥16 chars enforced. |
 | `GITHUB_REPO_TOKEN` | no — pending user decision | Same place (Production). Fine-grained PAT, contents:write on this repo only. | Rotate in GitHub → update Vercel var. Without it the cron degrades to read-only. |
 | `GITHUB_REPO` | no | Same place. `owner/repo` — target of the cron's commit-back. | Only meaningful with `GITHUB_REPO_TOKEN` set. |
-| `REPO_STATIC_PREFIX` | no | Same place. Path prefix prepended to the commit-back target file (`api/v1/changes.json`). | Only meaningful with `GITHUB_REPO_TOKEN` set. |
+| `REPO_STATIC_PREFIX` | no | Same place. Path prefix prepended to the commit-back target file (`data/v1/changes.json`). | Only meaningful with `GITHUB_REPO_TOKEN` set. |
 
 No other secrets exist. Nothing secret is ever committed to the repo.
 
@@ -166,14 +166,14 @@ smaller payloads) — never a plan upgrade without the user's explicit word.
 - Update any absolute URLs in `llms.txt`/sitemap if the domain changes
   (generated files — edit the source in `scripts/build.py`, then rebuild).
 - The client code uses **relative** paths (`/api/changes`,
-  `/api/v1/changes.json`), so no JS changes are needed for a domain move.
+  `/data/v1/changes.json`), so no JS changes are needed for a domain move.
 
 ## 9. Rollback
 
 1. `git revert` the offending commit → push → Vercel redeploys the previous
    good state automatically.
 2. Functions are stateless; there is no data migration to undo. The feed data
-   lives in the repo (`data/changes.json` → `api/v1/changes.json`), so
+   lives in the repo (`data/changes.json` → `data/v1/changes.json`), so
    reverting the repo reverts the data too.
 3. If a bad cron commit landed in `data/changes.json`, revert that commit —
    the next scheduled run (or a manual trigger) rebuilds from the corrected

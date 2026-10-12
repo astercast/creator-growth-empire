@@ -13,7 +13,7 @@ description: Validate a creator niche before committing — demand, competition,
 ## Inputs
 - Candidate niche statement: "I make [format] about [topic] for [person] who wants [transformation]"
 - 10 competitor channels in the 50k–500k subscriber band
-- Access to the site's `api/v1/calculators.json` for RPM bands
+- Access to the site's `data/v1/calculators.json` for RPM bands
 
 ## Procedure
 1. **Demand check.** Search the niche on YouTube. Count channels in the 50k–500k band posting in the last 30 days. Fewer than 5 active = demand risk. Note the top 3 videos' view-to-subscriber ratios — 5x+ means the algorithm is hunting for winners.
@@ -32,8 +32,8 @@ Candidate: "10-minute breakdowns of failed startups for 20-something founders."
 - **Total: 24/30 → commit.**
 
 ## API references
-- `GET api/v1/calculators.json` → `youtube_longform_rpm_bands` for niche RPM ranges
-- `GET api/v1/chapters.json` → Phase 0 chapter for the niche triangle framework
+- `GET data/v1/calculators.json` → `youtube_longform_rpm_bands` for niche RPM ranges
+- `GET data/v1/chapters.json` → Phase 0 chapter for the niche triangle framework
 
 ## Pitfalls
 - Confusing "no competition" with "opportunity" — it usually means no audience.

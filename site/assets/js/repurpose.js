@@ -147,7 +147,7 @@
         "shorts — every one carrying a <strong>required original element</strong>. Repurposing " +
         "is not re-uploading.</p>" + mapHtml +
         '<h3>The Oct-1 originality guardrails</h3>' + guardHtml +
-        '<p class="muted">Machine-readable map + guardrails: <a href="api/v1/content-engine.json">api/v1/content-engine.json</a>. ' +
+        '<p class="muted">Machine-readable map + guardrails: <a href="data/v1/content-engine.json">data/v1/content-engine.json</a>. ' +
         "Feed the pillar back into the <a href=\"idea-bank.html\">Idea Bank</a> or the <a href=\"content-calendar.html\">content calendar</a> when it's done.</p>";
     }
   });
