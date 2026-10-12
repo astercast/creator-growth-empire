@@ -134,6 +134,7 @@ collision with wave 28's `.platform-rules` (asserted in-test).
 Commits (local → remote, both pushed 2026-10-11, remote trees verified via GitHub Trees API):
 - 40cce22 → b242b0abe94f91f906edf16a6e7d4b24cd65a99c (7 new files)
 - 9bad039 → 54a055cae16ef217d3a66f0ac74cc6101ba85dad (web-craft design application + UI defaults fix; parented on b242b0a)
+- b1664d0 → 58ded0e970cbaa8a0d956c7e293dc5560746b2b8 (hash fill; parented on 54a055c)
 All 7 wave-27 files confirmed present on remote main; sibling lanes' committed files intact.
 Merge attention needed: apply `MERGE-fragment-w27-tools.md` (B1–B8) after
 wave 26 merges, then rebuild + revalidate; if wave 26 renumbered tools or
