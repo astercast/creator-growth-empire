@@ -131,8 +131,10 @@ scroll progress bar (their pattern), blur-reveal/kinetic-type (wrong
 register), font-pipeline changes (fleet scope). All `.cc-`-scoped; no
 collision with wave 28's `.platform-rules` (asserted in-test).
 
-Commit: 40cce22 (local) → b242b0abe94f91f906edf16a6e7d4b24cd65a99c (pushed 2026-10-11, remote tree verified via GitHub API).
-Follow-up design-application commit: <local-hash2> → <remote-hash2>.
+Commits (local → remote, both pushed 2026-10-11, remote trees verified via GitHub Trees API):
+- 40cce22 → b242b0abe94f91f906edf16a6e7d4b24cd65a99c (7 new files)
+- 9bad039 → 54a055cae16ef217d3a66f0ac74cc6101ba85dad (web-craft design application + UI defaults fix; parented on b242b0a)
+All 7 wave-27 files confirmed present on remote main; sibling lanes' committed files intact.
 Merge attention needed: apply `MERGE-fragment-w27-tools.md` (B1–B8) after
 wave 26 merges, then rebuild + revalidate; if wave 26 renumbered tools or
 moved anchors, re-anchor per the fragment's notes. `WAVELOG.md` itself was
