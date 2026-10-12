@@ -714,4 +714,4 @@ on the committed tree, 72 sim + 78 deal-room + **49 content-engine** engine
 assertions, 47 agent-workflow assertions — incl. the new Workflow 6 against
 the real JSONs, llms counts fresh).
 
-Commit: (pending push).
+Commit: 868a16f (local) → d793f2d08b79e36ee8035cfabfbdc7aa4b1c3aeb (pushed 2026-10-11, remote tree verified via GitHub API).
