@@ -1,0 +1,55 @@
+/* what-changed.css — Algorithm Watch "what changed" feed page (Wave B).
+   Field Manual dossier style: corner-bracket entry plates, mono readouts,
+   chip labels. All classes scoped .aw- — no cross-lane collisions. */
+.aw-wrap { max-width: 860px; margin: 0 auto; padding: 2rem 1rem 4rem; }
+
+.aw-head-row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.9rem; }
+.aw-head-row h1 { margin: 0; }
+.aw-count { font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.12em; color: var(--muted); }
+.aw-updated { font-family: var(--font-mono); font-size: 0.78rem; color: var(--muted); margin: 0.4rem 0 0; }
+.aw-updated strong { color: var(--ink); font-weight: 600; }
+
+.aw-filters { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1.4rem 0 0; }
+.aw-filter {
+  font-family: var(--font-mono); font-size: 0.74rem; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  background: var(--bg-2); color: var(--muted);
+  border: 1px solid var(--line-strong); padding: 0.42rem 0.8rem; cursor: pointer;
+}
+.aw-filter:hover { color: var(--ink); border-color: var(--cyan-dim); }
+.aw-filter[aria-pressed="true"] { color: var(--cyan-ink); background: var(--cyan); border-color: var(--cyan); }
+.aw-filter:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+.aw-feed { list-style: none; margin: 1.6rem 0 0; padding: 0; display: grid; gap: 1.1rem; }
+.aw-entry {
+  background: var(--bg-2); border: 1px solid var(--line-strong);
+  padding: 1.1rem 1.2rem 1.05rem; position: relative;
+}
+.aw-entry-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.5rem 0.9rem; }
+.aw-entry h2 { font-size: 1.12rem; margin: 0; line-height: 1.35; flex: 1 1 100%; }
+.aw-date { font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.1em; color: var(--cyan); }
+.aw-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0.55rem 0 0.7rem; }
+.aw-chip {
+  font-family: var(--font-mono); font-size: 0.66rem; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  border: 1px solid var(--line-strong); padding: 0.18rem 0.5rem; color: var(--muted);
+}
+.aw-chip-platform { color: var(--cyan); border-color: var(--cyan-dim); }
+.aw-chip-category { color: var(--ink); }
+.aw-chip-verified { color: var(--sage); border-color: var(--sage-dim); }
+.aw-chip-single { color: var(--gold); border-color: var(--gold-dim); }
+.aw-summary { margin: 0 0 0.8rem; color: var(--ink); line-height: 1.6; max-width: 65ch; }
+.aw-sources { margin: 0; padding: 0; list-style: none; font-size: 0.84rem; }
+.aw-sources li + li { margin-top: 0.25rem; }
+.aw-sources a { color: var(--cyan-dim); }
+.aw-sources a:hover { color: var(--cyan); }
+.aw-src-tag { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.1em; color: var(--faint); margin-right: 0.5rem; }
+
+.aw-empty { padding: 2.2rem 1.4rem; text-align: center; color: var(--muted); border: 1px dashed var(--line-strong); }
+.aw-note { margin-top: 2rem; }
+.aw-window { font-family: var(--font-mono); font-size: 0.74rem; color: var(--faint); letter-spacing: 0.06em; }
+
+@media (max-width: 560px) {
+  .aw-wrap { padding: 1.4rem 0.8rem 3rem; }
+  .aw-entry { padding: 0.95rem 0.95rem 0.9rem; }
+}

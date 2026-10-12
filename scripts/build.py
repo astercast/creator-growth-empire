@@ -1022,6 +1022,101 @@ MOBILE_NAV_LINKS = [
     ("agents.html", "Agents"),
 ]
 
+# ---------- wave B: Algorithm Watch feed page ("what changed") ----------
+# The feed surface for the creator-algwatch service. Entries are pre-rendered
+# from data/changes.json (newest-first) so the page is fully usable with
+# JavaScript disabled; assets/js/changes-feed.js swaps in /api/changes data
+# when the server is reachable (fetchWithFallback, §3). Markup here MUST match
+# entryHtml() in assets/js/changes-feed.js or the live swap visibly shifts.
+
+AW_PLATFORM_LABELS = {
+    "youtube": "YouTube", "tiktok": "TikTok", "instagram": "Instagram",
+    "facebook": "Facebook", "x": "X", "other": "Other",
+}
+AW_PLATFORM_ORDER = ["youtube", "tiktok", "instagram", "facebook", "x", "other"]
+
+def _aw_entry_html(c):
+    plat = (c.get("platform") or "other")
+    cat = (c.get("category") or "policy")
+    conf = c.get("confidence", "single-source")
+    conf_cls = "aw-chip-verified" if conf == "verified" else "aw-chip-single"
+    conf_label = "Verified" if conf == "verified" else "Single-source"
+    src_items = ""
+    for s in (c.get("sources") or []):
+        name = esc(s.get("name", "source"))
+        url = s.get("url", "")
+        if isinstance(url, str) and re.match(r"^https?://", url, re.I):
+            link = f'<a href="{esc(url)}" rel="noopener">{name}</a>'
+        else:
+            link = f"<span>{name}</span>"
+        src_items += f'<li><span class="aw-src-tag" aria-hidden="true">SRC</span>{link}</li>'
+    src_html = f'<ul class="aw-sources" aria-label="Sources">{src_items}</ul>' if src_items else ""
+    det = str(c.get("detected_at", ""))[:10] or "date unknown"
+    return (
+        f'<li class="aw-entry brk" data-platform="{esc(plat)}">'
+        '<b class="brk-x" aria-hidden="true"></b>'
+        f'<div class="aw-entry-head"><h2>{esc(c.get("title", "Untitled change"))}</h2>'
+        f'<span class="aw-date">{esc(det)}</span></div>'
+        '<div class="aw-chips">'
+        f'<span class="aw-chip aw-chip-platform">{esc(AW_PLATFORM_LABELS.get(plat, plat.capitalize()))}</span>'
+        f'<span class="aw-chip aw-chip-category">{esc(cat.capitalize())}</span>'
+        f'<span class="aw-chip {conf_cls}">{conf_label}</span>'
+        "</div>"
+        f'<p class="aw-summary">{esc(c.get("summary", ""))}</p>'
+        f"{src_html}</li>"
+    )
+
+def _build_what_changed():
+    """Render site/what-changed.html from data/changes.json."""
+    doc = json.loads((DATA / "changes.json").read_text(encoding="utf-8"))
+    rows = sorted(doc.get("changes", []), key=lambda c: str(c.get("detected_at", "")), reverse=True)
+    gen = str(doc.get("generated_at", ""))[:16].replace("T", " ")
+    counts = {}
+    for c in rows:
+        p = c.get("platform") or "other"
+        counts[p] = counts.get(p, 0) + 1
+    plats = [p for p in AW_PLATFORM_ORDER if p in counts] + sorted(set(counts) - set(AW_PLATFORM_ORDER))
+    filter_btns = ['<button type="button" class="aw-filter" data-aw-platform="all" aria-pressed="true">All</button>']
+    for p in plats:
+        label = AW_PLATFORM_LABELS.get(p, p.capitalize())
+        filter_btns.append(
+            f'<button type="button" class="aw-filter" data-aw-platform="{esc(p)}" '
+            f'aria-pressed="false">{esc(label)} · {counts[p]}</button>')
+    entries_html = "".join(_aw_entry_html(c) for c in rows) or \
+        '<li class="aw-empty" role="status">No changes in the feed yet — the watch is running, the log is just quiet.</li>'
+    extra = (
+        '<link rel="stylesheet" href="assets/css/api-badge.css">'
+        '<link rel="stylesheet" href="assets/css/what-changed.css">'
+        '<script defer src="assets/js/api-client.js"></script>'
+        '<script defer src="assets/js/changes-feed.js"></script>'
+    )
+    body = (
+        '<div class="aw-wrap" data-changes-feed>'
+        '<p class="fm-kicker"><strong>ALGORITHM WATCH</strong><span class="sep">//</span>INTEL FEED</p>'
+        '<div class="aw-head-row"><h1>What changed</h1>'
+        '<span class="api-badge" id="aw-badge" role="status" aria-live="polite" tabindex="0" '
+        'title="Feed status. Without JavaScript this shows the last published static feed.">static feed</span></div>'
+        '<p class="lede">Every platform algorithm, policy, and monetization change the watch has logged — '
+        'each one dated, sourced, and labeled with its confidence. The feed refreshes from the live server '
+        'when it can reach it; otherwise you are reading the last published copy, and the badge says so.</p>'
+        f'<p class="aw-updated" data-aw-updated>Feed data last published · generated {esc(gen)} UTC</p>'
+        '<div class="aw-filters" data-aw-filters role="group" aria-label="Filter by platform">' +
+        "".join(filter_btns) + "</div>"
+        f'<p class="aw-count" data-aw-count>{len(rows)} {"change" if len(rows) == 1 else "changes"} · 90-day window</p>'
+        f'<ul class="aw-feed" data-aw-list>{entries_html}</ul>'
+        '<div class="aw-note" role="note"><p class="muted"><strong>How to read this feed.</strong> '
+        f'{esc(doc.get("disclaimer", ""))} '
+        "Entries older than 90 days roll off — this is a watch log, not an archive. "
+        "Verify platform figures live before acting on them.</p></div>"
+        '<p class="aw-window">RETENTION 90D · REFRESHED DAILY BY THE ALGORITHM-WATCH CRON · LIVE AT /api/changes</p>'
+        "</div>"
+    )
+    (SITE / "what-changed.html").write_text(
+        page_template("What Changed", body, active="", extra_head=extra), encoding="utf-8")
+    return len(rows)
+
+# ---------- end wave B ----------
+
 def page_template(title, body, active="", extra_head=""):
     desktop_nav = "".join(
         f'<a href="{href}" class="nav-link{" active" if href == active else ""}"><span class="nav-n">{i + 1:02d}</span>{label}</a>'
@@ -1091,6 +1186,7 @@ def page_template(title, body, active="", extra_head=""):
       <a href="simulator.html">Empire Simulator</a>
       <a href="money-map.html">The Money Map</a>
       <a href="api-explorer.html">API Explorer</a>
+      <a href="what-changed.html">Algorithm Watch</a>
       <a href="glossary.html">Glossary</a>
       <a href="agents.html">Agents</a>
     </nav>
@@ -1346,6 +1442,10 @@ def build():
         gloss_html += f"<div class='gloss-entry'><dt id='g-{term['term'].lower().replace(' ', '-')}'>{esc(term['term'])}</dt><dd>{inline(term['definition'])}</dd></div>"
     gloss_html += "</dl>"
     (SITE / "glossary.html").write_text(page_template("Glossary", gloss_html, active="glossary.html"), encoding="utf-8")
+
+    # ---- Algorithm Watch feed page (wave B): pre-rendered from data/changes.json,
+    #      live-updated from /api/changes when the server is reachable ----
+    n_changes = _build_what_changed()
 
     # ---- hub pages (wave 9): tools hub + case-files hub ----
     def hub_hero(kicker, title_words, lede, accent):
@@ -1779,6 +1879,21 @@ def build():
             "schema": None,
             "updated": BUILD_TS,
             "records": len(TOOLS),
+            "deprecated": False,
+            "deprecation_note": None,
+        },
+        {
+            "id": "algorithm-watch",
+            "kind": "html",
+            "paths": ["what-changed.html"],
+            "description": ("Algorithm Watch — the 'what changed' feed's human front-end: dated platform "
+                            "algorithm, policy, and monetization changes, pre-rendered from api/v1/changes.json "
+                            "and live-updated from /api/changes when the server is reachable. Fully readable with "
+                            "JavaScript disabled; the status badge reports live / cached state honestly. "
+                            "Machine-readable feed: api/v1/changes.json; live function: /api/changes."),
+            "schema": None,
+            "updated": BUILD_TS,
+            "records": len(json.loads((DATA / "changes.json").read_text(encoding="utf-8"))["changes"]),
             "deprecated": False,
             "deprecation_note": None,
         },
@@ -2432,6 +2547,7 @@ def build():
              "- api/v1/deal-templates.json — Deal Room data: negotiation scripts, red-flag checklist, usage-rights tiers, pitch templates, contract red-flag checklist",
              "- api/v1/content-engine.json — Content Engine data: idea formats, Playbook hook structures, dealing rules, Repurposing 2.0 map, originality guardrails, deal-slot guidance",
              "- api/v1/changes.json — Algorithm Watch feed: dated algorithm/policy/monetization changes with sources + confidence flags (verified/single-source); live at /api/changes",
+             "- what-changed.html — Algorithm Watch 'what changed' feed page: pre-rendered from api/v1/changes.json, live-updated from /api/changes when reachable (status badge reports live/cached honestly)",
              "- api/v1/schema/ — JSON Schema (draft-07) for every endpoint",
              "", "## Agents",
              "- AGENT.md — how an agent uses this site: base URL pattern, example requests, 14 end-to-end workflows, tool input schemas",

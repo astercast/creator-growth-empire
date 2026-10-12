@@ -1,0 +1,51 @@
+/* api-badge.css — the fallback-contract status badge (ARCHITECTURE.md §3.2/§3.3).
+   Field Manual readouts: squared, mono, signal-dot + text. The badge is the
+   honesty mechanism — "cached · updated HH:MM" is never hidden. */
+.api-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.28rem 0.6rem;
+  border: 1px solid var(--line-strong);
+  background: var(--bg-2);
+  color: var(--muted);
+  white-space: nowrap;
+  vertical-align: middle;
+}
+.api-badge::before {
+  content: "";
+  width: 0.5rem;
+  height: 0.5rem;
+  flex: none;
+  background: var(--faint);
+}
+/* live — fresh from the server */
+.api-badge[data-api-state="live"] { color: var(--sage); border-color: var(--sage-dim); }
+.api-badge[data-api-state="live"]::before { background: var(--sage); }
+/* waking — fetch in flight; static data already on screen */
+.api-badge[data-api-state="waking"] { color: var(--cyan); border-color: var(--cyan-dim); }
+.api-badge[data-api-state="waking"]::before { background: var(--cyan); animation: aw-blink 1s steps(2, start) infinite; }
+@keyframes aw-blink { 50% { opacity: 0.25; } }
+/* cached — fallback or live-but-stale; amber, visually distinct from live */
+.api-badge[data-api-state="cached"] { color: var(--gold); border-color: var(--gold-dim); }
+.api-badge[data-api-state="cached"]::before { background: var(--gold); }
+/* none — both failed; pre-rendered content stays, badge hides */
+.api-badge[data-api-state="none"] { display: none; }
+/* the pre-rendered badge carries no state until JS runs; the base muted tone
+   (7.62:1 on the badge ground, AA-passing) keeps it honest but quiet. */
+
+/* the badge doubles as a keyboard-reachable status: it's announced via the
+   aria-live/role=status attributes set in markup, never via title alone. */
+.api-badge:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .api-badge[data-api-state="waking"]::before { animation: none; }
+}

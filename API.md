@@ -34,6 +34,60 @@ Case-file index: `version`, `updated`, `note`, `case_files: [{ "id", "badge", "t
 ### `GET api/v1/deal-templates.json`
 `{ "version" (1.1.0), "updated", "disclaimer", "usage_rights_tiers": [{ "id", "label", "description", "multiplier", "multiplier_label", "basis", "reported" }], "negotiation_scripts": [{ "id", "title", "when", "body", "tip", "grounded_in" }], "red_flags": [{ "id", "title", "severity", "detail", "fix" }], "scoring": { "note", "rules" }, "pitch_templates": [{ "id", "title", "when", "subject", "body", "placeholders", "grounded_in", "honesty_note" }], "contract_flags": [{ "id", "title", "severity", "detail", "fix" }], "contract_scoring": { "note", "rules" } }` — the Deal Room + Outreach Center data contract: 6 usage-rights tiers (organic / paid-30d / paid-6mo / paid-12mo / whitelisting / buyout) with reported-vs-definitional multiplier basis, 4 negotiation scripts with `{{placeholders}}`, the red-flag checklist with severities (`walk_away` / `major` / `minor`) plus scoring rules, 3 honest pitch email templates (cold pitch, the one 7-day follow-up nudge, warm intro — `[bracketed]` placeholders, never invented stats, anti-spam honesty notes), and the 10-item contract red-flag checklist (IP assignment, one-sided termination, vague usage grants, auto-renewing exclusivity, view-guarantee clawbacks, one-sided morality clauses, missing payment schedules, open approval, missing FTC language, scope-creep language) with scoring rules. Multipliers are reported 2026 research ranges, never quotes. **Not financial, legal, or tax advice — and the contract checklist is not legal advice.**
 
+## Live server functions (Algorithm Watch)
+
+When the site is deployed with its serverless backend (see `GO_LIVE.md`),
+these live under `/api/*` alongside the static `api/v1/` files. Every
+function returns the standard `{ ok, data, meta }` envelope (contract:
+`~/workspace/server-program/ARCHITECTURE.md` §§1–14); `meta.request_id`
+is `req_xxxxxx`, `meta.source` is `live`, `meta.generated_at` is the
+response time. Zero npm dependencies, `nodejs22.x`.
+
+### `GET /api/health`
+`{ ok, data: { status: "ok"|"degraded", service: "creator-algwatch", version,
+started_at, uptime_s, node, functions: ["health","changes","niches",
+"cron/algorithm-watch"], data_freshness: { "changes.json": { generated_at,
+age_s, sla_s, within_sla }, "niches.json": {...} }, checks: {
+static_fallback_present, cron_secret_configured, github_token_configured } },
+meta }` — never 5xx; degrades to `degraded` with reasons instead.
+
+### `GET /api/changes`
+The "what changed" feed, newest-first. Query: `?platform=`
+(youtube|tiktok|instagram|facebook|x|other|all, default all), `?since=`
+(ISO-8601, default 90 days ago = the retention window), `?limit=` (1–200,
+default 50). `data: { changes: [{ id, platform, title, summary, detected_at,
+category: algorithm|policy|monetization|legal, confidence:
+verified|single-source, sources: [{ name, url }] }], total, filters,
+feed_generated_at, disclaimer }`. 400 `BAD_INPUT` on bad params; 502
+`UPSTREAM_UNAVAILABLE` if the feed file is unreadable. Static twin:
+`api/v1/changes.json`. Human front-end: `what-changed.html`.
+
+### `GET /api/niches`
+`niches.json` passthrough with `generated_at` freshness surfaced. Static
+twin: `api/v1/niches.json`.
+
+### `GET /api/cron/algorithm-watch`
+Daily job (`0 12 * * *` UTC, Vercel Cron). `CRON_SECRET`-gated — without the
+correct `Authorization: Bearer <secret>` header it returns 401
+`UNAUTHORIZED` (fail closed). Idempotent: 60s duplicate-delivery cooldown,
+canonical-JSON compare, commits via `writeJsonIfChanged` only when the feed
+actually changed (no change → no commit → no redeploy). Without
+`GITHUB_REPO_TOKEN` it runs read-only and reports the would-be diff.
+Returns `{ checked, changed, committed, sources_ok, new_changes[], retained }`
+with per-source `meta.upstream`.
+
+### The fallback contract (frontend)
+
+Every feed surface ships **pre-rendered** from its static twin and calls the
+live function first (`assets/js/api-client.js`, 7s timeout). Badge states:
+`live` (green) / `waking server…` (cyan, fetch in flight — page already fully
+readable) / `cached · updated HH:MM` (amber — server unreachable or live but
+stale; the timestamp is the *data's* `generated_at`, never "now") / hidden
+(both failed — pre-rendered content stays). `fetchWithFallback` never
+rejects. The site never shows an error state, spinner, or blank widget
+because the backend was cold or down. See `what-changed.html` for the
+pattern in action.
+
 ### API Explorer (`api-explorer.html`)
 
 A client-side playground: browses every `api/v1` endpoint (discovered from

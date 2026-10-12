@@ -187,6 +187,19 @@
       "deprecation_note": null
     },
     {
+      "id": "algorithm-watch",
+      "kind": "html",
+      "paths": [
+        "what-changed.html"
+      ],
+      "description": "Algorithm Watch \u2014 the 'what changed' feed's human front-end: dated platform algorithm, policy, and monetization changes, pre-rendered from api/v1/changes.json and live-updated from /api/changes when the server is reachable. Fully readable with JavaScript disabled; the status badge reports live / cached state honestly. Machine-readable feed: api/v1/changes.json; live function: /api/changes.",
+      "schema": null,
+      "updated": "2026-10-11T00:00:00Z",
+      "records": 10,
+      "deprecated": false,
+      "deprecation_note": null
+    },
+    {
       "id": "schemas",
       "kind": "directory",
       "path": "api/v1/schema/",

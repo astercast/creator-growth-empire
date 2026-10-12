@@ -76,6 +76,7 @@ All twenty-one tools, grouped by job (Plan / Money / Content): [Tools hub](tools
 - api/v1/deal-templates.json — Deal Room data: negotiation scripts, red-flag checklist, usage-rights tiers, pitch templates, contract red-flag checklist
 - api/v1/content-engine.json — Content Engine data: idea formats, Playbook hook structures, dealing rules, Repurposing 2.0 map, originality guardrails, deal-slot guidance
 - api/v1/changes.json — Algorithm Watch feed: dated algorithm/policy/monetization changes with sources + confidence flags (verified/single-source); live at /api/changes
+- what-changed.html — Algorithm Watch 'what changed' feed page: pre-rendered from api/v1/changes.json, live-updated from /api/changes when reachable (status badge reports live/cached honestly)
 - api/v1/schema/ — JSON Schema (draft-07) for every endpoint
 
 ## Agents
