@@ -1702,6 +1702,23 @@ def build():
             "freshness_note": "Hook structures are craft formulas from the Short-Form Playbook, not platform documentation. Niche tags resolve against api/v1/niches.json.",
         },
         {
+            "id": "changes",
+            "kind": "json",
+            "path": "api/v1/changes.json",
+            "description": ("Algorithm Watch feed: dated platform algorithm, policy, and monetization changes — "
+                            "id, platform, title, summary, detected_at, announced_at, effective_at, source_url(s), "
+                            "category (algorithm/policy/monetization/legal), confidence (verified/single-source). "
+                            "Every entry carries its source and confidence flag; no change is ever stated as fact without one. "
+                            "Refreshed by the daily /api/cron/algorithm-watch job; 90-day retention. Live function: /api/changes. "
+                            "A planning aid, not financial/legal/tax advice. RPM/CPM figures are creator-reported ranges, never promises."),
+            "schema": "api/v1/schema/changes.json",
+            "updated": BUILD_TS,
+            "records": len(json.loads((DATA / "changes.json").read_text(encoding="utf-8"))["changes"]),
+            "deprecated": False,
+            "deprecation_note": None,
+            "freshness_note": "Verify platform figures live before acting on them — every entry carries its sources and confidence flag.",
+        },
+        {
             "id": "skills",
             "kind": "json",
             "path": "api/v1/skills.json",
@@ -1786,10 +1803,12 @@ def build():
                 "tool.json — tool record",
                 "deal-templates.json — deal-room data contract",
                 "content-engine.json — content-engine data contract",
+                "changes.json — algorithm-watch changes feed doc",
+                "envelope.json — server function response envelope (§1.1)",
             ],
             "schema": None,
             "updated": BUILD_TS,
-            "records": 15,
+            "records": 17,
             "deprecated": False,
             "deprecation_note": None,
         },
@@ -1822,6 +1841,7 @@ def build():
     shutil.copy(DATA / "niches.json", API / "niches.json")
     shutil.copy(DATA / "deal-templates.json", API / "deal-templates.json")
     shutil.copy(DATA / "content-engine.json", API / "content-engine.json")
+    shutil.copy(DATA / "changes.json", API / "changes.json")
 
     # ---- tools.json: every tool with its programmatic input schema ----
     (API / "tools.json").write_text(json.dumps({
@@ -2370,6 +2390,16 @@ def build():
         shutil.rmtree(site_api)
     shutil.copytree(API, site_api)
 
+    # ---- ship serverless functions + shared lib into the served root ----
+    # (site/ is rebuilt from scratch every run, so these live canonically
+    # under api/functions + api/lib and are copied here; vercel.json detects
+    # them as functions because outputDirectory=site.)
+    fn_src, lib_src = ROOT / "api" / "functions", ROOT / "api" / "lib"
+    if fn_src.exists():
+        shutil.copytree(fn_src, SITE / "api", dirs_exist_ok=True)
+    if lib_src.exists():
+        shutil.copytree(lib_src, SITE / "lib", dirs_exist_ok=True)
+
     # ---- llms.txt / llms-full.txt ----
     llms = [f"# {SITE_NAME}", "", TAGLINE, "",
             "## Phases"]
@@ -2401,6 +2431,7 @@ def build():
              "- api/v1/tools.json — every tool's programmatic input schema",
              "- api/v1/deal-templates.json — Deal Room data: negotiation scripts, red-flag checklist, usage-rights tiers, pitch templates, contract red-flag checklist",
              "- api/v1/content-engine.json — Content Engine data: idea formats, Playbook hook structures, dealing rules, Repurposing 2.0 map, originality guardrails, deal-slot guidance",
+             "- api/v1/changes.json — Algorithm Watch feed: dated algorithm/policy/monetization changes with sources + confidence flags (verified/single-source); live at /api/changes",
              "- api/v1/schema/ — JSON Schema (draft-07) for every endpoint",
              "", "## Agents",
              "- AGENT.md — how an agent uses this site: base URL pattern, example requests, 14 end-to-end workflows, tool input schemas",

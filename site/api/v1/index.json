@@ -91,6 +91,18 @@
       "freshness_note": "Hook structures are craft formulas from the Short-Form Playbook, not platform documentation. Niche tags resolve against api/v1/niches.json."
     },
     {
+      "id": "changes",
+      "kind": "json",
+      "path": "api/v1/changes.json",
+      "description": "Algorithm Watch feed: dated platform algorithm, policy, and monetization changes \u2014 id, platform, title, summary, detected_at, announced_at, effective_at, source_url(s), category (algorithm/policy/monetization/legal), confidence (verified/single-source). Every entry carries its source and confidence flag; no change is ever stated as fact without one. Refreshed by the daily /api/cron/algorithm-watch job; 90-day retention. Live function: /api/changes. A planning aid, not financial/legal/tax advice. RPM/CPM figures are creator-reported ranges, never promises.",
+      "schema": "api/v1/schema/changes.json",
+      "updated": "2026-10-11T00:00:00Z",
+      "records": 10,
+      "deprecated": false,
+      "deprecation_note": null,
+      "freshness_note": "Verify platform figures live before acting on them \u2014 every entry carries its sources and confidence flag."
+    },
+    {
       "id": "skills",
       "kind": "json",
       "path": "api/v1/skills.json",
@@ -194,11 +206,13 @@
         "tools.json \u2014 tools doc",
         "tool.json \u2014 tool record",
         "deal-templates.json \u2014 deal-room data contract",
-        "content-engine.json \u2014 content-engine data contract"
+        "content-engine.json \u2014 content-engine data contract",
+        "changes.json \u2014 algorithm-watch changes feed doc",
+        "envelope.json \u2014 server function response envelope (\u00a71.1)"
       ],
       "schema": null,
       "updated": "2026-10-11T00:00:00Z",
-      "records": 15,
+      "records": 17,
       "deprecated": false,
       "deprecation_note": null
     }

@@ -48,7 +48,7 @@ while IFS= read -r f; do
   if ! node --check "$f" >/dev/null 2>&1; then
     fail "$f"; JS_OK=0
   fi
-done < <(find assets/js tests -name '*.js' 2>/dev/null | sort)
+done < <(find assets/js tests api/functions api/lib -name '*.js' 2>/dev/null | sort)
 if [ "$JS_OK" = 1 ]; then pass "$JS_N source JS files parse"; fi
 
 # ---------------------------------------------------------------- stage 2 ---
@@ -89,12 +89,18 @@ for sf in sorted(SCH.glob("*.json")):
         failures.append(f"schema/{sf.name}: not valid draft-07: {e}")
 
 # per-record schemas
+# per-record validator for changes.json: inline the $defs/change subschema so no
+# $ref resolution runs (avoids base-URI pitfalls with the doc's $id).
+changes_schema_doc = json.loads((SCH / "changes.json").read_text())
+changes_schema_rec = Draft7Validator(
+    dict(changes_schema_doc["$defs"]["change"], title="Algorithm Watch change record"))
 checks = [
     ("chapters.json", "chapters", schema("chapter.json"), "chapter"),
     ("case-files.json", "case_files", schema("case-file.json"), "case file"),
     ("skills.json", "skills", schema("skill.json"), "skill"),
     ("tools.json", "tools", schema("tool.json"), "tool"),
     ("niches.json", "niches", schema("niche.json"), "niche"),
+    ("changes.json", "changes", changes_schema_rec, "change"),
 ]
 for fname, key, val, label in checks:
     for i, rec in enumerate(json.loads((ROOT / "api" / "v1" / fname).read_text())[key]):
@@ -111,7 +117,8 @@ for fname, sname in [("index.json", "index.json"),
                      ("case-files.json", "case-files.json"),
                      ("tools.json", "tools.json"),
                      ("deal-templates.json", "deal-templates.json"),
-                     ("content-engine.json", "content-engine.json")]:
+                     ("content-engine.json", "content-engine.json"),
+                     ("changes.json", "changes.json")]:
     for e in schema(sname).iter_errors(json.loads((ROOT / "api" / "v1" / fname).read_text())):
         failures.append(f"{fname}: {e.message}")
 

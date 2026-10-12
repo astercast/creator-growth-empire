@@ -1,0 +1,175 @@
+{
+  "changes": [
+    {
+      "category": "monetization",
+      "confidence": "single-source",
+      "detected_at": "2026-08-10T00:00:00Z",
+      "id": "yt-ypp-overhaul-2026",
+      "platform": "youtube",
+      "sources": [
+        {
+          "name": "AIR Media-Tech \u2014 YouTube algorithm in 2026 (month-by-month)",
+          "url": "https://air.io/en/trending/youtube-algorithm-in-2026-month-by-month-changes-that-affect-your-views"
+        }
+      ],
+      "summary": "New-applicant thresholds double: 8,000 watch hours per 365 days or 20M Shorts views per 90 days. Shorts ad/subscription revenue sharing gets a 10M qualified-Shorts-views-per-90-days floor. Premium Lite revenue joins the pool (55% long-form / 45% Shorts split of the creator share). Current Partners are grandfathered under existing terms until the effective date.",
+      "title": "YouTube Partner Program overhaul announced (effective Feb 1, 2027)"
+    },
+    {
+      "category": "policy",
+      "confidence": "verified",
+      "detected_at": "2026-07-16T00:00:00Z",
+      "id": "yt-inauthentic-policy-2026",
+      "platform": "youtube",
+      "sources": [
+        {
+          "name": "Gyre \u2014 YouTube updates summer 2026",
+          "url": "https://gyre.pro/blog/youtube-updates-key-summer-changes-for-creators"
+        },
+        {
+          "name": "OutlierKit \u2014 YouTube updates July 2026",
+          "url": "https://outlierkit.com/blog/youtube-updates-july-2026"
+        }
+      ],
+      "summary": "YouTube spelled out the three buckets that lose monetization: (1) generic or repetitive template content, (2) unsatisfying or off-putting content (e.g. staged animal-rescue clips), (3) AI personas advising on sensitive topics like health or finance. AI-assisted video is still monetizable when the creator's own idea drives it; templates run at scale are not.",
+      "title": "Inauthentic-content monetization rules clarified (July 16, 2026)"
+    },
+    {
+      "category": "algorithm",
+      "confidence": "single-source",
+      "detected_at": "2026-10-09T00:00:00Z",
+      "id": "yt-shorts-originality-2026",
+      "platform": "youtube",
+      "sources": [
+        {
+          "name": "Async \u2014 YouTube targets unoriginal content",
+          "url": "https://async.com/blog/youtube-monetization-update/"
+        }
+      ],
+      "summary": "Channels reposting viral clips from TikTok, Instagram, or other creators may see reduced Shorts distribution. Reaction videos and compilations are not automatically penalized \u2014 what matters is original contribution: commentary, storytelling, or substantial creative changes beyond captions, crops, or music swaps.",
+      "title": "October 2026 Shorts ranking update targets reposted clips"
+    },
+    {
+      "category": "monetization",
+      "confidence": "single-source",
+      "detected_at": "2026-08-24T00:00:00Z",
+      "id": "yt-view-counting-2026",
+      "platform": "youtube",
+      "sources": [
+        {
+          "name": "Gyre \u2014 YouTube updates summer 2026",
+          "url": "https://gyre.pro/blog/youtube-updates-key-summer-changes-for-creators"
+        }
+      ],
+      "summary": "Public view counts now tick the moment playback starts across long-form, Shorts, and live \u2014 counts went up. Earnings and eligibility did not move with them: Partner revenue still runs on engaged views and engaged watch hours, and eligibility on qualified views/watch hours.",
+      "title": "View counts start at playback start (Aug 24, 2026); Partner earnings math unchanged"
+    },
+    {
+      "category": "policy",
+      "confidence": "single-source",
+      "detected_at": "2026-09-03T00:00:00Z",
+      "id": "yt-branded-content-2026",
+      "platform": "youtube",
+      "sources": [
+        {
+          "name": "Gyre \u2014 YouTube updates summer 2026",
+          "url": "https://gyre.pro/blog/youtube-updates-key-summer-changes-for-creators"
+        }
+      ],
+      "summary": "From September 3, YouTube auto-adds paid-promotion labels to undisclosed sponsorships, and creators get age and country limits for branded content. Disclose sponsorships up front \u2014 the platform now labels them for you if you don't.",
+      "title": "Paid product placements fold into the Branded Content Policy (Sept 2026)"
+    },
+    {
+      "category": "monetization",
+      "confidence": "single-source",
+      "detected_at": "2026-09-20T00:00:00Z",
+      "id": "yt-shopping-affiliate-2026",
+      "platform": "youtube",
+      "sources": [
+        {
+          "name": "AIR Media-Tech \u2014 YouTube algorithm in 2026 (month-by-month)",
+          "url": "https://air.io/en/trending/youtube-algorithm-in-2026-month-by-month-changes-that-affect-your-views"
+        }
+      ],
+      "summary": "Announced at Made on YouTube (Sept 2026). Dynamic brand segments can be added to up to 20 long-form videos at once. For product-review niches this is a second revenue line beyond ads \u2014 check eligibility in your country before planning around it.",
+      "title": "YouTube Shopping affiliate program to reach 35 countries by end of 2026"
+    },
+    {
+      "category": "monetization",
+      "confidence": "single-source",
+      "detected_at": "2026-10-11T00:00:00Z",
+      "id": "tt-creator-rewards-range-2026",
+      "platform": "tiktok",
+      "sources": [
+        {
+          "name": "AIR Media-Tech \u2014 Creator earnings compared (YouTube vs TikTok vs Instagram, 2026)",
+          "url": "https://air.io/en/monetization/creator-earnings-compared-youtube-vs-tiktok-vs-instagram-in-2026"
+        }
+      ],
+      "summary": "Only videos over a minute qualify, and roughly half of raw views end up qualifying per third-party comparison of 2026 rates. TikTok Shop commissions (averaging ~13.1% in the same report) are the bigger TikTok revenue line for many creators. Ranges, never promises.",
+      "title": "TikTok Creator Rewards: $0.40\u2013$1.00 per 1,000 qualified views (creator-reported range)"
+    },
+    {
+      "category": "monetization",
+      "confidence": "verified",
+      "detected_at": "2026-10-11T00:00:00Z",
+      "id": "ig-no-per-view-payout-2026",
+      "platform": "instagram",
+      "sources": [
+        {
+          "name": "AIR Media-Tech \u2014 Creator earnings compared (2026)",
+          "url": "https://air.io/en/monetization/creator-earnings-compared-youtube-vs-tiktok-vs-instagram-in-2026"
+        },
+        {
+          "name": "Clippie \u2014 Instagram algorithm updates in 2026",
+          "url": "https://clippie.ai/blog/instagram-algorithm-updates-2026-creators-guide"
+        }
+      ],
+      "summary": "No per-view payout program on Reels in 2026. Reported: a limited $5,000 bonus for creators joining Instagram from another platform. Brand deals remain the main way Reels views turn into money \u2014 the deal-builder math on this site is built for exactly that.",
+      "title": "Instagram still pays $0 per view; monetization is Gifts, Subscriptions, brand deals, affiliates"
+    },
+    {
+      "category": "algorithm",
+      "confidence": "verified",
+      "detected_at": "2026-10-04T00:00:00Z",
+      "id": "ig-ranking-signals-2026",
+      "platform": "instagram",
+      "sources": [
+        {
+          "name": "FINN Partners Boom Scroll \u2014 October 2026 social media updates",
+          "url": "https://www.finnpartners.com/news-insights/boom-scroll-october-2026-social-media-updates/"
+        },
+        {
+          "name": "Clippie \u2014 Instagram algorithm updates in 2026",
+          "url": "https://clippie.ai/blog/instagram-algorithm-updates-2026-creators-guide"
+        }
+      ],
+      "summary": "In a new video series, Instagram head Adam Mosseri said ranking predicts whether someone will watch a post or share it with a friend, with recency carrying heavy weight. Guidance: optimize engagement rate over total views or likes, use trial Reels to experiment, and don't let feeds fill with whoever posts most.",
+      "title": "Instagram ranking signals restated (Oct 2026): originality, recency, DM shares"
+    },
+    {
+      "category": "algorithm",
+      "confidence": "single-source",
+      "detected_at": "2026-10-07T00:00:00Z",
+      "id": "ig-oct2026-engagement-shift",
+      "platform": "instagram",
+      "sources": [
+        {
+          "name": "InfluenceFlow \u2014 Instagram Reels monetization 2026",
+          "url": "https://influenceflow.io/resources/how-to-optimize-instagram-reels-for-monetization-the-complete-2026-guide/"
+        }
+      ],
+      "summary": "Third-party analysis reports Reels ranking weighing completion rates, replays, and shares over likes, with 45\u201390 seconds cited as the current sweet spot. Directional, not platform-confirmed \u2014 watch completions and shares in your own Insights before reworking a format around it.",
+      "title": "October 2026 adjustments prioritize engagement-driven short-form"
+    }
+  ],
+  "confidence_legend": {
+    "single-source": "Reported by one source; treat as directional until corroborated.",
+    "verified": "Corroborated by 2+ independent sources or the platform itself."
+  },
+  "disclaimer": "Planning aid, not financial/legal/tax advice. RPM/CPM figures are creator-reported ranges, never promises. Verify platform figures live before acting on them.",
+  "generated_at": "2026-10-12T06:05:00Z",
+  "note": "Algorithm Watch seed feed: platform algorithm, policy, and monetization changes with source URLs and confidence flags. Updated by the daily /api/cron/algorithm-watch job (retention: 90 days).",
+  "updated": "2026-10-12",
+  "version": "1.0.0"
+}
