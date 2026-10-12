@@ -118,6 +118,8 @@ These don't trigger a notification. They just quietly stop your videos from trav
 
 The chapter gives you the map; the [Hook Builder tool](hook-builder.html) gives you the reps. Put your video topic into the five hook structures and walk out with five filmed-ready openers — then come back here and run the retention-editing checklist on the edit. Short-form compounds like everything else in the empire: same structures, same cadence, ninety days.
 
+When the numbers come back wrong, read them properly: [The Metrics Glossary](metrics-glossary.html) decodes every metric (CTR, completion rate, retention curves — all as creator-reported ranges, never platform gospel), and [Diagnose My Video](video-doctor.html) routes your symptom to the chapter fix.
+
 ## Sources
 
 All platform claims sourced from the October 2026 research fuel (wave-7 research notes: Mission A platforms, TikTok algorithm, TikTok trends — read 2026-10-11). Multi-sourced claims cite all agreeing sources; single-sourced claims are flagged in-text.

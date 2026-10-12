@@ -438,3 +438,22 @@ output { font-family: var(--font-mono); color: var(--acid); font-weight: 700; }
   .deal-card { transition: none; }
   .deal-card:hover { border-color: var(--line-strong); }
 }
+
+/* ---------- retention-curve sketches (wave 19: metrics-glossary mount) ---------- */
+.curve-sketches { margin: 2rem 0; }
+.curve-sketch-grid { display: grid; gap: 1.2rem; grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr)); margin-top: 1.2rem; }
+.curve-sketch {
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--bg-2);
+  padding: 1rem 1rem 0.8rem;
+  margin: 0;
+}
+.curve-sketch svg { width: 100%; height: auto; display: block; }
+.curve-axis { stroke: var(--line-strong); stroke-width: 1; }
+.curve-line { fill: none; stroke: var(--coral); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.curve-line-ok { fill: none; stroke: var(--acid); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.curve-marker { stroke: var(--gold); stroke-width: 1.5; stroke-dasharray: 5 4; }
+.curve-tag { font-family: var(--font-mono); font-size: 10px; fill: var(--muted, #999); }
+.curve-sketch figcaption { font-size: 0.88rem; margin-top: 0.6rem; }
+.curve-sketch figcaption strong { display: block; margin-bottom: 0.2rem; }

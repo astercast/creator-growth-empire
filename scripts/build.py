@@ -32,6 +32,7 @@ REFERENCE_PAGES = [
     # (wave 14: the Niche Atlas ships an interactive explorer).
     ("niche-atlas", "content/niche-atlas.md", "Reference", "The Niche Atlas",
      ["assets/js/niche-atlas.js"]),
+    ("metrics-glossary", "content/metrics-glossary.md", "Reference", "The Metrics Glossary"),
 ]
 
 # Interactive mount appended to the Niche Atlas reference page (wave 14).
@@ -46,6 +47,70 @@ NICHE_EXPLORER_MOUNT = (
     "growth rates, search demand, breakout formats, revenue bands, and the avoid "
     "list — are in the article above, and the dataset is "
     '<a href="api/v1/niches.json">api/v1/niches.json</a>.</p></noscript>'
+    "</section>"
+)
+
+# Retention-curve sketches mount (wave 19): hand-drawn SVG illustrations for the
+# Metrics Glossary's curve reader. Static sketches — read the shape, never the
+# numbers. No data behind them; each carries an aria-label + figcaption so the
+# read works without the image.
+def _curve_sketch(num, title, aria, points, marker=None, ok=False):
+    line_cls = "curve-line-ok" if ok else "curve-line"
+    marker_svg = ""
+    if marker:
+        mx, mlabel = marker
+        marker_svg = (
+            f'<line x1="{mx}" y1="10" x2="{mx}" y2="132" class="curve-marker"/>'
+            f'<text x="{mx + 5}" y="24" class="curve-tag">{mlabel}</text>'
+        )
+    return (
+        f'<figure class="curve-sketch">'
+        f'<svg viewBox="0 0 300 150" role="img" aria-label="{aria}">'
+        f'<line x1="8" y1="8" x2="8" y2="132" class="curve-axis"/>'
+        f'<line x1="8" y1="132" x2="292" y2="132" class="curve-axis"/>'
+        f'<text x="12" y="22" class="curve-tag">watching</text>'
+        f'<text x="252" y="146" class="curve-tag">time &#8594;</text>'
+        f"{marker_svg}"
+        f'<polyline points="{points}" class="{line_cls}"/>'
+        f"</svg>"
+        f"<figcaption><strong>{num}. {title}</strong>"
+    )
+
+METRICS_CURVE_MOUNT = (
+    '<section class="curve-sketches" aria-labelledby="curve-sketches-title">'
+    '<h2 id="curve-sketches-title">The five curve shapes — sketches</h2>'
+    "<p class=\"muted\">Illustrative sketches drawn for this page — read the <em>shape</em>, "
+    "never the numbers. Your graph's timestamps are the diagnosis; these are the patterns to recognize.</p>"
+    '<div class="curve-sketch-grid">'
+    + _curve_sketch("1", "The cliff at the start",
+        "Retention curve sketch: the line drops steeply in the first moments, then coasts gently downward.",
+        "8,16 26,22 38,92 60,102 150,112 292,124", marker=(38, "\u22480:30"))
+    + "Hook/packaging failure — the opening didn't deliver the promise instantly. "
+      "Fix: move the payoff moment to second 5. (Phase 2)</figcaption></figure>"
+    + _curve_sketch("2", "The sawtooth",
+        "Retention curve sketch: the line zigzags downward — small recoveries, then more slide.",
+        "8,30 50,86 68,52 110,90 128,56 170,94 188,62 230,98 248,68 292,104")
+    + "Teeth bouncing back up = re-hooks working; the whole saw grinding down = pacing problem. "
+      "Fix: a pattern interrupt every 30–60 seconds. (Phase 2)</figcaption></figure>"
+    + _curve_sketch("3", "The single cliff",
+        "Retention curve sketch: gentle decline, one vertical drop in the middle, then gentle decline again.",
+        "8,28 120,48 150,54 156,108 172,112 292,122", marker=(156, "watch here"))
+    + "One bad section — a tangent, a slow demo, an off-topic rant. "
+      "Fix: watch that timestamp; cut it or compress to 20%. (Phase 2)</figcaption></figure>"
+    + _curve_sketch("4", "The end collapse",
+        "Retention curve sketch: flat and healthy most of the way, then a steep drop near the end.",
+        "8,24 170,38 225,46 258,58 292,118", ok=True)
+    + "Normal — unless the collapse starts before 50%. Viewers leaving after the payoff is healthy. "
+      "Fix: move anything that matters before the natural end. (Phase 2)</figcaption></figure>"
+    + _curve_sketch("5", "The flat low line",
+        "Retention curve sketch: a low, nearly flat line from start to finish — no recovery, no teeth.",
+        "8,108 120,112 200,116 292,120")
+    + "Topic mismatch — the promise didn't match what the audience wanted. Under 50 videos this is the "
+      "tuition phase, not a verdict. Fix: repackage the same topic three ways first. (Phase 2)</figcaption></figure>"
+    + "</div>"
+    '<p class="muted" style="margin-top:1rem">Shapes 1–5 are the chapter reads from '
+    '<a href="phase-2-youtube-mastery.html">Phase 2\u2019s retention repair</a>. '
+    'Still stuck? Run the symptom through <a href="video-doctor.html">Diagnose My Video</a>.</p>'
     "</section>"
 )
 
@@ -76,6 +141,7 @@ TOOLS = [
     ("content-calendar", "90-Day Content Calendar", "Deal your idea bank into a 90-day grid: week-planner dealing rules, drag/keyboard moves, sponsor slots, copy-my-calendar export."),
     ("batching", "Batching Planner", "Film-day math: does your shoot capacity actually cover your cadence? Honest surplus/shortfall, consistency-beats-volume framing."),
     ("money-map", "The Money Map", "Find your stage on the $0-to-company journey: 7 questions, 5 stage playbooks, your next 3 moves. Stages are focus guides, never income promises."),
+    ("video-doctor", "Diagnose My Video", "Pick your symptom \u2014 low CTR, the 30-second cliff, great retention but no subs \u2014 and get ranked causes with the fix from the chapter that owns it."),
 ]
 
 
@@ -399,6 +465,25 @@ TOOLS_API = [
       }},
      "Stage placement (0–4: The Start Line / First $100 / The Engine Runs / The Business / The Company), sanity notes (audience-ahead, team-ahead), and a 3-move roadmap (stage signature move + 2 bottleneck-driven moves), the stage trap, and the graduate-when criteria. Placement anchored on the creator's own reported revenue band; stages are focus guides, never income promises.",
      "Logic (assets/js/money-map.js, UMD — importable in node): placeStage(a) — revenue band maps 0→0, 1-99→1, 100-999→2, 1k-9999→3, 10k-plus→4; if audience is 100k+ and base stage ≤ 2, stage+1 with an 'audience-ahead' note; employees with stage ≤ 2 adds a 'team-ahead' note. roadmap(a) — stage signature move (the stage's #1 tool) + two bottleneck-driven moves, deduped. STAGES carries the full playbook data (goal, 3 moves, trap, graduate). Planning aid, not financial/legal/tax advice."),
+    ("video-doctor", "Diagnose My Video",
+     "Pick your symptom \u2014 low CTR, the 30-second cliff, great retention but no subs \u2014 and get ranked causes with the fix from the chapter that owns it.",
+     "video-doctor.html",
+     {"$schema": "http://json-schema.org/draft-07/schema#", "title": "VideoDoctorInput",
+      "type": "object", "required": ["symptom", "platform", "experience"],
+      "properties": {
+          "symptom": {"type": "string",
+                      "enum": ["low-ctr", "early-dropoff", "good-retention-no-subs",
+                               "sawtooth", "single-cliff", "shorts-no-crossover",
+                               "flat-low", "end-collapse"],
+                      "description": "The symptom the creator sees in their analytics."},
+          "platform": {"type": "string",
+                       "enum": ["longform", "shorts", "tiktok", "reels"],
+                       "description": "Where the underperforming video lives."},
+          "experience": {"type": "string", "enum": ["under-50", "over-50"],
+                         "description": "Videos shipped. Under 50 = tuition phase: the data is thin, diagnose lightly."},
+      }},
+     "Ranked likely causes drawn from the site's chapters (Phase 1, Phase 2, Short-Form Playbook), each with chapter-grounded fixes and read-next links; the metric to watch next; context notes (tuition-phase caveat under 50 videos, swipe-feed completion-rate note for CTR on short-form). Thresholds labeled as creator-reported rules of thumb, never platform-published benchmarks.",
+     "Engine (assets/js/video-doctor.js, UMD \u2014 importable in node): validInput(i) validates the three enums; diagnose(i) returns the symptom record with causes ranked 1..N (cause/why/fixes/links) plus notes. SYMPTOMS carries the full 8-symptom dataset. Diagnostic aid, not financial/legal/tax advice; never an income promise."),
 ]
 
 # Tools hub (wave 9): grouped card index. Per tool: icon, "use when" one-liner,
@@ -432,6 +517,8 @@ TOOL_HUB_META = {
                       ["film days", "capacity", "Phase 1"]),
     "money-map": ("🗺", "PLAN", "gold", "you want to know where you stand and what to do next.",
                       ["roadmap", "stages", "Phases 0 · 8"]),
+    "video-doctor":    ("\U0001fa7a", "CONTENT", "coral", "your numbers are telling you something but you can't read them yet.",
+                      ["diagnosis", "retention", "Phases 1 · 2"]),
 }
 TOOL_HUB_GROUPS = [
     ("PLAN", "Pick the battlefield",
@@ -818,7 +905,10 @@ def build():
                 '<a href="index.html"><span class="nav-dir">← Back to</span><span class="nav-title">The Empire Map</span></a>'
                 '<a class="nav-next" href="phase-5-monetization-stack.html"><span class="nav-dir">Next phase →</span>'
                 '<span class="nav-title">Phase 5: The Monetization Stack</span></a></nav>')
+# (reference-page loop continues below)
         mount = NICHE_EXPLORER_MOUNT if slug == "niche-atlas" else ""
+        if slug == "metrics-glossary":
+            mount = METRICS_CURVE_MOUNT
         extra_head = "".join(f'<script src="{s}"></script>' for s in scripts)
         page = page_template(f"{short}", f'<article class="chapter">{hero}{body_html}{mount}{cnav}</article>',
                              active="", extra_head=extra_head)
@@ -879,9 +969,11 @@ def build():
         "content-calendar": ["assets/js/content-engine.js", "assets/js/content-calendar-ui.js"],
         "batching": ["assets/js/content-engine.js", "assets/js/batching-ui.js"],
         "money-map": ["assets/js/money-map.js"],
+        "video-doctor": ["assets/js/video-doctor.js"],
     }
     TOOL_CSS = {
         "money-map": ["assets/css/moneymap.css"],
+        "video-doctor": ["assets/css/videodoctor.css"],
     }
     for slug, title, desc in TOOLS:
         body_src = PAGES / f"{slug}.html"
@@ -950,7 +1042,7 @@ def build():
             f'<div class="brief-grid">{cards}</div></section>')
     tools_body = (
         hub_hero("COMMAND CENTER", "All Tools",
-                 "Fourteen power tools, one command center. Pick the briefing that matches where you are.",
+                 "Fifteen power tools, one command center. Pick the briefing that matches where you are.",
                  "acid")
         + hub_sections
         + '<section class="section honesty"><h2>Pick by job, not by shine</h2>'
@@ -1040,7 +1132,7 @@ def build():
   <p class="lede">Nine phases. Zero to multi-million-dollar creator company — YouTube, TikTok, Facebook, merch, brand deals, LLC, taxes, scale. No guru hype. Just the playbook.</p>
   <div class="sticker-row reveal">
     <span class="sticker">9 phases</span>
-    <span class="sticker sticker-coral">14 power tools</span>
+    <span class="sticker sticker-coral">15 power tools</span>
     <span class="sticker sticker-violet">7 case files</span>
     <span class="sticker sticker-gold">2026 verified</span>
     <span class="sticker sticker-violet">Zero → empire</span>
@@ -1048,7 +1140,7 @@ def build():
   <div class="hero-stats">
     <div class="hero-stat reveal" style="--i:0"><strong>9</strong><span>phases</span></div>
     <div class="hero-stat reveal" style="--i:1"><strong>{total_words:,}</strong><span>words</span></div>
-    <div class="hero-stat reveal" style="--i:2"><strong>14</strong><span>interactive tools</span></div>
+    <div class="hero-stat reveal" style="--i:2"><strong>15</strong><span>interactive tools</span></div>
     <div class="hero-stat reveal" style="--i:3"><strong>LVL 01–09</strong><span>your climb</span></div>
   </div>
   <div class="hero-cta"><a class="btn btn-primary" href="phase-0-start-from-nothing.html">Start at Phase 0 →</a>
@@ -1239,7 +1331,7 @@ def build():
             "id": "tool-pages",
             "kind": "html",
             "paths": [f"{slug}.html" for slug, _, _ in TOOLS],
-            "description": "The fourteen interactive tools' human UI pages. Agents should prefer api/v1/tools.json input schemas over scraping these pages.",
+            "description": "The fifteen interactive tools' human UI pages. Agents should prefer api/v1/tools.json input schemas over scraping these pages.",
             "schema": None,
             "updated": BUILD_TS,
             "records": len(TOOLS),
@@ -1307,7 +1399,7 @@ def build():
     # ---- tools.json: every tool with its programmatic input schema ----
     (API / "tools.json").write_text(json.dumps({
         "version": "1.0.0", "updated": "2026-10-11",
-        "note": ("Programmatic input schemas for the fourteen interactive tools. "
+        "note": ("Programmatic input schemas for the fifteen interactive tools. "
                  "Agents replicate each tool's logic by feeding these inputs to the "
                  "documented formulas / shipped JS (assets/js/<id>.js); the UI pages "
                  "are the human front-end for the same logic."),
@@ -1724,7 +1816,7 @@ def build():
     for slug, title, desc in TOOLS:
         llms.append(f"- [{title}]({slug}.html) — {desc}")
     llms += ["- [Glossary](glossary.html)", "",
-             "All fourteen tools, grouped by job (Plan / Money / Content): [Tools hub](tools.html).",
+             "All fifteen tools, grouped by job (Plan / Money / Content): [Tools hub](tools.html).",
              "", "## Reference"]
     for m in reference_meta:
         llms.append(f"- [{m['badge']}: {m['title']}]({m['path']}) — {m['read_minutes']} min read")

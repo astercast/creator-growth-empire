@@ -1,0 +1,46 @@
+<p class="lede">Something's off in your analytics and you can't read what. Pick the symptom — low CTR, the 30-second cliff, great retention but no subs — and get the likely causes ranked, each with the fix from the chapter that owns it.</p>
+
+<section aria-labelledby="vd-picker-title">
+  <h2 id="vd-picker-title">What's the symptom?</h2>
+  <div id="vd-picker" aria-live="polite"></div>
+  <div class="calc-grid" style="margin-top:1rem">
+    <label>Where does the underperforming video live?
+      <select id="vd-platform">
+        <option value="longform" selected>YouTube long-form</option>
+        <option value="shorts">YouTube Shorts</option>
+        <option value="tiktok">TikTok</option>
+        <option value="reels">Instagram Reels</option>
+      </select></label>
+    <label>How many videos have you shipped?
+      <select id="vd-experience">
+        <option value="under-50" selected>Under 50</option>
+        <option value="over-50">50+</option>
+      </select></label>
+  </div>
+  <div class="quiz-actions">
+    <button class="btn btn-primary" id="vd-diagnose" disabled>Diagnose my video →</button>
+    <button class="btn btn-ghost" id="vd-reset">Reset</button>
+  </div>
+  <div id="vd-results" aria-live="polite" style="margin-top:1.5rem">
+    <div class="empty-state" role="status"><span class="empty-icon" aria-hidden="true">🩺</span><strong>Nothing diagnosed yet.</strong>Pick the symptom above and the likely causes — ranked, with chapter fixes — land here.</div>
+  </div>
+  <noscript>
+    <h3>The eight symptoms, one line each</h3>
+    <ul>
+      <li><strong>Low click-through rate</strong> — CTR below ~2% is a packaging problem; 4–10% is healthy (creator-reported rules of thumb). Fix: repackage at 48 hours. <a href="phase-2-youtube-mastery.html">Phase 2</a></li>
+      <li><strong>Viewers leave in the first 30 seconds</strong> — the hook failed; move the payoff to second 5. <a href="phase-2-youtube-mastery.html">Phase 2</a>, <a href="shortform-playbook.html">Playbook</a></li>
+      <li><strong>Great retention, nobody subscribes</strong> — no door at the end, or entertainment without loyalty. End with a door; build a series. <a href="phase-1-content-engine.html">Phase 1</a></li>
+      <li><strong>Sawtooth curve, sliding down</strong> — pacing: long unbroken segments. Pattern interrupt every 30–60 seconds. <a href="phase-2-youtube-mastery.html">Phase 2</a></li>
+      <li><strong>One sharp cliff mid-video</strong> — one bad section. Watch that timestamp; cut it or compress to 20%. <a href="phase-2-youtube-mastery.html">Phase 2</a></li>
+      <li><strong>Shorts pop, long-form doesn't</strong> — no funnel between the formats. 30-second trailer within 24 hours. <a href="shortform-playbook.html">Playbook</a></li>
+      <li><strong>Flat, low retention everywhere</strong> — topic/packaging mismatch, or still in the tuition phase under 50 videos. <a href="phase-2-youtube-mastery.html">Phase 2</a></li>
+      <li><strong>Everyone leaves near the end</strong> — normal, unless the collapse starts before 50%. <a href="phase-2-youtube-mastery.html">Phase 2</a></li>
+    </ul>
+    <p>Every threshold above is a creator-reported rule of thumb, never platform-published data.</p>
+  </noscript>
+</section>
+
+<section aria-label="How this tool thinks" style="margin-top:2rem">
+  <h2>How this tool thinks</h2>
+  <p class="muted">Every diagnosis is routed from the site's own chapters — Phase 2's analytics section, Phase 1's retention engineering, the Short-Form Playbook's retention editing. The tool doesn't invent benchmarks: thresholds are labeled as creator-reported rules of thumb, and your own channel average is always the real baseline. To learn the metrics themselves — CTR, AVD, retention curves, traffic sources — read <a href="metrics-glossary.html">The Metrics Glossary</a>.</p>
+</section>

@@ -67,7 +67,7 @@ function check(name, cond, detail) {
 
   // tools.json drives the planner config shape
   const tools = load("tools.json").tools;
-  check("wf2: tools.json lists all 14 tools", tools.length === 14, String(tools.length));
+  check("wf2: tools.json lists all 15 tools", tools.length === 15, String(tools.length));
   const planner = tools.find((t) => t.id === "planner");
   const schema = planner && planner.input_schema;
   check("wf2: planner input schema exposes cadence fields",

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Diagnose My Video — Creator Growth Empire</title>
+<meta name="description" content="From $0 to a multi-million-dollar creator company.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,600;0,800;0,900;1,900&family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/layout.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/hub.css">
+<script src="assets/js/video-doctor.js"></script><link rel="stylesheet" href="assets/css/videodoctor.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <a class="brand" href="index.html"><span class="brand-mark">▲</span> Creator Growth Empire</a>
+  <nav class="site-nav" aria-label="Primary"><a href="index.html" class="nav-link">Empire Map</a><a href="tools.html" class="nav-link active">Tools</a><a href="case-files.html" class="nav-link">Case Files</a><a href="glossary.html" class="nav-link">Glossary</a><a href="agents.html" class="nav-link">Agents</a></nav>
+  <button class="nav-toggle" aria-expanded="false" aria-controls="mobileNav" aria-label="Menu">☰</button>
+</header>
+<nav id="mobileNav" class="mobile-nav" aria-label="Mobile"><a href="index.html" class="nav-link">Empire Map</a><a href="tools.html" class="nav-link active">All tools</a><a href="quiz.html" class="nav-link">Niche Picker</a><a href="calculator.html" class="nav-link">Revenue Calc</a><a href="planner.html" class="nav-link">90-Day Plan</a><a href="deal-analyzer.html" class="nav-link">Deal Analyzer</a><a href="hiring-calculator.html" class="nav-link">Hire Calc</a><a href="repurpose.html" class="nav-link">Repurpose Plan</a><a href="simulator.html" class="nav-link">Simulator</a><a href="case-files.html" class="nav-link">All case files</a><a href="glossary.html" class="nav-link">Glossary</a><a href="agents.html" class="nav-link">Agents</a></nav>
+<main id="main"><div class="tool-page"><div class="hud-panel"><div class="hud-head"><span>TOOL // 015 — DIAGNOSE MY VIDEO</span><span class="hud-status">SYSTEMS ONLINE</span></div><div class="hud-body"><h1>Diagnose My Video</h1><p class="lede">Pick your symptom — low CTR, the 30-second cliff, great retention but no subs — and get ranked causes with the fix from the chapter that owns it.</p></div></div><p class="lede">Something's off in your analytics and you can't read what. Pick the symptom — low CTR, the 30-second cliff, great retention but no subs — and get the likely causes ranked, each with the fix from the chapter that owns it.</p>
+
+<section aria-labelledby="vd-picker-title">
+  <h2 id="vd-picker-title">What's the symptom?</h2>
+  <div id="vd-picker" aria-live="polite"></div>
+  <div class="calc-grid" style="margin-top:1rem">
+    <label>Where does the underperforming video live?
+      <select id="vd-platform">
+        <option value="longform" selected>YouTube long-form</option>
+        <option value="shorts">YouTube Shorts</option>
+        <option value="tiktok">TikTok</option>
+        <option value="reels">Instagram Reels</option>
+      </select></label>
+    <label>How many videos have you shipped?
+      <select id="vd-experience">
+        <option value="under-50" selected>Under 50</option>
+        <option value="over-50">50+</option>
+      </select></label>
+  </div>
+  <div class="quiz-actions">
+    <button class="btn btn-primary" id="vd-diagnose" disabled>Diagnose my video →</button>
+    <button class="btn btn-ghost" id="vd-reset">Reset</button>
+  </div>
+  <div id="vd-results" aria-live="polite" style="margin-top:1.5rem">
+    <div class="empty-state" role="status"><span class="empty-icon" aria-hidden="true">🩺</span><strong>Nothing diagnosed yet.</strong>Pick the symptom above and the likely causes — ranked, with chapter fixes — land here.</div>
+  </div>
+  <noscript>
+    <h3>The eight symptoms, one line each</h3>
+    <ul>
+      <li><strong>Low click-through rate</strong> — CTR below ~2% is a packaging problem; 4–10% is healthy (creator-reported rules of thumb). Fix: repackage at 48 hours. <a href="phase-2-youtube-mastery.html">Phase 2</a></li>
+      <li><strong>Viewers leave in the first 30 seconds</strong> — the hook failed; move the payoff to second 5. <a href="phase-2-youtube-mastery.html">Phase 2</a>, <a href="shortform-playbook.html">Playbook</a></li>
+      <li><strong>Great retention, nobody subscribes</strong> — no door at the end, or entertainment without loyalty. End with a door; build a series. <a href="phase-1-content-engine.html">Phase 1</a></li>
+      <li><strong>Sawtooth curve, sliding down</strong> — pacing: long unbroken segments. Pattern interrupt every 30–60 seconds. <a href="phase-2-youtube-mastery.html">Phase 2</a></li>
+      <li><strong>One sharp cliff mid-video</strong> — one bad section. Watch that timestamp; cut it or compress to 20%. <a href="phase-2-youtube-mastery.html">Phase 2</a></li>
+      <li><strong>Shorts pop, long-form doesn't</strong> — no funnel between the formats. 30-second trailer within 24 hours. <a href="shortform-playbook.html">Playbook</a></li>
+      <li><strong>Flat, low retention everywhere</strong> — topic/packaging mismatch, or still in the tuition phase under 50 videos. <a href="phase-2-youtube-mastery.html">Phase 2</a></li>
+      <li><strong>Everyone leaves near the end</strong> — normal, unless the collapse starts before 50%. <a href="phase-2-youtube-mastery.html">Phase 2</a></li>
+    </ul>
+    <p>Every threshold above is a creator-reported rule of thumb, never platform-published data.</p>
+  </noscript>
+</section>
+
+<section aria-label="How this tool thinks" style="margin-top:2rem">
+  <h2>How this tool thinks</h2>
+  <p class="muted">Every diagnosis is routed from the site's own chapters — Phase 2's analytics section, Phase 1's retention engineering, the Short-Form Playbook's retention editing. The tool doesn't invent benchmarks: thresholds are labeled as creator-reported rules of thumb, and your own channel average is always the real baseline. To learn the metrics themselves — CTR, AVD, retention curves, traffic sources — read <a href="metrics-glossary.html">The Metrics Glossary</a>.</p>
+</section>
+</div></main>
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <div class="foot-brand"><span class="brand-mark">▲</span> Creator Growth Empire</div>
+      <p class="muted">From $0 to a multi-million-dollar creator company.</p>
+      <div class="sticker-row" style="margin:1rem 0 0">
+        <span class="sticker sticker-ghost">No guru hype</span>
+        <span class="sticker sticker-ghost">2026 verified</span>
+      </div>
+    </div>
+    <nav aria-label="Phases">
+      <strong class="muted" style="font-size:.78rem;letter-spacing:.12em">PHASES</strong>
+      <a href="phase-0-start-from-nothing.html">Phase 0 — Start From Nothing</a>
+      <a href="phase-2-youtube-mastery.html">Phase 2 — YouTube Mastery</a>
+      <a href="phase-5-monetization-stack.html">Phase 5 — Monetization Stack</a>
+      <a href="phase-7-the-business.html">Phase 7 — The Business</a>
+    </nav>
+    <nav aria-label="Tools">
+      <strong class="muted" style="font-size:.78rem;letter-spacing:.12em">TOOLS</strong>
+      <a href="tools.html">All tools →</a>
+      <a href="quiz.html">Niche Picker</a>
+      <a href="calculator.html">Revenue Calculator</a>
+      <a href="planner.html">90-Day Planner</a>
+      <a href="deal-analyzer.html">Sponsor Deal Analyzer</a>
+      <a href="hiring-calculator.html">Hiring Cost Calculator</a>
+      <a href="repurpose.html">Repurposing Planner</a>
+      <a href="simulator.html">Empire Simulator</a>
+      <a href="money-map.html">The Money Map</a>
+      <a href="api-explorer.html">API Explorer</a>
+      <a href="glossary.html">Glossary</a>
+      <a href="agents.html">Agents</a>
+    </nav>
+    <nav aria-label="Case Files">
+      <strong class="muted" style="font-size:.78rem;letter-spacing:.12em">CASE FILES</strong>
+      <a href="case-files.html">All case files →</a>
+      <a href="case-budget-grocery.html">The Budget-Grocery Newsletter</a>
+      <a href="case-bens-bites.html">Ben's Bites</a>
+      <a href="case-sleep-channels.html">The Sleep-Channel Network</a>
+      <a href="case-mavwicks.html">Mavwicks on TikTok Shop</a>
+      <a href="case-ptya.html">The Cohort Course</a>
+      <a href="case-poly-couple.html">The Poly Couple</a>
+      <a href="case-gibi-asmr.html">Gibi ASMR</a>
+    </nav>
+  </div>
+  <div class="footer-fine">PRIVATE RESEARCH ARCHIVE · PLATFORM FACTS VERIFIED OCT 2026 — VERIFY LIVE BEFORE ACTING · NOT FINANCIAL, LEGAL, OR TAX ADVICE</div>
+</footer>
+<script src="assets/js/site.js"></script>
+</body>
+</html>

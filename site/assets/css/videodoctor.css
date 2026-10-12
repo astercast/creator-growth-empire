@@ -1,0 +1,64 @@
+/* Diagnose My Video (wave 19) — symptom picker + ranked diagnosis.
+ * Reuses quiz-opt/quiz-opts/quiz-q/quiz-actions from layout.css. */
+
+.vd-symptom-grid { grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); }
+.vd-symptom { cursor: pointer; align-items: flex-start; }
+.vd-symptom input { margin-top: 0.2rem; flex: none; accent-color: var(--acid); }
+.vd-symptom-text strong { display: block; font-size: 1rem; }
+.vd-symptom-text .muted { font-size: 0.85rem; }
+
+.vd-result {
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--bg-2);
+  padding: 1.6rem;
+  margin: 1.6rem 0;
+  max-width: 78ch;
+}
+.vd-result-kicker {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  color: var(--coral);
+  margin: 0 0 0.4rem;
+}
+.vd-result h3 { margin-top: 0; }
+.vd-summary { font-size: 1.05rem; }
+.vd-note {
+  border-left: 3px solid var(--gold);
+  padding: 0.6rem 0.9rem;
+  background: rgba(255, 200, 60, 0.06);
+  margin: 1rem 0;
+}
+.vd-causes { list-style: none; padding: 0; margin: 1.2rem 0; display: grid; gap: 1.2rem; }
+.vd-cause {
+  border: 1px solid var(--line-strong);
+  border-radius: 0.75rem;
+  padding: 1.1rem 1.2rem;
+  background: var(--bg-1);
+}
+.vd-cause-head { display: flex; flex-wrap: wrap; gap: 0.5rem 0.9rem; align-items: baseline; margin-bottom: 0.3rem; }
+.vd-cause-head h4 { margin: 0; font-size: 1.1rem; }
+.vd-rank {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  color: var(--coral);
+  border: 1px solid var(--coral);
+  border-radius: 999px;
+  padding: 0.15rem 0.6rem;
+  white-space: nowrap;
+}
+.vd-fixes { margin: 0.5rem 0 0.8rem; padding-left: 1.2rem; }
+.vd-fixes li { margin-bottom: 0.4rem; }
+.vd-links { margin: 0; font-size: 0.92rem; }
+.vd-watch {
+  border-top: 1px solid var(--line-strong);
+  padding-top: 1rem;
+  margin-top: 1.2rem;
+}
+.vd-disclaimer { font-size: 0.85rem; }
+
+@media (prefers-reduced-motion: reduce) {
+  .vd-symptom { transition: none; }
+}

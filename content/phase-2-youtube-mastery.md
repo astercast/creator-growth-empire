@@ -35,6 +35,8 @@ New channels should play **both**: searchable evergreen videos as the foundation
 
 **The monthly ritual:** one hour, first week of the month. Rank last month's videos by views-per-subscriber (outliers) and by retention (quality). The overlap is your format. Make more of that, packaged better.
 
+The full treatment — every metric above, what "good" looks like as creator-reported ranges, the five retention-curve shapes with sketches, and which numbers to ignore at your stage — lives in [The Metrics Glossary](metrics-glossary.html). And when a specific video underperforms, [Diagnose My Video](video-doctor.html) routes the symptom to the fix.
+
 ## Shorts vs. long-form: the real strategy
 
 They're different businesses sharing a channel:

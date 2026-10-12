@@ -1,5 +1,67 @@
 # Creator Growth Empire — Wave Log
 
+## Wave 19 — The Analytics Decoder (2026-10-11)
+
+The missing analytics-reading pillar: a video troubleshooter, a metrics
+glossary chapter, and a retention-curve reader — all diagnostic logic drawn
+from the site's existing chapters, every threshold labeled as a
+creator-reported rule of thumb, never platform gospel. Now 15 tools total.
+
+What shipped:
+1. **Diagnose My Video tool** (`pages/video-doctor.html` +
+   `assets/js/video-doctor.js` → `site/video-doctor.html`, TOOL 15) —
+   symptom picker (8 symptoms: low CTR, early drop-off, great retention but
+   no subs, sawtooth, single cliff, Shorts-no-crossover, flat-low,
+   end-collapse) → ranked likely causes → chapter-grounded fixes with
+   read-next links. Engine is UMD (browser + node): `validInput()` /
+   `diagnose()` / `SYMPTOMS` dataset. Context-aware: tuition-phase caveat
+   under 50 videos, completion-rate note for CTR on swipe feeds, bridge note
+   for Shorts-crossover diagnosed from long-form. Symptom radio cards with
+   arrow-key radiogroup support, aria-live results, localStorage last-input,
+   full no-JS fallback (all 8 symptoms, one line each). Own stylesheet
+   `assets/css/videodoctor.css`.
+2. **The Metrics Glossary chapter** (`content/metrics-glossary.md` →
+   `site/metrics-glossary.html`, 3rd Reference page): CTR, AVD, retention
+   curves, traffic sources, returning vs new viewers, Shorts feed vs browse
+   — what each metric means, what "good" looks like as reported ranges
+   (flagged creator-reported, never platform-published), when each lies,
+   plus "what NOT to watch (yet)", a stage-appropriate-metrics table (Money
+   Map cross-link: beginners shouldn't obsess over CTR), and a "your numbers
+   vs the Simulator's assumptions" section.
+3. **Retention-curve reader** — five sketched SVG patterns
+   (`METRICS_CURVE_MOUNT` in build.py, styles in components.css): cliff at
+   start (hook/packaging), sawtooth (re-hooks vs pacing), single cliff (one
+   bad section), end collapse (normal unless before 50%), flat low (topic
+   mismatch / tuition phase). Static hand-drawn polylines — no data behind
+   them, "read the shape, never the numbers"; each with aria-label +
+   figcaption.
+4. **Cross-links**: Playbook "Your next move" → Metrics Glossary +
+   Video Doctor; Money Map stage 0/1 playbooks → stage-appropriate metrics;
+   Simulator assumptions → Metrics Glossary (read your real graph before
+   tuning the model) + Video Doctor; Phase 2 analytics section → both new
+   pages. `data/glossary.json` gained 4 terms (Traffic sources, Returning
+   viewers, Shorts feed, Browse traffic) → 30 terms.
+5. **API surface**: `api/v1/tools.json` 15th record with draft-07
+   `VideoDoctorInput` schema (symptom/platform/experience enums);
+   llms.txt lists 15 tools + Glossary; llms-full.txt carries the new
+   reference marker.
+
+**Tests**: new `tests/video-doctor.test.js` (184 assertions — input
+validation, all-8-symptom diagnosis shape, link targets all real site
+pages, honesty contract enforced in-test: "rule of thumb" /
+"creator-reported" present, no platform-published claims, no guarantee
+language, tuition/platform context notes); `agent-workflows.test.js`
+wf2 updated 14→15 tools; `validate.sh` stage 6 runs the new suite.
+
+Validation: `scripts/build.py` clean (9 chapters, 15 tools, 12 skills,
+7 case files, 16,208 words); `scripts/validate.sh` **8/8 GREEN** (26 JS
+files node --check, JSON parse, draft-07 schemas, 0 broken links (2,377
+checked), byte-identical rebuild, 80 sim + 78 deal-room + 49 content-engine
++ 44 money-map + 184 video-doctor engine assertions, 67 agent-workflow
+assertions).
+
+Commit: c03655a3426cdfc3a9640239f5b6e9ea01a13161 (local) → REMOTEHASH (pushed 2026-10-11, remote tree verified via GitHub API).
+
 ## Wave 18 — The Money Map (2026-10-11)
 
 The capstone page tying the whole empire together: $0 → first $100 → $1K/mo →

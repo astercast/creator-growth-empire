@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
   "updated": "2026-10-11",
-  "note": "Programmatic input schemas for the fourteen interactive tools. Agents replicate each tool's logic by feeding these inputs to the documented formulas / shipped JS (assets/js/<id>.js); the UI pages are the human front-end for the same logic.",
+  "note": "Programmatic input schemas for the fifteen interactive tools. Agents replicate each tool's logic by feeding these inputs to the documented formulas / shipped JS (assets/js/<id>.js); the UI pages are the human front-end for the same logic.",
   "tools": [
     {
       "id": "quiz",
@@ -976,6 +976,58 @@
       },
       "output": "Stage placement (0\u20134: The Start Line / First $100 / The Engine Runs / The Business / The Company), sanity notes (audience-ahead, team-ahead), and a 3-move roadmap (stage signature move + 2 bottleneck-driven moves), the stage trap, and the graduate-when criteria. Placement anchored on the creator's own reported revenue band; stages are focus guides, never income promises.",
       "drive_notes": "Logic (assets/js/money-map.js, UMD \u2014 importable in node): placeStage(a) \u2014 revenue band maps 0\u21920, 1-99\u21921, 100-999\u21922, 1k-9999\u21923, 10k-plus\u21924; if audience is 100k+ and base stage \u2264 2, stage+1 with an 'audience-ahead' note; employees with stage \u2264 2 adds a 'team-ahead' note. roadmap(a) \u2014 stage signature move (the stage's #1 tool) + two bottleneck-driven moves, deduped. STAGES carries the full playbook data (goal, 3 moves, trap, graduate). Planning aid, not financial/legal/tax advice."
+    },
+    {
+      "id": "video-doctor",
+      "title": "Diagnose My Video",
+      "description": "Pick your symptom \u2014 low CTR, the 30-second cliff, great retention but no subs \u2014 and get ranked causes with the fix from the chapter that owns it.",
+      "page": "video-doctor.html",
+      "input_schema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "title": "VideoDoctorInput",
+        "type": "object",
+        "required": [
+          "symptom",
+          "platform",
+          "experience"
+        ],
+        "properties": {
+          "symptom": {
+            "type": "string",
+            "enum": [
+              "low-ctr",
+              "early-dropoff",
+              "good-retention-no-subs",
+              "sawtooth",
+              "single-cliff",
+              "shorts-no-crossover",
+              "flat-low",
+              "end-collapse"
+            ],
+            "description": "The symptom the creator sees in their analytics."
+          },
+          "platform": {
+            "type": "string",
+            "enum": [
+              "longform",
+              "shorts",
+              "tiktok",
+              "reels"
+            ],
+            "description": "Where the underperforming video lives."
+          },
+          "experience": {
+            "type": "string",
+            "enum": [
+              "under-50",
+              "over-50"
+            ],
+            "description": "Videos shipped. Under 50 = tuition phase: the data is thin, diagnose lightly."
+          }
+        }
+      },
+      "output": "Ranked likely causes drawn from the site's chapters (Phase 1, Phase 2, Short-Form Playbook), each with chapter-grounded fixes and read-next links; the metric to watch next; context notes (tuition-phase caveat under 50 videos, swipe-feed completion-rate note for CTR on short-form). Thresholds labeled as creator-reported rules of thumb, never platform-published benchmarks.",
+      "drive_notes": "Engine (assets/js/video-doctor.js, UMD \u2014 importable in node): validInput(i) validates the three enums; diagnose(i) returns the symptom record with causes ranked 1..N (cause/why/fixes/links) plus notes. SYMPTOMS carries the full 8-symptom dataset. Diagnostic aid, not financial/legal/tax advice; never an income promise."
     }
   ]
 }
