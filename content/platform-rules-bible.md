@@ -18,7 +18,8 @@
 10. FTC disclosure: the 2026 escalation
 11. Taxes: the 2026 1099 change
 12. The one-page cheat sheet
-13. What to do with this
+13. The rest of the map: Facebook, Twitch, X, newsletters, podcasts
+14. What to do with this
 
 ## 1. How to read this bible
 
@@ -320,7 +321,9 @@ Adam Mosseri: *"More important than watch time or like and comment counts is sen
 
 **Read next:** [Phase 7 — The Business](phase-7-the-business.html) · [The Money Map](money-map.html)
 
-## The one-page cheat sheet
+## 12. The one-page cheat sheet
+
+Every row compresses a labeled section above — source weights (verified / single-source / platform-stated) live with the full claims, not here.
 
 | Platform | #1 signal | What pays per 1K views | The 2026 gate |
 |---|---|---|---|
@@ -332,7 +335,81 @@ Adam Mosseri: *"More important than watch time or like and comment counts is sen
 
 **The original-content era, one line:** Meta (Jul 2025) → YouTube inauthentic policy (Jul 15, 2025) → TikTok originality score (Jan 2026) → Instagram rules (Apr 2026) → YouTube Shorts update (Oct 1, 2026). Every platform converged on the same rule: original > reused.
 
-## What to do with this
+## 13. The rest of the map: Facebook, Twitch, X, newsletters, podcasts
+
+The first twelve sections cover where most creators start. These five are where creators go when the obvious platforms stop being enough — each with a monetization shape the big three don't have. Same labeling discipline: verified, single-source, or platform-stated — and every figure is someone else's reported number, never a commitment about what you'll earn.
+
+### Facebook: the tip jar with a community attached
+
+Meta killed the old Reels Play Bonus, In-Stream Ads, and Performance Bonus on **August 31, 2025** and merged everything into one **Content Monetization** program (verified across 2026 creator guides). There is no fixed per-view rate anymore — you earn a performance-based share of actual ad value, which is structurally lower than the old growth-phase subsidies.
+
+**What creators report in 2026 (single-source, directionally consistent across trackers):** Reels RPM of **$0.02–$0.20 per 1,000 views** for most creators, median around **$0.05–$0.10**. US-heavy finance/business audiences are the outlier: **$0.50–$5.00**. Long-form video with in-stream ads pays on a different planet — **$2–$6 RPM** at a 55/45 creator/Meta split — because mid-rolls carry real ad value and Reels don't.
+
+**The two catches nobody puts in the headline:**
+1. **Eligible plays ≠ views.** Facebook only counts the subset of views where ads could actually serve — 30–50% of total views typically don't qualify (scrolled past in under a second, uncleared music, non-monetized country, no ad inventory). Your dashboard RPM is quoted on eligible plays; do the math on total views before you plan.
+2. **March 2026 originality policy.** Reposting other people's videos — including low-effort changes like borders, captions, or speed shifts — gets flagged, then non-recommendable, then demonetized. Cross-posting your *own* Reels via Business Suite is fine and is the obvious move.
+
+**Eligibility:** 10,000 followers, 600,000 eligible minutes viewed in 60 days, 5+ published videos, 18+, eligible country, clean compliance record (platform-stated via creator guides).
+
+**The honest take:** treat Facebook Reels ad revenue as a tip jar, not a salary. Facebook's real value for creators is the Groups + cross-posting loop — the cheapest community infrastructure in the business — with Stars and Subscriptions (direct audience money, more predictable than ad shares) as the layer worth building.
+
+### Twitch: the subscription business
+
+Twitch is the only major platform where the audience pays *you* directly as the core mechanic, not the advertiser. The old "70/30 for the big, 50/50 for everyone" handshake is now the **Plus Program** — points-based, open to qualifying Affiliates and Partners alike (verified across 2025–2026 trade coverage):
+
+| Level | Your split | Requirement |
+|---|---|---|
+| Standard | 50/50 | default |
+| Plus Level 1 | **60/40** | ≥100 Plus Points, 3 consecutive months |
+| Plus Level 2 | **70/30** | ≥300 Plus Points, 3 consecutive months |
+
+Plus Points come from paid subs (higher tiers weighted more). The 70/30 rate caps at $100k of subscription revenue per 12 months, then returns to 50/50. Verify your exact terms in the Creator Dashboard — legacy 70/30 contracts were migrated into this program in early 2026.
+
+**The unit economics (single-source, consistent):** Tier 1 subs at $4.99/month → ~$2.50 to you at 50/50, ~$3.50 at 70/30. Bits pay a flat **$0.01 per bit** cheered. Ad CPMs run **$2–$5** (mid-rolls earn 15–20% more than pre-rolls); the optional Ads Incentive Program lifts your ad share to 55% in exchange for 3 minutes of ads per hour. Donations via third-party tools are 100% yours minus processing.
+
+**The gates:** Affiliate needs 50 followers, 3 average concurrent viewers, ~8.3 broadcast hours and 7 unique days in 30 days (automatic invite). Partner is an application judged on consistency and viewership — roughly 75 average concurrent viewers, 25+ hours, 12 unique days — and brings priority support, dedicated transcoding priority, and the verified badge.
+
+**The honest take:** a 20–30 sub Affiliate channel nets low hundreds a month — real money, not a living. Twitch income compounds on *concurrent viewership*, not followers; sponsors pay roughly $10–$100+ per average viewer per hour, which is why 75 average viewers changes everything and 15 changes nothing. If you stream, simulcast the discovery clips everywhere and keep the live room sacred.
+
+### X: the program just changed — read the date on everything
+
+X **ended its Revenue Sharing program on August 7, 2026** and replaced it with the **Original Content Rewards Program** (verified, August 2026 announcement). Existing participants got final payouts through September 7 and could apply to the new program from September 8. Anything you read about X monetization from before August 2026 describes a dead program.
+
+**The new rules (platform-stated, August 2026):** 18+, eligible country, X Premium / Premium+ / Premium Business subscription, **500 verified followers**, and **500,000 Home Timeline impressions from verified users in the prior 90 days** — where a qualified impression means a Premium user's view with at least 50% of the post visible. Paid, promoted, and artificial impressions don't count. Payouts run biweekly via Stripe once you clear a **$30 minimum**.
+
+**What it pays (single-source benchmarks):** roughly **$100–$500/month at 5–10M monthly impressions**, scaling to **$500–$3,000 at 10–50M**. US/UK audiences earn 3–5x the same impressions elsewhere. The payout formula weights *verified-user* engagement — replies from Premium subscribers — not raw views. A post with 100,000 views and zero replies earns almost nothing; a 10,000-view post that starts a long reply thread earns real money, because the ads live in the replies.
+
+**The second rail — Subscriptions:** followers pay you monthly (typically $3–$10) for exclusive content and access. X takes **30% in year one, 15% after**. It monetizes your most engaged 1–3%, not your scrollers — a 10,000-follower account converting 100–300 subscribers at $5/month grosses $500–$1,500 before X's cut.
+
+**The honest take:** X is the only platform where 500 followers can switch on monetization — but the formula keeps moving (this is the third major revision), so treat every threshold as a snapshot and verify in X's Help Center before you plan around it.
+
+### Newsletters: the only platform where you own the list
+
+No algorithm stands between you and the inbox. The tradeoff is the fee table — and in 2026 it's a genuine three-way decision (verified from platform pricing pages, October 2026):
+
+| Platform | Cut | Flat cost | Best for |
+|---|---|---|---|
+| Substack | **10%** + Stripe (~2.9% + $0.30) | $0 at any size | Writers under ~30 paying subs; cold-start discovery via the recommendation network |
+| beehiiv | **0%** | Free to 2,500 subs, then ~$49–$109/mo | Creators running subscriptions + its ad network (**$15–$30 CPMs**) together |
+| Ghost | **0%** | $9–$199/mo flat | Publishers who want a fully owned site and data control |
+
+**The math that decides it:** at $10/month, 100 paid subscribers ≈ **$1,000/month before fees** (~$840 after Substack + Stripe). Substack's 10% overtakes beehiiv's flat fee at roughly **$490/month in subscription revenue** (1,000-subscriber tier) — past that, every extra dollar costs you ten cents on Substack and nothing on beehiiv. At 1,000 paying subscribers, Substack's cut is ~$12,000 a year. Distribution has a price; 10% is it — Substack's recommendation network drove 8.4M paid subscriptions in Q1 2026, up 68% year over year (platform-stated).
+
+**The honest take:** most paid newsletters earn under $1,000/month; the solid-secondary-income band is 500–2,000 paid subs; full-time replacement typically needs 5,000+ — built over two to four years of weekly writing, not months. If your growth depends on being discovered, pay the 10%. If it comes from channels you already control, the flat fee wins as soon as you clear ~$300/month. (And yes — 100 paid subscribers gets you the Substack bestseller badge. Celebrate it. It is not a business.)
+
+### Podcasts: video ate the feed
+
+The audio-only era is over on the charts: in Spain — the world's #4 video-podcast market — roughly **60% of the top-100 podcasts now publish video**, and video consumption is up **~80% year over year** (verified, October 2026 industry data). If you launch a show in 2026, you are launching a video show with an audio feed, not the reverse.
+
+**Spotify's move:** the **Spotify Partner Program opens October 20, 2026** ([Algorithm Watch, Oct 12](what-changed.html)) — the first scaled revenue share for video podcasts on the platform. Creators keep **100% of integrated sponsorships**; the program pays on Spotify video consumption. Details land with the launch — treat everything before October 20 as pre-announcement.
+
+**The honest take:** podcasting monetizes like newsletters (direct audience + sponsors, CPMs $15–$30 for host-read) with YouTube's discovery layered on top — upload every episode to YouTube, where the recommendation system is the best podcast-discovery engine ever built. The RSS feed is your ownership; YouTube is your growth.
+
+---
+
+**Read next:** [The Money Map](money-map.html) (which of these fits your stage) · [The Niche Atlas](niche-atlas.html) (where the RPMs live) · [The 2026 Rate Card](rate-card.html) (sponsor math) · [What Changed](what-changed.html) (when any of this moves, it lands here first)
+
+## 14. What to do with this
 
 1. **Run your numbers through the [YPP 2027 Eligibility Checker](ypp-checker.html)** — current rules vs 2027 rules, side by side, with the gap math. Five minutes, no account needed.
 2. **Self-audit your last 10 Shorts** against the Oct-1 originality standard (§3): label each by original contribution, record Shorts-feed views, compare medians with the next 10 in two weeks. The question that decides it: *what would a viewer lose if my version disappeared?*

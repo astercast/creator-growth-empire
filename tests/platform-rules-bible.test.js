@@ -1,9 +1,10 @@
 /* Tests for the 2026 Platform Rules Bible reference chapter (wave 28).
  * Run: node tests/platform-rules-bible.test.js (from the repo root)
  * Exit 0 = all pass. Contracts:
- *  1. Structure: exactly one h1; 15 h2s, unique and non-empty; the 11
- *     numbered sections (§1–§11) exist in order; the "What's inside" list
- *     has 13 items matching the 13 content h2s in order (Sources excluded).
+ *  1. Structure: exactly one h1; 16 h2s, unique and non-empty; the 14
+ *     numbered sections (§1–§14) exist in order; the "What's inside" list
+ *     has 14 items matching the 14 content h2s in order (Sources excluded).
+ *     (§13 "the rest of the map" added in the makeover wave.)
  *  2. Source labeling: every figure carries a weight label — minimum
  *     counts of single-source / verified / platform-stated markers so a
  *     future edit can't silently drop the labeling discipline.
@@ -39,20 +40,20 @@ function count(re) { var m = MD.match(re); return m ? m.length : 0; }
 var h1s = MD.match(/^# .+/gm) || [];
 ok(h1s.length === 1, "exactly one h1 (" + h1s.length + ")");
 var h2s = (MD.match(/^## .+/gm) || []).map(function (h) { return h.slice(3).trim(); });
-ok(h2s.length === 15, "15 h2 sections (" + h2s.length + ")");
+ok(h2s.length === 16, "16 h2 sections (" + h2s.length + ")");
 ok(new Set(h2s).size === h2s.length, "all h2s unique");
 ok(h2s.every(function (h) { return h.length > 3; }), "no empty h2s");
 var numbered = h2s.filter(function (h) { return /^\d+\. /.test(h); });
-ok(numbered.length === 11, "11 numbered sections (" + numbered.length + ")");
+ok(numbered.length === 14, "14 numbered sections (" + numbered.length + ")");
 ok(numbered.every(function (h, i) { return h.indexOf((i + 1) + ". ") === 0; }),
-  "numbered sections run 1-11 in order");
+  "numbered sections run 1-14 in order");
 var tocBlock = MD.match(/## What's inside\n\n((?:\d+\. .+\n)+)/);
 var tocItems = tocBlock ? tocBlock[1].trim().split("\n") : [];
-ok(tocItems.length === 13, "TOC lists 13 sections (" + tocItems.length + ")");
+ok(tocItems.length === 14, "TOC lists 14 sections (" + tocItems.length + ")");
 var contentH2s = h2s.filter(function (h) {
   return h !== "What's inside" && h !== "Sources";
 });
-ok(contentH2s.length === 13, "13 content h2s pair with the 13 TOC items");
+ok(contentH2s.length === 14, "14 content h2s pair with the 14 TOC items");
 ok(tocItems.every(function (item, i) {
   var title = item.replace(/^\d+\. /, "").trim().toLowerCase();
   var h = contentH2s[i].toLowerCase();
@@ -64,7 +65,7 @@ ok(count(/single-source/gi) >= 40, "single-source flags >= 40 (" + count(/single
 ok(count(/\bverified\b/gi) >= 25, "verified markers >= 25 (" + count(/\bverified\b/gi) + ")");
 ok(count(/platform-stated/gi) >= 5, "platform-stated markers >= 5 (" + count(/platform-stated/gi) + ")");
 var numberedSections = MD.split(/^## \d+\. /m).slice(1);
-ok(numberedSections.length === 11, "11 numbered section bodies extracted");
+ok(numberedSections.length === 14, "14 numbered section bodies extracted");
 ok(numberedSections.every(function (s) {
   return /single-source|verified|platform-stated/i.test(s);
 }), "every numbered section carries at least one source-weight label");

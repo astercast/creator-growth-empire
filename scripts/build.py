@@ -1202,7 +1202,7 @@ def page_template(title, body, active="", extra_head=""):
       <a href="case-gibi-asmr.html">Gibi ASMR</a>
     </nav>
   </div>
-  <div class="footer-fine"><span class="stamp stamp-sm" aria-hidden="true">CLEARED</span><span>PRIVATE RESEARCH ARCHIVE · PLATFORM FACTS VERIFIED OCT 2026 — VERIFY LIVE BEFORE ACTING · NOT FINANCIAL, LEGAL, OR TAX ADVICE</span></div>
+  <div class="footer-fine"><span class="stamp stamp-sm" aria-hidden="true">CLEARED</span><span>PRIVATE RESEARCH ARCHIVE · PLATFORM FACTS VERIFIED OCT 2026 — VERIFY LIVE BEFORE ACTING · NOT FINANCIAL, LEGAL, OR TAX ADVICE · SET IN THE FIELD, PRINTED ON RECYCLED PIXELS</span></div>
 </footer>
 <script src="assets/js/site.js"></script>
 </body>
@@ -1556,24 +1556,55 @@ def build():
 
     # index
     GROUP_TIER_COLOR = {"PLAN": "var(--cyan)", "MONEY": "var(--gold)", "CONTENT": "var(--stamp)"}
-    cards = ""
+    # makeover: the 9 phases as a campaign trail - one <details> per phase,
+    # exclusive via name= (plain-HTML-first, no JS, keyboard-native).
+    PHASE_LEDES = [
+        "Zero audience, zero budget, zero excuses. Pick the niche, set up the accounts, ship the first ten.",
+        "The system that turns one idea into a week of output. Batch it, template it, repeat it \u2014 this is where consistency gets manufactured.",
+        "Click and stay. Packaging, retention, the algorithm's two questions \u2014 the highest-leverage skill on the internet.",
+        "One pillar, five platforms. Repurpose without re-uploading, and survive the originality era the platforms all converged on.",
+        "Viewers watch. Communities stay, pay, and recruit. The unsexy work that makes everything else compound.",
+        "Ads, sponsors, affiliates, products \u2014 layered in the right order. Read it twice; everyone reads it once and skips ahead.",
+        "Your name as an asset. When merch makes sense, when it doesn't, and the margins nobody posts about.",
+        "LLC, taxes, separate the money. The boring paperwork that keeps the exciting part legal. Educational \u2014 not legal or tax advice.",
+        "Team, systems, stepping back. How empires stop depending on the founder's calendar.",
+    ]
+    trail_stops = ""
     for i, m in enumerate(chapters_meta):
         accent = PHASE_ACCENTS[i % len(PHASE_ACCENTS)]
         lvl = f"{i + 1:02d}"
-        cards += (f'<a class="phase-card brk reveal" style="--i:{i};--card-accent: var(--{accent});" href="{m["path"]}">'
-                  f'<b class="brk-x" aria-hidden="true"></b>'
-                  f'<div class="phase-top"><span class="phase-lvl">LVL {lvl}</span>'
-                  f'{_rank_chevrons(i + 1, sm=True)}</div>'
-                  f'<span class="phase-num">{m["phase"].split()[-1]}</span>'
-                  f'<span class="phase-name">{esc(m["title"])}</span>'
-                  f'<span class="phase-meta">{m["read_minutes"]} min · {m["words"]:,} words</span>'
-                  f'<span class="fm-readout" style="color:var(--{accent})">RANK // {PHASE_RANKS[i]}</span></a>')
-    tools_html = "".join(
-        f'<a class="tool-card reveal" style="--i:{i};--tier:{GROUP_TIER_COLOR[TOOL_HUB_META[slug][1]]}" href="{slug}.html">'
-        f'<span class="tool-id">TOOL // {i + 1:02d}</span><strong>{esc(title)}</strong>'
-        f'<span>{esc(desc)}</span>'
-        f'<span class="tool-go">Launch →</span></a>'
-        for i, (slug, title, desc) in enumerate(TOOLS))
+        open_attr = " open" if i == 0 else ""
+        trail_stops += (
+            f'<details class="trail-stop reveal" style="--i:{i};--card-accent: var(--{accent});" name="trail"{open_attr}>'
+            f'<summary><span class="trail-lvl">LVL {lvl}</span>'
+            f'<span class="trail-title">{esc(m["title"])}</span>'
+            f'<span class="trail-meta">{m["read_minutes"]} min \u00b7 RANK // {PHASE_RANKS[i]}</span>'
+            f'<span class="trail-plus" aria-hidden="true">+</span></summary>'
+            f'<div class="trail-body"><p>{PHASE_LEDES[i]}</p>'
+            f'<a class="trail-go" href="{m["path"]}">Open {m["phase"]} <span class="arr" aria-hidden="true">\u2192</span></a>'
+            f'</div></details>')
+
+    # makeover: tools grouped by job into 3 tier <details> (progressive
+    # disclosure - the wall of 21 cards is gone from first view).
+    tier_order = ["PLAN", "MONEY", "CONTENT"]
+    tier_tools = {t: [] for t in tier_order}
+    for i, (slug, title, desc) in enumerate(TOOLS):
+        tier_tools[TOOL_HUB_META[slug][1]].append((i, slug, title, desc))
+    tiers_html = ""
+    for t in tier_order:
+        rows = "".join(
+            f'<li><a href="{slug}.html"><span class="tier-num">{i + 1:02d}</span>'
+            f'<span><strong>{esc(title)}</strong><span class="desc">{esc(desc)}</span></span>'
+            f'<span class="tier-arrow" aria-hidden="true">\u2192</span></a></li>'
+            for i, slug, title, desc in tier_tools[t])
+        open_attr = " open" if t == "PLAN" else ""
+        tiers_html += (
+            f'<details class="tier" name="tiers" style="--tier:{GROUP_TIER_COLOR[t]}"{open_attr}>'
+            f'<summary><span class="tier-chip" aria-hidden="true"></span>'
+            f'<span class="tier-name">{t}</span>'
+            f'<span class="tier-count">{len(tier_tools[t])} tools</span>'
+            f'<span class="tier-plus" aria-hidden="true">+</span></summary>'
+            f'<ul class="tier-list">{rows}</ul></details>')
     total_words = sum(m["words"] for m in chapters_meta)
     case_cards = "".join(
         f'<a class="phase-card brk reveal" style="--i:{i};--card-accent: var(--gold);" href="{m["path"]}">'
@@ -1585,10 +1616,6 @@ def build():
         f'<span class="phase-meta">{m["read_minutes"]} min · {m["words"]:,} words</span></a>'
         for i, m in enumerate(m for m in mdpage_meta if m["badge"] == "Case File"))
     case_files = [m for m in mdpage_meta if m["badge"] == "Case File"]
-    case_section = (f'<section class="section"><div class="section-head"><h2>Empire Case Files</h2>'
-                    f'<span class="section-tag">documented deconstructions // no guru hype</span>'
-                    f'<a href="case-files.html" class="section-more">All {len(case_files)} case files →</a></div>'
-                    f'<div class="phase-grid reveal-stagger">{case_cards}</div></section>')
     # wave 30: signal log — the kill-feed of field wins. Every transmission is
     # an existing case file, one line each, styled as tactical comms. Numbered
     # MSG ids, never fake timestamps; the lede is the file's own, truncated.
@@ -1616,26 +1643,11 @@ def build():
   <p class="hero-eyebrow">Field manual // Creator division // Entry 00</p>
   <p class="fm-kicker" style="margin-bottom:1rem"><strong>MISSION BRIEFING</strong><span class="sep">//</span>CLEARANCE // ALL RECRUITS</p>
   <h1 class="mega">BUILD YOUR<br><span class="mega-outline">EMPIRE</span></h1>
-  <p class="lede">Nine phases. Zero to multi-million-dollar creator company — YouTube, TikTok, Facebook, merch, brand deals, LLC, taxes, scale. <strong>No guru hype. Just the playbook.</strong></p>
-  <div class="hero-stamp-row">
-    <span class="stamp stamp-gold stamp-slam">2026 VERIFIED</span>
-    <div class="chit-row" style="margin:0">
-      <span class="chit">9 phases</span>
-      <span class="chit chit-gold">{n_tools} field tools</span>
-      <span class="chit chit-sage">9 case files</span>
-    </div>
-  </div>
-  <div class="xp" role="img" aria-label="Manual readiness: 9 phases and {n_tools} tools deployed" style="margin:1.6rem 0 0;max-width:34rem">
-    <div class="xp-fill static" style="--xp:100%"></div><span class="xp-tag">MANUAL READINESS // 100% — ALL UNITS DEPLOYED</span>
-  </div>
-  <div class="hero-stats">
-    <div class="hero-stat reveal" style="--i:0"><strong>9</strong><span>phases</span></div>
-    <div class="hero-stat reveal" style="--i:1"><strong>{total_words:,}</strong><span>words of intel</span></div>
-    <div class="hero-stat reveal" style="--i:2"><strong>{n_tools}</strong><span>field tools</span></div>
-    <div class="hero-stat reveal" style="--i:3"><strong>LVL 01–09</strong><span>your climb</span></div>
-  </div>
-  <div class="hero-cta"><a class="btn btn-primary" href="phase-0-start-from-nothing.html">Start at Phase 0 →</a>
-  <a class="btn btn-ghost" href="quiz.html">Find your niche</a></div>
+  <p class="lede">Nine phases. Zero to multi-million-dollar creator company \u2014 YouTube, TikTok, Facebook, merch, brand deals, LLC, taxes, scale. <strong>No guru hype. Just the playbook.</strong></p>
+  <div class="hero-cta"><a class="btn btn-primary" href="money-map.html">Find your stage \u2192</a>
+  <a class="btn btn-ghost" href="tools.html">Browse the {n_tools} field tools</a></div>
+  <p class="hero-note">New here? The 2-minute <strong>Money Map survey</strong> finds your stage \u2014 and every mission you clear earns XP toward your Field Manual rank, Recruit to General. Your progress never leaves this device.</p>
+  <p class="hero-meta"><span class="stamp stamp-gold stamp-slam">2026 VERIFIED</span><span>9 phases \u00b7 {n_tools} tools \u00b7 9 case files</span></p>
 </div>
 </section>
 <section class="ticker" aria-hidden="true"><div class="ticker-track">
@@ -1644,9 +1656,17 @@ def build():
   <span>TRANSMISSION // POST CONSISTENTLY</span><span>PACKAGING IS EVERYTHING</span><span>OWN YOUR AUDIENCE</span>
   <span>DIVERSIFY REVENUE</span><span>SEPARATE THE MONEY</span><span>SYSTEMS BEAT HUSTLE</span>
 </div></section>
-<section class="section"><div class="section-head"><h2>The Empire Map</h2><span class="section-tag">9 levels // clear them all</span></div><div class="phase-grid reveal-stagger">{cards}</div></section>
-<section class="section"><div class="section-head"><h2>Command Center</h2><span class="section-tag">weapons free</span><a href="tools.html" class="section-more">All {n_tools} tools →</a></div><div class="tool-grid reveal-stagger">{tools_html}</div></section>
-{case_section}
+<section class="section"><div class="section-head"><h2>The climb</h2><span class="section-tag">9 phases // clear them in order</span></div>
+<p class="section-lede">Nine phases, in order. Each one is a mission set \u2014 open it to see what it covers, clear it to earn XP and rise a rank.</p>
+<div class="trail reveal">{trail_stops}</div></section>
+<section class="section"><div class="section-head"><h2>Field tools</h2><span class="section-tag">21 instruments // grouped by job</span><a href="tools.html" class="section-more">All {n_tools} tools \u2192</a></div>
+{tiers_html}</section>
+<section class="section"><div class="section-head"><h2>Case files</h2><span class="section-tag">documented deconstructions // no guru hype</span><a href="case-files.html" class="section-more">All 9 case files \u2192</a></div>
+<p class="rail-hint" aria-hidden="true">scroll \u2192</p><div class="rail reveal" role="list">{case_cards}</div></section>
+<section class="section"><div class="curator-note brk reveal"><b class="brk-x" aria-hidden="true"></b>
+<p class="fm-kicker"><strong>CURATOR'S NOTE</strong><span class="sep">//</span>FILED BY THE QUARTERMASTER</p>
+<blockquote>If you only read one phase, read Phase 5 \u2014 twice. Everyone skips to the money chapter and wonders why the math doesn't work. It doesn't work because phases 1 through 4 <em>are</em> the product. The stack is just the cash register on top of an audience that trusts you. I put monetization fifth on purpose.</blockquote>
+<cite>\u2014 the Quartermaster, keeper of this manual</cite></div></section>
 {signal_log}
 <section class="section"><div class="section-head"><h2>Hottest topics right now</h2><span class="section-tag">live feed // trend-machine</span></div>
 <div class="hud-panel trends-hud reveal">
@@ -1658,7 +1678,7 @@ def build():
   </div>
 </div></section>
 <section class="section honesty reveal"><span class="honesty-stamp stamp stamp-sm stamp-slam" aria-hidden="true">STANDING ORDER</span><h2>The honesty policy</h2>
-<p>Every platform number on this site was verified against 2026 sources or is flagged <strong>verify live</strong>. Income ranges are illustrative, never promises. The LLC/tax phase is educational — <strong>not legal or tax advice</strong>. Platforms change rules constantly; the most dangerous number on the internet is a stale one.</p></section>
+<p>Every platform number on this site was verified against 2026 sources or is flagged <strong>verify live</strong>. Income ranges are illustrative, never promises. The LLC/tax phase is educational \u2014 <strong>not legal or tax advice</strong>. Platforms change rules constantly; the most dangerous number on the internet is a stale one.</p></section>
 """
     (SITE / "index.html").write_text(page_template(SITE_NAME, index_body, active="index.html"), encoding="utf-8")
 
@@ -1678,7 +1698,8 @@ def build():
         '<a class="btn btn-ghost" href="case-files.html">Case files</a>'
         '<a class="btn btn-ghost" href="glossary.html">Glossary</a>'
         '</div>'
-        '<p class="fm-readout">ERROR 404 // NO PAPERWORK ON FILE</p></div>')
+        '<p class="fm-readout">ERROR 404 // NO PAPERWORK ON FILE</p>'
+        '<p class="muted" style="margin-top:1.2rem;font-size:.85rem">P.S. If you got here from a link on this site, that’s our fault — the Quartermaster has been notified and is pretending it was always part of the plan.</p></div>')
     (SITE / "404.html").write_text(
         page_template("File not found", notfound_body,
                       extra_head='<meta name="robots" content="noindex">'),

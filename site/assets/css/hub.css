@@ -90,3 +90,76 @@ a.brief-card:hover, a.brief-card:focus-visible {
   .brief-grid { grid-template-columns: 1fr; }
   .hub-group { margin-top: 2.2rem; }
 }
+
+/* ================= EXTREME MAKEOVER (2026-10-12) =================
+   First-visit hierarchy: one hero, one action, everything else reveals
+   progressively. Plain-HTML-first: <details name> accordions (no JS),
+   scroll-snap rail, transform/opacity-only motion (the global
+   prefers-reduced-motion rule zeroes all of it). */
+
+/* ---------- campaign trail: the 9 phases, one at a time ---------- */
+.trail { border: 1px solid var(--line-strong); border-radius: var(--radius); background: var(--bg-1); overflow: clip; }
+.trail-stop { border-bottom: 1px solid var(--line); }
+.trail-stop:last-child { border-bottom: 0; }
+.trail-stop > summary { list-style: none; display: flex; align-items: center; gap: 1.1rem; padding: 1.05rem 1.35rem; cursor: pointer; }
+.trail-stop > summary::-webkit-details-marker { display: none; }
+.trail-stop > summary:hover { background: var(--bg-2); }
+.trail-stop > summary:hover .trail-lvl { border-color: var(--card-accent, var(--gold)); color: var(--card-accent, var(--gold)); }
+.trail-lvl { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.18em; border: 1px solid var(--line-strong); border-radius: 4px; padding: 0.28rem 0.55rem; color: var(--muted); white-space: nowrap; transition: border-color var(--dur-fast) var(--ease-standard), color var(--dur-fast) var(--ease-standard); }
+.trail-title { font-size: clamp(1.05rem, 2.4vw, 1.45rem); font-weight: 700; letter-spacing: 0.01em; }
+.trail-meta { margin-left: auto; font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.14em; color: var(--muted); text-transform: uppercase; white-space: nowrap; }
+.trail-plus { font-family: var(--font-mono); font-size: 1.3rem; line-height: 1; color: var(--card-accent, var(--gold)); transition: transform var(--dur-fast) var(--ease-standard); }
+.trail-stop[open] > summary .trail-plus { transform: rotate(45deg); }
+.trail-stop[open] { background: var(--bg-2); box-shadow: inset 4px 0 0 var(--card-accent, var(--gold)); }
+.trail-body { padding: 0.2rem 1.35rem 1.5rem calc(1.35rem + 4px); }
+.trail-body p { margin: 0 0 1rem; color: var(--ink-soft); max-width: 46rem; font-size: 1.02rem; }
+.trail-go { font-family: var(--font-mono); font-size: 0.8rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--cyan); }
+.trail-go:hover { color: var(--gold); }
+.trail-go .arr { display: inline-block; transition: transform var(--dur-fast) var(--ease-standard); }
+.trail-go:hover .arr { transform: translateX(5px); }
+
+/* ---------- tool tiers: grouped, collapsed until invited ---------- */
+.tier { border: 1px solid var(--line-strong); border-radius: var(--radius); background: var(--bg-1); margin-bottom: 0.9rem; overflow: clip; }
+.tier > summary { list-style: none; display: flex; align-items: center; gap: 1rem; padding: 1rem 1.35rem; cursor: pointer; }
+.tier > summary::-webkit-details-marker { display: none; }
+.tier > summary:hover { background: var(--bg-2); }
+.tier-chip { width: 0.7rem; height: 2.2rem; background: var(--tier, var(--cyan)); flex: none; }
+.tier-name { font-size: clamp(1.1rem, 2.6vw, 1.5rem); font-weight: 800; letter-spacing: 0.06em; }
+.tier-count { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.16em; color: var(--muted); text-transform: uppercase; }
+.tier-plus { margin-left: auto; font-family: var(--font-mono); font-size: 1.3rem; line-height: 1; color: var(--tier, var(--cyan)); transition: transform var(--dur-fast) var(--ease-standard); }
+.tier[open] > summary .tier-plus { transform: rotate(45deg); }
+.tier-list { list-style: none; margin: 0; padding: 0.4rem 0.6rem 0.9rem; }
+.tier-list a { display: grid; grid-template-columns: 3.2rem 1fr auto; gap: 1rem; align-items: baseline; padding: 0.75rem 0.75rem; border-radius: 6px; text-decoration: none; }
+.tier-list a:hover { background: var(--bg-2); }
+.tier-list a:hover .tier-arrow { transform: translateX(5px); color: var(--gold); }
+.tier-num { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.14em; color: var(--muted); }
+.tier-list strong { font-size: 1.02rem; display: block; }
+.tier-list span.desc { color: var(--muted); font-size: 0.92rem; display: block; margin-top: 0.15rem; }
+.tier-arrow { font-family: var(--font-mono); color: var(--cyan); transition: transform var(--dur-fast) var(--ease-standard), color var(--dur-fast) var(--ease-standard); }
+
+/* ---------- case-file rail: scroll, don't stack ---------- */
+.rail { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(250px, 310px); gap: 1rem; overflow-x: auto; scroll-snap-type: x mandatory; padding: 0.2rem 0.2rem 0.9rem; scrollbar-width: thin; }
+.rail > * { scroll-snap-align: start; }
+.rail-hint { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.18em; color: var(--muted); text-transform: uppercase; }
+
+/* ---------- curator's note: a human filed this ---------- */
+.curator-note { border: 1px solid var(--line-strong); border-left: 5px solid var(--gold); background: var(--bg-2); border-radius: 0 var(--radius) var(--radius) 0; padding: 1.6rem 1.8rem; margin: 0; }
+.curator-note blockquote { margin: 0.8rem 0 0.6rem; font-size: clamp(1.15rem, 2.8vw, 1.6rem); line-height: 1.45; font-weight: 600; letter-spacing: 0.005em; max-width: 44rem; }
+.curator-note cite { font-style: normal; font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.18em; color: var(--gold); text-transform: uppercase; }
+
+/* ---------- hero: one action, then the tie-in ---------- */
+.hero-note { margin-top: 1.1rem; color: var(--muted); font-size: 0.95rem; max-width: 36rem; }
+.hero-note strong { color: var(--ink); }
+.section-lede { color: var(--ink-soft); max-width: 44rem; margin: -0.6rem 0 1.6rem; font-size: 1.05rem; }
+
+/* ---------- makeover mobile tune ---------- */
+@media (max-width: 720px) {
+  .trail-meta { display: none; }
+  .trail-stop > summary { gap: 0.8rem; padding: 0.95rem 1rem; }
+  .tier-list a { grid-template-columns: 1fr auto; }
+  .tier-num { display: none; }
+  .rail { grid-auto-columns: minmax(220px, 78vw); }
+}
+
+/* ---------- hero meta line: stamp + contents ---------- */
+.hero-meta { display: flex; align-items: center; gap: 1.1rem; margin: 1.5rem 0 0; font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.16em; color: var(--muted); text-transform: uppercase; flex-wrap: wrap; }

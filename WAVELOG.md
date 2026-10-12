@@ -1,5 +1,24 @@
 # Creator Growth Empire — Wave Log
 
+## EXTREME MAKEOVER wave (2026-10-12)
+
+**The verdict that started it:** "a lot at once when someone first visits." The old homepage was a 7,920px wall — hero, then all 9 phase cards, all 21 tool cards, all 9 case files, the killfeed, trends, honesty. Everything visible, nothing prioritized. The makeover keeps every page, tool, and word — nothing removed — and presents it with ruthless hierarchy.
+
+**What changed (before → after):**
+- **Hero:** was briefing board + mega type + lede + stamp row + XP bar + 4 stats + 2 CTAs. Now: eyebrow, mega type, one lede, ONE primary action ("Find your stage →" → the Money Map survey, the climb's front door), one secondary ("Browse the 21 field tools"), a human tie-in line ("every mission you clear earns XP toward your Field Manual rank… your progress never leaves this device"), stamp + contents line. 3-second read.
+- **The 9 phases:** was a 9-card grid (every card shouting at once). Now a **campaign trail** — nine `<details name="trail">` stops, exclusive accordion, first open. Each stop: LVL badge, title, read-time + rank, a hand-written one-line lede in the curator's voice, "Open Phase N →". Plain-HTML-first (research rule): no JS, keyboard-native, works with JS off.
+- **The 21 tools:** was a 21-card wall. Now three **tier `<details>`** (PLAN / MONEY / CONTENT, PLAN open) with compact link rows — number, title, real description, arrow that slides on hover (transform-only).
+- **Case files:** was a 9-card grid. Now a horizontal **scroll-snap rail** with a "scroll →" hint.
+- **New: Curator's note** — "If you only read one phase, read Phase 5 — twice… I put monetization fifth on purpose." Signed "the Quartermaster, keeper of this manual." A genuine opinion, not filler.
+- **Delight:** 404 already had the in-world voice ("This page never filed its paperwork"); added the P.S. ("the Quartermaster has been notified and is pretending it was always part of the plan") and a footer easter egg ("SET IN THE FIELD, PRINTED ON RECYCLED PIXELS"). Hover states on every interactive row (background shift, arrow slide, LVL badge lights up); all transform/opacity, all zeroed by the global reduced-motion rule.
+- **Mobile:** trail meta hides, tier rows collapse to 2 columns, rail cards go 78vw. (The 124px horizontal overflow is pre-existing site chrome, unchanged.)
+- **Completeness audit (user's order):** the Platform Rules Bible covered YouTube/TikTok/Instagram but not Facebook, Twitch, X, newsletters, or podcasts — conspicuous, since the Money Map quiz lists Twitch and Newsletter as platforms. Added **§13 "The rest of the map"** with real, source-labeled 2026 research: Facebook Content Monetization (Reels RPM $0.02–$0.20, 30–50% views ineligible, March 2026 originality policy); Twitch Plus Program (50/50 → 60/40 → 70/30, Bits $0.01, Affiliate/Partner gates); X Original Content Rewards (Revenue Sharing ended Aug 7 2026; 500 verified followers, 500K verified impressions/90d); newsletters (Substack 10% vs beehiiv 0%+$15–30 CPM ad network vs Ghost flat, with the breakeven math); podcasts (Spotify Partner Program Oct 20, video-or-it-didn't-happen data). Also numbered the previously-unnumbered cheat sheet as §12 (it was already "12." in the TOC) and updated `tests/platform-rules-bible.test.js` to the 14-section structure.
+- **Human-made rule:** AI-ism sweep clean (no "unlock/delve/game-changer/elevate/whether you're a beginner"); no purple gradients, no 3-col feature grids, no "trusted by" strips — every layout decision serves the field-manual/HUD identity. No dead code (removed the orphaned `case_section`), no TODOs, no commented-out blocks.
+
+**Validation:** `validate.sh` 22/23 pre-commit (stage 5 = pre-commit drift, expected) → re-run post-commit; `api.test.sh` 22/22; bible test suite passes (47 assertions incl. the new section). Headless Chromium: AFTER screenshots of hero / trail / tiers / curator's note / 404 / money-map tool page / mobile trail inspected — no page errors; the trail's exclusive accordion, tier rows, and rail all render and interact. BEFORE screenshots archived at `/tmp/makeover/BEFORE-index-*.png`.
+
+**Fresh-eyes assessment:** the hero now answers "what is this" in 3 seconds with one action; the trail invites rather than shouts; the page earns its density. I'd put the homepage in a portfolio.
+
 ## Vercel data-path migration — api/v1/*.json → data/v1/*.json (2026-10-12)
 
 **Why:** Vercel never serves static files from under `api/` — every frontend fetch of `api/v1/*.json` 404s in production, silently breaking all data-driven sections (this broke all 5 first-deployed sites; the fix had already landed on the other -live repos). Blocking production.
