@@ -60,7 +60,7 @@ checked), byte-identical rebuild, 80 sim + 78 deal-room + 49 content-engine
 + 44 money-map + 184 video-doctor engine assertions, 67 agent-workflow
 assertions).
 
-Commit: c03655a3426cdfc3a9640239f5b6e9ea01a13161 (local) → REMOTEHASH (pushed 2026-10-11, remote tree verified via GitHub API).
+Commit: c03655a3426cdfc3a9640239f5b6e9ea01a13161 (local) → d91b715adfe7551738d9c7b426a6f72631a9672e (pushed 2026-10-11, remote tree verified via GitHub API).
 
 ## Wave 18 — The Money Map (2026-10-11)
 
