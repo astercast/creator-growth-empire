@@ -18,6 +18,49 @@ A sustainable niche needs all three corners. Miss one and the triangle collapses
 
 **The niche statement test.** Fill in this sentence: *"I make [format] about [topic] for [specific person] who wants [transformation]."* If you can't fill every blank, you're not ready. "I make funny videos" fails. "I make 10-minute breakdowns of failed startups for 20-something founders who want to avoid the same mistakes" is a channel.
 
+## The 2026 niche landscape (research-backed)
+
+Before you lock your niche statement, here's what the actual data says about where the growth and the money are right now. All figures below are creator-reported or benchmark-estimated ranges from October 2026 research — ranges, not rates; Q4 typically pays 30–50% more than Q1. Verify live before betting a year on them.
+
+**Fastest-growing YouTube channels right now** (TubeAI study of 144,370 channels, 10K–100K subs, Sept 7–27, 2026; median growth across all channels 0.97%/month):
+
+| Niche | Monthly channel growth |
+|---|---|
+| Kids content | 1.59% |
+| ASMR | 1.56% |
+| Creator economy | 1.50% |
+| Challenges & stunts | 1.47% |
+| AI & ML | 1.44% |
+| True crime | 1.34% |
+
+**Where search demand is exploding** (OutlierKit, search growth + CPM bands):
+
+| Niche | Search growth | CPM range (creator-reported) |
+|---|---|---|
+| AI tools & tutorials | +340% | $8–$20 |
+| No-code & automation | +220% | $10–$25 — "most underserved" |
+| Gen Z personal finance | +180% | $18–$45 |
+| Cybersecurity & privacy | +160% | $12–$28 |
+| Remote work & digital nomad | +140% | $6–$15 |
+
+**Breakout formats punching above their weight** (OutlierKit: share of videos beating channel average by 10x+):
+
+- **Betrayal & revenge storytelling** — 21x breakout rate, $20–$25 CPM, low competition
+- **English-learning podcasts** — 21x breakout, $18–$22 CPM, ~$11.88 reported RPM
+- **Senior health** — 19x breakout, ultra-low competition
+- **Sleep/ambient soundscapes** — 14x breakout, low competition
+
+**The RPM reality check.** Finance pays $8–$35 per 1,000 views; gaming and entertainment pay $1–$5 — roughly a 7x gap per view. A 50k-view finance video can out-earn a 500k-view gaming video, and that's before sponsors (finance sponsors pay $40–$80+ CPM per UTubeKit). But note the catch: **kids content grew fastest and pays worst** — $0.33 RPM means roughly 3 million views to earn $1,000 (AIR Media-Tech). Growth ≠ revenue. Choose your side of the tradeoff on purpose.
+
+**The <1% reality check.** Fewer than 1% of all YouTube channels ever reach 100,000 subscribers (Lilach Bullock, Oct 2026). That's not doom — it's a planning input: build your business model around 10K–30K *loyal* subscribers (sponsors, affiliates, a digital product) instead of a lottery ticket to a million. Phase 8 runs the math.
+
+**Two niche traps that got worse in 2026:**
+
+- **Clipping / re-upload channels.** YouTube's October 1, 2026 Shorts update cuts the *channel-level* reach of aggregator accounts that repost others' content without adding anything of their own. The era of the zero-effort clip channel is ending; originals are prioritized (Phase 2 has the details).
+- **Low-effort AI-slop faceless channels.** YouTube's January 2026 inauthentic-content enforcement removed 16 major channels (4.7 billion combined views) and demonetized thousands of low-effort AI channels. Faceless still works — but only with visible human creativity: real commentary, real editing, a real perspective. Generic templated automation had one of the lowest breakout rates measured (3.1%).
+
+Machine-readable: `api/v1/calculators.json` → `niche_growth_2026` and `platform_rules_2026`.
+
 ## Positioning: why YOU and not them
 
 In every niche there are already 100 channels. Viewers subscribe for a *differentiated promise*. Pick one positioning weapon:

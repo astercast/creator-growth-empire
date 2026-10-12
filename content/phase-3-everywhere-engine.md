@@ -20,13 +20,24 @@ The portfolio, in priority order for most creators:
 
 **What wins:** native pacing (hook in under 1 second, captions burned in, trending audio used *strategically*), series formats ("day 12 of X" — TikTok's algorithm loves episodic return viewers), and search-value content (TikTok is now a search engine for Gen Z; "how to" content has a long tail here too).
 
+**How the TikTok algorithm actually ranks (2026, per Hootsuite / Vamp / fivebbc consensus):** it's an *interest* graph, not a social graph — follower count is not a direct ranking factor. Every upload is tested against a small audience pool first (~300–500 matched accounts per one creator-lore model), widened 3–5x per wave only if early signals clear the gate. The signal hierarchy, in order:
+
+1. **Watch time + completion rate** — the dominant signals (one agency estimates 40–50% of ranking weight, unconfirmed but directionally right)
+2. **Rewatches, shares, saves** — next in line
+3. **Comments** — quality-weighted, not volume-weighted
+4. **Likes** — moderate and *declining* in weight
+
+The "qualified view" bar keeps rising (creator lore says 3s → 5s). And because TikTok now functions as a **search engine**, your captions, on-screen text, and *spoken* keywords decide whether a video is discoverable months later — keyword delivery is a real 2026 growth lever, not just an SEO nicety.
+
 **The repost trap:** TikTok's originality filter pays reposts and template-slop at the floor rate. Adapt, don't cross-post blindly.
 
 ## Instagram Reels: the sponsor magnet
 
 Instagram doesn't share ad revenue on Reels the way YouTube does — income here is **brand deals, affiliates, and bonuses**. But Reels audiences convert to customers better than any short-form audience, which is exactly why sponsors pay a premium for Instagram reach.
 
-**What wins:** aesthetic consistency (your grid is your portfolio), carousel + Reel combos (carousels still drive saves, the deepest algorithm signal on IG), and Stories for the parasocial layer (polls, Q&As, behind-the-scenes — this is where followers become fans).
+**What wins:** aesthetic consistency (your grid is your portfolio), carousel + Reel combos (carousels still drive saves, a deep algorithm signal on IG), and Stories for the parasocial layer (polls, Q&As, behind-the-scenes — this is where followers become fans).
+
+**How Reels actually rank in 2026 (Mosseri-stated signals):** **sends per reach is the #1 signal** — per Adam Mosseri himself, send rate correlates with reach more than watch time or likes do. Likes matter more for content shown to your *followers*; sends matter more for *unconnected* discovery, and most Reels impressions come from people who don't follow you. Full hierarchy: sends per reach > watch time > completion/rewatches > likes per reach > comments. (One caution: "sends are worth 3–5x a like" is an invented number with no source — Instagram publishes no weights.) Two more 2026 rules: **Reels longer than 3 minutes aren't pushed to non-followers** (discovery sweet spot is 7–30 seconds), and TikTok watermarks are explicitly deprioritized alongside low-resolution and engagement-bait content. Build Reels people want to *send someone* — that's the whole algorithm in one sentence.
 
 ## Facebook: the underestimated giant
 

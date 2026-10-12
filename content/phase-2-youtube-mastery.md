@@ -50,6 +50,18 @@ They're different businesses sharing a channel:
 
 **Monetization reality check (2026, verified Oct 2026):** YPP Tier 1 at 500 subscribers unlocks fan funding (memberships, Supers, Shopping). Tier 2 at 1,000 subscribers + 4,000 watch hours *or* 10M Shorts views unlocks ad revenue. **From February 1, 2027, Tier 2 thresholds double for new applicants** (8,000 watch hours or 20M Shorts views; confirmed by YouTube, Aug 2026 — existing partners grandfathered, Tier 1 unchanged).
 
+## The October 2026 Shorts originality update
+
+On October 1, 2026, YouTube changed the Shorts recommendation game: **original content is prioritized, and re-uploaded or aggregator content gets its reach reduced** — announced by Creator Liaison Rene Ritchie (Creator Insider + TeamYouTube community post). Three things to understand:
+
+1. **The judgment is at the channel level.** It's not per-video. Channels that *primarily* aggregate or re-upload others' clips without significant changes see less distribution overall. One borrowed clip won't kill you; a channel built on them will.
+2. **Clipping channels are the direct target.** Podcast/streamer clip reposters with no real added value are the ones getting starved of reach. Adding real commentary, unique edits, or storytelling keeps a channel safe — the update is explicitly about rewarding what *you* added, not punishing remixing with a point of view.
+3. **Recommendations only, not monetization.** Reach is cut; payout formulas are unchanged. But reach *is* the revenue for a Shorts channel, so treat them as the same thing in practice.
+
+**The AI disclosure rule (May 2026 enforcement).** Automated detection now flags undisclosed photorealistic AI content. Properly labeled AI videos get **normal** distribution — labels don't hurt reach. Undisclosed ones face reduced recommendations or removal. If you use AI-generated visuals, label them and you're fine; the penalty is for hiding it, not using it.
+
+**What this means for you:** the "repost trap" isn't a TikTok thing anymore — it's everywhere (Meta's March 2026 policy hit reposted content on Facebook too). The era of zero-effort redistribution is closing on every platform simultaneously. If your strategy involves anyone else's footage, the question is no longer "will I get views" — it's "what did I add that justifies my cut?" Be able to answer that sentence, or don't build there.
+
 ## Consistency systems: the unglamorous multiplier
 
 The algorithm doesn't reward "posting daily." It rewards **predictable satisfaction**. But consistency matters for a simpler reason: reps. Systems that protect your cadence:

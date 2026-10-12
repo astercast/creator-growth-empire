@@ -15,7 +15,8 @@
     lifestyle: "Lifestyle",
     gaming: "Gaming",
     comedy_entertainment: "Comedy / Entertainment",
-    music: "Music"
+    music: "Music",
+    kids_content: "Kids Content (low RPM — see Phase 0)"
   };
   var STREAMS = [
     { key: "adsLong",   label: "Long-form ads", color: "var(--acid)" },

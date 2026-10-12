@@ -239,3 +239,50 @@ Sanity tuning note: the first test run had gaming out-earning finance because th
 niche-growth compounding gap swamped the RPM gap in niche-independent streams
 (digital/sponsors) — fixed by applying the researched sponsor niche multiplier
 (finance/tech 2–3×), which is grounded in the rate-card rule of thumb, not invented.
+
+---
+
+## Wave 7 — research fuel integration: niches + platform rules (2026-10-11)
+
+Research source: `~/workspace/research_notes/wave-fuel-2026-20261011-2355/` (Missions A/C,
+read Oct 11, 2026). All figures sourced in the research notes; single-source claims flagged
+in-page. No income promises — CPM/RPM as creator-reported ranges. "Not financial advice" intact.
+
+What shipped:
+1. **Phase 0 "2026 niche landscape" section** — research-backed niche intelligence:
+   fastest channel growth (TubeAI/AIR: kids 1.59%, ASMR 1.56%, creator economy 1.50%,
+   challenges/stunts 1.47%, AI/ML 1.44%, true crime 1.34%); search growth (OutlierKit: AI
+   tools +340% at $8–20 CPM, no-code/automation +220% most underserved, Gen Z finance
+   +180% at $18–45, cybersecurity +160%); breakout formats (betrayal/revenge 21x at
+   $20–25 CPM low competition, English-learning podcasts 21x, senior health 19x ultra-low
+   competition); RPM reality (finance $8–35 vs gaming/entertainment $1–5, ~7x gap; kids
+   content $0.33 RPM warning — ~3M views to earn $1,000); the <1% reality check (<1% of
+   channels ever hit 100K subs — plan around 10K–30K loyal); clipping-channel warning
+   (Oct 1 2026 Shorts update) and Jan 2026 AI-slop purge warning (16 channels, 4.7B views).
+   Comparison table + machine-readable pointers to the new JSON blocks.
+2. **Phase 2 YouTube update** — new "October 2026 Shorts originality update" section:
+   channel-level reach cut for re-uploaded/aggregator content (announced by Rene Ritchie,
+   Oct 1, 2026), clipping channels as the target, recommendations-only scope, and the May
+   2026 AI-disclosure rule (labels don't hurt reach; undisclosed photorealistic AI gets
+   reduced recommendations or removal).
+3. **Phase 3 TikTok + Reels update** — TikTok signal hierarchy (completion/watch time
+   dominant, rewatches/shares/saves next, comments quality-weighted, likes declining;
+   interest-graph not social-graph; test-pool model; TikTok-as-search-engine keyword lever);
+   Reels ranking per Mosseri (sends per reach #1, hierarchy sends > watch time >
+   completion/rewatches > likes > comments), Reels >3min not pushed to non-followers
+   (single-source, flagged), TikTok-watermark deprioritization.
+4. **`data/calculators.json` v1.2.0 (2026-10-11)** — RPM bands updated to research:
+   finance_investing [8,35] (was [8,20]), gaming [1,5] (was [1.5,4]),
+   comedy_entertainment [1,5] (was [1.5,4]), new kids_content [0.33,0.33] floor;
+   NEW `niche_growth_2026` block (channel growth %, search growth, breakout formats,
+   RPM reality, reality checks — sourced, dated) and NEW `platform_rules_2026` block
+   (TikTok / Shorts / Reels rules with sources and dates). Empire Simulator reads the
+   same keys — verified working: kids_content 12-mo sim runs, finance band confirmed
+   [8,35] live. Simulator niche dropdown gained "Kids Content" label.
+5. **Rebuilt site + agent surfaces** — llms.txt/llms-full.txt regenerated (16,012 words,
+   up from 14,947); api/v1/calculators.json carries both new blocks.
+
+Validation: `scripts/build.py` clean (9 chapters, 7 tools, 10 skills, 5 case files);
+`node --check` on sim-engine.js + simulator.js PASS; internal link check 0 broken;
+`tests/sim-engine.test.js` ALL PASS under node (cadence monotonicity, finance ≥ gaming
+at equal inputs, Q4 uplift months 10–12 only, sponsor tiers, model shape).
