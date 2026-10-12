@@ -16,7 +16,7 @@ Tool **#20**: an interactive assessment that scores the creator's real situation
 
 **Validation:** `node tests/format-fit.test.js` — **185/185 PASS**. `bash scripts/validate.sh` — **8/8 GREEN** (20 passed, 0 failed; 0 broken links; byte-identical rebuild; all 15 engine suites incl. the new one; agent workflows with the 20-tool pin). Headless Chromium (CDP, /opt/meta-chromium/chrome): **18/18 functional e2e checks passed** — form fill → submit → 5 match cards render (top: English-Learning Podcasts 11/13 for the teacher fixture), ranked table 10 rows, rate context + disclaimer, dossier links resolve, Tab-keyboard moves through controls, edge fixture (none-yet/2h/hands/free/fast/safe) → NO STRONG FIT verdict with under-3h + fast-safe-corner + per-card flags, mobile 390px single-column with zero horizontal overflow (top: No-Code & Automation 12/13 for the operator fixture). Screenshots inspected: verdict panel, match card (score bar, why/catch/pay/moves), mobile stack — Field Manual identity intact. Console: 0 JS errors (3 font-load ERR_SSL_PROTOCOL_ERROR lines are the sandbox's network — identical on the existing cadence.html, pre-existing, not a regression). Contrast audit passed in-test on the shipped palette.
 
-Commit: LOCAL_PENDING → pushed 2026-10-11, remote tree verified via GitHub Trees API.
+Commit: 102782324db788d88c3378f703b32c8e43d33266 (local) → 01736bbe3be5c24678b8deebec09f0973ba53a8c (pushed 2026-10-11, remote tree verified via GitHub Trees API 200 — 308 entries, not truncated; all wave-32 files present).
 
 ---
 
