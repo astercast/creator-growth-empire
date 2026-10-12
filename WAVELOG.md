@@ -24,7 +24,7 @@ Wave 2 of the identity rework: the four wave-29 opportunities, executed at the a
 
 **Tests:** `bash scripts/validate.sh` — **8/8 GREEN** (18 passed, 0 failed; 0 broken links; byte-identical rebuild). All 12 engine suites green (1,146 existing assertions + 119 new identity assertions + 122 agent-workflow assertions). `node --check` clean on all JS incl. new/edited files. Headless Chromium (via xvfb): **18/18 DOM checks passed** — quiz renders, radar tracks (aria-current=1 after scroll), mobile disclosure swaps correctly, 404/MIA/noindex, 9 kill-feed transmissions linking to case files, AWAITING ORDERS stamp present, calm toggle sets data-calm, bible TOC linkified. Screenshots: sidebar map, 404, kill-feed, empty-state plate, quiz — all visually verified against the field-manual identity.
 
-Commit: TBD (local) → TBD (pushed 2026-10-11, remote tree verified via GitHub Trees API).
+Commit: 0760babe2da9b943dfad63cd0fd5b5ec41677f99 (local) → 4c81339ac06aa9b6b8a149f237fe62be4b0733fc (pushed 2026-10-11, remote tree verified via GitHub Trees API 200 — 296 entries, not truncated; all wave-30 files present).
 
 ---
 
