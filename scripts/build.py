@@ -214,6 +214,7 @@ TOOLS = [
     ("outreach", "The Outreach Center", "Run your sponsor pipeline outbound: track pitches in a CRM-lite, generate honest pitch emails, quote from the 2026 rate card, and flag contract red flags before you sign."),
     ("crosspost", "Cross-Post Optimizer", "Move one clip to every platform without getting throttled: per-destination adaptation checklists (aspect, captions, hooks, CTAs, disclosure labels) under the Oct-1 originality rules."),
     ("cadence", "Cadence Coach", "How often should you actually post? Turn your honest weekly hours, formats, and platforms into a sustainable cadence — capacity math plus Oct-2026 platform realities. Consistency beats volume."),
+    ("format-fit", "Format Fit Finder", "Answer six questions about your real situation — experience, hours, on-camera comfort, budget, timeline, risk — and get all 10 breakout formats ranked by fit, each with why it fits, the catch, creator-reported pay ranges, and your first 3 moves. Honest mismatch flags; never a promise."),
 ]
 
 
@@ -696,6 +697,27 @@ TOOLS_API = [
       }},
      "Recommended longs/week + shorts/week, utilization vs production time (holds/tight/over), a 7-day schedule grid (rest day empty), per-platform Oct-2026 revenue realities, the 2-week ramp suggestion, method notes. Capacity arithmetic only — never a promise of views, revenue, or growth.",
      "Logic (assets/js/cadence.js, UMD): production minutes = weeklyHours*60*(1-overheadPct); longs-first/shorts-first/balanced-50-50 allocation by per-piece minutes; utilization = used/production minutes (holds ≤0.7, tight ≤0.95, over above); dealWeek() spreads longs evenly over non-rest days and round-robins shorts; platform notes are the Oct-11-2026 research facts (TikTok Rewards 1-min+ qualifier $0.40–$1.00/1K, Reels $0, Shorts $0.02–$0.20/1K + Feb-2027 10M floor + Oct-1 originality rule, 20M+ uploads/day). Planning aid, not financial/legal/tax advice."),
+    ("format-fit", "Format Fit Finder",
+     "Six questions about the creator's real situation — experience, weekly hours, on-camera comfort, budget, monetization goal, risk tolerance — scored against the 10 breakout-format dossiers; ranked matches with why-it-fits reasoning, the catch, creator-reported pay ranges, and first 3 moves.",
+     "format-fit.html",
+     {"$schema": "http://json-schema.org/draft-07/schema#", "title": "FormatFitInput",
+      "type": "object", "required": ["experience", "weeklyHours", "camera", "budget", "goal", "risk"],
+      "properties": {
+          "experience": {"type": "string", "enum": ["teacher", "tech", "finance", "legal", "health", "audio", "writer", "operator", "none-yet"],
+                     "description": "The creator's real background; none-yet adds a tuition-phase note."},
+          "weeklyHours": {"type": "number", "minimum": 1, "maximum": 80,
+                        "description": "Honest, repeatable hours per week."},
+          "camera": {"type": "string", "enum": ["face", "voice", "hands", "anything"],
+                      "description": "On-camera comfort: face = loves camera, voice = voiceover only, hands = show work not face."},
+          "budget": {"type": "string", "enum": ["free", "modest", "real"],
+                      "description": "Production budget tier: near $0, a few hundred for gear/tools, $500+/mo."},
+          "goal": {"type": "string", "enum": ["fast", "mid", "slow"],
+                    "description": "Monetization timeline: under 6 months, 6–18 months, 18+ months."},
+          "risk": {"type": "string", "enum": ["safe", "balanced", "bold"],
+                    "description": "Risk tolerance."},
+      }},
+     "Ranked matches (score of 13, strong/workable/weak bands) with per-match why-it-fits reasoning, the honest catch from the dossier's risks, creator-reported pay ranges, competition, first 3 moves, per-match mismatch flags, global honesty flags, and the rate-card context. Matching arithmetic only — never a promise of views, revenue, or growth.",
+     "Logic (assets/js/format-fit.js, UMD): FORMATS mirrors data/niches.json v2.1.0 breakout_format_dossiers (id, dossier_no order, pay + competition labels — tests pin the sync); axis scores experience(3)/camera(2)/hours(2)/budget(2)/goal(2)/risk(2) = 13 max; camera-clash and hours-mismatch hard penalties; bands strong >=9, workable 6–8, weak <6; ties break by dossier order; global flags for none-yet, <3h/week, and fast-money-plus-play-it-safe. Planning aid, not financial/legal/tax advice."),
 ]
 
 # Tools hub (wave 9): grouped card index. Per tool: icon, "use when" one-liner,
@@ -739,6 +761,8 @@ TOOL_HUB_META = {
                       ["adaptation", "cross-post", "Phase 3"]),
     "cadence":         ("◷", "PLAN",    "cyan", "you keep asking how often to post and the answer starts with your hours.",
                       ["consistency", "schedule", "Phase 1"]),
+    "format-fit":      ("⌑", "PLAN",    "cyan", "you have a real situation and want the breakout format that fits it.",
+                      ["format fit", "assessment", "Phase 1"]),
 }
 TOOL_HUB_GROUPS = [
     ("PLAN", "Pick the battlefield",
@@ -1240,12 +1264,14 @@ def build():
         "outreach": ["assets/js/outreach.js", "assets/js/outreach-ui.js"],
         "crosspost": ["assets/js/content-engine.js", "assets/js/crosspost-ui.js"],
         "cadence": ["assets/js/cadence.js", "assets/js/cadence-ui.js"],
+        "format-fit": ["assets/js/format-fit.js", "assets/js/format-fit-ui.js"],
     }
     TOOL_CSS = {
         "money-map": ["assets/css/moneymap.css"],
         "video-doctor": ["assets/css/videodoctor.css"],
         "ypp-checker": ["assets/css/yppchecker.css"],
         "cadence": ["assets/css/cadence.css"],
+        "format-fit": ["assets/css/format-fit.css"],
     }
     for slug, title, desc in TOOLS:
         body_src = PAGES / f"{slug}.html"
@@ -1660,7 +1686,7 @@ def build():
             "id": "tools",
             "kind": "json",
             "path": "api/v1/tools.json",
-            "description": "All nineteen interactive tools with programmatic input schemas (JSON Schema draft-07), output descriptions, and drive notes — replicate the tools' logic without the UI.",
+            "description": "All twenty interactive tools with programmatic input schemas (JSON Schema draft-07), output descriptions, and drive notes — replicate the tools' logic without the UI.",
             "schema": "api/v1/schema/tools.json",
             "updated": BUILD_TS,
             "records": len(TOOLS_API),
@@ -1690,7 +1716,7 @@ def build():
             "id": "tool-pages",
             "kind": "html",
             "paths": [f"{slug}.html" for slug, _, _ in TOOLS],
-            "description": "The nineteen interactive tools' human UI pages. Agents should prefer api/v1/tools.json input schemas over scraping these pages.",
+            "description": "The twenty interactive tools' human UI pages. Agents should prefer api/v1/tools.json input schemas over scraping these pages.",
             "schema": None,
             "updated": BUILD_TS,
             "records": len(TOOLS),
@@ -1758,7 +1784,7 @@ def build():
     # ---- tools.json: every tool with its programmatic input schema ----
     (API / "tools.json").write_text(json.dumps({
         "version": "1.0.0", "updated": "2026-10-11",
-        "note": ("Programmatic input schemas for the nineteen interactive tools. "
+        "note": ("Programmatic input schemas for the twenty interactive tools. "
                  "Agents replicate each tool's logic by feeding these inputs to the "
                  "documented formulas / shipped JS (assets/js/<id>.js); the UI pages "
                  "are the human front-end for the same logic."),
@@ -2311,7 +2337,7 @@ def build():
     for slug, title, desc in TOOLS:
         llms.append(f"- [{title}]({slug}.html) — {desc}")
     llms += ["- [Glossary](glossary.html)", "",
-             "All nineteen tools, grouped by job (Plan / Money / Content): [Tools hub](tools.html).",
+             "All twenty tools, grouped by job (Plan / Money / Content): [Tools hub](tools.html).",
              "", "## Reference"]
     for m in reference_meta:
         llms.append(f"- [{m['badge']}: {m['title']}]({m['path']}) — {m['read_minutes']} min read")

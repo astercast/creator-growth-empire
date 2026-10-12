@@ -1,0 +1,162 @@
+/* Format Fit Finder — match cards + fit craft.
+   Mobile-first; everything is scoped to .ff-* / #ff-results so the site's
+   identity and other lanes' scopes are untouched. No animation: results
+   render statically — reduced-motion safety by never moving at all. */
+
+.ff-cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+  margin: 1rem 0 2rem;
+}
+@media (min-width: 760px) {
+  .ff-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .ff-cards .ff-card:first-child {
+    grid-column: 1 / -1;
+  }
+}
+
+.ff-card h3 {
+  margin: 0.35rem 0 0.75rem;
+  font-size: 1.35rem;
+  text-wrap: balance;
+}
+.ff-card h4 {
+  margin: 1.1rem 0 0.35rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--cyan, #5fe8ff);
+}
+
+/* Score: segmented bar + tabular numeral. The number is the encoding —
+   the fill color is redundant, so nothing is lost to color alone. */
+.ff-score {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+.ff-scorebar {
+  flex: 1 1 auto;
+  height: 10px;
+  border: 1px solid var(--line, #242c23);
+  border-radius: 2px;
+  background: var(--bg-deep, #101014);
+  overflow: hidden;
+}
+.ff-scorefill {
+  height: 100%;
+}
+.ff-scorefill.is-strong { background: var(--gold, #ffc42e); }
+.ff-scorefill.is-workable { background: var(--cyan, #5fe8ff); }
+.ff-scorefill.is-weak { background: var(--stamp, #ff6a55); }
+.ff-scoreval {
+  font-size: 1.5rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.ff-scoreval span {
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: var(--muted, #a4ad9b);
+}
+
+.ff-why,
+.ff-moves {
+  margin: 0.25rem 0;
+  padding-left: 1.15rem;
+}
+.ff-why li,
+.ff-moves li {
+  margin: 0.28rem 0;
+  font-size: 0.92rem;
+}
+.ff-catch {
+  border-left: 3px solid var(--stamp, #ff6a55);
+  padding: 0.15rem 0 0.15rem 0.9rem;
+  font-size: 0.92rem;
+}
+
+/* Honest flags: the anti-theater layer. Stamp-red left edge, always
+   visible, never behind a toggle. */
+.ff-flags {
+  margin: 1.1rem 0 0.25rem;
+  border: 1px solid var(--stamp, #ff6a55);
+  border-radius: 6px;
+  padding: 0.75rem 1rem;
+  background: rgba(255, 106, 85, 0.06);
+}
+.ff-flags-head {
+  margin: 0 0 0.4rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--stamp, #ff6a55);
+}
+.ff-flags ul {
+  margin: 0;
+  padding-left: 1.15rem;
+}
+.ff-flags li {
+  margin: 0.28rem 0;
+  font-size: 0.9rem;
+}
+
+/* All-10 ranked table. */
+.ff-all {
+  margin: 1.5rem 0;
+}
+.ff-all summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+.ff-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  margin-top: 0.75rem;
+}
+.ff-table th,
+.ff-table td {
+  text-align: left;
+  padding: 0.45rem 0.6rem;
+  border-bottom: 1px solid var(--line, #242c23);
+}
+.ff-table th {
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted, #a4ad9b);
+}
+
+/* Typography micro-craft (web-craft §4, verified): balance on result
+   headings, tabular numerals on score stats, 65ch measure on prose.
+   pretty is @supports-gated — Firefox support disputed, no version cited. */
+#ff-results h2 {
+  text-wrap: balance;
+}
+.ff-stat-num {
+  font-variant-numeric: tabular-nums;
+}
+.ff-prose {
+  max-inline-size: 65ch;
+}
+@supports (text-wrap: pretty) {
+  .ff-prose {
+    text-wrap: pretty;
+  }
+}
+
+/* Keyboard: radios are native fieldsets — no tabindex choreography needed.
+   Focus perimeters are the site's gold wave-29 ring; this rule keeps them
+   visible on the custom summary toggles too. */
+.ff-all summary:focus-visible,
+#ff-results a:focus-visible,
+#ff-form button:focus-visible {
+  outline: 2px solid var(--gold, #ffc42e);
+  outline-offset: 2px;
+}

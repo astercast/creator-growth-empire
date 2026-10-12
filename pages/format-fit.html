@@ -1,0 +1,62 @@
+<form id="ff-form" aria-label="Format Fit Finder">
+  <div class="calc-grid">
+    <fieldset style="border:1px solid var(--line,#2a2a3a);border-radius:10px;padding:.75rem 1rem">
+      <legend style="padding:0 .5rem;font-weight:600">Your experience</legend>
+      <label style="display:block;margin:.25rem 0"><input type="radio" name="ff-exp" value="teacher" checked> Teaching / coaching</label>
+      <label style="display:block;margin:.25rem 0"><input type="radio" name="ff-exp" value="tech"> Tech / AI / software</label>
+      <label style="display:block;margin:.25rem 0"><input type="radio" name="ff-exp" value="finance"> Money / investing experience</label>
+      <label style="display:block;margin:.25rem 0"><input type="radio" name="ff-exp" value="legal"> Legal / tax / compliance work</label>
+      <label style="display:block;margin:.25rem 0"><input type="radio" name="ff-exp" value="health"> Health / medical / caregiving</label>
+      <label style="display:block;margin:.25rem 0"><input type="radio" name="ff-exp" value="audio"> Audio / music production</label>
+      <label style="display:block;margin:.25rem 0"><input type="radio" name="ff-exp" value="writer"> Writing / storytelling</label>
+      <label style="display:block;margin:.25rem 0"><input type="radio" name="ff-exp" value="operator"> Operations / automation nerd</label>
+      <label style="display:block;margin:.25rem 0"><input type="radio" name="ff-exp" value="none-yet"> No experience yet — starting from zero</label>
+    </fieldset>
+    <fieldset style="border:1px solid var(--line,#2a2a3a);border-radius:10px;padding:.75rem 1rem">
+      <legend style="padding:0 .5rem;font-weight:600">On-camera comfort</legend>
+      <label style="display:block;margin:.25rem 0"><input type="radio" name="ff-camera" value="face" checked> Love being on camera</label>
+      <label style="display:block;margin:.25rem 0"><input type="radio" name="ff-camera" value="voice"> Voiceover fine, camera no</label>
+      <label style="display:block;margin:.25rem 0"><input type="radio" name="ff-camera" value="hands"> Show my work/hands, not my face</label>
+      <label style="display:block;margin:.25rem 0"><input type="radio" name="ff-camera" value="anything"> I'll do whatever the format needs</label>
+    </fieldset>
+    <fieldset style="border:1px solid var(--line,#2a2a3a);border-radius:10px;padding:.75rem 1rem">
+      <legend style="padding:0 .5rem;font-weight:600">Budget</legend>
+      <label style="display:block;margin:.25rem 0"><input type="radio" name="ff-budget" value="free" checked> Near $0 — free tools only</label>
+      <label style="display:block;margin:.25rem 0"><input type="radio" name="ff-budget" value="modest"> Modest — a few hundred for gear/tools</label>
+      <label style="display:block;margin:.25rem 0"><input type="radio" name="ff-budget" value="real"> Real — $500+/mo for production</label>
+    </fieldset>
+    <fieldset style="border:1px solid var(--line,#2a2a3a);border-radius:10px;padding:.75rem 1rem">
+      <legend style="padding:0 .5rem;font-weight:600">Monetization goal</legend>
+      <label style="display:block;margin:.25rem 0"><input type="radio" name="ff-goal" value="fast"> Revenue in under 6 months</label>
+      <label style="display:block;margin:.25rem 0"><input type="radio" name="ff-goal" value="mid" checked> Sustainable in 6–18 months</label>
+      <label style="display:block;margin:.25rem 0"><input type="radio" name="ff-goal" value="slow"> The long game — 18+ months</label>
+    </fieldset>
+    <fieldset style="border:1px solid var(--line,#2a2a3a);border-radius:10px;padding:.75rem 1rem">
+      <legend style="padding:0 .5rem;font-weight:600">Risk tolerance</legend>
+      <label style="display:block;margin:.25rem 0"><input type="radio" name="ff-risk" value="safe"> Play it safe</label>
+      <label style="display:block;margin:.25rem 0"><input type="radio" name="ff-risk" value="balanced" checked> Balanced</label>
+      <label style="display:block;margin:.25rem 0"><input type="radio" name="ff-risk" value="bold"> High risk, high reward</label>
+    </fieldset>
+    <label>Honest hours per week
+      <input type="number" id="ff-hours" min="1" max="80" step="0.5" value="8" required aria-describedby="ff-hint"></label>
+  </div>
+  <p id="ff-hint" class="muted" style="margin-top:-0.5rem">Only hours you actually have, week after week. The matching is arithmetic on your real situation — wishful inputs produce fantasy outputs.</p>
+  <button type="submit" class="btn btn-primary">Find my format fit →</button>
+</form>
+<div id="ff-results" aria-live="polite" style="margin-top:1.5rem"><div class="empty-state" role="status"><span class="empty-icon" aria-hidden="true">⌑</span><strong>No assessment yet.</strong>Answer the six questions and the tool scores your real situation against all 10 breakout-format dossiers — ranked fits, the catch on each one, creator-reported pay ranges, and your first 3 moves. Honest flags included; quiz theater not included.</div></div>
+
+<noscript>
+  <div class="callout"><strong>How to pick a format without the tool.</strong>
+  <p>Without JavaScript, here is the honest version: match the format's entry bar to your real life, in this order — (1) the experience it needs is experience you already have; (2) the camera it needs is a camera you will actually turn on; (3) the hours it needs are hours you actually have; (4) the pay figures are creator-reported ranges (Oct 2026 research), never promises. Fast money plus play-it-safe is the tightest corner on the board: the fast lanes are high-risk and the safe lanes are slow. If nothing matches, the fix is in the inputs — more hours, real experience, a tuition phase — not a different format. Full dossier data: <a href="breakout-format-intel.html">breakout-format-intel.html</a>.</p></div>
+</noscript>
+
+<section aria-labelledby="ff-links-title" style="margin-top:2rem">
+  <h2 id="ff-links-title">Where this tool sits</h2>
+  <ul>
+    <li><strong>The 2026 Breakout-Format Intel</strong> (<a href="breakout-format-intel.html">breakout-format-intel.html</a>) — the 10 dossiers this tool scores you against. Read the full case file on your top match.</li>
+    <li><strong>Niche Picker quiz</strong> (<a href="quiz.html">quiz.html</a>) — 6 questions toward the Niche Atlas; pairs with the Fit Finder (atlas niches vs breakout formats).</li>
+    <li><strong>Cadence Coach</strong> (<a href="cadence.html">cadence.html</a>) — turn your honest hours into the sustainable posting cadence your format needs.</li>
+    <li><strong>Empire Simulator</strong> (<a href="simulator.html">simulator.html</a>) — model what a format could compound into. A model, not a prediction.</li>
+  </ul>
+</section>
+<p class="muted">A matching tool, not a prediction. Pay figures are creator-reported ranges from the Oct-11-2026 research — what some creators reported, not what you will earn. Fit never guarantees views, revenue, or growth. A planning aid, not financial, legal, or tax advice.</p>

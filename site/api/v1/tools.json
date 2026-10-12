@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
   "updated": "2026-10-11",
-  "note": "Programmatic input schemas for the nineteen interactive tools. Agents replicate each tool's logic by feeding these inputs to the documented formulas / shipped JS (assets/js/<id>.js); the UI pages are the human front-end for the same logic.",
+  "note": "Programmatic input schemas for the twenty interactive tools. Agents replicate each tool's logic by feeding these inputs to the documented formulas / shipped JS (assets/js/<id>.js); the UI pages are the human front-end for the same logic.",
   "tools": [
     {
       "id": "quiz",
@@ -1515,6 +1515,87 @@
       },
       "output": "Recommended longs/week + shorts/week, utilization vs production time (holds/tight/over), a 7-day schedule grid (rest day empty), per-platform Oct-2026 revenue realities, the 2-week ramp suggestion, method notes. Capacity arithmetic only \u2014 never a promise of views, revenue, or growth.",
       "drive_notes": "Logic (assets/js/cadence.js, UMD): production minutes = weeklyHours*60*(1-overheadPct); longs-first/shorts-first/balanced-50-50 allocation by per-piece minutes; utilization = used/production minutes (holds \u22640.7, tight \u22640.95, over above); dealWeek() spreads longs evenly over non-rest days and round-robins shorts; platform notes are the Oct-11-2026 research facts (TikTok Rewards 1-min+ qualifier $0.40\u2013$1.00/1K, Reels $0, Shorts $0.02\u2013$0.20/1K + Feb-2027 10M floor + Oct-1 originality rule, 20M+ uploads/day). Planning aid, not financial/legal/tax advice."
+    },
+    {
+      "id": "format-fit",
+      "title": "Format Fit Finder",
+      "description": "Six questions about the creator's real situation \u2014 experience, weekly hours, on-camera comfort, budget, monetization goal, risk tolerance \u2014 scored against the 10 breakout-format dossiers; ranked matches with why-it-fits reasoning, the catch, creator-reported pay ranges, and first 3 moves.",
+      "page": "format-fit.html",
+      "input_schema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "title": "FormatFitInput",
+        "type": "object",
+        "required": [
+          "experience",
+          "weeklyHours",
+          "camera",
+          "budget",
+          "goal",
+          "risk"
+        ],
+        "properties": {
+          "experience": {
+            "type": "string",
+            "enum": [
+              "teacher",
+              "tech",
+              "finance",
+              "legal",
+              "health",
+              "audio",
+              "writer",
+              "operator",
+              "none-yet"
+            ],
+            "description": "The creator's real background; none-yet adds a tuition-phase note."
+          },
+          "weeklyHours": {
+            "type": "number",
+            "minimum": 1,
+            "maximum": 80,
+            "description": "Honest, repeatable hours per week."
+          },
+          "camera": {
+            "type": "string",
+            "enum": [
+              "face",
+              "voice",
+              "hands",
+              "anything"
+            ],
+            "description": "On-camera comfort: face = loves camera, voice = voiceover only, hands = show work not face."
+          },
+          "budget": {
+            "type": "string",
+            "enum": [
+              "free",
+              "modest",
+              "real"
+            ],
+            "description": "Production budget tier: near $0, a few hundred for gear/tools, $500+/mo."
+          },
+          "goal": {
+            "type": "string",
+            "enum": [
+              "fast",
+              "mid",
+              "slow"
+            ],
+            "description": "Monetization timeline: under 6 months, 6\u201318 months, 18+ months."
+          },
+          "risk": {
+            "type": "string",
+            "enum": [
+              "safe",
+              "balanced",
+              "bold"
+            ],
+            "description": "Risk tolerance."
+          }
+        }
+      },
+      "output": "Ranked matches (score of 13, strong/workable/weak bands) with per-match why-it-fits reasoning, the honest catch from the dossier's risks, creator-reported pay ranges, competition, first 3 moves, per-match mismatch flags, global honesty flags, and the rate-card context. Matching arithmetic only \u2014 never a promise of views, revenue, or growth.",
+      "drive_notes": "Logic (assets/js/format-fit.js, UMD): FORMATS mirrors data/niches.json v2.1.0 breakout_format_dossiers (id, dossier_no order, pay + competition labels \u2014 tests pin the sync); axis scores experience(3)/camera(2)/hours(2)/budget(2)/goal(2)/risk(2) = 13 max; camera-clash and hours-mismatch hard penalties; bands strong >=9, workable 6\u20138, weak <6; ties break by dossier order; global flags for none-yet, <3h/week, and fast-money-plus-play-it-safe. Planning aid, not financial/legal/tax advice."
     }
   ]
 }
