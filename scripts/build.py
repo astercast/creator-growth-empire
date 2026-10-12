@@ -47,6 +47,7 @@ TOOLS = [
     ("calculator", "Revenue Calculator", "Project revenue from views, niche, sponsors, and affiliates — with honest ranges."),
     ("planner", "90-Day Planner", "Generate a posting schedule from your platforms and cadence. Printable."),
     ("deal-analyzer", "Sponsor Deal Analyzer", "Benchmark a sponsor offer against the 2026 rate card — verdict, red-flag checklist, counter-offer worksheet."),
+    ("hiring-calculator", "Hiring Cost Calculator", "Price your first hire: monthly/annual cost and the ad revenue needed to cover it — honest math, no promises."),
     ("repurpose", "Repurposing Planner", "Turn one idea into a 5-platform mission-card checklist from the Phase 3 repurposing SOP."),
     ("simulator", "Empire Simulator", "Simulate 12 months of channel growth + revenue from your niche, cadence, and assumptions — a model, not a prediction."),
     ("api-explorer", "API Explorer", "Browse every api/v1 endpoint and preview JSON responses live in your browser — no key, no server."),
@@ -65,6 +66,8 @@ TOOL_HUB_META = {
                       ["ads", "sponsors", "ranges"]),
     "deal-analyzer": ("⚖", "MONEY",   "gold", "a brand made an offer and your gut isn't sure.",
                       ["negotiation", "rate card", "Phase 5"]),
+    "hiring-calculator": ("⚒", "MONEY", "gold", "you're about to hire someone and want the real numbers first.",
+                      ["first hire", "costs", "Phase 7 · 8"]),
     "repurpose":     ("⇄", "CONTENT", "coral", "one good idea should feed five platforms.",
                       ["SOP", "short-form", "Phase 3"]),
     "api-explorer":  ("⌗", "CONTENT", "coral", "you're building on the empire's data and want every endpoint.",
@@ -140,6 +143,8 @@ MARKDOWN_PAGES = [
      ("case-ptya", "The Cohort Course")),
     ("case-ptya", "pages/case-ptya.md", "The Cohort Course", "Case File",
      ("agents", "The Agent Surface")),
+    ("hiring", "pages/hiring.md", "Guide", "The First Hire",
+     ("hiring-calculator", "Try the Hiring Cost Calculator")),
 ]
 
 # ---------- minimal markdown -> html ----------
@@ -237,6 +242,7 @@ MOBILE_NAV_LINKS = [
     ("calculator.html", "Revenue Calc"),
     ("planner.html", "90-Day Plan"),
     ("deal-analyzer.html", "Deal Analyzer"),
+    ("hiring-calculator.html", "Hire Calc"),
     ("repurpose.html", "Repurpose Plan"),
     ("simulator.html", "Simulator"),
     ("case-files.html", "All case files"),
@@ -304,6 +310,7 @@ def page_template(title, body, active="", extra_head=""):
       <a href="calculator.html">Revenue Calculator</a>
       <a href="planner.html">90-Day Planner</a>
       <a href="deal-analyzer.html">Sponsor Deal Analyzer</a>
+      <a href="hiring-calculator.html">Hiring Cost Calculator</a>
       <a href="repurpose.html">Repurposing Planner</a>
       <a href="simulator.html">Empire Simulator</a>
       <a href="api-explorer.html">API Explorer</a>
@@ -467,6 +474,7 @@ def build():
         "calculator": ["assets/js/calculator.js"],
         "planner": ["assets/js/planner.js"],
         "deal-analyzer": ["assets/js/deal-analyzer.js"],
+        "hiring-calculator": ["assets/js/hiring-calculator.js"],
         "repurpose": ["assets/js/repurpose.js"],
         "simulator": ["assets/js/sim-engine.js", "assets/js/simulator.js"],
         "api-explorer": ["assets/js/api-explorer.js"],
@@ -645,7 +653,7 @@ def build():
   <span>DIVERSIFY REVENUE</span><span>SEPARATE THE MONEY</span><span>SYSTEMS BEAT HUSTLE</span>
 </div></section>
 <section class="section"><div class="section-head"><h2>The Empire Map</h2><span class="section-tag">9 levels // clear them all</span></div><div class="phase-grid reveal-stagger">{cards}</div></section>
-<section class="section"><div class="section-head"><h2>Command Center</h2><span class="section-tag">weapons free</span><a href="tools.html" class="section-more">All 7 tools →</a></div><div class="tool-grid reveal-stagger">{tools_html}</div></section>
+<section class="section"><div class="section-head"><h2>Command Center</h2><span class="section-tag">weapons free</span><a href="tools.html" class="section-more">All 8 tools →</a></div><div class="tool-grid reveal-stagger">{tools_html}</div></section>
 {case_section}
 <section class="section"><div class="section-head"><h2>Hottest topics right now</h2><span class="section-tag">live feed // trend-machine</span></div>
 <div class="hud-panel trends-hud reveal">
@@ -798,7 +806,7 @@ def build():
     for slug, title, desc in TOOLS:
         llms.append(f"- [{title}]({slug}.html)")
     llms += ["- [Glossary](glossary.html)", "",
-             "All seven tools, grouped by job (Plan / Money / Content): [Tools hub](tools.html).",
+             "All eight tools, grouped by job (Plan / Money / Content): [Tools hub](tools.html).",
              "", "## Reference"]
     for m in reference_meta:
         llms.append(f"- [{m['badge']}: {m['title']}]({m['path']}) — {m['read_minutes']} min read")

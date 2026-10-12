@@ -370,3 +370,51 @@ Validation: `scripts/build.py` clean (9 chapters, 7 tools, 10 skills, 5 case fil
 rebuild committed, then `scripts/validate.sh` **7/7 GREEN** (11 JS files,
 13 JSON files, 0 broken of 1,299 links, byte-identical rebuild, 16/16 sim
 assertions, llms counts fresh).
+
+---
+
+## Wave 10 — deep content: "The First Hire" (2026-10-11)
+
+Phases 7–8 covered business/scale but hiring was thin. This wave fixes that with
+research-first sourcing.
+
+What shipped:
+1. **Research via browser.search** — 2026 freelance rates compiled Oct 2026:
+   video editors (solopricing $150–$500/video typical, $200–$400 consistent,
+   $500–$800 premium; retainers $800–$5K/mo by volume; LatAm dedicated
+   $2.5–$3K/mo — floowitalent; cutjamm survey avg $27.55/hr); thumbnail
+   designers (live Upwork postings $5–$40/thumbnail, $2–$3K/mo full-time
+   equivalent); VAs (offshore $3–$12/hr, nearshore $8–$22/hr, US $25–$50/hr,
+   managed plans $899–$1,699/mo — vantastaff/cherryassistant/remotescouts);
+   where creators hire (Upwork, ytjobs.co, r/VideoEditing, creator Discords,
+   own audience, Indeed — Oct 2026 remote editor listing $25.69–$50/hr);
+   contractor-vs-employee basics (IRS three-factor test, W-9 before first
+   payment, misclassification penalties — all flagged **not legal/tax advice**).
+   The Creators Assistant's true-cost analysis (management time, revision
+   overhead, replacement amortization) included as reported-not-audited.
+2. **New guide page `pages/hiring.md` → `site/hiring.html`** (MARKDOWN_PAGES,
+   badge "Guide", ~2,400 words): "The First Hire" — editor-vs-VA decision
+   framework, sourced 2026 rate tables, where to find them, the 2-week trial
+   method (paid trial task + fixed rubric + workflow-test week), **3 copy-paste
+   SOP templates** (editing handoff, thumbnail brief, upload checklist),
+   contractor agreement essentials + contractor-vs-employee reality check
+   (not legal advice), and when NOT to hire yet. Sources section lists every
+   benchmark. Cross-linked from Phases 7 and 8 (both chapters now point here).
+3. **New tool: Hiring Cost Calculator** (`pages/hiring-calculator.html` +
+   `assets/js/hiring-calculator.js`, TOOL_SCRIPTS wired) — inputs (role,
+   billing model hourly/per-video/monthly, rate, hours/week, units/month,
+   monthly views, niche RPM band from calculators.json) → monthly/annual cost
+   (sticker vs +15% operating-overhead loaded), share of ad revenue, monthly
+   views needed to cover, 3-month coverage reserve. Reuses calculator.js
+   patterns (calc-grid, calc-out cards, empty/error states, data-retry
+   delegation). Honest math, no income promises.
+4. **Nav/hubs/llms** — TOOLS + TOOL_HUB_META (MONEY group, ⚒ icon) +
+   MOBILE_NAV_LINKS + footer links; index "All 8 tools →"; llms.txt generator
+   text updated ("All eight tools"); llms-full.txt carries the Guide.
+
+Validation: `scripts/build.py` clean (9 chapters, 8 tools, 10 skills,
+5 case files, 16,080 words); rebuild committed, then `scripts/validate.sh`
+**7/7 GREEN** (12 JS files, 13 JSON files, 0 broken of 1,462 links,
+byte-identical rebuild, 16/16 sim assertions, llms counts fresh).
+
+Commit: 74ba71a10927959eac4363b137f438b26a6703c6 (pushed 2026-10-11).

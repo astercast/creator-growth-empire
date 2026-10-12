@@ -60,7 +60,7 @@ You don't need to love accounting. You need a system:
 
 The first hire isn't a luxury — it's the highest-ROI move once editing (or admin) eats 10+ hours/week. The math: if your hour creating is worth $100+ (sponsor math says it is) and an editor costs $25–$50/hour, every hour you edit instead of create *loses* money.
 
-**Hire in this order:** editor → thumbnail designer → virtual assistant (inbox, scheduling, comments) → channel manager. One role at a time, with SOPs (Phase 8) before each hire.
+**Hire in this order:** editor → thumbnail designer → virtual assistant (inbox, scheduling, comments) → channel manager. One role at a time, with SOPs (Phase 8) before each hire. The full playbook — 2026 rate ranges, the 2-week trial method, copy-paste SOP templates, and contractor basics (not legal advice) — is in [The First Hire](hiring.html); run your numbers through the [Hiring Cost Calculator](hiring-calculator.html) first.
 
 **How:** start with contractors (Upwork, niche communities, your own audience — fans make fiercely loyal hires). Paid trial project first, always. Clear deliverables, clear pay, clear deadlines. Classify correctly (contractor vs. employee is a legal distinction with tax consequences — CPA question, not a guess).
 

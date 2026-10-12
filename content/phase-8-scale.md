@@ -20,7 +20,7 @@ A mature creator company (mid-6 to 7 figures) typically runs:
 - **Community manager** — Discord, comments, email. The voice of the brand when you're creating.
 - **Bookkeeper/accountant** — from Phase 7, now non-negotiable.
 
-**Hiring principles:** hire for *output*, not resumes — paid trial projects for everyone. Hire slow for culture, fast for capacity. Document the role's SOPs *before* hiring (you can't delegate what isn't defined). And the golden rule: **never hire someone to do a job you don't understand.** You need to know what good editing looks like before you can manage an editor.
+**Hiring principles:** hire for *output*, not resumes — paid trial projects for everyone. Hire slow for culture, fast for capacity. Document the role's SOPs *before* hiring (you can't delegate what isn't defined) — [The First Hire](hiring.html) ships three copy-paste SOP templates (editing handoff, thumbnail brief, upload checklist) plus the 2-week paid trial method and 2026 pay ranges. And the golden rule: **never hire someone to do a job you don't understand.** You need to know what good editing looks like before you can manage an editor.
 
 ## Systems & SOPs: the company brain
 

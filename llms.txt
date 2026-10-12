@@ -18,12 +18,13 @@ From $0 to a multi-million-dollar creator company.
 - [Revenue Calculator](calculator.html)
 - [90-Day Planner](planner.html)
 - [Sponsor Deal Analyzer](deal-analyzer.html)
+- [Hiring Cost Calculator](hiring-calculator.html)
 - [Repurposing Planner](repurpose.html)
 - [Empire Simulator](simulator.html)
 - [API Explorer](api-explorer.html)
 - [Glossary](glossary.html)
 
-All seven tools, grouped by job (Plan / Money / Content): [Tools hub](tools.html).
+All eight tools, grouped by job (Plan / Money / Content): [Tools hub](tools.html).
 
 ## Reference
 - [Reference: 2026 Rate Card](rate-card.html) — 3 min read

@@ -1,0 +1,39 @@
+<form id="hire-form" aria-label="Hiring cost calculator">
+  <div class="calc-grid">
+    <label>Role
+      <select id="h-role">
+        <option value="editor">Video editor</option>
+        <option value="thumbnail">Thumbnail designer</option>
+        <option value="va">Virtual assistant</option>
+        <option value="manager">Channel manager</option>
+      </select></label>
+    <label>Billing model
+      <select id="h-model">
+        <option value="hourly">Hourly rate</option>
+        <option value="pervideo">Per video / per thumbnail</option>
+        <option value="monthly">Monthly retainer</option>
+      </select></label>
+    <label>Rate ($)
+      <input type="number" id="h-rate" min="0" value="40" step="1"></label>
+    <label>Hours / week
+      <input type="number" id="h-hours" min="0" value="10" step="1"></label>
+    <label>Videos / thumbnails / month <span class="muted">(per-unit model)</span>
+      <input type="number" id="h-units" min="0" value="4" step="1"></label>
+    <label>Your monthly long-form views
+      <input type="number" id="h-views" min="0" value="200000" step="1000"></label>
+    <label>Your niche (ad-RPM band)
+      <select id="h-niche">
+        <option value="finance_investing">Finance / Investing</option>
+        <option value="tech_software">Tech / Software</option>
+        <option value="education" selected>Education</option>
+        <option value="health_fitness">Health / Fitness</option>
+        <option value="lifestyle">Lifestyle</option>
+        <option value="gaming">Gaming</option>
+        <option value="comedy_entertainment">Comedy / Entertainment</option>
+      </select></label>
+  </div>
+  <p class="muted" id="h-rate-hint" role="status">Typical 2026 range for this role: $25–$75/hr freelance (see the hiring guide).</p>
+  <button type="submit" class="btn btn-primary">Calculate →</button>
+</form>
+<div id="hire-results" class="calc-grid" aria-live="polite" style="margin-top:1.5rem"><div class="empty-state" role="status" style="grid-column:1/-1"><span class="empty-icon" aria-hidden="true">⚒</span><strong>Nothing brewing yet.</strong>Your hire's true monthly cost — and what it takes to cover it — lands here.</div></div>
+<p class="muted">Honest math, not a promise: cost is arithmetic; "can I afford it" depends on your cash flow, taxes, and the 3-month coverage rule. Rates and RPMs are 2026 third-party benchmarks — verify live. Full context in <a href="hiring.html">The First Hire</a>.</p>
