@@ -1,5 +1,30 @@
 # Creator Growth Empire — Wave Log
 
+## Wave 29 — "The Field Manual" visual identity rework (wave 1) (2026-10-11)
+
+The user's top-priority directive, executed at the award-winning bar: a full visual-identity overhaul of the site's core design system — typography, color/texture, motifs, motion language — applied to the homepage, Empire Simulator, all 19 tool pages, and every reference chapter. Content, tools, data, and API surfaces are untouched: visual overhaul only.
+
+**Visual thesis:** the site is a field manual issued to a recruit. Night-ops deep field (green-tinted charcoal), HUD cyan as the one signal color (data, interaction, links), XP gold for progress and earned value, stamp red for alerts and ink approvals, sage for support data. **Refusal list:** no gradients-as-decoration (flat color; texture = grain + survey dot-grid), no emoji-as-icon (replaced with tactical glyphs ◉ ▦ ◬ ∑ ⌖ ✦ ▦ ◫ ⌂ ✚), no glassmorphism, no pastel, no rounded-pill-everything, no motion without a job.
+
+**What shipped:**
+1. **Typography** — stencil/condensed military display per the brief: Black Ops One (h1s only), Barlow Condensed (section headers, kickers, nav, tool names), Barlow (body — "clean tactical sans"), JetBrains Mono kept for HUD readouts/data. `text-wrap: balance` on headlines, tabular numerals on all data.
+2. **Motifs** (`assets/css/motifs.css`, new, documented with usage rules): P1 corner-bracket reticle frames (4-corner `.brk`), P2 ink stamps (CLEARED / 2026 VERIFIED / STANDING ORDER, stamp-slam impact motion), P3 segmented XP bars (quiz intel-gathering meter, homepage manual-readiness meter), P4 rank-insignia chevrons (phase rank ladder RECRUIT→COMMANDER on chapters; division tiers PLAN/MONEY/CONTENT on tools), S1 dossier folder tabs (hub groups, brief cards), S2 dossier kickers (`FIELD MANUAL // ENTRY 04 // PHASE 2`), ambient scanline sweep on briefing heroes (reduced-motion: removed).
+3. **Homepage** — the mission briefing board: stencil `BUILD YOUR EMPIRE` with gold outline treatment, dossier pin-stripes, 2026 VERIFIED stamp slam, field chits, XP readiness bar, HUD-stat readouts (tabular numerals), transmission-tape ticker. Phase cards became dossier folders (corner brackets, LVL plates, rank chevrons, rank names); tool cards became briefing cards with division-tier color edges; honesty panel became a stamped STANDING ORDER.
+4. **Chapters + reference pages** — mission-briefing headers: NATO-style entry numbering, stencil titles, dossier meta strips, rank insignia + rank name per phase; reference pages are INTEL FILEs with VERIFIED stamps; case files are DOSSIERs; prev/next nav reworded to operations language.
+5. **Tool pages** — every one of the 19 now opens with a MISSION BRIEFING HUD plate (corner brackets, division kicker, tier chevrons, SYSTEMS ONLINE). Empire Simulator: stage bands keep color+opacity but now carry **S0–S4 numeral labels on every band** (non-color encoding) and the legend names each stage ("S0 · The Start Line") — the wave-26 chart watch item is closed.
+6. **Custom details everywhere** — cyan selection, themed scrollbars, gold focus perimeters, footer rebuilt as a DEBRIEF with a CLEARED stamp on the (intact) not-financial/legal/tax-advice disclaimer, checklist completions earn a rotated CLEARED stamp, `.reveal` failure mode fixed (no-JS visitors now see everything — the `.js` gate), print stylesheet re-cut for the new palette (light dossier output).
+7. **Honesty contract intact** — no income promises added anywhere; the disclaimer copy is unchanged and now literally stamped; all tool counts fixed to the real 19 (the homepage said 17/18 — stale since wave 27).
+
+**Research applied:** `web-identity-20261011-2041` (thesis+refusal list, motif system rules, one `motifs.css`, one signature + one ambient motion, static-first failure mode, palette commitment) and `web-craft-20261011-2014` (motion tokens/physics, balance+tabular type rules, reduced-motion-as-variant, `.js`-gated reveals). Signature motion = stamp slam; ambient = scan sweep; XP fills are state feedback. Every motion element is `prefers-reduced-motion`-gated with the finished state as default.
+
+**Watch items closed from wave 26:** stage-bands non-color encoding ✓ (numerals + named legend); print stylesheet no longer assumes the old light output ✓; `.sticker` variants replaced by stamps/chits with real jobs (approval marks, field tags) ✓.
+
+**Tests:** `bash scripts/validate.sh` — **8/8 green** (17 passed, 0 failed; 0 broken links; clean rebuild byte-identical). All 11 engine suites green (1,146 assertions incl. sim-engine 189, platform-rules-bible 47).
+
+Commit: 5aa7d71705326e7a10b513650fd320eff0ba77d0 (local) → <pushed> (pushed 2026-10-11, remote tree verified via GitHub Trees API 200).
+
+---
+
 ## Wave 28 — "The 2026 Platform Rules Bible" reference chapter + wayfinding craft layer (2026-10-11)
 
 The densest reference page on the site: a 6,700-word single-page bible consolidating every platform rule that decides whether a creator's work gets seen and gets paid — the 2026 algorithm mechanics (YouTube/TikTok/Reels), the YPP 2027 rulebook, the Oct-1-2026 Shorts originality gate, the real RPM bands, FTC disclosure escalation, and the 2026 1099 tax change. Every figure carries a source-weight label (verified / single-source / platform-stated); honesty contract intact throughout (no income promises; "not financial, legal, or tax advice" copy present and pinned in-test).

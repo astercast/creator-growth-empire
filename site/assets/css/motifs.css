@@ -1,0 +1,161 @@
+/* MOTIFS — the Field Manual motif kit (wave 29).
+   4 primary motifs + 2 secondary. Usage rules inline per motif.
+   Every motif: pure CSS/SVG, scales to 16px, carries in-world meaning.
+   Refusal list: no emoji glyphs, no generic gradients, no glow-everywhere. */
+
+/* ============ P1 — corner-bracket frames (HUD targeting reticle) ============
+   Where: dossier cards, briefing headers, tool HUD panels, phase cards.
+   Markup: <div class="brk"><b class="brk-x" aria-hidden="true"></b>…content…</div>
+   The <b> carries the other two corners. Color: var(--brk, --cyan). */
+.brk { position: relative; --brk: var(--cyan); }
+.brk::before, .brk::after,
+.brk .brk-x::before, .brk .brk-x::after {
+  content: ""; position: absolute; width: 16px; height: 16px; z-index: 2;
+  border: 3px solid var(--brk); pointer-events: none;
+}
+.brk::before { top: 8px; left: 8px; border-right: none; border-bottom: none; }
+.brk::after { bottom: 8px; right: 8px; border-left: none; border-top: none; }
+.brk .brk-x::before { top: 8px; right: 8px; border-left: none; border-bottom: none; }
+.brk .brk-x::after { bottom: 8px; left: 8px; border-right: none; border-top: none; }
+.brk-gold { --brk: var(--gold); }
+.brk-stamp { --brk: var(--stamp); }
+.brk-sage { --brk: var(--sage); }
+
+/* ============ P2 — ink stamps (approval marks) ============
+   Where: completed checklists, verified honesty panels, hero marks.
+   Color job: stamp red = alert/denied, gold = verified/cleared.
+   Motion: .stamp-slam (see below) — one impact per viewport, reduced-motion
+   shows the finished stamp instantly. */
+.stamp {
+  display: inline-block;
+  font-family: var(--font-cond); font-weight: 700;
+  font-size: 0.95rem; letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--stamp);
+  border: 3px solid var(--stamp);
+  outline: 1px solid var(--stamp); outline-offset: 3px;
+  border-radius: 4px;
+  padding: 0.4rem 0.9rem 0.35rem 1.15rem;
+  transform: rotate(-6deg);
+  opacity: 0.92;
+  white-space: nowrap;
+  /* ink texture: slight unevenness via layered text-shadow, never blur-heavy */
+  text-shadow: 0 0 1px currentcolor;
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.9 0'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='0.16'/%3E%3C/svg%3E");
+  mask-size: 120px;
+}
+.stamp-gold { color: var(--gold); border-color: var(--gold); outline-color: var(--gold); }
+.stamp-cyan { color: var(--cyan); border-color: var(--cyan); outline-color: var(--cyan); }
+.stamp-sm { font-size: 0.72rem; border-width: 2px; padding: 0.25rem 0.6rem 0.2rem 0.8rem; }
+.stamp-lg { font-size: 1.4rem; border-width: 4px; }
+/* signature motion: the stamp slam — one impact, then it sits. */
+@media (prefers-reduced-motion: no-preference) {
+  .stamp-slam.slammed {
+    animation: stamp-impact var(--dur-moderate) var(--ease-decelerate);
+  }
+  @keyframes stamp-impact {
+    0% { transform: rotate(-6deg) scale(1.7); opacity: 0; }
+    55% { transform: rotate(-6deg) scale(0.94); opacity: 0.95; }
+    75% { transform: rotate(-6deg) scale(1.04); }
+    100% { transform: rotate(-6deg) scale(1); opacity: 0.92; }
+  }
+}
+
+/* ============ P3 — XP bars (progress as experience meters) ============
+   Where: quiz progress, manual-readiness hero meter, tool completion states.
+   Markup: <div class="xp" role="progressbar" aria-valuenow="…" aria-valuemin="0"
+   aria-valuemax="100" aria-label="…"><div class="xp-fill" style="--xp:72%"></div>
+   <span class="xp-tag">…</span></div>
+   Segment ticks are texture (the XP segments), not decoration. Fill animates
+   on .inview (JS); the finished state is the CSS default — reduced-motion and
+   no-JS visitors see the true value. */
+.xp {
+  position: relative; height: 22px;
+  background: var(--bg-3);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+.xp-fill {
+  height: 100%; width: var(--xp, 0%);
+  background: var(--gold);
+  border-radius: 0;
+  position: relative;
+  transition: width var(--dur-slow) var(--ease-decelerate);
+}
+.xp-fill::after {
+  /* segment ticks */
+  content: ""; position: absolute; inset: 0;
+  background: repeating-linear-gradient(90deg, transparent 0 18px, rgba(0,0,0,0.28) 18px 20px);
+}
+.xp-tag {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-mono); font-size: 0.68rem; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink);
+  mix-blend-mode: normal; pointer-events: none;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.7);
+}
+.xp-cyan .xp-fill { background: var(--cyan); }
+@media (prefers-reduced-motion: no-preference) {
+  .xp-fill { width: 0; }
+  .xp.inview .xp-fill, .xp-fill.static { width: var(--xp, 0%); }
+}
+
+/* ============ P4 — rank insignias (tier chevrons) ============
+   Where: tool cards, phase cards, briefing headers — tier badges.
+   Markup: <span class="rank" role="img" aria-label="Tier 3"><i></i><i></i><i></i></span>
+   Chevron count = tier. Pure CSS chevrons, gold for earned tiers. */
+.rank { display: inline-flex; gap: 3px; align-items: center; }
+.rank i {
+  width: 10px; height: 14px; flex: none;
+  background: var(--gold);
+  clip-path: polygon(0 0, 65% 50%, 0 100%, 38% 100%, 100% 50%, 38% 0);
+}
+.rank-cyan i { background: var(--cyan); }
+.rank-sage i { background: var(--sage); }
+.rank-dim i { background: var(--line-strong); }
+.rank-sm i { width: 7px; height: 10px; }
+
+/* ============ S1 — dossier folder tabs ============
+   Where: section dividers, hub group headers, card tops.
+   A tab that reads like a pulled file-folder label. */
+.folder-tab {
+  display: inline-block;
+  font-family: var(--font-cond); font-weight: 700; font-size: 0.85rem;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--cyan-ink); background: var(--cyan);
+  padding: 0.45rem 1.4rem 0.4rem 1rem;
+  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 100%, 0 100%);
+  margin-bottom: -1px;
+}
+.folder-tab-gold { background: var(--gold); color: var(--gold-ink); }
+.folder-tab-sage { background: var(--sage); color: var(--sage-ink); }
+
+/* ============ S2 — field-manual kickers ============
+   The dossier grammar: FIELD MANUAL // ENTRY 04 // PHASE 2.
+   Mono readouts for data, condensed for section labels. */
+.fm-kicker {
+  font-family: var(--font-cond); font-weight: 600;
+  font-size: 0.82rem; letter-spacing: 0.24em; text-transform: uppercase;
+  color: var(--muted);
+}
+.fm-kicker strong { color: var(--cyan); font-weight: 700; }
+.fm-kicker .sep { color: var(--faint); margin: 0 0.5em; }
+.fm-readout {
+  font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.08em;
+  color: var(--cyan); text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ============ ambient: scanline sweep (hero only) ============
+   One ambient motion per site. A thin cyan line sweeps the briefing board
+   every few seconds — the board is alive. Gated; reduced-motion removes it. */
+@media (prefers-reduced-motion: no-preference) {
+  .scan-sweep { position: relative; overflow: hidden; }
+  .scan-sweep::after {
+    content: ""; position: absolute; left: 0; right: 0; top: -10%;
+    height: 2px; background: var(--cyan); opacity: 0.35;
+    animation: sweep 7s linear infinite;
+    pointer-events: none;
+  }
+  @keyframes sweep { to { top: 110%; } }
+}

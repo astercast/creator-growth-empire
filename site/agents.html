@@ -7,8 +7,9 @@
 <meta name="description" content="From $0 to a multi-million-dollar creator company.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,600;0,800;0,900;1,900&family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/motifs.css">
 <link rel="stylesheet" href="assets/css/base.css">
 <link rel="stylesheet" href="assets/css/layout.css">
 <link rel="stylesheet" href="assets/css/components.css">
@@ -18,12 +19,12 @@
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
 <header class="site-header">
-  <a class="brand" href="index.html"><span class="brand-mark">▲</span> Creator Growth Empire</a>
-  <nav class="site-nav" aria-label="Primary"><a href="index.html" class="nav-link">Empire Map</a><a href="tools.html" class="nav-link">Tools</a><a href="case-files.html" class="nav-link">Case Files</a><a href="glossary.html" class="nav-link">Glossary</a><a href="agents.html" class="nav-link active">Agents</a></nav>
+  <a class="brand" href="index.html"><span class="brand-plate" aria-hidden="true">CG</span> Creator Growth Empire</a>
+  <nav class="site-nav" aria-label="Primary"><a href="index.html" class="nav-link"><span class="nav-n">01</span>Empire Map</a><a href="tools.html" class="nav-link"><span class="nav-n">02</span>Tools</a><a href="case-files.html" class="nav-link"><span class="nav-n">03</span>Case Files</a><a href="glossary.html" class="nav-link"><span class="nav-n">04</span>Glossary</a><a href="agents.html" class="nav-link active"><span class="nav-n">05</span>Agents</a></nav>
   <button class="nav-toggle" aria-expanded="false" aria-controls="mobileNav" aria-label="Menu">☰</button>
 </header>
-<nav id="mobileNav" class="mobile-nav" aria-label="Mobile"><a href="index.html" class="nav-link">Empire Map</a><a href="tools.html" class="nav-link">All tools</a><a href="quiz.html" class="nav-link">Niche Picker</a><a href="calculator.html" class="nav-link">Revenue Calc</a><a href="planner.html" class="nav-link">90-Day Plan</a><a href="deal-analyzer.html" class="nav-link">Deal Analyzer</a><a href="hiring-calculator.html" class="nav-link">Hire Calc</a><a href="repurpose.html" class="nav-link">Repurpose Plan</a><a href="simulator.html" class="nav-link">Simulator</a><a href="case-files.html" class="nav-link">All case files</a><a href="glossary.html" class="nav-link">Glossary</a><a href="agents.html" class="nav-link active">Agents</a></nav>
-<main id="main"><article class="chapter"><header class="chapter-hero" style="--phase-accent: var(--violet);"><p class="chapter-kicker"><span class="phase-badge" style="background: var(--violet);">The Agent Surface</span></p><h1>Agents</h1><p class="lede">This site is built to be used by agents, not just read by humans. Everything below — data, skills, tools, and full text — is machine-readable from static files. No API key, no server, no auth. Fetch and act.</p><p class="chapter-meta-strip"><span>11 min read</span><span class="sep">/</span><span>2,172 words</span></p></header>
+<nav id="mobileNav" class="mobile-nav" aria-label="Mobile"><a href="index.html" class="nav-link"><span class="nav-n">01</span>Empire Map</a><a href="tools.html" class="nav-link"><span class="nav-n">02</span>All tools</a><a href="quiz.html" class="nav-link"><span class="nav-n">03</span>Niche Picker</a><a href="calculator.html" class="nav-link"><span class="nav-n">04</span>Revenue Calc</a><a href="planner.html" class="nav-link"><span class="nav-n">05</span>90-Day Plan</a><a href="deal-analyzer.html" class="nav-link"><span class="nav-n">06</span>Deal Analyzer</a><a href="hiring-calculator.html" class="nav-link"><span class="nav-n">07</span>Hire Calc</a><a href="repurpose.html" class="nav-link"><span class="nav-n">08</span>Repurpose Plan</a><a href="simulator.html" class="nav-link"><span class="nav-n">09</span>Simulator</a><a href="case-files.html" class="nav-link"><span class="nav-n">10</span>All case files</a><a href="glossary.html" class="nav-link"><span class="nav-n">11</span>Glossary</a><a href="agents.html" class="nav-link active"><span class="nav-n">12</span>Agents</a></nav>
+<main id="main"><article class="chapter"><header class="chapter-hero scan-sweep" style="--phase-accent: var(--gold);"><p class="chapter-kicker fm-kicker"><strong>FIELD MANUAL</strong><span class="sep">//</span>DOSSIER<span class="sep">//</span>THE AGENT SURFACE</p><h1>Agents</h1><p class="lede">This site is built to be used by agents, not just read by humans. Everything below — data, skills, tools, and full text — is machine-readable from static files. No API key, no server, no auth. Fetch and act.</p><p class="chapter-meta-strip"><span>11 min read</span><span class="sep">/</span><span>2,172 words</span></p></header>
 
 <h2>The surface at a glance</h2>
 <div class='table-wrap'><table><thead><tr><th>What</th><th>Where</th><th>Format</th></tr></thead><tbody>
@@ -84,15 +85,16 @@
 <p>Goal: take raw ideas through the whole production pipeline — banked, scored, dealt into a 90-day calendar, film-day-checked, repurposed.</p>
 <ol><li><code>GET api/v1/content-engine.json</code> → the Content Engine data contract (idea formats, 5 Playbook hook structures, dealing rules, batching guidance, Repurposing 2.0 map, originality guardrails, deal-slot guidance). Drive the logic with <code>require(&quot;assets/js/content-engine.js&quot;)</code> (UMD, importable in node).</li><li>Bank + score: <code>ContentEngine.sortIdeas(ideas)</code> (hook score desc, ties by created, no mutation); <code>hookScore(n)</code> clamps 1–5. Promote the best — they deal into the calendar.</li><li>Deal: <code>ContentEngine.dealIdeas(ideas, {longsPerWeek, shortsPerWeek, restDay, weeks: 13})</code> — week-planner dealing rules: longs sorted by score then round-robin across non-rest work days, shorts every other work day, empty slots stay OPEN (never filler), surplus ideas in <code>unplaced</code>, week 7 = midpoint review.</li><li>Batch: <code>ContentEngine.batchingMath({videosPerShootDay, shootDaysPerMonth, longsPerWeek, shortsPerWeek})</code> — capacity = shoot days × videos/day, required = cadence × 52/12; verdict surplus/balanced/shortfall with the consistency-beats-volume guidance. Arithmetic on the creator&#x27;s inputs, never a promise.</li><li>Repurpose 2.0: <code>ContentEngine.repurposeMap(title)</code> — the 7-derivative map (short clip, community reaction, TikTok cut, Reel cut, newsletter issue, X thread, Facebook post), every derivative with a required original element; <code>originalityGuardrails()</code> — the Oct-1 rules. Repurposing is not re-uploading.</li><li>Bridge: <code>simInputFromCadence()</code> feeds the cadence to the <a href="simulator.html">Simulator</a> (a model, not a prediction); <code>exportCalendarText()</code> renders the copy-my-calendar export. Sponsor slots are calendar commitments only — price them in the <a href="deal-room.html">Deal Room</a> before promising them.</li><li>Content Engine 2.0: <code>algorithmSignals(&quot;tiktok&quot;|&quot;shorts&quot;|&quot;reels&quot;)</code> — the Oct-2026 signal map with <code>source_label</code> on every claim (platform-published / verified-multi-source / single-source / creator-lore); <code>hookPatterns()</code> — the 6 trend-derived structural patterns with the mechanic each exploits; <code>planBatchWeek({weeklyHours, longsPerWeek, shortsPerWeek, restDay, taskMinutes})</code> — the week blocked into film/edit/publish day-blocks (verdict holds/tight/over); <code>adaptChecklist(source, destinations)</code> — the per-destination cross-post plan (see the <a href="crosspost.html">Cross-Post Optimizer</a>).</li></ol>
 <h2>Conventions</h2>
-<ul><li>API <code>version</code> follows semver: minor on content changes, major on breaking shape changes.</li><li>All monetary figures are USD unless noted.</li><li>Full API reference: <code>API.md</code> at the repo root.</li></ul><nav class="chapter-nav" aria-label="Phases"><a href="index.html"><span class="nav-dir">← Back to</span><span class="nav-title">The Empire Map</span></a><a class="nav-next" href="api-explorer.html"><span class="nav-dir">Next →</span><span class="nav-title">Try the API Explorer</span></a></nav></article></main>
+<ul><li>API <code>version</code> follows semver: minor on content changes, major on breaking shape changes.</li><li>All monetary figures are USD unless noted.</li><li>Full API reference: <code>API.md</code> at the repo root.</li></ul><nav class="chapter-nav" aria-label="Phases"><a href="index.html"><span class="nav-dir">← Return to</span><span class="nav-title">The Empire Map</span></a><a class="nav-next" href="api-explorer.html"><span class="nav-dir">Next →</span><span class="nav-title">Try the API Explorer</span></a></nav></article></main>
 <footer class="site-footer">
   <div class="footer-grid">
     <div>
-      <div class="foot-brand"><span class="brand-mark">▲</span> Creator Growth Empire</div>
+      <div class="foot-brand"><span class="brand-plate" aria-hidden="true">CG</span> Creator Growth Empire</div>
       <p class="muted">From $0 to a multi-million-dollar creator company.</p>
-      <div class="sticker-row" style="margin:1rem 0 0">
-        <span class="sticker sticker-ghost">No guru hype</span>
-        <span class="sticker sticker-ghost">2026 verified</span>
+      <div class="chit-row" style="margin:1rem 0 0">
+        <span class="chit chit-ghost">No guru hype</span>
+        <span class="chit chit-ghost">2026 verified</span>
+        <span class="chit chit-ghost">Field manual</span>
       </div>
     </div>
     <nav aria-label="Phases">
@@ -129,7 +131,7 @@
       <a href="case-gibi-asmr.html">Gibi ASMR</a>
     </nav>
   </div>
-  <div class="footer-fine">PRIVATE RESEARCH ARCHIVE · PLATFORM FACTS VERIFIED OCT 2026 — VERIFY LIVE BEFORE ACTING · NOT FINANCIAL, LEGAL, OR TAX ADVICE</div>
+  <div class="footer-fine"><span class="stamp stamp-sm" aria-hidden="true">CLEARED</span><span>PRIVATE RESEARCH ARCHIVE · PLATFORM FACTS VERIFIED OCT 2026 — VERIFY LIVE BEFORE ACTING · NOT FINANCIAL, LEGAL, OR TAX ADVICE</span></div>
 </footer>
 <script src="assets/js/site.js"></script>
 </body>

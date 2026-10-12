@@ -74,7 +74,7 @@
           "loaded cost vs mid-range ad revenue from " + num(views) + " monthly views (RPM $" + band[0] + "–$" + band[1] + ")") +
         card("Monthly views needed to cover it", num(needLo) + " – " + num(needHi),
           "at this niche's RPM band — lower RPM needs more views") +
-        '<div class="calc-out" style="border-color:var(--acid)"><div class="lbl">3-month coverage reserve</div>' +
+        '<div class="calc-out" style="border-color:var(--cyan)"><div class="lbl">3-month coverage reserve</div>' +
         '<div class="big">' + range(threeMo / 1.15, threeMo) + "</div>" +
         '<div class="range">The hiring rule: cover 3 months from revenue before you sign. Not a guarantee — a math check.</div></div>';
     }).catch(function () {

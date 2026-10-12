@@ -7,8 +7,9 @@
 <meta name="description" content="From $0 to a multi-million-dollar creator company.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,600;0,800;0,900;1,900&family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/motifs.css">
 <link rel="stylesheet" href="assets/css/base.css">
 <link rel="stylesheet" href="assets/css/layout.css">
 <link rel="stylesheet" href="assets/css/components.css">
@@ -18,12 +19,12 @@
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
 <header class="site-header">
-  <a class="brand" href="index.html"><span class="brand-mark">▲</span> Creator Growth Empire</a>
-  <nav class="site-nav" aria-label="Primary"><a href="index.html" class="nav-link">Empire Map</a><a href="tools.html" class="nav-link active">Tools</a><a href="case-files.html" class="nav-link">Case Files</a><a href="glossary.html" class="nav-link">Glossary</a><a href="agents.html" class="nav-link">Agents</a></nav>
+  <a class="brand" href="index.html"><span class="brand-plate" aria-hidden="true">CG</span> Creator Growth Empire</a>
+  <nav class="site-nav" aria-label="Primary"><a href="index.html" class="nav-link"><span class="nav-n">01</span>Empire Map</a><a href="tools.html" class="nav-link active"><span class="nav-n">02</span>Tools</a><a href="case-files.html" class="nav-link"><span class="nav-n">03</span>Case Files</a><a href="glossary.html" class="nav-link"><span class="nav-n">04</span>Glossary</a><a href="agents.html" class="nav-link"><span class="nav-n">05</span>Agents</a></nav>
   <button class="nav-toggle" aria-expanded="false" aria-controls="mobileNav" aria-label="Menu">☰</button>
 </header>
-<nav id="mobileNav" class="mobile-nav" aria-label="Mobile"><a href="index.html" class="nav-link">Empire Map</a><a href="tools.html" class="nav-link active">All tools</a><a href="quiz.html" class="nav-link">Niche Picker</a><a href="calculator.html" class="nav-link">Revenue Calc</a><a href="planner.html" class="nav-link">90-Day Plan</a><a href="deal-analyzer.html" class="nav-link">Deal Analyzer</a><a href="hiring-calculator.html" class="nav-link">Hire Calc</a><a href="repurpose.html" class="nav-link">Repurpose Plan</a><a href="simulator.html" class="nav-link">Simulator</a><a href="case-files.html" class="nav-link">All case files</a><a href="glossary.html" class="nav-link">Glossary</a><a href="agents.html" class="nav-link">Agents</a></nav>
-<main id="main"><div class="tool-page"><div class="hud-panel"><div class="hud-head"><span>TOOL // 09 — API EXPLORER</span><span class="hud-status">SYSTEMS ONLINE</span></div><div class="hud-body"><h1>API Explorer</h1><p class="lede">Browse every api/v1 endpoint and preview JSON responses live in your browser — no key, no server.</p></div></div><p class="muted" style="max-width:44rem">Every <code>api/v1</code> endpoint, previewed live in your browser. Responses are static JSON — no key, no server, no auth. Select an endpoint to fetch and inspect it.</p>
+<nav id="mobileNav" class="mobile-nav" aria-label="Mobile"><a href="index.html" class="nav-link"><span class="nav-n">01</span>Empire Map</a><a href="tools.html" class="nav-link active"><span class="nav-n">02</span>All tools</a><a href="quiz.html" class="nav-link"><span class="nav-n">03</span>Niche Picker</a><a href="calculator.html" class="nav-link"><span class="nav-n">04</span>Revenue Calc</a><a href="planner.html" class="nav-link"><span class="nav-n">05</span>90-Day Plan</a><a href="deal-analyzer.html" class="nav-link"><span class="nav-n">06</span>Deal Analyzer</a><a href="hiring-calculator.html" class="nav-link"><span class="nav-n">07</span>Hire Calc</a><a href="repurpose.html" class="nav-link"><span class="nav-n">08</span>Repurpose Plan</a><a href="simulator.html" class="nav-link"><span class="nav-n">09</span>Simulator</a><a href="case-files.html" class="nav-link"><span class="nav-n">10</span>All case files</a><a href="glossary.html" class="nav-link"><span class="nav-n">11</span>Glossary</a><a href="agents.html" class="nav-link"><span class="nav-n">12</span>Agents</a></nav>
+<main id="main"><div class="tool-page"><div class="hud-panel brk brk-gold"><b class="brk-x" aria-hidden="true"></b><div class="hud-head"><span>MISSION BRIEFING // TOOL 09 — API EXPLORER</span><span class="hud-status">SYSTEMS ONLINE</span></div><div class="hud-body"><p class="fm-kicker"><strong>FIELD MANUAL</strong><span class="sep">//</span>DIVISION CONTENT</p><h1>API Explorer</h1><p class="lede">Browse every api/v1 endpoint and preview JSON responses live in your browser — no key, no server.</p><div class="briefing-rank"><span class="rank" role="img" aria-label="Tier 3"><i></i><i></i><i></i></span><span class="fm-readout">TIER 3 // CONTENT</span></div></div></div><p class="muted" style="max-width:44rem">Every <code>api/v1</code> endpoint, previewed live in your browser. Responses are static JSON — no key, no server, no auth. Select an endpoint to fetch and inspect it.</p>
 <div class="explorer" style="display:grid;gap:1.25rem;margin-top:1rem">
   <div>
     <h2 style="font-size:1rem;letter-spacing:.08em">Endpoints</h2>
@@ -49,11 +50,12 @@
 <footer class="site-footer">
   <div class="footer-grid">
     <div>
-      <div class="foot-brand"><span class="brand-mark">▲</span> Creator Growth Empire</div>
+      <div class="foot-brand"><span class="brand-plate" aria-hidden="true">CG</span> Creator Growth Empire</div>
       <p class="muted">From $0 to a multi-million-dollar creator company.</p>
-      <div class="sticker-row" style="margin:1rem 0 0">
-        <span class="sticker sticker-ghost">No guru hype</span>
-        <span class="sticker sticker-ghost">2026 verified</span>
+      <div class="chit-row" style="margin:1rem 0 0">
+        <span class="chit chit-ghost">No guru hype</span>
+        <span class="chit chit-ghost">2026 verified</span>
+        <span class="chit chit-ghost">Field manual</span>
       </div>
     </div>
     <nav aria-label="Phases">
@@ -90,7 +92,7 @@
       <a href="case-gibi-asmr.html">Gibi ASMR</a>
     </nav>
   </div>
-  <div class="footer-fine">PRIVATE RESEARCH ARCHIVE · PLATFORM FACTS VERIFIED OCT 2026 — VERIFY LIVE BEFORE ACTING · NOT FINANCIAL, LEGAL, OR TAX ADVICE</div>
+  <div class="footer-fine"><span class="stamp stamp-sm" aria-hidden="true">CLEARED</span><span>PRIVATE RESEARCH ARCHIVE · PLATFORM FACTS VERIFIED OCT 2026 — VERIFY LIVE BEFORE ACTING · NOT FINANCIAL, LEGAL, OR TAX ADVICE</span></div>
 </footer>
 <script src="assets/js/site.js"></script>
 </body>

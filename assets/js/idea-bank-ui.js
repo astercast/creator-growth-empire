@@ -54,7 +54,7 @@
     var promoted = idea.promoted
       ? '<span class="badge money">IN PRODUCTION</span>'
       : '<button type="button" class="btn btn-ghost btn-sm ib-promote" data-id="' + esc(idea.id) + '">Promote to production \u2192</button>';
-    return '<article class="brief-card idea-card" style="--card-accent: var(--coral);">' +
+    return '<article class="brief-card idea-card" style="--card-accent: var(--stamp);">' +
       '<div class="brief-head"><span class="brief-id">' + esc(FORMAT_LABELS[idea.format] || idea.format) + "</span>" +
       '<span class="brief-status" aria-label="Hook strength ' + score + ' of 5">' + stars + "</span></div>" +
       '<div class="brief-body"><h3>' + esc(idea.title) + "</h3>" +

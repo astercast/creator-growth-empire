@@ -1,54 +1,70 @@
-/* Design tokens — "Empire Briefing" system.
-   Dark mission-control base, flat high-voltage accents, hard sticker shadows.
-   No gradients-as-decoration: color does the work. */
+/* Design tokens — "THE FIELD MANUAL" system (wave 29).
+   Night-ops field manual: deep field green-charcoal ground, HUD cyan as the
+   one signal color (data, interaction, links), XP gold for progress and earned
+   value, stamp red for alerts and ink approvals, sage for support data.
+   THESIS: the site is a field manual issued to a recruit — every surface obeys
+   the manual's rules: dossier kickers, corner-bracket frames, ink stamps,
+   chevron rank insignias, segmented XP bars, NATO-style entry numbering.
+   REFUSALS: no gradients-as-decoration (flat color only; texture = grain +
+   dot grid), no emoji-as-icon, no glassmorphism, no pastel, no rounded-pill
+   everything, no motion without a job, no generic dark-SaaS look. */
 :root {
-  /* surfaces */
-  --bg: #0b0b0d;
-  --bg-2: #121214;
-  --bg-3: #1a1a1e;
-  --bg-4: #222228;
+  /* surfaces — deep field, green-tinted */
+  --bg: #0d120d;
+  --bg-2: #131a13;
+  --bg-3: #1a221a;
+  --bg-4: #232c22;
   /* ink */
-  --ink: #f2f0ea;
-  --muted: #a7a59c;
-  --faint: #6f6e66;
-  --line: #26262b;
-  --line-strong: #3a3a42;
-  /* accents — flat, loud, never gradient-blended */
-  --acid: #c8ff2e;
-  --acid-dim: #9bcc1f;
-  --acid-ink: #101500;
-  --coral: #ff4d2e;
+  --ink: #edf0e2;
+  --muted: #a4ad9b;
+  --faint: #6a7261;
+  --line: #242c23;
+  --line-strong: #3a4539;
+  /* signal: HUD cyan — the one interactive/data color */
+  --cyan: #5fe8ff;
+  --cyan-dim: #35b6d6;
+  --cyan-ink: #032630;
+  /* earned: XP gold — progress, achievements, money-guide accents */
   --gold: #ffc42e;
-  --violet: #b79cff;
-  --cyan: #6ff2ff;
-  /* type */
-  --font-display: "Archivo", "Arial Black", system-ui, sans-serif;
-  --font-body: "Space Grotesk", system-ui, -apple-system, sans-serif;
+  --gold-dim: #d9a21c;
+  --gold-ink: #201400;
+  /* alert: stamp red — warnings + ink stamp approvals (large/bold text use,
+     3:1 minimum met; body-critical text pairs it with --ink) */
+  --stamp: #ff6a55;
+  --stamp-dim: #c74a38;
+  --stamp-ink: #330b05;
+  /* support: sage — secondary data series, info, calm accents */
+  --sage: #9fd4a8;
+  --sage-dim: #6fa878;
+  --sage-ink: #0c2011;
+  /* type — stencil display + condensed tactical + clean sans + mono readouts */
+  --font-display: "Black Ops One", "Arial Black", system-ui, sans-serif;
+  --font-cond: "Barlow Condensed", "Arial Narrow", system-ui, sans-serif;
+  --font-body: "Barlow", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
-  /* shape */
-  --radius-sm: 8px;
-  --radius: 14px;
-  --radius-lg: 22px;
-  --max-w: 1100px;
-  /* sticker shadows — hard offsets, the system's signature depth cue */
-  --shadow-pop: 5px 5px 0 var(--acid);
-  --shadow-pop-coral: 5px 5px 0 var(--coral);
-  --shadow-pop-gold: 5px 5px 0 var(--gold);
-  --shadow-pop-violet: 5px 5px 0 var(--violet);
-  --shadow-deep: 8px 8px 0 rgba(0, 0, 0, 0.6);
-  /* motion */
-  --ease-snap: cubic-bezier(0.2, 0.9, 0.25, 1.15);
-  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
-  --dur-fast: 0.15s;
-  --dur-med: 0.35s;
-  /* 2026 motion scale — 5 named durations + 3 named easings as tokens
-   * (web-craft round 1+2 research). Bigger travel / bigger surface = longer.
-   * Never exceed 500ms on a UI interaction. */
+  /* shape — chiseled, squared-off; the manual is not a pill bottle */
+  --radius-sm: 6px;
+  --radius: 10px;
+  --radius-lg: 16px;
+  --max-w: 1140px;
+  /* depth — hard plate shadows, the signature depth cue */
+  --shadow-chisel: 6px 6px 0 rgba(0, 0, 0, 0.55);
+  --shadow-plate: 4px 4px 0 rgba(0, 0, 0, 0.55);
+  --shadow-lift: 8px 8px 0 rgba(0, 0, 0, 0.6);
+  /* motion — 5 named durations + 3 named easings (web-craft research).
+     Never exceed 500ms on a UI interaction. Physics: entrances decelerate,
+     exits accelerate, scroll-synced motion is linear. */
   --dur-instant: 0ms;
+  --dur-fast: 120ms;
   --dur-base: 200ms;
   --dur-moderate: 320ms;
   --dur-slow: 480ms;
   --ease-standard: cubic-bezier(0.2, 0, 0, 1);
   --ease-decelerate: cubic-bezier(0, 0, 0, 1);
   --ease-accelerate: cubic-bezier(0.3, 0, 1, 1);
+  /* legacy aliases — DO NOT USE in new code; kept so older fragments that
+     slipped through still resolve. New code uses the names above. */
+  --dur-med: 320ms;
+  --ease-snap: cubic-bezier(0.2, 0.9, 0.25, 1.15);
+  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
 }

@@ -3,7 +3,7 @@
 
 .vd-symptom-grid { grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); }
 .vd-symptom { cursor: pointer; align-items: flex-start; }
-.vd-symptom input { margin-top: 0.2rem; flex: none; accent-color: var(--acid); }
+.vd-symptom input { margin-top: 0.2rem; flex: none; accent-color: var(--cyan); }
 .vd-symptom-text strong { display: block; font-size: 1rem; }
 .vd-symptom-text .muted { font-size: 0.85rem; }
 
@@ -19,7 +19,7 @@
   font-family: var(--font-mono);
   font-size: 0.75rem;
   letter-spacing: 0.18em;
-  color: var(--coral);
+  color: var(--stamp);
   margin: 0 0 0.4rem;
 }
 .vd-result h3 { margin-top: 0; }
@@ -43,8 +43,8 @@
   font-family: var(--font-mono);
   font-size: 0.72rem;
   letter-spacing: 0.14em;
-  color: var(--coral);
-  border: 1px solid var(--coral);
+  color: var(--stamp);
+  border: 1px solid var(--stamp);
   border-radius: 999px;
   padding: 0.15rem 0.6rem;
   white-space: nowrap;

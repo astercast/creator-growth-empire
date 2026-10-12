@@ -20,11 +20,21 @@ API = ROOT / "api" / "v1"
 
 SITE_NAME = "Creator Growth Empire"
 TAGLINE = "From $0 to a multi-million-dollar creator company."
-FONT_URL = ("https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,600;0,800;0,900;1,900"
-           "&family=Space+Grotesk:wght@400;500;700"
+FONT_URL = ("https://fonts.googleapis.com/css2?family=Black+Ops+One"
+           "&family=Barlow+Condensed:wght@500;600;700"
+           "&family=Barlow:wght@400;500;600;700"
            "&family=JetBrains+Mono:wght@400;700&display=swap")
 
-PHASE_ACCENTS = ["acid", "coral", "gold", "violet", "acid", "coral", "gold", "violet", "acid"]
+PHASE_ACCENTS = ["cyan", "gold", "stamp", "sage", "cyan", "gold", "stamp", "sage", "cyan"]
+
+# Phase rank ladder — the field-manual tier each phase earns (wave 29).
+PHASE_RANKS = ["RECRUIT", "PRIVATE", "CORPORAL", "SERGEANT", "STAFF SERGEANT",
+               "GUNNERY SERGEANT", "MASTER SERGEANT", "LIEUTENANT", "COMMANDER"]
+
+def _rank_chevrons(n, cls="rank", sm=False):
+    n = max(1, min(5, n))
+    tag = "rank rank-sm" if sm else cls
+    return f'<span class="{tag}" role="img" aria-label="Tier {n}">' + "<i></i>" * n + "</span>"
 
 REFERENCE_PAGES = [
     ("rate-card", "content/rate-card.md", "Reference", "2026 Rate Card"),
@@ -635,43 +645,43 @@ TOOLS_API = [
 # Tools hub (wave 9): grouped card index. Per tool: icon, "use when" one-liner,
 # best-for tags. Groups: PLAN / MONEY / CONTENT (order within group = TOOLS order).
 TOOL_HUB_META = {
-    "quiz":          ("◉", "PLAN",    "acid", "you're starting out and don't know what to make yet.",
+    "quiz":          ("◉", "PLAN",    "cyan", "you're starting out and don't know what to make yet.",
                       ["starting out", "undecided", "Phase 0"]),
-    "planner":       ("▦", "PLAN",    "acid", "you need a posting schedule you can actually keep.",
+    "planner":       ("▦", "PLAN",    "cyan", "you need a posting schedule you can actually keep.",
                       ["consistency", "cadence", "Phase 1"]),
-    "simulator":     ("◬", "PLAN",    "acid", "you want to see 12–36 months of growth and revenue — scenarios, A/B, team costs, what-if events — before you live them.",
+    "simulator":     ("◬", "PLAN",    "cyan", "you want to see 12–36 months of growth and revenue — scenarios, A/B, team costs, what-if events — before you live them.",
                       ["what-if", "projections", "Phases 2 · 5 · 8"]),
     "calculator":    ("∑", "MONEY",   "gold", "you want honest revenue ranges from your current views.",
                       ["ads", "sponsors", "ranges"]),
     "deal-analyzer": ("⚖", "MONEY",   "gold", "a brand made an offer and your gut isn't sure.",
                       ["negotiation", "rate card", "Phase 5"]),
-    "deal-room":     ("🗂", "MONEY",   "gold", "you want to manage a deal from offer to paid, not just analyze it once.",
+    "deal-room":     ("▤", "MONEY",   "gold", "you want to manage a deal from offer to paid, not just analyze it once.",
                       ["deal pipeline", "scripts", "Phase 5"]),
     "hiring-calculator": ("⚒", "MONEY", "gold", "you're about to hire someone and want the real numbers first.",
                       ["first hire", "costs", "Phase 7 · 8"]),
-    "repurpose":     ("⇄", "CONTENT", "coral", "one good idea should feed five platforms.",
+    "repurpose":     ("⇄", "CONTENT", "stamp", "one good idea should feed five platforms.",
                       ["SOP", "short-form", "Phase 3"]),
-    "api-explorer":  ("⌗", "CONTENT", "coral", "you're building on the empire's data and want every endpoint.",
+    "api-explorer":  ("⌗", "CONTENT", "stamp", "you're building on the empire's data and want every endpoint.",
                       ["agents", "JSON", "no key"]),
-    "hook-builder":  ("🎣", "CONTENT", "coral", "you have a topic and need the first 3 seconds to win.",
+    "hook-builder":  ("⌖", "CONTENT", "stamp", "you have a topic and need the first 3 seconds to win.",
                       ["hooks", "short-form", "Playbook"]),
-    "idea-bank":     ("💡", "CONTENT", "coral", "your ideas are scattered and you need them scored before production.",
+    "idea-bank":     ("✦", "CONTENT", "stamp", "your ideas are scattered and you need them scored before production.",
                       ["hooks", "pipeline", "Phase 1"]),
-    "content-calendar": ("🗓", "CONTENT", "coral", "you need your ideas dealt into a schedule you can actually keep.",
+    "content-calendar": ("▦", "CONTENT", "stamp", "you need your ideas dealt into a schedule you can actually keep.",
                       ["dealing", "sponsors", "Phase 1"]),
-    "batching": ("🎬", "CONTENT", "coral", "you want to know if your shoot days really cover your cadence.",
+    "batching": ("◫", "CONTENT", "stamp", "you want to know if your shoot days really cover your cadence.",
                       ["film days", "capacity", "Phase 1"]),
-    "money-map": ("🗺", "PLAN", "gold", "you want to know where you stand and what to do next.",
+    "money-map": ("⌂", "PLAN", "gold", "you want to know where you stand and what to do next.",
                       ["roadmap", "stages", "Phases 0 · 8"]),
-    "video-doctor":    ("\U0001fa7a", "CONTENT", "coral", "your numbers are telling you something but you can't read them yet.",
+    "video-doctor":    ("\u271a", "CONTENT", "stamp", "your numbers are telling you something but you can't read them yet.",
                       ["diagnosis", "retention", "Phases 1 · 2"]),
     "ypp-checker":     ("◈", "MONEY", "gold", "YPP changes on Feb 1, 2027 — see where you stand under both rule sets.",
                       ["monetization", "YPP", "Phase 5"]),
     "outreach":        ("\u2709", "MONEY",   "gold", "you're pitching brands outbound and need the whole command center.",
                       ["outreach", "pitch pipeline", "Phase 5"]),
-    "crosspost":       ("⧉", "CONTENT", "coral", "one clip needs to live natively on four platforms.",
+    "crosspost":       ("⧉", "CONTENT", "stamp", "one clip needs to live natively on four platforms.",
                       ["adaptation", "cross-post", "Phase 3"]),
-    "cadence":         ("◷", "PLAN",    "acid", "you keep asking how often to post and the answer starts with your hours.",
+    "cadence":         ("◷", "PLAN",    "cyan", "you keep asking how often to post and the answer starts with your hours.",
                       ["consistency", "schedule", "Phase 1"]),
 }
 TOOL_HUB_GROUPS = [
@@ -895,12 +905,12 @@ MOBILE_NAV_LINKS = [
 
 def page_template(title, body, active="", extra_head=""):
     desktop_nav = "".join(
-        f'<a href="{href}" class="nav-link{" active" if href == active else ""}">{label}</a>'
-        for href, label in DESKTOP_NAV_LINKS
+        f'<a href="{href}" class="nav-link{" active" if href == active else ""}"><span class="nav-n">{i + 1:02d}</span>{label}</a>'
+        for i, (href, label) in enumerate(DESKTOP_NAV_LINKS)
     )
     mobile_nav = "".join(
-        f'<a href="{href}" class="nav-link{" active" if href == active else ""}">{label}</a>'
-        for href, label in MOBILE_NAV_LINKS
+        f'<a href="{href}" class="nav-link{" active" if href == active else ""}"><span class="nav-n">{i + 1:02d}</span>{label}</a>'
+        for i, (href, label) in enumerate(MOBILE_NAV_LINKS)
     )
     nav = desktop_nav  # historical name kept for the mobile fallback below
     return f"""<!DOCTYPE html>
@@ -914,6 +924,7 @@ def page_template(title, body, active="", extra_head=""):
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="{FONT_URL}" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/motifs.css">
 <link rel="stylesheet" href="assets/css/base.css">
 <link rel="stylesheet" href="assets/css/layout.css">
 <link rel="stylesheet" href="assets/css/components.css">
@@ -923,7 +934,7 @@ def page_template(title, body, active="", extra_head=""):
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
 <header class="site-header">
-  <a class="brand" href="index.html"><span class="brand-mark">▲</span> {SITE_NAME}</a>
+  <a class="brand" href="index.html"><span class="brand-plate" aria-hidden="true">CG</span> {SITE_NAME}</a>
   <nav class="site-nav" aria-label="Primary">{desktop_nav}</nav>
   <button class="nav-toggle" aria-expanded="false" aria-controls="mobileNav" aria-label="Menu">☰</button>
 </header>
@@ -932,11 +943,12 @@ def page_template(title, body, active="", extra_head=""):
 <footer class="site-footer">
   <div class="footer-grid">
     <div>
-      <div class="foot-brand"><span class="brand-mark">▲</span> {SITE_NAME}</div>
+      <div class="foot-brand"><span class="brand-plate" aria-hidden="true">CG</span> {SITE_NAME}</div>
       <p class="muted">{esc(TAGLINE)}</p>
-      <div class="sticker-row" style="margin:1rem 0 0">
-        <span class="sticker sticker-ghost">No guru hype</span>
-        <span class="sticker sticker-ghost">2026 verified</span>
+      <div class="chit-row" style="margin:1rem 0 0">
+        <span class="chit chit-ghost">No guru hype</span>
+        <span class="chit chit-ghost">2026 verified</span>
+        <span class="chit chit-ghost">Field manual</span>
       </div>
     </div>
     <nav aria-label="Phases">
@@ -973,7 +985,7 @@ def page_template(title, body, active="", extra_head=""):
       <a href="case-gibi-asmr.html">Gibi ASMR</a>
     </nav>
   </div>
-  <div class="footer-fine">PRIVATE RESEARCH ARCHIVE · PLATFORM FACTS VERIFIED OCT 2026 — VERIFY LIVE BEFORE ACTING · NOT FINANCIAL, LEGAL, OR TAX ADVICE</div>
+  <div class="footer-fine"><span class="stamp stamp-sm" aria-hidden="true">CLEARED</span><span>PRIVATE RESEARCH ARCHIVE · PLATFORM FACTS VERIFIED OCT 2026 — VERIFY LIVE BEFORE ACTING · NOT FINANCIAL, LEGAL, OR TAX ADVICE</span></div>
 </footer>
 <script src="assets/js/site.js"></script>
 </body>
@@ -1015,31 +1027,36 @@ def build():
         words = short.split()
         hero_title = (" ".join(esc(w) for w in words[:-1]) + ' <span class="accent-word">' + esc(words[-1]) + "</span>") if len(words) > 1 else esc(short)
         lvl = f"{idx + 1:02d}"
-        hero = (f'<header class="chapter-hero" style="--phase-accent: var(--{accent});">'
+        rank = PHASE_RANKS[idx]
+        # mission briefing: stencil title, NATO-style entry number, rank insignia,
+        # dossier meta strip. The phase's rank ladder is the badge of the climb.
+        hero = (f'<header class="chapter-hero scan-sweep" style="--phase-accent: var(--{accent});">'
                 f'<span class="chapter-num" aria-hidden="true">{idx}</span>'
-                f'<p class="chapter-kicker"><span class="phase-badge" style="background: var(--{accent});">{phase}</span></p>'
+                f'<p class="chapter-kicker fm-kicker"><strong>FIELD MANUAL</strong><span class="sep">//</span>ENTRY {lvl}<span class="sep">//</span>{phase.upper()}</p>'
                 f"<h1>{hero_title}</h1>"
                 + (f'<p class="lede">{briefing}</p>' if briefing else "")
                 + f'<p class="chapter-meta-strip"><span>{read_min} min read</span><span class="sep">/</span>'
-                f'<span>{wc:,} words</span><span class="sep">/</span><span>LVL {lvl}</span></p></header>')
+                f'<span>{wc:,} words</span><span class="sep">/</span><span>LVL {lvl}</span></p>'
+                f'<div class="briefing-rank">{_rank_chevrons(idx + 1)}'
+                f'<span class="fm-readout">RANK // {rank}</span></div></header>')
         # chapter end-nav: next-phase mission cards
         cnav = '<nav class="chapter-nav" aria-label="Phases">'
         if idx > 0:
             ps, _, pphase, pshort = CHAPTERS[idx-1]
-            cnav += (f'<a href="{ps}.html"><span class="nav-dir">← Previous phase</span>'
+            cnav += (f'<a href="{ps}.html"><span class="nav-dir">← Prev operation</span>'
                      f'<span class="nav-title">{pphase}: {esc(pshort)}</span></a>')
         else:
-            cnav += '<a href="index.html"><span class="nav-dir">← Back to</span><span class="nav-title">The Empire Map</span></a>'
+            cnav += '<a href="index.html"><span class="nav-dir">← Return to</span><span class="nav-title">The Empire Map</span></a>'
         if idx < len(CHAPTERS) - 1:
             ns, _, nphase, nshort = CHAPTERS[idx+1]
-            cnav += (f'<a class="nav-next" href="{ns}.html"><span class="nav-dir">Next phase →</span>'
+            cnav += (f'<a class="nav-next" href="{ns}.html"><span class="nav-dir">Next operation →</span>'
                      f'<span class="nav-title">{nphase}: {esc(nshort)}</span></a>')
         else:
             cnav += '<a class="nav-next" href="quiz.html"><span class="nav-dir">Next step →</span><span class="nav-title">Pick your niche</span></a>'
         cnav += "</nav>"
         # money-map ribbon (wave 18): every pillar chapter links to the capstone map
         cnav += ('<div class="map-ribbon" role="note">'
-                 '<strong>🧭 Lost in the climb?</strong>'
+                 '<strong>⌖ Lost in the climb?</strong>'
                  '<span>See where this phase fits on <a href="money-map.html">The Money Map</a> — 7 questions, your stage, your next 3 moves.</span>'
                  '<a class="btn btn-ghost" href="money-map.html">Open the map →</a></div>')
         page = page_template(f"{phase}: {short}", f'<article class="chapter">{hero}{body_html}{cnav}</article>', active="")
@@ -1069,15 +1086,16 @@ def build():
             body_html = body_html[:m_bq.start()] + body_html[m_bq.end():]
         words = short.split()
         hero_title = (" ".join(esc(w) for w in words[:-1]) + ' <span class="accent-word">' + esc(words[-1]) + "</span>") if len(words) > 1 else esc(short)
-        hero = (f'<header class="chapter-hero" style="--phase-accent: var(--gold);">'
-                f'<p class="chapter-kicker"><span class="phase-badge" style="background: var(--gold);">{badge}</span></p>'
+        hero = (f'<header class="chapter-hero scan-sweep" style="--phase-accent: var(--gold);">'
+                f'<p class="chapter-kicker fm-kicker"><strong>FIELD MANUAL</strong><span class="sep">//</span>INTEL FILE<span class="sep">//</span>{esc(badge).upper()}</p>'
                 f"<h1>{hero_title}</h1>"
                 + (f'<p class="lede">{briefing}</p>' if briefing else "")
                 + f'<p class="chapter-meta-strip"><span>{read_min} min read</span><span class="sep">/</span>'
-                f'<span>{wc:,} words</span></p></header>')
+                f'<span>{wc:,} words</span><span class="sep">/</span><span>CLEARANCE // ALL</span></p>'
+                f'<div class="briefing-rank"><span class="stamp stamp-gold stamp-sm stamp-slam" data-slam="1">VERIFIED</span></div></header>')
         cnav = ('<nav class="chapter-nav" aria-label="Phases">'
-                '<a href="index.html"><span class="nav-dir">← Back to</span><span class="nav-title">The Empire Map</span></a>'
-                '<a class="nav-next" href="phase-5-monetization-stack.html"><span class="nav-dir">Next phase →</span>'
+                '<a href="index.html"><span class="nav-dir">← Return to</span><span class="nav-title">The Empire Map</span></a>'
+                '<a class="nav-next" href="phase-5-monetization-stack.html"><span class="nav-dir">Next operation →</span>'
                 '<span class="nav-title">Phase 5: The Monetization Stack</span></a></nav>')
 # (reference-page loop continues below)
         mount = NICHE_EXPLORER_MOUNT if slug == "niche-atlas" else ""
@@ -1110,14 +1128,14 @@ def build():
             body_html = body_html[:m_bq.start()] + body_html[m_bq.end():]
         words = short.split()
         hero_title = (" ".join(esc(w) for w in words[:-1]) + ' <span class="accent-word">' + esc(words[-1]) + "</span>") if len(words) > 1 else esc(short)
-        hero = (f'<header class="chapter-hero" style="--phase-accent: var(--violet);">'
-                f'<p class="chapter-kicker"><span class="phase-badge" style="background: var(--violet);">{esc(badge)}</span></p>'
+        hero = (f'<header class="chapter-hero scan-sweep" style="--phase-accent: var(--gold);">'
+                f'<p class="chapter-kicker fm-kicker"><strong>FIELD MANUAL</strong><span class="sep">//</span>DOSSIER<span class="sep">//</span>{esc(badge).upper()}</p>'
                 f"<h1>{hero_title}</h1>"
                 + (f'<p class="lede">{briefing}</p>' if briefing else "")
                 + f'<p class="chapter-meta-strip"><span>{read_min} min read</span><span class="sep">/</span>'
                 f'<span>{wc:,} words</span></p></header>')
         cnav = ('<nav class="chapter-nav" aria-label="Phases">'
-                '<a href="index.html"><span class="nav-dir">← Back to</span><span class="nav-title">The Empire Map</span></a>'
+                '<a href="index.html"><span class="nav-dir">← Return to</span><span class="nav-title">The Empire Map</span></a>'
                 f'<a class="nav-next" href="{nxt[0]}.html"><span class="nav-dir">Next →</span>'
                 f'<span class="nav-title">{esc(nxt[1])}</span></a></nav>')
         nav_active = "case-files.html" if badge == "Case File" else f"{slug}.html"
@@ -1164,10 +1182,15 @@ def build():
         if slug in TOOL_CSS:
             extra += "".join(f'<link rel="stylesheet" href="{href}">' for href in TOOL_CSS[slug])
         tool_idx = [t[0] for t in TOOLS].index(slug)
-        hud_open = (f'<div class="tool-page"><div class="hud-panel"><div class="hud-head">'
-                    f'<span>TOOL // 0{tool_idx + 1} — {esc(title).upper()}</span>'
+        tier = {"PLAN": 1, "MONEY": 2, "CONTENT": 3}[TOOL_HUB_META[slug][1]]
+        tier_name = TOOL_HUB_META[slug][1]
+        hud_open = (f'<div class="tool-page"><div class="hud-panel brk brk-gold"><b class="brk-x" aria-hidden="true"></b><div class="hud-head">'
+                    f'<span>MISSION BRIEFING // TOOL {tool_idx + 1:02d} — {esc(title).upper()}</span>'
                     f'<span class="hud-status">SYSTEMS ONLINE</span></div>'
-                    f'<div class="hud-body"><h1>{esc(title)}</h1><p class="lede">{esc(desc)}</p></div></div>')
+                    f'<div class="hud-body"><p class="fm-kicker"><strong>FIELD MANUAL</strong><span class="sep">//</span>DIVISION {tier_name}</p>'
+                    f"<h1>{esc(title)}</h1><p class=\"lede\">{esc(desc)}</p>"
+                    f'<div class="briefing-rank">{_rank_chevrons(tier)}<span class="fm-readout">TIER {tier} // {tier_name}</span></div>'
+                    "</div></div>")
         page = page_template(title, f'{hud_open}{tool_body}</div>',
                              active="tools.html", extra_head=extra)
         (SITE / f"{slug}.html").write_text(page, encoding="utf-8")
@@ -1185,8 +1208,8 @@ def build():
         words = title_words.split()
         hero_title = ((" ".join(esc(w) for w in words[:-1]) + ' <span class="accent-word">' +
                        esc(words[-1]) + "</span>") if len(words) > 1 else esc(title_words))
-        return (f'<header class="chapter-hero" style="--phase-accent: var(--{accent});">'
-                f'<p class="chapter-kicker"><span class="phase-badge" style="background: var(--{accent});">{esc(kicker)}</span></p>'
+        return (f'<header class="chapter-hero scan-sweep" style="--phase-accent: var(--{accent});">'
+                f'<p class="chapter-kicker fm-kicker"><strong>FIELD MANUAL</strong><span class="sep">//</span>{esc(kicker)}</p>'
                 f"<h1>{hero_title}</h1>"
                 f'<p class="lede">{lede}</p></header>')
 
@@ -1201,20 +1224,25 @@ def build():
         for slug in members:
             icon, _, accent, use_when, tags = TOOL_HUB_META[slug]
             n += 1
+            tier = {"PLAN": 1, "MONEY": 2, "CONTENT": 3}[group]
             tag_html = "".join(f"<li>{esc(t)}</li>" for t in tags)
             cards += (
-                f'<a class="brief-card" style="--card-accent: var(--{accent});" href="{slug}.html">'
-                f'<div class="brief-head"><span class="brief-id">BRIEF // {n:02d}</span>'
+                f'<a class="brief-card brk" style="--card-accent: var(--{accent});" href="{slug}.html">'
+                f'<b class="brk-x" aria-hidden="true"></b>'
+                f'<span class="folder-tab" aria-hidden="true">BRIEF {n:02d}</span>'
+                f'<div class="brief-head"><span class="brief-id">FM // TOOL {n:02d}</span>'
                 f'<span class="brief-status">{group}</span></div>'
                 f'<div class="brief-body"><div class="brief-icon-row">'
                 f'<span class="brief-icon" aria-hidden="true">{esc(icon)}</span>'
                 f"<h3>{esc(tool_titles[slug])}</h3></div>"
                 f'<p class="brief-usage"><strong>Use when</strong> {esc(use_when)}</p></div>'
                 f'<ul class="brief-tags" aria-label="Best for">{tag_html}</ul>'
-                f'<span class="brief-go">Launch →</span></a>')
+                f'<div class="brief-foot">{_rank_chevrons(tier, sm=True)}'
+                f'<span class="brief-go">Launch →</span></div></a>')
         hub_sections += (
             f'<section class="hub-group" aria-label="{group} tools">'
             f'<div class="hub-group-head" style="--card-accent: var(--{g_accent});">'
+            f'<span class="folder-tab" aria-hidden="true">DIVISION // {group}</span>'
             f"<h2>{group}</h2>"
             f'<span class="hub-kicker">{esc(group_sub)}</span>'
             f'<span class="hub-rule" aria-hidden="true"></span>'
@@ -1222,8 +1250,8 @@ def build():
             f'<div class="brief-grid">{cards}</div></section>')
     tools_body = (
         hub_hero("COMMAND CENTER", "All Tools",
-                 "Seventeen power tools, one command center. Pick the briefing that matches where you are.",
-                 "acid")
+                 f"{len(TOOLS)} field tools, one command center. Pick the briefing that matches where you are.",
+                 "cyan")
         + hub_sections
         + '<section class="section honesty"><h2>Pick by job, not by shine</h2>'
         "<p>Every tool on this page reads the same 2026 research the rest of the site is built on. "
@@ -1239,14 +1267,17 @@ def build():
     for i, c in enumerate(CASE_HUB):
         m = case_meta_by_id[c["id"]]
         case_cards += (
-            f'<a class="brief-card" style="--card-accent: var(--violet);" href="{m["path"]}">'
-            f'<div class="brief-head"><span class="brief-id">CASE FILE // {i + 1:02d}</span>'
+            f'<a class="brief-card brk" style="--card-accent: var(--gold);" href="{m["path"]}">'
+            f'<b class="brk-x" aria-hidden="true"></b>'
+            f'<span class="folder-tab folder-tab-gold" aria-hidden="true">CASE FILE {i + 1:02d}</span>'
+            f'<div class="brief-head"><span class="brief-id">FM // DOSSIER {i + 1:02d}</span>'
             f'<span class="brief-status">{m["read_minutes"]} MIN READ</span></div>'
             f'<div class="brief-body"><h3>{esc(m["title"])}</h3>'
             f'<p class="brief-stat">{esc(c["headline"])}</p>'
             f'<p class="brief-stat-sub">{esc(c["stat"])}</p>'
             f'<p class="brief-source">Source: {esc(c["source"])}</p></div>'
-            f'<span class="brief-go">Read the file →</span></a>')
+            f'<div class="brief-foot">{_rank_chevrons(3, sm=True)}'
+            f'<span class="brief-go">Read the file →</span></div></a>')
     case_rows = "".join(
         f'<tr><th scope="row"><a href="{case_meta_by_id[c["id"]]["path"]}">{esc(case_meta_by_id[c["id"]]["title"])}</a></th>'
         f"<td>{esc(c['niche'])}</td><td>{esc(c['primary'])}</td>"
@@ -1255,11 +1286,11 @@ def build():
     case_body = (
         hub_hero("DOCUMENTED DECONSTRUCTIONS", "Case Files",
                  "Seven real creator businesses, taken apart: the stack, the decisions, the numbers — reported, not audited.",
-                 "violet")
+                 "gold")
         + '<section class="hub-group" aria-label="Case files">'
         f'<div class="brief-grid">{case_cards}</div></section>'
         + '<section class="hub-group" aria-label="Comparison table">'
-        + '<div class="hub-group-head" style="--card-accent: var(--violet);">'
+        + '<div class="hub-group-head" style="--card-accent: var(--gold);">'
         "<h2>Side by side</h2>"
         '<span class="hub-kicker">the comparison table</span>'
         '<span class="hub-rule" aria-hidden="true"></span>'
@@ -1278,24 +1309,31 @@ def build():
     (SITE / "case-files.html").write_text(page_template("Case Files", case_body, active="case-files.html"), encoding="utf-8")
 
     # index
+    GROUP_TIER_COLOR = {"PLAN": "var(--cyan)", "MONEY": "var(--gold)", "CONTENT": "var(--stamp)"}
     cards = ""
     for i, m in enumerate(chapters_meta):
         accent = PHASE_ACCENTS[i % len(PHASE_ACCENTS)]
         lvl = f"{i + 1:02d}"
-        cards += (f'<a class="phase-card reveal" style="--i:{i};--card-accent: var(--{accent});" href="{m["path"]}">'
-                  f'<span class="phase-lvl">LVL {lvl}</span>'
+        cards += (f'<a class="phase-card brk reveal" style="--i:{i};--card-accent: var(--{accent});" href="{m["path"]}">'
+                  f'<b class="brk-x" aria-hidden="true"></b>'
+                  f'<div class="phase-top"><span class="phase-lvl">LVL {lvl}</span>'
+                  f'{_rank_chevrons(i + 1, sm=True)}</div>'
                   f'<span class="phase-num">{m["phase"].split()[-1]}</span>'
                   f'<span class="phase-name">{esc(m["title"])}</span>'
-                  f'<span class="phase-meta">{m["read_minutes"]} min · {m["words"]:,} words</span></a>')
+                  f'<span class="phase-meta">{m["read_minutes"]} min · {m["words"]:,} words</span>'
+                  f'<span class="fm-readout" style="color:var(--{accent})">RANK // {PHASE_RANKS[i]}</span></a>')
     tools_html = "".join(
-        f'<a class="tool-card reveal" style="--i:{i}" href="{slug}.html">'
-        f'<span class="tool-id">TOOL // 0{i + 1}</span><strong>{esc(title)}</strong>'
-        f'<span>{esc(desc)}</span><span class="tool-go">Launch →</span></a>'
+        f'<a class="tool-card reveal" style="--i:{i};--tier:{GROUP_TIER_COLOR[TOOL_HUB_META[slug][1]]}" href="{slug}.html">'
+        f'<span class="tool-id">TOOL // {i + 1:02d}</span><strong>{esc(title)}</strong>'
+        f'<span>{esc(desc)}</span>'
+        f'<span class="tool-go">Launch →</span></a>'
         for i, (slug, title, desc) in enumerate(TOOLS))
     total_words = sum(m["words"] for m in chapters_meta)
     case_cards = "".join(
-        f'<a class="phase-card reveal" style="--i:{i};--card-accent: var(--violet);" href="{m["path"]}">'
-        f'<span class="phase-lvl">CASE FILE {i + 1:02d}</span>'
+        f'<a class="phase-card brk reveal" style="--i:{i};--card-accent: var(--gold);" href="{m["path"]}">'
+        f'<b class="brk-x" aria-hidden="true"></b>'
+        f'<div class="phase-top"><span class="phase-lvl">CASE FILE {i + 1:02d}</span>'
+        f'{_rank_chevrons(3, sm=True)}</div>'
         f'<span class="phase-num">{i + 1:02d}</span>'
         f'<span class="phase-name">{esc(m["title"])}</span>'
         f'<span class="phase-meta">{m["read_minutes"]} min · {m["words"]:,} words</span></a>'
@@ -1304,36 +1342,43 @@ def build():
                     f'<span class="section-tag">documented deconstructions // no guru hype</span>'
                     f'<a href="case-files.html" class="section-more">All 9 case files →</a></div>'
                     f'<div class="phase-grid reveal-stagger">{case_cards}</div></section>')
+    n_tools = len(TOOLS)
     index_body = f"""
 <section class="hero">
-  <p class="hero-eyebrow">Field manual // Creator division</p>
-  <p class="kicker">THE COMPLETE PLAYBOOK</p>
-  <h1 class="mega">BUILD YOUR<br><span class="mega-outline outline-text">EMPIRE</span></h1>
-  <p class="lede">Nine phases. Zero to multi-million-dollar creator company — YouTube, TikTok, Facebook, merch, brand deals, LLC, taxes, scale. No guru hype. Just the playbook.</p>
-  <div class="sticker-row reveal">
-    <span class="sticker">9 phases</span>
-    <span class="sticker sticker-coral">17 power tools</span>
-    <span class="sticker sticker-violet">9 case files</span>
-    <span class="sticker sticker-gold">2026 verified</span>
-    <span class="sticker sticker-violet">Zero → empire</span>
+<div class="briefing-board brk scan-sweep"><b class="brk-x" aria-hidden="true"></b>
+  <p class="hero-eyebrow">Field manual // Creator division // Entry 00</p>
+  <p class="fm-kicker" style="margin-bottom:1rem"><strong>MISSION BRIEFING</strong><span class="sep">//</span>CLEARANCE // ALL RECRUITS</p>
+  <h1 class="mega">BUILD YOUR<br><span class="mega-outline">EMPIRE</span></h1>
+  <p class="lede">Nine phases. Zero to multi-million-dollar creator company — YouTube, TikTok, Facebook, merch, brand deals, LLC, taxes, scale. <strong>No guru hype. Just the playbook.</strong></p>
+  <div class="hero-stamp-row">
+    <span class="stamp stamp-gold stamp-slam">2026 VERIFIED</span>
+    <div class="chit-row" style="margin:0">
+      <span class="chit">9 phases</span>
+      <span class="chit chit-gold">{n_tools} field tools</span>
+      <span class="chit chit-sage">9 case files</span>
+    </div>
+  </div>
+  <div class="xp" role="img" aria-label="Manual readiness: 9 phases and {n_tools} tools deployed" style="margin:1.6rem 0 0;max-width:34rem">
+    <div class="xp-fill static" style="--xp:100%"></div><span class="xp-tag">MANUAL READINESS // 100% — ALL UNITS DEPLOYED</span>
   </div>
   <div class="hero-stats">
     <div class="hero-stat reveal" style="--i:0"><strong>9</strong><span>phases</span></div>
-    <div class="hero-stat reveal" style="--i:1"><strong>{total_words:,}</strong><span>words</span></div>
-    <div class="hero-stat reveal" style="--i:2"><strong>18</strong><span>interactive tools</span></div>
+    <div class="hero-stat reveal" style="--i:1"><strong>{total_words:,}</strong><span>words of intel</span></div>
+    <div class="hero-stat reveal" style="--i:2"><strong>{n_tools}</strong><span>field tools</span></div>
     <div class="hero-stat reveal" style="--i:3"><strong>LVL 01–09</strong><span>your climb</span></div>
   </div>
   <div class="hero-cta"><a class="btn btn-primary" href="phase-0-start-from-nothing.html">Start at Phase 0 →</a>
   <a class="btn btn-ghost" href="quiz.html">Find your niche</a></div>
+</div>
 </section>
 <section class="ticker" aria-hidden="true"><div class="ticker-track">
-  <span>POST CONSISTENTLY</span><span>PACKAGING IS EVERYTHING</span><span>OWN YOUR AUDIENCE</span>
+  <span>TRANSMISSION // POST CONSISTENTLY</span><span>PACKAGING IS EVERYTHING</span><span>OWN YOUR AUDIENCE</span>
   <span>DIVERSIFY REVENUE</span><span>SEPARATE THE MONEY</span><span>SYSTEMS BEAT HUSTLE</span>
-  <span>POST CONSISTENTLY</span><span>PACKAGING IS EVERYTHING</span><span>OWN YOUR AUDIENCE</span>
+  <span>TRANSMISSION // POST CONSISTENTLY</span><span>PACKAGING IS EVERYTHING</span><span>OWN YOUR AUDIENCE</span>
   <span>DIVERSIFY REVENUE</span><span>SEPARATE THE MONEY</span><span>SYSTEMS BEAT HUSTLE</span>
 </div></section>
 <section class="section"><div class="section-head"><h2>The Empire Map</h2><span class="section-tag">9 levels // clear them all</span></div><div class="phase-grid reveal-stagger">{cards}</div></section>
-<section class="section"><div class="section-head"><h2>Command Center</h2><span class="section-tag">weapons free</span><a href="tools.html" class="section-more">All 19 tools →</a></div><div class="tool-grid reveal-stagger">{tools_html}</div></section>
+<section class="section"><div class="section-head"><h2>Command Center</h2><span class="section-tag">weapons free</span><a href="tools.html" class="section-more">All {n_tools} tools →</a></div><div class="tool-grid reveal-stagger">{tools_html}</div></section>
 {case_section}
 <section class="section"><div class="section-head"><h2>Hottest topics right now</h2><span class="section-tag">live feed // trend-machine</span></div>
 <div class="hud-panel trends-hud reveal">
@@ -1344,7 +1389,7 @@ def build():
     <noscript><p class="muted">The live trend feed needs JavaScript. The trend playbooks are in Phase 3.</p></noscript>
   </div>
 </div></section>
-<section class="section honesty reveal"><h2>The honesty policy</h2>
+<section class="section honesty reveal"><span class="honesty-stamp stamp stamp-sm stamp-slam" aria-hidden="true">STANDING ORDER</span><h2>The honesty policy</h2>
 <p>Every platform number on this site was verified against 2026 sources or is flagged <strong>verify live</strong>. Income ranges are illustrative, never promises. The LLC/tax phase is educational — <strong>not legal or tax advice</strong>. Platforms change rules constantly; the most dangerous number on the internet is a stale one.</p></section>
 """
     (SITE / "index.html").write_text(page_template(SITE_NAME, index_body, active="index.html"), encoding="utf-8")

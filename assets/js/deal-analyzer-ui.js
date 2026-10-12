@@ -341,7 +341,7 @@
     if (!host) return;
     var cmp = DA.compareDeals(A, B);
     var rows = cmp.rows.map(function (r) {
-      return "<tr" + (r.differs ? " style='background:var(--wash)'" : "") +
+      return "<tr" + (r.differs ? " style='background:var(--bg-3)'" : "") +
         "><th scope='row'>" + esc(r.label) + "</th><td>" + esc(r.a) +
         "</td><td>" + esc(r.b) + "</td></tr>";
     }).join("");

@@ -2,6 +2,10 @@
 (function () {
   "use strict";
 
+  // JS-present gate: CSS keeps everything visible unless this class exists
+  // (scroll-reveal failure mode = finished state, never blank).
+  document.documentElement.classList.add("js");
+
   // Mobile nav toggle
   var toggle = document.querySelector(".nav-toggle");
   var mobileNav = document.getElementById("mobileNav");
@@ -77,6 +81,28 @@
       });
     }, { rootMargin: "0px 0px -8% 0px", threshold: 0.08 });
     revealEls.forEach(function (el) { io.observe(el); });
+  }
+
+  // Signature motion: stamp slams + XP fills, fired once per viewport.
+  // Reduced-motion and no-IO visitors get the finished state instantly
+  // (CSS default) — feedback survives, physics doesn't.
+  var impactEls = document.querySelectorAll(".stamp-slam, .xp");
+  if (reduceMotion || !("IntersectionObserver" in window)) {
+    impactEls.forEach(function (el) {
+      el.classList.add("slammed");
+      el.classList.add("inview");
+    });
+  } else {
+    var sio = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) {
+          en.target.classList.add("slammed");
+          en.target.classList.add("inview");
+          sio.unobserve(en.target);
+        }
+      });
+    }, { rootMargin: "0px 0px -6% 0px", threshold: 0.25 });
+    impactEls.forEach(function (el) { sio.observe(el); });
   }
 
   // Quiz XP meter: tracks answered questions, marks answered fieldsets.

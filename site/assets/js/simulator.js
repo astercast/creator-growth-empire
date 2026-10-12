@@ -21,10 +21,10 @@
     kids_content: "Kids Content (low RPM — see Phase 0)"
   };
   var STREAMS = [
-    { key: "adsLong",   label: "Long-form ads", color: "var(--acid)" },
+    { key: "adsLong",   label: "Long-form ads", color: "var(--cyan)" },
     { key: "adsShorts", label: "Shorts ads",    color: "var(--gold)" },
-    { key: "sponsor",   label: "Sponsors",      color: "var(--coral)" },
-    { key: "affiliates",label: "Affiliates",    color: "var(--violet)" },
+    { key: "sponsor",   label: "Sponsors",      color: "var(--stamp)" },
+    { key: "affiliates",label: "Affiliates",    color: "var(--sage)" },
     { key: "digital",   label: "Digital product", color: "var(--cyan)" }
   ];
   var HIRE_FIELDS = [
@@ -312,10 +312,16 @@
     var slot = (W - pl - pr) / N;
     /* 4.0: Money Map stage bands behind the curve — the journey, visible. */
     var bands = months.map(function (m, i) {
-      return '<rect x="' + (pl + slot * i).toFixed(1) + '" y="' + pt + '" width="' +
+      /* watch item (wave 26/29): stage meaning must not live in color+opacity
+         alone — every band carries an S-numeral label (non-color encoding)
+         plus the <title> for assistive tech. */
+      var bx = pl + slot * i;
+      return '<rect x="' + bx.toFixed(1) + '" y="' + pt + '" width="' +
         (slot + 0.6).toFixed(1) + '" height="' + (H - pt - pb) + '" class="stage-band-' +
         m.stage + '"><title>Month ' + m.month + " \u2014 Stage " + m.stage + " (" +
-        esc(EmpireSim.STAGES[m.stage].name) + ")</title></rect>";
+        esc(EmpireSim.STAGES[m.stage].name) + ")</title></rect>" +
+        '<text x="' + (bx + slot / 2).toFixed(1) + '" y="' + (H - pt - pb + pt - 6).toFixed(1) +
+        '" text-anchor="middle" class="chart-stage-num" aria-hidden="true">S' + m.stage + "</text>";
     }).join("");
     var ticks = [0, max / 2, max].map(function (v) {
       return '<line x1="' + pl + '" y1="' + Y(v) + '" x2="' + (W - pr) + '" y2="' + Y(v) +
@@ -351,7 +357,7 @@
       '" text-anchor="end" class="chart-tick">' + fmtCompact(months[N - 1].subs) + " subs</text>";
     var stageLegend = [0, 1, 2, 3, 4].map(function (s) {
       return '<span class="legend-item"><span class="swatch stage-swatch-' + s +
-        '"></span>Stage ' + s + "</span>";
+        '"></span>S' + s + " \u00b7 " + esc(EmpireSim.STAGES[s].name) + "</span>";
     }).join("");
     return '<svg viewBox="0 0 ' + W + " " + H + '" class="chart" role="img" ' +
       'aria-label="Subscriber growth curve over ' + N + " months, ending at " + fmtCompact(months[N - 1].subs) + ' subscribers">' +
@@ -651,13 +657,13 @@
     return '<svg viewBox="0 0 ' + W + " " + H + '" class="chart" role="img" ' +
       'aria-label="Net revenue per month over ' + N + " months: " + esc(nameA) + " versus " + esc(nameB) + '">' +
       ticks +
-      '<polyline points="' + line(ma) + '" class="chart-line" style="stroke:var(--acid)"/>' +
-      '<polyline points="' + line(mb) + '" class="chart-line" style="stroke:var(--coral)"/>' +
+      '<polyline points="' + line(ma) + '" class="chart-line" style="stroke:var(--cyan)"/>' +
+      '<polyline points="' + line(mb) + '" class="chart-line" style="stroke:var(--stamp)"/>' +
       monthsTicks +
       '<text x="' + pl + '" y="' + (H - 6) + '" class="chart-tick">month</text></svg>' +
       '<div class="chart-legend" aria-hidden="true">' +
-      '<span class="legend-item"><span class="swatch" style="background:var(--acid)"></span>A · ' + esc(nameA) + "</span>" +
-      '<span class="legend-item"><span class="swatch" style="background:var(--coral)"></span>B · ' + esc(nameB) + "</span></div>";
+      '<span class="legend-item"><span class="swatch" style="background:var(--cyan)"></span>A · ' + esc(nameA) + "</span>" +
+      '<span class="legend-item"><span class="swatch" style="background:var(--stamp)"></span>B · ' + esc(nameB) + "</span></div>";
   }
 
   var cmpOut = document.getElementById("cmp-output");
@@ -692,7 +698,7 @@
     }
     function deltaRow(label, aVal, bVal, fmt) {
       var d = bVal - aVal;
-      var cls = d > 0 ? ' style="color:var(--acid)"' : (d < 0 ? ' style="color:var(--coral)"' : "");
+      var cls = d > 0 ? ' style="color:var(--cyan)"' : (d < 0 ? ' style="color:var(--stamp)"' : "");
       return "<tr><th scope='row'>" + label + "</th><td>" + fmt(aVal) + "</td><td>" + fmt(bVal) +
         '</td><td' + cls + "><strong>" + fmtSigned(d) + "</strong></td></tr>";
     }
@@ -834,7 +840,7 @@
       var r = EmpireSim.solveForGoal(inputs, cfg, goal);
       var html;
       if (r.ok) {
-        html = '<div class="calc-out" style="text-align:left;border-left:4px solid var(--acid)">' +
+        html = '<div class="calc-out" style="text-align:left;border-left:4px solid var(--cyan)">' +
           "<p><strong>What it would take: " + esc(r.valueLabel) + "</strong></p>" +
           "<p class='muted'>" + esc(r.note) + "</p>" +
           (r.alreadyThere ? "" :
@@ -845,7 +851,7 @@
         html = '<div class="calc-out" style="text-align:left;border-left:4px solid var(--gold)">' +
           "<p><strong>Blocked:</strong> " + esc(r.note) + "</p></div>";
       } else if (r.reason === "unreachable") {
-        html = '<div class="calc-out" style="text-align:left;border-left:4px solid var(--coral)">' +
+        html = '<div class="calc-out" style="text-align:left;border-left:4px solid var(--stamp)">' +
           "<p><strong>Not reachable in this model.</strong></p>" +
           "<p class='muted'>" + esc(r.note) + "</p></div>";
       } else {

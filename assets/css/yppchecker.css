@@ -13,7 +13,7 @@
   font-family: var(--font-mono);
   font-size: 0.75rem;
   letter-spacing: 0.18em;
-  color: var(--coral);
+  color: var(--stamp);
   margin: 0 0 0.4rem;
 }
 .ypp-rule-block {
@@ -26,8 +26,8 @@
 .ypp-verdict h4 { margin: 0 0 0.2rem; }
 .ypp-rule-note { font-size: 0.92rem; color: var(--muted); margin: 0 0 0.6rem; }
 .ypp-status { font-weight: 800; margin: 0.4rem 0; }
-.ypp-status.yes { color: var(--acid); }
-.ypp-status.no { color: var(--coral); }
+.ypp-status.yes { color: var(--cyan); }
+.ypp-status.no { color: var(--stamp); }
 .ypp-checks { list-style: none; padding: 0; margin: 0.8rem 0; display: grid; gap: 0.5rem; }
 .ypp-check {
   display: flex; gap: 0.6rem; align-items: baseline;
@@ -38,8 +38,8 @@
   font-size: 0.95rem;
 }
 .ypp-check .ypp-badge { font-weight: 800; flex: none; width: 1.2em; text-align: center; }
-.ypp-check.pass .ypp-badge { color: var(--acid); }
-.ypp-check.fail .ypp-badge { color: var(--coral); }
+.ypp-check.pass .ypp-badge { color: var(--cyan); }
+.ypp-check.fail .ypp-badge { color: var(--stamp); }
 .ypp-sources { font-size: 0.85rem; }
 .ypp-fanline, .ypp-floorline, .ypp-activityline {
   border-radius: 0.6rem;
@@ -50,7 +50,7 @@
   border: 1px solid var(--line);
 }
 .ypp-fanline.yes, .ypp-floorline.yes, .ypp-activityline.yes {
-  border-left: 3px solid var(--acid);
+  border-left: 3px solid var(--cyan);
 }
 .ypp-floorline.no, .ypp-activityline.no {
   border-left: 3px solid var(--gold);
@@ -64,7 +64,7 @@
 }
 .ypp-warning h4 { margin: 0 0 0.5rem; }
 .ypp-walk {
-  border-left: 3px solid var(--coral);
+  border-left: 3px solid var(--stamp);
   padding: 0.6rem 0.9rem;
   background: var(--bg-1);
   margin: 1.2rem 0;

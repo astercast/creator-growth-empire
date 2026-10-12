@@ -35,7 +35,7 @@
         card("Shorts ads", range(shLo, shHi), "RPM $" + sh[0] + "–$" + sh[1] + " · pooled 45% model") +
         card("Sponsorships", range(spLo, spHi), sponsors + " video(s) × ~$" + sp[0] + "–$" + sp[1] + " CPM") +
         card("Affiliate / products", range(affLo, affHi), "your input ±30%") +
-        '<div class="calc-out" style="border-color:var(--acid)"><div class="lbl">Estimated monthly total</div>' +
+        '<div class="calc-out" style="border-color:var(--cyan)"><div class="lbl">Estimated monthly total</div>' +
         '<div class="big">' + range(totLo, totHi) + "</div>" +
         '<div class="range">Annualized: ' + range(totLo * 12, totHi * 12) + " · before taxes, fees, costs</div></div>" +
         '<p class="muted" style="grid-column:1/-1">Ranges, not promises. Ad rates move with season (Q4 pays ~30–50% more), geography, and niche. Sponsors are usually 50–80% of a mid-size creator\'s income — notice how they dominate the math above.</p>';
