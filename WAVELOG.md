@@ -1,5 +1,25 @@
 # Creator Growth Empire — Wave Log
 
+## Vercel data-path migration — api/v1/*.json → data/v1/*.json (2026-10-12)
+
+**Why:** Vercel never serves static files from under `api/` — every frontend fetch of `api/v1/*.json` 404s in production, silently breaking all data-driven sections (this broke all 5 first-deployed sites; the fix had already landed on the other -live repos). Blocking production.
+
+**What moved:** all 25 static JSON files (`*.json` + `schema/`) via `git mv` from `api/v1/` to top-level `data/v1/`. `api/` now holds ONLY real serverless function handlers (`functions/*.js`: health, changes, niches, cron/algorithm-watch) + `lib/*.js` helpers. Audit: zero `.json`, zero static `.js` under `api/`.
+
+**What changed:**
+- Generator (`scripts/build.py`): `DATA_V1 = ROOT/"data"/"v1"`; emits all JSON + schemas there, mirrors to `site/data/v1/`; `index.json` endpoint `path` fields, `$id` URLs, and every prose `api/v1/` reference → `data/v1/`. Stage-5 reproducibility now watches `site data` (not `api`).
+- Functions (`changes.js`, `niches.js`, `health.js`): `dataFile()` resolves `../../data/v1` (repo layout + Vercel bundle via file tracing) with `../data/v1` site-mirror fallback; comments rewritten for the real layout.
+- Cron (`algorithm-watch.js`): `REPO_FILE = 'data/v1/changes.json'` for the GitHub Contents API; failure message points at `/data/v1/changes.json`.
+- Frontend: all 19 `assets/js/*.js` fetch paths → `data/v1/` — including `trends-widget.js`, whose `${TRENDS_API_BASE}/api/v1/trends.json` became `.../data/v1/trends.json` after verifying trend-machine-live serves `data/v1/` (and no longer `api/v1/`).
+- Tests: `breakout-format-intel` + `agent-workflows` load paths, `serve-functions.js` harness (`/data/v1/*` from `site/data/v1`), `api.test.sh` static checks, `validate_envelope.py` schema path, `validate.sh` stages 2/4/5/8 — all on `data/v1/`.
+- `vercel.json`: functions map fixed to the REAL handler paths (`api/functions/*.js` — the old `api/*.js` entries never existed on disk); `api.test.sh` lint now also asserts every mapped path exists. New `rewrites` entry maps the declared cron path `/api/cron/algorithm-watch` → the real handler route `/api/functions/cron/algorithm-watch`.
+- Docs/prose (`AGENT.md`, `API.md`, `GO_LIVE.md`, `README.md`, `TRENDS_INTEGRATION.md`, `content/*`, `pages/*`, `skills/*`): every `api/v1/` reference → `data/v1/`. WAVELOG history left intact. Hand-maintained `schema/changes.json` + `schema/envelope.json` `$id` URLs updated (the generator preserves them).
+- `LIVE_CHECKLIST.md`: added the blocking rule verbatim ("Vercel never serves static files under api/ — all static data lives in data/v1/; only real function handlers under api/ (2026-10-12)"); updated stale function paths, the audit line, and last-verified.
+
+**Validation:** `validate.sh` 23/23 ALL STAGES PASS (post-commit, zero drift). `api.test.sh` 22/22 (incl. the corrected vercel.json lint). Fetch audit over built `site/`: every `data/v1/` reference resolves on disk; zero `api/v1/` mentions remain anywhere except WAVELOG history and the checklist's "never api/v1/" rule text. Headless Chromium: What Changed page fetches `data/v1/changes.json`, renders all 12 entries with the honest "cached" badge, no page errors (only sandbox font blocks).
+
+**Known divergence (parent's sync domain, not changed here):** the working repo keeps the `api/functions/*.js` nested layout; `-live` has flat `api/*.js`. The functions map, rewrite, and test harness are consistent with the working layout; the next -live sync should reconcile the two.
+
 ## Wow Wave 1 — "Empire Climb" (2026-10-12) — PAUSED MID-BUILD for the EXTREME MAKEOVER directive
 
 **Status: build complete, validation nearly complete, commit pushed as-is per the user's STOP order. Remaining before this wave is declared done: ABORT-path e2e + a console-error sweep on the launch flow (main paths fully verified — see below). The makeover wave continues from here.**
