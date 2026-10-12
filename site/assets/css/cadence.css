@@ -1,0 +1,163 @@
+/* Cadence Coach — week grid + result craft.
+   Mobile-first; container query upgrades the 7-day strip to columns on
+   wider containers (with @supports fallback). No animation: results render
+   statically, honoring prefers-reduced-motion by never moving at all. */
+
+.cc-week {
+  container-type: inline-size;
+  container-name: ccweek;
+  margin: 2rem 0;
+}
+
+.cc-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+
+.cc-day {
+  border: 1px solid var(--line, #2a2a3a);
+  border-radius: 10px;
+  padding: 0.6rem 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: var(--panel, rgba(255, 255, 255, 0.02));
+}
+
+.cc-day.is-rest {
+  opacity: 0.72;
+  border-style: dashed;
+}
+
+.cc-dayname {
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  min-width: 7.5rem;
+}
+
+.cc-rest {
+  font-size: 0.85rem;
+  color: var(--muted, #9a9ab0);
+}
+
+.cc-empty {
+  color: var(--muted, #9a9ab0);
+}
+
+.cc-chip {
+  display: inline-block;
+  font-size: 0.82rem;
+  font-weight: 600;
+  border-radius: 999px;
+  padding: 0.2rem 0.65rem;
+  margin-right: 0.4rem;
+  border: 1px solid var(--line, #2a2a3a);
+}
+
+.cc-chip.cc-long { border-color: var(--acid, #b8e62e); }
+.cc-chip.cc-short { border-color: var(--coral, #ff6b5e); }
+
+.cc-ramp {
+  border-left: 3px solid var(--acid, #b8e62e);
+  padding: 0.2rem 0 0.2rem 0.9rem;
+  margin: 1rem 0;
+  max-inline-size: 65ch;
+}
+
+/* ---- Web-craft layer (Oct-2026 design research, web-craft-20261011-2014
+   + web-craft-20261011-2025) ----
+   Everything here is scoped to #cc-results / .cc-* so the site's identity
+   and other lanes' scopes (e.g. wave 28's .platform-rules) are untouched.
+   Motion tokens per the research §3 system (durations + named easings). */
+#cc-results {
+  --cc-dur-fast: 120ms;
+  --cc-dur-base: 200ms;
+  --cc-ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --cc-ease-decelerate: cubic-bezier(0, 0, 0, 1);
+}
+
+/* Typography micro-craft (§4, verified): balance on headings (Baseline
+   2024), tabular numerals on stats, 65ch measure on prose. pretty is
+   @supports-gated — Firefox support is disputed (round-2 report), so no
+   version is cited and the fallback is simply no pretty. */
+#cc-results h2,
+.cc-week h2 {
+  text-wrap: balance;
+}
+.cc-stat-num {
+  font-variant-numeric: tabular-nums;
+}
+.cc-prose {
+  max-inline-size: 65ch;
+}
+@supports (text-wrap: pretty) {
+  .cc-prose {
+    text-wrap: pretty;
+  }
+}
+
+/* Utilization ring: hand-rolled SVG (research angle 6 — hand-built SVG
+   beats a chart library on weight). Static, no animation: the number is
+   the encoding, color is redundant, so nothing is lost to color alone. */
+.cc-ring {
+  width: 76px;
+  height: 76px;
+  margin: 0.35rem 0;
+}
+.cc-ring-track {
+  fill: none;
+  stroke: var(--line, #2a2a3a);
+  stroke-width: 8;
+}
+.cc-ring-fill {
+  fill: none;
+  stroke-width: 8;
+  stroke-linecap: round;
+  transform: rotate(-90deg);
+  transform-origin: center;
+}
+.cc-ring-fill.is-holds { stroke: var(--acid, #b8e62e); }
+.cc-ring-fill.is-tight { stroke: var(--gold, #e8b62e); }
+.cc-ring-fill.is-over { stroke: var(--coral, #ff6b5e); }
+
+/* Scroll-driven reveal for the week strip (§2/angle 1, progressive
+   enhancement only — ~83% support, Firefox behind a flag).
+   Failure-mode rule: the finished (visible) state is the CSS default;
+   motion is layered on inside @supports, and only when the user has no
+   reduced-motion preference. Transform + opacity only (compositor). */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .cc-day {
+      animation: cc-day-rise var(--cc-dur-base) var(--cc-ease-decelerate) both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 60%;
+    }
+  }
+}
+@keyframes cc-day-rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Wider week containers: the 7 days become a true week strip. */
+@supports (container-type: inline-size) {
+  @container ccweek (min-width: 560px) {
+    .cc-grid { grid-template-columns: repeat(7, 1fr); }
+    .cc-day {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.35rem;
+      min-height: 7rem;
+    }
+    .cc-dayname { min-width: 0; }
+  }
+}

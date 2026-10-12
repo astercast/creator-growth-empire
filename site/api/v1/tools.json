@@ -230,8 +230,8 @@
     },
     {
       "id": "deal-analyzer",
-      "title": "Sponsor Deal Analyzer",
-      "description": "Benchmark a sponsor offer against the 2026 rate card \u2014 verdict, red-flag checklist, counter-offer worksheet.",
+      "title": "The Deal Analyzer",
+      "description": "Paste the brand's terms \u2014 rate-card verdict with platform multipliers + niche adjustment, the wave-22 contract checklist applied to the deal, counter-offer calculator, 2026 usage-rights add-on math, deal history + comparison mode.",
       "page": "deal-analyzer.html",
       "input_schema": {
         "$schema": "http://json-schema.org/draft-07/schema#",
@@ -261,6 +261,20 @@
             ],
             "description": "Integrated slot, dedicated video, or short-form video."
           },
+          "niche": {
+            "type": "string",
+            "enum": [
+              "finance_investing",
+              "tech_software",
+              "education",
+              "health_fitness",
+              "lifestyle",
+              "gaming",
+              "comedy_entertainment",
+              "music"
+            ],
+            "description": "Optional \u2014 adjusts the verdict range by the niche multiplier (finance/tech x2.5, entertainment/gaming/music x0.6) and enables the AIR category-CPM cross-check where mapped."
+          },
           "followers": {
             "type": "number",
             "minimum": 0
@@ -273,15 +287,21 @@
             "type": "number",
             "minimum": 0,
             "default": 0,
-            "description": "If known, enables the implied-CPM check."
+            "description": "If known, enables the implied-CPM check and the category-CPM cross-check."
           },
-          "usage_rights": {
+          "post_count": {
+            "type": "integer",
+            "minimum": 1,
+            "default": 1,
+            "description": "Posts in the bundle \u2014 3+ triggers the 15-20% bundle-discount guidance."
+          },
+          "usage": {
             "type": "string",
             "enum": [
               "organic_only",
-              "paid30",
-              "paid180",
-              "paid365",
+              "paid_3mo",
+              "paid_6mo",
+              "paid_12mo",
               "perpetual"
             ],
             "default": "organic_only"
@@ -309,17 +329,107 @@
           "payment_terms": {
             "type": "string",
             "enum": [
+              "15",
               "30",
               "60",
               "90"
             ],
             "default": "30",
             "description": "Net payment terms in days."
+          },
+          "timeline": {
+            "type": "string",
+            "enum": [
+              "relaxed",
+              "standard",
+              "rush",
+              "unknown"
+            ],
+            "default": "unknown"
+          },
+          "contract": {
+            "type": "object",
+            "description": "Ten contract-language answers feeding the wave-22 checklist.",
+            "properties": {
+              "ip": {
+                "type": "string",
+                "enum": [
+                  "mine",
+                  "brand_full",
+                  "unclear"
+                ]
+              },
+              "cancel": {
+                "type": "string",
+                "enum": [
+                  "no",
+                  "yes"
+                ]
+              },
+              "usageWords": {
+                "type": "string",
+                "enum": [
+                  "specific",
+                  "all_media",
+                  "unclear"
+                ]
+              },
+              "exclRenew": {
+                "type": "string",
+                "enum": [
+                  "no",
+                  "yes"
+                ]
+              },
+              "payMetrics": {
+                "type": "string",
+                "enum": [
+                  "no",
+                  "yes"
+                ]
+              },
+              "morals": {
+                "type": "string",
+                "enum": [
+                  "none",
+                  "mutual",
+                  "one_sided"
+                ]
+              },
+              "paySchedule": {
+                "type": "string",
+                "enum": [
+                  "yes",
+                  "no"
+                ]
+              },
+              "approval": {
+                "type": "string",
+                "enum": [
+                  "defined",
+                  "vague"
+                ]
+              },
+              "ftc": {
+                "type": "string",
+                "enum": [
+                  "yes",
+                  "no"
+                ]
+              },
+              "scope": {
+                "type": "string",
+                "enum": [
+                  "no",
+                  "yes"
+                ]
+              }
+            }
           }
         }
       },
-      "output": "Verdict (UNDERPAID / FAIR / STRONG), benchmark range, implied CPM vs rate-card CPMs, red-flag checklist (usage, whitelisting, exclusivity, payment), counter-offer worksheet with line items.",
-      "drive_notes": "Logic (assets/js/deal-analyzer.js): followers \u2192 tier (nano/micro/macro/mega) \u2192 per_video_or_post_by_tier range for platform; verdict = offer vs range; counter starts at range top (creators list ~23% above what they accept) + usage line items (paid30 +50%, paid180 +75%, paid365 +100%) + exclusivity (30d +25%, 60\u201390d +50%). Negotiation aid, not financial advice."
+      "output": "Verdict (UNDERPAID / FAIR / STRONG) against the niche-adjusted benchmark range, implied CPM vs rate-card CPMs, AIR category-CPM cross-check (where mapped), offer-term flags, wave-22 contract checklist verdict (clean / caution / dont_sign) with per-flag fixes, counter-offer with line-item ranges + open-ended totals, usage-rights add-on table, plaintext export.",
+      "drive_notes": "Engine (assets/js/deal-analyzer.js, UMD \u2014 require() it in node): DealAnalyzer.validInput() normalizes; .evaluate(deal, rateCard) returns the tier range x niche multiplier (parity-pinned with the simulator's sponsorNicheMult), verdict, implied CPM, categoryCheck (AIR Oct-2026 category CPMs: finance/real-estate $58, B2B SaaS/AI $46.50, health $28, gaming/tech $18.50, entertainment $14), cross-platform ranges + the 1.7x/0.85x note, and the 23%-benchmark expected close; .offerTermFlags() scans usage/whitelisting/exclusivity/payment/timeline; .mapTermsToFlags() + .contractRisk(flagIds, deal-templates.json contract_flags) apply the wave-22 checklist (walk_away = dont_sign, major 2pts, minor 1pt, 3+ = dont_sign \u2014 same scoring as Outreach.contractRisk); .usageAddons() prices the 2026 benchmark ranges (3mo +25-50%, 3-6mo +50-75%, 6-12mo +75-100%, perpetual from 2x; whitelisting 30-100%/mo) from calculators.json usage_rights_benchmarks_2026 (v1.4.0); .counterOffer() builds base + line items + open-ended totals + the 15-20% bundle guidance; .exportReport() renders the plaintext evaluation; .compareDeals() diffs two saved deals. Browser history/compare/print live in assets/js/deal-analyzer-ui.js (localStorage only). Negotiation aid \u2014 not financial, legal, or tax advice; the checklist is not legal advice. See AGENT.md Workflow 12."
     },
     {
       "id": "deal-room",
@@ -536,7 +646,7 @@
     {
       "id": "simulator",
       "title": "Empire Simulator",
-      "description": "Simulate 12\u201336 months of channel growth + revenue \u2014 12-scenario library, A/B comparison, team hiring P&L, what-if event cards, Money Map stage transitions \u2014 a model, not a prediction.",
+      "description": "Simulate 12\u201336 months of channel growth + revenue \u2014 12-scenario library, A/B comparison, team hiring P&L, what-if event cards, Money Map stage transitions, the \u201cwhat would it take?\u201d goal solver, live re-run \u2014 a model, not a prediction.",
       "page": "simulator.html",
       "input_schema": {
         "$schema": "http://json-schema.org/draft-07/schema#",
@@ -734,7 +844,7 @@
         }
       },
       "output": "12-, 24-, or 36-month projection: subs, views, and revenue per month per stream (ads, sponsors, affiliates, digital), month-by-month team P&L (gross, team cost, net), per-month Money Map stage (0-4 from monthly net + team) with the stage-transition timeline, active what-if event cards per month, totals, milestones, and the full named-assumptions list. compare() adds side-by-side deltas (B minus A) and a verdict. exportPlan() renders the copy-my-empire-plan text incl. the stage journey. A model, not a prediction.",
-      "drive_notes": "Engine (assets/js/sim-engine.js, UMD \u2014 importable in node): simulate(inputs, cfg) with cfg = calculators.json. scenarioInputs(id) loads a named preset from the SCENARIOS library (12 presets, research-sourced assumptions); compare(nameA, inputsA, nameB, inputsB, cfg) runs two configs over the same clock (deltas are B minus A); assumptionLines(inputs, res) is the always-visible assumptions panel; exportPlan(scenarioName, inputs, res) renders the share text; normalizeEvents() validates the 5 what-if cards; stageForNet(net, teamActive) is the single source of the 0-4 stage rule. Growth compounds monthly x niche factor x quality x cadence (diminishing, capped 2.5x). Hires add output/quality and subtract cost monthly (first active month at 50% ramp). Year-2 decays growth x0.94/mo after month 12; year-3 x0.97/mo after month 24 (growth stays positive \u2014 plateau, not collapse). RPMs come from calculators.json youtube_longform_rpm_bands. Every assumption is named in DEFAULTS and listed on-page."
+      "drive_notes": "Engine (assets/js/sim-engine.js, UMD \u2014 importable in node): simulate(inputs, cfg) with cfg = calculators.json. scenarioInputs(id) loads a named preset from the SCENARIOS library (12 presets, research-sourced assumptions); compare(nameA, inputsA, nameB, inputsB, cfg) runs two configs over the same clock (deltas are B minus A); assumptionLines(inputs, res) is the always-visible assumptions panel; exportPlan(scenarioName, inputs, res) renders the share text; normalizeEvents() validates the 5 what-if cards; stageForNet(net, teamActive) is the single source of the 0-4 stage rule; solveForGoal(inputs, cfg, {target: \"subs\"|\"net\"|\"stage\", value, month, variable: \"growth\"|\"cadence\"}) binary-searches base growth (whole %) or long-form cadence (half videos) until the target lands by the month \u2014 pure inversion of simulate(), no new claims (see AGENT.md Workflow 13). The 4.0 UI adds live re-run (debounced), stage-banded subscriber charts with milestone/event markers, year cards, and an always-visible assumptions block. Growth compounds monthly x niche factor x quality x cadence (diminishing, capped 2.5x). Hires add output/quality and subtract cost monthly (first active month at 50% ramp). Year-2 decays growth x0.94/mo after month 12; year-3 x0.97/mo after month 24 (growth stays positive \u2014 plateau, not collapse). RPMs come from calculators.json youtube_longform_rpm_bands. Every assumption is named in DEFAULTS and listed on-page."
     },
     {
       "id": "api-explorer",

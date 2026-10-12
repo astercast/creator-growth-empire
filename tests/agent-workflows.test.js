@@ -21,39 +21,45 @@ function check(name, cond, detail) {
 }
 
 /* ============ Workflow 1: $5K sponsorship offer, 50K-sub tech channel ============
- * AGENT.md §Workflow 1: rate-card benchmark + deal-analyzer logic via API. */
+ * AGENT.md §Workflow 1: The Deal Analyzer 2.0 engine via require() — the
+ * agent runs the same math as the page, no re-implementation. */
 (function workflow1() {
+  const DA = require(path.join(__dirname, "..", "assets", "js", "deal-analyzer.js"));
   const cfg = load("calculators.json");
   const rc = cfg.sponsorship_rate_card_2026;
 
-  // tierOf: same thresholds as the Sponsor Deal Analyzer UI
-  const tierOf = (f) => f < 10000 ? "nano_1k_10k"
-    : f < 100000 ? "micro_10k_100k"
-    : f < 1000000 ? "macro_100k_1m" : "mega_1m_plus";
-  const tier = tierOf(50000);
-  check("wf1: 50K subs -> micro_10k_100k tier", tier === "micro_10k_100k", tier);
+  const v = DA.validInput({ platform: "youtube", deliverable: "dedicated",
+    followers: 50000, expectedViews: 60000, offerUsd: 5000,
+    niche: "tech_software" });
+  check("wf1: input validates", v.ok, JSON.stringify(v.errors));
+  const deal = v.deal;
 
-  const range = rc.per_video_or_post_by_tier[tier].youtube; // [lo, hi]
-  check("wf1: micro YouTube range is $1,000–$10,000",
-    range[0] === 1000 && range[1] === 10000, JSON.stringify(range));
+  check("wf1: 50K subs -> micro_10k_100k tier", DA.tierOf(50000) === "micro_10k_100k");
+  const ev = DA.evaluate(deal, rc);
+  check("wf1: niche-adjusted range pinned $2,500–$25,000 (tech 2.5x)",
+    JSON.stringify(ev.range) === "[2500,25000]", JSON.stringify(ev.range));
+  check("wf1: $5,000 inside the niche-adjusted band -> FAIR", ev.verdict === "FAIR", ev.verdict);
 
-  const offer = 5000;
-  const verdict = offer < range[0] ? "UNDERPAID" : offer > range[1] ? "STRONG" : "FAIR";
-  check("wf1: $5,000 inside the band -> FAIR", verdict === "FAIR", verdict);
+  // dedicated implied-CPM band: $50–$90 (AIR agency-benchmark compilation, Oct 2026)
+  check("wf1: dedicated implied-CPM band is $50–$90 (AIR, reported)",
+    ev.impliedCpm.band.lo === 50 && ev.impliedCpm.band.hi === 90,
+    JSON.stringify(ev.impliedCpm.band));
+  check("wf1: $5k / 60K views = $83.33 CPM, inside the band",
+    Math.abs(ev.impliedCpm.value - 83.33) < 0.01 && ev.impliedCpm.position === "inside");
 
-  // implied-CPM check (integrated slot, 40K expected views)
-  const implied = offer / 40000 * 1000; // $125
-  const cpmBand = rc.sponsored_cpms.youtube_integrated_slot; // [20, 35]
-  check("wf1: implied CPM $125 above the $20–$35 integrated benchmark",
-    implied === 125 && implied > cpmBand[1], String(implied));
+  // category cross-check: B2B SaaS & AI $46.50 CPM
+  check("wf1: category check names B2B SaaS & AI $46.50 CPM",
+    ev.categoryCheck && ev.categoryCheck.cpm === 46.5, JSON.stringify(ev.categoryCheck));
 
-  // counter-offer worksheet: top of range + paid-30 usage line item (+50%)
-  const nice = (n) => { const m = Math.pow(10, Math.floor(Math.log10(n)) - 1); return Math.round(n / m) * m; };
-  const base = nice(range[1]);              // $10,000 — quote high
-  const usageAddon = nice(base * 0.5);      // paid 30-day usage: +50%
-  check("wf1: counter base $10,000 + usage $5,000 = $15,000",
-    base === 10000 && usageAddon === 5000 && base + usageAddon === 15000,
-    `${base}+${usageAddon}`);
+  // usage add-ons from the real 2026 block + counter math
+  const ub = cfg.usage_rights_benchmarks_2026;
+  const addons = DA.usageAddons(25000, ub);
+  const p3 = addons.find((a) => a.id === "paid_3mo");
+  check("wf1: 3mo usage add-on on $25k = $6,300–$13,000 (+25–50%)",
+    p3.lo === 6300 && p3.hi === 13000, `${p3.lo}-${p3.hi}`);
+  const co = DA.counterOffer(Object.assign({}, deal, { usage: "paid_3mo" }), rc, ub);
+  check("wf1: counter totals pin ($31,300–$38,000)",
+    co.totalLo === 31300 && co.totalHi === 38000, co.totalLabel);
 })();
 
 /* ============ Workflow 2: 90-day launch plan, cooking channel ============
@@ -558,6 +564,89 @@ function check(name, cond, detail) {
   check("wf10: unknown source fails clean, source-in-dests is ignored",
     !CE.adaptChecklist("myspace", ["shorts"]).ok
     && CE.adaptChecklist("tiktok", ["tiktok", "shorts"]).cards.length === 1);
+})();
+
+/* ============ Workflow 12: full Deal Analyzer 2.0 run ============
+ * AGENT.md §Workflow 12: paste-the-terms -> verdict + term flags +
+ * contract checklist + counter + export, all through the real engine. */
+(function workflow12() {
+  const DA = require(path.join(__dirname, "..", "assets", "js", "deal-analyzer.js"));
+  const cfg = load("calculators.json");
+  const rc = cfg.sponsorship_rate_card_2026;
+  const ub = cfg.usage_rights_benchmarks_2026;
+  const flags = load("deal-templates.json").contract_flags;
+
+  const v = DA.validInput({
+    platform: "youtube", deliverable: "dedicated", followers: 200000,
+    expectedViews: 150000, offerUsd: 8000, usage: "paid_12mo",
+    whitelisting: "30", exclusivity: "30", paymentTerms: "60",
+    postCount: 4, timeline: "rush", niche: "finance_investing",
+    contract: { ip: "brand_full", cancel: "no", usageWords: "specific",
+      exclRenew: "no", payMetrics: "no", morals: "mutual",
+      paySchedule: "yes", approval: "defined", ftc: "yes", scope: "no" }
+  });
+  check("wf12: hostile-ish terms validate", v.ok);
+  const deal = v.deal;
+
+  const ev = DA.evaluate(deal, rc);
+  check("wf12: macro/finance range $25,000–$130,000, $8k = UNDERPAID",
+    JSON.stringify(ev.range) === "[25000,130000]" && ev.verdict === "UNDERPAID",
+    ev.verdict + " " + JSON.stringify(ev.range));
+
+  const termFlags = DA.offerTermFlags(deal);
+  const flagTitles = termFlags.map((f) => f.title).join("|");
+  check("wf12: term scan flags 12mo usage + 30d whitelisting + 30d exclusivity + net-60 + rush",
+    /paid-ads window/.test(flagTitles) && /whitelisting/.test(flagTitles)
+    && /exclusivity/.test(flagTitles) && /Net 60/.test(flagTitles) && /Rush/.test(flagTitles),
+    flagTitles);
+
+  const ids = DA.mapTermsToFlags(deal);
+  check("wf12: brand-full IP maps to ip_assignment", ids.includes("ip_assignment"));
+  const risk = DA.contractRisk(ids, flags);
+  check("wf12: walk_away IP clause -> dont_sign", risk.verdict === "dont_sign");
+
+  const co = DA.counterOffer(deal, rc, ub);
+  check("wf12: counter has base + usage + whitelisting + exclusivity lines",
+    co.lines.length === 4, String(co.lines.length));
+  check("wf12: 4-post bundle note carries 15–20% + 41%",
+    co.bundleNote && /15–20%/.test(coBundleNote(co)) && /41%/.test(coBundleNote(co)));
+
+  const rep = DA.exportReport({ brand: "FinBrand", deal, evaluation: ev,
+    termFlags, contractRisk: risk, counter: co });
+  check("wf12: export report opens with brand + carries verdict and disclaimers",
+    rep.indexOf("DEAL EVALUATION — FinBrand") === 0
+    && rep.indexOf("RATE-CARD VERDICT: UNDERPAID") !== -1
+    && /NOT legal advice/.test(rep) && /not financial advice/.test(rep));
+
+  function coBundleNote(c) { return c.bundleNote || ""; }
+})();
+
+/* ============ Workflow 13: solveForGoal — "what would it take?" ============
+ * AGENT.md §Workflow 13: invert the simulator — binary-search growth or
+ * cadence to land a target by a month, then re-verify by re-simulation. */
+(function workflow13() {
+  const sim = require(path.join(__dirname, "..", "assets", "js", "sim-engine.js"));
+  const cfg = load("calculators.json");
+  const inputs = { niche: "education", startSubs: 1000, longformPerWeek: 1,
+    shortsPerWeek: 3, quality: "solid", growthRate: 0.12, rpmLevel: "mid",
+    q4Uplift: 0.6, ads: true, sponsors: true, affiliates: true,
+    digital: false, horizon: 24 };
+
+  const s = sim.solveForGoal(inputs, cfg,
+    { target: "subs", value: 100000, month: 18, variable: "growth" });
+  check("wf13: 100k subs by m18 solves", s.ok && s.variable === "growth", s.valueLabel);
+  const again = Object.assign({}, inputs, { growthRate: s.value });
+  check("wf13: re-simulation at solved growth reaches 100k by m18",
+    sim.simulate(again, cfg).months[17].subs >= 100000);
+
+  const un = sim.solveForGoal(inputs, cfg,
+    { target: "subs", value: 1e12, month: 12, variable: "growth" });
+  check("wf13: impossible target is honestly unreachable", !un.ok && un.reason === "unreachable");
+
+  const st = sim.solveForGoal(inputs, cfg,
+    { target: "stage", value: 4, month: 24, variable: "growth" });
+  check("wf13: stage 4 without a team is refused with guidance",
+    !st.ok && st.reason === "stage4_needs_team");
 })();
 
 console.log(`\nagent-workflows: ${pass} passed, ${fail} failed`);

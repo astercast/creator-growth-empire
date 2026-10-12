@@ -23,7 +23,7 @@
   <button class="nav-toggle" aria-expanded="false" aria-controls="mobileNav" aria-label="Menu">☰</button>
 </header>
 <nav id="mobileNav" class="mobile-nav" aria-label="Mobile"><a href="index.html" class="nav-link">Empire Map</a><a href="tools.html" class="nav-link active">All tools</a><a href="quiz.html" class="nav-link">Niche Picker</a><a href="calculator.html" class="nav-link">Revenue Calc</a><a href="planner.html" class="nav-link">90-Day Plan</a><a href="deal-analyzer.html" class="nav-link">Deal Analyzer</a><a href="hiring-calculator.html" class="nav-link">Hire Calc</a><a href="repurpose.html" class="nav-link">Repurpose Plan</a><a href="simulator.html" class="nav-link">Simulator</a><a href="case-files.html" class="nav-link">All case files</a><a href="glossary.html" class="nav-link">Glossary</a><a href="agents.html" class="nav-link">Agents</a></nav>
-<main id="main"><div class="tool-page"><div class="hud-panel"><div class="hud-head"><span>TOOL // 08 — EMPIRE SIMULATOR</span><span class="hud-status">SYSTEMS ONLINE</span></div><div class="hud-body"><h1>Empire Simulator</h1><p class="lede">Simulate 12–36 months of channel growth + revenue — 12-scenario library, A/B comparison, team hiring P&amp;L, what-if event cards, Money Map stage transitions — a model, not a prediction.</p></div></div><div class="honesty-banner" role="note" aria-label="Honesty banner">
+<main id="main"><div class="tool-page"><div class="hud-panel"><div class="hud-head"><span>TOOL // 08 — EMPIRE SIMULATOR</span><span class="hud-status">SYSTEMS ONLINE</span></div><div class="hud-body"><h1>Empire Simulator</h1><p class="lede">Simulate 12–36 months of channel growth + revenue — 12-scenario library, A/B comparison, team hiring P&amp;L, what-if event cards, Money Map stage transitions, the “what would it take?” goal solver, live re-run — a model, not a prediction.</p></div></div><div class="honesty-banner" role="note" aria-label="Honesty banner">
   <strong>A MODEL, NOT A PREDICTION.</strong>
   <span>Every number below comes from the site's 2026 research + assumptions you can see and change. Change the assumptions, change the empire. Nothing here is a promise — platforms move, audiences surprise, luck exists.</span>
 </div>
@@ -162,7 +162,12 @@
     </div>
   </details>
 
-  <button type="submit" class="btn btn-primary" style="margin-top:1.5rem">Run the simulation →</button>
+  <div style="margin-top:1.5rem">
+    <button type="submit" class="btn btn-primary">Run the simulation →</button>
+    <label class="check" style="margin-left:1rem"><input type="checkbox" id="s-live" checked> Live update <span class="muted" style="font-size:.85rem">(re-run as I type)</span></label>
+    <label class="check" style="margin-left:1rem"><input type="checkbox" id="s-calm"> Calm mode <span class="muted" style="font-size:.85rem">(still the motion)</span></label>
+    <span id="s-live-status" class="muted" role="status" style="font-size:.85rem"></span>
+  </div>
 </form>
 
 <section class="hud-panel" aria-label="A/B comparison" style="margin-top:1.5rem">
@@ -177,6 +182,39 @@
     </div>
     <button type="button" class="btn" id="cmp-run">Run the comparison &rarr;</button>
     <div id="cmp-output" aria-live="polite"></div>
+  </div>
+</section>
+
+<section class="hud-panel" aria-label="Goal solver" style="margin-top:1.5rem">
+  <div class="hud-head"><span>WHAT WOULD IT TAKE? // THE GOAL SOLVER</span><span class="hud-status">INVERT THE MODEL</span></div>
+  <div class="hud-body">
+    <p class="muted" style="font-size:.9rem">Name the destination and the deadline — the solver binary-searches the model for the <em>one input</em> that gets you there, holding everything else fixed. The answer is the model's, never a promise: reality has variance, the solver doesn't.</p>
+    <div class="calc-grid">
+      <label>I want
+        <select id="s-goal-target">
+          <option value="subs" selected>Subscribers</option>
+          <option value="net">Net revenue in one month ($)</option>
+          <option value="stage">A Money Map stage</option>
+        </select></label>
+      <label>Target value
+        <input type="number" id="s-goal-value" min="1" value="100000" step="1000"></label>
+      <label id="s-goal-stage-row" style="display:none">Stage
+        <select id="s-goal-stage">
+          <option value="1">Stage 1 — First $100</option>
+          <option value="2" selected>Stage 2 — The Engine Runs</option>
+          <option value="3">Stage 3 — The Business</option>
+          <option value="4">Stage 4 — The Company</option>
+        </select></label>
+      <label>By month
+        <input type="number" id="s-goal-month" min="1" max="36" value="24" step="1"></label>
+      <label>Solve for
+        <select id="s-goal-var">
+          <option value="growth" selected>Base monthly growth rate</option>
+          <option value="cadence">Long-form videos / week</option>
+        </select></label>
+    </div>
+    <button type="button" class="btn" id="s-goal-run">Solve it →</button>
+    <div id="s-goal-out" aria-live="polite" class="goal-out"></div>
   </div>
 </section>
 
@@ -209,7 +247,7 @@
       <a href="quiz.html">Niche Picker</a>
       <a href="calculator.html">Revenue Calculator</a>
       <a href="planner.html">90-Day Planner</a>
-      <a href="deal-analyzer.html">Sponsor Deal Analyzer</a>
+      <a href="deal-analyzer.html">The Deal Analyzer</a>
       <a href="hiring-calculator.html">Hiring Cost Calculator</a>
       <a href="repurpose.html">Repurposing Planner</a>
       <a href="simulator.html">Empire Simulator</a>

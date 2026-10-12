@@ -58,7 +58,7 @@ Goal: give a creator a go/no-go with a counter-offer, in one pass.
 1. `GET api/v1/calculators.json` → `sponsorship_rate_card_2026`. Creator: 60K YouTube subs → micro tier (10K–100K) → YouTube range **$1,000–$10,000**.
 2. $5,000 is inside the band → fair, not strong. Implied CPM check: $5,000 ÷ 85K expected views × 1000 = **$58.82** vs the integrated-slot benchmark ($20–$35) — priced like a dedication, so the counter is justified.
 3. Red flags from the offer's terms (perpetual usage? broad exclusivity? net-60?): price paid-ad usage +50–100% and exclusivity +25%+ as separate line items; counter net-30 with 50% upfront.
-4. Build the counter per the `deal-negotiation` skill: base = top of range ($10,000) + line items. The interactive [Sponsor Deal Analyzer](deal-analyzer.html) runs the identical logic for humans.
+4. Build the counter per the `deal-negotiation` skill: base = top of the niche-adjusted range + line items. The interactive [The Deal Analyzer](deal-analyzer.html) runs the identical logic for humans — verdict, flag scans, contract checklist, counter worksheet, shareable report.
 5. Return: verdict (fair), the two checks that produced it, the red-flag list, and a counter-offer worksheet. Never present benchmark ranges as quotes; never give financial advice.
 
 ### 2. Plan a 90-day launch

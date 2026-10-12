@@ -512,3 +512,115 @@ output { font-family: var(--font-mono); color: var(--acid); font-weight: 700; }
 .curve-tag { font-family: var(--font-mono); font-size: 10px; fill: var(--muted, #999); }
 .curve-sketch figcaption { font-size: 0.88rem; margin-top: 0.6rem; }
 .curve-sketch figcaption strong { display: block; margin-bottom: 0.2rem; }
+
+/* ---------- wave 26: design-craft layer ----------
+ * Mandatory input: the web-craft research domain (2026-10-11). Applied with
+ * restraint — animation needs a job, one delight per view, identity kept.
+ * - text-wrap: balance on headings (Baseline 2024)
+ * - tabular numerals on chart ticks (chart typography)
+ * - :has() focus affordance on form fieldsets (Baseline)
+ * - stage bands / event markers / milestone dots for the Simulator 4.0 charts
+ * - .eyebrow numbered section labels + .breadcrumb for the Deal Analyzer
+ * - print stylesheet for the deal evaluation report (Print / save PDF)
+ * - round-2 (landed reports): motion tokens on view transitions, cross-document
+ *   VT gated on no-preference, calm-mode sensory toggle, 65ch + pretty via
+ *   @supports, content-visibility on long lists, chart data tables, focusable
+ *   chart markers with visible perimeters */
+h1, h2, h3 { text-wrap: balance; }
+.chart-tick { font-variant-numeric: tabular-nums; }
+.chart-event { font-size: 14px; }
+.chart-dot { fill: var(--gold); stroke: var(--bg); stroke-width: 1.5; }
+.stage-band-0 { fill: var(--acid); opacity: 0.05; }
+.stage-band-1 { fill: var(--gold); opacity: 0.07; }
+.stage-band-2 { fill: var(--coral); opacity: 0.07; }
+.stage-band-3 { fill: var(--violet); opacity: 0.08; }
+.stage-band-4 { fill: var(--cyan); opacity: 0.08; }
+.stage-swatch-0 { background: var(--acid); opacity: 0.6; }
+.stage-swatch-1 { background: var(--gold); opacity: 0.7; }
+.stage-swatch-2 { background: var(--coral); opacity: 0.7; }
+.stage-swatch-3 { background: var(--violet); opacity: 0.8; }
+.stage-swatch-4 { background: var(--cyan); opacity: 0.8; }
+
+/* form sections get a quiet accent when the user is working inside them.
+ * :focus-visible, not bare :focus — keyboard users get the ring (2026 a11y). */
+fieldset.hud-panel:has(select:focus-visible, input:focus-visible, textarea:focus-visible) {
+  border-color: var(--gold);
+}
+
+/* (round-2 note: field-sizing: content evaluated — no textarea targets on the
+ * current tool pages; add it when a notes/paste textarea ships.) */
+
+/* numbered section eyebrows — dashboard architecture for long reports */
+.eyebrow {
+  font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--gold); margin: 2rem 0 -0.4rem;
+}
+.eyebrow + h3 { margin-top: 0.4rem; }
+
+/* breadcrumb trail */
+.breadcrumb { font-size: 0.85rem; color: var(--muted); margin: 0 0 1rem; }
+.breadcrumb a { color: var(--muted); }
+.breadcrumb [aria-current] { color: var(--ink); }
+
+/* goal-solver panel */
+.goal-out { margin-top: 1rem; }
+
+/* ---- wave-26 round-2 design applications (web-craft 2026-10-11 reports) ----
+ * - motion tokens drive the view-transition choreography (physics, not curves:
+ *   entrances decelerate; never ease-in on an entrance)
+ * - cross-document view transitions as progressive enhancement, gated on
+ *   no-preference (Baseline same-document since Oct 2025; cross-document
+ *   ~87% — Firefox lights up automatically when it ships)
+ * - calm mode: the sensory-envelope toggle (TetraLogical-backed 2026 pattern).
+ *   User-activated, goes beyond the prefers-reduced-motion binary.
+ * - 65ch measure + text-wrap: pretty via @supports (Firefox status conflicted —
+ *   progressive enhancement only, no version cited)
+ * - content-visibility on long result lists (rendering budget, no layout shift)
+ * - chart data tables: non-hover readouts via native <details> (free keyboard)
+ * - keyboard-focusable chart markers: visible 2px perimeter, never color-only */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: var(--dur-moderate);
+  animation-timing-function: var(--ease-decelerate);
+}
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
+.deal-report p, .deal-report li, .da-explain { max-inline-size: 65ch; }
+@supports (text-wrap: pretty) {
+  .deal-report p, .da-explain { text-wrap: pretty; }
+}
+html[data-calm] { scroll-behavior: auto; }
+html[data-calm] *,
+html[data-calm] *::before,
+html[data-calm] *::after {
+  animation: none !important;
+  transition: none !important;
+}
+#s-out .calc-grid, #da-history .table-wrap {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 320px;
+}
+.chart-data { margin-top: 0.6rem; }
+.chart-data summary {
+  cursor: pointer; font-size: 0.85rem; color: var(--muted);
+  padding: 0.35rem 0; border-radius: var(--radius-sm);
+}
+.chart-data summary:focus-visible {
+  outline: 2px solid var(--gold); outline-offset: 2px; color: var(--ink);
+}
+.chart-data table { font-variant-numeric: tabular-nums; }
+.chart-mark { cursor: default; }
+.chart-mark:focus { outline: 2px solid var(--gold); outline-offset: 3px; }
+.chart-mark:focus .chart-dot { stroke: var(--gold); stroke-width: 2.5; }
+
+/* print: the deal evaluation becomes a clean one-page report */
+@media print {
+  .site-header, .mobile-nav, .nav-toggle, .site-footer, .skip-link,
+  .no-print, .breadcrumb { display: none !important; }
+  body { background: #fff; color: #111; }
+  .deal-report .calc-out, .deal-report .table-wrap { break-inside: avoid; }
+  .deal-report { max-width: 100%; }
+  .deal-report h2, .deal-report h3 { color: #111; border-color: #ccc; }
+  .deal-report .muted { color: #444; }
+}

@@ -130,11 +130,11 @@ TOOLS = [
     ("quiz", "Niche Picker", "Answer 6 questions, get ranked niche suggestions with reasoning — or take the 4-question \"Pick my 2027 niche\" branch, scored against the Niche Atlas 2027 outlook layer."),
     ("calculator", "Revenue Calculator", "Project revenue from views, niche, sponsors, and affiliates — with honest ranges."),
     ("planner", "90-Day Planner", "Generate a posting schedule from your platforms and cadence. Printable."),
-    ("deal-analyzer", "Sponsor Deal Analyzer", "Benchmark a sponsor offer against the 2026 rate card — verdict, red-flag checklist, counter-offer worksheet."),
+    ("deal-analyzer", "The Deal Analyzer", "Paste the brand's terms — rate-card verdict with platform multipliers + niche adjustment, the wave-22 contract checklist applied to the deal, counter-offer calculator, 2026 usage-rights add-on math, deal history + comparison mode."),
     ("deal-room", "The Deal Room", "Manage the whole deal: track offers through signing, price usage rights, rehearse negotiations, export your memo."),
     ("hiring-calculator", "Hiring Cost Calculator", "Price your first hire: monthly/annual cost and the ad revenue needed to cover it — honest math, no promises."),
     ("repurpose", "Repurposing Planner", "Turn one idea into a 5-platform mission-card checklist from the Phase 3 repurposing SOP."),
-    ("simulator", "Empire Simulator", "Simulate 12–36 months of channel growth + revenue — 12-scenario library, A/B comparison, team hiring P&L, what-if event cards, Money Map stage transitions — a model, not a prediction."),
+    ("simulator", "Empire Simulator", "Simulate 12–36 months of channel growth + revenue — 12-scenario library, A/B comparison, team hiring P&L, what-if event cards, Money Map stage transitions, the \u201cwhat would it take?\u201d goal solver, live re-run — a model, not a prediction."),
     ("api-explorer", "API Explorer", "Browse every api/v1 endpoint and preview JSON responses live in your browser — no key, no server."),
     ("hook-builder", "Hook Builder", "Type your video topic, get five filmed-ready hooks — one per Short-Form Playbook structure. Flip-through cards."),
     ("idea-bank", "Idea Bank", "Capture ideas with hook-strength scores (1–5, Playbook structures), niche tags, and effort estimates — promote the best to production."),
@@ -220,8 +220,8 @@ TOOLS_API = [
       }},
      "13-week posting schedule (91 days): per-day long-form and short-form assignments, totals, a day-45 checkpoint review note.",
      "Layout logic (assets/js/planner.js): long-form spread across non-rest days, shorts spread 2 days apart, week 7 flagged as the midpoint review. Rest day is non-negotiable — no posting, analytics review only."),
-    ("deal-analyzer", "Sponsor Deal Analyzer",
-     "Benchmark a sponsor offer against the 2026 rate card — verdict, red-flag checklist, counter-offer worksheet.",
+    ("deal-analyzer", "The Deal Analyzer",
+     "Paste the brand's terms — rate-card verdict with platform multipliers + niche adjustment, the wave-22 contract checklist applied to the deal, counter-offer calculator, 2026 usage-rights add-on math, deal history + comparison mode.",
      "deal-analyzer.html",
      {"$schema": "http://json-schema.org/draft-07/schema#", "title": "DealAnalyzerInput",
       "type": "object", "required": ["platform", "deliverable", "followers", "offer_usd"],
@@ -230,22 +230,46 @@ TOOLS_API = [
           "deliverable": {"type": "string",
                           "enum": ["integrated", "dedicated", "short"],
                           "description": "Integrated slot, dedicated video, or short-form video."},
+          "niche": {"type": "string",
+                    "enum": ["finance_investing", "tech_software", "education",
+                             "health_fitness", "lifestyle", "gaming",
+                             "comedy_entertainment", "music"],
+                    "description": "Optional — adjusts the verdict range by the niche multiplier (finance/tech x2.5, entertainment/gaming/music x0.6) and enables the AIR category-CPM cross-check where mapped."},
           "followers": {"type": "number", "minimum": 0},
           "offer_usd": {"type": "number", "minimum": 0},
           "expected_views": {"type": "number", "minimum": 0, "default": 0,
-                             "description": "If known, enables the implied-CPM check."},
-          "usage_rights": {"type": "string",
-                           "enum": ["organic_only", "paid30", "paid180", "paid365", "perpetual"],
-                           "default": "organic_only"},
+                             "description": "If known, enables the implied-CPM check and the category-CPM cross-check."},
+          "post_count": {"type": "integer", "minimum": 1, "default": 1,
+                         "description": "Posts in the bundle — 3+ triggers the 15-20% bundle-discount guidance."},
+          "usage": {"type": "string",
+                    "enum": ["organic_only", "paid_3mo", "paid_6mo", "paid_12mo", "perpetual"],
+                    "default": "organic_only"},
           "whitelisting": {"type": "string", "enum": ["none", "30", "90", "perpetual"],
                            "default": "none"},
           "exclusivity": {"type": "string", "enum": ["none", "30", "90", "broad"],
                           "default": "none"},
-          "payment_terms": {"type": "string", "enum": ["30", "60", "90"],
+          "payment_terms": {"type": "string", "enum": ["15", "30", "60", "90"],
                             "default": "30", "description": "Net payment terms in days."},
+          "timeline": {"type": "string",
+                       "enum": ["relaxed", "standard", "rush", "unknown"],
+                       "default": "unknown"},
+          "contract": {"type": "object",
+                       "description": "Ten contract-language answers feeding the wave-22 checklist.",
+                       "properties": {
+                           "ip": {"type": "string", "enum": ["mine", "brand_full", "unclear"]},
+                           "cancel": {"type": "string", "enum": ["no", "yes"]},
+                           "usageWords": {"type": "string", "enum": ["specific", "all_media", "unclear"]},
+                           "exclRenew": {"type": "string", "enum": ["no", "yes"]},
+                           "payMetrics": {"type": "string", "enum": ["no", "yes"]},
+                           "morals": {"type": "string", "enum": ["none", "mutual", "one_sided"]},
+                           "paySchedule": {"type": "string", "enum": ["yes", "no"]},
+                           "approval": {"type": "string", "enum": ["defined", "vague"]},
+                           "ftc": {"type": "string", "enum": ["yes", "no"]},
+                           "scope": {"type": "string", "enum": ["no", "yes"]},
+                       }},
       }},
-     "Verdict (UNDERPAID / FAIR / STRONG), benchmark range, implied CPM vs rate-card CPMs, red-flag checklist (usage, whitelisting, exclusivity, payment), counter-offer worksheet with line items.",
-     "Logic (assets/js/deal-analyzer.js): followers → tier (nano/micro/macro/mega) → per_video_or_post_by_tier range for platform; verdict = offer vs range; counter starts at range top (creators list ~23% above what they accept) + usage line items (paid30 +50%, paid180 +75%, paid365 +100%) + exclusivity (30d +25%, 60–90d +50%). Negotiation aid, not financial advice."),
+     "Verdict (UNDERPAID / FAIR / STRONG) against the niche-adjusted benchmark range, implied CPM vs rate-card CPMs, AIR category-CPM cross-check (where mapped), offer-term flags, wave-22 contract checklist verdict (clean / caution / dont_sign) with per-flag fixes, counter-offer with line-item ranges + open-ended totals, usage-rights add-on table, plaintext export.",
+     "Engine (assets/js/deal-analyzer.js, UMD — require() it in node): DealAnalyzer.validInput() normalizes; .evaluate(deal, rateCard) returns the tier range x niche multiplier (parity-pinned with the simulator's sponsorNicheMult), verdict, implied CPM, categoryCheck (AIR Oct-2026 category CPMs: finance/real-estate $58, B2B SaaS/AI $46.50, health $28, gaming/tech $18.50, entertainment $14), cross-platform ranges + the 1.7x/0.85x note, and the 23%-benchmark expected close; .offerTermFlags() scans usage/whitelisting/exclusivity/payment/timeline; .mapTermsToFlags() + .contractRisk(flagIds, deal-templates.json contract_flags) apply the wave-22 checklist (walk_away = dont_sign, major 2pts, minor 1pt, 3+ = dont_sign — same scoring as Outreach.contractRisk); .usageAddons() prices the 2026 benchmark ranges (3mo +25-50%, 3-6mo +50-75%, 6-12mo +75-100%, perpetual from 2x; whitelisting 30-100%/mo) from calculators.json usage_rights_benchmarks_2026 (v1.4.0); .counterOffer() builds base + line items + open-ended totals + the 15-20% bundle guidance; .exportReport() renders the plaintext evaluation; .compareDeals() diffs two saved deals. Browser history/compare/print live in assets/js/deal-analyzer-ui.js (localStorage only). Negotiation aid — not financial, legal, or tax advice; the checklist is not legal advice. See AGENT.md Workflow 12."),
     ("deal-room", "The Deal Room",
      "Manage the whole deal: track offers through signing, price usage rights, rehearse negotiations, export your memo.",
      "deal-room.html",
@@ -315,7 +339,7 @@ TOOLS_API = [
      "Five mission cards (YouTube Day 0, Short Day +1, TikTok Day +2, Reel Day +3, Facebook Day +4) each with a hook rewrite, atom test, and native-grammar checklist.",
      "Logic (assets/js/repurpose.js + assets/js/content-engine.js): atom test (does the insight survive standalone?), pillar prep (hook in first 15s), then the five staggered mission cards. Enforce native grammar — no watermarks, no copy-paste. 2.0 adds the full derivative map via ContentEngine.repurposeMap (7 derivatives: short clip, community reaction, TikTok cut, Reel cut, newsletter issue, X thread, Facebook post) — every derivative carries a required original element (repurposing is not re-uploading) plus the Oct-1 originality guardrails (ContentEngine.originalityGuardrails). Machine-readable map + guardrails: api/v1/content-engine.json repurposing_2_0 / originality_guardrails."),
     ("simulator", "Empire Simulator",
-     "Simulate 12–36 months of channel growth + revenue — 12-scenario library, A/B comparison, team hiring P&L, what-if event cards, Money Map stage transitions — a model, not a prediction.",
+     "Simulate 12–36 months of channel growth + revenue — 12-scenario library, A/B comparison, team hiring P&L, what-if event cards, Money Map stage transitions, the \u201cwhat would it take?\u201d goal solver, live re-run — a model, not a prediction.",
      "simulator.html",
      {"$schema": "http://json-schema.org/draft-07/schema#", "title": "SimulatorInput",
       "type": "object", "required": ["niche", "start_subs", "longform_per_week"],
@@ -375,7 +399,7 @@ TOOLS_API = [
                     }},
       }},
      "12-, 24-, or 36-month projection: subs, views, and revenue per month per stream (ads, sponsors, affiliates, digital), month-by-month team P&L (gross, team cost, net), per-month Money Map stage (0-4 from monthly net + team) with the stage-transition timeline, active what-if event cards per month, totals, milestones, and the full named-assumptions list. compare() adds side-by-side deltas (B minus A) and a verdict. exportPlan() renders the copy-my-empire-plan text incl. the stage journey. A model, not a prediction.",
-     "Engine (assets/js/sim-engine.js, UMD — importable in node): simulate(inputs, cfg) with cfg = calculators.json. scenarioInputs(id) loads a named preset from the SCENARIOS library (12 presets, research-sourced assumptions); compare(nameA, inputsA, nameB, inputsB, cfg) runs two configs over the same clock (deltas are B minus A); assumptionLines(inputs, res) is the always-visible assumptions panel; exportPlan(scenarioName, inputs, res) renders the share text; normalizeEvents() validates the 5 what-if cards; stageForNet(net, teamActive) is the single source of the 0-4 stage rule. Growth compounds monthly x niche factor x quality x cadence (diminishing, capped 2.5x). Hires add output/quality and subtract cost monthly (first active month at 50% ramp). Year-2 decays growth x0.94/mo after month 12; year-3 x0.97/mo after month 24 (growth stays positive — plateau, not collapse). RPMs come from calculators.json youtube_longform_rpm_bands. Every assumption is named in DEFAULTS and listed on-page."),
+     "Engine (assets/js/sim-engine.js, UMD — importable in node): simulate(inputs, cfg) with cfg = calculators.json. scenarioInputs(id) loads a named preset from the SCENARIOS library (12 presets, research-sourced assumptions); compare(nameA, inputsA, nameB, inputsB, cfg) runs two configs over the same clock (deltas are B minus A); assumptionLines(inputs, res) is the always-visible assumptions panel; exportPlan(scenarioName, inputs, res) renders the share text; normalizeEvents() validates the 5 what-if cards; stageForNet(net, teamActive) is the single source of the 0-4 stage rule; solveForGoal(inputs, cfg, {target: \"subs\"|\"net\"|\"stage\", value, month, variable: \"growth\"|\"cadence\"}) binary-searches base growth (whole %) or long-form cadence (half videos) until the target lands by the month — pure inversion of simulate(), no new claims (see AGENT.md Workflow 13). The 4.0 UI adds live re-run (debounced), stage-banded subscriber charts with milestone/event markers, year cards, and an always-visible assumptions block. Growth compounds monthly x niche factor x quality x cadence (diminishing, capped 2.5x). Hires add output/quality and subtract cost monthly (first active month at 50% ramp). Year-2 decays growth x0.94/mo after month 12; year-3 x0.97/mo after month 24 (growth stays positive — plateau, not collapse). RPMs come from calculators.json youtube_longform_rpm_bands. Every assumption is named in DEFAULTS and listed on-page."),
     ("api-explorer", "API Explorer",
      "Browse every api/v1 endpoint and preview JSON responses live in your browser — no key, no server.",
      "api-explorer.html",
@@ -897,7 +921,7 @@ def page_template(title, body, active="", extra_head=""):
       <a href="quiz.html">Niche Picker</a>
       <a href="calculator.html">Revenue Calculator</a>
       <a href="planner.html">90-Day Planner</a>
-      <a href="deal-analyzer.html">Sponsor Deal Analyzer</a>
+      <a href="deal-analyzer.html">The Deal Analyzer</a>
       <a href="hiring-calculator.html">Hiring Cost Calculator</a>
       <a href="repurpose.html">Repurposing Planner</a>
       <a href="simulator.html">Empire Simulator</a>
@@ -1077,7 +1101,7 @@ def build():
         "quiz": ["assets/js/quiz.js"],
         "calculator": ["assets/js/calculator.js"],
         "planner": ["assets/js/planner.js"],
-        "deal-analyzer": ["assets/js/deal-analyzer.js"],
+        "deal-analyzer": ["assets/js/deal-analyzer.js", "assets/js/deal-analyzer-ui.js"],
         "deal-room": ["assets/js/deal-room.js", "assets/js/deal-room-ui.js"],
         "hiring-calculator": ["assets/js/hiring-calculator.js"],
         "repurpose": ["assets/js/content-engine.js", "assets/js/repurpose.js"],
@@ -1171,7 +1195,7 @@ def build():
         + '<section class="section honesty"><h2>Pick by job, not by shine</h2>'
         "<p>Every tool on this page reads the same 2026 research the rest of the site is built on. "
         "Start with the Niche Picker if you're undecided, the Revenue Calculator if you have views, "
-        "and the Sponsor Deal Analyzer the moment a brand emails you. "
+        "and The Deal Analyzer the moment a brand emails you. "
         "Not sure where you stand at all? Take <a href=\"money-map.html\">The Money Map</a> — "
         "7 questions, your stage, your next 3 moves.</p></section>")
     (SITE / "tools.html").write_text(page_template("All Tools", tools_body, active="tools.html"), encoding="utf-8")
@@ -1584,7 +1608,7 @@ def build():
         "required": ["version", "updated", "youtube_longform_rpm_bands",
                      "niche_growth_2026", "platform_rules_2026",
                      "sponsorship_rate_card_2026", "platform_thresholds",
-                     "revenue_splits"],
+                     "revenue_splits", "usage_rights_benchmarks_2026"],
         "properties": {
             "version": {"type": "string"},
             "updated": {"type": "string"},
@@ -1608,6 +1632,29 @@ def build():
                              "instagram_reels"],
             },
             "sponsorship_rate_card_2026": {"type": "object"},
+            "usage_rights_benchmarks_2026": {
+                "type": "object",
+                "required": ["date", "source", "note", "tiers", "whitelisting_per_month_pct"],
+                "properties": {
+                    "tiers": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "required": ["id", "label", "addon_pct", "note"],
+                            "properties": {
+                                "id": {"type": "string"},
+                                "label": {"type": "string"},
+                                "addon_pct": {"type": "array",
+                                            "items": {"type": ["number", "null"]},
+                                            "minItems": 2, "maxItems": 2},
+                                "note": {"type": "string"},
+                            },
+                        },
+                    },
+                    "whitelisting_per_month_pct": {"type": "array",
+                        "items": {"type": "number"}, "minItems": 2, "maxItems": 2},
+                },
+            },
             "platform_thresholds": {"type": "object"},
             "revenue_splits": {"type": "object"},
         },
@@ -2053,7 +2100,7 @@ def build():
     for slug, title, desc in TOOLS:
         llms.append(f"- [{title}]({slug}.html) — {desc}")
     llms += ["- [Glossary](glossary.html)", "",
-             "All seventeen tools, grouped by job (Plan / Money / Content): [Tools hub](tools.html).",
+             "All eighteen tools, grouped by job (Plan / Money / Content): [Tools hub](tools.html).",
              "", "## Reference"]
     for m in reference_meta:
         llms.append(f"- [{m['badge']}: {m['title']}]({m['path']}) — {m['read_minutes']} min read")
@@ -2077,7 +2124,7 @@ def build():
              "- api/v1/content-engine.json — Content Engine data: idea formats, Playbook hook structures, dealing rules, Repurposing 2.0 map, originality guardrails, deal-slot guidance",
              "- api/v1/schema/ — JSON Schema (draft-07) for every endpoint",
              "", "## Agents",
-             "- AGENT.md — how an agent uses this site: base URL pattern, example requests, 9 end-to-end workflows, tool input schemas",
+             "- AGENT.md — how an agent uses this site: base URL pattern, example requests, 13 end-to-end workflows, tool input schemas",
              "- [Agents](agents.html) — the agent surface: endpoint table, all skills, data freshness policy, 5 worked agent workflows",
              "- [API Explorer](api-explorer.html) — browse api/v1 endpoints, preview JSON in-browser",
              "- llms.txt (this file) — quick agent orientation",

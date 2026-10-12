@@ -43,23 +43,33 @@ Prefer running a skill over improvising the same task.
 
 ### Workflow 1 — Evaluate a $5K sponsorship offer for a 50K-sub tech channel
 
-Goal: verdict + counter-offer, using the rate card and the Sponsor Deal
-Analyzer's logic — all via API.
+Goal: verdict + counter-offer via The Deal Analyzer 2.0 engine — all via API.
 
 1. `GET api/v1/calculators.json` → `sponsorship_rate_card_2026`.
-   50K followers → `micro_10k_100k` tier → YouTube range **$1,000–$10,000**.
-2. Offer **$5,000** is inside the band → verdict **FAIR** (not strong).
-3. Implied-CPM check (integrated slot, 40K expected views):
-   $5,000 ÷ 40,000 × 1000 = **$125 CPM** vs the `youtube_integrated_slot`
-   benchmark **$20–$35** — priced like a *dedication*, so a counter is justified.
-4. Offer terms: 30-day paid usage, no exclusivity, net-30.
-   Red-flag scan: 30-day paid window → fine, but price it as a line item (+50%);
-   net-30 → sane. No structural red flags.
-5. Counter-offer worksheet (deal-analyzer math): base = top of range **$10,000**
-   (creators list ~23% above what they accept) + paid-usage line item +50%
-   (**$5,000**) → counter **$15,000**.
-6. Return: verdict (FAIR), the two checks that produced it, the flag scan, and
-   the worksheet. Benchmarks are negotiation ranges, never quotes.
+   50K followers → `micro_10k_100k` tier → YouTube base range **$1,000–$10,000**.
+2. Niche-adjust: tech ×2.5 (the simulator's `sponsorNicheMult`, same single
+   source) → verdict range **$2,500–$25,000**. Offer **$5,000** is inside →
+   verdict **FAIR**. The same $5K in gaming (×0.6 → $600–$6,000) also reads
+   FAIR — niche moves the verdict, not the offer.
+3. Implied-CPM check (dedicated video, 60K expected views):
+   $5,000 ÷ 60,000 × 1000 = **$83.33 CPM** vs the dedicated band **$50–$90**
+   (AIR agency-benchmark compilation, Oct 2026 — reported, not a rule of thumb).
+   Inside. Category cross-check: B2B SaaS & AI sponsors pay ~**$46.50**/1K
+   views → 60K views ≈ **$2,800** of category-rate value.
+4. Offer terms: 3-month paid usage, no exclusivity, net-30.
+   Red-flag scan: 3-month paid window → ok, but price it as a line item
+   (+25–50% per the 2026 usage benchmarks); net-30 → sane.
+   Contract answers (10 questions) map onto the wave-22 checklist
+   (`api/v1/deal-templates.json` `contract_flags`); any `walk_away` flag or
+   3+ points → don't sign. NOT legal advice.
+5. Counter-offer worksheet (`DealAnalyzer.counterOffer`): base = top of the
+   niche-adjusted range **$25,000** (creators list ~23% above what they accept;
+   expected close ≈ $25,000 ÷ 1.23 ≈ **$20,000**) + 3-month paid-usage line
+   item **$6,300–$13,000** → counter **$31,300–$38,000**. Usage rights are
+   always separate line items — never folded into the post fee.
+6. Return: verdict (FAIR), the checks that produced it, the flag scan, and
+   the worksheet. Benchmarks are negotiation ranges, never quotes. Not
+   financial, legal, or tax advice.
 
 ### Workflow 2 — Plan a 90-day launch for a cooking channel
 
@@ -242,7 +252,7 @@ all via API, no UI.
    goal, 3 moves with tool/page/why, trap, graduate-when.
 4. Example: YouTube, 10K–100K subs, $100–999/mo, multi-weekly, solo,
    monetization bottleneck, 1 stream → **Stage 2 (The Engine Runs)** →
-   moves: Deal Room → Revenue Calculator → Sponsor Deal Analyzer;
+   moves: Deal Room → Revenue Calculator → The Deal Analyzer;
    graduate-when: three consecutive $1K+ months from 2+ streams.
 5. Framing rule (non-negotiable): stages describe what creators at that level
    **typically focus on** — never income promises, timelines, or guarantees.
@@ -386,6 +396,62 @@ Money Map stage transitions, and a named shock card — all via API, no UI.
    they model (Oct-1 originality, Feb-2027 YPP) must be verified live.
    Not financial, legal, or tax advice.
 
+### Workflow 12 — Run a full Deal Analyzer 2.0 evaluation
+
+Goal: paste-the-terms → verdict + flag scans + contract checklist + counter
++ shareable report, all through the real engine (`require("assets/js/deal-analyzer.js")`
+— UMD, the same code the page runs).
+
+1. `GET api/v1/calculators.json` → `sponsorship_rate_card_2026` +
+   `usage_rights_benchmarks_2026` (v1.4.0); `GET api/v1/deal-templates.json`
+   → `contract_flags` (the wave-22 checklist, 10 flags, single data source).
+2. `DealAnalyzer.validInput({...})` — platform, deliverable, followers,
+   expected views, offer, usage/whitelisting/exclusivity/payment terms,
+   timeline, post count, niche, and the 10 contract-language answers. Validate
+   first; the engine coerces and defaults (unknown platform → youtube, unknown
+   niche → null — never stretched).
+3. `evaluate(deal, rateCard)` → tier, niche-adjusted range, FAIR/UNDERPAID/
+   STRONG verdict, implied-CPM position, category cross-check
+   (AIR Oct-2026 CPMs where mapped; null where unmapped), expected close
+   ($hi ÷ 1.23), cross-platform context. `offerTermFlags(deal)` → the
+   usage/whitelisting/exclusivity/payment/timeline scan.
+4. `mapTermsToFlags(deal)` maps the 10 answers onto flag ids;
+   `contractRisk(ids, flags)` scores them (walk_away → don't sign; major 2pts,
+   minor 1pt; 3+ → don't sign) — the identical scoring as the Outreach
+   Center. A negotiation aid, NOT legal advice.
+5. `counterOffer(deal, rateCard, benchmarks)` → line items (base + usage +
+   whitelisting + exclusivity, each labeled benchmark/chapter/rule), honest
+   2-significant-figure totals, open-ended `from $X` when perpetual usage is
+   in play, the 3+ post bundle note (15–20% off typical + the 41% stat).
+   `exportReport({brand, deal, evaluation, termFlags, contractRisk, counter})`
+   → the copy/send plaintext. `compareDeals(A, B)` → side-by-side of two
+   saved-deal snapshots (5 verdict rows + differing terms).
+6. Framing rule: **benchmarks are negotiation ranges, never quotes; the
+   report is a negotiation aid — not financial, legal, or tax advice.**
+
+### Workflow 13 — "What would it take?" (goal solver)
+
+Goal: invert the Empire Simulator — find the growth rate or cadence that
+lands a target by a target month, via API.
+
+1. `GET api/v1/calculators.json` as `cfg`; engine =
+   `require("assets/js/sim-engine.js")`.
+2. `EmpireSim.solveForGoal(inputs, cfg, {target: "subs"|"net"|"stage",
+   value, month, variable: "growth"|"cadence"})` — integer binary search:
+   growth = whole % (2–60), cadence = half-videos (0–14). Verified: 100K
+   subs by month 18 from 1K subs → **23% base monthly growth**
+   (re-simulation at 23% lands ≥100K at month 18 — the answer is always
+   re-verified, never trusted from the search alone).
+3. Honest edges, all labeled: already-there → short-circuit with the current
+   projection; unreachable at max settings → `unreachable` with the max
+   achievable stated; stage 4 without an active hire → `stage4_needs_team`
+   (stage 4 = team + ≥$10K net — the rule, not the solver, decides).
+4. Framing rule: the solver's answer is **the model's answer, not a promise**
+   — hold every other input fixed, reality has variance. Pair it with the
+   Lilach Bullock reality check the page shows (fewer than 1% of YouTube
+   channels ever reach 100K subscribers — single source, labeled as such).
+   Not financial, legal, or tax advice.
+
 ## Rate & expectation notes
 
 - **Static JSON.** Nothing here is live: no request counts, no streaming, no
@@ -393,8 +459,10 @@ Money Map stage transitions, and a named shock card — all via API, no UI.
   client-side filtering.
 - **Freshness dates.** Every payload states when it was generated
   (`updated`) and from what snapshot. `calculators.json` carries `version`
-  (1.3.0) and `updated` (2026-10-11); platform thresholds carry their own
-  `source` + observation date. **Treat undated numbers as stale.**
+  (1.4.0) and `updated` (2026-10-11); platform thresholds carry their own
+  `source` + observation date. **Treat undated numbers as stale.** The 1.4.0
+  block is `usage_rights_benchmarks_2026` (3mo +25–50% → perpetual from 2x
+  base, whitelisting 30–100%/mo — projectcasting 2026 via the Q4 sweep).
 - **Verify-live flags.** Platform rules (YPP tiers, TikTok Rewards, Reels
   signals) change constantly — the manifest marks `calculators` with a
   `freshness_note`: verify against the platform before acting. The most
@@ -415,11 +483,11 @@ explaining how to replicate the logic:
 | Niche Picker | 6 answers (`q1`–`q6`: interest, camera comfort, money-vs-audience, advantage, format, competition tolerance) + the **"Pick my 2027 niche" branch** (4 answers: 2027 bet, format, risk tolerance, skill fit — scored against the atlas outlook layer in `assets/js/quiz.js`) | Score via `assets/js/quiz.js` tag matching, or run the `niche-validation` skill |
 | Revenue Calculator | `niche` (RPM-band key) + monthly long-form/shorts views + sponsor deals + sponsor views + affiliate $ | `views/1000 × RPM band` per stream from `calculators.json`; affiliate ±30% |
 | 90-Day Planner | `longform_per_week` (0–7), `shorts_per_week` (0–21), `platforms[]`, `rest_day` (0–6) | Spread long-form across non-rest days, shorts 2 days apart, 13 weeks |
-| Sponsor Deal Analyzer | `platform`, `deliverable`, `followers`, `offer_usd` + `usage_rights`, `whitelisting`, `exclusivity`, `payment_terms` | Followers → tier → rate-card range; counter = range top + line items (see Workflow 1) |
+| The Deal Analyzer | `platform`, `deliverable`, `followers`, `offer_usd` + `niche`, `expected_views`, `usage_rights`, `whitelisting`, `exclusivity`, `payment_terms`, `timeline`, `post_count`, `contract{}` (10 answers) | `require("assets/js/deal-analyzer.js")` — `evaluate()` for the niche-adjusted verdict + implied-CPM + category cross-check, `offerTermFlags()` for the term scan, `mapTermsToFlags()` + `contractRisk()` for the wave-22 checklist, `counterOffer()` for the worksheet, `exportReport()` for the shareable report, `compareDeals()` for 2-deal comparison — see Workflows 1, 12 |
 | The Deal Room | `brand`, `platform`, `followers`, `deliverable`, `expected_views`, `offer_usd`, `usage_rights`, `exclusivity`, `payment_terms`, `timeline`, `status` (offer → negotiating → signed → delivered → paid) | `require("assets/js/deal-room.js")` — `scoreOffer()` for the verdict, `priceUsage()` for usage line items (reported +50/+75/+100% band; no invented whitelisting/buyout multipliers), `redFlagScore()` for the checklist, `renderScript()` for the 4 negotiation scripts, `dealMemo()` for the one-page record; scripts + checklist + tiers from `api/v1/deal-templates.json` — see Workflow 5 |
 | Hiring Cost Calculator | `role`, `billing_model`, `rate_usd` + hours/units/views/`niche` | Sticker → loaded ×1.15; coverage views = loaded ÷ RPM band × 1000; 3-month reserve rule |
 | Repurposing Planner | `idea` (one sentence) + `source_format` | Atom test → pillar prep → 5 staggered mission cards (YT Day 0, Short +1, TikTok +2, Reel +3, FB +4) |
-| Empire Simulator | `niche`, `startSubs`, cadence, `quality`, `growthRate`, `q4Uplift`, monetization toggles, `scenario_id`, `horizon` (12/24/36), `hires[]`, `events[]`, `compare_with` | `require("assets/js/sim-engine.js").simulate(inputs, calculatorsJson)` — plus `scenarioInputs(id)`, `compare(nameA,a,nameB,b,cfg)`, `assumptionLines()`, `exportPlan()`, `normalizeEvents()`, `stageForNet(net, teamActive)` — see Workflows 3–4, 11 |
+| Empire Simulator | `niche`, `startSubs`, cadence, `quality`, `growthRate`, `q4Uplift`, monetization toggles, `scenario_id`, `horizon` (12/24/36), `hires[]`, `events[]`, `compare_with` | `require("assets/js/sim-engine.js").simulate(inputs, calculatorsJson)` — plus `scenarioInputs(id)`, `compare(nameA,a,nameB,b,cfg)`, `assumptionLines()`, `exportPlan()`, `normalizeEvents()`, `stageForNet(net, teamActive)`, `solveForGoal(inputs, cfg, goal)` — see Workflows 3–4, 11, 13 |
 | API Explorer | none (read-only browser over the API) | Skip the UI; fetch the endpoints directly |
 | YPP 2027 Eligibility Checker | `subs`, `watchHours`, `shortsViews`, `uploads90d`, `originality` (original/repurposed/reposted), `formatMix` (longform/shorts/both) | `require("assets/js/ypp-checker.js")` — `check(i)` returns current-vs-2027 verdicts, Shorts floor, activity test, gap math, chapter-grounded plan — see Workflow 8 |
 | Hook Builder | `topic` (one line) | One hook per Short-Form Playbook structure + the anti-hook checklist |

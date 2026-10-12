@@ -22,7 +22,7 @@ Every chapter is 1,500+ words of substantive, actionable content. No stubs.
 
 ## Interactive tools
 
-Eighteen tools (`pages/*.html` → `site/*.html`): **Niche Picker** (quiz), **Revenue Calculator** (calculator), **90-Day Planner** (planner), **Sponsor Deal Analyzer** (deal-analyzer), **The Deal Room** (deal-room), **Hiring Cost Calculator** (hiring-calculator), **Repurposing Planner** (repurpose), **Empire Simulator** (simulator), **API Explorer** (api-explorer), **Hook Builder** (hook-builder), **Idea Bank** (idea-bank), **90-Day Content Calendar** (content-calendar), **Batching Planner** (batching). **The Money Map** (money-map), **Diagnose My Video** (video-doctor), **YPP 2027 Eligibility Checker** (ypp-checker), **The Outreach Center** (outreach), **Cross-Post Optimizer** (crosspost). Every tool's programmatic input schema lives in `api/v1/tools.json`.
+Eighteen tools (`pages/*.html` → `site/*.html`): **Niche Picker** (quiz), **Revenue Calculator** (calculator), **90-Day Planner** (planner), **The Deal Analyzer** (deal-analyzer), **The Deal Room** (deal-room), **Hiring Cost Calculator** (hiring-calculator), **Repurposing Planner** (repurpose), **Empire Simulator** (simulator), **API Explorer** (api-explorer), **Hook Builder** (hook-builder), **Idea Bank** (idea-bank), **90-Day Content Calendar** (content-calendar), **Batching Planner** (batching). **The Money Map** (money-map), **Diagnose My Video** (video-doctor), **YPP 2027 Eligibility Checker** (ypp-checker), **The Outreach Center** (outreach), **Cross-Post Optimizer** (crosspost). Every tool's programmatic input schema lives in `api/v1/tools.json`.
 
 ## Agentic layer
 

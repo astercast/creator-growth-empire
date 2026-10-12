@@ -374,5 +374,45 @@ ok(/Not financial, legal, or tax advice/.test(plan),
   "exportPlan carries the not-financial/legal/tax-advice disclaimer");
 ok(/a model, not a prediction/i.test(plan), "exportPlan says model-not-prediction");
 
+
+/* ---------- solveForGoal: "what would it take?" ----------
+ * Pure inversion of simulate(): binary-searches base growth (whole %,
+ * 2-60) or long-form cadence (half videos, 0-14). Every answer is
+ * re-verified by re-running simulate() at the solved value. */
+console.log("solveForGoal");
+var sfgBase = baseInputs({ startSubs: 1000, horizon: 24 });
+var s1 = sim.solveForGoal(sfgBase, cfg, { target: "subs", value: 100000, month: 18, variable: "growth" });
+ok(s1.ok && s1.variable === "growth", "100k subs by m18 solves (growth)");
+ok(s1.value >= 0.02 && s1.value <= 0.60 && Math.abs(s1.value * 100 - Math.round(s1.value * 100)) < 1e-9,
+  "solved growth is a whole % in [2,60] (" + s1.valueLabel + ")");
+var verify1 = baseInputs({ startSubs: 1000, horizon: 24, growthRate: s1.value });
+ok(sim.simulate(verify1, cfg).months[17].subs >= 100000,
+  "re-simulation at solved growth reaches 100k by month 18");
+var s2 = sim.solveForGoal(sfgBase, cfg, { target: "stage", value: 2, month: 24, variable: "cadence" });
+ok(s2.ok && s2.variable === "cadence", "stage 2 by m24 solves (cadence)");
+ok(s2.value >= 0 && s2.value <= 7 && Math.abs(s2.value * 2 - Math.round(s2.value * 2)) < 1e-9,
+  "solved cadence is in half-videos in [0,7]/wk (" + s2.valueLabel + ")");
+var s3 = sim.solveForGoal(sfgBase, cfg, { target: "subs", value: 1e12, month: 12, variable: "growth" });
+ok(!s3.ok && s3.reason === "unreachable", "1T subs by m12 = unreachable (honest, not infinite)");
+var s4 = sim.solveForGoal(sfgBase, cfg, { target: "subs", value: 10, month: 12, variable: "growth" });
+ok(s4.ok && s4.alreadyThere === true, "already-there target short-circuits");
+var s5 = sim.solveForGoal(sfgBase, cfg, { target: "stage", value: 4, month: 24, variable: "growth" });
+ok(!s5.ok && s5.reason === "stage4_needs_team", "stage 4 without a hire = stage4_needs_team");
+var s5b = sim.solveForGoal(baseInputs({ startSubs: 1000, horizon: 36,
+  hires: [{ type: "editor", startMonth: 1 }] }), cfg,
+  { target: "stage", value: 4, month: 36, variable: "growth" });
+ok(s5b.ok || s5b.reason === "unreachable",
+  "stage 4 with a hire solves or is honestly unreachable (never stage4_needs_team)");
+var s6 = sim.solveForGoal(sfgBase, cfg, { target: "fame", value: 1, month: 12 });
+ok(!s6.ok && s6.reason === "bad_target", "bad target rejected");
+var s7 = sim.solveForGoal(sfgBase, cfg, { target: "subs", value: -5, month: 12 });
+ok(!s7.ok && s7.reason === "bad_value", "non-positive value rejected");
+var s8 = sim.solveForGoal(sfgBase, cfg, { target: "net", value: 5000, month: 18, variable: "growth" });
+ok(s8.ok && s8.targetLabel.indexOf("net revenue") !== -1, "net target solves with net label");
+var verify8 = baseInputs({ startSubs: 1000, horizon: 24, growthRate: s8.value });
+ok(sim.simulate(verify8, cfg).months[17].net >= 5000,
+  "re-simulation at solved growth reaches $5k net by month 18");
+ok(s1.note.indexOf("not a promise") !== -1, "solver note says model-not-promise");
+
 console.log(failures === 0 ? "\nALL PASS" : "\n" + failures + " FAILURES");
 process.exit(failures === 0 ? 0 : 1);

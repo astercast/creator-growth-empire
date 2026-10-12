@@ -41,4 +41,14 @@
   --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
   --dur-fast: 0.15s;
   --dur-med: 0.35s;
+  /* 2026 motion scale — 5 named durations + 3 named easings as tokens
+   * (web-craft round 1+2 research). Bigger travel / bigger surface = longer.
+   * Never exceed 500ms on a UI interaction. */
+  --dur-instant: 0ms;
+  --dur-base: 200ms;
+  --dur-moderate: 320ms;
+  --dur-slow: 480ms;
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-decelerate: cubic-bezier(0, 0, 0, 1);
+  --ease-accelerate: cubic-bezier(0.3, 0, 1, 1);
 }

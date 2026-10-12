@@ -17,11 +17,11 @@ From $0 to a multi-million-dollar creator company.
 - [Niche Picker](quiz.html) — Answer 6 questions, get ranked niche suggestions with reasoning — or take the 4-question "Pick my 2027 niche" branch, scored against the Niche Atlas 2027 outlook layer.
 - [Revenue Calculator](calculator.html) — Project revenue from views, niche, sponsors, and affiliates — with honest ranges.
 - [90-Day Planner](planner.html) — Generate a posting schedule from your platforms and cadence. Printable.
-- [Sponsor Deal Analyzer](deal-analyzer.html) — Benchmark a sponsor offer against the 2026 rate card — verdict, red-flag checklist, counter-offer worksheet.
+- [The Deal Analyzer](deal-analyzer.html) — Paste the brand's terms — rate-card verdict with platform multipliers + niche adjustment, the wave-22 contract checklist applied to the deal, counter-offer calculator, 2026 usage-rights add-on math, deal history + comparison mode.
 - [The Deal Room](deal-room.html) — Manage the whole deal: track offers through signing, price usage rights, rehearse negotiations, export your memo.
 - [Hiring Cost Calculator](hiring-calculator.html) — Price your first hire: monthly/annual cost and the ad revenue needed to cover it — honest math, no promises.
 - [Repurposing Planner](repurpose.html) — Turn one idea into a 5-platform mission-card checklist from the Phase 3 repurposing SOP.
-- [Empire Simulator](simulator.html) — Simulate 12–36 months of channel growth + revenue — 12-scenario library, A/B comparison, team hiring P&L, what-if event cards, Money Map stage transitions — a model, not a prediction.
+- [Empire Simulator](simulator.html) — Simulate 12–36 months of channel growth + revenue — 12-scenario library, A/B comparison, team hiring P&L, what-if event cards, Money Map stage transitions, the “what would it take?” goal solver, live re-run — a model, not a prediction.
 - [API Explorer](api-explorer.html) — Browse every api/v1 endpoint and preview JSON responses live in your browser — no key, no server.
 - [Hook Builder](hook-builder.html) — Type your video topic, get five filmed-ready hooks — one per Short-Form Playbook structure. Flip-through cards.
 - [Idea Bank](idea-bank.html) — Capture ideas with hook-strength scores (1–5, Playbook structures), niche tags, and effort estimates — promote the best to production.
@@ -34,7 +34,7 @@ From $0 to a multi-million-dollar creator company.
 - [Cross-Post Optimizer](crosspost.html) — Move one clip to every platform without getting throttled: per-destination adaptation checklists (aspect, captions, hooks, CTAs, disclosure labels) under the Oct-1 originality rules.
 - [Glossary](glossary.html)
 
-All seventeen tools, grouped by job (Plan / Money / Content): [Tools hub](tools.html).
+All eighteen tools, grouped by job (Plan / Money / Content): [Tools hub](tools.html).
 
 ## Reference
 - [Reference: 2026 Rate Card](rate-card.html) — 4 min read
@@ -72,7 +72,7 @@ All seventeen tools, grouped by job (Plan / Money / Content): [Tools hub](tools.
 - api/v1/schema/ — JSON Schema (draft-07) for every endpoint
 
 ## Agents
-- AGENT.md — how an agent uses this site: base URL pattern, example requests, 9 end-to-end workflows, tool input schemas
+- AGENT.md — how an agent uses this site: base URL pattern, example requests, 13 end-to-end workflows, tool input schemas
 - [Agents](agents.html) — the agent surface: endpoint table, all skills, data freshness policy, 5 worked agent workflows
 - [API Explorer](api-explorer.html) — browse api/v1 endpoints, preview JSON in-browser
 - llms.txt (this file) — quick agent orientation
