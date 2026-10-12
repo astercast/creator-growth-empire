@@ -23,7 +23,7 @@ What shipped:
 
 **Tests**: new `tests/niche-atlas.test.js` (144 assertions — 20 records × outlook/stream-fit/source checks, avoid-list red flags, spotlights, platform signals, honesty contract, quiz.js trajectory sync); wired into `validate.sh` stage 6; `agent-workflows.test.js` wf4 updated 8→9 scenarios (sim + schema enum). Validation: `scripts/build.py` clean; `scripts/validate.sh` **8/8 GREEN** (26 JS files node --check, 31 JSON files parse, draft-07 schemas incl. the extended niche/niches pair, 0 broken links (2,393 checked), byte-identical rebuild on the committed tree, 84 sim + 78 deal-room + 49 content-engine + 44 money-map + 184 video-doctor + 144 niche-atlas engine assertions, 67 agent-workflow assertions).
 
-Commit: 6902365772360df05e2f06e68330092867859429 (local) → PENDING PUSH.
+Commit: 6902365772360df05e2f06e68330092867859429 (local) → 72965bceba579c9bf7ae61013f000cf7053e2a24 (pushed 2026-10-11, remote tree verified via GitHub API — all wave-20 files in the recursive tree).
 
 ## Wave 19 — The Analytics Decoder (2026-10-11)
 
