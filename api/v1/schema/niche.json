@@ -1,0 +1,182 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Niche",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "summary",
+    "revenue_tier",
+    "competition",
+    "startup_cost",
+    "skill_fit",
+    "sources",
+    "single_source"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "platforms": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "summary": {
+      "type": "string"
+    },
+    "channel_growth_monthly_pct": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "Median monthly subscriber growth among 10K-100K-sub YouTube channels (AIR Media-Tech / TubeAI, Sep 7-27, 2026). Cohort median, not a prediction."
+    },
+    "search_growth_pct": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "Year-over-year search growth (OutlierKit, Sep 2026)."
+    },
+    "breakout_rate": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Growth multiple or share of videos beating the channel average 10x."
+    },
+    "revenue_figures": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "kind",
+          "lo",
+          "hi"
+        ],
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "CPM",
+              "RPM"
+            ]
+          },
+          "lo": {
+            "type": "number"
+          },
+          "hi": {
+            "type": "number"
+          },
+          "note": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "revenue_tier": {
+      "type": "string",
+      "enum": [
+        "high",
+        "mid",
+        "low",
+        "unknown"
+      ]
+    },
+    "competition": {
+      "type": "string",
+      "enum": [
+        "low",
+        "very-low",
+        "medium",
+        "high"
+      ]
+    },
+    "startup_cost": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ]
+    },
+    "skill_fit": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "teaching",
+          "research",
+          "personality",
+          "hands-on",
+          "voice"
+        ]
+      }
+    },
+    "formats": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "chapter_links": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "page",
+          "label"
+        ],
+        "properties": {
+          "page": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "simulator_scenario": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "case_file": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "page": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        }
+      }
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Source ids; every id must appear in the doc-level sources list."
+    },
+    "single_source": {
+      "type": "boolean"
+    },
+    "caveats": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

@@ -10,11 +10,12 @@
 | Full guide text | `llms-full.txt` | All 9 phases + reference, complete |
 | API index | `api/v1/index.json` | Manifest: endpoints, version |
 | Chapters | `api/v1/chapters.json` | 9 phases: id, title, word count, read time, path |
+| Niche atlas | `api/v1/niches.json` | 20 October-2026-researched niches: growth, revenue ranges, competition, startup cost, skill fit, avoid list, sources, reality check — ranges, never promises |
 | Glossary | `api/v1/glossary.json` | Creator-economy terms + definitions |
 | Calculators data | `api/v1/calculators.json` | RPM bands, thresholds, splits, 2026 rate card, usage-rights notes |
 | Skill index | `api/v1/skills.json` | 12 skills: name, description, path |
 | Case files | `api/v1/case-files.json` + `case-*.html` | 5 documented creator-business deconstructions: budget-grocery newsletter, Ben's Bites, faceless sleep-channel network, Mavwicks on TikTok Shop, cohort course — figures source-reported, never promises |
-| Reference | `rate-card.html` + `api/v1/calculators.json` | The 2026 sponsorship rate card |
+| Reference | `rate-card.html`, `niche-atlas.html` + `api/v1/calculators.json`, `api/v1/niches.json` | The 2026 sponsorship rate card + the Niche Atlas (interactive explorer) |
 | Interactive tools | `quiz.html`, `calculator.html`, `planner.html`, `deal-analyzer.html`, `hiring-calculator.html`, `repurpose.html`, `simulator.html`, `hook-builder.html`, `api-explorer.html` | Human-facing; agents should use the API data behind them (`api/v1/tools.json` carries every tool's programmatic input schema) |
 | API explorer | `api-explorer.html` | Browse every `api/v1` endpoint and preview JSON in-browser |
 

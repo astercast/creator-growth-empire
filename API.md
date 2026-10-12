@@ -10,6 +10,9 @@ Self-describing manifest: `name`, `version`, ISO-8601 UTC `updated`, `base`, and
 ### `GET api/v1/chapters.json`
 `{ "chapters": [{ "id", "phase", "title", "path", "words", "read_minutes" }] }` — all nine phases. `path` is site-root-relative (e.g. `phase-0-start-from-nothing.html`). Full chapter text lives in `llms-full.txt` and the chapter pages.
 
+### `GET api/v1/niches.json`
+`{ "version", "updated", "note", "sources": [...], "reality_check", "niches": [{ "id", "name", "platforms", "summary", "channel_growth_monthly_pct", "search_growth_pct", "breakout_rate", "revenue_figures": [{ "kind": "CPM"|"RPM", "lo", "hi", "note" }], "revenue_tier", "competition", "startup_cost", "skill_fit", "chapter_links", "simulator_scenario", "case_file", "sources", "single_source", "caveats" }], "avoid_list" }` — the Niche Atlas: 20 October-2026-researched niches with the <1%-reach-100K reality check and a 6-item avoid list. Every record carries its sources and observation date; single-source claims are flagged on the record. Revenue figures are creator-reported ranges — ranges, never promises. Sorting uses range midpoints (a sorting convenience, not a rate). **Not financial, legal, or tax advice.**
+
 ### `GET api/v1/glossary.json`
 `{ "terms": [{ "term", "definition" }] }` — 26 creator-economy definitions.
 
@@ -44,6 +47,7 @@ deployed, offline-safe, no server required.
 
 - `index.json` — the manifest itself
 - `chapters.json` — chapters doc; `chapter.json` — chapter record
+- `niches.json` — niches doc; `niche.json` — niche record
 - `glossary.json` — glossary doc (term records inline)
 - `calculators.json` — the calculators data contract
 - `skills.json` — skills doc; `skill.json` — skill record

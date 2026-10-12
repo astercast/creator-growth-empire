@@ -28,6 +28,7 @@
 |---|---|---|
 | `GET api/v1/index.json` | Self-describing manifest: every endpoint, schema URL, `updated`, record counts | `curl …/api/v1/index.json` → pick `endpoints[].path` |
 | `GET api/v1/chapters.json` | 9 phases: `id`, `phase`, `title`, `path`, `words`, `read_minutes` | Find `phase-5-monetization-stack`, then read its full text in `llms-full.txt` |
+| `GET api/v1/niches.json` | The Niche Atlas: 20 researched niches (growth, revenue ranges, competition, startup cost, skill fit, avoid list, sources) | `curl …/api/v1/niches.json` → filter `niches[]` by `revenue_tier`/`skill_fit` |
 | `GET api/v1/glossary.json` | 26 creator-economy terms + definitions | Look up "RPM", "YPP", "whitelisting" before quoting them |
 | `GET api/v1/calculators.json` | Per-niche RPM bands, Shorts RPM, platform thresholds w/ sources+dates, revenue splits, 2026 sponsorship rate card, 2026 research snapshots | The data contract every calculator and the sim engine read |
 | `GET api/v1/skills.json` | 12 skills: `name`, `description`, `path` | `skills/deal-negotiation/SKILL.md` for the full procedure |

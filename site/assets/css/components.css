@@ -375,3 +375,47 @@ output { font-family: var(--font-mono); color: var(--acid); font-weight: 700; }
   .hb-deck { padding: 0.9rem; }
   .hb-variant { font-size: 1.05rem; }
 }
+
+/* Niche Atlas explorer (wave 14): mobile-first filter/sort/compare UI. */
+.niche-explorer { margin-top: 2.5rem; }
+.ne-panel .hud-body h2 { margin-top: 0; }
+.ne-field { border: 1px solid var(--line-strong); border-radius: 0.75rem; padding: 0.75rem 0.9rem; margin: 0 0 1rem; }
+.ne-field legend { font-weight: 700; font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 0 0.5rem; }
+.ne-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.ne-chip { display: inline-flex; align-items: center; gap: 0.35rem; border: 1px solid var(--line-strong); border-radius: 999px; padding: 0.35rem 0.7rem; font-size: 0.88rem; cursor: pointer; }
+.ne-chip input { accent-color: var(--acid); width: 1rem; height: 1rem; }
+.ne-chip:focus-within { outline: 2px solid var(--acid); outline-offset: 2px; }
+.ne-row { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; margin-bottom: 1rem; }
+.ne-sort select { margin-left: 0.35rem; padding: 0.4rem 0.6rem; border: 1px solid var(--line-strong); border-radius: 0.5rem; background: var(--bg, #0d0d0d); color: inherit; font: inherit; }
+.ne-check { display: inline-flex; align-items: center; gap: 0.4rem; cursor: pointer; }
+.ne-check input { accent-color: var(--acid); width: 1rem; height: 1rem; }
+#ne-count { font-weight: 700; }
+.niche-grid { display: grid; gap: 1rem; grid-template-columns: 1fr; margin-bottom: 2rem; }
+.niche-card { border: 1px solid var(--line-strong); border-radius: 1rem; padding: 1.1rem; background: var(--panel, transparent); transition: border-color 0.2s ease; }
+.niche-card:hover { border-color: var(--acid); }
+.niche-card h3 { margin: 0 0 0.35rem; font-size: 1.1rem; }
+.ne-flag { color: var(--gold); font-size: 0.82rem; font-weight: 700; margin: 0 0 0.4rem; }
+.ne-summary { margin: 0 0 0.6rem; }
+.ne-badges { display: flex; flex-wrap: wrap; gap: 0.4rem; list-style: none; margin: 0 0 0.6rem; padding: 0; }
+.ne-badges li { font-size: 0.78rem; font-weight: 700; border: 1px solid var(--line-strong); border-radius: 999px; padding: 0.2rem 0.6rem; }
+.ne-metrics { margin: 0 0 0.6rem; display: grid; grid-template-columns: auto 1fr; gap: 0.25rem 0.75rem; font-size: 0.9rem; }
+.ne-metrics dt { font-weight: 700; color: var(--muted); }
+.ne-metrics dd { margin: 0; }
+.ne-fit, .ne-src { font-size: 0.88rem; margin: 0 0 0.4rem; }
+.ne-caveats { font-size: 0.85rem; color: var(--muted); margin: 0 0 0.6rem; padding-left: 1.1rem; }
+.ne-links { font-size: 0.88rem; }
+.ne-compare-controls { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: flex-end; margin-bottom: 1rem; }
+.ne-compare-controls label { display: flex; flex-direction: column; gap: 0.25rem; font-weight: 700; font-size: 0.85rem; }
+.ne-compare-controls select { padding: 0.45rem 0.6rem; border: 1px solid var(--line-strong); border-radius: 0.5rem; background: var(--bg, #0d0d0d); color: inherit; font: inherit; max-width: 16rem; }
+.ne-verdict { border-left: 3px solid var(--acid); padding-left: 0.9rem; margin-top: 1rem; }
+.ne-foot { font-size: 0.82rem; margin-top: 1.5rem; }
+@media (min-width: 720px) {
+  .niche-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 1120px) {
+  .niche-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .niche-card { transition: none; }
+  .niche-card:hover { border-color: var(--line-strong); }
+}

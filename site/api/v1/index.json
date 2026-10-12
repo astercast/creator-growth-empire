@@ -29,6 +29,18 @@
       "deprecation_note": null
     },
     {
+      "id": "niches",
+      "kind": "json",
+      "path": "api/v1/niches.json",
+      "description": "The Niche Atlas dataset: 20 October-2026-researched niches \u2014 channel growth, search growth, breakout formats, creator-reported revenue ranges (CPM/RPM), competition, startup cost, skill fit, chapter/simulator/case-file links, the avoid list, sources, and the <1%-reach-100K reality check. Ranges, never promises.",
+      "schema": "api/v1/schema/niches.json",
+      "updated": "2026-10-11T00:00:00Z",
+      "records": 20,
+      "deprecated": false,
+      "deprecation_note": null,
+      "freshness_note": "Research observed 2026-10-11. Verify platform figures live before acting \u2014 every record carries its sources and observation date."
+    },
+    {
       "id": "glossary",
       "kind": "json",
       "path": "api/v1/glossary.json",
@@ -89,12 +101,13 @@
       "id": "reference-pages",
       "kind": "html",
       "paths": [
-        "rate-card.html"
+        "rate-card.html",
+        "niche-atlas.html"
       ],
-      "description": "Human-readable reference pages (the 2026 sponsorship rate card). Machine-readable equivalent lives in calculators.json sponsorship_rate_card_2026.",
+      "description": "Human-readable reference pages (the 2026 sponsorship rate card, the Niche Atlas). Machine-readable equivalents: rate card in calculators.json sponsorship_rate_card_2026; the atlas in niches.json.",
       "schema": null,
       "updated": "2026-10-11T00:00:00Z",
-      "records": 1,
+      "records": 2,
       "deprecated": false,
       "deprecation_note": null
     },
@@ -128,6 +141,8 @@
         "index.json \u2014 the manifest itself",
         "chapters.json \u2014 chapters doc",
         "chapter.json \u2014 chapter record",
+        "niches.json \u2014 niches doc",
+        "niche.json \u2014 niche record",
         "glossary.json \u2014 glossary doc (term records inline)",
         "calculators.json \u2014 the calculators data contract",
         "skills.json \u2014 skills doc",
@@ -139,7 +154,7 @@
       ],
       "schema": null,
       "updated": "2026-10-11T00:00:00Z",
-      "records": 11,
+      "records": 13,
       "deprecated": false,
       "deprecation_note": null
     }

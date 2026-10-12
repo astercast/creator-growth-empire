@@ -88,6 +88,7 @@ checks = [
     ("case-files.json", "case_files", schema("case-file.json"), "case file"),
     ("skills.json", "skills", schema("skill.json"), "skill"),
     ("tools.json", "tools", schema("tool.json"), "tool"),
+    ("niches.json", "niches", schema("niche.json"), "niche"),
 ]
 for fname, key, val, label in checks:
     for i, rec in enumerate(json.loads((ROOT / "api" / "v1" / fname).read_text())[key]):
@@ -97,6 +98,7 @@ for fname, key, val, label in checks:
 # doc-level schemas (doc wrappers use $ref into the per-record schemas)
 for fname, sname in [("index.json", "index.json"),
                      ("chapters.json", "chapters.json"),
+                     ("niches.json", "niches.json"),
                      ("glossary.json", "glossary.json"),
                      ("calculators.json", "calculators.json"),
                      ("skills.json", "skills.json"),
@@ -305,7 +307,8 @@ missing_markers = []
 for slug, src, phase, short in build.CHAPTERS:
     if f"# {phase}: {short}" not in full:
         missing_markers.append(slug)
-for slug, src, badge, short in build.REFERENCE_PAGES:
+for entry in build.REFERENCE_PAGES:
+    slug, src, badge, short = entry[:4]
     if f"# {badge}: {short}" not in full:
         missing_markers.append(slug)
 for e in build.MARKDOWN_PAGES:

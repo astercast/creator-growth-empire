@@ -23,7 +23,7 @@
   <button class="nav-toggle" aria-expanded="false" aria-controls="mobileNav" aria-label="Menu">☰</button>
 </header>
 <nav id="mobileNav" class="mobile-nav" aria-label="Mobile"><a href="index.html" class="nav-link">Empire Map</a><a href="tools.html" class="nav-link">All tools</a><a href="quiz.html" class="nav-link">Niche Picker</a><a href="calculator.html" class="nav-link">Revenue Calc</a><a href="planner.html" class="nav-link">90-Day Plan</a><a href="deal-analyzer.html" class="nav-link">Deal Analyzer</a><a href="hiring-calculator.html" class="nav-link">Hire Calc</a><a href="repurpose.html" class="nav-link">Repurpose Plan</a><a href="simulator.html" class="nav-link">Simulator</a><a href="case-files.html" class="nav-link">All case files</a><a href="glossary.html" class="nav-link">Glossary</a><a href="agents.html" class="nav-link active">Agents</a></nav>
-<main id="main"><article class="chapter"><header class="chapter-hero" style="--phase-accent: var(--violet);"><p class="chapter-kicker"><span class="phase-badge" style="background: var(--violet);">The Agent Surface</span></p><h1>Agents</h1><p class="lede">This site is built to be used by agents, not just read by humans. Everything below — data, skills, tools, and full text — is machine-readable from static files. No API key, no server, no auth. Fetch and act.</p><p class="chapter-meta-strip"><span>6 min read</span><span class="sep">/</span><span>1,256 words</span></p></header>
+<main id="main"><article class="chapter"><header class="chapter-hero" style="--phase-accent: var(--violet);"><p class="chapter-kicker"><span class="phase-badge" style="background: var(--violet);">The Agent Surface</span></p><h1>Agents</h1><p class="lede">This site is built to be used by agents, not just read by humans. Everything below — data, skills, tools, and full text — is machine-readable from static files. No API key, no server, no auth. Fetch and act.</p><p class="chapter-meta-strip"><span>6 min read</span><span class="sep">/</span><span>1,295 words</span></p></header>
 
 <h2>The surface at a glance</h2>
 <div class='table-wrap'><table><thead><tr><th>What</th><th>Where</th><th>Format</th></tr></thead><tbody>
@@ -31,11 +31,12 @@
 <tr><td>Full guide text</td><td><code>llms-full.txt</code></td><td>All 9 phases + reference, complete</td></tr>
 <tr><td>API index</td><td><code>api/v1/index.json</code></td><td>Manifest: endpoints, version</td></tr>
 <tr><td>Chapters</td><td><code>api/v1/chapters.json</code></td><td>9 phases: id, title, word count, read time, path</td></tr>
+<tr><td>Niche atlas</td><td><code>api/v1/niches.json</code></td><td>20 October-2026-researched niches: growth, revenue ranges, competition, startup cost, skill fit, avoid list, sources, reality check — ranges, never promises</td></tr>
 <tr><td>Glossary</td><td><code>api/v1/glossary.json</code></td><td>Creator-economy terms + definitions</td></tr>
 <tr><td>Calculators data</td><td><code>api/v1/calculators.json</code></td><td>RPM bands, thresholds, splits, 2026 rate card, usage-rights notes</td></tr>
 <tr><td>Skill index</td><td><code>api/v1/skills.json</code></td><td>12 skills: name, description, path</td></tr>
 <tr><td>Case files</td><td><code>api/v1/case-files.json</code> + <code>case-*.html</code></td><td>5 documented creator-business deconstructions: budget-grocery newsletter, Ben&#x27;s Bites, faceless sleep-channel network, Mavwicks on TikTok Shop, cohort course — figures source-reported, never promises</td></tr>
-<tr><td>Reference</td><td><code>rate-card.html</code> + <code>api/v1/calculators.json</code></td><td>The 2026 sponsorship rate card</td></tr>
+<tr><td>Reference</td><td><code>rate-card.html</code>, <code>niche-atlas.html</code> + <code>api/v1/calculators.json</code>, <code>api/v1/niches.json</code></td><td>The 2026 sponsorship rate card + the Niche Atlas (interactive explorer)</td></tr>
 <tr><td>Interactive tools</td><td><code>quiz.html</code>, <code>calculator.html</code>, <code>planner.html</code>, <code>deal-analyzer.html</code>, <code>hiring-calculator.html</code>, <code>repurpose.html</code>, <code>simulator.html</code>, <code>hook-builder.html</code>, <code>api-explorer.html</code></td><td>Human-facing; agents should use the API data behind them (<code>api/v1/tools.json</code> carries every tool&#x27;s programmatic input schema)</td></tr>
 <tr><td>API explorer</td><td><code>api-explorer.html</code></td><td>Browse every <code>api/v1</code> endpoint and preview JSON in-browser</td></tr>
 </tbody></table></div>

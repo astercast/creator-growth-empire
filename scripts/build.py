@@ -28,7 +28,26 @@ PHASE_ACCENTS = ["acid", "coral", "gold", "violet", "acid", "coral", "gold", "vi
 
 REFERENCE_PAGES = [
     ("rate-card", "content/rate-card.md", "Reference", "2026 Rate Card"),
+    # Optional 5th element: list of <script src> paths injected into <head>
+    # (wave 14: the Niche Atlas ships an interactive explorer).
+    ("niche-atlas", "content/niche-atlas.md", "Reference", "The Niche Atlas",
+     ["assets/js/niche-atlas.js"]),
 ]
+
+# Interactive mount appended to the Niche Atlas reference page (wave 14).
+# The explorer UI itself is rendered by assets/js/niche-atlas.js from
+# api/v1/niches.json; the article above carries static tables so the page
+# reads fully without JavaScript.
+NICHE_EXPLORER_MOUNT = (
+    '<section class="niche-explorer" aria-labelledby="ne-mount-title">'
+    '<h2 id="ne-mount-title" class="visually-hidden">Niche explorer</h2>'
+    '<div id="niche-explorer"></div>'
+    "<noscript><p>The niche explorer needs JavaScript. The full niche tables — "
+    "growth rates, search demand, breakout formats, revenue bands, and the avoid "
+    "list — are in the article above, and the dataset is "
+    '<a href="api/v1/niches.json">api/v1/niches.json</a>.</p></noscript>'
+    "</section>"
+)
 
 CHAPTERS = [
     ("phase-0-start-from-nothing",  "content/phase-0-start-from-nothing.md",  "Phase 0", "Start From Nothing"),
@@ -606,7 +625,9 @@ def build():
 
     # ---- reference pages (not phases; rendered like chapters, linked from llms/API) ----
     reference_meta = []
-    for slug, src, badge, short in REFERENCE_PAGES:
+    for entry in REFERENCE_PAGES:
+        slug, src, badge, short = entry[:4]
+        scripts = entry[4] if len(entry) > 4 else []
         md = (ROOT / src).read_text(encoding="utf-8")
         body_html = md_to_html(md)
         wc = word_count(md)
@@ -631,7 +652,10 @@ def build():
                 '<a href="index.html"><span class="nav-dir">← Back to</span><span class="nav-title">The Empire Map</span></a>'
                 '<a class="nav-next" href="phase-5-monetization-stack.html"><span class="nav-dir">Next phase →</span>'
                 '<span class="nav-title">Phase 5: The Monetization Stack</span></a></nav>')
-        page = page_template(f"{short}", f'<article class="chapter">{hero}{body_html}{cnav}</article>', active="")
+        mount = NICHE_EXPLORER_MOUNT if slug == "niche-atlas" else ""
+        extra_head = "".join(f'<script src="{s}"></script>' for s in scripts)
+        page = page_template(f"{short}", f'<article class="chapter">{hero}{body_html}{mount}{cnav}</article>',
+                             active="", extra_head=extra_head)
         (SITE / f"{slug}.html").write_text(page, encoding="utf-8")
         reference_meta.append({"id": slug, "badge": badge, "title": short,
                                "path": f"{slug}.html", "words": wc, "read_minutes": read_min})
@@ -895,6 +919,7 @@ def build():
     # and deprecation status. Existing payload shapes are untouched.
     BUILD_TS = "2026-10-11T00:00:00Z"
     calculators_cfg = json.loads((DATA / "calculators.json").read_text(encoding="utf-8"))
+    niches_cfg = json.loads((DATA / "niches.json").read_text(encoding="utf-8"))
     api_endpoints = [
         {
             "id": "index",
@@ -917,6 +942,22 @@ def build():
             "records": len(chapters_meta),
             "deprecated": False,
             "deprecation_note": None,
+        },
+        {
+            "id": "niches",
+            "kind": "json",
+            "path": "api/v1/niches.json",
+            "description": ("The Niche Atlas dataset: 20 October-2026-researched niches — "
+                            "channel growth, search growth, breakout formats, creator-reported "
+                            "revenue ranges (CPM/RPM), competition, startup cost, skill fit, "
+                            "chapter/simulator/case-file links, the avoid list, sources, and "
+                            "the <1%-reach-100K reality check. Ranges, never promises."),
+            "schema": "api/v1/schema/niches.json",
+            "updated": BUILD_TS,
+            "records": len(niches_cfg["niches"]),
+            "deprecated": False,
+            "deprecation_note": None,
+            "freshness_note": "Research observed 2026-10-11. Verify platform figures live before acting — every record carries its sources and observation date.",
         },
         {
             "id": "glossary",
@@ -981,7 +1022,9 @@ def build():
             "id": "reference-pages",
             "kind": "html",
             "paths": [m["path"] for m in reference_meta],
-            "description": "Human-readable reference pages (the 2026 sponsorship rate card). Machine-readable equivalent lives in calculators.json sponsorship_rate_card_2026.",
+            "description": ("Human-readable reference pages (the 2026 sponsorship rate card, "
+                            "the Niche Atlas). Machine-readable equivalents: rate card in "
+                            "calculators.json sponsorship_rate_card_2026; the atlas in niches.json."),
             "schema": None,
             "updated": BUILD_TS,
             "records": len(reference_meta),
@@ -1008,6 +1051,8 @@ def build():
                 "index.json — the manifest itself",
                 "chapters.json — chapters doc",
                 "chapter.json — chapter record",
+                "niches.json — niches doc",
+                "niche.json — niche record",
                 "glossary.json — glossary doc (term records inline)",
                 "calculators.json — the calculators data contract",
                 "skills.json — skills doc",
@@ -1019,7 +1064,7 @@ def build():
             ],
             "schema": None,
             "updated": BUILD_TS,
-            "records": 11,
+            "records": 13,
             "deprecated": False,
             "deprecation_note": None,
         },
@@ -1049,6 +1094,7 @@ def build():
     }, indent=2), encoding="utf-8")
     shutil.copy(DATA / "glossary.json", API / "glossary.json")
     shutil.copy(DATA / "calculators.json", API / "calculators.json")
+    shutil.copy(DATA / "niches.json", API / "niches.json")
 
     # ---- tools.json: every tool with its programmatic input schema ----
     (API / "tools.json").write_text(json.dumps({
@@ -1140,6 +1186,111 @@ def build():
         },
     }
     (API / "schema" / "calculators.json").write_text(json.dumps(calculators_schema, indent=2), encoding="utf-8")
+
+    # ---- schemas for the Niche Atlas endpoint (wave 14) ----
+    # Revenue figures are creator-reported ranges: `kind` says which (CPM or
+    # RPM), `lo`/`hi` the range ends. Ranges, never point estimates. Tiers are
+    # our analytic convenience: high ~= $8+/1K views, mid ~= $3-8, low < ~$3,
+    # unknown = no reported range in the October 2026 research.
+    niche_schema = {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "title": "Niche",
+        "type": "object",
+        "required": ["id", "name", "summary", "revenue_tier", "competition",
+                     "startup_cost", "skill_fit", "sources", "single_source"],
+        "properties": {
+            "id": {"type": "string"},
+            "name": {"type": "string"},
+            "platforms": {"type": "array", "items": {"type": "string"}},
+            "summary": {"type": "string"},
+            "channel_growth_monthly_pct": {"type": ["number", "null"],
+                "description": "Median monthly subscriber growth among 10K-100K-sub YouTube channels (AIR Media-Tech / TubeAI, Sep 7-27, 2026). Cohort median, not a prediction."},
+            "search_growth_pct": {"type": ["number", "null"],
+                "description": "Year-over-year search growth (OutlierKit, Sep 2026)."},
+            "breakout_rate": {"type": ["string", "null"],
+                "description": "Growth multiple or share of videos beating the channel average 10x."},
+            "revenue_figures": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "required": ["kind", "lo", "hi"],
+                    "properties": {
+                        "kind": {"type": "string", "enum": ["CPM", "RPM"]},
+                        "lo": {"type": "number"},
+                        "hi": {"type": "number"},
+                        "note": {"type": "string"},
+                    },
+                },
+            },
+            "revenue_tier": {"type": "string",
+                             "enum": ["high", "mid", "low", "unknown"]},
+            "competition": {"type": "string",
+                            "enum": ["low", "very-low", "medium", "high"]},
+            "startup_cost": {"type": "string", "enum": ["low", "medium", "high"]},
+            "skill_fit": {"type": "array", "items": {"type": "string",
+                "enum": ["teaching", "research", "personality", "hands-on", "voice"]}},
+            "formats": {"type": "array", "items": {"type": "string"}},
+            "chapter_links": {"type": "array", "items": {
+                "type": "object", "required": ["page", "label"],
+                "properties": {"page": {"type": "string"}, "label": {"type": "string"}},
+            }},
+            "simulator_scenario": {"type": ["string", "null"]},
+            "case_file": {"type": ["object", "null"],
+                          "properties": {"page": {"type": "string"}, "title": {"type": "string"}}},
+            "sources": {"type": "array", "items": {"type": "string"},
+                        "description": "Source ids; every id must appear in the doc-level sources list."},
+            "single_source": {"type": "boolean"},
+            "caveats": {"type": "array", "items": {"type": "string"}},
+        },
+    }
+    (API / "schema" / "niche.json").write_text(json.dumps(niche_schema, indent=2), encoding="utf-8")
+    niches_schema = {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "title": "Niches",
+        "type": "object",
+        "required": ["version", "updated", "note", "sources", "reality_check",
+                     "niches", "avoid_list"],
+        "properties": {
+            "version": {"type": "string"},
+            "updated": {"type": "string"},
+            "note": {"type": "string"},
+            "growth_context": {"type": "string"},
+            "revenue_tier_legend": {"type": "object"},
+            "sources": {"type": "array", "items": {
+                "type": "object",
+                "required": ["id", "publisher", "title", "url", "observed"],
+                "properties": {
+                    "id": {"type": "string"},
+                    "publisher": {"type": "string"},
+                    "title": {"type": "string"},
+                    "url": {"type": "string", "format": "uri"},
+                    "observed": {"type": "string"},
+                    "note": {"type": "string"},
+                },
+            }},
+            "reality_check": {
+                "type": "object",
+                "required": ["headline", "detail", "source"],
+                "properties": {
+                    "headline": {"type": "string"},
+                    "detail": {"type": "string"},
+                    "source": {"type": "string"},
+                },
+            },
+            "niches": {"type": "array", "items": {"$ref": "niche.json"}},
+            "avoid_list": {"type": "array", "items": {
+                "type": "object",
+                "required": ["id", "name", "detail", "sources"],
+                "properties": {
+                    "id": {"type": "string"},
+                    "name": {"type": "string"},
+                    "detail": {"type": "string"},
+                    "sources": {"type": "array", "items": {"type": "string"}},
+                },
+            }},
+        },
+    }
+    (API / "schema" / "niches.json").write_text(json.dumps(niches_schema, indent=2), encoding="utf-8")
 
     # Wave 12: schema for EVERY endpoint — doc-level + per-record where it
     # applies. All draft-07, all checked by scripts/validate.sh.
@@ -1278,6 +1429,7 @@ def build():
         llms.append(f"- [{m['badge']}: {m['title']}]({m['path']}) — {m['read_minutes']} min read")
     llms += ["", "## API", "- api/v1/index.json — self-describing manifest: every endpoint, schema URL, updated timestamp, record counts",
              "- api/v1/chapters.json",
+             "- api/v1/niches.json — the Niche Atlas dataset: 20 researched niches, avoid list, sources, reality check",
              "- api/v1/glossary.json",
              "- api/v1/calculators.json",
              "- api/v1/skills.json",

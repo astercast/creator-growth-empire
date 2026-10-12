@@ -545,3 +545,50 @@ Validation: `scripts/build.py` clean (9 chapters, 8 tools, 10 skills,
 byte-identical rebuild, 16/16 sim assertions, llms counts fresh).
 
 Commit: 74ba71a10927959eac4363b137f438b26a6703c6 (pushed 2026-10-11).
+
+## Wave 14 — Niche Atlas (2026-10-11)
+
+What shipped (all traced to the wave-7 research notes at
+`~/workspace/research_notes/wave-fuel-2026-20261011-2355/notes/mission-c-niches.md` —
+no invented niches or numbers):
+1. **New reference page "The Niche Atlas"** (`content/niche-atlas.md` →
+   `site/niche-atlas.html`, registered in `REFERENCE_PAGES`): the <1%-of-
+   channels-ever-reach-100K reality check front and center; channel growth
+   rates (kids 1.59%, ASMR 1.56%, creator economy 1.50%, challenges/stunts
+   1.47%, AI/ML 1.44%, true crime 1.34%); search growth (AI tools +340%
+   $8–20 CPM, no-code/automation +220% "most underserved", Gen Z finance
+   +180% $18–45, cybersecurity +160%); breakout formats (betrayal/revenge
+   21x $20–25 CPM low competition, English learning 21x, senior health 19x
+   ultra-low); finance $8–35 vs gaming/entertainment $1–5 RPM reality; the
+   avoid list (clipping channels post-Oct-1-update, low-effort AI slop
+   post-Jan-purge, kids-content $0.33 RPM trap, gambling/crypto + medical
+   claims + news/politics on TikTok); sources + disclaimers intact.
+2. **Interactive niche explorer** (`assets/js/niche-atlas.js`, mounted on the
+   reference page): filter by revenue tier / competition / startup cost /
+   skill fit, sort by channel growth / revenue midpoint / search growth /
+   name, "compare two niches" head-to-head table with a plain-language
+   verdict; every niche links to its chapter, the Niche Picker, and the
+   simulator scenario / case file where one exists. Semantic HTML, labeled
+   controls, aria-live result counts, keyboard-native, reduced-motion CSS,
+   noscript fallback to the article's static tables.
+3. **New API endpoint `api/v1/niches.json`** (source of truth
+   `data/niches.json`, mirrored to `site/api/v1/`): 20 sourced niche
+   records, 15-source bibliography with observation dates, the avoid list,
+   the reality check, revenue-tier legend. Draft-07 schemas
+   (`api/v1/schema/niches.json` doc + `niche.json` record), registered in
+   the manifest with a freshness note. Documented in AGENT.md, API.md,
+   `pages/agents.md`, and the `llms.txt` API section.
+4. **Honesty contract intact**: every RPM/CPM figure a creator-reported
+   range (never a point estimate), single-source claims flagged on each
+   record, sorting uses labeled range midpoints (never presented as rates),
+   no income promises, "not financial, legal, or tax advice" on-page and
+   in the payload.
+
+Validation: `scripts/build.py` clean (9 chapters, 9 tools, 12 skills,
+5 case files, 16,153 words); `scripts/validate.sh` **8/8 GREEN** (15 JS
+files node --check, 25 JSON files parse, draft-07 schemas incl. the new
+niches/niche pair, 0 broken of 1,654 links, byte-identical rebuild on the
+committed tree, 72 sim assertions, 36 agent-workflow assertions, llms
+counts fresh).
+
+Commit: 03825a66508de380708ccce6fb0ce9d78f8cb88d (pushed 2026-10-11).

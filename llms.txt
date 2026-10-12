@@ -29,6 +29,7 @@ All nine tools, grouped by job (Plan / Money / Content): [Tools hub](tools.html)
 
 ## Reference
 - [Reference: 2026 Rate Card](rate-card.html) — 3 min read
+- [Reference: The Niche Atlas](niche-atlas.html) — 7 min read
 
 ## Case Files — documented creator-business deconstructions
 - [Case File: The Budget-Grocery Newsletter](case-budget-grocery.html) — 3 min read
@@ -46,6 +47,7 @@ All nine tools, grouped by job (Plan / Money / Content): [Tools hub](tools.html)
 ## API
 - api/v1/index.json — self-describing manifest: every endpoint, schema URL, updated timestamp, record counts
 - api/v1/chapters.json
+- api/v1/niches.json — the Niche Atlas dataset: 20 researched niches, avoid list, sources, reality check
 - api/v1/glossary.json
 - api/v1/calculators.json
 - api/v1/skills.json
