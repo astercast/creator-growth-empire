@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
   "updated": "2026-10-11",
-  "note": "Programmatic input schemas for the ten interactive tools. Agents replicate each tool's logic by feeding these inputs to the documented formulas / shipped JS (assets/js/<id>.js); the UI pages are the human front-end for the same logic.",
+  "note": "Programmatic input schemas for the thirteen interactive tools. Agents replicate each tool's logic by feeding these inputs to the documented formulas / shipped JS (assets/js/<id>.js); the UI pages are the human front-end for the same logic.",
   "tools": [
     {
       "id": "quiz",
@@ -492,7 +492,7 @@
         }
       },
       "output": "Five mission cards (YouTube Day 0, Short Day +1, TikTok Day +2, Reel Day +3, Facebook Day +4) each with a hook rewrite, atom test, and native-grammar checklist.",
-      "drive_notes": "Logic (assets/js/repurpose.js): atom test (does the insight survive standalone?), pillar prep (hook in first 15s), then the five staggered mission cards. Enforce native grammar \u2014 no watermarks, no copy-paste."
+      "drive_notes": "Logic (assets/js/repurpose.js + assets/js/content-engine.js): atom test (does the insight survive standalone?), pillar prep (hook in first 15s), then the five staggered mission cards. Enforce native grammar \u2014 no watermarks, no copy-paste. 2.0 adds the full derivative map via ContentEngine.repurposeMap (7 derivatives: short clip, community reaction, TikTok cut, Reel cut, newsletter issue, X thread, Facebook post) \u2014 every derivative carries a required original element (repurposing is not re-uploading) plus the Oct-1 originality guardrails (ContentEngine.originalityGuardrails). Machine-readable map + guardrails: api/v1/content-engine.json repurposing_2_0 / originality_guardrails."
     },
     {
       "id": "simulator",
@@ -696,6 +696,185 @@
       },
       "output": "Five filmed-ready hooks, one per Short-Form Playbook structure: open loop, cold start, contrarian take, numbered promise, question-as-hook.",
       "drive_notes": "Logic (assets/js/hook-builder.js): topic \u2192 template fills per structure + the anti-hook checklist (no 'wait for it', no follow-begging, no channel-name cold open). The structures are craft formulas, not platform documentation."
+    },
+    {
+      "id": "idea-bank",
+      "title": "Idea Bank",
+      "description": "Capture ideas with hook-strength scores (1\u20135, Playbook structures), niche tags, and effort estimates \u2014 promote the best to production.",
+      "page": "idea-bank.html",
+      "input_schema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "title": "IdeaBankInput",
+        "type": "object",
+        "required": [
+          "title"
+        ],
+        "properties": {
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 120,
+            "description": "The idea in one line \u2014 the core of the video."
+          },
+          "format": {
+            "type": "string",
+            "enum": [
+              "long",
+              "short",
+              "community"
+            ],
+            "default": "long",
+            "description": "Long-form pillar, short-form post, or community text post."
+          },
+          "niche": {
+            "type": "string",
+            "description": "Niche tag \u2014 a Niche Atlas niche id from api/v1/niches.json (free text accepted)."
+          },
+          "effort": {
+            "type": "string",
+            "enum": [
+              "quick",
+              "afternoon",
+              "week"
+            ],
+            "default": "afternoon",
+            "description": "quick < 2h, afternoon = half day, week = full week build."
+          },
+          "hook_score": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 5,
+            "default": 3,
+            "description": "Hook strength self-score against the five Short-Form Playbook structures (see api/v1/content-engine.json hook_structures)."
+          }
+        }
+      },
+      "output": "Banked ideas sorted by hook score (ties by FIFO), filterable by format, promotable to production (they deal into the content calendar). localStorage only.",
+      "drive_notes": "Logic (assets/js/content-engine.js, UMD \u2014 importable in node): hookScore(n) clamps 1\u20135; sortIdeas(ideas) sorts by hook score desc, ties by created asc, no mutation; filterIdeas(ideas, format) filters. Storage is the browser's localStorage (key cge_idea_bank_v1) \u2014 agents feed idea records directly to the engine functions."
+    },
+    {
+      "id": "content-calendar",
+      "title": "90-Day Content Calendar",
+      "description": "Deal your idea bank into a 90-day grid: week-planner dealing rules, drag/keyboard moves, sponsor slots, copy-my-calendar export.",
+      "page": "content-calendar.html",
+      "input_schema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "title": "ContentCalendarInput",
+        "type": "object",
+        "required": [
+          "longform_per_week"
+        ],
+        "properties": {
+          "longform_per_week": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 7
+          },
+          "shorts_per_week": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 21,
+            "default": 0
+          },
+          "rest_day": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 6,
+            "default": 6,
+            "description": "0=Mon \u2026 6=Sun; non-negotiable rest \u2014 no placement, analytics review only."
+          },
+          "weeks": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 52,
+            "default": 13
+          },
+          "ideas": {
+            "type": "array",
+            "default": [],
+            "items": {
+              "type": "object",
+              "required": [
+                "id",
+                "title",
+                "format"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "format": {
+                  "type": "string",
+                  "enum": [
+                    "long",
+                    "short",
+                    "community"
+                  ]
+                },
+                "hookScore": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 5,
+                  "default": 3
+                },
+                "created": {
+                  "type": "number"
+                }
+              }
+            },
+            "description": "Idea records (e.g. from the Idea Bank). Community ideas deal on the short cadence."
+          }
+        }
+      },
+      "output": "13-week grid: per-day long/short placements, open slots (never filler), backlog, midpoint-review flag on week 7. Export text + simulator input bridge + sponsor-slot marks.",
+      "drive_notes": "Logic (assets/js/content-engine.js, UMD \u2014 importable in node): dealIdeas(ideas, {longsPerWeek, shortsPerWeek, restDay, weeks}) \u2014 same dealing arithmetic as the 90-Day Planner: longs sort by hook score desc then round-robin across weeks onto non-rest work days; shorts deal every other work day; empty slots stay OPEN (never padded); surplus ideas return in unplaced; week 7 flagged midpointReview. exportCalendarText(deal) renders the copy-my-calendar text; simInputFromCadence(longs, shorts) returns {longform_per_week, shorts_per_week} for the Simulator; sponsored slots are calendar commitments only \u2014 price them in the Deal Room."
+    },
+    {
+      "id": "batching",
+      "title": "Batching Planner",
+      "description": "Film-day math: does your shoot capacity actually cover your cadence? Honest surplus/shortfall, consistency-beats-volume framing.",
+      "page": "batching.html",
+      "input_schema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "title": "BatchingPlannerInput",
+        "type": "object",
+        "required": [
+          "videos_per_shoot_day",
+          "shoot_days_per_month",
+          "longform_per_week"
+        ],
+        "properties": {
+          "videos_per_shoot_day": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Long-form videos filmed per shoot day (honest average)."
+          },
+          "shoot_days_per_month": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Scheduled, repeatable shoot days \u2014 'I'll find the time' doesn't count."
+          },
+          "shorts_per_shoot_day": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Defaults to 2x videos_per_shoot_day."
+          },
+          "longform_per_week": {
+            "type": "number",
+            "minimum": 0
+          },
+          "shorts_per_week": {
+            "type": "number",
+            "minimum": 0,
+            "default": 0
+          }
+        }
+      },
+      "output": "Required vs capacity per month (long + short), deltas, and a verdict: surplus (bank it), balanced (no slack), or shortfall (add a shoot day / drop a slot / merge formats).",
+      "drive_notes": "Logic (assets/js/content-engine.js, UMD \u2014 importable in node): batchingMath(opts) \u2014 capacity = shoot_days_per_month \u00d7 videos_per_shoot_day; required = cadence \u00d7 52/12 (the honest month); verdict surplus/balanced/shortfall with guidance text. Pure arithmetic on the creator's own inputs \u2014 never a promise. Planning aid, not financial/legal/tax advice."
     }
   ]
 }

@@ -122,5 +122,33 @@
     });
 
     document.getElementById("rp-print").addEventListener("click", function () { window.print(); });
+
+    /* Repurposing Pipeline 2.0: the full derivative map (wave 16).
+       Every derivative carries its required original element —
+       repurposing is not re-uploading. Rendered from the shared engine when
+       available; falls back silently if the script is missing. */
+    if (typeof window !== "undefined" && window.ContentEngine) {
+      var CE = window.ContentEngine;
+      var map = CE.repurposeMap(idea);
+      var guards = CE.originalityGuardrails();
+      var mapHtml = map.map(function (d, i) {
+        return '<div class="callout mission" style="margin:1rem 0">' +
+          "<strong>2.0 DERIVATIVE " + (i + 1) + " — " + esc(d.platform.toUpperCase()) + " (" + esc(d.day) + ")</strong>" +
+          "<p><strong>" + esc(d.label) + ":</strong> " + esc(d.task) + "</p>" +
+          "<p><strong>Original element (required):</strong> " + esc(d.originalElement) + "</p>" +
+          "<p class='muted'>Marginal effort: " + esc(d.effort) + "</p></div>";
+      }).join("");
+      var guardHtml = '<ul class="checklist">' + guards.map(function (g) {
+        return "<li><strong>" + esc(g.rule) + "</strong> — " + esc(g.detail) + "</li>";
+      }).join("") + "</ul>";
+      out.innerHTML += '<hr><h3>Repurposing Pipeline 2.0 — the full derivative map</h3>' +
+        "<p class='muted'>The wave-3 mission cards cover the five platform drops. 2.0 adds the " +
+        "full derivative map: community posts, a newsletter issue, an X thread, and platform-cut " +
+        "shorts — every one carrying a <strong>required original element</strong>. Repurposing " +
+        "is not re-uploading.</p>" + mapHtml +
+        '<h3>The Oct-1 originality guardrails</h3>' + guardHtml +
+        '<p class="muted">Machine-readable map + guardrails: <a href="api/v1/content-engine.json">api/v1/content-engine.json</a>. ' +
+        "Feed the pillar back into the <a href=\"idea-bank.html\">Idea Bank</a> or the <a href=\"content-calendar.html\">content calendar</a> when it's done.</p>";
+    }
   });
 })();

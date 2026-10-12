@@ -72,6 +72,9 @@ TOOLS = [
     ("simulator", "Empire Simulator", "Simulate 12–24 months of channel growth + revenue — scenario library, A/B comparison, team hiring P&L — a model, not a prediction."),
     ("api-explorer", "API Explorer", "Browse every api/v1 endpoint and preview JSON responses live in your browser — no key, no server."),
     ("hook-builder", "Hook Builder", "Type your video topic, get five filmed-ready hooks — one per Short-Form Playbook structure. Flip-through cards."),
+    ("idea-bank", "Idea Bank", "Capture ideas with hook-strength scores (1–5, Playbook structures), niche tags, and effort estimates — promote the best to production."),
+    ("content-calendar", "90-Day Content Calendar", "Deal your idea bank into a 90-day grid: week-planner dealing rules, drag/keyboard moves, sponsor slots, copy-my-calendar export."),
+    ("batching", "Batching Planner", "Film-day math: does your shoot capacity actually cover your cadence? Honest surplus/shortfall, consistency-beats-volume framing."),
 ]
 
 
@@ -232,7 +235,7 @@ TOOLS_API = [
                             "default": "longform"},
       }},
      "Five mission cards (YouTube Day 0, Short Day +1, TikTok Day +2, Reel Day +3, Facebook Day +4) each with a hook rewrite, atom test, and native-grammar checklist.",
-     "Logic (assets/js/repurpose.js): atom test (does the insight survive standalone?), pillar prep (hook in first 15s), then the five staggered mission cards. Enforce native grammar — no watermarks, no copy-paste."),
+     "Logic (assets/js/repurpose.js + assets/js/content-engine.js): atom test (does the insight survive standalone?), pillar prep (hook in first 15s), then the five staggered mission cards. Enforce native grammar — no watermarks, no copy-paste. 2.0 adds the full derivative map via ContentEngine.repurposeMap (7 derivatives: short clip, community reaction, TikTok cut, Reel cut, newsletter issue, X thread, Facebook post) — every derivative carries a required original element (repurposing is not re-uploading) plus the Oct-1 originality guardrails (ContentEngine.originalityGuardrails). Machine-readable map + guardrails: api/v1/content-engine.json repurposing_2_0 / originality_guardrails."),
     ("simulator", "Empire Simulator",
      "Simulate 12–24 months of channel growth + revenue — scenario library, A/B comparison, team hiring P&L — a model, not a prediction.",
      "simulator.html",
@@ -302,6 +305,67 @@ TOOLS_API = [
       }},
      "Five filmed-ready hooks, one per Short-Form Playbook structure: open loop, cold start, contrarian take, numbered promise, question-as-hook.",
      "Logic (assets/js/hook-builder.js): topic → template fills per structure + the anti-hook checklist (no 'wait for it', no follow-begging, no channel-name cold open). The structures are craft formulas, not platform documentation."),
+    ("idea-bank", "Idea Bank",
+     "Capture ideas with hook-strength scores (1–5, Playbook structures), niche tags, and effort estimates — promote the best to production.",
+     "idea-bank.html",
+     {"$schema": "http://json-schema.org/draft-07/schema#", "title": "IdeaBankInput",
+      "type": "object", "required": ["title"],
+      "properties": {
+          "title": {"type": "string", "minLength": 1, "maxLength": 120,
+                  "description": "The idea in one line — the core of the video."},
+          "format": {"type": "string", "enum": ["long", "short", "community"],
+                   "default": "long",
+                   "description": "Long-form pillar, short-form post, or community text post."},
+          "niche": {"type": "string",
+                  "description": "Niche tag — a Niche Atlas niche id from api/v1/niches.json (free text accepted)."},
+          "effort": {"type": "string", "enum": ["quick", "afternoon", "week"],
+                   "default": "afternoon",
+                   "description": "quick < 2h, afternoon = half day, week = full week build."},
+          "hook_score": {"type": "integer", "minimum": 1, "maximum": 5, "default": 3,
+                       "description": "Hook strength self-score against the five Short-Form Playbook structures (see api/v1/content-engine.json hook_structures)."},
+      }},
+     "Banked ideas sorted by hook score (ties by FIFO), filterable by format, promotable to production (they deal into the content calendar). localStorage only.",
+     "Logic (assets/js/content-engine.js, UMD — importable in node): hookScore(n) clamps 1–5; sortIdeas(ideas) sorts by hook score desc, ties by created asc, no mutation; filterIdeas(ideas, format) filters. Storage is the browser's localStorage (key cge_idea_bank_v1) — agents feed idea records directly to the engine functions."),
+    ("content-calendar", "90-Day Content Calendar",
+     "Deal your idea bank into a 90-day grid: week-planner dealing rules, drag/keyboard moves, sponsor slots, copy-my-calendar export.",
+     "content-calendar.html",
+     {"$schema": "http://json-schema.org/draft-07/schema#", "title": "ContentCalendarInput",
+      "type": "object", "required": ["longform_per_week"],
+      "properties": {
+          "longform_per_week": {"type": "integer", "minimum": 0, "maximum": 7},
+          "shorts_per_week": {"type": "integer", "minimum": 0, "maximum": 21, "default": 0},
+          "rest_day": {"type": "integer", "minimum": 0, "maximum": 6, "default": 6,
+                     "description": "0=Mon … 6=Sun; non-negotiable rest — no placement, analytics review only."},
+          "weeks": {"type": "integer", "minimum": 1, "maximum": 52, "default": 13},
+          "ideas": {"type": "array", "default": [],
+                  "items": {"type": "object", "required": ["id", "title", "format"],
+                            "properties": {
+                                "id": {"type": "string"},
+                                "title": {"type": "string"},
+                                "format": {"type": "string", "enum": ["long", "short", "community"]},
+                                "hookScore": {"type": "integer", "minimum": 1, "maximum": 5, "default": 3},
+                                "created": {"type": "number"}}},
+                  "description": "Idea records (e.g. from the Idea Bank). Community ideas deal on the short cadence."},
+      }},
+     "13-week grid: per-day long/short placements, open slots (never filler), backlog, midpoint-review flag on week 7. Export text + simulator input bridge + sponsor-slot marks.",
+     "Logic (assets/js/content-engine.js, UMD — importable in node): dealIdeas(ideas, {longsPerWeek, shortsPerWeek, restDay, weeks}) — same dealing arithmetic as the 90-Day Planner: longs sort by hook score desc then round-robin across weeks onto non-rest work days; shorts deal every other work day; empty slots stay OPEN (never padded); surplus ideas return in unplaced; week 7 flagged midpointReview. exportCalendarText(deal) renders the copy-my-calendar text; simInputFromCadence(longs, shorts) returns {longform_per_week, shorts_per_week} for the Simulator; sponsored slots are calendar commitments only — price them in the Deal Room."),
+    ("batching", "Batching Planner",
+     "Film-day math: does your shoot capacity actually cover your cadence? Honest surplus/shortfall, consistency-beats-volume framing.",
+     "batching.html",
+     {"$schema": "http://json-schema.org/draft-07/schema#", "title": "BatchingPlannerInput",
+      "type": "object", "required": ["videos_per_shoot_day", "shoot_days_per_month", "longform_per_week"],
+      "properties": {
+          "videos_per_shoot_day": {"type": "number", "minimum": 0,
+                                 "description": "Long-form videos filmed per shoot day (honest average)."},
+          "shoot_days_per_month": {"type": "number", "minimum": 0,
+                                 "description": "Scheduled, repeatable shoot days — 'I'll find the time' doesn't count."},
+          "shorts_per_shoot_day": {"type": "number", "minimum": 0,
+                                 "description": "Defaults to 2x videos_per_shoot_day."},
+          "longform_per_week": {"type": "number", "minimum": 0},
+          "shorts_per_week": {"type": "number", "minimum": 0, "default": 0},
+      }},
+     "Required vs capacity per month (long + short), deltas, and a verdict: surplus (bank it), balanced (no slack), or shortfall (add a shoot day / drop a slot / merge formats).",
+     "Logic (assets/js/content-engine.js, UMD — importable in node): batchingMath(opts) — capacity = shoot_days_per_month × videos_per_shoot_day; required = cadence × 52/12 (the honest month); verdict surplus/balanced/shortfall with guidance text. Pure arithmetic on the creator's own inputs — never a promise. Planning aid, not financial/legal/tax advice."),
 ]
 
 # Tools hub (wave 9): grouped card index. Per tool: icon, "use when" one-liner,
@@ -327,6 +391,12 @@ TOOL_HUB_META = {
                       ["agents", "JSON", "no key"]),
     "hook-builder":  ("🎣", "CONTENT", "coral", "you have a topic and need the first 3 seconds to win.",
                       ["hooks", "short-form", "Playbook"]),
+    "idea-bank":     ("💡", "CONTENT", "coral", "your ideas are scattered and you need them scored before production.",
+                      ["hooks", "pipeline", "Phase 1"]),
+    "content-calendar": ("🗓", "CONTENT", "coral", "you need your ideas dealt into a schedule you can actually keep.",
+                      ["dealing", "sponsors", "Phase 1"]),
+    "batching": ("🎬", "CONTENT", "coral", "you want to know if your shoot days really cover your cadence.",
+                      ["film days", "capacity", "Phase 1"]),
 }
 TOOL_HUB_GROUPS = [
     ("PLAN", "Pick the battlefield",
@@ -738,10 +808,13 @@ def build():
         "deal-analyzer": ["assets/js/deal-analyzer.js"],
         "deal-room": ["assets/js/deal-room.js", "assets/js/deal-room-ui.js"],
         "hiring-calculator": ["assets/js/hiring-calculator.js"],
-        "repurpose": ["assets/js/repurpose.js"],
+        "repurpose": ["assets/js/content-engine.js", "assets/js/repurpose.js"],
         "simulator": ["assets/js/sim-engine.js", "assets/js/simulator.js"],
         "api-explorer": ["assets/js/api-explorer.js"],
         "hook-builder": ["assets/js/hook-builder.js"],
+        "idea-bank": ["assets/js/content-engine.js", "assets/js/idea-bank-ui.js"],
+        "content-calendar": ["assets/js/content-engine.js", "assets/js/content-calendar-ui.js"],
+        "batching": ["assets/js/content-engine.js", "assets/js/batching-ui.js"],
     }
     for slug, title, desc in TOOLS:
         body_src = PAGES / f"{slug}.html"
@@ -808,7 +881,7 @@ def build():
             f'<div class="brief-grid">{cards}</div></section>')
     tools_body = (
         hub_hero("COMMAND CENTER", "All Tools",
-                 "Seven power tools, one command center. Pick the briefing that matches where you are.",
+                 "Thirteen power tools, one command center. Pick the briefing that matches where you are.",
                  "acid")
         + hub_sections
         + '<section class="section honesty"><h2>Pick by job, not by shine</h2>'
@@ -896,7 +969,7 @@ def build():
   <p class="lede">Nine phases. Zero to multi-million-dollar creator company — YouTube, TikTok, Facebook, merch, brand deals, LLC, taxes, scale. No guru hype. Just the playbook.</p>
   <div class="sticker-row reveal">
     <span class="sticker">9 phases</span>
-    <span class="sticker sticker-coral">7 power tools</span>
+    <span class="sticker sticker-coral">13 power tools</span>
     <span class="sticker sticker-violet">5 case files</span>
     <span class="sticker sticker-gold">2026 verified</span>
     <span class="sticker sticker-violet">Zero → empire</span>
@@ -904,7 +977,7 @@ def build():
   <div class="hero-stats">
     <div class="hero-stat reveal" style="--i:0"><strong>9</strong><span>phases</span></div>
     <div class="hero-stat reveal" style="--i:1"><strong>{total_words:,}</strong><span>words</span></div>
-    <div class="hero-stat reveal" style="--i:2"><strong>7</strong><span>interactive tools</span></div>
+    <div class="hero-stat reveal" style="--i:2"><strong>13</strong><span>interactive tools</span></div>
     <div class="hero-stat reveal" style="--i:3"><strong>LVL 01–09</strong><span>your climb</span></div>
   </div>
   <div class="hero-cta"><a class="btn btn-primary" href="phase-0-start-from-nothing.html">Start at Phase 0 →</a>
@@ -917,7 +990,7 @@ def build():
   <span>DIVERSIFY REVENUE</span><span>SEPARATE THE MONEY</span><span>SYSTEMS BEAT HUSTLE</span>
 </div></section>
 <section class="section"><div class="section-head"><h2>The Empire Map</h2><span class="section-tag">9 levels // clear them all</span></div><div class="phase-grid reveal-stagger">{cards}</div></section>
-<section class="section"><div class="section-head"><h2>Command Center</h2><span class="section-tag">weapons free</span><a href="tools.html" class="section-more">All 10 tools →</a></div><div class="tool-grid reveal-stagger">{tools_html}</div></section>
+<section class="section"><div class="section-head"><h2>Command Center</h2><span class="section-tag">weapons free</span><a href="tools.html" class="section-more">All 13 tools →</a></div><div class="tool-grid reveal-stagger">{tools_html}</div></section>
 {case_section}
 <section class="section"><div class="section-head"><h2>Hottest topics right now</h2><span class="section-tag">live feed // trend-machine</span></div>
 <div class="hud-panel trends-hud reveal">
@@ -1033,6 +1106,19 @@ def build():
             "freshness_note": "Multipliers are reported 2026 benchmarks and ranges, not quotes. Verify against current creator rate reports before quoting.",
         },
         {
+            "id": "content-engine",
+            "kind": "json",
+            "path": "api/v1/content-engine.json",
+            "description": "The Content Engine data contract: idea formats, the five Short-Form Playbook hook structures, calendar dealing rules, batching guidance (consistency-beats-volume), the Repurposing 2.0 derivative map (each derivative's required original element), the Oct-1 originality guardrails, deal-slot guidance, and the simulator bridge. A planning aid, not financial/legal/tax advice.",
+            "schema": "api/v1/schema/content-engine.json",
+            "updated": BUILD_TS,
+            "records": None,
+            "records_note": "Data contract, not a record list: 3 idea formats, 5 hook structures, 7 dealing rules, 7 repurposing-2.0 derivatives, 5 originality guardrails.",
+            "deprecated": False,
+            "deprecation_note": None,
+            "freshness_note": "Hook structures are craft formulas from the Short-Form Playbook, not platform documentation. Niche tags resolve against api/v1/niches.json.",
+        },
+        {
             "id": "skills",
             "kind": "json",
             "path": "api/v1/skills.json",
@@ -1082,7 +1168,7 @@ def build():
             "id": "tool-pages",
             "kind": "html",
             "paths": [f"{slug}.html" for slug, _, _ in TOOLS],
-            "description": "The ten interactive tools' human UI pages. Agents should prefer api/v1/tools.json input schemas over scraping these pages.",
+            "description": "The thirteen interactive tools' human UI pages. Agents should prefer api/v1/tools.json input schemas over scraping these pages.",
             "schema": None,
             "updated": BUILD_TS,
             "records": len(TOOLS),
@@ -1109,10 +1195,11 @@ def build():
                 "tools.json — tools doc",
                 "tool.json — tool record",
                 "deal-templates.json — deal-room data contract",
+                "content-engine.json — content-engine data contract",
             ],
             "schema": None,
             "updated": BUILD_TS,
-            "records": 14,
+            "records": 15,
             "deprecated": False,
             "deprecation_note": None,
         },
@@ -1144,11 +1231,12 @@ def build():
     shutil.copy(DATA / "calculators.json", API / "calculators.json")
     shutil.copy(DATA / "niches.json", API / "niches.json")
     shutil.copy(DATA / "deal-templates.json", API / "deal-templates.json")
+    shutil.copy(DATA / "content-engine.json", API / "content-engine.json")
 
     # ---- tools.json: every tool with its programmatic input schema ----
     (API / "tools.json").write_text(json.dumps({
         "version": "1.0.0", "updated": "2026-10-11",
-        "note": ("Programmatic input schemas for the ten interactive tools. "
+        "note": ("Programmatic input schemas for the thirteen interactive tools. "
                  "Agents replicate each tool's logic by feeding these inputs to the "
                  "documented formulas / shipped JS (assets/js/<id>.js); the UI pages "
                  "are the human front-end for the same logic."),
@@ -1442,6 +1530,107 @@ def build():
     }
     (API / "schema" / "tools.json").write_text(json.dumps(tools_schema, indent=2), encoding="utf-8")
 
+    # ---- schema for the Content Engine data contract (wave 16) ----
+    # Derivative ids must match the set the engine's repurposeMap() emits
+    # (checked by tests/content-engine.test.js); guardrail ids must match
+    # originalityGuardrails(); hook structure ids must match the Hook Builder's
+    # STRUCTURES.
+    content_engine_schema = {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "title": "ContentEngine",
+        "type": "object",
+        "required": ["version", "updated", "disclaimer", "idea_formats",
+                     "hook_structures", "dealing_rules", "batching",
+                     "repurposing_2_0", "originality_guardrails",
+                     "deal_slots", "simulator_bridge", "source"],
+        "properties": {
+            "version": {"type": "string"},
+            "updated": {"type": "string"},
+            "disclaimer": {"type": "string"},
+            "idea_formats": {"type": "array", "minItems": 3, "maxItems": 3, "items": {
+                "type": "object",
+                "required": ["id", "label", "description", "effort_note", "examples"],
+                "properties": {
+                    "id": {"type": "string", "enum": ["long", "short", "community"]},
+                    "label": {"type": "string"},
+                    "description": {"type": "string"},
+                    "effort_note": {"type": "string"},
+                    "examples": {"type": "array", "items": {"type": "string"}},
+                }}},
+            "hook_structures": {"type": "array", "minItems": 5, "maxItems": 5, "items": {
+                "type": "object",
+                "required": ["id", "name", "formula", "reference", "source"],
+                "properties": {
+                    "id": {"type": "string",
+                           "enum": ["open-loop", "cold-start", "contrarian",
+                                    "numbered", "question"]},
+                    "name": {"type": "string"},
+                    "formula": {"type": "string"},
+                    "reference": {"type": "string"},
+                    "source": {"type": "string"},
+                }}},
+            "dealing_rules": {
+                "type": "object",
+                "required": ["basis", "rules", "slot_priorities"],
+                "properties": {
+                    "basis": {"type": "string"},
+                    "rules": {"type": "array", "items": {"type": "string"}},
+                    "slot_priorities": {"type": "array", "items": {"type": "string"}},
+                }},
+            "batching": {
+                "type": "object",
+                "required": ["consistency_framing", "guidance", "weeks_per_month"],
+                "properties": {
+                    "consistency_framing": {"type": "string"},
+                    "guidance": {"type": "array", "items": {"type": "string"}},
+                    "weeks_per_month": {"type": "number"},
+                }},
+            "repurposing_2_0": {
+                "type": "object",
+                "required": ["basis", "note", "derivatives"],
+                "properties": {
+                    "basis": {"type": "string"},
+                    "note": {"type": "string"},
+                    "derivatives": {"type": "array", "minItems": 7, "items": {
+                        "type": "object",
+                        "required": ["id", "platform", "day", "label", "task",
+                                     "original_element", "effort"],
+                        "properties": {
+                            "id": {"type": "string",
+                                   "enum": ["short_clip", "community_reaction",
+                                            "tiktok_cut", "reel_cut",
+                                            "newsletter_issue", "x_thread",
+                                            "facebook_post"]},
+                            "platform": {"type": "string"},
+                            "day": {"type": "string"},
+                            "label": {"type": "string"},
+                            "task": {"type": "string"},
+                            "original_element": {"type": "string"},
+                            "effort": {"type": "string"},
+                        }}}}},
+            "originality_guardrails": {"type": "array", "minItems": 4, "items": {
+                "type": "object",
+                "required": ["id", "rule", "detail"],
+                "properties": {
+                    "id": {"type": "string"},
+                    "rule": {"type": "string"},
+                    "detail": {"type": "string"},
+                }}},
+            "deal_slots": {
+                "type": "object",
+                "required": ["description", "guidance", "max_sponsor_share"],
+                "properties": {
+                    "description": {"type": "string"},
+                    "guidance": {"type": "array", "items": {"type": "string"}},
+                    "max_sponsor_share": {"type": "number"},
+                }},
+            "simulator_bridge": {"type": "object"},
+            "source": {"type": "string"},
+        },
+    }
+    (API / "schema" / "content-engine.json").write_text(
+        json.dumps(content_engine_schema, indent=2), encoding="utf-8")
+
     # ---- skills index outputs (index computed before the API block) ----
     (API / "skills.json").write_text(json.dumps(
         {"version": "1.0.0", "updated": "2026-10-11", "skills": skills_idx}, indent=2), encoding="utf-8")
@@ -1464,7 +1653,7 @@ def build():
     for slug, title, desc in TOOLS:
         llms.append(f"- [{title}]({slug}.html) — {desc}")
     llms += ["- [Glossary](glossary.html)", "",
-             "All ten tools, grouped by job (Plan / Money / Content): [Tools hub](tools.html).",
+             "All thirteen tools, grouped by job (Plan / Money / Content): [Tools hub](tools.html).",
              "", "## Reference"]
     for m in reference_meta:
         llms.append(f"- [{m['badge']}: {m['title']}]({m['path']}) — {m['read_minutes']} min read")
@@ -1485,9 +1674,10 @@ def build():
              "- api/v1/case-files.json",
              "- api/v1/tools.json — every tool's programmatic input schema",
              "- api/v1/deal-templates.json — Deal Room data: negotiation scripts, red-flag checklist, usage-rights tiers",
+             "- api/v1/content-engine.json — Content Engine data: idea formats, Playbook hook structures, dealing rules, Repurposing 2.0 map, originality guardrails, deal-slot guidance",
              "- api/v1/schema/ — JSON Schema (draft-07) for every endpoint",
              "", "## Agents",
-             "- AGENT.md — how an agent uses this site: base URL pattern, example requests, 5 end-to-end workflows, tool input schemas",
+             "- AGENT.md — how an agent uses this site: base URL pattern, example requests, 6 end-to-end workflows, tool input schemas",
              "- [Agents](agents.html) — the agent surface: endpoint table, all skills, data freshness policy, 5 worked agent workflows",
              "- [API Explorer](api-explorer.html) — browse api/v1 endpoints, preview JSON in-browser",
              "- llms.txt (this file) — quick agent orientation",

@@ -646,3 +646,72 @@ assertions — incl. the new Workflow 5 against the real JSONs, llms counts
 fresh).
 
 Commit: ca56215f7f560cb300de11fccab5e1362905f2ae (pushed 2026-10-11).
+
+## Wave 16 — The Content Engine (2026-10-11)
+
+What shipped (the missing pillar: idea → production → repurposing, three new
+interactive tools, 10 → 13):
+
+1. **Idea Bank** (`pages/idea-bank.html` → `site/idea-bank.html`, tool 11):
+   localStorage idea capture — title, format (long/short/community), niche
+   tag (datalist from `api/v1/niches.json`, free text fallback), effort
+   estimate, hook-strength self-score 1–5 scored against the five Short-Form
+   Playbook hook structures (reference cards on-page, linked to the Hook
+   Builder). Sort by score (ties FIFO) or newest, filter by format;
+   "Promote to production" moves an idea into the content calendar's dealing
+   pool. localStorage only, nothing leaves the browser.
+2. **90-Day Content Calendar** (`pages/content-calendar.html`, tool 12):
+   cadence input (X longs + Y shorts/week, rest day, 13 weeks) auto-deals
+   the bank into a 90-day grid using the week-planner dealing rules — longs
+   sort by hook score then round-robin across non-rest work days, shorts
+   every other work day, rest day non-negotiable, week 7 midpoint review.
+   Empty slots stay OPEN (never filler); surplus ideas return as backlog.
+   Drag-and-drop + keyboard move (‹ › buttons, arrow keys), star-marked
+   sponsor slots (calendar commitments only — price them in the Deal Room),
+   "Copy my calendar" text export, and "Send cadence to Simulator"
+   (copies `{longform_per_week, shorts_per_week}` for the Simulator — a model,
+   not a prediction). Moves/sponsor marks persist per config in localStorage.
+3. **Batching Planner** (`pages/batching.html`, tool 13): "film day" math —
+   videos/shoot-day + shoot-days/month vs cadence × 52/12 (the honest month).
+   Surplus/balanced/shortfall verdict with honest guidance and the
+   consistency-beats-volume framing ("'I'll find the time' is not capacity").
+   No promises: pure arithmetic on the creator's own inputs.
+4. **Repurposing Pipeline 2.0**: extends the wave-3 planner in place
+   (`assets/js/repurpose.js` now loads the shared engine). One long-form
+   pillar in → the 7-derivative map (short clip, community reaction, TikTok
+   cut, Reel cut, newsletter issue, X thread, Facebook post) — every
+   derivative carries a **required original element**, plus the Oct-1
+   originality guardrails (no identical re-uploads, fresh hooks, native
+   grammar, written text derivatives, atom-test gate). Repurposing is not
+   re-uploading.
+5. **Content engine** (`assets/js/content-engine.js`, UMD — browser +
+   `require()`-able in node): `hookScore`, `sortIdeas`, `filterIdeas`,
+   `dealIdeas`, `batchingMath`, `repurposeMap`, `originalityGuardrails`,
+   `simInputFromCadence`, `exportCalendarText`. UI scripts
+   (`idea-bank-ui.js`, `content-calendar-ui.js`, `batching-ui.js`) are
+   pure-math-free DOM/localStorage wiring. Honesty contract: the engine does
+   arithmetic on the creator's inputs only — never promises views, revenue,
+   or growth. A planning aid, not financial/legal/tax advice.
+6. **New API endpoint `api/v1/content-engine.json`** (source of truth
+   `data/content-engine.json`, mirrored to `site/api/v1/`): 3 idea formats,
+   5 hook structures, dealing rules, batching guidance, the 2.0 derivative
+   map, 5 guardrails, deal-slot guidance, simulator bridge. Draft-07 doc
+   schema (`api/v1/schema/content-engine.json`, derivative/guardrail/hook ids
+   cross-checked against the engine by the test suite), registered in the
+   manifest (schemas count 14 → 15). Documented in AGENT.md (Workflow 6 +
+   tools table), API.md (endpoint + schema list), `pages/agents.md`
+   (surface table + workflow 6), README, and the `llms.txt` API section.
+
+Cross-links: Idea Bank → Hook Builder (structures) + Niche Atlas (tags);
+calendar → Simulator (cadence bridge) + Deal Room/rate card (sponsor slots);
+batching → Planner + Simulator; repurposing 2.0 → Idea Bank + calendar.
+
+Validation: `scripts/build.py` clean (9 chapters, 13 tools, 12 skills,
+5 case files, 16,153 words); `scripts/validate.sh` **8/8 GREEN** (23 JS
+files node --check, JSON parse, draft-07 schemas incl. the new
+content-engine doc, 0 broken links (1,896 checked), byte-identical rebuild
+on the committed tree, 72 sim + 78 deal-room + **49 content-engine** engine
+assertions, 47 agent-workflow assertions — incl. the new Workflow 6 against
+the real JSONs, llms counts fresh).
+
+Commit: (pending push).

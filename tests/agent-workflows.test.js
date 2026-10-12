@@ -67,7 +67,7 @@ function check(name, cond, detail) {
 
   // tools.json drives the planner config shape
   const tools = load("tools.json").tools;
-  check("wf2: tools.json lists all 10 tools", tools.length === 10, String(tools.length));
+  check("wf2: tools.json lists all 13 tools", tools.length === 13, String(tools.length));
   const planner = tools.find((t) => t.id === "planner");
   const schema = planner && planner.input_schema;
   check("wf2: planner input schema exposes cadence fields",
@@ -257,6 +257,63 @@ function check(name, cond, detail) {
   check("wf5: memo names the brand, verdict, and red flag",
     memo.startsWith("DEAL MEMO — Acme") && memo.includes("FAIR") && memo.includes("Unlimited revisions"));
   check("wf5: memo carries the disclaimer", /not financial, legal, or tax advice/i.test(memo));
+})();
+
+/* ============ Workflow 6: run the content engine end-to-end ============
+ * AGENT.md §Workflow 6: ideas -> 90-day calendar -> batching check ->
+ * repurposing 2.0, all via api/v1/content-engine.json + the shipped engine. */
+(function workflow6() {
+  const CE = require("../assets/js/content-engine.js");
+  const ce = load("content-engine.json");
+
+  // 1. hook structures: the five Playbook structures the bank scores against
+  const hooks = ce.hook_structures.map((h) => h.id);
+  check("wf6: content-engine.json carries the 5 Playbook hook structures",
+    hooks.join(",") === "open-loop,cold-start,contrarian,numbered,question", hooks.join(","));
+
+  // 2. bank ideas: score, sort, promote
+  const bank = [
+    { id: "a", title: "I roasted my old setup", format: "long", hookScore: 5, created: 1 },
+    { id: "b", title: "3 mic mistakes", format: "long", hookScore: 3, created: 2 },
+    { id: "c", title: "hot take: posting daily is backwards", format: "community", hookScore: 4, created: 3 },
+  ];
+  const ordered = CE.sortIdeas(bank);
+  check("wf6: idea bank sorts by hook strength", ordered[0].id === "a" && ordered[1].id === "c");
+  const promoted = bank.filter((i) => i.hookScore >= 4);
+  check("wf6: promote ideas with hook score 4+", promoted.length === 2, String(promoted.length));
+
+  // 3. deal into the calendar: 1 long + 1 short/week, rest Sunday
+  const deal = CE.dealIdeas(bank, { longsPerWeek: 1, shortsPerWeek: 1, restDay: 6, weeks: 13 });
+  check("wf6: calendar places 2 longs + 1 community, leaves 23 slots OPEN",
+    deal.totals.long === 2 && deal.totals.short === 1 && deal.openSlots === 23,
+    `${deal.totals.long}/${deal.totals.short}/${deal.openSlots}`);
+  const week1HasTop = deal.weeks[0].days.some((d) => d.items.some((it) => it.ideaId === "a"));
+  check("wf6: top-scored idea deals into week 1", week1HasTop);
+  const restClean = deal.weeks.every((w) => w.days[6].items.length === 0);
+  check("wf6: rest day untouched", restClean);
+  const exportText = CE.exportCalendarText(deal);
+  check("wf6: export text flags open slots and names the disclaimer",
+    exportText.includes("OPEN") && /not financial, legal, or tax advice/i.test(exportText),
+    exportText.split("\n").slice(0, 3).join(" | "));
+
+  // 4. batching: can 2 shoot days/month (1 long each) cover 1 long/week?
+  const b = CE.batchingMath({ videosPerShootDay: 1, shootDaysPerMonth: 2, longsPerWeek: 1, shortsPerWeek: 1 });
+  check("wf6: batching verdict shortfall (2 < 4.33 longs/mo)",
+    b.verdict === "shortfall" && b.deltaLongs < 0, `${b.verdict}/${b.deltaLongs}`);
+  const simIn = CE.simInputFromCadence(1, 1);
+  check("wf6: cadence bridges to simulator inputs",
+    simIn.longform_per_week === 1 && simIn.shorts_per_week === 1);
+
+  // 5. repurposing 2.0: derivative map + guardrails
+  const map = CE.repurposeMap(bank[0].title);
+  const engineIds = map.map((d) => d.id).sort().join(",");
+  const dataIds = ce.repurposing_2_0.derivatives.map((d) => d.id).sort().join(",");
+  check("wf6: 2.0 derivative map matches the data contract", engineIds === dataIds, engineIds);
+  check("wf6: every derivative has a required original element",
+    map.every((d) => d.originalElement && d.originalElement.length > 0));
+  const guardIds = CE.originalityGuardrails().map((g) => g.id).sort().join(",");
+  const dataGuardIds = ce.originality_guardrails.map((g) => g.id).sort().join(",");
+  check("wf6: originality guardrails match the data contract", guardIds === dataGuardIds);
 })();
 
 console.log(`\nagent-workflows: ${pass} passed, ${fail} failed`);

@@ -1,7 +1,7 @@
 # AGENT.md — How an agent uses Creator Growth Empire
 
 > This site is a static machine-readable knowledge base for the creator
-> business: 9 phases, 9 tools, 12 skills, 5 case files, and a versioned JSON
+> business: 9 phases, 13 tools, 12 skills, 5 case files, and a versioned JSON
 > API. No API key, no server, no auth, no rate limits. Fetch and act.
 > Every workflow below was executed against the real `api/v1/` JSON files —
 > see `tests/agent-workflows.test.js` (run: `node tests/agent-workflows.test.js`).
@@ -33,7 +33,7 @@
 | `GET api/v1/calculators.json` | Per-niche RPM bands, Shorts RPM, platform thresholds w/ sources+dates, revenue splits, 2026 sponsorship rate card, 2026 research snapshots | The data contract every calculator and the sim engine read |
 | `GET api/v1/skills.json` | 12 skills: `name`, `description`, `path` | `skills/deal-negotiation/SKILL.md` for the full procedure |
 | `GET api/v1/case-files.json` | 5 creator-business deconstructions: `id`, `title`, `path`, `words`, `read_minutes` | Full text on the `case-*.html` pages |
-| `GET api/v1/tools.json` | 9 tools with programmatic `input_schema` (draft-07), output description, `drive_notes` | Replicate any tool's logic without the UI |
+| `GET api/v1/tools.json` | 13 tools with programmatic `input_schema` (draft-07), output description, `drive_notes` | Replicate any tool's logic without the UI |
 | `GET api/v1/schema/<name>.json` | JSON Schema draft-07 for every endpoint (per-doc and per-record) | Validate before you trust a payload |
 
 Skills are the executable layer: each `skills/<name>/SKILL.md` follows
@@ -166,6 +166,44 @@ priced, flag-checked, scripted, and memorized — all via API.
 6. Export the record. `dealMemo(deal, scored, flags)` builds the one-page
    summary (terms, FAIR verdict, checked flags, counters) with the
    not-financial/legal/tax-advice disclaimer attached.
+
+### Workflow 6 — Run the content engine end-to-end (idea → calendar → batching → repurposing)
+
+Goal: take three raw ideas and walk the whole production pipeline — banked,
+scored, dealt into a 90-day calendar, film-day-checked, and repurposed — all
+via API.
+
+1. `GET api/v1/content-engine.json` → the Content Engine data contract: 3 idea
+   formats, the 5 Short-Form Playbook hook structures, dealing rules, batching
+   guidance, the Repurposing 2.0 derivative map, and the Oct-1 originality
+   guardrails. Drive the logic with
+   `require("assets/js/content-engine.js")` (UMD, importable in node).
+2. Bank and score. `ContentEngine.sortIdeas(ideas)` sorts by hook-strength
+   score desc (ties by created, no mutation); `hookScore(n)` clamps to 1–5.
+   The five structures (open loop, cold start, contrarian, numbered promise,
+   question-as-hook) are the scoring rubric — craft formulas, not platform
+   documentation.
+3. Deal the calendar. `ContentEngine.dealIdeas(ideas, {longsPerWeek: 1,
+   shortsPerWeek: 1, restDay: 6, weeks: 13})` — same dealing arithmetic as the
+   90-Day Planner: longs sort by score then round-robin onto non-rest work
+   days, shorts every other work day, rest day untouched, empty slots stay
+   OPEN (never filler), surplus ideas return in `unplaced`. Week 7 carries
+   the midpoint review.
+4. Check the film-day math. `ContentEngine.batchingMath({videosPerShootDay: 1,
+   shootDaysPerMonth: 2, longsPerWeek: 1, shortsPerWeek: 1})` → **shortfall**
+   (2 longs/mo capacity vs 4.33 required) — the engine names the decision:
+   add a shoot day, drop a slot, or merge formats. Consistency beats volume.
+5. Repurpose 2.0. `ContentEngine.repurposeMap(title)` returns the 7-derivative
+   map (short clip, community reaction, TikTok cut, Reel cut, newsletter
+   issue, X thread, Facebook post) — every derivative carries a **required
+   original element** (repurposing is not re-uploading); `originalityGuardrails()`
+   returns the five Oct-1 rules (no identical re-uploads, fresh hooks,
+   native grammar, written text derivatives, atom-test gate).
+6. Bridge. `simInputFromCadence(longs, shorts)` returns `{longform_per_week,
+   shorts_per_week}` for the Simulator (a model, not a prediction);
+   `exportCalendarText(deal)` renders the copy-my-calendar text. Sponsor slots
+   are calendar commitments only — price them in the Deal Room before
+   promising them.
 
 ## Rate & expectation notes
 

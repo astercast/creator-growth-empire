@@ -78,6 +78,19 @@
       "freshness_note": "Multipliers are reported 2026 benchmarks and ranges, not quotes. Verify against current creator rate reports before quoting."
     },
     {
+      "id": "content-engine",
+      "kind": "json",
+      "path": "api/v1/content-engine.json",
+      "description": "The Content Engine data contract: idea formats, the five Short-Form Playbook hook structures, calendar dealing rules, batching guidance (consistency-beats-volume), the Repurposing 2.0 derivative map (each derivative's required original element), the Oct-1 originality guardrails, deal-slot guidance, and the simulator bridge. A planning aid, not financial/legal/tax advice.",
+      "schema": "api/v1/schema/content-engine.json",
+      "updated": "2026-10-11T00:00:00Z",
+      "records": null,
+      "records_note": "Data contract, not a record list: 3 idea formats, 5 hook structures, 7 dealing rules, 7 repurposing-2.0 derivatives, 5 originality guardrails.",
+      "deprecated": false,
+      "deprecation_note": null,
+      "freshness_note": "Hook structures are craft formulas from the Short-Form Playbook, not platform documentation. Niche tags resolve against api/v1/niches.json."
+    },
+    {
       "id": "skills",
       "kind": "json",
       "path": "api/v1/skills.json",
@@ -106,7 +119,7 @@
       "description": "All ten interactive tools with programmatic input schemas (JSON Schema draft-07), output descriptions, and drive notes \u2014 replicate the tools' logic without the UI.",
       "schema": "api/v1/schema/tools.json",
       "updated": "2026-10-11T00:00:00Z",
-      "records": 10,
+      "records": 13,
       "deprecated": false,
       "deprecation_note": null
     },
@@ -137,12 +150,15 @@
         "repurpose.html",
         "simulator.html",
         "api-explorer.html",
-        "hook-builder.html"
+        "hook-builder.html",
+        "idea-bank.html",
+        "content-calendar.html",
+        "batching.html"
       ],
-      "description": "The ten interactive tools' human UI pages. Agents should prefer api/v1/tools.json input schemas over scraping these pages.",
+      "description": "The thirteen interactive tools' human UI pages. Agents should prefer api/v1/tools.json input schemas over scraping these pages.",
       "schema": null,
       "updated": "2026-10-11T00:00:00Z",
-      "records": 10,
+      "records": 13,
       "deprecated": false,
       "deprecation_note": null
     },
@@ -165,11 +181,12 @@
         "case-file.json \u2014 case-file record",
         "tools.json \u2014 tools doc",
         "tool.json \u2014 tool record",
-        "deal-templates.json \u2014 deal-room data contract"
+        "deal-templates.json \u2014 deal-room data contract",
+        "content-engine.json \u2014 content-engine data contract"
       ],
       "schema": null,
       "updated": "2026-10-11T00:00:00Z",
-      "records": 14,
+      "records": 15,
       "deprecated": false,
       "deprecation_note": null
     }

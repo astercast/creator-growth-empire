@@ -1,0 +1,271 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ContentEngine",
+  "type": "object",
+  "required": [
+    "version",
+    "updated",
+    "disclaimer",
+    "idea_formats",
+    "hook_structures",
+    "dealing_rules",
+    "batching",
+    "repurposing_2_0",
+    "originality_guardrails",
+    "deal_slots",
+    "simulator_bridge",
+    "source"
+  ],
+  "properties": {
+    "version": {
+      "type": "string"
+    },
+    "updated": {
+      "type": "string"
+    },
+    "disclaimer": {
+      "type": "string"
+    },
+    "idea_formats": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "label",
+          "description",
+          "effort_note",
+          "examples"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "enum": [
+              "long",
+              "short",
+              "community"
+            ]
+          },
+          "label": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "effort_note": {
+            "type": "string"
+          },
+          "examples": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "hook_structures": {
+      "type": "array",
+      "minItems": 5,
+      "maxItems": 5,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "formula",
+          "reference",
+          "source"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "enum": [
+              "open-loop",
+              "cold-start",
+              "contrarian",
+              "numbered",
+              "question"
+            ]
+          },
+          "name": {
+            "type": "string"
+          },
+          "formula": {
+            "type": "string"
+          },
+          "reference": {
+            "type": "string"
+          },
+          "source": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "dealing_rules": {
+      "type": "object",
+      "required": [
+        "basis",
+        "rules",
+        "slot_priorities"
+      ],
+      "properties": {
+        "basis": {
+          "type": "string"
+        },
+        "rules": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "slot_priorities": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "batching": {
+      "type": "object",
+      "required": [
+        "consistency_framing",
+        "guidance",
+        "weeks_per_month"
+      ],
+      "properties": {
+        "consistency_framing": {
+          "type": "string"
+        },
+        "guidance": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "weeks_per_month": {
+          "type": "number"
+        }
+      }
+    },
+    "repurposing_2_0": {
+      "type": "object",
+      "required": [
+        "basis",
+        "note",
+        "derivatives"
+      ],
+      "properties": {
+        "basis": {
+          "type": "string"
+        },
+        "note": {
+          "type": "string"
+        },
+        "derivatives": {
+          "type": "array",
+          "minItems": 7,
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "platform",
+              "day",
+              "label",
+              "task",
+              "original_element",
+              "effort"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "enum": [
+                  "short_clip",
+                  "community_reaction",
+                  "tiktok_cut",
+                  "reel_cut",
+                  "newsletter_issue",
+                  "x_thread",
+                  "facebook_post"
+                ]
+              },
+              "platform": {
+                "type": "string"
+              },
+              "day": {
+                "type": "string"
+              },
+              "label": {
+                "type": "string"
+              },
+              "task": {
+                "type": "string"
+              },
+              "original_element": {
+                "type": "string"
+              },
+              "effort": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "originality_guardrails": {
+      "type": "array",
+      "minItems": 4,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "rule",
+          "detail"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "rule": {
+            "type": "string"
+          },
+          "detail": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "deal_slots": {
+      "type": "object",
+      "required": [
+        "description",
+        "guidance",
+        "max_sponsor_share"
+      ],
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "guidance": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "max_sponsor_share": {
+          "type": "number"
+        }
+      }
+    },
+    "simulator_bridge": {
+      "type": "object"
+    },
+    "source": {
+      "type": "string"
+    }
+  }
+}

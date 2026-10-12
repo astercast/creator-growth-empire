@@ -26,7 +26,10 @@ Skill index: `version`, `updated`, `skills: [{ "name", "description", "path" }]`
 Case-file index: `version`, `updated`, `note`, `case_files: [{ "id", "badge", "title", "path", "words", "read_minutes" }]` for all five documented creator-business deconstructions (budget-grocery newsletter, Ben's Bites, faceless sleep-channel network, Mavwicks on TikTok Shop, cohort course). Full text on the `case-*.html` pages. Figures are source-reported, not audited — never present as promises.
 
 ### `GET api/v1/tools.json`
-`{ "version", "updated", "note", "tools": [{ "id", "title", "description", "page", "input_schema", "output", "drive_notes" }] }` — all ten interactive tools with programmatic input schemas (JSON Schema draft-07), output descriptions, and drive notes. Replicate any tool's logic without the UI; the `*.html` tool pages are the human front-end for the same logic.
+`{ "version", "updated", "note", "tools": [{ "id", "title", "description", "page", "input_schema", "output", "drive_notes" }] }` — all thirteen interactive tools with programmatic input schemas (JSON Schema draft-07), output descriptions, and drive notes. Replicate any tool's logic without the UI; the `*.html` tool pages are the human front-end for the same logic.
+
+### `GET api/v1/content-engine.json`
+`{ "version", "updated", "disclaimer", "idea_formats", "hook_structures", "dealing_rules", "batching", "repurposing_2_0", "originality_guardrails", "deal_slots", "simulator_bridge", "source" }` — the Content Engine data contract: 3 idea formats (long/short/community) with effort notes, the 5 Short-Form Playbook hook structures (open loop, cold start, contrarian, numbered promise, question-as-hook — craft formulas, not platform documentation), calendar dealing rules (same arithmetic as the 90-Day Planner), batching guidance (consistency-beats-volume), the Repurposing 2.0 derivative map (7 derivatives, each with its required original element — repurposing is not re-uploading), and the Oct-1 originality guardrails (no identical re-uploads, fresh hooks, native grammar, written text derivatives, atom-test gate). Niche tags resolve against `api/v1/niches.json`. **A planning aid, not financial, legal, or tax advice.**
 
 ### `GET api/v1/deal-templates.json`
 `{ "version", "updated", "disclaimer", "usage_rights_tiers": [{ "id", "label", "description", "multiplier", "multiplier_label", "basis", "reported" }], "negotiation_scripts": [{ "id", "title", "when", "body", "tip", "grounded_in" }], "red_flags": [{ "id", "title", "severity", "detail", "fix" }], "scoring": { "note", "rules" } }` — the Deal Room data contract: 6 usage-rights tiers (organic / paid-30d / paid-6mo / paid-12mo / whitelisting / buyout) with reported-vs-definitional multiplier basis, 4 negotiation scripts with `{{placeholders}}`, and the red-flag checklist with severities (`walk_away` / `major` / `minor`) plus scoring rules. Multipliers are reported 2026 research ranges, never quotes. **Not financial, legal, or tax advice.**
@@ -57,6 +60,7 @@ deployed, offline-safe, no server required.
 - `case-files.json` — case-files doc; `case-file.json` — case-file record
 - `tools.json` — tools doc; `tool.json` — tool record
 - `deal-templates.json` — deal-room data contract (scripts, red-flag checklist, usage-rights tiers inline)
+- `content-engine.json` — content-engine data contract (idea formats, hook structures, dealing rules, batching guidance, repurposing-2.0 map, originality guardrails, deal slots, simulator bridge)
 
 ## llms.txt
 
@@ -65,7 +69,7 @@ deployed, offline-safe, no server required.
 
 ## AGENT.md
 
-`AGENT.md` (repo root) — how an agent uses this site: base URL pattern, key endpoints with example requests, 5 end-to-end worked workflows (sponsorship evaluation, 90-day launch, sim scenario, sim A/B, deal-room pipeline), rate/expectation notes, per-tool programmatic input shapes, honesty rules. Every workflow is executed against the real `api/v1/` JSON files by `tests/agent-workflows.test.js`.
+`AGENT.md` (repo root) — how an agent uses this site: base URL pattern, key endpoints with example requests, 6 end-to-end worked workflows (sponsorship evaluation, 90-day launch, sim scenario, sim A/B, deal-room pipeline, content-engine pipeline), rate/expectation notes, per-tool programmatic input shapes, honesty rules. Every workflow is executed against the real `api/v1/` JSON files by `tests/agent-workflows.test.js`.
 
 ## Shared API conventions (all sites)
 - Base: `api/v1/` relative to the site root. Works on any static host; no auth, no keys, no rate limits.

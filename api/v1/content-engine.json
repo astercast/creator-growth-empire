@@ -1,0 +1,216 @@
+{
+  "disclaimer": "A planning aid, not financial, legal, or tax advice. Cadence math is arithmetic on your own inputs \u2014 posting more never guarantees views, revenue, or growth.",
+  "idea_formats": [
+    {
+      "description": "Full production piece. The pillar everything else is cut from.",
+      "effort_note": "Highest effort per piece.",
+      "examples": [
+        "12-min test video",
+        "deep-dive explainer"
+      ],
+      "id": "long",
+      "label": "Long-form"
+    },
+    {
+      "description": "Under-60s vertical. Distribution, not depth.",
+      "effort_note": "Medium per piece; batches well.",
+      "examples": [
+        "one tip",
+        "reaction clip"
+      ],
+      "id": "short",
+      "label": "Short-form"
+    },
+    {
+      "description": "Text-first post for your channel/community tab. Zero production cost.",
+      "effort_note": "Lowest effort; consistency driver.",
+      "examples": [
+        "poll",
+        "hot take",
+        "behind-the-scenes"
+      ],
+      "id": "community",
+      "label": "Community post"
+    }
+  ],
+  "hook_structures": [
+    {
+      "formula": "I [did X] \u2014 and [surprising result] is at the end.",
+      "id": "open-loop",
+      "name": "The Open Loop",
+      "reference": "hook-builder.html",
+      "source": "Short-Form Playbook"
+    },
+    {
+      "formula": "[Mid-action, already talking:] Forget the intro \u2014 [topic].",
+      "id": "cold-start",
+      "name": "The Cold Start",
+      "reference": "hook-builder.html",
+      "source": "Short-Form Playbook"
+    },
+    {
+      "formula": "Everything you've been told about [X] is backwards.",
+      "id": "contrarian",
+      "name": "The Contrarian Take",
+      "reference": "hook-builder.html",
+      "source": "Short-Form Playbook"
+    },
+    {
+      "formula": "3 [things/mistakes] about [X] \u2014 #2 is the one that matters.",
+      "id": "numbered",
+      "name": "The Numbered Promise",
+      "reference": "hook-builder.html",
+      "source": "Short-Form Playbook"
+    },
+    {
+      "formula": "Why do some people [win at X] while everyone else [loses]?",
+      "id": "question",
+      "name": "The Question as Hook",
+      "reference": "hook-builder.html",
+      "source": "Short-Form Playbook"
+    }
+  ],
+  "dealing_rules": {
+    "basis": "Same dealing arithmetic as the 90-Day Planner (assets/js/planner.js): long-form spreads across non-rest days by round-robin, shorts every other day; week 7 is the midpoint review.",
+    "rules": [
+      "Long ideas are sorted by hook-strength score (highest first) before dealing \u2014 the best hooks earn the earliest weeks.",
+      "Longs deal round-robin across weeks: week 1 gets the top scores, not all of them at once.",
+      "Shorts and community ideas deal independently on their own cadence \u2014 they must never cannibalize a long slot.",
+      "Rest day is non-negotiable: no placement, analytics review only.",
+      "If ideas run out before slots, slots stay OPEN \u2014 never pad the calendar with filler. A visible gap is feedback: the bank needs ideas.",
+      "Surplus ideas stay in the bank as backlog \u2014 a full bank is a runway, not waste.",
+      "Week 7 (of 13) carries the midpoint review: kill the worst-performing format, double the best outlier."
+    ],
+    "slot_priorities": [
+      "hook_score",
+      "format_balance",
+      "recency"
+    ]
+  },
+  "batching": {
+    "consistency_framing": "Consistency beats volume \u2014 a cadence you can film is worth more than an ambitious one you abandon. The batching planner shows your film-day math honestly: if capacity doesn't cover cadence, shrink the cadence, don't promise yourself heroics.",
+    "guidance": [
+      "Capacity = shoot_days_per_month \u00d7 videos_per_shoot_day. Required = cadence \u00d7 52/12. Both are arithmetic on your own inputs.",
+      "A surplus means banked videos \u2014 publish steady, rest easy. A shortfall means a decision: add a shoot day, drop a slot, or merge formats.",
+      "Two short-form videos typically fit the effort of one long-form film block \u2014 budget shoot days by effort, not by count.",
+      "Never count 'I'll find the time' as capacity. Only scheduled, repeatable shoot days count."
+    ],
+    "weeks_per_month": 4.3333333
+  },
+  "repurposing_2_0": {
+    "basis": "Extends the wave-3 repurposing SOP (Phase 3, Everywhere Engine). The 2.0 map adds the full derivative map \u2014 every derivative must carry one original element (new hook, new framing, native caption). Repurposing is not re-uploading.",
+    "derivatives": [
+      {
+        "day": "+1",
+        "effort": "~45 min each (edit for pacing, not re-upload)",
+        "id": "short_clip",
+        "label": "Short-form clip",
+        "original_element": "A fresh first 2 seconds \u2014 re-hook the clip, never reuse the pillar's intro",
+        "platform": "YouTube Shorts",
+        "task": "Cut the best self-contained moment; burned-in captions, 9:16 reframe."
+      },
+      {
+        "day": "+1 to +4",
+        "effort": "~10 min (transcript edit)",
+        "id": "community_reaction",
+        "label": "Community reaction post",
+        "original_element": "A new question or poll written for the community tab \u2014 not the video title",
+        "platform": "YouTube Community",
+        "task": "Post the debatable claim as a question or poll."
+      },
+      {
+        "id": "tiktok_cut",
+        "platform": "TikTok",
+        "day": "+2 to +4",
+        "label": "TikTok cut",
+        "task": "Re-edit for TikTok pacing; keep 60\u201390s for Creator Rewards eligibility.",
+        "original_element": "Text-on-screen re-hook + native pacing \u2014 a re-edit, not a re-upload.",
+        "effort": "~50 min (cut + cut-native edit)"
+      },
+      {
+        "day": "+2 to +4",
+        "effort": "~20 min (caption as mini-blog)",
+        "id": "reel_cut",
+        "label": "Instagram Reel cut",
+        "original_element": "An aesthetic or save-worthy framing \u2014 transformation or reveal in the first 2 seconds",
+        "platform": "Instagram Reels",
+        "task": "Polished, save-worthy; caption as a mini-blog (5 hashtags)."
+      },
+      {
+        "day": "+5",
+        "effort": "~1 hr (write the story around the numbers)",
+        "id": "newsletter_issue",
+        "label": "Newsletter issue",
+        "original_element": "A written angle the video never states outright \u2014 the story behind the result",
+        "platform": "Newsletter / email",
+        "task": "Write the story around the video's numbers or result."
+      },
+      {
+        "day": "+6",
+        "effort": "~30 min (compress, don't paste)",
+        "id": "x_thread",
+        "label": "X thread",
+        "original_element": "Written natively for X \u2014 first post is a new hook, not a link drop",
+        "platform": "X / Twitter",
+        "task": "5-8 posts compressing the pillar's argument."
+      },
+      {
+        "id": "facebook_post",
+        "platform": "Facebook",
+        "day": "+7",
+        "label": "Facebook post",
+        "task": "Native upload of the best short as a Reel + discussion caption on your Page.",
+        "original_element": "A discussion-provoking caption ending with the debatable claim as a direct question.",
+        "effort": "~20 min (caption is the engagement lever)"
+      }
+    ],
+    "note": "Cut 2\u20133 clips per pillar, not per platform \u2014 one clip per platform, each re-edited."
+  },
+  "originality_guardrails": [
+    {
+      "detail": "The same video file uploaded to multiple platforms is distribution failure, not repurposing. Each derivative needs a native cut or a new hook.",
+      "id": "no_reupload_spam",
+      "rule": "No identical re-uploads"
+    },
+    {
+      "detail": "A clip of the old intro dies on scroll. Every short-form derivative opens with a hook written for that platform.",
+      "id": "fresh_hook",
+      "rule": "Every derivative gets a new hook"
+    },
+    {
+      "detail": "Watermarks, letterboxed 16:9 on vertical, copy-pasted captions \u2014 platforms and viewers both punish it.",
+      "id": "native_grammar",
+      "rule": "Native grammar per platform"
+    },
+    {
+      "detail": "A community post that is just the video title is noise. Write the question the audience argues about.",
+      "id": "text_is_original",
+      "rule": "Text derivatives are written, not extracted"
+    },
+    {
+      "detail": "If the pillar scores under 3/4 on the atom test (standalone hook, visual moment, quotable line, debatable claim), publish the pillar only \u2014 skip the repurposing and save the hours.",
+      "id": "atom_gate",
+      "rule": "Atom test gates the whole pipeline"
+    }
+  ],
+  "deal_slots": {
+    "description": "Sponsored content slots reserved inside the content calendar. Pricing lives in the Deal Room and the 2026 rate card \u2014 the calendar only reserves the slots.",
+    "guidance": [
+      "Reserve 1 slot per 4\u20136 organic pieces so sponsors never outnumber your own voice \u2014 an over-sponsored calendar bleeds trust.",
+      "Sponsor slots get the same hook-strength scoring as organic ideas; a weak sponsored video still costs you audience.",
+      "A sponsor slot is a calendar commitment, not a deal. Price it in the Deal Room (deal-room.html) before you promise it.",
+      "Links: the Deal Room (deal-room.html) for negotiation and the rate card (rate-card.html) for 2026 ranges."
+    ],
+    "max_sponsor_share": 0.2
+  },
+  "simulator_bridge": {
+    "description": "Feed the calendar's cadence into the Empire Simulator as starting inputs. The simulator is a model, not a prediction.",
+    "inputs": {
+      "longform_per_week": "longs_per_week from the calendar",
+      "shorts_per_week": "shorts_per_week from the calendar"
+    }
+  },
+  "source": "Wave 16 \u2014 The Content Engine. Hook structures from the Short-Form Playbook (hook-builder.html); niche tags from api/v1/niches.json; dealing arithmetic mirrors assets/js/planner.js.",
+  "updated": "2026-10-11",
+  "version": "1.0.0"
+}
