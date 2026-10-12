@@ -18,7 +18,7 @@ From $0 to a multi-million-dollar creator company.
 - [Revenue Calculator](calculator.html) — Project revenue from views, niche, sponsors, and affiliates — with honest ranges.
 - [90-Day Planner](planner.html) — Generate a posting schedule from your platforms and cadence. Printable.
 - [The Deal Analyzer](deal-analyzer.html) — Paste the brand's terms — rate-card verdict with platform multipliers + niche adjustment, the wave-22 contract checklist applied to the deal, counter-offer calculator, 2026 usage-rights add-on math, deal history + comparison mode.
-- [The Deal Room](deal-room.html) — Manage the whole deal: track offers through signing, price usage rights, rehearse negotiations, export your memo.
+- [The Deal Room](deal-room.html) — Deal Room 2.0 — manage the whole deal: niche-adjusted rate-card scoring, pipeline totals, the full 2026 rate card with real quoted prices, the Algorithm Watch digest, usage pricing, scripts, export your memo.
 - [Hiring Cost Calculator](hiring-calculator.html) — Price your first hire: monthly/annual cost and the ad revenue needed to cover it — honest math, no promises.
 - [Repurposing Planner](repurpose.html) — Turn one idea into a 5-platform mission-card checklist from the Phase 3 repurposing SOP.
 - [Empire Simulator](simulator.html) — Simulate 12–36 months of channel growth + revenue — the 10 real 2026 study niches (TubeAI/AIR medians + labeled RPM bands), niche/cadence/quality sliders, platform mix (Shorts/TikTok/Reels under their real 2026 rules), 12-scenario library, A/B comparison, team hiring P&L, what-if event cards, Money Map stage transitions, the “what would it take?” goal solver, live re-run, the mission-control launch sequence, and the animated watch-the-empire-build chart with milestone celebrations + kind reality checks — a model, not a prediction.
@@ -40,7 +40,7 @@ From $0 to a multi-million-dollar creator company.
 All twenty-one tools, grouped by job (Plan / Money / Content): [Tools hub](tools.html).
 
 ## Reference
-- [Reference: 2026 Rate Card](rate-card.html) — 4 min read
+- [Reference: 2026 Rate Card](rate-card.html) — 5 min read
 - [Reference: The Niche Atlas](niche-atlas.html) — 14 min read
 - [Reference: The Metrics Glossary](metrics-glossary.html) — 9 min read
 - [Reference: The 2026 Platform Rules Bible](platform-rules-bible.html) — 42 min read

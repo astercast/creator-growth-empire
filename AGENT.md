@@ -161,7 +161,7 @@ Goal: run two paths over the same 12 months, get the delta table and the
    assumptions from `assumptionLines()` attached. Never present scenario
    revenue as expected income.
 
-### Workflow 5 — Manage a sponsorship deal end-to-end (The Deal Room)
+### Workflow 5 — Manage a sponsorship deal end-to-end (The Deal Room 2.0)
 
 Goal: take a live offer from first read to a signed-paper record — scored,
 priced, flag-checked, scripted, and memorized — all via API.
@@ -173,22 +173,43 @@ priced, flag-checked, scripted, and memorized — all via API.
 2. Score the offer. `DealRoom.tierOf(60000)` → `micro_10k_100k`;
    `calculators.json` `per_video_or_post_by_tier` YouTube →
    **$1,000–$10,000**. `scoreOffer(5000, 1000, 10000)` → **FAIR** with the
-   ~23% listed-vs-accepted honesty note.
-3. Price usage rights as a separate line item. The offer asks for a 6-month
+   ~23% listed-vs-accepted honesty note. Deal Room 2.0: `scoreDeal(deal,
+   rateCard)` does it in one call with the niche multiplier applied
+   (parity-pinned with `DealAnalyzer.nicheMult`) — a 50K-sub tech channel's
+   $5K offer reads against **$2,500–$25,000** and returns implied CPM
+   **$83.33** at 60K expected views.
+3. Check the quote against real negotiation data.
+   `quotedPriceCheck(deal, calculators.sponsorship_quoted_prices_2026)`
+   (calculators v1.5.0) → Cheerful's Sep-2026 typical quotes from 905 asks /
+   298 offers / 2,356 rate-card lines (**reported**): TikTok video $2,000,
+   video integration $3,000, Instagram Reel $1,800, UGC-no-posting $500;
+   typical asks $450 (1K–10K followers) and $4,250 (250K+). Unmapped formats
+   (e.g. YouTube dedicated) return null — never stretched. The same block
+   carries Click Analytic's 2026 Instagram feed-post model, basis-labeled
+   **modeled**, kept separate from the reported figures.
+4. Price usage rights as a separate line item. The offer asks for a 6-month
    paid-ads window: `priceUsage(10000, "paid_180", tiers)` → **+$7,500**
    (1.75×, reported +75% — midpoint of the wave-2 +50–100% research band),
    counter total **$17,500**. Whitelisting and buyout have no research-backed
    multiplier: the engine returns guidance, never a fake number.
-4. Run the red-flag checklist. `redFlagScore(["unlimited_revisions"], flags)`
+5. Run the red-flag checklist. `redFlagScore(["unlimited_revisions"], flags)`
    → **walk away** — unlimited revisions is one of the four walk-away
    signals (with perpetual-usage-for-organic-price, net-90+ without escrow,
    and no kill fee).
-5. Render the reply. `renderScript(lowball_counter, {brand, counter, …})`
+6. Render the reply. `renderScript(lowball_counter, {brand, counter, …})`
    fills `{{placeholders}}` from the deal; unknown keys stay visible so
    nothing silently lies. Scripts: lowball counter, usage-rights upsell,
    exclusivity pushback, rush-fee ask (rush fee carries a fill-in rate —
    no research benchmark exists).
-6. Export the record. `dealMemo(deal, scored, flags)` builds the one-page
+7. Read the room. `pipelineSummary(deals, rateCard)` totals the creator's
+   own pipeline (stage counts/sums, committed = signed+delivered+paid, paid
+   total, verdict counts, underpaid deals still in offer/negotiating) — no
+   invented close probabilities. `watchDigest(changesFeed, {days: 90})`
+   builds the Algorithm Watch digest from `data/v1/changes.json`: newest
+   first, dated, sourced, confidence-flagged, each entry with a curated
+   deal note (this site's editorial read, labeled as such);
+   `digestText(digest)` renders it as copy-ready plaintext.
+8. Export the record. `dealMemo(deal, scored, flags)` builds the one-page
    summary (terms, FAIR verdict, checked flags, counters) with the
    not-financial/legal/tax-advice disclaimer attached.
 
@@ -424,7 +445,7 @@ Goal: paste-the-terms → verdict + flag scans + contract checklist + counter
 — UMD, the same code the page runs).
 
 1. `GET data/v1/calculators.json` → `sponsorship_rate_card_2026` +
-   `usage_rights_benchmarks_2026` (v1.4.0); `GET data/v1/deal-templates.json`
+   `usage_rights_benchmarks_2026` (calculators v1.5.0); `GET data/v1/deal-templates.json`
    → `contract_flags` (the wave-22 checklist, 10 flags, single data source).
 2. `DealAnalyzer.validInput({...})` — platform, deliverable, followers,
    expected views, offer, usage/whitelisting/exclusivity/payment terms,
@@ -513,10 +534,13 @@ deal checklist — via API, against the real 2026 rate card.
   client-side filtering.
 - **Freshness dates.** Every payload states when it was generated
   (`updated`) and from what snapshot. `calculators.json` carries `version`
-  (1.4.0) and `updated` (2026-10-11); platform thresholds carry their own
+  (1.5.0) and `updated` (2026-10-12); platform thresholds carry their own
   `source` + observation date. **Treat undated numbers as stale.** The 1.4.0
   block is `usage_rights_benchmarks_2026` (3mo +25–50% → perpetual from 2x
-  base, whitelisting 30–100%/mo — projectcasting 2026 via the Q4 sweep).
+  base, whitelisting 30–100%/mo — projectcasting 2026 via the Q4 sweep);
+  the 1.5.0 block is `sponsorship_quoted_prices_2026` (Cheerful Sep-2026
+  reported asks/quotes + Click Analytic 2026 modeled Instagram cross-check,
+  bases labeled).
 - **Verify-live flags.** Platform rules (YPP tiers, TikTok Rewards, Reels
   signals) change constantly — the manifest marks `calculators` with a
   `freshness_note`: verify against the platform before acting. The most
@@ -538,7 +562,7 @@ explaining how to replicate the logic:
 | Revenue Calculator | `niche` (RPM-band key) + monthly long-form/shorts views + sponsor deals + sponsor views + affiliate $ | `views/1000 × RPM band` per stream from `calculators.json`; affiliate ±30% |
 | 90-Day Planner | `longform_per_week` (0–7), `shorts_per_week` (0–21), `platforms[]`, `rest_day` (0–6) | Spread long-form across non-rest days, shorts 2 days apart, 13 weeks |
 | The Deal Analyzer | `platform`, `deliverable`, `followers`, `offer_usd` + `niche`, `expected_views`, `usage_rights`, `whitelisting`, `exclusivity`, `payment_terms`, `timeline`, `post_count`, `contract{}` (10 answers) | `require("assets/js/deal-analyzer.js")` — `evaluate()` for the niche-adjusted verdict + implied-CPM + category cross-check, `offerTermFlags()` for the term scan, `mapTermsToFlags()` + `contractRisk()` for the wave-22 checklist, `counterOffer()` for the worksheet, `exportReport()` for the shareable report, `compareDeals()` for 2-deal comparison — see Workflows 1, 12 |
-| The Deal Room | `brand`, `platform`, `followers`, `deliverable`, `expected_views`, `offer_usd`, `usage_rights`, `exclusivity`, `payment_terms`, `timeline`, `status` (offer → negotiating → signed → delivered → paid) | `require("assets/js/deal-room.js")` — `scoreOffer()` for the verdict, `priceUsage()` for usage line items (reported +50/+75/+100% band; no invented whitelisting/buyout multipliers), `redFlagScore()` for the checklist, `renderScript()` for the 4 negotiation scripts, `dealMemo()` for the one-page record; scripts + checklist + tiers from `data/v1/deal-templates.json` — see Workflow 5 |
+| The Deal Room | `brand`, `platform`, `followers`, `deliverable`, `expected_views`, `offer_usd`, `niche` (optional), `usage_rights`, `exclusivity`, `payment_terms`, `timeline`, `status` (offer → negotiating → signed → delivered → paid) | `require("assets/js/deal-room.js")` — `scoreOffer()` for the verdict, `scoreDeal()` for the niche-adjusted verdict + implied CPM, `quotedPriceCheck()` against the v1.5.0 quoted-prices block (reported Cheerful asks/quotes; modeled Click Analytic IG cross-check kept separate), `pipelineSummary()` for the creator's own stage totals, `rateCardTable()` for the full benchmark panel, `watchDigest()` + `digestText()` for the Algorithm Watch digest from `data/v1/changes.json`, `priceUsage()` for usage line items (reported +50/+75/+100% band; no invented whitelisting/buyout multipliers), `redFlagScore()` for the checklist, `renderScript()` for the 4 negotiation scripts, `dealMemo()` for the one-page record; scripts + checklist + tiers from `data/v1/deal-templates.json` — see Workflow 5 |
 | Hiring Cost Calculator | `role`, `billing_model`, `rate_usd` + hours/units/views/`niche` | Sticker → loaded ×1.15; coverage views = loaded ÷ RPM band × 1000; 3-month reserve rule |
 | Repurposing Planner | `idea` (one sentence) + `source_format` | Atom test → pillar prep → 5 staggered mission cards (YT Day 0, Short +1, TikTok +2, Reel +3, FB +4) |
 | Empire Simulator | `niche` (10 real 2026 study keys), `startSubs`, cadence, `quality`, `growthRate` (1–40%), `q4Uplift`, monetization toggles, `publish_tiktok`, `publish_reels`, `short_mix`, `scenario_id`, `horizon` (12/24/36), `hires[]`, `events[]`, `compare_with` | `require("assets/js/sim-engine.js").simulate(inputs, calculatorsJson)` — plus `scenarioInputs(id)`, `compare(nameA,a,nameB,b,cfg)`, `assumptionLines()`, `exportPlan()`, `normalizeEvents()`, `stageForNet(net, teamActive)`, `solveForGoal(inputs, cfg, goal)`, `realityChecks(inputs, res)` (the kind hard truths), `moneyMapToInputs(answers)` (Money Map quiz → starting stats), `rpmBandForNiche(niche, cfg)` (labeled basis) — wow wave 2 flagship: niche/cadence/quality sliders, 10 real study niches with TubeAI/AIR medians as context (never multipliers), platform mix under the real Shorts/TikTok/Reels rules, animated watch-the-empire-build chart with milestone celebrations — see Workflows 3–4, 11, 13 |

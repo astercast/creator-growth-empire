@@ -3,7 +3,7 @@
  * network writes. Math lives in window.DealAnalyzer
  * (assets/js/deal-analyzer.js, UMD); benchmarks come from
  * data/v1/calculators.json (sponsorship_rate_card_2026 +
- * usage_rights_benchmarks_2026 v1.4.0), the contract checklist from
+ * usage_rights_benchmarks_2026 (calculators v1.5.0)), the contract checklist from
  * data/v1/deal-templates.json contract_flags. A negotiation aid — not
  * financial, legal, or tax advice; the contract checklist is not legal
  * advice. */

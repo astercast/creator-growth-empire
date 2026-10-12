@@ -135,5 +135,93 @@ console.log("tiers: " + DealRoom.tierOf(50000) + " / " + DealRoom.tierLabel(Deal
 ok(DealRoom.tierOf(50000) === "micro_10k_100k" && DealRoom.nice(9876) === 9900,
   "tierOf + nice helpers behave");
 
+/* ---------- 6. Deal Room 2.0: niche parity + scoreDeal ---------- */
+console.log("2.0 niche parity + scoreDeal");
+var DealAnalyzer = require(path.join(ROOT, "assets", "js", "deal-analyzer.js"));
+var full = require(path.join(ROOT, "data", "calculators.json"));
+var rateCard = full.sponsorship_rate_card_2026;
+DealRoom.NICHES.forEach(function (n) {
+  ok(DealRoom.nicheMult(n).mult === DealAnalyzer.nicheMult(n).mult,
+    "niche parity: " + n + " x" + DealRoom.nicheMult(n).mult + " matches DealAnalyzer");
+});
+var sd = DealRoom.scoreDeal({ platform: "youtube", followers: 50000, offer: 5000, views: 60000, niche: "tech_software" }, rateCard);
+ok(sd.tier === "micro_10k_100k" && sd.range[0] === 2500 && sd.range[1] === 25000 && sd.verdict === "fair",
+  "scoreDeal: 50K tech YouTube $5K vs niche-adjusted $2,500-$25,000 -> FAIR");
+ok(sd.impliedCpm === 83.33, "scoreDeal: implied CPM $83.33 at 60K views");
+var sdNoNiche = DealRoom.scoreDeal({ platform: "youtube", followers: 50000, offer: 5000, views: 0 }, rateCard);
+ok(sdNoNiche.range[0] === 1000 && sdNoNiche.range[1] === 10000 && sdNoNiche.impliedCpm === null,
+  "scoreDeal: no niche -> base range, no implied CPM without views");
+
+/* ---------- 7. Deal Room 2.0: rate-card table + quoted prices ---------- */
+console.log("2.0 rate-card table + quoted-price check");
+var quoted = full.sponsorship_quoted_prices_2026;
+ok(!!quoted, "calculators.json carries sponsorship_quoted_prices_2026 (v1.5.0 block)");
+ok(full.version === "1.5.0", "calculators.json version bumped to 1.5.0");
+var table = DealRoom.rateCardTable(rateCard, quoted);
+ok(table.tiers.length === 4 && table.tiers[1].youtube[0] === 1000 && table.tiers[1].youtube[1] === 10000,
+  "rateCardTable: 4 tiers, micro YouTube $1,000-$10,000");
+ok(table.multipliers.youtube === 1.7 && table.multipliers.tiktok === 0.85,
+  "rateCardTable: platform multipliers 1.7x / 0.85x carried");
+ok(table.cpms.dedicated.range[0] === 50 && table.cpms.dedicated.range[1] === 90 &&
+   /AIR/.test(table.cpms.dedicated.source),
+  "rateCardTable: dedicated CPM $50-$90 with its AIR source named");
+ok(table.quoted.typical_quoted_by_format.length === 4 &&
+   table.quoted.instagram_feed_post_modeled.every(function (r) { return true; }) &&
+   table.quoted.instagram_modeled_basis === "modeled",
+  "quoted block: 4 format quotes (reported) + IG feed-post model labeled modeled");
+
+var qc = DealRoom.quotedPriceCheck({ platform: "tiktok", deliverable: "short", followers: 5000, offer: 1000 }, quoted);
+ok(qc.formatQuote && qc.formatQuote.quoted === 2000 && qc.formatQuote.basis === "reported" &&
+   qc.formatQuote.position === "below",
+  "quotedPriceCheck: TikTok short $1,000 offer vs $2,000 typical quote -> below (reported)");
+ok(qc.ask && qc.ask.ask === 450 && qc.ask.band.indexOf("1K") === 0,
+  "quotedPriceCheck: 5K followers -> typical ask $450 (Cheerful 1K-10K band)");
+var qcNull = DealRoom.quotedPriceCheck({ platform: "youtube", deliverable: "dedicated", followers: 50000, offer: 9000 }, quoted);
+ok(qcNull.formatQuote === null && qcNull.ask === null,
+  "quotedPriceCheck: YouTube dedicated + 50K followers -> no mapped benchmark, nulls not guesses");
+var qcBig = DealRoom.quotedPriceCheck({ platform: "youtube", deliverable: "integrated", followers: 300000, offer: 3000 }, quoted);
+ok(qcBig.formatQuote.quoted === 3000 && qcBig.formatQuote.position === "near" && qcBig.ask.ask === 4250,
+  "quotedPriceCheck: integration at the $3,000 typical quote -> near; 300K followers -> $4,250 typical ask");
+
+/* ---------- 8. Deal Room 2.0: pipeline summary ---------- */
+console.log("2.0 pipeline summary");
+var pipe = DealRoom.pipelineSummary([
+  { brand: "A", platform: "youtube", followers: 50000, offer: 500, status: "offer" },
+  { brand: "B", platform: "youtube", followers: 50000, offer: 5000, status: "signed" },
+  { brand: "C", platform: "tiktok", followers: 5000, offer: 200, status: "paid" }
+], rateCard);
+ok(pipe.totalDeals === 3 && pipe.totalOffered === 5700 && pipe.committed === 5200 && pipe.paidTotal === 200,
+  "pipeline: totals offered $5,700 / committed $5,200 / paid $200");
+ok(pipe.verdicts.under === 1 && pipe.verdicts.fair === 2,
+  "pipeline: verdict counts under=1 fair=2 against the real rate card");
+ok(pipe.openUnderpaid.length === 1 && pipe.openUnderpaid[0].brand === "A",
+  "pipeline: the underpaid open deal is named for the counter list");
+
+/* ---------- 9. Deal Room 2.0: Algorithm Watch digest ---------- */
+console.log("2.0 algorithm watch digest");
+var feed = require(path.join(ROOT, "data", "changes.json"));
+var digest = DealRoom.watchDigest(feed, { now: "2026-10-12T12:00:00Z", days: 90, limit: 12 });
+ok(digest.total === 12 && digest.shown === 12,
+  "digest: all 12 feed entries land inside the 90-day window at 2026-10-12");
+ok(digest.entries[0].date === "2026-10-12" &&
+   digest.entries.every(function (e, i, a) { return i === 0 || a[i - 1].date >= e.date; }),
+  "digest: newest first, dated from detected_at");
+ok(digest.entries.every(function (e) { return e.dealNote && e.dealNote.length > 40; }),
+  "digest: every entry carries a substantive deal note");
+ok(digest.entries.every(function (e) { return e.sources.length >= 1 && /^https:\/\//.test(e.sources[0].url); }),
+  "digest: every entry carries at least one https source");
+ok(digest.byCategory.monetization === 7 && digest.byCategory.policy === 2 &&
+   digest.byCategory.algorithm === 3 && digest.byConfidence.verified === 4,
+  "digest: category/confidence counts match the feed (7 monetization, 2 policy, 3 algorithm, 4 verified)");
+var ypp = digest.entries.filter(function (e) { return e.id === "yt-ypp-overhaul-2026"; })[0];
+ok(/Feb 2027/.test(ypp.dealNote), "digest: YPP entry's deal note names the Feb 2027 changeover");
+var narrow = DealRoom.watchDigest(feed, { now: "2026-10-12T12:00:00Z", days: 7, limit: 12 });
+ok(narrow.total === 6 && narrow.entries.every(function (e) { return e.date >= "2026-10-05"; }),
+  "digest: 7-day window narrows to the 6 freshest entries");
+var dtxt = DealRoom.digestText(digest);
+ok(dtxt.indexOf("ALGORITHM WATCH") === 0 && dtxt.indexOf("For your next deal:") !== -1 &&
+   /not financial, legal, or tax advice/i.test(dtxt) && dtxt.indexOf("https://") !== -1,
+  "digestText: header, deal lines, sources, and the advice disclaimer all present");
+
 console.log(failures === 0 ? "\nALL PASS" : "\n" + failures + " FAILURES");
 process.exit(failures === 0 ? 0 : 1);

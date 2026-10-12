@@ -4,7 +4,7 @@
  *
  * HONESTY CONTRACT: every benchmark is a reported range from the 2026 rate
  * card (data/v1/calculators.json: sponsorship_rate_card_2026 +
- * usage_rights_benchmarks_2026 v1.4.0) or the site's chapters, never a quote.
+ * usage_rights_benchmarks_2026 (calculators v1.5.0)) or the site's chapters, never a quote.
  * The contract checklist is wave 22's data (data/v1/deal-templates.json
  * contract_flags) — a negotiation aid, NOT legal advice. RPM/CPM figures are
  * creator-reported ranges, not platform-published. Not financial, legal, or

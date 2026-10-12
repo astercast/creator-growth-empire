@@ -55,7 +55,7 @@
       "id": "calculators",
       "kind": "json",
       "path": "data/v1/calculators.json",
-      "description": "Calculator config: per-niche long-form RPM bands, Shorts RPM, platform thresholds (YPP tiers, TikTok Rewards, Facebook CMP \u2014 with sources and dates), revenue splits, the 2026 sponsorship rate card, and 2026 niche/platform research snapshots. The data contract the sim engine, revenue calculator, deal analyzer, and hiring calculator read.",
+      "description": "Calculator config: per-niche long-form RPM bands, Shorts RPM, platform thresholds (YPP tiers, TikTok Rewards, Facebook CMP \u2014 with sources and dates), revenue splits, the 2026 sponsorship rate card, the 2026 quoted-prices block (Cheerful reported asks/quotes + Click Analytic modeled Instagram cross-check, bases labeled), and 2026 niche/platform research snapshots. The data contract the sim engine, revenue calculator, deal analyzer, deal room, and hiring calculator read.",
       "schema": "data/v1/schema/calculators.json",
       "updated": "2026-10-11T00:00:00Z",
       "records": null,

@@ -11,7 +11,8 @@
     "sponsorship_rate_card_2026",
     "platform_thresholds",
     "revenue_splits",
-    "usage_rights_benchmarks_2026"
+    "usage_rights_benchmarks_2026",
+    "sponsorship_quoted_prices_2026"
   ],
   "properties": {
     "version": {
@@ -57,6 +58,58 @@
     },
     "sponsorship_rate_card_2026": {
       "type": "object"
+    },
+    "sponsorship_quoted_prices_2026": {
+      "type": "object",
+      "required": [
+        "date",
+        "note",
+        "sources",
+        "typical_quoted_by_format",
+        "typical_ask_by_followers",
+        "instagram_feed_post_modeled",
+        "instagram_modeled_basis"
+      ],
+      "properties": {
+        "typical_quoted_by_format": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "label",
+              "quoted_usd",
+              "basis",
+              "source"
+            ],
+            "properties": {
+              "basis": {
+                "type": "string",
+                "enum": [
+                  "reported"
+                ]
+              }
+            }
+          }
+        },
+        "instagram_feed_post_modeled": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "tier",
+              "label",
+              "range_usd"
+            ]
+          }
+        },
+        "instagram_modeled_basis": {
+          "type": "string",
+          "enum": [
+            "modeled"
+          ]
+        }
+      }
     },
     "usage_rights_benchmarks_2026": {
       "type": "object",

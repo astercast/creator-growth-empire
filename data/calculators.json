@@ -221,6 +221,115 @@
     },
     "holiday_2026_note": "Black Friday brand deals can pay LESS per post than normal rates — brands buy in bulk during BFCM (Lilach Bullock, Oct 2026). Affiliate commissions are often cut during BFCM week because brand margins are thin from the discount itself. 2026 usage-rights benchmarks: paid ad usage 3 months +25-50%, 3-6 months +50-75%, 6-12 months +75-100%, perpetual from 2x base; whitelisting 30-100% of base fee per month (projectcasting 2026)."
   },
+  "sponsorship_quoted_prices_2026": {
+    "date": "2026-10-12",
+    "note": "What creators actually quote, measured from real negotiations — a second lens beside the tier table. Quoted/asking prices are what creators ask, not what deals close at: the rate card's ~23% listed-vs-accepted gap still applies. Modeled figures are planning estimates from the source's own model, labeled as such — never mix the two bases in one quote.",
+    "sources": [
+      {
+        "name": "Cheerful, September 2026 — 905 creator asks, 298 brand offers, 2,356 itemized rate-card lines from real brand-creator email threads (reported via Talentir's 2026 influencer-rates roundup)",
+        "url": "https://www.talentir.com/blog/influencer-rates-how-much-should-you-pay-creators",
+        "basis": "reported"
+      },
+      {
+        "name": "Click Analytic, Creator Pricing Report 2026 — modeled cost of one sponsored Instagram feed post from 5.9 million Instagram accounts (full-year 2025 data snapshot, published as the 2026 edition)",
+        "url": "https://www.talentir.com/blog/influencer-rates-how-much-should-you-pay-creators",
+        "basis": "modeled"
+      }
+    ],
+    "typical_quoted_by_format": [
+      {
+        "id": "instagram_reel",
+        "label": "Instagram Reel",
+        "quoted_usd": 1800,
+        "basis": "reported",
+        "source": "Cheerful (Sep 2026)"
+      },
+      {
+        "id": "tiktok_video",
+        "label": "TikTok video",
+        "quoted_usd": 2000,
+        "basis": "reported",
+        "source": "Cheerful (Sep 2026)"
+      },
+      {
+        "id": "video_integration",
+        "label": "Video integration (YouTube)",
+        "quoted_usd": 3000,
+        "basis": "reported",
+        "source": "Cheerful (Sep 2026)"
+      },
+      {
+        "id": "ugc_no_post",
+        "label": "UGC video, no posting",
+        "quoted_usd": 500,
+        "basis": "reported",
+        "source": "Cheerful (Sep 2026)"
+      }
+    ],
+    "typical_ask_by_followers": [
+      {
+        "band": "1K–10K followers",
+        "min_followers": 1000,
+        "max_followers": 10000,
+        "ask_usd": 450,
+        "basis": "reported",
+        "source": "Cheerful (Sep 2026)"
+      },
+      {
+        "band": "250K+ followers",
+        "min_followers": 250000,
+        "max_followers": null,
+        "ask_usd": 4250,
+        "basis": "reported",
+        "source": "Cheerful (Sep 2026)"
+      }
+    ],
+    "instagram_feed_post_modeled": [
+      {
+        "tier": "nano_10k_50k",
+        "label": "Nano (10K–50K)",
+        "range_usd": [
+          114,
+          679
+        ]
+      },
+      {
+        "tier": "micro_50k_100k",
+        "label": "Micro (50K–100K)",
+        "range_usd": [
+          899,
+          1500
+        ]
+      },
+      {
+        "tier": "mid_100k_500k",
+        "label": "Mid-tier (100K–500K)",
+        "range_usd": [
+          2600,
+          5700
+        ]
+      },
+      {
+        "tier": "macro_500k_1m",
+        "label": "Macro (500K–1M)",
+        "range_usd": [
+          5900,
+          12200
+        ]
+      },
+      {
+        "tier": "mega_1m_plus",
+        "label": "Mega (1M+)",
+        "range_usd": [
+          12200,
+          null
+        ]
+      }
+    ],
+    "instagram_modeled_basis": "modeled",
+    "instagram_modeled_note": "Click Analytic's model prices ONE sponsored Instagram feed post. Its tiers are cut differently from this site's rate-card tiers (10K–50K nano, not 1K–10K) — compare shapes, not labels. The source itself states these are modeled planning benchmarks, not guaranteed creator quotes.",
+    "audience_quality_note": "Only 14.6% of the 5.9 million Instagram accounts Click Analytic analyzed had both good audience quality and at least 2% engagement. The top of any tier range is a quality price, not a follower price — brands pay it for the accounts that clear both bars."
+  },
   "sponsorship_rule_of_thumb": {
     "dedicated_cpm_range": [
       20,
@@ -287,8 +396,8 @@
     ],
     "whitelisting_note": "Whitelisting (ads run from YOUR account) is priced monthly, separately from the post fee — always revocable, never perpetual."
   },
-  "updated": "2026-10-11",
-  "version": "1.4.0",
+  "updated": "2026-10-12",
+  "version": "1.5.0",
   "youtube_longform_rpm_bands": {
     "comedy_entertainment": [
       1,
@@ -332,16 +441,86 @@
     "date": "2026-10-12",
     "note": "Per-niche long-form RPM bands for the Empire Simulator's 10 real study niches (TubeAI/AIR, Sep 2026). 'reported' = creator-reported/benchmark figure from the study; 'proxy' = the site's closest researched band, used only where no creator-reported figure exists; 'cpm-reported' = the study reported CPM, not RPM (RPM varies by geography, season, monetized-playback share). Ranges, not rates.",
     "niches": {
-      "kids": { "band": [0.33, 0.33], "basis": "reported", "source": "AIR Media-Tech, May 2025-May 2026 (Kids & Teens median)" },
-      "asmr": { "band": [4, 10], "basis": "proxy", "source": "site lifestyle band (calculators.json) — ambient content is low-RPM; no creator-reported ASMR band exists yet" },
-      "creator_economy": { "band": [4, 10], "basis": "proxy", "source": "site education band (calculators.json) — creator-education is ad-friendly; no creator-reported creator-economy RPM band exists yet" },
-      "challenges_stunts": { "band": [1, 5], "basis": "proxy", "source": "site entertainment band (calculators.json)" },
-      "ai_ml": { "band": [8, 20], "basis": "cpm-reported", "source": "OutlierKit, Sep 2026 (AI tutorials CPM $8-$20 — CPM, not RPM)" },
-      "true_crime": { "band": [1, 5], "basis": "proxy", "source": "site entertainment band (calculators.json)" },
-      "education": { "band": [10.22, 10.22], "basis": "reported", "source": "AIR Media-Tech, May 2025-May 2026 (Education & Science median)" },
-      "entertainment": { "band": [2.43, 2.43], "basis": "reported", "source": "AIR Media-Tech, May 2025-May 2026 (Entertainment median)" },
-      "science": { "band": [10.22, 10.22], "basis": "reported", "source": "AIR Media-Tech, May 2025-May 2026 (Education & Science median)" },
-      "gaming": { "band": [2.05, 2.05], "basis": "reported", "source": "AIR Media-Tech, May 2025-May 2026 (Gaming median)" }
+      "kids": {
+        "band": [
+          0.33,
+          0.33
+        ],
+        "basis": "reported",
+        "source": "AIR Media-Tech, May 2025-May 2026 (Kids & Teens median)"
+      },
+      "asmr": {
+        "band": [
+          4,
+          10
+        ],
+        "basis": "proxy",
+        "source": "site lifestyle band (calculators.json) — ambient content is low-RPM; no creator-reported ASMR band exists yet"
+      },
+      "creator_economy": {
+        "band": [
+          4,
+          10
+        ],
+        "basis": "proxy",
+        "source": "site education band (calculators.json) — creator-education is ad-friendly; no creator-reported creator-economy RPM band exists yet"
+      },
+      "challenges_stunts": {
+        "band": [
+          1,
+          5
+        ],
+        "basis": "proxy",
+        "source": "site entertainment band (calculators.json)"
+      },
+      "ai_ml": {
+        "band": [
+          8,
+          20
+        ],
+        "basis": "cpm-reported",
+        "source": "OutlierKit, Sep 2026 (AI tutorials CPM $8-$20 — CPM, not RPM)"
+      },
+      "true_crime": {
+        "band": [
+          1,
+          5
+        ],
+        "basis": "proxy",
+        "source": "site entertainment band (calculators.json)"
+      },
+      "education": {
+        "band": [
+          10.22,
+          10.22
+        ],
+        "basis": "reported",
+        "source": "AIR Media-Tech, May 2025-May 2026 (Education & Science median)"
+      },
+      "entertainment": {
+        "band": [
+          2.43,
+          2.43
+        ],
+        "basis": "reported",
+        "source": "AIR Media-Tech, May 2025-May 2026 (Entertainment median)"
+      },
+      "science": {
+        "band": [
+          10.22,
+          10.22
+        ],
+        "basis": "reported",
+        "source": "AIR Media-Tech, May 2025-May 2026 (Education & Science median)"
+      },
+      "gaming": {
+        "band": [
+          2.05,
+          2.05
+        ],
+        "basis": "reported",
+        "source": "AIR Media-Tech, May 2025-May 2026 (Gaming median)"
+      }
     }
   },
   "niche_growth_2026": {

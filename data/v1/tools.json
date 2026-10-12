@@ -429,12 +429,12 @@
         }
       },
       "output": "Verdict (UNDERPAID / FAIR / STRONG) against the niche-adjusted benchmark range, implied CPM vs rate-card CPMs, AIR category-CPM cross-check (where mapped), offer-term flags, wave-22 contract checklist verdict (clean / caution / dont_sign) with per-flag fixes, counter-offer with line-item ranges + open-ended totals, usage-rights add-on table, plaintext export.",
-      "drive_notes": "Engine (assets/js/deal-analyzer.js, UMD \u2014 require() it in node): DealAnalyzer.validInput() normalizes; .evaluate(deal, rateCard) returns the tier range x niche multiplier (parity-pinned with the simulator's sponsorNicheMult), verdict, implied CPM, categoryCheck (AIR Oct-2026 category CPMs: finance/real-estate $58, B2B SaaS/AI $46.50, health $28, gaming/tech $18.50, entertainment $14), cross-platform ranges + the 1.7x/0.85x note, and the 23%-benchmark expected close; .offerTermFlags() scans usage/whitelisting/exclusivity/payment/timeline; .mapTermsToFlags() + .contractRisk(flagIds, deal-templates.json contract_flags) apply the wave-22 checklist (walk_away = dont_sign, major 2pts, minor 1pt, 3+ = dont_sign \u2014 same scoring as Outreach.contractRisk); .usageAddons() prices the 2026 benchmark ranges (3mo +25-50%, 3-6mo +50-75%, 6-12mo +75-100%, perpetual from 2x; whitelisting 30-100%/mo) from calculators.json usage_rights_benchmarks_2026 (v1.4.0); .counterOffer() builds base + line items + open-ended totals + the 15-20% bundle guidance; .exportReport() renders the plaintext evaluation; .compareDeals() diffs two saved deals. Browser history/compare/print live in assets/js/deal-analyzer-ui.js (localStorage only). Negotiation aid \u2014 not financial, legal, or tax advice; the checklist is not legal advice. See AGENT.md Workflow 12."
+      "drive_notes": "Engine (assets/js/deal-analyzer.js, UMD \u2014 require() it in node): DealAnalyzer.validInput() normalizes; .evaluate(deal, rateCard) returns the tier range x niche multiplier (parity-pinned with the simulator's sponsorNicheMult), verdict, implied CPM, categoryCheck (AIR Oct-2026 category CPMs: finance/real-estate $58, B2B SaaS/AI $46.50, health $28, gaming/tech $18.50, entertainment $14), cross-platform ranges + the 1.7x/0.85x note, and the 23%-benchmark expected close; .offerTermFlags() scans usage/whitelisting/exclusivity/payment/timeline; .mapTermsToFlags() + .contractRisk(flagIds, deal-templates.json contract_flags) apply the wave-22 checklist (walk_away = dont_sign, major 2pts, minor 1pt, 3+ = dont_sign \u2014 same scoring as Outreach.contractRisk); .usageAddons() prices the 2026 benchmark ranges (3mo +25-50%, 3-6mo +50-75%, 6-12mo +75-100%, perpetual from 2x; whitelisting 30-100%/mo) from calculators.json usage_rights_benchmarks_2026 (calculators v1.5.0); .counterOffer() builds base + line items + open-ended totals + the 15-20% bundle guidance; .exportReport() renders the plaintext evaluation; .compareDeals() diffs two saved deals. Browser history/compare/print live in assets/js/deal-analyzer-ui.js (localStorage only). Negotiation aid \u2014 not financial, legal, or tax advice; the checklist is not legal advice. See AGENT.md Workflow 12."
     },
     {
       "id": "deal-room",
       "title": "The Deal Room",
-      "description": "Manage the whole deal: track offers through signing, price usage rights, rehearse negotiations, export your memo.",
+      "description": "Deal Room 2.0: track offers through signing against the niche-adjusted 2026 rate card, read the pipeline totals, price usage rights, check real quoted prices, read the Algorithm Watch digest, export your memo.",
       "page": "deal-room.html",
       "input_schema": {
         "$schema": "http://json-schema.org/draft-07/schema#",
@@ -462,6 +462,28 @@
           "followers": {
             "type": "number",
             "minimum": 0
+          },
+          "niche": {
+            "type": "string",
+            "description": "Optional sponsor niche key (same table as the Deal Analyzer / simulator sponsorNicheMult) \u2014 adjusts the benchmark range the offer is scored against.",
+            "enum": [
+              "finance_investing",
+              "tech_software",
+              "education",
+              "health_fitness",
+              "lifestyle",
+              "gaming",
+              "comedy_entertainment",
+              "music",
+              "kids",
+              "asmr",
+              "creator_economy",
+              "challenges_stunts",
+              "ai_ml",
+              "true_crime",
+              "entertainment",
+              "science"
+            ]
           },
           "deliverable": {
             "type": "string",
@@ -532,8 +554,8 @@
           }
         }
       },
-      "output": "Tracked deal records with rate-card verdicts (UNDERPAID / FAIR / STRONG + the ~23% listed-vs-accepted note), usage-rights line-item pricing (reported +50/+75/+100% band; no invented whitelisting/buyout multipliers), per-situation negotiation scripts, interactive red-flag checklist scoring, and a one-page deal memo.",
-      "drive_notes": "Logic (assets/js/deal-room.js, UMD \u2014 importable in node): scoreOffer(offer, lo, hi) benchmarks against sponsorship_rate_card_2026; priceUsage(baseFee, tierId, usage_rights_tiers) applies the reported multipliers, returning guidance instead of numbers for whitelisting/buyout; redFlagScore(checkedIds, red_flags) scores contract structure (any walk_away flag or 3+ points -> walk away); renderScript(script, vars) fills {{placeholders}}; dealMemo(deal, scored, flags) builds the one-page record. Scripts + checklist + tiers live in data/v1/deal-templates.json. Negotiation aid, not financial/legal/tax advice."
+      "output": "Tracked deal records with niche-adjusted rate-card verdicts (UNDERPAID / FAIR / STRONG + the ~23% listed-vs-accepted note), a pipeline summary over the creator's own logged deals (stage totals, committed vs paid, underpaid deals still in play), the full 2026 rate-card table with reported vs modeled bases kept separate, a quoted-price check against real negotiation data, usage-rights line-item pricing (reported +50/+75/+100% band; no invented whitelisting/buyout multipliers), per-situation negotiation scripts, interactive red-flag checklist scoring, the Algorithm Watch digest (dated, sourced, confidence-flagged, with per-entry deal notes), and a one-page deal memo.",
+      "drive_notes": "Logic (assets/js/deal-room.js, UMD \u2014 importable in node): scoreOffer(offer, lo, hi) benchmarks against sponsorship_rate_card_2026; scoreDeal(deal, rateCard) adds the niche multiplier (parity-pinned with DealAnalyzer.nicheMult) + implied CPM; rateCardTable(rateCard, quoted) returns the full tier table + multipliers + CPMs + the quoted-prices block; quotedPriceCheck(deal, quoted) reads sponsorship_quoted_prices_2026 (calculators.json v1.5.0 \u2014 Cheerful Sep-2026 reported asks/quotes; Click Analytic 2026 Instagram model, labeled modeled) and returns null where no format is honestly mapped; pipelineSummary(deals, rateCard) totals the creator's own pipeline with no invented close probabilities; watchDigest(feed, {days, limit, now}) + digestText(digest) build the Algorithm Watch digest from data/v1/changes.json with curated per-entry deal notes (editorial, labeled); priceUsage(baseFee, tierId, usage_rights_tiers) applies the reported multipliers, returning guidance instead of numbers for whitelisting/buyout; redFlagScore(checkedIds, red_flags) scores contract structure (any walk_away flag or 3+ points -> walk away); renderScript(script, vars) fills {{placeholders}}; dealMemo(deal, scored, flags) builds the one-page record. Scripts + checklist + tiers live in data/v1/deal-templates.json. Negotiation aid, not financial/legal/tax advice."
     },
     {
       "id": "hiring-calculator",

@@ -1,0 +1,58 @@
+/* Deal Room 2.0 — benchmark table, pipeline strip, quoted-price lens,
+ * Algorithm Watch digest. Field Manual chit style: flat panels, hard
+ * borders, mono figures. Motion is transform/opacity only and dies under
+ * the global reduced-motion rule. */
+
+.dr2-stamp { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; margin-bottom: 0.5rem; }
+
+.dr2-jump { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 1rem 0 0.5rem; }
+.dr2-jump a {
+  font-family: var(--font-cond); font-weight: 600; font-size: 0.82rem;
+  letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none;
+  color: var(--muted); border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm); padding: 0.3rem 0.65rem;
+  transition: color 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+}
+.dr2-jump a:hover, .dr2-jump a:focus-visible { color: var(--gold); border-color: var(--gold); transform: translateY(-1px); }
+
+/* pipeline strip */
+.dr2-pipe { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0.6rem; max-width: 72ch; }
+.dr2-stat { border: 1px solid var(--line-strong); border-radius: var(--radius-sm); background: var(--bg-2); padding: 0.7rem 0.85rem; }
+.dr2-stat .k { font-family: var(--font-cond); font-weight: 600; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.dr2-stat .v { font-family: var(--font-mono); font-weight: 700; font-size: 1.35rem; color: var(--ink); font-variant-numeric: tabular-nums; }
+.dr2-stat .s { font-size: 0.8rem; color: var(--muted); }
+.dr2-stat.hot .v { color: var(--stamp); }
+.dr2-stat.good .v { color: var(--sage); }
+.dr2-under { max-width: 72ch; margin-top: 0.6rem; }
+
+/* rate-card table */
+.dr2-table-wrap { overflow-x: auto; max-width: 100%; border: 1px solid var(--line-strong); border-radius: var(--radius-sm); background: var(--bg-2); }
+.dr2-table { border-collapse: collapse; width: 100%; min-width: 560px; }
+.dr2-table th, .dr2-table td { padding: 0.55rem 0.8rem; text-align: left; border-bottom: 1px solid var(--line); }
+.dr2-table thead th { font-family: var(--font-cond); font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.dr2-table tbody th { font-weight: 600; white-space: nowrap; }
+.dr2-table td { font-family: var(--font-mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.dr2-table tr.you td { color: var(--gold); font-weight: 700; }
+.dr2-table tr.you th { color: var(--gold); }
+.dr2-table tbody tr { transition: background 0.15s ease; }
+.dr2-table tbody tr:hover { background: var(--bg-3); }
+
+.dr2-lens { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.6rem; max-width: 72ch; margin-top: 0.8rem; }
+.dr2-lens-card { border: 1px solid var(--line-strong); border-radius: var(--radius-sm); background: var(--bg-2); padding: 0.75rem 0.9rem; }
+.dr2-lens-card .big { font-family: var(--font-mono); font-weight: 700; font-size: 1.5rem; color: var(--cyan); font-variant-numeric: tabular-nums; }
+.dr2-lens-card .lbl { font-family: var(--font-cond); font-weight: 600; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.dr2-lens-card p { margin: 0.3rem 0 0; font-size: 0.85rem; color: var(--muted); }
+
+/* digest */
+.dr2-digest-head { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; margin-bottom: 0.8rem; }
+.dr2-entry { border: 1px solid var(--line-strong); border-left: 3px solid var(--gold); border-radius: var(--radius-sm); background: var(--bg-2); padding: 0.9rem 1.05rem; max-width: 72ch; margin-bottom: 0.7rem; }
+.dr2-entry h3 { margin: 0.25rem 0 0.35rem; font-size: 1.02rem; }
+.dr2-entry .meta { display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; font-family: var(--font-mono); font-size: 0.75rem; color: var(--muted); }
+.dr2-entry .note { border-left: 3px solid var(--cyan); padding: 0.45rem 0.8rem; margin: 0.6rem 0; font-size: 0.92rem; }
+.dr2-entry .note strong { color: var(--cyan); }
+.dr2-entry .srcs { font-size: 0.8rem; color: var(--muted); margin: 0.35rem 0 0; }
+
+@media (max-width: 640px) {
+  .dr2-table { min-width: 480px; }
+  .dr2-stat .v { font-size: 1.15rem; }
+}

@@ -15,7 +15,7 @@
 <link rel="stylesheet" href="assets/css/layout.css">
 <link rel="stylesheet" href="assets/css/components.css">
 <link rel="stylesheet" href="assets/css/hub.css">
-<script defer src="assets/js/deal-room.js"></script><script defer src="assets/js/deal-room-ui.js"></script>
+<script defer src="assets/js/deal-room.js"></script><script defer src="assets/js/deal-room-ui.js"></script><link rel="stylesheet" href="assets/css/deal-room.css">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -26,11 +26,22 @@
   <button class="nav-toggle" aria-expanded="false" aria-controls="mobileNav" aria-label="Menu">☰</button>
 </header>
 <nav id="mobileNav" class="mobile-nav" aria-label="Mobile"><a href="index.html" class="nav-link"><span class="nav-n">01</span>Empire Map</a><a href="tools.html" class="nav-link active"><span class="nav-n">02</span>All tools</a><a href="quiz.html" class="nav-link"><span class="nav-n">03</span>Niche Picker</a><a href="calculator.html" class="nav-link"><span class="nav-n">04</span>Revenue Calc</a><a href="planner.html" class="nav-link"><span class="nav-n">05</span>90-Day Plan</a><a href="deal-analyzer.html" class="nav-link"><span class="nav-n">06</span>Deal Analyzer</a><a href="hiring-calculator.html" class="nav-link"><span class="nav-n">07</span>Hire Calc</a><a href="repurpose.html" class="nav-link"><span class="nav-n">08</span>Repurpose Plan</a><a href="simulator.html" class="nav-link"><span class="nav-n">09</span>Simulator</a><a href="case-files.html" class="nav-link"><span class="nav-n">10</span>All case files</a><a href="glossary.html" class="nav-link"><span class="nav-n">11</span>Glossary</a><a href="agents.html" class="nav-link"><span class="nav-n">12</span>Agents</a></nav>
-<main id="main"><div class="tool-page"><div class="hud-panel brk brk-gold"><b class="brk-x" aria-hidden="true"></b><div class="hud-head"><span>MISSION BRIEFING // TOOL 05 — THE DEAL ROOM</span><span class="hud-status">SYSTEMS ONLINE</span></div><div class="hud-body"><p class="fm-kicker"><strong>FIELD MANUAL</strong><span class="sep">//</span>DIVISION MONEY</p><h1>The Deal Room</h1><p class="lede">Manage the whole deal: track offers through signing, price usage rights, rehearse negotiations, export your memo.</p><div class="briefing-rank"><span class="rank" role="img" aria-label="Tier 2"><i></i><i></i></span><span class="fm-readout">TIER 2 // MONEY</span></div></div></div><div id="deal-room">
+<main id="main"><div class="tool-page"><div class="hud-panel brk brk-gold"><b class="brk-x" aria-hidden="true"></b><div class="hud-head"><span>MISSION BRIEFING // TOOL 05 — THE DEAL ROOM</span><span class="hud-status">SYSTEMS ONLINE</span></div><div class="hud-body"><p class="fm-kicker"><strong>FIELD MANUAL</strong><span class="sep">//</span>DIVISION MONEY</p><h1>The Deal Room</h1><p class="lede">Deal Room 2.0 — manage the whole deal: niche-adjusted rate-card scoring, pipeline totals, the full 2026 rate card with real quoted prices, the Algorithm Watch digest, usage pricing, scripts, export your memo.</p><div class="briefing-rank"><span class="rank" role="img" aria-label="Tier 2"><i></i><i></i></span><span class="fm-readout">TIER 2 // MONEY</span></div></div></div><div id="deal-room">
+<p class="dr2-stamp"><span class="badge gold">DEAL ROOM 2.0</span> <span class="muted">Rate card v1.5 — tier ranges, real quoted prices, and the Algorithm Watch digest in one room.</span></p>
 <p class="lede">The full deal pipeline: log offers, score them against the 2026 rate card, price usage rights as separate line items, rehearse what to say, and export a clean memo. Everything lives in your browser — no accounts, no uploads.</p>
 <p class="muted">One-off offer to benchmark first? Start with the <a href="deal-analyzer.html">Sponsor Deal Analyzer</a>, then log it here to manage the whole deal. Pitching brands outbound instead? <a href="outreach.html">The Outreach Center</a> runs the pipeline, the pitch emails, and the contract read.</p>
+<nav class="dr2-jump" aria-label="Deal Room sections">
+  <a href="#dr-sec-tracker">Tracker</a>
+  <a href="#dr-sec-pipeline">Pipeline</a>
+  <a href="#dr-sec-usage">Usage pricing</a>
+  <a href="#dr-sec-ratecard">2026 rate card</a>
+  <a href="#dr-sec-scripts">Scripts</a>
+  <a href="#dr-sec-flags">Red flags</a>
+  <a href="#dr-sec-watch">Algorithm Watch</a>
+  <a href="#dr-sec-memo">Memo</a>
+</nav>
 
-<h2>1 · Deal tracker</h2>
+<h2 id="dr-sec-tracker">1 · Deal tracker</h2>
 <form id="dr-form" aria-label="Log a sponsorship deal">
   <div class="calc-grid">
     <label>Brand <input type="text" id="dr-brand" required maxlength="120" placeholder="e.g. Ridge Wallet"></label>
@@ -46,6 +57,26 @@
         <option value="integrated" selected>Integrated slot (mid-roll mention)</option>
         <option value="dedicated">Dedicated video (brand is the video)</option>
         <option value="short">Short-form video (Short / TikTok / Reel)</option>
+      </select></label>
+    <label>Niche (adjusts the benchmark)
+      <select id="dr-niche">
+        <option value="" selected>No niche adjustment</option>
+        <option value="finance_investing">Finance / Investing (×2.5)</option>
+        <option value="tech_software">Tech / Software (×2.5)</option>
+        <option value="ai_ml">AI &amp; ML (×2.5)</option>
+        <option value="creator_economy">Creator Economy (×1.5)</option>
+        <option value="education">Education (×1)</option>
+        <option value="health_fitness">Health / Fitness (×1)</option>
+        <option value="lifestyle">Lifestyle (×1)</option>
+        <option value="science">Science Explainers (×1)</option>
+        <option value="gaming">Gaming (×0.6)</option>
+        <option value="comedy_entertainment">Comedy / Entertainment (×0.6)</option>
+        <option value="entertainment">Entertainment &amp; Comedy (×0.6)</option>
+        <option value="music">Music (×0.6)</option>
+        <option value="kids">Kids Content (×0.6)</option>
+        <option value="asmr">ASMR (×0.6)</option>
+        <option value="challenges_stunts">Challenges &amp; Stunts (×0.6)</option>
+        <option value="true_crime">True Crime (×0.6)</option>
       </select></label>
     <label>Avg. views per video (last 10) <input type="number" id="dr-views" min="0" step="1000" value="25000"></label>
     <label>Offered pay ($) <input type="number" id="dr-offer" min="0" step="50" value="1200"></label>
@@ -88,9 +119,13 @@
   </select></label>
 </div>
 <ul id="dr-deals" aria-live="polite"></ul>
-<p class="muted">Deals live in this browser only (localStorage). Score each deal against the 2026 rate card — fair / under / over — with the ~23%-above-accepted honesty note: creators list rates ~23% above what they accept, so quote high and expect to be negotiated down.</p>
+<p class="muted">Deals live in this browser only (localStorage). Score each deal against the 2026 rate card — fair / under / over — with the ~23%-above-accepted honesty note: creators list rates ~23% above what they accept, so quote high and expect to be negotiated down. Each card also checks the offer against what creators typically <em>quote</em> for the format (Cheerful, Sep 2026 — reported from real negotiations).</p>
 
-<h2>2 · Usage-rights pricing calculator</h2>
+<h2 id="dr-sec-pipeline">2 · Pipeline summary</h2>
+<div id="dr-pipeline" aria-live="polite"></div>
+<p class="muted">Your numbers only — sums of the offers you logged, grouped by stage. No close-probability weighting: a signed deal is money on paper, an offer is a conversation, and this panel never confuses the two.</p>
+
+<h2 id="dr-sec-usage">3 · Usage-rights pricing calculator</h2>
 <form id="dr-usage-form" aria-label="Price usage rights">
   <div class="calc-grid">
     <label>Base post fee ($) <input type="number" id="dr-base" min="0" step="50" value="1000"></label>
@@ -113,7 +148,11 @@
 <div id="dr-usage-out" aria-live="polite" style="margin-top:1.5rem"></div>
 <p class="muted">Multipliers are reported 2026 research ranges — the wave-2 band puts paid-ad usage at +50–100% on top of the post fee. Whitelisting and buyouts have no safe research multiplier, so the calculator refuses to invent one.</p>
 
-<h2>3 · Negotiation scripts</h2>
+<h2 id="dr-sec-ratecard">4 · The 2026 rate card, in full</h2>
+<p class="muted">The same data the tracker scores against — every figure with its basis. <strong>Reported</strong> means measured or compiled from real 2026 rate data; <strong>modeled</strong> means a source's own planning model, shown separately and never blended into the reported ranges. Full prose edition: <a href="rate-card.html">The 2026 Rate Card</a>.</p>
+<div id="dr-ratecard" aria-live="polite"></div>
+
+<h2 id="dr-sec-scripts">5 · Negotiation scripts</h2>
 <p class="muted">Fill in your context once — every script below updates live, and each copies to your clipboard with one tap.</p>
 <form id="dr-script-ctx" aria-label="Script context">
   <div class="calc-grid">
@@ -136,12 +175,19 @@
 <div id="dr-scripts" aria-live="polite"></div>
 <p id="dr-copy-live" role="status" aria-live="polite" class="muted"></p>
 
-<h2>4 · Red-flag checklist</h2>
+<h2 id="dr-sec-flags">6 · Red-flag checklist</h2>
 <form id="dr-flags" aria-label="Deal red-flag checklist"></form>
 <div id="dr-flags-out" aria-live="polite" style="margin-top:1.25rem"></div>
 <p class="muted">Scores the deal's contract structure — not its pay, which the tracker benchmarks separately. Check everything the offer actually contains; your selections persist in this browser.</p>
 
-<h2>5 · Copy my deal memo</h2>
+<h2 id="dr-sec-watch">7 · Algorithm Watch digest</h2>
+<p class="muted">The platform changes that move deal prices — policy, monetization, and ranking shifts from the last 90 days, each dated, sourced, and confidence-flagged, with a plain read on what it means for your next negotiation. The full feed lives at <a href="what-changed.html">Algorithm Watch</a>.</p>
+<div id="dr-digest" aria-live="polite"></div>
+<div class="memo-actions">
+  <button type="button" class="btn btn-ghost" id="dr-copy-digest">Copy the digest</button>
+</div>
+
+<h2 id="dr-sec-memo">8 · Copy my deal memo</h2>
 <div class="calc-grid">
   <label>Deal <select id="dr-memo-deal"><option value="">No deals logged yet</option></select></label>
 </div>
@@ -152,7 +198,7 @@
 </div>
 <p class="muted">A one-page summary for your records: terms, rate-card score, red flags, and your counters. A negotiation aid, not financial, legal, or tax advice. Benchmarks disagree 2–3x within tiers — verify against current creator rate reports before you quote.</p>
 </div>
-<noscript><p><strong>The Deal Room needs JavaScript</strong> — the tracker, calculators, and checklists run entirely in your browser with no server. The 2026 rate card benchmarks live at <a href="rate-card.html">rate-card.html</a> and as machine-readable data at <a href="data/v1/deal-templates.json">data/v1/deal-templates.json</a>.</p></noscript>
+<noscript><p><strong>The Deal Room needs JavaScript</strong> — the tracker, calculators, and checklists run entirely in your browser with no server. The 2026 rate card benchmarks live at <a href="rate-card.html">rate-card.html</a> and as machine-readable data at <a href="data/v1/calculators.json">data/v1/calculators.json</a>; the Algorithm Watch feed lives at <a href="what-changed.html">what-changed.html</a>.</p></noscript>
 </div></main>
 <footer class="site-footer">
   <div class="footer-grid">

@@ -175,7 +175,7 @@
   }
 
   /* Look up the usage tier record from calculators.json
-   * usage_rights_benchmarks_2026 (v1.4.0). */
+   * usage_rights_benchmarks_2026 (calculators v1.5.0). */
   function usageTier(id, usageRights) {
     var tiers = (usageRights && usageRights.tiers) || [];
     for (var i = 0; i < tiers.length; i++) {

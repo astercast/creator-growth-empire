@@ -1,8 +1,9 @@
-/* The Deal Room — browser UI wiring (no pure math here).
+/* The Deal Room 2.0 — browser UI wiring (no pure math here).
  * Storage: localStorage only (keys cge.deal-room.*), no accounts, no network
  * writes. Math lives in window.DealRoom (assets/js/deal-room.js, UMD);
  * benchmarks come from data/v1/calculators.json, scripts/checklists/tiers from
- * data/v1/deal-templates.json. Negotiation aid, not financial/legal advice. */
+ * data/v1/deal-templates.json, the Algorithm Watch digest from
+ * data/v1/changes.json. Negotiation aid, not financial/legal advice. */
 (function () {
   "use strict";
   var root = document.getElementById("deal-room");
@@ -30,6 +31,7 @@
 
   var cfg = null;   /* calculators.json */
   var tpl = null;   /* deal-templates.json */
+  var feed = null;  /* changes.json (Algorithm Watch) — optional, digest only */
   var deals = db ? db.get(LS.deals, []) : [];
   var checkedFlags = db ? db.get(LS.flags, []) : [];
 
@@ -45,12 +47,18 @@
   var DELIV_LABELS = { integrated: "Integrated slot", dedicated: "Dedicated video", short: "Short-form video" };
 
   function scoreDeal(deal) {
-    var rc = cfg.sponsorship_rate_card_2026;
-    var tier = D.tierOf(+deal.followers || 0);
-    var rng = rc.per_video_or_post_by_tier[tier][deal.platform || "youtube"];
-    var s = D.scoreOffer(+deal.offer || 0, rng[0], rng[1]);
-    s.range = rng; s.tier = tier;
-    return s;
+    return D.scoreDeal(deal, cfg.sponsorship_rate_card_2026);
+  }
+
+  function quotedLine(deal) {
+    var qc = D.quotedPriceCheck(deal, cfg.sponsorship_quoted_prices_2026);
+    if (!qc.formatQuote) return "";
+    var q = qc.formatQuote;
+    var pct = q.ratio === null ? "" :
+      " — this offer is " + Math.round(q.ratio * 100) + "% of the typical quote";
+    return '<p class="muted">Typical quote for a ' + esc(q.label.toLowerCase()) + ": <strong>" +
+      D.fmt(q.quoted) + "</strong> (" + esc(q.source) + " · reported)" + esc(pct) +
+      ". Asking prices, not closing prices.</p>";
   }
 
   function badge(kind, text) {
@@ -76,18 +84,24 @@
       dealsOut.innerHTML = '<div class="empty-state" role="status"><span class="empty-icon" aria-hidden="true">◫</span>' +
         "<strong>No deals here yet.</strong>" +
         (deals.length ? "Nothing matches this filter — try another status." : "Log your first offer above. Every deal gets scored against the 2026 rate card.") + "</div>";
+      renderPipeline();
       return;
     }
     dealsOut.innerHTML = list.map(function (d) {
       var s = scoreDeal(d);
       var kind = s.verdict === "under" ? "bad" : s.verdict === "over" ? "good" : "warn";
       var nx = nextStatus(d.status);
+      var rangeTxt = s.range ? " (range " + D.fmt(s.range[0]) + "–" + D.fmt(s.range[1]) +
+        (s.nicheLabel ? ", " + esc(s.nicheLabel) + " ×" + s.nicheMult : "") + ")" : "";
       return '<li class="deal-card"><div class="deal-head"><strong>' + esc(d.brand || "(no brand)") + "</strong>" +
         badge(kind, s.badge) +
         '<span class="badge">' + esc(D.STATUS_LABELS[d.status] || d.status) + "</span></div>" +
         '<p class="muted">' + esc(DELIV_LABELS[d.deliverable] || d.deliverable) + " · " +
         esc(PLATFORM_LABELS[d.platform] || d.platform) + " · " + esc(D.tierLabel(s.tier)) +
-        " · offered " + D.fmt(+d.offer || 0) + " (range " + D.fmt(s.range[0]) + "–" + D.fmt(s.range[1]) + ")</p>" +
+        " · offered " + D.fmt(+d.offer || 0) + rangeTxt + "</p>" +
+        (s.impliedCpm ? '<p class="muted">Implied CPM at ' + Number(d.views).toLocaleString("en-US") +
+          " expected views: <strong>$" + s.impliedCpm.toFixed(2) + "</strong></p>" : "") +
+        quotedLine(d) +
         '<p class="muted">' + esc(USAGE_LABELS[d.usage] || d.usage) + " · " + esc(EXCL_LABELS[d.excl] || "") +
         " · " + esc(PAY_LABELS[d.payTerms] || "") + (d.timeline ? " · due " + esc(d.timeline) : "") + "</p>" +
         (d.notes ? '<p class="muted">“' + esc(d.notes) + "”</p>" : "") +
@@ -95,6 +109,7 @@
         (nx ? '<button type="button" class="btn btn-ghost" data-advance="' + esc(d.id) + '">Advance → ' + esc(D.STATUS_LABELS[nx]) + "</button>" : "") +
         '<button type="button" class="btn btn-ghost" data-del="' + esc(d.id) + '">Delete</button></div></li>';
     }).join("");
+    renderPipeline();
   }
 
   dealsOut.addEventListener("click", function (e) {
@@ -119,6 +134,7 @@
       brand: v("dr-brand"), platform: v("dr-platform"),
       followers: Math.max(0, parseFloat(v("dr-followers")) || 0),
       deliverable: v("dr-deliverable"),
+      niche: v("dr-niche") || null,
       views: Math.max(0, parseFloat(v("dr-views")) || 0),
       offer: Math.max(0, parseFloat(v("dr-offer")) || 0),
       usage: v("dr-usage"), excl: v("dr-excl"), payTerms: v("dr-pay"),
@@ -295,14 +311,147 @@
     announce("Deal memo downloaded as a text file.");
   });
 
+  /* ---------------- 2. pipeline summary ---------------- */
+  var pipeOut = document.getElementById("dr-pipeline");
+  function statCard(k, v, s, cls) {
+    return '<div class="dr2-stat' + (cls ? " " + cls : "") + '"><div class="k">' + esc(k) +
+      '</div><div class="v">' + esc(v) + '</div><div class="s">' + esc(s) + "</div></div>";
+  }
+  function renderPipeline() {
+    if (!pipeOut || !cfg) return;
+    var p = D.pipelineSummary(deals, cfg.sponsorship_rate_card_2026);
+    if (!p.totalDeals) {
+      pipeOut.innerHTML = '<div class="empty-state" role="status"><span class="empty-icon" aria-hidden="true">▤</span>' +
+        "<strong>Nothing in the pipeline.</strong>Log a deal and this strip totals your offers, signed value, and paid money — and names the underpaid deals still worth a counter.</div>";
+      return;
+    }
+    var html = '<div class="dr2-pipe">' +
+      statCard("Deals tracked", String(p.totalDeals),
+        p.counts.offer + " offer · " + p.counts.negotiating + " negotiating") +
+      statCard("Total offered", D.fmt(p.totalOffered), "every logged offer, all stages") +
+      statCard("Committed", D.fmt(p.committed), "signed + delivered + paid", "good") +
+      statCard("Paid out", D.fmt(p.paidTotal), p.counts.paid + " deal(s) fully paid", "good") +
+      statCard("Verdicts", p.verdicts.fair + " fair · " + p.verdicts.over + " strong",
+        p.verdicts.under + " underpaid vs the rate card", p.verdicts.under ? "hot" : "") +
+      "</div>";
+    if (p.openUnderpaid.length) {
+      html += '<div class="calc-out dr2-under"><div class="lbl">Still in play — and underpaid</div>' +
+        '<div class="range">' + p.openUnderpaid.map(function (u) {
+          return "<strong>" + esc(u.brand) + "</strong> at " + D.fmt(u.offer) +
+            (u.range ? " vs a " + D.fmt(u.range[0]) + "–" + D.fmt(u.range[1]) + " benchmark" : "");
+        }).join(" · ") + ". Counter before these go stale — the scripts below carry the wording.</div></div>";
+    }
+    pipeOut.innerHTML = html;
+  }
+
+  /* ---------------- 4. the 2026 rate card, in full ---------------- */
+  var rcOut = document.getElementById("dr-ratecard");
+  var followersInput = document.getElementById("dr-followers");
+  function moneyRange(r) {
+    if (!r) return "—";
+    return r[1] === null ? "from " + D.fmt(r[0]) : D.fmt(r[0]) + "–" + D.fmt(r[1]);
+  }
+  function renderRatecard() {
+    if (!rcOut || !cfg) return;
+    var t = D.rateCardTable(cfg.sponsorship_rate_card_2026, cfg.sponsorship_quoted_prices_2026);
+    var myTier = D.tierOf(Math.max(0, parseFloat(followersInput.value) || 0));
+    var html = '<div class="dr2-table-wrap"><table class="dr2-table"><caption class="muted" style="text-align:left;padding:0.6rem 0.8rem">' +
+      "Per video / per post, by follower tier — reported 2026 agency benchmarks. Your row (from the tracker's follower count) is lit in gold.</caption>" +
+      "<thead><tr><th scope=\"col\">Tier</th><th scope=\"col\">YouTube</th><th scope=\"col\">TikTok</th><th scope=\"col\">Instagram</th></tr></thead><tbody>";
+    t.tiers.forEach(function (row) {
+      html += '<tr' + (row.id === myTier ? ' class="you"' : "") + '><th scope="row">' +
+        esc(row.label) + '</th><td>' + moneyRange(row.youtube) + '</td><td>' +
+        moneyRange(row.tiktok) + '</td><td>' + moneyRange(row.instagram) + "</td></tr>";
+    });
+    html += "</tbody></table></div>";
+    if (t.multipliers) {
+      html += '<p class="muted">At equal followers: YouTube ≈ <strong>' + t.multipliers.youtube +
+        "×</strong> Instagram · TikTok ≈ <strong>" + t.multipliers.tiktok +
+        "×</strong> Instagram. Sponsored CPMs: integrated slot " +
+        moneyRange(t.cpms.youtubeIntegrated) + " · dedicated video " +
+        moneyRange(t.cpms.dedicated.range) + " (" + esc(t.cpms.dedicated.source) + ") · IG Reel median $" +
+        t.cpms.igReelMedian + ".</p>";
+    }
+    var q = t.quoted;
+    if (q) {
+      html += '<h3>What creators actually quote (reported)</h3><div class="dr2-lens">' +
+        q.typical_quoted_by_format.map(function (f) {
+          return '<div class="dr2-lens-card"><div class="lbl">' + esc(f.label) +
+            '</div><div class="big">' + D.fmt(f.quoted_usd) + '</div><p>Typical quoted price · ' +
+            esc(f.source) + " · reported</p></div>";
+        }).join("") + "</div>" +
+        '<p class="muted">Typical asking prices by size: ' + q.typical_ask_by_followers.map(function (a) {
+          return "<strong>" + D.fmt(a.ask_usd) + "</strong> at " + esc(a.band);
+        }).join(" · ") + " (" + esc(q.sources[0].name.split(" — ")[0]) +
+        "). Quoted prices are asks, not closes — the ~23% listed-vs-accepted gap still applies.</p>";
+      html += '<h3>Instagram feed post — the modeled cross-check</h3><div class="dr2-table-wrap"><table class="dr2-table">' +
+        "<thead><tr><th scope=\"col\">Tier (Click Analytic cuts)</th><th scope=\"col\">One sponsored feed post</th><th scope=\"col\">Basis</th></tr></thead><tbody>" +
+        q.instagram_feed_post_modeled.map(function (r) {
+          return '<tr><th scope="row">' + esc(r.label) + "</th><td>" + moneyRange(r.range_usd) +
+            "</td><td>modeled</td></tr>";
+        }).join("") + "</tbody></table></div>" +
+        '<p class="muted">' + esc(q.instagram_modeled_note) + " " + esc(q.audience_quality_note) + "</p>";
+      html += '<p class="muted">Sources: ' + q.sources.map(function (s) {
+        return '<a href="' + esc(s.url) + '" rel="noopener">' + esc(s.name.split(" — ")[0]) +
+          "</a> (" + esc(s.basis) + ")";
+      }).join(" · ") + "</p>";
+    }
+    html += '<p class="muted">' + esc(t.disclaimer) + "</p>";
+    rcOut.innerHTML = html;
+  }
+  if (followersInput) followersInput.addEventListener("input", renderRatecard);
+
+  /* ---------------- 7. Algorithm Watch digest ---------------- */
+  var digestOut = document.getElementById("dr-digest");
+  var digestCache = null;
+  function renderDigest() {
+    if (!digestOut) return;
+    if (!feed) {
+      digestOut.innerHTML = '<div class="empty-state" role="status"><span class="empty-icon" aria-hidden="true">◔</span>' +
+        "<strong>Digest unavailable offline.</strong>The feed file (data/v1/changes.json) did not load — the full feed lives at " +
+        '<a href="what-changed.html">Algorithm Watch</a>.</div>';
+      return;
+    }
+    var dg = D.watchDigest(feed, {});
+    digestCache = dg;
+    var counts = Object.keys(dg.byCategory).map(function (c) {
+      return dg.byCategory[c] + " " + c;
+    }).join(" · ");
+    var html = '<div class="dr2-digest-head"><span class="badge gold">LAST ' + dg.windowDays +
+      " DAYS</span><span class=\"muted\">" + dg.shown + " of " + dg.total + " changes · " +
+      esc(counts) + " · feed updated " + esc(String(dg.feedUpdated || "").slice(0, 10)) + "</span></div>";
+    html += dg.entries.map(function (e) {
+      return '<article class="dr2-entry"><div class="meta"><span>' + esc(e.date) + "</span><span>" +
+        esc(e.platformLabel) + "</span><span>" + esc(e.category.toUpperCase()) + "</span>" +
+        badge(e.confidence === "verified" ? "good" : "warn", e.confidence.toUpperCase()) + "</div>" +
+        "<h3>" + esc(e.title) + '</h3><p class="muted">' + esc(e.summary) + "</p>" +
+        '<p class="note"><strong>For your next deal:</strong> ' + esc(e.dealNote) + "</p>" +
+        '<p class="srcs">Sources: ' + e.sources.map(function (s) {
+          return '<a href="' + esc(s.url) + '" rel="noopener">' + esc(s.name) + "</a>";
+        }).join(" · ") + "</p></article>";
+    }).join("");
+    html += '<p class="muted">' + esc(dg.disclaimer) +
+      ' Confidence: verified = corroborated by 2+ sources or the platform; single-source = one report, treat as directional. ' +
+      'The "For your next deal" lines are this site\'s editorial read, not source reporting.</p>';
+    digestOut.innerHTML = html;
+  }
+  var digestBtn = document.getElementById("dr-copy-digest");
+  if (digestBtn) digestBtn.addEventListener("click", function () {
+    if (digestCache) copyText(D.digestText(digestCache), "Digest copied — paste it into your notes or newsletter draft.");
+    else announce("Digest hasn't loaded yet — give it a second and try again.");
+  });
+
   /* ---------------- data boot ---------------- */
   function boot() {
+    var feedFetch = fetch("data/v1/changes.json").then(function (r) { return r.json(); })
+      .catch(function () { return null; });
     Promise.all([
       fetch("data/v1/calculators.json").then(function (r) { return r.json(); }),
-      fetch("data/v1/deal-templates.json").then(function (r) { return r.json(); })
+      fetch("data/v1/deal-templates.json").then(function (r) { return r.json(); }),
+      feedFetch
     ]).then(function (res) {
-      cfg = res[0]; tpl = res[1];
-      renderDeals(); renderUsage(); renderScripts(); renderFlags(); refreshMemoSelect();
+      cfg = res[0]; tpl = res[1]; feed = res[2];
+      renderDeals(); renderUsage(); renderRatecard(); renderScripts(); renderFlags(); refreshMemoSelect(); renderDigest();
     }).catch(function () {
       root.innerHTML = '<div class="error-state" role="alert">' +
         "<strong>CONFIG LOAD FAILED</strong>" +
