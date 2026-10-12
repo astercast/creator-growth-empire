@@ -769,4 +769,4 @@ files node --check, JSON parse, draft-07 schemas, 0 broken links (2,076
 checked), byte-identical rebuild, 80 sim + 78 deal-room + 49 content-engine
 engine assertions, 59 agent-workflow assertions).
 
-Commit: df3d813 (local; pushed — remote tree verified via GitHub API).
+Commit: 8d903f5 (local) → 321ca1bfdb490ebb4a5a0516c01f578cd597bf3e (pushed 2026-10-11, remote tree verified via GitHub API).
