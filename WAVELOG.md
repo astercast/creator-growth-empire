@@ -182,4 +182,8 @@ Validation: `scripts/build.py` clean (9 chapters, 6 tools, 10 skills, 5 case fil
 14,848 words); `node --check` on all JS files PASS; all api/v1 JSON + schemas valid;
 internal link check across site/: 986 refs, 0 broken; 0 broken anchors.
 
-Commit: <pending push>
+Commit: 87eb943abdc3a72eb05a7eb786f21ec38985fc06 (pushed 2026-10-11; remote main ref
+confirmed via GitHub API; all 13 case-file paths present on remote main). Note: the
+first push attempt (308b7b18) silently dropped untracked files — gh-push.py only pushes
+`git ls-files` tracked paths — so the case pages/API JSON were committed locally and
+pushed in this follow-up. Lesson: always `git add -A` before gh-push.py.
