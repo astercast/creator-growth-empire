@@ -4,16 +4,19 @@
 # Stages:
 #   1. JS syntax ......... node --check every source JS file (assets/js, tests)
 #   2. JSON parse ........ every JSON file under api/, data/, skills/, scripts/
-#   3. JSON Schema ....... draft-07 validation of chapters / case-files /
-#                         glossary / calculators against api/v1/schema/
+#   3. JSON Schema ....... draft-07 validation of index / chapters / case-files /
+#                         glossary / calculators / skills / tools against
+#                         api/v1/schema/ (doc-level + per-record, $refs resolved)
 #   4. Relative links .... every href/src in every site/ page resolves on disk;
 #                         JS fetch() literals resolve too; api/v1/index.json
-#                         endpoints all exist
+#                         endpoint paths + schema URLs all exist
 #   5. Build reproduc. ... scripts/build.py clean rebuild leaves zero git diff
 #                         on site/, api/, llms.txt, llms-full.txt, skills/index.json
 #   6. Sim engine tests .. node tests/sim-engine.test.js
-#   7. llms.txt fresh ... chapter/tool/reference/case-file/skill counts match
+#   7. llms.txt fresh ... chapter/tool/reference/guide/case-file/skill counts match
 #                         build.py; every chapter marker present in llms-full.txt
+#   8. Agent workflows ... node tests/agent-workflows.test.js — the 3 AGENT.md
+#                         example workflows executed against the real api/v1 JSON
 #
 # Exit code: 0 only if every stage passes. Anything failing is a real issue
 # to fix, not cosmetic churn.
@@ -28,7 +31,7 @@ PASS=0
 FAIL=0
 fail() { echo "  FAIL: $1"; FAIL=$((FAIL+1)); }
 pass() { echo "  ok: $1"; PASS=$((PASS+1)); }
-stage() { echo; echo "[$1/7] $2"; }
+stage() { echo; echo "[$1/8] $2"; }
 
 # ---------------------------------------------------------------- stage 1 ---
 stage 1 "JS syntax (node --check)"
@@ -59,7 +62,7 @@ stage 3 "JSON Schema (draft-07)"
 python3 - <<'EOF'
 import json, sys
 from pathlib import Path
-from jsonschema import Draft7Validator
+from jsonschema import Draft7Validator, RefResolver
 
 ROOT = Path(".")
 SCH = ROOT / "api" / "v1" / "schema"
@@ -68,29 +71,66 @@ failures = []
 def schema(name):
     s = json.loads((SCH / name).read_text())
     Draft7Validator.check_schema(s)  # the schema itself must be valid draft-07
-    return Draft7Validator(s)
+    # resolve relative $refs (e.g. chapters.json -> chapter.json) against the schema dir
+    resolver = RefResolver(base_uri=(SCH.resolve() / name).as_uri(), referrer=s)
+    return Draft7Validator(s, resolver=resolver)
+
+# every schema file on disk must itself be valid draft-07
+for sf in sorted(SCH.glob("*.json")):
+    try:
+        Draft7Validator.check_schema(json.loads(sf.read_text()))
+    except Exception as e:
+        failures.append(f"schema/{sf.name}: not valid draft-07: {e}")
 
 # per-record schemas
 checks = [
     ("chapters.json", "chapters", schema("chapter.json"), "chapter"),
     ("case-files.json", "case_files", schema("case-file.json"), "case file"),
+    ("skills.json", "skills", schema("skill.json"), "skill"),
+    ("tools.json", "tools", schema("tool.json"), "tool"),
 ]
 for fname, key, val, label in checks:
     for i, rec in enumerate(json.loads((ROOT / "api" / "v1" / fname).read_text())[key]):
         for e in val.iter_errors(rec):
             failures.append(f"{fname}[{i}] {label}: {e.message}")
 
-# doc-level schemas
-for fname, sname in [("glossary.json", "glossary.json"),
-                     ("calculators.json", "calculators.json")]:
+# doc-level schemas (doc wrappers use $ref into the per-record schemas)
+for fname, sname in [("index.json", "index.json"),
+                     ("chapters.json", "chapters.json"),
+                     ("glossary.json", "glossary.json"),
+                     ("calculators.json", "calculators.json"),
+                     ("skills.json", "skills.json"),
+                     ("case-files.json", "case-files.json"),
+                     ("tools.json", "tools.json")]:
     for e in schema(sname).iter_errors(json.loads((ROOT / "api" / "v1" / fname).read_text())):
         failures.append(f"{fname}: {e.message}")
+
+# manifest coherence: every json endpoint's schema URL must exist on disk,
+# and every schema file must be referenced by the manifest
+idx = json.loads((ROOT / "api" / "v1" / "index.json").read_text())
+manifest_schemas = set()
+for ep in idx["endpoints"]:
+    if ep.get("schema"):
+        p = ROOT / ep["schema"]
+        manifest_schemas.add(Path(ep["schema"]).name)
+        if not p.exists():
+            failures.append(f"index.json: schema '{ep['schema']}' missing on disk")
+    if ep.get("id") == "schemas":
+        for f in ep.get("files", []):
+            manifest_schemas.add(f.split(" — ")[0])
+on_disk = {p.name for p in SCH.glob("*.json")}
+if on_disk != manifest_schemas:
+    failures.append(f"index.json: schema set mismatch: on disk {sorted(on_disk)} vs manifest {sorted(manifest_schemas)}")
 
 # every record's path must resolve to a generated page
 for fname, key in [("chapters.json", "chapters"), ("case-files.json", "case_files")]:
     for rec in json.loads((ROOT / "api" / "v1" / fname).read_text())[key]:
         if not (ROOT / "site" / rec["path"]).exists():
             failures.append(f"{fname}: path '{rec['path']}' has no site/ page")
+# every tool record's page must resolve too
+for rec in json.loads((ROOT / "api" / "v1" / "tools.json").read_text())["tools"]:
+    if not (ROOT / "site" / rec["page"]).exists():
+        failures.append(f"tools.json: page '{rec['page']}' has no site/ page")
 
 if failures:
     print("  FAIL: schema/path violations:")
@@ -99,7 +139,7 @@ if failures:
     if len(failures) > 20:
         print(f"   ... and {len(failures)-20} more")
     sys.exit(1)
-print("  ok: chapters/case-files/glossary/calculators validate against draft-07 schemas; all record paths resolve")
+print("  ok: index/chapters/case-files/glossary/calculators/skills/tools validate against draft-07 schemas; manifest schema set coherent; all record paths resolve")
 EOF
 [ $? -eq 0 ] && pass "schema validation clean" || FAIL=$((FAIL+1))
 
@@ -158,13 +198,24 @@ for js in sorted((ROOT / "site" / "assets" / "js").glob("*.js")):
         check_link(ROOT / "site", m.group(1), js.relative_to(ROOT))
 
 # api/v1/index.json endpoints must all exist on disk (the API Explorer BASE+name pattern).
-# references[]/tools[] are site-root-relative page files; the rest are repo-root-relative.
+# Wave 12: the manifest is a list of endpoint records — json endpoints have a
+# single `path`, html endpoints have `paths[]` (site-root-relative), the
+# schemas record has `files[]` (schema-dir-relative). Each json endpoint's
+# schema URL must resolve too.
 idx = json.loads((ROOT / "api" / "v1" / "index.json").read_text())
-for key, val in idx["endpoints"].items():
-    vals = val if isinstance(val, list) else [val]
-    base = (ROOT / "site") if key in ("references", "tools") else ROOT
-    for v in vals:
-        check_link(base, v, "api/v1/index.json")
+for ep in idx["endpoints"]:
+    kind = ep.get("kind")
+    if kind == "json":
+        check_link(ROOT, ep["path"], "api/v1/index.json")
+        if ep.get("schema"):
+            check_link(ROOT, ep["schema"], "api/v1/index.json")
+    elif kind == "html":
+        for p in ep.get("paths", []):
+            check_link(ROOT / "site", p, "api/v1/index.json")
+    elif kind == "directory":
+        d = ROOT / ep["path"]
+        for f in ep.get("files", []):
+            check_link(d, f.split(" — ")[0], "api/v1/index.json")
 
 print(f"  checked {total} links")
 if broken:
@@ -273,6 +324,17 @@ print(f"  ok: llms.txt lists {len(build.CHAPTERS)} phases, {len(build.TOOLS)} to
       f"llms-full.txt carries every section marker")
 EOF
 [ $? -eq 0 ] && pass "llms.txt/llms-full.txt fresh" || FAIL=$((FAIL+1))
+
+# ---------------------------------------------------------------- stage 8 ---
+stage 8 "agent workflows (AGENT.md examples vs real api/v1 JSON)"
+node tests/agent-workflows.test.js >/tmp/cge_validate_agent.log 2>&1
+if [ $? -eq 0 ]; then
+  N=$(grep -c "PASS" /tmp/cge_validate_agent.log)
+  pass "agent workflows ($N assertions)"
+else
+  fail "tests/agent-workflows.test.js failed:"
+  grep "FAIL" /tmp/cge_validate_agent.log | head -10 | sed 's/^/    /'
+fi
 
 # ---------------------------------------------------------------- summary ---
 echo

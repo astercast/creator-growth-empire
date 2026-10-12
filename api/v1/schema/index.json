@@ -1,0 +1,106 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ApiIndex",
+  "type": "object",
+  "required": [
+    "name",
+    "version",
+    "updated",
+    "base",
+    "endpoints"
+  ],
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "tagline": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    },
+    "updated": {
+      "type": "string"
+    },
+    "base": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "endpoints": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "kind",
+          "description",
+          "updated",
+          "deprecated"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "json",
+              "html",
+              "directory"
+            ]
+          },
+          "path": {
+            "type": "string"
+          },
+          "paths": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "files": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "description": {
+            "type": "string"
+          },
+          "schema": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "updated": {
+            "type": "string"
+          },
+          "records": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "records_note": {
+            "type": "string"
+          },
+          "deprecated": {
+            "type": "boolean"
+          },
+          "deprecation_note": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "freshness_note": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

@@ -54,6 +54,184 @@ TOOLS = [
     ("hook-builder", "Hook Builder", "Type your video topic, get five filmed-ready hooks — one per Short-Form Playbook structure. Flip-through cards."),
 ]
 
+
+
+# TOOLS_API: programmatic input schemas for every interactive tool (wave 12).
+# Agents drive the tools' logic without the UI by replicating these inputs
+# against the shipped JS logic (assets/js/<slug>.js) and api/v1/calculators.json.
+# Each entry: (id, title, description, page, input_schema [JSON Schema draft-07],
+#              output_description, drive_notes).
+TOOLS_API = [
+    ("quiz", "Niche Picker",
+     "Answer 6 questions, get ranked niche suggestions with reasoning.",
+     "quiz.html",
+     {"$schema": "http://json-schema.org/draft-07/schema#", "title": "QuizInput",
+      "type": "object", "required": ["q1", "q2", "q3", "q4", "q5", "q6"],
+      "properties": {
+          "q1": {"type": "string", "enum": ["numbers", "teaching", "doing", "story", "research"],
+                 "description": "What you could talk about for 100 videos."},
+          "q2": {"type": "string", "enum": ["spotlight", "voiceover", "hands", "whatever"],
+                 "description": "On-camera comfort."},
+          "q3": {"type": "string", "enum": ["money", "audience", "balance"],
+                 "description": "Max money per view, biggest audience, or balance."},
+          "q4": {"type": "string", "enum": ["skill", "personality", "access", "curiosity"],
+                 "description": "Unfair advantage."},
+          "q5": {"type": "string", "enum": ["long", "short", "both"],
+                 "description": "Preferred format."},
+          "q6": {"type": "string", "enum": ["extreme", "medium", "low"],
+                 "description": "Competition tolerance."},
+      }},
+     "Ranked niche list (top 3+) with per-niche reasoning and fit tags.",
+     "Scoring logic lives in assets/js/quiz.js: option tags are matched against each niche's fit[] tags, q3 sets an RPM preference filter, q6 sets the competition ceiling. The niche catalogue (9 niches, fit tags, rpm/competition levels) is embedded in quiz.js."),
+    ("calculator", "Revenue Calculator",
+     "Project revenue from views, niche, sponsors, and affiliates — with honest ranges.",
+     "calculator.html",
+     {"$schema": "http://json-schema.org/draft-07/schema#", "title": "CalculatorInput",
+      "type": "object", "required": ["niche", "monthly_longform_views"],
+      "properties": {
+          "niche": {"type": "string",
+                    "enum": ["comedy_entertainment", "education", "finance_investing",
+                             "gaming", "health_fitness", "lifestyle", "music",
+                             "tech_software", "kids_content"],
+                    "description": "Must be a key of calculators.json youtube_longform_rpm_bands."},
+          "monthly_longform_views": {"type": "number", "minimum": 0},
+          "monthly_shorts_views": {"type": "number", "minimum": 0, "default": 0},
+          "sponsor_deals_per_month": {"type": "number", "minimum": 0, "default": 0},
+          "avg_sponsor_video_views": {"type": "number", "minimum": 0, "default": 0,
+                                      "description": "Expected views on the sponsored video(s)."},
+          "monthly_affiliate_revenue": {"type": "number", "minimum": 0, "default": 0},
+      }},
+     "Monthly revenue range [lo, hi] split into long-form ads, Shorts ads, sponsorships, affiliate/products, plus annualized totals. Ranges, never promises.",
+     "Math (assets/js/calculator.js): long-form ads = views/1000 × RPM band from calculators.json; Shorts ads = shorts/1000 × shorts_rpm_per_1000; sponsorships = deals × (sponsor views/1000) × sponsorship_rule_of_thumb.dedicated_cpm_range; affiliate = input × 0.7–1.3."),
+    ("planner", "90-Day Planner",
+     "Generate a posting schedule from your platforms and cadence. Printable.",
+     "planner.html",
+     {"$schema": "http://json-schema.org/draft-07/schema#", "title": "PlannerInput",
+      "type": "object", "required": ["longform_per_week"],
+      "properties": {
+          "longform_per_week": {"type": "integer", "minimum": 0, "maximum": 7},
+          "shorts_per_week": {"type": "integer", "minimum": 0, "maximum": 21, "default": 0},
+          "platforms": {"type": "array", "items": {"type": "string"},
+                        "default": ["Short-form"],
+                        "description": "Where the shorts go (e.g. TikTok, Reels, Shorts)."},
+          "rest_day": {"type": "integer", "minimum": 0, "maximum": 6, "default": 6,
+                       "description": "0=Mon … 6=Sun; that day is rest + analytics review."},
+      }},
+     "13-week posting schedule (91 days): per-day long-form and short-form assignments, totals, a day-45 checkpoint review note.",
+     "Layout logic (assets/js/planner.js): long-form spread across non-rest days, shorts spread 2 days apart, week 7 flagged as the midpoint review. Rest day is non-negotiable — no posting, analytics review only."),
+    ("deal-analyzer", "Sponsor Deal Analyzer",
+     "Benchmark a sponsor offer against the 2026 rate card — verdict, red-flag checklist, counter-offer worksheet.",
+     "deal-analyzer.html",
+     {"$schema": "http://json-schema.org/draft-07/schema#", "title": "DealAnalyzerInput",
+      "type": "object", "required": ["platform", "deliverable", "followers", "offer_usd"],
+      "properties": {
+          "platform": {"type": "string", "enum": ["youtube", "tiktok", "instagram"]},
+          "deliverable": {"type": "string",
+                          "enum": ["integrated", "dedicated", "short"],
+                          "description": "Integrated slot, dedicated video, or short-form video."},
+          "followers": {"type": "number", "minimum": 0},
+          "offer_usd": {"type": "number", "minimum": 0},
+          "expected_views": {"type": "number", "minimum": 0, "default": 0,
+                             "description": "If known, enables the implied-CPM check."},
+          "usage_rights": {"type": "string",
+                           "enum": ["organic_only", "paid30", "paid180", "paid365", "perpetual"],
+                           "default": "organic_only"},
+          "whitelisting": {"type": "string", "enum": ["none", "30", "90", "perpetual"],
+                           "default": "none"},
+          "exclusivity": {"type": "string", "enum": ["none", "30", "90", "broad"],
+                          "default": "none"},
+          "payment_terms": {"type": "string", "enum": ["30", "60", "90"],
+                            "default": "30", "description": "Net payment terms in days."},
+      }},
+     "Verdict (UNDERPAID / FAIR / STRONG), benchmark range, implied CPM vs rate-card CPMs, red-flag checklist (usage, whitelisting, exclusivity, payment), counter-offer worksheet with line items.",
+     "Logic (assets/js/deal-analyzer.js): followers → tier (nano/micro/macro/mega) → per_video_or_post_by_tier range for platform; verdict = offer vs range; counter starts at range top (creators list ~23% above what they accept) + usage line items (paid30 +50%, paid180 +75%, paid365 +100%) + exclusivity (30d +25%, 60–90d +50%). Negotiation aid, not financial advice."),
+    ("hiring-calculator", "Hiring Cost Calculator",
+     "Price your first hire: monthly/annual cost and the ad revenue needed to cover it — honest math, no promises.",
+     "hiring-calculator.html",
+     {"$schema": "http://json-schema.org/draft-07/schema#", "title": "HiringCalculatorInput",
+      "type": "object", "required": ["role", "billing_model", "rate_usd"],
+      "properties": {
+          "role": {"type": "string",
+                   "enum": ["editor", "thumbnail_designer", "va", "channel_manager"],
+                   "description": "Video editor, thumbnail designer, virtual assistant, channel manager/ops."},
+          "billing_model": {"type": "string", "enum": ["hourly", "per_video", "monthly"],
+                            "description": "hourly = rate/hr × hours/week; per_video = rate × units/month; monthly = retainer."},
+          "rate_usd": {"type": "number", "minimum": 0},
+          "hours_per_week": {"type": "number", "minimum": 0, "default": 0},
+          "units_per_month": {"type": "number", "minimum": 0, "default": 0},
+          "monthly_views": {"type": "number", "minimum": 0, "default": 0,
+                            "description": "Your current monthly long-form views, for the coverage math."},
+          "niche": {"type": "string",
+                    "enum": ["comedy_entertainment", "education", "finance_investing",
+                             "gaming", "health_fitness", "lifestyle", "music",
+                             "tech_software", "kids_content"],
+                    "default": "education"},
+      }},
+     "Monthly/annual cost (sticker vs +15% loaded), share of ad revenue, monthly views needed to cover the loaded cost, 3-month coverage reserve.",
+     "Math (assets/js/hiring-calculator.js): hourly → rate × hrs × 52/12; per_video → rate × units; monthly → retainer. Loaded cost = sticker × 1.15 (management, revisions, fees). Coverage views = loaded ÷ RPM band × 1000 (both band ends). The hiring rule: cover 3 months from revenue before signing."),
+    ("repurpose", "Repurposing Planner",
+     "Turn one idea into a 5-platform mission-card checklist from the Phase 3 repurposing SOP.",
+     "repurpose.html",
+     {"$schema": "http://json-schema.org/draft-07/schema#", "title": "RepurposeInput",
+      "type": "object", "required": ["idea"],
+      "properties": {
+          "idea": {"type": "string", "minLength": 1,
+                   "description": "The single pillar idea (one sentence)."},
+          "source_format": {"type": "string",
+                            "enum": ["longform", "live", "newsletter", "podcast", "other"],
+                            "default": "longform"},
+      }},
+     "Five mission cards (YouTube Day 0, Short Day +1, TikTok Day +2, Reel Day +3, Facebook Day +4) each with a hook rewrite, atom test, and native-grammar checklist.",
+     "Logic (assets/js/repurpose.js): atom test (does the insight survive standalone?), pillar prep (hook in first 15s), then the five staggered mission cards. Enforce native grammar — no watermarks, no copy-paste."),
+    ("simulator", "Empire Simulator",
+     "Simulate 12 months of channel growth + revenue from your niche, cadence, and assumptions — a model, not a prediction.",
+     "simulator.html",
+     {"$schema": "http://json-schema.org/draft-07/schema#", "title": "SimulatorInput",
+      "type": "object", "required": ["niche", "start_subs", "longform_per_week"],
+      "properties": {
+          "niche": {"type": "string",
+                    "enum": ["finance_investing", "tech_software", "education",
+                             "health_fitness", "lifestyle", "comedy_entertainment",
+                             "gaming", "music"],
+                    "description": "Growth-model niche keys from the sim engine's nicheGrowth map."},
+          "start_subs": {"type": "number", "minimum": 0},
+          "longform_per_week": {"type": "number", "minimum": 0},
+          "shorts_per_week": {"type": "number", "minimum": 0, "default": 0},
+          "quality": {"type": "string", "enum": ["low", "solid", "excellent"], "default": "solid"},
+          "monthly_growth_rate": {"type": "number", "minimum": 0, "maximum": 1, "default": 0.12,
+                                  "description": "Base monthly compounding growth at reference cadence (assumption, adjustable)."},
+          "q4_uplift_pct": {"type": "number", "minimum": 0, "maximum": 1, "default": 0.6,
+                            "description": "Ad-rate uplift in months 10–12 (assumption, adjustable 0.4–0.8)."},
+          "monetize_ads": {"type": "boolean", "default": True},
+          "monetize_sponsors": {"type": "boolean", "default": False},
+          "monetize_affiliates": {"type": "boolean", "default": False},
+          "monetize_digital": {"type": "boolean", "default": False},
+          "digital_start_month": {"type": "integer", "minimum": 1, "maximum": 12, "default": 1},
+          "digital_price_usd": {"type": "number", "minimum": 1, "default": 49},
+      }},
+     "12-month projection: subs, views, and revenue per month per stream (ads, sponsors, affiliates, digital), totals, and the full named-assumptions list. A model, not a prediction.",
+     "Engine (assets/js/sim-engine.js, UMD — importable in node): simulate(inputs, cfg) with cfg = calculators.json. Growth compounds monthly × niche factor × quality × cadence (diminishing, capped 2.5x). RPMs come from calculators.json youtube_longform_rpm_bands. Every assumption is named in DEFAULTS and listed on-page."),
+    ("api-explorer", "API Explorer",
+     "Browse every api/v1 endpoint and preview JSON responses live in your browser — no key, no server.",
+     "api-explorer.html",
+     {"$schema": "http://json-schema.org/draft-07/schema#", "title": "ApiExplorerInput",
+      "type": "object", "properties": {},
+      "description": "No inputs — this tool is a read-only browser over the API itself."},
+     "Live in-browser JSON previews of every endpoint, discovered from api/v1/index.json with a static fallback list.",
+     "Discovery (assets/js/api-explorer.js): fetches api/v1/index.json, renders one GET button per endpoint record, pretty-prints responses. Agents can skip the UI and fetch the endpoints directly."),
+    ("hook-builder", "Hook Builder",
+     "Type your video topic, get five filmed-ready hooks — one per Short-Form Playbook structure. Flip-through cards.",
+     "hook-builder.html",
+     {"$schema": "http://json-schema.org/draft-07/schema#", "title": "HookBuilderInput",
+      "type": "object", "required": ["topic"],
+      "properties": {
+          "topic": {"type": "string", "minLength": 1,
+                    "description": "The video topic in one line (the payoff works best)."},
+      }},
+     "Five filmed-ready hooks, one per Short-Form Playbook structure: open loop, cold start, contrarian take, numbered promise, question-as-hook.",
+     "Logic (assets/js/hook-builder.js): topic → template fills per structure + the anti-hook checklist (no 'wait for it', no follow-begging, no channel-name cold open). The structures are craft formulas, not platform documentation."),
+]
+
 # Tools hub (wave 9): grouped card index. Per tool: icon, "use when" one-liner,
 # best-for tags. Groups: PLAN / MONEY / CONTENT (order within group = TOOLS order).
 TOOL_HUB_META = {
@@ -146,7 +324,7 @@ MARKDOWN_PAGES = [
      ("case-ptya", "The Cohort Course")),
     ("case-ptya", "pages/case-ptya.md", "The Cohort Course", "Case File",
      ("agents", "The Agent Surface")),
-    ("hiring", "pages/hiring.md", "Guide", "The First Hire",
+    ("hiring", "pages/hiring.md", "The First Hire", "Guide",
      ("hiring-calculator", "Try the Hiring Cost Calculator")),
     ("shortform-playbook", "pages/shortform-playbook.md", "The Short-Form Playbook", "Playbook",
      ("hook-builder", "Build your hooks")),
@@ -675,18 +853,166 @@ def build():
 """
     (SITE / "index.html").write_text(page_template(SITE_NAME, index_body, active="index.html"), encoding="utf-8")
 
+    # ---- skills index (skills/<name>/SKILL.md directory format) ----
+    # (computed before the API block so the manifest can carry record counts)
+    skill_files = sorted((ROOT / "skills").glob("*/SKILL.md"))
+    skills_idx = []
+    for sf in skill_files:
+        txt = sf.read_text(encoding="utf-8")
+        m = re.search(r"^name:\s*(.+)$", txt, re.M)
+        d = re.search(r"^description:\s*(.+)$", txt, re.M)
+        rel = sf.relative_to(ROOT).as_posix()
+        skills_idx.append({"name": m.group(1).strip() if m else sf.parent.name,
+                           "description": d.group(1).strip() if d else "",
+                           "path": rel})
+    (ROOT / "skills" / "index.json").write_text(json.dumps({"skills": skills_idx}, indent=2), encoding="utf-8")
+
     # ---- API ----
-    api_index = {
-        "name": SITE_NAME, "version": "1.0.0",
-        "endpoints": {
-            "chapters": "api/v1/chapters.json",
-            "glossary": "api/v1/glossary.json",
-            "calculators": "api/v1/calculators.json",
-            "skills": "api/v1/skills.json",
-            "case-files": "api/v1/case-files.json",
-            "references": [m["path"] for m in reference_meta],
-            "tools": [f"{slug}.html" for slug, _, _ in TOOLS],
+    # Wave 12: full self-describing manifest. Every endpoint carries its
+    # description, schema URL, ISO-8601 UTC updated timestamp, record count,
+    # and deprecation status. Existing payload shapes are untouched.
+    BUILD_TS = "2026-10-11T00:00:00Z"
+    calculators_cfg = json.loads((DATA / "calculators.json").read_text(encoding="utf-8"))
+    api_endpoints = [
+        {
+            "id": "index",
+            "kind": "json",
+            "path": "api/v1/index.json",
+            "description": "This manifest — self-describing list of every endpoint with schema URLs, updated timestamps, record counts, and deprecation notes. Start here.",
+            "schema": "api/v1/schema/index.json",
+            "updated": BUILD_TS,
+            "records": None,
+            "deprecated": False,
+            "deprecation_note": None,
         },
+        {
+            "id": "chapters",
+            "kind": "json",
+            "path": "api/v1/chapters.json",
+            "description": "All nine phases: id, phase label, title, site-relative path, word count, read minutes. Use headings to navigate before fetching full text from llms-full.txt or the chapter page.",
+            "schema": "api/v1/schema/chapters.json",
+            "updated": BUILD_TS,
+            "records": len(chapters_meta),
+            "deprecated": False,
+            "deprecation_note": None,
+        },
+        {
+            "id": "glossary",
+            "kind": "json",
+            "path": "api/v1/glossary.json",
+            "description": "Creator-economy definitions: { terms: [{ term, definition }] }.",
+            "schema": "api/v1/schema/glossary.json",
+            "updated": BUILD_TS,
+            "records": len(glossary["terms"]),
+            "deprecated": False,
+            "deprecation_note": None,
+        },
+        {
+            "id": "calculators",
+            "kind": "json",
+            "path": "api/v1/calculators.json",
+            "description": "Calculator config: per-niche long-form RPM bands, Shorts RPM, platform thresholds (YPP tiers, TikTok Rewards, Facebook CMP — with sources and dates), revenue splits, the 2026 sponsorship rate card, and 2026 niche/platform research snapshots. The data contract the sim engine, revenue calculator, deal analyzer, and hiring calculator read.",
+            "schema": "api/v1/schema/calculators.json",
+            "updated": BUILD_TS,
+            "records": None,
+            "records_note": "Config snapshot, not a record list: "
+                            f"{len(calculators_cfg['youtube_longform_rpm_bands'])} niche RPM bands, "
+                            "2026 rate card, platform thresholds, revenue splits, research snapshots.",
+            "deprecated": False,
+            "deprecation_note": None,
+            "freshness_note": "Verify platform figures live before acting on them — see the payload's own updated/version fields. Treat undated numbers as stale.",
+        },
+        {
+            "id": "skills",
+            "kind": "json",
+            "path": "api/v1/skills.json",
+            "description": "Skill index: name, description, repo-relative path for every executable skill. Full skill content lives in skills/<name>/SKILL.md.",
+            "schema": "api/v1/schema/skills.json",
+            "updated": BUILD_TS,
+            "records": len(skills_idx),
+            "deprecated": False,
+            "deprecation_note": None,
+        },
+        {
+            "id": "case-files",
+            "kind": "json",
+            "path": "api/v1/case-files.json",
+            "description": "Index of the documented creator-business deconstructions: id, badge, title, path, words, read_minutes. Full text on the case-*.html pages. Figures are source-reported, not audited — never present as promises.",
+            "schema": "api/v1/schema/case-files.json",
+            "updated": BUILD_TS,
+            "records": sum(1 for m in mdpage_meta if m["badge"] == "Case File"),
+            "deprecated": False,
+            "deprecation_note": None,
+        },
+        {
+            "id": "tools",
+            "kind": "json",
+            "path": "api/v1/tools.json",
+            "description": "All nine interactive tools with programmatic input schemas (JSON Schema draft-07), output descriptions, and drive notes — replicate the tools' logic without the UI.",
+            "schema": "api/v1/schema/tools.json",
+            "updated": BUILD_TS,
+            "records": len(TOOLS_API),
+            "deprecated": False,
+            "deprecation_note": None,
+        },
+        {
+            "id": "reference-pages",
+            "kind": "html",
+            "paths": [m["path"] for m in reference_meta],
+            "description": "Human-readable reference pages (the 2026 sponsorship rate card). Machine-readable equivalent lives in calculators.json sponsorship_rate_card_2026.",
+            "schema": None,
+            "updated": BUILD_TS,
+            "records": len(reference_meta),
+            "deprecated": False,
+            "deprecation_note": None,
+        },
+        {
+            "id": "tool-pages",
+            "kind": "html",
+            "paths": [f"{slug}.html" for slug, _, _ in TOOLS],
+            "description": "The nine interactive tools' human UI pages. Agents should prefer api/v1/tools.json input schemas over scraping these pages.",
+            "schema": None,
+            "updated": BUILD_TS,
+            "records": len(TOOLS),
+            "deprecated": False,
+            "deprecation_note": None,
+        },
+        {
+            "id": "schemas",
+            "kind": "directory",
+            "path": "api/v1/schema/",
+            "description": "JSON Schema (draft-07) for every JSON endpoint, per-endpoint and per-record.",
+            "files": [
+                "index.json — the manifest itself",
+                "chapters.json — chapters doc",
+                "chapter.json — chapter record",
+                "glossary.json — glossary doc (term records inline)",
+                "calculators.json — the calculators data contract",
+                "skills.json — skills doc",
+                "skill.json — skill record",
+                "case-files.json — case-files doc",
+                "case-file.json — case-file record",
+                "tools.json — tools doc",
+                "tool.json — tool record",
+            ],
+            "schema": None,
+            "updated": BUILD_TS,
+            "records": 11,
+            "deprecated": False,
+            "deprecation_note": None,
+        },
+    ]
+    api_index = {
+        "name": SITE_NAME,
+        "tagline": TAGLINE,
+        "version": "1.0.0",
+        "updated": BUILD_TS,
+        "base": "api/v1/",
+        "notes": ("Self-describing manifest. Base is api/v1/ relative to the site root — "
+                  "works on any static host; no auth, no keys, no rate limits. "
+                  "Timestamps are ISO-8601 UTC. The deployed site ships its own api/ mirror, "
+                  "so the explorer works live too."),
+        "endpoints": api_endpoints,
     }
     (API / "index.json").write_text(json.dumps(api_index, indent=2), encoding="utf-8")
     (API / "chapters.json").write_text(json.dumps({"chapters": chapters_meta}, indent=2), encoding="utf-8")
@@ -701,6 +1027,20 @@ def build():
     }, indent=2), encoding="utf-8")
     shutil.copy(DATA / "glossary.json", API / "glossary.json")
     shutil.copy(DATA / "calculators.json", API / "calculators.json")
+
+    # ---- tools.json: every tool with its programmatic input schema ----
+    (API / "tools.json").write_text(json.dumps({
+        "version": "1.0.0", "updated": "2026-10-11",
+        "note": ("Programmatic input schemas for the nine interactive tools. "
+                 "Agents replicate each tool's logic by feeding these inputs to the "
+                 "documented formulas / shipped JS (assets/js/<id>.js); the UI pages "
+                 "are the human front-end for the same logic."),
+        "tools": [
+            {"id": tid, "title": title, "description": desc, "page": page,
+             "input_schema": schema, "output": output, "drive_notes": drive}
+            for tid, title, desc, page, schema, output, drive in TOOLS_API
+        ],
+    }, indent=2), encoding="utf-8")
 
     chapter_schema = {
         "$schema": "http://json-schema.org/draft-07/schema#",
@@ -779,18 +1119,108 @@ def build():
     }
     (API / "schema" / "calculators.json").write_text(json.dumps(calculators_schema, indent=2), encoding="utf-8")
 
-    # ---- skills index (skills/<name>/SKILL.md directory format) ----
-    skill_files = sorted((ROOT / "skills").glob("*/SKILL.md"))
-    skills_idx = []
-    for sf in skill_files:
-        txt = sf.read_text(encoding="utf-8")
-        m = re.search(r"^name:\s*(.+)$", txt, re.M)
-        d = re.search(r"^description:\s*(.+)$", txt, re.M)
-        rel = sf.relative_to(ROOT).as_posix()
-        skills_idx.append({"name": m.group(1).strip() if m else sf.parent.name,
-                           "description": d.group(1).strip() if d else "",
-                           "path": rel})
-    (ROOT / "skills" / "index.json").write_text(json.dumps({"skills": skills_idx}, indent=2), encoding="utf-8")
+    # Wave 12: schema for EVERY endpoint — doc-level + per-record where it
+    # applies. All draft-07, all checked by scripts/validate.sh.
+    index_schema = {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "title": "ApiIndex",
+        "type": "object",
+        "required": ["name", "version", "updated", "base", "endpoints"],
+        "properties": {
+            "name": {"type": "string"}, "tagline": {"type": "string"},
+            "version": {"type": "string"}, "updated": {"type": "string"},
+            "base": {"type": "string"}, "notes": {"type": "string"},
+            "endpoints": {"type": "array", "items": {
+                "type": "object",
+                "required": ["id", "kind", "description", "updated", "deprecated"],
+                "properties": {
+                    "id": {"type": "string"},
+                    "kind": {"type": "string", "enum": ["json", "html", "directory"]},
+                    "path": {"type": "string"},
+                    "paths": {"type": "array", "items": {"type": "string"}},
+                    "files": {"type": "array", "items": {"type": "string"}},
+                    "description": {"type": "string"},
+                    "schema": {"type": ["string", "null"]},
+                    "updated": {"type": "string"},
+                    "records": {"type": ["integer", "null"]},
+                    "records_note": {"type": "string"},
+                    "deprecated": {"type": "boolean"},
+                    "deprecation_note": {"type": ["string", "null"]},
+                    "freshness_note": {"type": "string"},
+                },
+            }},
+        },
+    }
+    (API / "schema" / "index.json").write_text(json.dumps(index_schema, indent=2), encoding="utf-8")
+    chapters_schema = {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "title": "Chapters",
+        "type": "object",
+        "required": ["chapters"],
+        "properties": {"chapters": {"type": "array", "items": {"$ref": "chapter.json"}}},
+    }
+    (API / "schema" / "chapters.json").write_text(json.dumps(chapters_schema, indent=2), encoding="utf-8")
+    skill_schema = {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "title": "Skill",
+        "type": "object",
+        "required": ["name", "description", "path"],
+        "properties": {
+            "name": {"type": "string"}, "description": {"type": "string"},
+            "path": {"type": "string"},
+        },
+    }
+    (API / "schema" / "skill.json").write_text(json.dumps(skill_schema, indent=2), encoding="utf-8")
+    skills_schema = {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "title": "Skills",
+        "type": "object",
+        "required": ["version", "updated", "skills"],
+        "properties": {
+            "version": {"type": "string"}, "updated": {"type": "string"},
+            "skills": {"type": "array", "items": {"$ref": "skill.json"}},
+        },
+    }
+    (API / "schema" / "skills.json").write_text(json.dumps(skills_schema, indent=2), encoding="utf-8")
+    case_files_schema = {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "title": "CaseFiles",
+        "type": "object",
+        "required": ["version", "updated", "note", "case_files"],
+        "properties": {
+            "version": {"type": "string"}, "updated": {"type": "string"},
+            "note": {"type": "string"},
+            "case_files": {"type": "array", "items": {"$ref": "case-file.json"}},
+        },
+    }
+    (API / "schema" / "case-files.json").write_text(json.dumps(case_files_schema, indent=2), encoding="utf-8")
+    tool_schema = {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "title": "Tool",
+        "type": "object",
+        "required": ["id", "title", "description", "page", "input_schema", "output", "drive_notes"],
+        "properties": {
+            "id": {"type": "string"}, "title": {"type": "string"},
+            "description": {"type": "string"}, "page": {"type": "string"},
+            "input_schema": {"type": "object"},
+            "output": {"type": "string"}, "drive_notes": {"type": "string"},
+        },
+    }
+    (API / "schema" / "tool.json").write_text(json.dumps(tool_schema, indent=2), encoding="utf-8")
+    tools_schema = {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "title": "Tools",
+        "type": "object",
+        "required": ["version", "updated", "note", "tools"],
+        "properties": {
+            "version": {"type": "string"}, "updated": {"type": "string"},
+            "note": {"type": "string"},
+            "tools": {"type": "array", "items": {"$ref": "tool.json"}},
+        },
+    }
+    (API / "schema" / "tools.json").write_text(json.dumps(tools_schema, indent=2), encoding="utf-8")
+
+    # ---- skills index outputs (index computed before the API block) ----
     (API / "skills.json").write_text(json.dumps(
         {"version": "1.0.0", "updated": "2026-10-11", "skills": skills_idx}, indent=2), encoding="utf-8")
 
@@ -820,15 +1250,24 @@ def build():
     for m in (m for m in mdpage_meta if m["badge"] == "Case File"):
         llms.append(f"- [Case File: {m['title']}]({m['path']}) — {m['read_minutes']} min read")
     llms += ["- [All case files — index + comparison table](case-files.html)",
-             "- api/v1/case-files.json — machine-readable case-file index", ""]
-    llms += ["", "## API", "- api/v1/index.json", "- api/v1/chapters.json",
-             "- api/v1/glossary.json", "- api/v1/calculators.json",
+             "- api/v1/case-files.json — machine-readable case-file index", "",
+             "## Guides & Playbooks"]
+    for m in (m for m in mdpage_meta if m["badge"] in ("Guide", "Playbook")):
+        llms.append(f"- [{m['badge']}: {m['title']}]({m['path']}) — {m['read_minutes']} min read")
+    llms += ["", "## API", "- api/v1/index.json — self-describing manifest: every endpoint, schema URL, updated timestamp, record counts",
+             "- api/v1/chapters.json",
+             "- api/v1/glossary.json",
+             "- api/v1/calculators.json",
              "- api/v1/skills.json",
+             "- api/v1/case-files.json",
+             "- api/v1/tools.json — every tool's programmatic input schema",
+             "- api/v1/schema/ — JSON Schema (draft-07) for every endpoint",
              "", "## Agents",
+             "- AGENT.md — how an agent uses this site: base URL pattern, example requests, 3 end-to-end workflows, tool input schemas",
              "- [Agents](agents.html) — the agent surface: endpoint table, all skills, data freshness policy, 3 worked agent workflows",
              "- [API Explorer](api-explorer.html) — browse api/v1 endpoints, preview JSON in-browser",
              "- llms.txt (this file) — quick agent orientation",
-             "- llms-full.txt — complete guide text, all chapters + reference + agents",
+             "- llms-full.txt — complete guide text, all chapters + reference + guides + agents",
              "", "## Skills"]
     for s in skills_idx:
         llms.append(f"- {s['name']}: {s['description']}")

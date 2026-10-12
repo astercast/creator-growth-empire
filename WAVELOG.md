@@ -1,5 +1,71 @@
 # Creator Growth Empire — Wave Log
 
+## Wave 12 — Agent API excellence pass (2026-10-11)
+
+What shipped:
+1. **`api/v1/index.json` — full self-describing manifest.** Replaced the sparse
+   path-dict with an endpoint-record list: every endpoint carries `id`, `kind`
+   (`json`|`html`|`directory`), `path`/`paths`/`files`, `description`, `schema`
+   URL, ISO-8601 UTC `updated`, `records` count, `deprecated` +
+   `deprecation_note` (none active), and `freshness_note` where relevant
+   (calculators: verify platform figures live). Covers chapters, glossary,
+   calculators, skills, case-files, tools, reference-pages, tool-pages, and a
+   `schemas` directory record listing all 11 schema files.
+2. **New `api/v1/tools.json` endpoint** — all 9 tools with programmatic
+   `input_schema` (JSON Schema draft-07), `output` description, and
+   `drive_notes` (formulas + the shipped JS file to replicate). Generated from
+   a new `TOOLS_API` table in `scripts/build.py`; faithfully mirrors each
+   tool's actual inputs (verified against the tool JS).
+3. **New `AGENT.md`** (repo root) — "how an agent uses this site": base URL
+   pattern (`api/v1/` relative; no auth/keys/rate limits), endpoint table with
+   example requests, **3 end-to-end worked workflows** (WF1: $5K offer for a
+   50K-sub tech channel → FAIR, implied CPM $125 vs $20–$35 integrated
+   benchmark, $15K counter; WF2: 90-day cooking-channel launch → 13 long-form
+   + 39 shorts = 52 pieces, YPP 1K subs + 4K watch hours, TikTok food RPM
+   $0.60–$1.30; WF3: ASMR sim scenario → month-12 subs 3,468, 12-mo $43.12,
+   proxies declared explicitly), rate/expectation notes (static JSON,
+   freshness dates, verify-live flags), per-tool drive table, honesty rules.
+4. **JSON Schema draft-07 for every endpoint** — 11 schemas now (was 4): added
+   `index.json`, `chapters.json` (doc), `skills.json` (doc), `skill.json`
+   (record), `case-files.json` (doc), `tools.json` (doc), `tool.json`
+   (record). Doc wrappers use relative `$ref` into per-record schemas.
+5. **Shared conventions in API.md** — the canonical cross-site block added
+   verbatim; endpoint docs rewritten to match actual payloads (old text
+   described chapter fields that don't exist); glossary count fixed 25→26.
+6. **Skills gap-fill (10→12)** — `shortform-hook-craft` (Hook Builder +
+   Short-Form Playbook: 5 structures, retention editing, anti-hook checklist)
+   and `first-hire-planner` (hiring guide + calculator: bottleneck test, 2026
+   rate ranges, coverage math, 2-week trial, SOPs, contractor-vs-employee —
+   not legal/tax advice), both in the standard Use-when/Inputs/Procedure/
+   Worked-example/API-references/Pitfalls format.
+7. **API Explorer polished** — now discovers endpoints from the new manifest
+   shape (all 7 JSON endpoints + all 11 schemas from the manifest's `files[]`,
+   record counts in descriptions), shows a manifest version/updated line, and
+   the static fallback covers everything incl. case-files + tools.
+8. **Freshness fixes** — `pages/agents.md`: calculators version 1.1.0→1.2.0,
+   skills 10→12 (+2 table rows), interactive-tools row gained hiring-calculator
+   + hook-builder; `llms.txt` regenerated via `scripts/build.py` — new
+   **Guides & Playbooks** section (The First Hire + Short-Form Playbook,
+   previously unlisted), `tools.json` + `schema/` in the API section, `AGENT.md`
+   in the Agents section; hiring MARKDOWN_PAGES title/badge swap fixed (page
+   title was rendering "Guide", now "The First Hire"); README agentic layer
+   updated (was "3 tools, 6 skills").
+
+Validation: `scripts/build.py` clean (9 chapters, 9 tools, 12 skills, 5 case
+files, 16,153 words); `scripts/validate.sh` **8/8 GREEN** (14 JS files,
+21 JSON files, schema validation incl. $ref resolution + manifest/schema-set
+coherence, 0 broken of 1,587 links, byte-identical rebuild, 16/16 sim
+assertions, llms counts fresh, **20/20 agent-workflow assertions** — the 3
+AGENT.md workflows executed against the real `api/v1/` JSON files + the
+shipped UMD sim engine in node).
+
+Existing payload shapes untouched (site JS + sim engine read them); only the
+manifest shape changed, with the API Explorer updated to match.
+
+Commit: PENDING (recorded post-push).
+
+---
+
 ## Wave 11 — deep content: "The Short-Form Playbook" (2026-10-11)
 
 What shipped:

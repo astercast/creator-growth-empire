@@ -39,28 +39,37 @@ All nine tools, grouped by job (Plan / Money / Content): [Tools hub](tools.html)
 - [All case files — index + comparison table](case-files.html)
 - api/v1/case-files.json — machine-readable case-file index
 
+## Guides & Playbooks
+- [Guide: The First Hire](hiring.html) — 14 min read
+- [Playbook: The Short-Form Playbook](shortform-playbook.html) — 15 min read
 
 ## API
-- api/v1/index.json
+- api/v1/index.json — self-describing manifest: every endpoint, schema URL, updated timestamp, record counts
 - api/v1/chapters.json
 - api/v1/glossary.json
 - api/v1/calculators.json
 - api/v1/skills.json
+- api/v1/case-files.json
+- api/v1/tools.json — every tool's programmatic input schema
+- api/v1/schema/ — JSON Schema (draft-07) for every endpoint
 
 ## Agents
+- AGENT.md — how an agent uses this site: base URL pattern, example requests, 3 end-to-end workflows, tool input schemas
 - [Agents](agents.html) — the agent surface: endpoint table, all skills, data freshness policy, 3 worked agent workflows
 - [API Explorer](api-explorer.html) — browse api/v1 endpoints, preview JSON in-browser
 - llms.txt (this file) — quick agent orientation
-- llms-full.txt — complete guide text, all chapters + reference + agents
+- llms-full.txt — complete guide text, all chapters + reference + guides + agents
 
 ## Skills
 - analytics-review: Run the monthly analytics ritual — find outliers, diagnose retention, and decide what to make more of.
 - content-repurposing: Turn one long-form video into a five-platform distribution package with the pillar-to-everywhere SOP.
 - deal-negotiation: Evaluate a sponsorship offer against the 2026 rate card — benchmark the price, flag contract traps, and build a defensible counter-offer.
+- first-hire-planner: Plan a creator's first hire end to end — bottleneck test (editor vs VA vs designer vs ops), 2026 rate ranges, coverage math via the Hiring Cost Calculator logic, the 2-week paid trial, SOP templates, and contractor-vs-employee basics. Not legal or tax advice.
 - hook-writing: Write and stress-test video hooks — the first 30 seconds (long-form) or first 2 seconds (short-form) that decide everything.
 - live-shopping-playbook: Plan a TikTok live selling session from the Phase 6 POD research — format, timing, and the unit economics of selling live.
 - niche-validation: Validate a creator niche before committing — demand, competition, monetization, and winnability scored in one pass.
 - rate-card-reader: Look up fair 2026 sponsorship price ranges for any follower tier, platform, and deliverable — straight from the site's rate-card data.
 - repurposing-sprint: Execute the 5-platform pillar-to-everywhere SOP from the Phase 3 playbook — one pillar video becomes five native posts on a staggered schedule.
+- shortform-hook-craft: Craft and stress-test short-form hooks using the five Short-Form Playbook structures — open loop, cold start, contrarian take, numbered promise, question-as-hook — with retention editing rules and the anti-hook checklist.
 - sponsorship-pitch: Build a complete sponsor outreach system — targeting, email, pricing, and negotiation for creator brand deals.
 - thumbnail-teardown: Systematically diagnose why a thumbnail underperforms and produce a concrete redesign brief.

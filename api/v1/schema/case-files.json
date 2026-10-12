@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CaseFiles",
+  "type": "object",
+  "required": [
+    "version",
+    "updated",
+    "note",
+    "case_files"
+  ],
+  "properties": {
+    "version": {
+      "type": "string"
+    },
+    "updated": {
+      "type": "string"
+    },
+    "note": {
+      "type": "string"
+    },
+    "case_files": {
+      "type": "array",
+      "items": {
+        "$ref": "case-file.json"
+      }
+    }
+  }
+}

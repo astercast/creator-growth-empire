@@ -12,22 +12,23 @@
 | Chapters | `api/v1/chapters.json` | 9 phases: id, title, word count, read time, path |
 | Glossary | `api/v1/glossary.json` | Creator-economy terms + definitions |
 | Calculators data | `api/v1/calculators.json` | RPM bands, thresholds, splits, 2026 rate card, usage-rights notes |
-| Skill index | `api/v1/skills.json` | 10 skills: name, description, path |
+| Skill index | `api/v1/skills.json` | 12 skills: name, description, path |
 | Case files | `api/v1/case-files.json` + `case-*.html` | 5 documented creator-business deconstructions: budget-grocery newsletter, Ben's Bites, faceless sleep-channel network, Mavwicks on TikTok Shop, cohort course — figures source-reported, never promises |
 | Reference | `rate-card.html` + `api/v1/calculators.json` | The 2026 sponsorship rate card |
-| Interactive tools | `quiz.html`, `calculator.html`, `planner.html`, `deal-analyzer.html`, `repurpose.html`, `simulator.html`, `api-explorer.html` | Human-facing; agents should use the API data behind them |
+| Interactive tools | `quiz.html`, `calculator.html`, `planner.html`, `deal-analyzer.html`, `hiring-calculator.html`, `repurpose.html`, `simulator.html`, `hook-builder.html`, `api-explorer.html` | Human-facing; agents should use the API data behind them (`api/v1/tools.json` carries every tool's programmatic input schema) |
 | API explorer | `api-explorer.html` | Browse every `api/v1` endpoint and preview JSON in-browser |
 
 All endpoints are `GET` on static JSON. Base path: `api/v1/` (relative to the site root; the deployed site ships its own `api/` mirror, so the explorer works live too). Schemas: `api/v1/schema/` (JSON Schema draft-07).
 
 ## Skills — the executable layer
 
-Ten skills live in `skills/<name>/SKILL.md`, indexed by `api/v1/skills.json`. Each skill has the same structure: Use when / Inputs / Procedure / Worked example / API references / Pitfalls.
+Twelve skills live in `skills/<name>/SKILL.md`, indexed by `api/v1/skills.json`. Each skill has the same structure: Use when / Inputs / Procedure / Worked example / API references / Pitfalls.
 
 | Skill | Use when |
 |---|---|
 | `niche-validation` | Validating a creator niche before committing — demand, competition, monetization, winnability scored in one pass |
 | `hook-writing` | Writing and stress-testing video hooks — first 30 seconds (long-form) or first 2 seconds (short-form) |
+| `shortform-hook-craft` | Crafting short-form hooks with the five Short-Form Playbook structures — open loop, cold start, contrarian, numbered promise, question |
 | `thumbnail-teardown` | Diagnosing why a thumbnail underperforms and producing a redesign brief |
 | `content-repurposing` | Turning one long-form video into a five-platform distribution package |
 | `repurposing-sprint` | Executing the 5-platform SOP: one pillar → 5 mission cards (YouTube Day 0, Short Day +1, TikTok Day +2, Reel Day +3, Facebook Day +4) |
@@ -35,11 +36,12 @@ Ten skills live in `skills/<name>/SKILL.md`, indexed by `api/v1/skills.json`. Ea
 | `sponsorship-pitch` | Building a sponsor outreach system — targeting, email, pricing, negotiation |
 | `deal-negotiation` | Evaluating an offer against the 2026 rate card — benchmark, red-flag checklist, counter-offer worksheet |
 | `rate-card-reader` | Looking up fair 2026 ranges for any tier/platform/deliverable from the rate-card data |
+| `first-hire-planner` | Planning the first hire end to end — bottleneck test, 2026 rate ranges, coverage math, trial, SOPs (not legal/tax advice) |
 | `live-shopping-playbook` | Planning a TikTok live selling session — 60-minute run of show, flash-sale math, unit economics |
 
 ## Data freshness policy
 
-- `api/v1/calculators.json` carries `version` (currently 1.1.0) and `updated` (currently 2026-10-11). Check these before quoting any platform number.
+- `api/v1/calculators.json` carries `version` (currently 1.2.0) and `updated` (currently 2026-10-11). Check these before quoting any platform number.
 - Platform thresholds include their source and observation date — treat as **verify live**, not gospel. Platforms change rules constantly; the most dangerous number on the internet is a stale one.
 - Rate-card figures are negotiation ranges compiled from 2026 agency benchmarks that disagree 2–3x within tiers — never present them as quotes.
 - The guide's honesty policy: platform facts verified October 2026. Income ranges are illustrative, never promises. Business/tax content is educational — **not financial, legal, or tax advice**.

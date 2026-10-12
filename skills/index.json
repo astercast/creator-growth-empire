@@ -16,6 +16,11 @@
       "path": "skills/deal-negotiation/SKILL.md"
     },
     {
+      "name": "first-hire-planner",
+      "description": "Plan a creator's first hire end to end \u2014 bottleneck test (editor vs VA vs designer vs ops), 2026 rate ranges, coverage math via the Hiring Cost Calculator logic, the 2-week paid trial, SOP templates, and contractor-vs-employee basics. Not legal or tax advice.",
+      "path": "skills/first-hire-planner/SKILL.md"
+    },
+    {
       "name": "hook-writing",
       "description": "Write and stress-test video hooks \u2014 the first 30 seconds (long-form) or first 2 seconds (short-form) that decide everything.",
       "path": "skills/hook-writing/SKILL.md"
@@ -39,6 +44,11 @@
       "name": "repurposing-sprint",
       "description": "Execute the 5-platform pillar-to-everywhere SOP from the Phase 3 playbook \u2014 one pillar video becomes five native posts on a staggered schedule.",
       "path": "skills/repurposing-sprint/SKILL.md"
+    },
+    {
+      "name": "shortform-hook-craft",
+      "description": "Craft and stress-test short-form hooks using the five Short-Form Playbook structures \u2014 open loop, cold start, contrarian take, numbered promise, question-as-hook \u2014 with retention editing rules and the anti-hook checklist.",
+      "path": "skills/shortform-hook-craft/SKILL.md"
     },
     {
       "name": "sponsorship-pitch",

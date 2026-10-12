@@ -22,16 +22,15 @@ Every chapter is 1,500+ words of substantive, actionable content. No stubs.
 
 ## Interactive tools
 
-- **Niche Picker Quiz** (`pages/quiz.html`) — 6 questions → ranked niche suggestions with reasoning
-- **Revenue Calculator** (`pages/calculator.html`) — views, niche RPM band, sponsors, affiliates → honest-range projections
-- **90-Day Planner** (`pages/planner.html`) — platforms + cadence → printable posting schedule
+Nine tools (`pages/*.html` → `site/*.html`): **Niche Picker** (quiz), **Revenue Calculator** (calculator), **90-Day Planner** (planner), **Sponsor Deal Analyzer** (deal-analyzer), **Hiring Cost Calculator** (hiring-calculator), **Repurposing Planner** (repurpose), **Empire Simulator** (simulator), **API Explorer** (api-explorer), **Hook Builder** (hook-builder). Every tool's programmatic input schema lives in `api/v1/tools.json`.
 
 ## Agentic layer
 
-- `api/v1/` — versioned JSON: `index.json`, `chapters.json`, `glossary.json`, `calculators.json`, plus `schema/` (JSON Schema draft-07)
-- `llms.txt` + `llms-full.txt` — LLM-ready summaries of the full guide
-- `skills/` — six skills in the standard format: `niche-validation`, `thumbnail-teardown`, `sponsorship-pitch`, `content-repurposing`, `analytics-review`, `hook-writing`
-- `API.md` — full API reference
+- `api/v1/` — versioned JSON: `index.json` (self-describing manifest), `chapters.json`, `glossary.json`, `calculators.json`, `skills.json`, `case-files.json`, `tools.json`, plus `schema/` (11 JSON Schema draft-07 files)
+- `AGENT.md` — how an agent uses this site: base URL pattern, example requests, 3 end-to-end workflows (executed by `tests/agent-workflows.test.js`), tool input schemas
+- `llms.txt` + `llms-full.txt` — LLM-ready summaries of the full guide (9 phases, 9 tools, guides & playbooks, 5 case files, 12 skills)
+- `skills/` — twelve skills in the standard format: `niche-validation`, `hook-writing`, `shortform-hook-craft`, `thumbnail-teardown`, `content-repurposing`, `repurposing-sprint`, `analytics-review`, `sponsorship-pitch`, `deal-negotiation`, `rate-card-reader`, `first-hire-planner`, `live-shopping-playbook`
+- `API.md` — full API reference (includes the shared cross-site API conventions block)
 
 ## Build
 
@@ -44,8 +43,9 @@ Reads `content/*.md` → `site/*.html`, tool pages from `pages/*.html`, glossary
 ## Validate
 
 ```bash
-node --check assets/js/*.js   # all JS must parse
-python3 scripts/build.py      # rebuild + link check + JSON/schema validation
+bash scripts/validate.sh   # 8 stages: JS syntax, JSON parse, draft-07 schemas,
+                           # link check, build reproducibility, sim tests,
+                           # llms freshness, AGENT.md workflow execution
 ```
 
 ## Design

@@ -1,0 +1,529 @@
+{
+  "version": "1.0.0",
+  "updated": "2026-10-11",
+  "note": "Programmatic input schemas for the nine interactive tools. Agents replicate each tool's logic by feeding these inputs to the documented formulas / shipped JS (assets/js/<id>.js); the UI pages are the human front-end for the same logic.",
+  "tools": [
+    {
+      "id": "quiz",
+      "title": "Niche Picker",
+      "description": "Answer 6 questions, get ranked niche suggestions with reasoning.",
+      "page": "quiz.html",
+      "input_schema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "title": "QuizInput",
+        "type": "object",
+        "required": [
+          "q1",
+          "q2",
+          "q3",
+          "q4",
+          "q5",
+          "q6"
+        ],
+        "properties": {
+          "q1": {
+            "type": "string",
+            "enum": [
+              "numbers",
+              "teaching",
+              "doing",
+              "story",
+              "research"
+            ],
+            "description": "What you could talk about for 100 videos."
+          },
+          "q2": {
+            "type": "string",
+            "enum": [
+              "spotlight",
+              "voiceover",
+              "hands",
+              "whatever"
+            ],
+            "description": "On-camera comfort."
+          },
+          "q3": {
+            "type": "string",
+            "enum": [
+              "money",
+              "audience",
+              "balance"
+            ],
+            "description": "Max money per view, biggest audience, or balance."
+          },
+          "q4": {
+            "type": "string",
+            "enum": [
+              "skill",
+              "personality",
+              "access",
+              "curiosity"
+            ],
+            "description": "Unfair advantage."
+          },
+          "q5": {
+            "type": "string",
+            "enum": [
+              "long",
+              "short",
+              "both"
+            ],
+            "description": "Preferred format."
+          },
+          "q6": {
+            "type": "string",
+            "enum": [
+              "extreme",
+              "medium",
+              "low"
+            ],
+            "description": "Competition tolerance."
+          }
+        }
+      },
+      "output": "Ranked niche list (top 3+) with per-niche reasoning and fit tags.",
+      "drive_notes": "Scoring logic lives in assets/js/quiz.js: option tags are matched against each niche's fit[] tags, q3 sets an RPM preference filter, q6 sets the competition ceiling. The niche catalogue (9 niches, fit tags, rpm/competition levels) is embedded in quiz.js."
+    },
+    {
+      "id": "calculator",
+      "title": "Revenue Calculator",
+      "description": "Project revenue from views, niche, sponsors, and affiliates \u2014 with honest ranges.",
+      "page": "calculator.html",
+      "input_schema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "title": "CalculatorInput",
+        "type": "object",
+        "required": [
+          "niche",
+          "monthly_longform_views"
+        ],
+        "properties": {
+          "niche": {
+            "type": "string",
+            "enum": [
+              "comedy_entertainment",
+              "education",
+              "finance_investing",
+              "gaming",
+              "health_fitness",
+              "lifestyle",
+              "music",
+              "tech_software",
+              "kids_content"
+            ],
+            "description": "Must be a key of calculators.json youtube_longform_rpm_bands."
+          },
+          "monthly_longform_views": {
+            "type": "number",
+            "minimum": 0
+          },
+          "monthly_shorts_views": {
+            "type": "number",
+            "minimum": 0,
+            "default": 0
+          },
+          "sponsor_deals_per_month": {
+            "type": "number",
+            "minimum": 0,
+            "default": 0
+          },
+          "avg_sponsor_video_views": {
+            "type": "number",
+            "minimum": 0,
+            "default": 0,
+            "description": "Expected views on the sponsored video(s)."
+          },
+          "monthly_affiliate_revenue": {
+            "type": "number",
+            "minimum": 0,
+            "default": 0
+          }
+        }
+      },
+      "output": "Monthly revenue range [lo, hi] split into long-form ads, Shorts ads, sponsorships, affiliate/products, plus annualized totals. Ranges, never promises.",
+      "drive_notes": "Math (assets/js/calculator.js): long-form ads = views/1000 \u00d7 RPM band from calculators.json; Shorts ads = shorts/1000 \u00d7 shorts_rpm_per_1000; sponsorships = deals \u00d7 (sponsor views/1000) \u00d7 sponsorship_rule_of_thumb.dedicated_cpm_range; affiliate = input \u00d7 0.7\u20131.3."
+    },
+    {
+      "id": "planner",
+      "title": "90-Day Planner",
+      "description": "Generate a posting schedule from your platforms and cadence. Printable.",
+      "page": "planner.html",
+      "input_schema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "title": "PlannerInput",
+        "type": "object",
+        "required": [
+          "longform_per_week"
+        ],
+        "properties": {
+          "longform_per_week": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 7
+          },
+          "shorts_per_week": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 21,
+            "default": 0
+          },
+          "platforms": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "default": [
+              "Short-form"
+            ],
+            "description": "Where the shorts go (e.g. TikTok, Reels, Shorts)."
+          },
+          "rest_day": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 6,
+            "default": 6,
+            "description": "0=Mon \u2026 6=Sun; that day is rest + analytics review."
+          }
+        }
+      },
+      "output": "13-week posting schedule (91 days): per-day long-form and short-form assignments, totals, a day-45 checkpoint review note.",
+      "drive_notes": "Layout logic (assets/js/planner.js): long-form spread across non-rest days, shorts spread 2 days apart, week 7 flagged as the midpoint review. Rest day is non-negotiable \u2014 no posting, analytics review only."
+    },
+    {
+      "id": "deal-analyzer",
+      "title": "Sponsor Deal Analyzer",
+      "description": "Benchmark a sponsor offer against the 2026 rate card \u2014 verdict, red-flag checklist, counter-offer worksheet.",
+      "page": "deal-analyzer.html",
+      "input_schema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "title": "DealAnalyzerInput",
+        "type": "object",
+        "required": [
+          "platform",
+          "deliverable",
+          "followers",
+          "offer_usd"
+        ],
+        "properties": {
+          "platform": {
+            "type": "string",
+            "enum": [
+              "youtube",
+              "tiktok",
+              "instagram"
+            ]
+          },
+          "deliverable": {
+            "type": "string",
+            "enum": [
+              "integrated",
+              "dedicated",
+              "short"
+            ],
+            "description": "Integrated slot, dedicated video, or short-form video."
+          },
+          "followers": {
+            "type": "number",
+            "minimum": 0
+          },
+          "offer_usd": {
+            "type": "number",
+            "minimum": 0
+          },
+          "expected_views": {
+            "type": "number",
+            "minimum": 0,
+            "default": 0,
+            "description": "If known, enables the implied-CPM check."
+          },
+          "usage_rights": {
+            "type": "string",
+            "enum": [
+              "organic_only",
+              "paid30",
+              "paid180",
+              "paid365",
+              "perpetual"
+            ],
+            "default": "organic_only"
+          },
+          "whitelisting": {
+            "type": "string",
+            "enum": [
+              "none",
+              "30",
+              "90",
+              "perpetual"
+            ],
+            "default": "none"
+          },
+          "exclusivity": {
+            "type": "string",
+            "enum": [
+              "none",
+              "30",
+              "90",
+              "broad"
+            ],
+            "default": "none"
+          },
+          "payment_terms": {
+            "type": "string",
+            "enum": [
+              "30",
+              "60",
+              "90"
+            ],
+            "default": "30",
+            "description": "Net payment terms in days."
+          }
+        }
+      },
+      "output": "Verdict (UNDERPAID / FAIR / STRONG), benchmark range, implied CPM vs rate-card CPMs, red-flag checklist (usage, whitelisting, exclusivity, payment), counter-offer worksheet with line items.",
+      "drive_notes": "Logic (assets/js/deal-analyzer.js): followers \u2192 tier (nano/micro/macro/mega) \u2192 per_video_or_post_by_tier range for platform; verdict = offer vs range; counter starts at range top (creators list ~23% above what they accept) + usage line items (paid30 +50%, paid180 +75%, paid365 +100%) + exclusivity (30d +25%, 60\u201390d +50%). Negotiation aid, not financial advice."
+    },
+    {
+      "id": "hiring-calculator",
+      "title": "Hiring Cost Calculator",
+      "description": "Price your first hire: monthly/annual cost and the ad revenue needed to cover it \u2014 honest math, no promises.",
+      "page": "hiring-calculator.html",
+      "input_schema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "title": "HiringCalculatorInput",
+        "type": "object",
+        "required": [
+          "role",
+          "billing_model",
+          "rate_usd"
+        ],
+        "properties": {
+          "role": {
+            "type": "string",
+            "enum": [
+              "editor",
+              "thumbnail_designer",
+              "va",
+              "channel_manager"
+            ],
+            "description": "Video editor, thumbnail designer, virtual assistant, channel manager/ops."
+          },
+          "billing_model": {
+            "type": "string",
+            "enum": [
+              "hourly",
+              "per_video",
+              "monthly"
+            ],
+            "description": "hourly = rate/hr \u00d7 hours/week; per_video = rate \u00d7 units/month; monthly = retainer."
+          },
+          "rate_usd": {
+            "type": "number",
+            "minimum": 0
+          },
+          "hours_per_week": {
+            "type": "number",
+            "minimum": 0,
+            "default": 0
+          },
+          "units_per_month": {
+            "type": "number",
+            "minimum": 0,
+            "default": 0
+          },
+          "monthly_views": {
+            "type": "number",
+            "minimum": 0,
+            "default": 0,
+            "description": "Your current monthly long-form views, for the coverage math."
+          },
+          "niche": {
+            "type": "string",
+            "enum": [
+              "comedy_entertainment",
+              "education",
+              "finance_investing",
+              "gaming",
+              "health_fitness",
+              "lifestyle",
+              "music",
+              "tech_software",
+              "kids_content"
+            ],
+            "default": "education"
+          }
+        }
+      },
+      "output": "Monthly/annual cost (sticker vs +15% loaded), share of ad revenue, monthly views needed to cover the loaded cost, 3-month coverage reserve.",
+      "drive_notes": "Math (assets/js/hiring-calculator.js): hourly \u2192 rate \u00d7 hrs \u00d7 52/12; per_video \u2192 rate \u00d7 units; monthly \u2192 retainer. Loaded cost = sticker \u00d7 1.15 (management, revisions, fees). Coverage views = loaded \u00f7 RPM band \u00d7 1000 (both band ends). The hiring rule: cover 3 months from revenue before signing."
+    },
+    {
+      "id": "repurpose",
+      "title": "Repurposing Planner",
+      "description": "Turn one idea into a 5-platform mission-card checklist from the Phase 3 repurposing SOP.",
+      "page": "repurpose.html",
+      "input_schema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "title": "RepurposeInput",
+        "type": "object",
+        "required": [
+          "idea"
+        ],
+        "properties": {
+          "idea": {
+            "type": "string",
+            "minLength": 1,
+            "description": "The single pillar idea (one sentence)."
+          },
+          "source_format": {
+            "type": "string",
+            "enum": [
+              "longform",
+              "live",
+              "newsletter",
+              "podcast",
+              "other"
+            ],
+            "default": "longform"
+          }
+        }
+      },
+      "output": "Five mission cards (YouTube Day 0, Short Day +1, TikTok Day +2, Reel Day +3, Facebook Day +4) each with a hook rewrite, atom test, and native-grammar checklist.",
+      "drive_notes": "Logic (assets/js/repurpose.js): atom test (does the insight survive standalone?), pillar prep (hook in first 15s), then the five staggered mission cards. Enforce native grammar \u2014 no watermarks, no copy-paste."
+    },
+    {
+      "id": "simulator",
+      "title": "Empire Simulator",
+      "description": "Simulate 12 months of channel growth + revenue from your niche, cadence, and assumptions \u2014 a model, not a prediction.",
+      "page": "simulator.html",
+      "input_schema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "title": "SimulatorInput",
+        "type": "object",
+        "required": [
+          "niche",
+          "start_subs",
+          "longform_per_week"
+        ],
+        "properties": {
+          "niche": {
+            "type": "string",
+            "enum": [
+              "finance_investing",
+              "tech_software",
+              "education",
+              "health_fitness",
+              "lifestyle",
+              "comedy_entertainment",
+              "gaming",
+              "music"
+            ],
+            "description": "Growth-model niche keys from the sim engine's nicheGrowth map."
+          },
+          "start_subs": {
+            "type": "number",
+            "minimum": 0
+          },
+          "longform_per_week": {
+            "type": "number",
+            "minimum": 0
+          },
+          "shorts_per_week": {
+            "type": "number",
+            "minimum": 0,
+            "default": 0
+          },
+          "quality": {
+            "type": "string",
+            "enum": [
+              "low",
+              "solid",
+              "excellent"
+            ],
+            "default": "solid"
+          },
+          "monthly_growth_rate": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "default": 0.12,
+            "description": "Base monthly compounding growth at reference cadence (assumption, adjustable)."
+          },
+          "q4_uplift_pct": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "default": 0.6,
+            "description": "Ad-rate uplift in months 10\u201312 (assumption, adjustable 0.4\u20130.8)."
+          },
+          "monetize_ads": {
+            "type": "boolean",
+            "default": true
+          },
+          "monetize_sponsors": {
+            "type": "boolean",
+            "default": false
+          },
+          "monetize_affiliates": {
+            "type": "boolean",
+            "default": false
+          },
+          "monetize_digital": {
+            "type": "boolean",
+            "default": false
+          },
+          "digital_start_month": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 12,
+            "default": 1
+          },
+          "digital_price_usd": {
+            "type": "number",
+            "minimum": 1,
+            "default": 49
+          }
+        }
+      },
+      "output": "12-month projection: subs, views, and revenue per month per stream (ads, sponsors, affiliates, digital), totals, and the full named-assumptions list. A model, not a prediction.",
+      "drive_notes": "Engine (assets/js/sim-engine.js, UMD \u2014 importable in node): simulate(inputs, cfg) with cfg = calculators.json. Growth compounds monthly \u00d7 niche factor \u00d7 quality \u00d7 cadence (diminishing, capped 2.5x). RPMs come from calculators.json youtube_longform_rpm_bands. Every assumption is named in DEFAULTS and listed on-page."
+    },
+    {
+      "id": "api-explorer",
+      "title": "API Explorer",
+      "description": "Browse every api/v1 endpoint and preview JSON responses live in your browser \u2014 no key, no server.",
+      "page": "api-explorer.html",
+      "input_schema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "title": "ApiExplorerInput",
+        "type": "object",
+        "properties": {},
+        "description": "No inputs \u2014 this tool is a read-only browser over the API itself."
+      },
+      "output": "Live in-browser JSON previews of every endpoint, discovered from api/v1/index.json with a static fallback list.",
+      "drive_notes": "Discovery (assets/js/api-explorer.js): fetches api/v1/index.json, renders one GET button per endpoint record, pretty-prints responses. Agents can skip the UI and fetch the endpoints directly."
+    },
+    {
+      "id": "hook-builder",
+      "title": "Hook Builder",
+      "description": "Type your video topic, get five filmed-ready hooks \u2014 one per Short-Form Playbook structure. Flip-through cards.",
+      "page": "hook-builder.html",
+      "input_schema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "title": "HookBuilderInput",
+        "type": "object",
+        "required": [
+          "topic"
+        ],
+        "properties": {
+          "topic": {
+            "type": "string",
+            "minLength": 1,
+            "description": "The video topic in one line (the payoff works best)."
+          }
+        }
+      },
+      "output": "Five filmed-ready hooks, one per Short-Form Playbook structure: open loop, cold start, contrarian take, numbered promise, question-as-hook.",
+      "drive_notes": "Logic (assets/js/hook-builder.js): topic \u2192 template fills per structure + the anti-hook checklist (no 'wait for it', no follow-begging, no channel-name cold open). The structures are craft formulas, not platform documentation."
+    }
+  ]
+}

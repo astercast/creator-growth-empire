@@ -23,7 +23,7 @@
   <button class="nav-toggle" aria-expanded="false" aria-controls="mobileNav" aria-label="Menu">☰</button>
 </header>
 <nav id="mobileNav" class="mobile-nav" aria-label="Mobile"><a href="index.html" class="nav-link">Empire Map</a><a href="tools.html" class="nav-link">All tools</a><a href="quiz.html" class="nav-link">Niche Picker</a><a href="calculator.html" class="nav-link">Revenue Calc</a><a href="planner.html" class="nav-link">90-Day Plan</a><a href="deal-analyzer.html" class="nav-link">Deal Analyzer</a><a href="hiring-calculator.html" class="nav-link">Hire Calc</a><a href="repurpose.html" class="nav-link">Repurpose Plan</a><a href="simulator.html" class="nav-link">Simulator</a><a href="case-files.html" class="nav-link">All case files</a><a href="glossary.html" class="nav-link">Glossary</a><a href="agents.html" class="nav-link active">Agents</a></nav>
-<main id="main"><article class="chapter"><header class="chapter-hero" style="--phase-accent: var(--violet);"><p class="chapter-kicker"><span class="phase-badge" style="background: var(--violet);">The Agent Surface</span></p><h1>Agents</h1><p class="lede">This site is built to be used by agents, not just read by humans. Everything below — data, skills, tools, and full text — is machine-readable from static files. No API key, no server, no auth. Fetch and act.</p><p class="chapter-meta-strip"><span>5 min read</span><span class="sep">/</span><span>1,020 words</span></p></header>
+<main id="main"><article class="chapter"><header class="chapter-hero" style="--phase-accent: var(--violet);"><p class="chapter-kicker"><span class="phase-badge" style="background: var(--violet);">The Agent Surface</span></p><h1>Agents</h1><p class="lede">This site is built to be used by agents, not just read by humans. Everything below — data, skills, tools, and full text — is machine-readable from static files. No API key, no server, no auth. Fetch and act.</p><p class="chapter-meta-strip"><span>5 min read</span><span class="sep">/</span><span>1,081 words</span></p></header>
 
 <h2>The surface at a glance</h2>
 <div class='table-wrap'><table><thead><tr><th>What</th><th>Where</th><th>Format</th></tr></thead><tbody>
@@ -33,18 +33,19 @@
 <tr><td>Chapters</td><td><code>api/v1/chapters.json</code></td><td>9 phases: id, title, word count, read time, path</td></tr>
 <tr><td>Glossary</td><td><code>api/v1/glossary.json</code></td><td>Creator-economy terms + definitions</td></tr>
 <tr><td>Calculators data</td><td><code>api/v1/calculators.json</code></td><td>RPM bands, thresholds, splits, 2026 rate card, usage-rights notes</td></tr>
-<tr><td>Skill index</td><td><code>api/v1/skills.json</code></td><td>10 skills: name, description, path</td></tr>
+<tr><td>Skill index</td><td><code>api/v1/skills.json</code></td><td>12 skills: name, description, path</td></tr>
 <tr><td>Case files</td><td><code>api/v1/case-files.json</code> + <code>case-*.html</code></td><td>5 documented creator-business deconstructions: budget-grocery newsletter, Ben&#x27;s Bites, faceless sleep-channel network, Mavwicks on TikTok Shop, cohort course — figures source-reported, never promises</td></tr>
 <tr><td>Reference</td><td><code>rate-card.html</code> + <code>api/v1/calculators.json</code></td><td>The 2026 sponsorship rate card</td></tr>
-<tr><td>Interactive tools</td><td><code>quiz.html</code>, <code>calculator.html</code>, <code>planner.html</code>, <code>deal-analyzer.html</code>, <code>repurpose.html</code>, <code>simulator.html</code>, <code>api-explorer.html</code></td><td>Human-facing; agents should use the API data behind them</td></tr>
+<tr><td>Interactive tools</td><td><code>quiz.html</code>, <code>calculator.html</code>, <code>planner.html</code>, <code>deal-analyzer.html</code>, <code>hiring-calculator.html</code>, <code>repurpose.html</code>, <code>simulator.html</code>, <code>hook-builder.html</code>, <code>api-explorer.html</code></td><td>Human-facing; agents should use the API data behind them (<code>api/v1/tools.json</code> carries every tool&#x27;s programmatic input schema)</td></tr>
 <tr><td>API explorer</td><td><code>api-explorer.html</code></td><td>Browse every <code>api/v1</code> endpoint and preview JSON in-browser</td></tr>
 </tbody></table></div>
 <p>All endpoints are <code>GET</code> on static JSON. Base path: <code>api/v1/</code> (relative to the site root; the deployed site ships its own <code>api/</code> mirror, so the explorer works live too). Schemas: <code>api/v1/schema/</code> (JSON Schema draft-07).</p>
 <h2>Skills — the executable layer</h2>
-<p>Ten skills live in <code>skills/&lt;name&gt;/SKILL.md</code>, indexed by <code>api/v1/skills.json</code>. Each skill has the same structure: Use when / Inputs / Procedure / Worked example / API references / Pitfalls.</p>
+<p>Twelve skills live in <code>skills/&lt;name&gt;/SKILL.md</code>, indexed by <code>api/v1/skills.json</code>. Each skill has the same structure: Use when / Inputs / Procedure / Worked example / API references / Pitfalls.</p>
 <div class='table-wrap'><table><thead><tr><th>Skill</th><th>Use when</th></tr></thead><tbody>
 <tr><td><code>niche-validation</code></td><td>Validating a creator niche before committing — demand, competition, monetization, winnability scored in one pass</td></tr>
 <tr><td><code>hook-writing</code></td><td>Writing and stress-testing video hooks — first 30 seconds (long-form) or first 2 seconds (short-form)</td></tr>
+<tr><td><code>shortform-hook-craft</code></td><td>Crafting short-form hooks with the five Short-Form Playbook structures — open loop, cold start, contrarian, numbered promise, question</td></tr>
 <tr><td><code>thumbnail-teardown</code></td><td>Diagnosing why a thumbnail underperforms and producing a redesign brief</td></tr>
 <tr><td><code>content-repurposing</code></td><td>Turning one long-form video into a five-platform distribution package</td></tr>
 <tr><td><code>repurposing-sprint</code></td><td>Executing the 5-platform SOP: one pillar → 5 mission cards (YouTube Day 0, Short Day +1, TikTok Day +2, Reel Day +3, Facebook Day +4)</td></tr>
@@ -52,10 +53,11 @@
 <tr><td><code>sponsorship-pitch</code></td><td>Building a sponsor outreach system — targeting, email, pricing, negotiation</td></tr>
 <tr><td><code>deal-negotiation</code></td><td>Evaluating an offer against the 2026 rate card — benchmark, red-flag checklist, counter-offer worksheet</td></tr>
 <tr><td><code>rate-card-reader</code></td><td>Looking up fair 2026 ranges for any tier/platform/deliverable from the rate-card data</td></tr>
+<tr><td><code>first-hire-planner</code></td><td>Planning the first hire end to end — bottleneck test, 2026 rate ranges, coverage math, trial, SOPs (not legal/tax advice)</td></tr>
 <tr><td><code>live-shopping-playbook</code></td><td>Planning a TikTok live selling session — 60-minute run of show, flash-sale math, unit economics</td></tr>
 </tbody></table></div>
 <h2>Data freshness policy</h2>
-<ul><li><code>api/v1/calculators.json</code> carries <code>version</code> (currently 1.1.0) and <code>updated</code> (currently 2026-10-11). Check these before quoting any platform number.</li><li>Platform thresholds include their source and observation date — treat as <strong>verify live</strong>, not gospel. Platforms change rules constantly; the most dangerous number on the internet is a stale one.</li><li>Rate-card figures are negotiation ranges compiled from 2026 agency benchmarks that disagree 2–3x within tiers — never present them as quotes.</li><li>The guide&#x27;s honesty policy: platform facts verified October 2026. Income ranges are illustrative, never promises. Business/tax content is educational — <strong>not financial, legal, or tax advice</strong>.</li></ul>
+<ul><li><code>api/v1/calculators.json</code> carries <code>version</code> (currently 1.2.0) and <code>updated</code> (currently 2026-10-11). Check these before quoting any platform number.</li><li>Platform thresholds include their source and observation date — treat as <strong>verify live</strong>, not gospel. Platforms change rules constantly; the most dangerous number on the internet is a stale one.</li><li>Rate-card figures are negotiation ranges compiled from 2026 agency benchmarks that disagree 2–3x within tiers — never present them as quotes.</li><li>The guide&#x27;s honesty policy: platform facts verified October 2026. Income ranges are illustrative, never promises. Business/tax content is educational — <strong>not financial, legal, or tax advice</strong>.</li></ul>
 <h2>Worked agent workflows</h2>
 <h3>1. Evaluate a $5K sponsorship offer</h3>
 <p>Goal: give a creator a go/no-go with a counter-offer, in one pass.</p>

@@ -1,25 +1,147 @@
 {
   "name": "Creator Growth Empire",
+  "tagline": "From $0 to a multi-million-dollar creator company.",
   "version": "1.0.0",
-  "endpoints": {
-    "chapters": "api/v1/chapters.json",
-    "glossary": "api/v1/glossary.json",
-    "calculators": "api/v1/calculators.json",
-    "skills": "api/v1/skills.json",
-    "case-files": "api/v1/case-files.json",
-    "references": [
-      "rate-card.html"
-    ],
-    "tools": [
-      "quiz.html",
-      "calculator.html",
-      "planner.html",
-      "deal-analyzer.html",
-      "hiring-calculator.html",
-      "repurpose.html",
-      "simulator.html",
-      "api-explorer.html",
-      "hook-builder.html"
-    ]
-  }
+  "updated": "2026-10-11T00:00:00Z",
+  "base": "api/v1/",
+  "notes": "Self-describing manifest. Base is api/v1/ relative to the site root \u2014 works on any static host; no auth, no keys, no rate limits. Timestamps are ISO-8601 UTC. The deployed site ships its own api/ mirror, so the explorer works live too.",
+  "endpoints": [
+    {
+      "id": "index",
+      "kind": "json",
+      "path": "api/v1/index.json",
+      "description": "This manifest \u2014 self-describing list of every endpoint with schema URLs, updated timestamps, record counts, and deprecation notes. Start here.",
+      "schema": "api/v1/schema/index.json",
+      "updated": "2026-10-11T00:00:00Z",
+      "records": null,
+      "deprecated": false,
+      "deprecation_note": null
+    },
+    {
+      "id": "chapters",
+      "kind": "json",
+      "path": "api/v1/chapters.json",
+      "description": "All nine phases: id, phase label, title, site-relative path, word count, read minutes. Use headings to navigate before fetching full text from llms-full.txt or the chapter page.",
+      "schema": "api/v1/schema/chapters.json",
+      "updated": "2026-10-11T00:00:00Z",
+      "records": 9,
+      "deprecated": false,
+      "deprecation_note": null
+    },
+    {
+      "id": "glossary",
+      "kind": "json",
+      "path": "api/v1/glossary.json",
+      "description": "Creator-economy definitions: { terms: [{ term, definition }] }.",
+      "schema": "api/v1/schema/glossary.json",
+      "updated": "2026-10-11T00:00:00Z",
+      "records": 26,
+      "deprecated": false,
+      "deprecation_note": null
+    },
+    {
+      "id": "calculators",
+      "kind": "json",
+      "path": "api/v1/calculators.json",
+      "description": "Calculator config: per-niche long-form RPM bands, Shorts RPM, platform thresholds (YPP tiers, TikTok Rewards, Facebook CMP \u2014 with sources and dates), revenue splits, the 2026 sponsorship rate card, and 2026 niche/platform research snapshots. The data contract the sim engine, revenue calculator, deal analyzer, and hiring calculator read.",
+      "schema": "api/v1/schema/calculators.json",
+      "updated": "2026-10-11T00:00:00Z",
+      "records": null,
+      "records_note": "Config snapshot, not a record list: 9 niche RPM bands, 2026 rate card, platform thresholds, revenue splits, research snapshots.",
+      "deprecated": false,
+      "deprecation_note": null,
+      "freshness_note": "Verify platform figures live before acting on them \u2014 see the payload's own updated/version fields. Treat undated numbers as stale."
+    },
+    {
+      "id": "skills",
+      "kind": "json",
+      "path": "api/v1/skills.json",
+      "description": "Skill index: name, description, repo-relative path for every executable skill. Full skill content lives in skills/<name>/SKILL.md.",
+      "schema": "api/v1/schema/skills.json",
+      "updated": "2026-10-11T00:00:00Z",
+      "records": 12,
+      "deprecated": false,
+      "deprecation_note": null
+    },
+    {
+      "id": "case-files",
+      "kind": "json",
+      "path": "api/v1/case-files.json",
+      "description": "Index of the documented creator-business deconstructions: id, badge, title, path, words, read_minutes. Full text on the case-*.html pages. Figures are source-reported, not audited \u2014 never present as promises.",
+      "schema": "api/v1/schema/case-files.json",
+      "updated": "2026-10-11T00:00:00Z",
+      "records": 5,
+      "deprecated": false,
+      "deprecation_note": null
+    },
+    {
+      "id": "tools",
+      "kind": "json",
+      "path": "api/v1/tools.json",
+      "description": "All nine interactive tools with programmatic input schemas (JSON Schema draft-07), output descriptions, and drive notes \u2014 replicate the tools' logic without the UI.",
+      "schema": "api/v1/schema/tools.json",
+      "updated": "2026-10-11T00:00:00Z",
+      "records": 9,
+      "deprecated": false,
+      "deprecation_note": null
+    },
+    {
+      "id": "reference-pages",
+      "kind": "html",
+      "paths": [
+        "rate-card.html"
+      ],
+      "description": "Human-readable reference pages (the 2026 sponsorship rate card). Machine-readable equivalent lives in calculators.json sponsorship_rate_card_2026.",
+      "schema": null,
+      "updated": "2026-10-11T00:00:00Z",
+      "records": 1,
+      "deprecated": false,
+      "deprecation_note": null
+    },
+    {
+      "id": "tool-pages",
+      "kind": "html",
+      "paths": [
+        "quiz.html",
+        "calculator.html",
+        "planner.html",
+        "deal-analyzer.html",
+        "hiring-calculator.html",
+        "repurpose.html",
+        "simulator.html",
+        "api-explorer.html",
+        "hook-builder.html"
+      ],
+      "description": "The nine interactive tools' human UI pages. Agents should prefer api/v1/tools.json input schemas over scraping these pages.",
+      "schema": null,
+      "updated": "2026-10-11T00:00:00Z",
+      "records": 9,
+      "deprecated": false,
+      "deprecation_note": null
+    },
+    {
+      "id": "schemas",
+      "kind": "directory",
+      "path": "api/v1/schema/",
+      "description": "JSON Schema (draft-07) for every JSON endpoint, per-endpoint and per-record.",
+      "files": [
+        "index.json \u2014 the manifest itself",
+        "chapters.json \u2014 chapters doc",
+        "chapter.json \u2014 chapter record",
+        "glossary.json \u2014 glossary doc (term records inline)",
+        "calculators.json \u2014 the calculators data contract",
+        "skills.json \u2014 skills doc",
+        "skill.json \u2014 skill record",
+        "case-files.json \u2014 case-files doc",
+        "case-file.json \u2014 case-file record",
+        "tools.json \u2014 tools doc",
+        "tool.json \u2014 tool record"
+      ],
+      "schema": null,
+      "updated": "2026-10-11T00:00:00Z",
+      "records": 11,
+      "deprecated": false,
+      "deprecation_note": null
+    }
+  ]
 }
