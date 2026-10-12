@@ -87,5 +87,71 @@ mm.STAGES.forEach(function (s, i) {
 });
 ok(mm.QUIZ.length === 7, "quiz has 7 questions");
 
+/* 7: climb rank structure (wow wave 1) */
+ok(mm.RANKS.length === 5, "5 Field Manual ranks");
+var rankTitles = ["RECRUIT", "CADET", "OPERATIVE", "COMMANDER", "GENERAL"];
+mm.RANKS.forEach(function (r, i) {
+  ok(r.title === rankTitles[i], "rank " + i + " is " + rankTitles[i]);
+  ok(r.stage === i, "rank " + i + " maps to stage " + i);
+  ok(typeof r.tagline === "string" && r.tagline.length > 5, "rank " + i + " has a tagline");
+});
+ok(JSON.stringify(mm.RANK_THRESHOLDS) === JSON.stringify([0, 100, 275, 500, 775]),
+  "rank thresholds [0,100,275,500,775]");
+ok(mm.XP_AWARDS.survey === 50 && mm.XP_AWARDS.move === 25 &&
+   mm.XP_AWARDS.stage === 100 && mm.XP_AWARDS.mission === 25,
+  "XP awards: survey 50 / move 25 / stage 100 / mission 25");
+
+/* 8: rankFor + nextRankInfo boundary pins */
+[[0, 0], [99, 0], [100, 1], [274, 1], [275, 2], [499, 2],
+ [500, 3], [774, 3], [775, 4], [5000, 4]].forEach(function (pair) {
+  ok(mm.rankFor(pair[0]) === pair[1],
+    "rankFor(" + pair[0] + ") = " + pair[1] + " (got " + mm.rankFor(pair[0]) + ")");
+});
+var nri = mm.nextRankInfo(140);
+ok(nri.rank === 1 && nri.next === 2 && nri.xpToGo === 135,
+  "nextRankInfo(140) = rank 1, next 2, 135 to go");
+var nriMax = mm.nextRankInfo(900);
+ok(nriMax.rank === 4 && nriMax.next === null && nriMax.xpToGo === 0,
+  "nextRankInfo at max rank: no next, 0 to go");
+
+/* 9: awardXP idempotency + revokeKey rank transitions */
+var store = mm.blankClimb();
+var a1 = mm.awardXP(store, "survey:placed", 50, "survey");
+ok(a1.awarded && a1.total === 50 && a1.rankBefore === 0 && a1.rankAfter === 0 && !a1.rankedUp,
+  "survey award: +50, still RECRUIT");
+var a2 = mm.awardXP(store, "survey:placed", 50, "survey");
+ok(!a2.awarded && a2.total === 50, "duplicate key never awards twice");
+var a3 = mm.awardXP(store, "stage:0", 100, "stage 0");
+ok(a3.awarded && a3.total === 150 && a3.rankedUp && a3.rankAfter === 1,
+  "stage clear: +100, total 150, rank up 0->1");
+ok(mm.climbTotal(store) === 150, "climbTotal sums the log");
+ok(mm.climbHasKey(store, "stage:0") && !mm.climbHasKey(store, "stage:9"),
+  "climbHasKey true/false");
+var rv = mm.revokeKey(store, "stage:0");
+ok(rv.removed && rv.total === 50 && rv.rankedDown && rv.rankAfter === 0,
+  "revoke stage: -100, total 50, rank down 1->0");
+var rv2 = mm.revokeKey(store, "stage:0");
+ok(!rv2.removed && rv2.total === 50, "revoking a missing key is a no-op");
+/* full-clear math: survey + 15 moves + 5 stages = 50 + 375 + 500 = 925 >= 775 */
+var full = mm.blankClimb();
+mm.awardXP(full, "survey:placed", 50, "survey");
+for (var mi = 0; mi < 15; mi++) mm.awardXP(full, "move:m" + mi, 25, "m" + mi);
+for (var si = 0; si < 5; si++) mm.awardXP(full, "stage:" + si, 100, "s" + si);
+ok(mm.climbTotal(full) === 925 && mm.rankFor(mm.climbTotal(full)) === 4,
+  "full clear = 925 XP, reaches GENERAL (got " + mm.climbTotal(full) + ")");
+
+/* 10: climb honesty contract — no income promises, ranks = work not money */
+var honestSrc = mm.CLIMB_HONESTY + " " +
+  mm.RANKS.map(function (r) { return r.title + " " + r.tagline; }).join(" ");
+var banned = [/(?<!not to )(?<!never )guarantee[sd]? (you'll|you will|income|earnings|revenue|views|growth|success|results)/i,
+  /will earn/i, /risk-free/i, /passive income/i, /get rich/i, /(?<!no )income promises?/i,
+  /you will make/i, /earn \$|earn money/i];
+banned.forEach(function (re) {
+  ok(!re.test(honestSrc), "climb copy: no banned phrasing " + re);
+});
+ok(/never money earned/i.test(mm.CLIMB_HONESTY),
+  "honesty line names the work-not-money contract");
+ok(/work journal/i.test(mm.CLIMB_HONESTY), "honesty line calls XP a work journal");
+
 console.log(failures === 0 ? "\nmoney-map: all tests passed" : "\nmoney-map: " + failures + " FAILED");
 process.exit(failures === 0 ? 0 : 1);

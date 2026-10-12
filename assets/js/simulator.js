@@ -759,16 +759,47 @@
     });
   }
 
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
+  /* wow wave 1: the explicit run path is factored so the mission-control
+   * launch sequence (assets/js/simulator-launch.js) can drive it. The launch
+   * script intercepts submit in the capture phase; when it declines, this
+   * listener runs the plain instant path. */
+  function computeRun() {
     if (!cfg) {
       out.innerHTML = '<p class="muted">Still loading the 2026 rate data — try again in a second.</p>';
-      return;
+      return null;
     }
     var inputs = readInputs();
-    var res = EmpireSim.simulate(inputs, cfg);
-    render(inputs, res);
+    return { inputs: inputs, res: EmpireSim.simulate(inputs, cfg) };
+  }
+  function renderRun(pair, opts) {
+    if (!pair) return;
+    render(pair.inputs, pair.res, opts);
+  }
+  form.addEventListener("submit", function (e) {
+    if (typeof window !== "undefined" && window.SimLaunch &&
+        window.SimLaunch.interceptSubmit(e)) return;
+    e.preventDefault();
+    renderRun(computeRun());
   });
+
+  window.EmpireSimUI = {
+    readInputs: readInputs,
+    hasConfig: function () { return !!cfg; },
+    engineReady: function () {
+      return typeof EmpireSim !== "undefined" &&
+        typeof EmpireSim.simulate === "function";
+    },
+    computeRun: computeRun,
+    renderRun: renderRun,
+    scenarioName: function () { return currentScenarioName; },
+    assumptionCount: function (pair) {
+      if (!pair || !pair.res) return 0;
+      return EmpireSim.assumptionLines(pair.inputs, pair.res).length;
+    },
+    stageNames: function () {
+      return EmpireSim.STAGES.map(function (s) { return s.name; });
+    }
+  };
 
   /* ---------- 4.0: live re-run (debounced) ----------
    * The sandbox re-simulates as you type — the charts stay in sync with the

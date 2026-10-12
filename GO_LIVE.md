@@ -15,7 +15,13 @@ One Vercel project: the static Creator Growth Empire frontend plus the
 **Algorithm Watch** serverless backend (service `creator-algwatch`), one daily
 cron. Contract: `~/workspace/server-program/ARCHITECTURE.md` (§§1–14).
 
-**Functions** (zero npm dependencies, `nodejs22.x`):
+**Functions** (zero npm dependencies; each explicit path carries
+`{"maxDuration": 10}` — 2026-10-12: Vercel rejects empty `{}` entries
+("Function must contain at least one property") and rejects any
+`functions.*.runtime` value for Node, including `nodejs22.x` and `nodejs20.x`;
+`runtime` is only for community runtimes like `vercel-php@0.5.2`. Node is
+auto-detected from `api/` when the key is omitted. Function paths are
+explicit, never globs):
 
 | path | purpose |
 |---|---|

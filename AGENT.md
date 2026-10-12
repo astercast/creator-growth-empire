@@ -119,6 +119,13 @@ Goal: a 12-month growth + revenue model with every assumption named (36-month ru
 > Wave 24: the library is 12 presets — new: `sleep-ambient` (from the sleep
 > channels case file + the 2027 outlook), `english-learning` (21x breakout,
 > $18–22 CPM), `senior-health` (19x breakout, ultra-low competition).
+> Wow wave 1: explicit UI runs fly the mission-control launch sequence
+> (`assets/js/simulator-launch.js`, UMD): `SimLaunch.preflightChecks(inputs,
+> {loaded, engineReady})` → four real gates; `SimLaunch.countdownSteps()`;
+> `SimLaunch.telemetryFrames(res, stageNames)`; `SimLaunch.debriefFor(inputs,
+> res, scenarioName, stageNames)`; each completed launch credits +25 XP to the
+> Empire Climb journal via `MoneyMap.awardXP` (shared `cge.empireclimb.v1`
+> store with the Money Map).
 
 ### Workflow 4 — A/B compare two Empire Simulator scenarios (ASMR vs tech reviewer)
 
@@ -257,6 +264,15 @@ all via API, no UI.
 5. Framing rule (non-negotiable): stages describe what creators at that level
    **typically focus on** — never income promises, timelines, or guarantees.
    This is a planning aid, not financial, legal, or tax advice.
+6. Wow wave 1 — the Empire Climb: the same UMD module carries the XP/rank
+   economy. `MoneyMap.RANKS` (RECRUIT/CADET/OPERATIVE/COMMANDER/GENERAL, one
+   per stage, chevron insignias), `RANK_THRESHOLDS` [0,100,275,500,775],
+   `XP_AWARDS` {survey:50, move:25, stage:100, mission:25} —
+   `MoneyMap.awardXP(store, key, amount, label)` is idempotent per key and
+   returns `{awarded, total, rankBefore, rankAfter, rankedUp}`;
+   `MoneyMap.revokeKey` undoes; `rankFor`/`nextRankInfo` map totals to ranks.
+   XP is a work journal — missions cleared, stages closed — never money
+   earned; no rank promises revenue.
 
 ### Workflow 8 — Check YPP eligibility under both rule sets (current vs Feb 2027)
 

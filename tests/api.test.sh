@@ -138,13 +138,21 @@ done
 if curl -s -D - -o /dev/null -m 10 "$BASE/api/changes" | grep -qi 's-maxage=600'; then ok "cache s-maxage=600";
 else nope "cache s-maxage=600"; fi
 
-# 12. vercel.json lint: cron daily-or-slower (Hobby hard limit), nodejs22.x runtime
+# 12. vercel.json lint: cron daily-or-slower (Hobby hard limit), explicit
+# function paths with NO runtime key (2026-10-12: Vercel rejects any
+# functions.*.runtime value for Node — omit it, Node is auto-detected)
 if python3 - <<'EOF'
 import json
 v = json.load(open("vercel.json"))
 assert v["outputDirectory"] == "site", "outputDirectory"
 assert v["buildCommand"] == "python3 scripts/build.py", "buildCommand"
-assert v["functions"]["api/**/*.js"]["runtime"] == "nodejs22.x", "runtime"
+fns = v["functions"]
+assert set(fns) == {"api/health.js", "api/changes.js", "api/niches.js",
+                    "api/cron/algorithm-watch.js"}, "explicit function paths, no globs"
+assert all("runtime" not in cfg for cfg in fns.values()), \
+    "no runtime key on any function"
+assert all(cfg.get("maxDuration") == 10 for cfg in fns.values()), \
+    "maxDuration 10 on every function (empty {} fails validation)"
 crons = v.get("crons", [])
 assert len(crons) == 1, "exactly one cron job"
 c = crons[0]

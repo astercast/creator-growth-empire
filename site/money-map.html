@@ -26,7 +26,36 @@
   <button class="nav-toggle" aria-expanded="false" aria-controls="mobileNav" aria-label="Menu">☰</button>
 </header>
 <nav id="mobileNav" class="mobile-nav" aria-label="Mobile"><a href="index.html" class="nav-link"><span class="nav-n">01</span>Empire Map</a><a href="tools.html" class="nav-link active"><span class="nav-n">02</span>All tools</a><a href="quiz.html" class="nav-link"><span class="nav-n">03</span>Niche Picker</a><a href="calculator.html" class="nav-link"><span class="nav-n">04</span>Revenue Calc</a><a href="planner.html" class="nav-link"><span class="nav-n">05</span>90-Day Plan</a><a href="deal-analyzer.html" class="nav-link"><span class="nav-n">06</span>Deal Analyzer</a><a href="hiring-calculator.html" class="nav-link"><span class="nav-n">07</span>Hire Calc</a><a href="repurpose.html" class="nav-link"><span class="nav-n">08</span>Repurpose Plan</a><a href="simulator.html" class="nav-link"><span class="nav-n">09</span>Simulator</a><a href="case-files.html" class="nav-link"><span class="nav-n">10</span>All case files</a><a href="glossary.html" class="nav-link"><span class="nav-n">11</span>Glossary</a><a href="agents.html" class="nav-link"><span class="nav-n">12</span>Agents</a></nav>
-<main id="main"><div class="tool-page"><div class="hud-panel brk brk-gold"><b class="brk-x" aria-hidden="true"></b><div class="hud-head"><span>MISSION BRIEFING // TOOL 14 — THE MONEY MAP</span><span class="hud-status">SYSTEMS ONLINE</span></div><div class="hud-body"><p class="fm-kicker"><strong>FIELD MANUAL</strong><span class="sep">//</span>DIVISION PLAN</p><h1>The Money Map</h1><p class="lede">Find your stage on the $0-to-company journey: 7 questions, 5 stage playbooks, your next 3 moves. Stages are focus guides, never income promises.</p><div class="briefing-rank"><span class="rank" role="img" aria-label="Tier 1"><i></i></span><span class="fm-readout">TIER 1 // PLAN</span></div></div></div><p class="lede">Five stages. One honest map: $0 → first $100 → $1K/mo → $10K/mo → company. Answer 7 questions, find your stage, get your next 3 moves.</p>
+<main id="main"><div class="tool-page"><div class="hud-panel brk brk-gold"><b class="brk-x" aria-hidden="true"></b><div class="hud-head"><span>MISSION BRIEFING // TOOL 14 — THE MONEY MAP</span><span class="hud-status">SYSTEMS ONLINE</span></div><div class="hud-body"><p class="fm-kicker"><strong>FIELD MANUAL</strong><span class="sep">//</span>DIVISION PLAN</p><h1>The Money Map</h1><p class="lede">Find your stage on the $0-to-company journey — now a playable climb: 7 questions, 5 stage playbooks, checkable missions that earn XP toward Field Manual ranks (Recruit → General). Ranks track work done, never income promises.</p><div class="briefing-rank"><span class="rank" role="img" aria-label="Tier 1"><i></i></span><span class="fm-readout">TIER 1 // PLAN</span></div></div></div><p class="lede">Five stages. One honest map: $0 → first $100 → $1K/mo → $10K/mo → company. Answer 7 questions, find your stage, get your next 3 moves.</p>
+
+<section class="climb-hud hud-panel" aria-labelledby="climb-title" id="climb-section">
+  <div class="hud-head"><span>FIELD DOSSIER // YOUR CLIMB</span><span class="hud-status" id="climb-status">AWAITING ORDERS</span></div>
+  <div class="hud-body">
+    <div class="climb-grid">
+      <div class="climb-insignia" id="climb-insignia" aria-hidden="true"></div>
+      <div class="climb-rank">
+        <p class="fm-kicker">FIELD MANUAL RANK</p>
+        <h2 id="climb-title">Recruit</h2>
+        <p class="muted" id="climb-tagline">Fresh boots. The climb starts with shipping.</p>
+        <div id="climb-stamp" aria-hidden="true"></div>
+      </div>
+      <div class="climb-meter">
+        <div class="xp" id="climb-xpbar" role="progressbar" aria-label="Climb experience points" aria-valuemin="0" aria-valuemax="775" aria-valuenow="0">
+          <div class="xp-fill" id="climb-xpfill"></div>
+          <span class="xp-tag" id="climb-xptag">0 XP</span>
+        </div>
+        <p class="muted" id="climb-next">Next rank: Cadet at 100 XP.</p>
+        <div id="climb-announce" class="sr-only" aria-live="polite"></div>
+      </div>
+    </div>
+    <details class="climb-ledger">
+      <summary>XP ledger — every mission that earned it (<span id="climb-count">0</span>)</summary>
+      <ol id="climb-log"></ol>
+    </details>
+    <p class="muted climb-honesty" id="climb-honesty"></p>
+    <noscript><p class="muted">The climb needs JavaScript — the five stage playbooks below read fully without it. XP tracks work completed, never money earned.</p></noscript>
+  </div>
+</section>
 
 <section aria-labelledby="map-quiz-title">
   <h2 id="map-quiz-title">Where am I? — the 7-question placement quiz</h2>
@@ -47,7 +76,7 @@
 
 <section class="map-path-wrap" aria-labelledby="map-path-title">
   <h2 id="map-path-title">The journey</h2>
-  <p class="muted">Five stages, one path. Click a node to open its playbook. Progress is yours to mark — nothing here is auto-detected or tracked.</p>
+  <p class="muted">Five stages, one path. Click a node to open its playbook. Clear missions to earn XP and climb Field Manual ranks — progress is yours to mark, nothing here is auto-detected or tracked, and ranks record work done, never money earned.</p>
   <ol class="map-path">
     <li><a class="map-node" data-stage="0" href="#stage-0"><span class="map-node-num" aria-hidden="true">0</span><h3>The Start Line</h3><span class="map-band">$0</span></a></li>
     <li><a class="map-node" data-stage="1" href="#stage-1"><span class="map-node-num" aria-hidden="true">1</span><h3>First $100</h3><span class="map-band">FIRST $100</span></a></li>
@@ -66,9 +95,9 @@
     <div class="stage-block"><h4>The goal</h4><p>Prove you can ship. Creators at this stage typically focus on output volume and finding a format that fits — not on money, which hasn't arrived yet.</p></div>
     <div class="stage-block"><h4>The 3 moves that matter</h4>
       <ul class="stage-moves">
-        <li><a href="niche-atlas.html">The Niche Atlas</a><p class="muted">Pick one lane you could fill for 100 videos. Real demand, competition, and revenue bands per niche.</p></li>
-        <li><a href="idea-bank.html">Idea Bank</a><p class="muted">Capture every idea and score it before you film. The bottleneck is almost always starting, not finishing.</p></li>
-        <li><a href="planner.html">90-Day Planner</a><p class="muted">Turn intention into a cadence you can keep. Consistency is the whole game before you have an audience.</p></li>
+        <li data-move-key="move:niche-atlas.html"><a href="niche-atlas.html">The Niche Atlas</a><p class="muted">Pick one lane you could fill for 100 videos. Real demand, competition, and revenue bands per niche.</p></li>
+        <li data-move-key="move:idea-bank.html"><a href="idea-bank.html">Idea Bank</a><p class="muted">Capture every idea and score it before you film. The bottleneck is almost always starting, not finishing.</p></li>
+        <li data-move-key="move:planner.html"><a href="planner.html">90-Day Planner</a><p class="muted">Turn intention into a cadence you can keep. Consistency is the whole game before you have an audience.</p></li>
       </ul>
     </div>
     <div class="stage-block"><h4>Niche fit</h4><p class="muted">At $0, the niche choice <em>is</em> the business decision. The <a href="niche-atlas.html">Niche Atlas</a> 2027 outlook flags ten heating niches — and several cost nothing to start: AI tools &amp; automation, no-code workflows, betrayal mini-dramas, senior health, legal &amp; tax education. Check the red-flag list before you commit; it exists for a reason.</p></div>
@@ -83,9 +112,9 @@
     <div class="stage-block"><h4>The goal</h4><p>Turn attention into your first real revenue. Creators here typically focus on learning what their audience is worth — usually via ads or affiliates — before chasing sponsors.</p></div>
     <div class="stage-block"><h4>The 3 moves that matter</h4>
       <ul class="stage-moves">
-        <li><a href="calculator.html">Revenue Calculator</a><p class="muted">See honest revenue ranges for your current views. Knowing the math stops you from underpricing yourself later.</p></li>
-        <li><a href="hook-builder.html">Hook Builder</a><p class="muted">The fastest lever at this stage is retention in the first 3 seconds. Five hooks per topic, one per Playbook structure.</p></li>
-        <li><a href="shortform-playbook.html">The Short-Form Playbook</a><p class="muted">The serialized formats that convert casual viewers into subscribers — subscribers are what sponsors eventually pay for.</p></li>
+        <li data-move-key="move:calculator.html"><a href="calculator.html">Revenue Calculator</a><p class="muted">See honest revenue ranges for your current views. Knowing the math stops you from underpricing yourself later.</p></li>
+        <li data-move-key="move:hook-builder.html"><a href="hook-builder.html">Hook Builder</a><p class="muted">The fastest lever at this stage is retention in the first 3 seconds. Five hooks per topic, one per Playbook structure.</p></li>
+        <li data-move-key="move:shortform-playbook.html"><a href="shortform-playbook.html">The Short-Form Playbook</a><p class="muted">The serialized formats that convert casual viewers into subscribers — subscribers are what sponsors eventually pay for.</p></li>
       </ul>
     </div>
     <div class="stage-block"><h4>Niche fit</h4><p class="muted">Your first $100: pick a lane where a small audience pays. Finance &amp; business channels report $8–35 RPM — roughly 7x gaming/entertainment's $1–5 — so 10K loyal subscribers can fund a business (creator-reported ranges, not promises). If revenue matters now, skip kids content: $0.33 RPM is ~3M views per $1,000. The <a href="niche-atlas.html">Niche Atlas</a> stream-fit matrix shows which revenue streams each niche actually suits.</p></div>
@@ -100,9 +129,9 @@
     <div class="stage-block"><h4>The goal</h4><p>Make $1K months repeatable. Creators at this stage typically focus on their first real sponsor relationships and on systematizing production so output doesn't depend on motivation.</p></div>
     <div class="stage-block"><h4>The 3 moves that matter</h4>
       <ul class="stage-moves">
-        <li><a href="deal-room.html">The Deal Room</a><p class="muted">Manage your first deals end-to-end: offer tracking, usage-rights pricing, negotiation scripts, the deal memo.</p></li>
-        <li><a href="batching.html">Batching Planner</a><p class="muted">Does your shoot capacity actually cover your cadence? The honest surplus/shortfall math before you promise a sponsor a schedule.</p></li>
-        <li><a href="simulator.html">Empire Simulator</a><p class="muted">Model 12–24 months of growth and revenue before you live them. A model, not a prediction — it shows what has to be true.</p></li>
+        <li data-move-key="move:deal-room.html"><a href="deal-room.html">The Deal Room</a><p class="muted">Manage your first deals end-to-end: offer tracking, usage-rights pricing, negotiation scripts, the deal memo.</p></li>
+        <li data-move-key="move:batching.html"><a href="batching.html">Batching Planner</a><p class="muted">Does your shoot capacity actually cover your cadence? The honest surplus/shortfall math before you promise a sponsor a schedule.</p></li>
+        <li data-move-key="move:simulator.html"><a href="simulator.html">Empire Simulator</a><p class="muted">Model 12–24 months of growth and revenue before you live them. A model, not a prediction — it shows what has to be true.</p></li>
       </ul>
     </div>
     <div class="stage-block"><h4>Niche fit</h4><p class="muted">The second stream should match the niche: teaching niches (finance, AI tools, education) suit digital products; personality niches suit sponsors and POD — see the <a href="niche-atlas.html">Niche Atlas</a> stream-fit matrix. Before the first sponsor yes, run every offer through the <a href="deal-room.html">Deal Room</a>'s rate-card check.</p></div>
@@ -116,9 +145,9 @@
     <div class="stage-block"><h4>The goal</h4><p>Treat it like a business, because it is one. Creators at this stage typically focus on their first hire, real contracts, and separating the money from their personal life.</p></div>
     <div class="stage-block"><h4>The 3 moves that matter</h4>
       <ul class="stage-moves">
-        <li><a href="hiring.html">The First Hire</a><p class="muted">What to hire for first (almost always editing or admin), how to scope the role, and the mistakes that cost creators their momentum.</p></li>
-        <li><a href="hiring-calculator.html">Hiring Cost Calculator</a><p class="muted">The real monthly and annual cost of a hire — and the revenue needed to cover it. Honest math, no promises.</p></li>
-        <li><a href="phase-7-the-business.html">Phase 7 — The Business</a><p class="muted">LLC, taxes, separating accounts. Educational, not legal or tax advice — but the structure that keeps a $10K/mo operation from eating you.</p></li>
+        <li data-move-key="move:hiring.html"><a href="hiring.html">The First Hire</a><p class="muted">What to hire for first (almost always editing or admin), how to scope the role, and the mistakes that cost creators their momentum.</p></li>
+        <li data-move-key="move:hiring-calculator.html"><a href="hiring-calculator.html">Hiring Cost Calculator</a><p class="muted">The real monthly and annual cost of a hire — and the revenue needed to cover it. Honest math, no promises.</p></li>
+        <li data-move-key="move:phase-7-the-business.html"><a href="phase-7-the-business.html">Phase 7 — The Business</a><p class="muted">LLC, taxes, separating accounts. Educational, not legal or tax advice — but the structure that keeps a $10K/mo operation from eating you.</p></li>
       </ul>
     </div>
     <div class="stage-block"><h4>Niche fit</h4><p class="muted">The niche sets the team. High-production niches (challenges &amp; stunts, mini-dramas) need editing help earlier; research-heavy niches need research help. Run the <a href="hiring-calculator.html">Hiring Cost Calculator</a> against your niche's revenue band before the first hire — and re-check the <a href="niche-atlas.html">Niche Atlas</a> trajectory badges before scaling into a new lane.</p></div>
@@ -132,9 +161,9 @@
     <div class="stage-block"><h4>The goal</h4><p>Build something that runs without your daily input. Creators at this stage typically focus on team P&amp;L, new product lines, and protecting the thing the audience actually loved.</p></div>
     <div class="stage-block"><h4>The 3 moves that matter</h4>
       <ul class="stage-moves">
-        <li><a href="simulator.html">Empire Simulator — team P&amp;L</a><p class="muted">Model the full team cost against projected revenue. At company scale the question flips: what can we afford to try?</p></li>
-        <li><a href="case-files.html">Case Files</a><p class="muted">Documented deconstructions — how PTYA scaled a cohort course, how the sleep channels became a network. Proven structures, reported figures.</p></li>
-        <li><a href="phase-8-scale.html">Phase 8 — Scale</a><p class="muted">New formats, new platforms, new products. Scale is a portfolio problem now, not a posting problem.</p></li>
+        <li data-move-key="move:simulator.html"><a href="simulator.html">Empire Simulator — team P&amp;L</a><p class="muted">Model the full team cost against projected revenue. At company scale the question flips: what can we afford to try?</p></li>
+        <li data-move-key="move:case-files.html"><a href="case-files.html">Case Files</a><p class="muted">Documented deconstructions — how PTYA scaled a cohort course, how the sleep channels became a network. Proven structures, reported figures.</p></li>
+        <li data-move-key="move:phase-8-scale.html"><a href="phase-8-scale.html">Phase 8 — Scale</a><p class="muted">New formats, new platforms, new products. Scale is a portfolio problem now, not a posting problem.</p></li>
       </ul>
     </div>
     <div class="stage-block"><h4>Niche fit</h4><p class="muted">At company scale, the niche is a portfolio. Heating niches (AI tools, legal &amp; tax, senior health) are expansion lanes; your flagship funds the experiments. The <a href="simulator.html">Empire Simulator</a>'s scenario library models both sides of that bet — including the new AI-tutorials scenario from the <a href="niche-atlas.html">2027 outlook</a>.</p></div>

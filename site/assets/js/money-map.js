@@ -217,6 +217,126 @@
     };
   }
 
+  /* ---------- the climb: XP + Field Manual ranks (wow wave 1) ----------
+   * HONESTY: XP is a work journal. Surveys placed, missions cleared, stages
+   * closed — never money earned. A rank records work done; it is not income,
+   * not a promise, not a timeline. Stages describe where creators typically
+   * focus — never income promises. */
+  var RANKS = [
+    { stage: 0, title: "RECRUIT",   tagline: "Fresh boots. The climb starts with shipping." },
+    { stage: 1, title: "CADET",     tagline: "First revenue on the board. Learn what your audience is worth." },
+    { stage: 2, title: "OPERATIVE", tagline: "The engine runs. Systems over motivation." },
+    { stage: 3, title: "COMMANDER", tagline: "The business. Leverage, not hours." },
+    { stage: 4, title: "GENERAL",   tagline: "The company. It runs without your daily input." }
+  ];
+  var RANK_THRESHOLDS = [0, 100, 275, 500, 775];
+  var XP_AWARDS = { survey: 50, move: 25, stage: 100, mission: 25 };
+  var CLIMB_HONESTY = "Ranks track work completed \u2014 surveys placed, missions cleared, " +
+    "stages closed \u2014 never money earned. XP is a work journal, not income, " +
+    "and no rank promises revenue. Your answers stay in this browser's localStorage; " +
+    "nothing leaves your device.";
+  var CLIMB_STORE_KEY = "cge.empireclimb.v1";
+
+  /* Highest rank whose threshold the XP total has reached. */
+  function rankFor(xp) {
+    var r = 0, i;
+    for (i = 0; i < RANK_THRESHOLDS.length; i++) {
+      if (xp >= RANK_THRESHOLDS[i]) r = i;
+    }
+    return r;
+  }
+  function nextRankInfo(xp) {
+    var r = rankFor(xp);
+    if (r >= RANKS.length - 1) return { rank: r, next: null, xpToGo: 0 };
+    return { rank: r, next: r + 1, xpToGo: RANK_THRESHOLDS[r + 1] - xp };
+  }
+  function blankClimb() {
+    return { log: [], moves: {}, stages: {}, survey: false };
+  }
+  function climbTotal(store) {
+    return (store.log || []).reduce(function (a, e) {
+      return a + (e.amount || 0);
+    }, 0);
+  }
+  function climbHasKey(store, key) {
+    return (store.log || []).some(function (e) { return e.key === key; });
+  }
+  /* Idempotent: the same key never awards twice. Returns the rank
+   * transition so the UI can stamp a rank-up exactly once. */
+  function awardXP(store, key, amount, label) {
+    var before = rankFor(climbTotal(store));
+    if (climbHasKey(store, key)) {
+      return { awarded: false, total: climbTotal(store),
+               rankBefore: before, rankAfter: before, rankedUp: false };
+    }
+    var ts = "";
+    try { ts = new Date().toISOString(); } catch (e) { /* clock unavailable */ }
+    store.log.push({ key: key, amount: amount, label: label, ts: ts });
+    var total = climbTotal(store);
+    var after = rankFor(total);
+    return { awarded: true, total: total,
+             rankBefore: before, rankAfter: after, rankedUp: after > before };
+  }
+  function revokeKey(store, key) {
+    var before = rankFor(climbTotal(store));
+    var log = store.log || [];
+    var kept = log.filter(function (e) { return e.key !== key; });
+    var removed = kept.length !== log.length;
+    store.log = kept;
+    var total = climbTotal(store);
+    var after = rankFor(total);
+    return { removed: removed, total: total,
+             rankBefore: before, rankAfter: after, rankedDown: after < before };
+  }
+  function loadClimb() {
+    var s = blankClimb();
+    try {
+      if (typeof localStorage === "undefined") return s;
+      var raw = localStorage.getItem(CLIMB_STORE_KEY);
+      if (raw) {
+        var p = JSON.parse(raw);
+        if (p && typeof p === "object") {
+          if (Array.isArray(p.log)) s.log = p.log;
+          if (p.moves && typeof p.moves === "object") s.moves = p.moves;
+          if (p.stages && typeof p.stages === "object") s.stages = p.stages;
+          s.survey = !!p.survey;
+        }
+        return s;
+      }
+      /* First run: migrate the pre-climb store's cleared stages into XP.
+       * Idempotent keys mean a re-migration can never double-award. */
+      var old = localStorage.getItem(STORE_KEY);
+      if (old) {
+        var o = JSON.parse(old);
+        var prog = (o && o.progress) || {};
+        Object.keys(prog).forEach(function (k) {
+          if (prog[k]) {
+            var n = Number(k);
+            s.stages[k] = true;
+            awardXP(s, "stage:" + k, XP_AWARDS.stage,
+              "Stage " + n + " cleared \u2014 " + STAGES[n].name);
+          }
+        });
+        if (o && o.answers && validAnswers(o.answers)) {
+          s.survey = true;
+          awardXP(s, "survey:placed", XP_AWARDS.survey, "Field survey placed \u2014 stage " +
+            placeStage(o.answers).stage);
+        }
+      }
+      saveClimb(s);
+    } catch (e) { return blankClimb(); }
+    return s;
+  }
+  function saveClimb(s) {
+    try {
+      if (typeof localStorage !== "undefined") {
+        localStorage.setItem(CLIMB_STORE_KEY, JSON.stringify({
+          log: s.log, moves: s.moves, stages: s.stages, survey: s.survey
+        }));
+      }
+    } catch (e) { /* storage unavailable: the climb simply isn't persisted */ }
+  }
+
   /* ---------- browser UI (guarded: engine stays DOM-free for node) ---------- */
   var STORE_KEY = "cge.moneymap.v1";
 
@@ -275,6 +395,10 @@
       ol.appendChild(li);
     });
     card.appendChild(ol);
+    var climbNote = el("p", "muted",
+      "Each stage playbook below carries checkable missions \u2014 clear them to earn " +
+      "XP and climb Field Manual ranks. Ranks track work done, never money earned.");
+    card.appendChild(climbNote);
     var grad = el("p", null);
     grad.innerHTML = "<strong>Graduate when:</strong> ";
     grad.appendChild(document.createTextNode(r.graduate));
@@ -345,6 +469,8 @@
       renderResults(results, state.answers);
       results.scrollIntoView({ behavior: "smooth", block: "start" });
       markOnMap(placeStage(state.answers).stage);
+      var r = awardSurvey(loadClimb(), state.answers);
+      if (r) refreshClimbHUD(loadClimb(), r);
     });
     reset.addEventListener("click", function () {
       state.answers = {}; store.answers = null; saveStore(store);
@@ -353,6 +479,8 @@
       qWrap.querySelectorAll(".quiz-q").forEach(function (f) { f.classList.remove("answered"); });
       results.innerHTML = "";
       syncSubmit();
+      var r = revokeSurvey();
+      if (r) refreshClimbHUD(loadClimb(), r);
     });
     syncSubmit();
     if (validAnswers(state.answers)) renderResults(results, state.answers);
@@ -387,9 +515,233 @@
     }
   }
 
+  /* ---------- the climb UI (wow wave 1) ---------- */
+  function motionReduced() {
+    if (typeof document !== "undefined" &&
+        document.documentElement.getAttribute("data-calm") === "1") return true;
+    return typeof matchMedia === "function" &&
+      matchMedia("(prefers-reduced-motion: reduce)").matches;
+  }
+
+  function chevronHTML(n, label) {
+    var s = '<span class="rank" role="img" aria-label="' + label + '">';
+    for (var i = 0; i < n; i++) s += "<i></i>";
+    return s + "</span>";
+  }
+
+  /* Shared refresh: HUD, ledger, journey nodes. Called after every award. */
+  function refreshClimbHUD(store, transition) {
+    var total = climbTotal(store);
+    var info = nextRankInfo(total);
+    var rank = RANKS[info.rank];
+
+    var insignia = document.getElementById("climb-insignia");
+    if (insignia) {
+      insignia.innerHTML = chevronHTML(info.rank + 1,
+        "Rank " + (info.rank + 1) + " of 5: " + rank.title);
+    }
+    var title = document.getElementById("climb-title");
+    if (title) title.textContent = rank.title.charAt(0) +
+      rank.title.slice(1).toLowerCase();
+    var tagline = document.getElementById("climb-tagline");
+    if (tagline) tagline.textContent = rank.tagline + " (Stage " + rank.stage +
+      " \u2014 " + STAGES[rank.stage].name + ")";
+    var status = document.getElementById("climb-status");
+    if (status) status.textContent = total > 0 ? "CLIMBING" : "AWAITING ORDERS";
+
+    var bar = document.getElementById("climb-xpbar");
+    var fill = document.getElementById("climb-xpfill");
+    var tag = document.getElementById("climb-xptag");
+    var pct, label;
+    if (info.next === null) {
+      pct = 100;
+      label = total + " XP \u2014 MAX RANK";
+    } else {
+      var span = RANK_THRESHOLDS[info.next] - RANK_THRESHOLDS[info.rank];
+      pct = Math.min(100, Math.round(
+        (total - RANK_THRESHOLDS[info.rank]) / span * 100));
+      label = total + " XP \u2014 " + info.xpToGo + " to " +
+        RANKS[info.next].title.charAt(0) +
+        RANKS[info.next].title.slice(1).toLowerCase();
+    }
+    if (bar) {
+      bar.setAttribute("aria-valuenow", String(total));
+      bar.setAttribute("aria-valuemax",
+        String(RANK_THRESHOLDS[RANKS.length - 1]));
+      bar.setAttribute("aria-valuetext", label);
+    }
+    if (fill) {
+      fill.style.setProperty("--xp", pct + "%");
+      fill.classList.add("static");
+    }
+    if (tag) tag.textContent = label;
+    var next = document.getElementById("climb-next");
+    if (next) {
+      next.textContent = info.next === null
+        ? "General — the summit. Every further mission goes in the ledger."
+        : "Next rank: " + RANKS[info.next].title.charAt(0) +
+          RANKS[info.next].title.slice(1).toLowerCase() +
+          " at " + RANK_THRESHOLDS[info.next] + " XP.";
+    }
+    var honesty = document.getElementById("climb-honesty");
+    if (honesty && !honesty.textContent) honesty.textContent = CLIMB_HONESTY;
+
+    var log = document.getElementById("climb-log");
+    var count = document.getElementById("climb-count");
+    if (log) {
+      log.innerHTML = "";
+      var entries = (store.log || []).slice().reverse();
+      entries.forEach(function (e) {
+        var li = el("li", null);
+        var when = "";
+        try { when = e.ts ? " \u2014 " + e.ts.slice(0, 10) : ""; } catch (x) { /* no date */ }
+        li.appendChild(el("strong", null, "+" + e.amount + " XP"));
+        li.appendChild(document.createTextNode(" " + e.label + when));
+        log.appendChild(li);
+      });
+      if (!entries.length) {
+        var empty = el("li", "muted",
+          "No missions logged yet. Place the survey, clear a mission, close a stage.");
+        log.appendChild(empty);
+      }
+    }
+    if (count) count.textContent = String((store.log || []).length);
+
+    /* rank-up / rank-down stamp + announcement */
+    if (transition && (transition.rankedUp || transition.rankedDown)) {
+      var stampHost = document.getElementById("climb-stamp");
+      var announce = document.getElementById("climb-announce");
+      var msg = transition.rankedUp
+        ? "RANK UP \u2014 " + RANKS[transition.rankAfter].title
+        : "RANK ADJUSTED \u2014 " + RANKS[transition.rankAfter].title;
+      if (stampHost) {
+        stampHost.innerHTML = "";
+        var stamp = el("span",
+          "stamp " + (transition.rankedUp ? "stamp-gold " : "") + "stamp-slam",
+          msg);
+        stampHost.appendChild(stamp);
+        if (!motionReduced()) {
+          /* force the impact keyframes to run on the fresh node */
+          void stamp.offsetWidth;
+          stamp.classList.add("slammed");
+        }
+      }
+      if (announce) {
+        announce.textContent = "";
+        announce.textContent = transition.rankedUp
+          ? "Rank up! You are now " +
+            RANKS[transition.rankAfter].title.charAt(0) +
+            RANKS[transition.rankAfter].title.slice(1).toLowerCase() +
+            ", " + RANKS[transition.rankAfter].tagline
+          : "Rank adjusted to " +
+            RANKS[transition.rankAfter].title.charAt(0) +
+            RANKS[transition.rankAfter].title.slice(1).toLowerCase() + ".";
+      }
+    }
+
+    /* journey nodes: cleared stages keep their stamp; show rank chevrons */
+    document.querySelectorAll(".map-node").forEach(function (n) {
+      var s = Number(n.getAttribute("data-stage"));
+      var done = !!store.stages[String(s)];
+      n.classList.toggle("stage-done", done);
+      var badge = n.querySelector(".node-rank");
+      if (!badge) {
+        badge = document.createElement("span");
+        badge.className = "node-rank";
+        n.appendChild(badge);
+      }
+      badge.innerHTML = chevronHTML(s + 1,
+        "Stage " + s + " rank: " + RANKS[s].title);
+      badge.classList.add("rank-sm");
+      badge.firstChild.classList.add("rank-sm");
+    });
+  }
+
+  function buildClimbUI() {
+    var hud = document.getElementById("climb-section");
+    if (!hud) return;
+    var store = loadClimb();
+    refreshClimbHUD(store, null);
+
+    /* per-move mission checkboxes: one per stage playbook move */
+    document.querySelectorAll(".stage-moves li[data-move-key]").forEach(function (li) {
+      var key = li.getAttribute("data-move-key");
+      var label = document.createElement("label");
+      label.className = "move-check";
+      var box = document.createElement("input");
+      box.type = "checkbox";
+      box.checked = !!store.moves[key];
+      box.setAttribute("aria-label", "Mark mission complete: " +
+        (li.querySelector("a") ? li.querySelector("a").textContent : key));
+      var span = el("span", null, "Mission complete");
+      var xp = el("span", "move-xp", "+25 XP");
+      label.appendChild(box);
+      label.appendChild(span);
+      label.appendChild(xp);
+      li.appendChild(label);
+      if (box.checked) li.classList.add("move-done");
+      box.addEventListener("change", function () {
+        var s = loadClimb();
+        var r;
+        if (box.checked) {
+          s.moves[key] = true;
+          var tool = li.querySelector("a") ? li.querySelector("a").textContent : key;
+          r = awardXP(s, key, XP_AWARDS.move, "Mission cleared \u2014 " + tool);
+        } else {
+          delete s.moves[key];
+          r = revokeKey(s, key);
+        }
+        saveClimb(s);
+        li.classList.toggle("move-done", box.checked);
+        refreshClimbHUD(s, r);
+      });
+    });
+
+    /* stage checkboxes award stage XP (kept in sync with the old store) */
+    document.querySelectorAll("[data-stage-check]").forEach(function (box) {
+      box.addEventListener("change", function () {
+        var s = loadClimb();
+        var sid = box.getAttribute("data-stage-check");
+        var key = "stage:" + sid;
+        var r;
+        if (box.checked) {
+          s.stages[sid] = true;
+          r = awardXP(s, key, XP_AWARDS.stage, "Stage " + sid + " cleared \u2014 " +
+            STAGES[Number(sid)].name);
+        } else {
+          delete s.stages[sid];
+          r = revokeKey(s, key);
+        }
+        saveClimb(s);
+        refreshClimbHUD(s, r);
+      });
+    });
+
+    hud._climbStore = store;
+  }
+
+  /* survey placement awards XP once — wired into the quiz submit/reset */
+  function awardSurvey(store, answers) {
+    if (store.survey) return null;
+    store.survey = true;
+    var r = awardXP(store, "survey:placed", XP_AWARDS.survey,
+      "Field survey placed \u2014 stage " + placeStage(answers).stage);
+    saveClimb(store);
+    return r;
+  }
+  function revokeSurvey() {
+    var s = loadClimb();
+    if (!s.survey) return null;
+    s.survey = false;
+    var r = revokeKey(s, "survey:placed");
+    saveClimb(s);
+    return r;
+  }
+
   function init() {
     buildQuizUI();
     buildProgressUI();
+    buildClimbUI();
   }
 
   if (typeof document !== "undefined" && typeof window !== "undefined") {
@@ -402,6 +754,20 @@
     QUIZ: QUIZ,
     placeStage: placeStage,
     roadmap: roadmap,
-    validAnswers: validAnswers
+    validAnswers: validAnswers,
+    RANKS: RANKS,
+    RANK_THRESHOLDS: RANK_THRESHOLDS,
+    XP_AWARDS: XP_AWARDS,
+    CLIMB_HONESTY: CLIMB_HONESTY,
+    CLIMB_STORE_KEY: CLIMB_STORE_KEY,
+    rankFor: rankFor,
+    nextRankInfo: nextRankInfo,
+    blankClimb: blankClimb,
+    climbTotal: climbTotal,
+    climbHasKey: climbHasKey,
+    awardXP: awardXP,
+    revokeKey: revokeKey,
+    loadClimb: loadClimb,
+    saveClimb: saveClimb
   };
 });

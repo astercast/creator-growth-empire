@@ -9,7 +9,7 @@ tracks what's wired in the live track.
 
 - Static frontend + `api/v1/` static API twins (pre-rendered data; the site
   never errors when functions are cold/down).
-- Serverless functions, `nodejs22.x`, zero npm dependencies (4 total, ≤12 limit):
+- Serverless functions, zero npm dependencies, **no `runtime` key** (4 total, ≤12 limit; explicit paths, never globs):
 
 | path | purpose | env needed |
 |---|---|---|
@@ -35,8 +35,18 @@ tracks what's wired in the live track.
 
 ## Known-good status
 
-- vercel.json parses; functions `api/**/*.js` → `nodejs22.x`; no `maxDuration`
-  configured → 10s Hobby default applies (cron fetches are parallel 4s-bounded).
+- vercel.json parses; functions are the 4 explicit paths (`api/health.js`,
+  `api/changes.js`, `api/niches.js`, `api/cron/algorithm-watch.js`), each
+  `{"maxDuration": 10}` (matches the 10s Hobby execution limit; cron fetches
+  are parallel 4s-bounded).
+- Vercel functions entries need ≥1 valid property — use `{"maxDuration": 10}`
+  per explicit function path; never set runtime for Node (omit it); never
+  broad globs (2026-10-12).
+- No static .js data files under api/ ever — Vercel deploys every .js there
+  as a function (functions map is not an allowlist); basename collisions
+  (x.js + x.json) fail the build (2026-10-12). Audit 2026-10-12: clean —
+  `api/` holds only `functions/*.js` (4 real functions), `lib/*.js`
+  (shared, not functions), and `v1/*.json` data.
 - Pre-built snapshot: `buildCommand` is an echo (no build step on Vercel);
   `installCommand` is an echo (no dependencies).
 - Build machine: Standard, never Turbo.

@@ -1,6 +1,48 @@
 {
   "changes": [
     {
+      "id": "lifetak-microdrama-premiere-2026",
+      "platform": "other",
+      "title": "India Today Group launches Life Tak microdrama platform (flagship premieres Oct 18)",
+      "summary": "India Today Group unveiled Life Tak, a vertical microdrama platform, at the India Today Conclave in Mumbai on Oct 9, 2026. Flagship series Raghupati Raghav Raja Ram — an AI-aided Ramayan retelling (AI visual engineering + script-generation + world-building) — premieres Oct 18. Distribution via Instagram, YouTube, Facebook, and the Aaj Tak app; no standalone app. The first legacy-media incumbent to enter the microdrama lane: a new funded buyer for vertical-drama inventory, not a creator revenue line yet.",
+      "detected_at": "2026-10-12T08:00:00Z",
+      "category": "monetization",
+      "confidence": "verified",
+      "sources": [
+        {
+          "name": "afaqs — India Today Group launches Life Tak",
+          "url": "https://www.afaqs.com/news/media/india-today-group-launches-life-tak-microdrama-platform-12659885"
+        },
+        {
+          "name": "MediaBrief — India Today Group launches Life Tak",
+          "url": "https://mediabrief.com/india-today-group-launches-life-tak/"
+        },
+        {
+          "name": "exchange4media — Life Tak vertical microdrama platform",
+          "url": "https://www.exchange4media.com/industry-briefing-news/india-today-group-launches-life-tak-vertical-microdrama-platform-159025.html"
+        }
+      ]
+    },
+    {
+      "id": "agentic-commerce-protocol-2026",
+      "platform": "other",
+      "title": "Sierra × Meta Personal Agent Protocol + OpenAI display ads in ChatGPT",
+      "summary": "Sierra and Meta published the Personal Agent Protocol (Oct 6, 2026) — an open agent-to-business standard for agentic commerce, with a v0.1 spec and reference implementation expected later in October; payments are a future extension, not part of v0.1. Separately, OpenAI plans visual display ads inside ChatGPT (US, end of October, select advertisers). Early infrastructure: commerce and affiliate creators should watch the standards layer form, not budget against it.",
+      "detected_at": "2026-10-12T08:00:00Z",
+      "category": "monetization",
+      "confidence": "single-source",
+      "sources": [
+        {
+          "name": "FutureWeek — OpenAI visual ads, TikTok agentic advertising, Apple ad-tech block",
+          "url": "https://futureweek.com/week-in-review-openai-launches-visual-ads-tiktok-launches-agentic-advertising-and-apple-blocks-ad-tech/"
+        },
+        {
+          "name": "AgenticPlug — current state of agentic commerce",
+          "url": "https://agenticplug.ai/current-state-of-agentic-commerce"
+        }
+      ]
+    },
+    {
       "category": "monetization",
       "confidence": "single-source",
       "detected_at": "2026-08-10T00:00:00Z",
@@ -8,7 +50,7 @@
       "platform": "youtube",
       "sources": [
         {
-          "name": "AIR Media-Tech \u2014 YouTube algorithm in 2026 (month-by-month)",
+          "name": "AIR Media-Tech — YouTube algorithm in 2026 (month-by-month)",
           "url": "https://air.io/en/trending/youtube-algorithm-in-2026-month-by-month-changes-that-affect-your-views"
         }
       ],
@@ -23,11 +65,11 @@
       "platform": "youtube",
       "sources": [
         {
-          "name": "Gyre \u2014 YouTube updates summer 2026",
+          "name": "Gyre — YouTube updates summer 2026",
           "url": "https://gyre.pro/blog/youtube-updates-key-summer-changes-for-creators"
         },
         {
-          "name": "OutlierKit \u2014 YouTube updates July 2026",
+          "name": "OutlierKit — YouTube updates July 2026",
           "url": "https://outlierkit.com/blog/youtube-updates-july-2026"
         }
       ],
@@ -42,11 +84,11 @@
       "platform": "youtube",
       "sources": [
         {
-          "name": "Async \u2014 YouTube targets unoriginal content",
+          "name": "Async — YouTube targets unoriginal content",
           "url": "https://async.com/blog/youtube-monetization-update/"
         }
       ],
-      "summary": "Channels reposting viral clips from TikTok, Instagram, or other creators may see reduced Shorts distribution. Reaction videos and compilations are not automatically penalized \u2014 what matters is original contribution: commentary, storytelling, or substantial creative changes beyond captions, crops, or music swaps.",
+      "summary": "Channels reposting viral clips from TikTok, Instagram, or other creators may see reduced Shorts distribution. Reaction videos and compilations are not automatically penalized — what matters is original contribution: commentary, storytelling, or substantial creative changes beyond captions, crops, or music swaps.",
       "title": "October 2026 Shorts ranking update targets reposted clips"
     },
     {
@@ -57,11 +99,11 @@
       "platform": "youtube",
       "sources": [
         {
-          "name": "Gyre \u2014 YouTube updates summer 2026",
+          "name": "Gyre — YouTube updates summer 2026",
           "url": "https://gyre.pro/blog/youtube-updates-key-summer-changes-for-creators"
         }
       ],
-      "summary": "Public view counts now tick the moment playback starts across long-form, Shorts, and live \u2014 counts went up. Earnings and eligibility did not move with them: Partner revenue still runs on engaged views and engaged watch hours, and eligibility on qualified views/watch hours.",
+      "summary": "Public view counts now tick the moment playback starts across long-form, Shorts, and live — counts went up. Earnings and eligibility did not move with them: Partner revenue still runs on engaged views and engaged watch hours, and eligibility on qualified views/watch hours.",
       "title": "View counts start at playback start (Aug 24, 2026); Partner earnings math unchanged"
     },
     {
@@ -72,11 +114,11 @@
       "platform": "youtube",
       "sources": [
         {
-          "name": "Gyre \u2014 YouTube updates summer 2026",
+          "name": "Gyre — YouTube updates summer 2026",
           "url": "https://gyre.pro/blog/youtube-updates-key-summer-changes-for-creators"
         }
       ],
-      "summary": "From September 3, YouTube auto-adds paid-promotion labels to undisclosed sponsorships, and creators get age and country limits for branded content. Disclose sponsorships up front \u2014 the platform now labels them for you if you don't.",
+      "summary": "From September 3, YouTube auto-adds paid-promotion labels to undisclosed sponsorships, and creators get age and country limits for branded content. Disclose sponsorships up front — the platform now labels them for you if you don't.",
       "title": "Paid product placements fold into the Branded Content Policy (Sept 2026)"
     },
     {
@@ -87,11 +129,11 @@
       "platform": "youtube",
       "sources": [
         {
-          "name": "AIR Media-Tech \u2014 YouTube algorithm in 2026 (month-by-month)",
+          "name": "AIR Media-Tech — YouTube algorithm in 2026 (month-by-month)",
           "url": "https://air.io/en/trending/youtube-algorithm-in-2026-month-by-month-changes-that-affect-your-views"
         }
       ],
-      "summary": "Announced at Made on YouTube (Sept 2026). Dynamic brand segments can be added to up to 20 long-form videos at once. For product-review niches this is a second revenue line beyond ads \u2014 check eligibility in your country before planning around it.",
+      "summary": "Announced at Made on YouTube (Sept 2026). Dynamic brand segments can be added to up to 20 long-form videos at once. For product-review niches this is a second revenue line beyond ads — check eligibility in your country before planning around it.",
       "title": "YouTube Shopping affiliate program to reach 35 countries by end of 2026"
     },
     {
@@ -102,12 +144,12 @@
       "platform": "tiktok",
       "sources": [
         {
-          "name": "AIR Media-Tech \u2014 Creator earnings compared (YouTube vs TikTok vs Instagram, 2026)",
+          "name": "AIR Media-Tech — Creator earnings compared (YouTube vs TikTok vs Instagram, 2026)",
           "url": "https://air.io/en/monetization/creator-earnings-compared-youtube-vs-tiktok-vs-instagram-in-2026"
         }
       ],
       "summary": "Only videos over a minute qualify, and roughly half of raw views end up qualifying per third-party comparison of 2026 rates. TikTok Shop commissions (averaging ~13.1% in the same report) are the bigger TikTok revenue line for many creators. Ranges, never promises.",
-      "title": "TikTok Creator Rewards: $0.40\u2013$1.00 per 1,000 qualified views (creator-reported range)"
+      "title": "TikTok Creator Rewards: $0.40–$1.00 per 1,000 qualified views (creator-reported range)"
     },
     {
       "category": "monetization",
@@ -117,15 +159,15 @@
       "platform": "instagram",
       "sources": [
         {
-          "name": "AIR Media-Tech \u2014 Creator earnings compared (2026)",
+          "name": "AIR Media-Tech — Creator earnings compared (2026)",
           "url": "https://air.io/en/monetization/creator-earnings-compared-youtube-vs-tiktok-vs-instagram-in-2026"
         },
         {
-          "name": "Clippie \u2014 Instagram algorithm updates in 2026",
+          "name": "Clippie — Instagram algorithm updates in 2026",
           "url": "https://clippie.ai/blog/instagram-algorithm-updates-2026-creators-guide"
         }
       ],
-      "summary": "No per-view payout program on Reels in 2026. Reported: a limited $5,000 bonus for creators joining Instagram from another platform. Brand deals remain the main way Reels views turn into money \u2014 the deal-builder math on this site is built for exactly that.",
+      "summary": "No per-view payout program on Reels in 2026. Reported: a limited $5,000 bonus for creators joining Instagram from another platform. Brand deals remain the main way Reels views turn into money — the deal-builder math on this site is built for exactly that.",
       "title": "Instagram still pays $0 per view; monetization is Gifts, Subscriptions, brand deals, affiliates"
     },
     {
@@ -136,11 +178,11 @@
       "platform": "instagram",
       "sources": [
         {
-          "name": "FINN Partners Boom Scroll \u2014 October 2026 social media updates",
+          "name": "FINN Partners Boom Scroll — October 2026 social media updates",
           "url": "https://www.finnpartners.com/news-insights/boom-scroll-october-2026-social-media-updates/"
         },
         {
-          "name": "Clippie \u2014 Instagram algorithm updates in 2026",
+          "name": "Clippie — Instagram algorithm updates in 2026",
           "url": "https://clippie.ai/blog/instagram-algorithm-updates-2026-creators-guide"
         }
       ],
@@ -155,11 +197,11 @@
       "platform": "instagram",
       "sources": [
         {
-          "name": "InfluenceFlow \u2014 Instagram Reels monetization 2026",
+          "name": "InfluenceFlow — Instagram Reels monetization 2026",
           "url": "https://influenceflow.io/resources/how-to-optimize-instagram-reels-for-monetization-the-complete-2026-guide/"
         }
       ],
-      "summary": "Third-party analysis reports Reels ranking weighing completion rates, replays, and shares over likes, with 45\u201390 seconds cited as the current sweet spot. Directional, not platform-confirmed \u2014 watch completions and shares in your own Insights before reworking a format around it.",
+      "summary": "Third-party analysis reports Reels ranking weighing completion rates, replays, and shares over likes, with 45–90 seconds cited as the current sweet spot. Directional, not platform-confirmed — watch completions and shares in your own Insights before reworking a format around it.",
       "title": "October 2026 adjustments prioritize engagement-driven short-form"
     }
   ],
@@ -168,7 +210,7 @@
     "verified": "Corroborated by 2+ independent sources or the platform itself."
   },
   "disclaimer": "Planning aid, not financial/legal/tax advice. RPM/CPM figures are creator-reported ranges, never promises. Verify platform figures live before acting on them.",
-  "generated_at": "2026-10-12T06:05:00Z",
+  "generated_at": "2026-10-12T08:00:00Z",
   "note": "Algorithm Watch seed feed: platform algorithm, policy, and monetization changes with source URLs and confidence flags. Updated by the daily /api/cron/algorithm-watch job (retention: 90 days).",
   "updated": "2026-10-12",
   "version": "1.0.0"

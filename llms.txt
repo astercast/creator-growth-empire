@@ -21,13 +21,13 @@ From $0 to a multi-million-dollar creator company.
 - [The Deal Room](deal-room.html) — Manage the whole deal: track offers through signing, price usage rights, rehearse negotiations, export your memo.
 - [Hiring Cost Calculator](hiring-calculator.html) — Price your first hire: monthly/annual cost and the ad revenue needed to cover it — honest math, no promises.
 - [Repurposing Planner](repurpose.html) — Turn one idea into a 5-platform mission-card checklist from the Phase 3 repurposing SOP.
-- [Empire Simulator](simulator.html) — Simulate 12–36 months of channel growth + revenue — 12-scenario library, A/B comparison, team hiring P&L, what-if event cards, Money Map stage transitions, the “what would it take?” goal solver, live re-run — a model, not a prediction.
+- [Empire Simulator](simulator.html) — Simulate 12–36 months of channel growth + revenue — 12-scenario library, A/B comparison, team hiring P&L, what-if event cards, Money Map stage transitions, the “what would it take?” goal solver, live re-run, and the mission-control launch sequence — a model, not a prediction.
 - [API Explorer](api-explorer.html) — Browse every api/v1 endpoint and preview JSON responses live in your browser — no key, no server.
 - [Hook Builder](hook-builder.html) — Type your video topic, get five filmed-ready hooks — one per Short-Form Playbook structure. Flip-through cards.
 - [Idea Bank](idea-bank.html) — Capture ideas with hook-strength scores (1–5, Playbook structures), niche tags, and effort estimates — promote the best to production.
 - [90-Day Content Calendar](content-calendar.html) — Deal your idea bank into a 90-day grid: week-planner dealing rules, drag/keyboard moves, sponsor slots, copy-my-calendar export.
 - [Batching Planner](batching.html) — Film-day math: does your shoot capacity actually cover your cadence? Honest surplus/shortfall, consistency-beats-volume framing.
-- [The Money Map](money-map.html) — Find your stage on the $0-to-company journey: 7 questions, 5 stage playbooks, your next 3 moves. Stages are focus guides, never income promises.
+- [The Money Map](money-map.html) — Find your stage on the $0-to-company journey — now a playable climb: 7 questions, 5 stage playbooks, checkable missions that earn XP toward Field Manual ranks (Recruit → General). Ranks track work done, never income promises.
 - [Diagnose My Video](video-doctor.html) — Pick your symptom — low CTR, the 30-second cliff, great retention but no subs — and get ranked causes with the fix from the chapter that owns it.
 - [YPP 2027 Eligibility Checker](ypp-checker.html) — Enter your subs, watch hours, and Shorts views — get your verdict under the current YPP bar and the Feb-2027 bar, the gap math, and a chapter-grounded plan to close it.
 - [The Outreach Center](outreach.html) — Run your sponsor pipeline outbound: track pitches in a CRM-lite, generate honest pitch emails, quote from the 2026 rate card, and flag contract red flags before you sign.

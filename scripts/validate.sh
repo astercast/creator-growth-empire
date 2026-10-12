@@ -264,7 +264,7 @@ fi
 # ---------------------------------------------------------------- stage 6 ---
 stage 6 "engine test suites (sim + deal room + content engine + outreach)"
 TEST_FAIL=0
-for T in tests/sim-engine.test.js tests/deal-room.test.js tests/content-engine.test.js tests/money-map.test.js tests/video-doctor.test.js tests/niche-atlas.test.js tests/ypp-checker.test.js tests/outreach.test.js tests/deal-analyzer.test.js tests/cadence.test.js tests/platform-rules-bible.test.js tests/identity-w30.test.js tests/breakout-format-intel.test.js tests/format-fit.test.js tests/deal-builder.test.js; do
+for T in tests/sim-engine.test.js tests/deal-room.test.js tests/content-engine.test.js tests/money-map.test.js tests/video-doctor.test.js tests/niche-atlas.test.js tests/ypp-checker.test.js tests/outreach.test.js tests/deal-analyzer.test.js tests/cadence.test.js tests/platform-rules-bible.test.js tests/identity-w30.test.js tests/breakout-format-intel.test.js tests/format-fit.test.js tests/deal-builder.test.js tests/sim-launch.test.js; do
   node "$T" >/tmp/cge_validate_tests.log 2>&1
   if [ $? -eq 0 ]; then
     N=$(grep -c "PASS" /tmp/cge_validate_tests.log)

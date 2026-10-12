@@ -15,7 +15,7 @@
 <link rel="stylesheet" href="assets/css/layout.css">
 <link rel="stylesheet" href="assets/css/components.css">
 <link rel="stylesheet" href="assets/css/hub.css">
-<script defer src="assets/js/sim-engine.js"></script><script defer src="assets/js/simulator.js"></script>
+<script defer src="assets/js/sim-engine.js"></script><script defer src="assets/js/money-map.js"></script><script defer src="assets/js/simulator.js"></script><script defer src="assets/js/simulator-launch.js"></script><link rel="stylesheet" href="assets/css/simlaunch.css">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -26,7 +26,7 @@
   <button class="nav-toggle" aria-expanded="false" aria-controls="mobileNav" aria-label="Menu">☰</button>
 </header>
 <nav id="mobileNav" class="mobile-nav" aria-label="Mobile"><a href="index.html" class="nav-link"><span class="nav-n">01</span>Empire Map</a><a href="tools.html" class="nav-link active"><span class="nav-n">02</span>All tools</a><a href="quiz.html" class="nav-link"><span class="nav-n">03</span>Niche Picker</a><a href="calculator.html" class="nav-link"><span class="nav-n">04</span>Revenue Calc</a><a href="planner.html" class="nav-link"><span class="nav-n">05</span>90-Day Plan</a><a href="deal-analyzer.html" class="nav-link"><span class="nav-n">06</span>Deal Analyzer</a><a href="hiring-calculator.html" class="nav-link"><span class="nav-n">07</span>Hire Calc</a><a href="repurpose.html" class="nav-link"><span class="nav-n">08</span>Repurpose Plan</a><a href="simulator.html" class="nav-link"><span class="nav-n">09</span>Simulator</a><a href="case-files.html" class="nav-link"><span class="nav-n">10</span>All case files</a><a href="glossary.html" class="nav-link"><span class="nav-n">11</span>Glossary</a><a href="agents.html" class="nav-link"><span class="nav-n">12</span>Agents</a></nav>
-<main id="main"><div class="tool-page"><div class="hud-panel brk brk-gold"><b class="brk-x" aria-hidden="true"></b><div class="hud-head"><span>MISSION BRIEFING // TOOL 08 — EMPIRE SIMULATOR</span><span class="hud-status">SYSTEMS ONLINE</span></div><div class="hud-body"><p class="fm-kicker"><strong>FIELD MANUAL</strong><span class="sep">//</span>DIVISION PLAN</p><h1>Empire Simulator</h1><p class="lede">Simulate 12–36 months of channel growth + revenue — 12-scenario library, A/B comparison, team hiring P&amp;L, what-if event cards, Money Map stage transitions, the “what would it take?” goal solver, live re-run — a model, not a prediction.</p><div class="briefing-rank"><span class="rank" role="img" aria-label="Tier 1"><i></i></span><span class="fm-readout">TIER 1 // PLAN</span></div></div></div><div class="honesty-banner" role="note" aria-label="Honesty banner">
+<main id="main"><div class="tool-page"><div class="hud-panel brk brk-gold"><b class="brk-x" aria-hidden="true"></b><div class="hud-head"><span>MISSION BRIEFING // TOOL 08 — EMPIRE SIMULATOR</span><span class="hud-status">SYSTEMS ONLINE</span></div><div class="hud-body"><p class="fm-kicker"><strong>FIELD MANUAL</strong><span class="sep">//</span>DIVISION PLAN</p><h1>Empire Simulator</h1><p class="lede">Simulate 12–36 months of channel growth + revenue — 12-scenario library, A/B comparison, team hiring P&amp;L, what-if event cards, Money Map stage transitions, the “what would it take?” goal solver, live re-run, and the mission-control launch sequence — a model, not a prediction.</p><div class="briefing-rank"><span class="rank" role="img" aria-label="Tier 1"><i></i></span><span class="fm-readout">TIER 1 // PLAN</span></div></div></div><div class="honesty-banner" role="note" aria-label="Honesty banner">
   <strong>A MODEL, NOT A PREDICTION.</strong>
   <span>Every number below comes from the site's 2026 research + assumptions you can see and change. Change the assumptions, change the empire. Nothing here is a promise — platforms move, audiences surprise, luck exists.</span>
 </div>
@@ -166,7 +166,8 @@
   </details>
 
   <div style="margin-top:1.5rem">
-    <button type="submit" class="btn btn-primary">Run the simulation →</button>
+    <button type="submit" class="btn btn-primary">Initiate launch sequence →</button>
+    <p class="muted" style="font-size:.85rem;margin:.5rem 0 0">Explicit runs fly the mission-control sequence — pre-flight checks, T-minus countdown, mission elapsed-time telemetry, then the full results and a stamped debrief. Live-update re-runs stay instant.</p>
     <label class="check" style="margin-left:1rem"><input type="checkbox" id="s-live" checked> Live update <span class="muted" style="font-size:.85rem">(re-run as I type)</span></label>
     <label class="check" style="margin-left:1rem"><input type="checkbox" id="s-calm"> Calm mode <span class="muted" style="font-size:.85rem">(still the motion)</span></label>
     <span id="s-live-status" class="muted" role="status" style="font-size:.85rem"></span>
