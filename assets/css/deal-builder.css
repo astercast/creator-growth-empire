@@ -1,0 +1,101 @@
+/* Deal Builder — quote tables + proposal + checklist craft.
+   Mobile-first; everything is scoped to .db-* / #deal-builder so the
+   site's identity and other lanes' scopes are untouched. No animation:
+   results render statically — reduced-motion safety by never moving
+   at all. */
+
+#deal-builder h2 { text-wrap: balance; }
+#deal-builder p, #deal-builder li { max-inline-size: 65ch; }
+
+.db-quote { margin: 1rem 0 2rem; padding: 1rem 1.25rem; }
+
+.db-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  font-variant-numeric: tabular-nums;
+}
+.db-table th, .db-table td {
+  text-align: left;
+  padding: .55rem .7rem;
+  border-bottom: 1px solid var(--line, #2a2a3a);
+  vertical-align: top;
+}
+.db-table th {
+  font-size: .78rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--gold, #ffd166);
+}
+.db-table td:last-child, .db-table th:last-child { text-align: right; }
+.db-table .db-total td { border-bottom: 2px solid var(--gold, #ffd166); font-size: 1.05rem; }
+
+/* Term-check flags: level is encoded in the label text + border side,
+   never in color alone. */
+.db-flag {
+  border-left: 3px solid var(--cyan, #5fe8ff);
+  padding: .6rem .9rem;
+  margin: .6rem 0;
+  background: rgba(95, 232, 255, .05);
+  max-inline-size: 65ch;
+}
+.db-flag-flag { border-left-color: var(--gold, #ffd166); background: rgba(255, 209, 102, .06); }
+.db-flag-walk { border-left-color: var(--stamp, #ff5a5a); background: rgba(255, 90, 90, .07); }
+
+/* Proposal: pre block keeps line breaks; wrap so it never overflows. */
+.db-pitch pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-family: var(--font-mono, "JetBrains Mono", monospace);
+  font-size: .85rem;
+  line-height: 1.55;
+  border: 1px solid var(--line, #2a2a3a);
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  max-inline-size: 65ch;
+}
+
+/* Checklist: ticked items earn the checked state + label strike. */
+.db-check-group h3 {
+  font-size: .85rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--cyan, #5fe8ff);
+  margin: 1.25rem 0 .5rem;
+}
+.db-check-group ul { list-style: none; padding: 0; margin: 0; }
+.db-check-group li { margin: .4rem 0; max-inline-size: 65ch; }
+.db-check {
+  display: flex;
+  gap: .7rem;
+  align-items: flex-start;
+  border: 1px solid var(--line, #2a2a3a);
+  border-radius: 10px;
+  padding: .7rem .9rem;
+  cursor: pointer;
+}
+.db-check input[type="checkbox"] {
+  width: 1.15rem;
+  height: 1.15rem;
+  margin-top: .15rem;
+  accent-color: var(--cyan, #5fe8ff);
+  flex-shrink: 0;
+}
+.db-check.db-checked { border-color: var(--cyan, #5fe8ff); }
+.db-check.db-checked > span > strong { text-decoration: line-through; }
+
+.db-line {
+  border: 1px dashed var(--line, #2a2a3a);
+  border-radius: 10px;
+  padding: .75rem 1rem;
+  margin: .75rem 0;
+}
+
+#deal-builder :focus-visible {
+  outline: 2px solid var(--gold, #ffd166);
+  outline-offset: 2px;
+}
+
+@media (min-width: 760px) {
+  .db-quote { padding: 1.5rem 2rem; }
+}

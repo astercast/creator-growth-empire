@@ -101,6 +101,7 @@ REFERENCE_PAGES = [
     ("platform-rules-bible", "content/platform-rules-bible.md", "Reference", "The 2026 Platform Rules Bible",
      ["assets/js/platform-rules-ui.js"]),
     ("breakout-format-intel", "content/breakout-format-intel.md", "Reference", "The 2026 Breakout-Format Intel"),
+    ("sponsor-playbook", "content/sponsor-playbook.md", "Reference", "The 2026 Sponsor Playbook"),
 ]
 
 # Interactive mount appended to the Niche Atlas reference page (wave 14).
@@ -215,6 +216,7 @@ TOOLS = [
     ("crosspost", "Cross-Post Optimizer", "Move one clip to every platform without getting throttled: per-destination adaptation checklists (aspect, captions, hooks, CTAs, disclosure labels) under the Oct-1 originality rules."),
     ("cadence", "Cadence Coach", "How often should you actually post? Turn your honest weekly hours, formats, and platforms into a sustainable cadence — capacity math plus Oct-2026 platform realities. Consistency beats volume."),
     ("format-fit", "Format Fit Finder", "Answer six questions about your real situation — experience, hours, on-camera comfort, budget, timeline, risk — and get all 10 breakout formats ranked by fit, each with why it fits, the catch, creator-reported pay ranges, and your first 3 moves. Honest mismatch flags; never a promise."),
+    ("deal-builder", "Deal Builder", "Turn deliverables into a line-item quote from the 2026 rate card — base fees, usage, whitelisting, and exclusivity stacked as separate lines — plus a ready-to-send proposal and a deal checklist built from your actual terms."),
 ]
 
 
@@ -718,6 +720,41 @@ TOOLS_API = [
       }},
      "Ranked matches (score of 13, strong/workable/weak bands) with per-match why-it-fits reasoning, the honest catch from the dossier's risks, creator-reported pay ranges, competition, first 3 moves, per-match mismatch flags, global honesty flags, and the rate-card context. Matching arithmetic only — never a promise of views, revenue, or growth.",
      "Logic (assets/js/format-fit.js, UMD): FORMATS mirrors data/niches.json v2.1.0 breakout_format_dossiers (id, dossier_no order, pay + competition labels — tests pin the sync); axis scores experience(3)/camera(2)/hours(2)/budget(2)/goal(2)/risk(2) = 13 max; camera-clash and hours-mismatch hard penalties; bands strong >=9, workable 6–8, weak <6; ties break by dossier order; global flags for none-yet, <3h/week, and fast-money-plus-play-it-safe. Planning aid, not financial/legal/tax advice."),
+    ("deal-builder", "Deal Builder",
+     "Turn deliverables into a line-item quote from the 2026 rate card: base fees per deliverable, usage rights, whitelisting, and exclusivity as stacked line items — plus a ready-to-send proposal built from the quote and a deal checklist built from the terms.",
+     "deal-builder.html",
+     {"$schema": "http://json-schema.org/draft-07/schema#", "title": "DealBuilderInput",
+      "type": "object", "required": ["followers", "deliverables", "usage"],
+      "properties": {
+          "followers": {"type": "number", "minimum": 1000,
+                     "description": "Follower/subscriber count on the platform being sold (nano floor 1,000)."},
+          "deliverables": {"type": "array", "minItems": 1, "maxItems": 8,
+                       "items": {"type": "object", "required": ["platform", "kind", "count"],
+                                 "properties": {
+                                     "platform": {"type": "string", "enum": ["youtube", "tiktok", "instagram"]},
+                                     "kind": {"type": "string", "enum": ["dedicated", "integrated", "short", "ugc"],
+                                              "description": "dedicated = brand is the video; integrated = mid-roll slot; short = Short/TikTok/Reel; ugc = creative without posting (Storika UGC band)."},
+                                     "count": {"type": "integer", "minimum": 1, "maximum": 12}}},
+                       "description": "The package: each deliverable is its own line item."},
+          "viewsAvg": {"type": "number", "minimum": 0, "default": 0,
+                    "description": "Last-10-video average views; sponsors buy views, not subs. Without it, integrated/short lines price at half the tier band (labeled fallback)."},
+          "usage": {"type": "string", "enum": ["organic_only", "paid_3mo", "paid_6mo", "paid_12mo", "perpetual"],
+                 "description": "Paid-ad usage tier from calculators.json usage_rights_benchmarks_2026."},
+          "whitelistingMonths": {"type": "integer", "minimum": 0, "maximum": 24, "default": 0,
+                              "description": "Months the brand runs ads from YOUR account (30–100%/mo of post-fee base)."},
+          "exclusivity": {"type": "object",
+                       "properties": {
+                           "scope": {"type": "string", "enum": ["none", "named", "category"], "default": "none",
+                                    "description": "named = named competitors (+25% 30d / +50% 60–90d); category = broad lock, priced to cover lost deals or flagged."},
+                           "months": {"type": "integer", "minimum": 0, "maximum": 24, "default": 0}}},
+          "affiliate": {"type": "object",
+                     "properties": {
+                         "include": {"type": "boolean", "default": False},
+                         "commissionPct": {"type": "number", "minimum": 0, "maximum": 90, "default": 0,
+                                        "description": "Affiliate commission % on top of the flat fee — the bonus, not the deal."}}},
+      }},
+     "Line-item quote: per-deliverable lines (per-unit + line ranges with the data basis named), post-fee base, usage add-on (+25–50% / +50–75% / +75–100% / perpetual from 2x), whitelisting add-on (30–100%/mo), exclusivity add-on or broad-lock flag, package total, expected landing zone (~23% below the ask), bundle + multi-platform + honesty notes; exclusivity/usage-window conflict flags (walk_away/flag/note levels, incl. the can't-see-other-contracts honesty note); proposal email with unsupplied stats as [brackets] (never invented); 7-group deal checklist (usage, payment, revisions, exclusivity, FTC disclosure, deliverables, walk-away) customized to the quote's terms. All ranges and guidance, never promises.",
+     "Engine (assets/js/deal-builder.js, UMD — importable in node): validInput() validates (followers ≥1,000, ≤8 deliverable lines, count 1–12, exclusivity consistency); tierOf() parity-pinned with Outreach.tierOf; deliverableBase() reads sponsorship_rate_card_2026 (dedicated = tier band, integrated/short = sponsored-CPM × viewsAvg with a labeled half-band fallback, ugc = Storika $150–$1,000 single-source); buildQuote() stacks base + usage (usage_rights_benchmarks_2026 tiers) + whitelisting (monthly) + exclusivity (named +25%/+50%, category flagged not invented) — 2-sig-fig rounding, expectedClose ×(1−0.23); exclusivityConflicts() checks window mismatches, perpetual+exclusivity, whitelisting-outliving-lock, UGC+affiliate edges; buildChecklist() generates the 7-group checklist from the quote; renderPitch() writes the proposal with [bracket] placeholders. Negotiation aid — not financial, legal, or tax advice; the checklist is not legal advice. See AGENT.md Workflow 14."),
 ]
 
 # Tools hub (wave 9): grouped card index. Per tool: icon, "use when" one-liner,
@@ -763,6 +800,8 @@ TOOL_HUB_META = {
                       ["consistency", "schedule", "Phase 1"]),
     "format-fit":      ("⌑", "PLAN",    "cyan", "you have a real situation and want the breakout format that fits it.",
                       ["format fit", "assessment", "Phase 1"]),
+    "deal-builder":    ("◊", "MONEY",   "gold", "you're building a sponsor package and need the line-item quote, the proposal, and the checklist.",
+                      ["quote", "sponsorship package", "Phase 5"]),
 }
 TOOL_HUB_GROUPS = [
     ("PLAN", "Pick the battlefield",
@@ -1265,6 +1304,7 @@ def build():
         "crosspost": ["assets/js/content-engine.js", "assets/js/crosspost-ui.js"],
         "cadence": ["assets/js/cadence.js", "assets/js/cadence-ui.js"],
         "format-fit": ["assets/js/format-fit.js", "assets/js/format-fit-ui.js"],
+        "deal-builder": ["assets/js/deal-builder.js", "assets/js/deal-builder-ui.js"],
     }
     TOOL_CSS = {
         "money-map": ["assets/css/moneymap.css"],
@@ -1272,6 +1312,7 @@ def build():
         "ypp-checker": ["assets/css/yppchecker.css"],
         "cadence": ["assets/css/cadence.css"],
         "format-fit": ["assets/css/format-fit.css"],
+        "deal-builder": ["assets/css/deal-builder.css"],
     }
     for slug, title, desc in TOOLS:
         body_src = PAGES / f"{slug}.html"
@@ -1686,7 +1727,7 @@ def build():
             "id": "tools",
             "kind": "json",
             "path": "api/v1/tools.json",
-            "description": "All twenty interactive tools with programmatic input schemas (JSON Schema draft-07), output descriptions, and drive notes — replicate the tools' logic without the UI.",
+            "description": "All twenty-one interactive tools with programmatic input schemas (JSON Schema draft-07), output descriptions, and drive notes — replicate the tools' logic without the UI.",
             "schema": "api/v1/schema/tools.json",
             "updated": BUILD_TS,
             "records": len(TOOLS_API),
@@ -1699,7 +1740,8 @@ def build():
             "paths": [m["path"] for m in reference_meta],
             "description": ("Human-readable reference pages: the 2026 sponsorship rate card, "
                             "the Niche Atlas, the Metrics Glossary, the 2026 Platform "
-                            "Rules Bible, and the 2026 Breakout-Format Intel. "
+                            "Rules Bible, the 2026 Breakout-Format Intel, and the 2026 " \
+                            "Sponsor Playbook. "
                             "Machine-readable equivalents: rate card in "
                             "calculators.json sponsorship_rate_card_2026; the atlas and "
                             "the ten breakout-format dossiers in niches.json "
@@ -1716,7 +1758,7 @@ def build():
             "id": "tool-pages",
             "kind": "html",
             "paths": [f"{slug}.html" for slug, _, _ in TOOLS],
-            "description": "The twenty interactive tools' human UI pages. Agents should prefer api/v1/tools.json input schemas over scraping these pages.",
+            "description": "The twenty-one interactive tools' human UI pages. Agents should prefer api/v1/tools.json input schemas over scraping these pages.",
             "schema": None,
             "updated": BUILD_TS,
             "records": len(TOOLS),
@@ -1784,7 +1826,7 @@ def build():
     # ---- tools.json: every tool with its programmatic input schema ----
     (API / "tools.json").write_text(json.dumps({
         "version": "1.0.0", "updated": "2026-10-11",
-        "note": ("Programmatic input schemas for the twenty interactive tools. "
+        "note": ("Programmatic input schemas for the twenty-one interactive tools. "
                  "Agents replicate each tool's logic by feeding these inputs to the "
                  "documented formulas / shipped JS (assets/js/<id>.js); the UI pages "
                  "are the human front-end for the same logic."),
@@ -2337,7 +2379,7 @@ def build():
     for slug, title, desc in TOOLS:
         llms.append(f"- [{title}]({slug}.html) — {desc}")
     llms += ["- [Glossary](glossary.html)", "",
-             "All twenty tools, grouped by job (Plan / Money / Content): [Tools hub](tools.html).",
+             "All twenty-one tools, grouped by job (Plan / Money / Content): [Tools hub](tools.html).",
              "", "## Reference"]
     for m in reference_meta:
         llms.append(f"- [{m['badge']}: {m['title']}]({m['path']}) — {m['read_minutes']} min read")
@@ -2361,8 +2403,8 @@ def build():
              "- api/v1/content-engine.json — Content Engine data: idea formats, Playbook hook structures, dealing rules, Repurposing 2.0 map, originality guardrails, deal-slot guidance",
              "- api/v1/schema/ — JSON Schema (draft-07) for every endpoint",
              "", "## Agents",
-             "- AGENT.md — how an agent uses this site: base URL pattern, example requests, 13 end-to-end workflows, tool input schemas",
-             "- [Agents](agents.html) — the agent surface: endpoint table, all skills, data freshness policy, 5 worked agent workflows",
+             "- AGENT.md — how an agent uses this site: base URL pattern, example requests, 14 end-to-end workflows, tool input schemas",
+             "- [Agents](agents.html) — the agent surface: endpoint table, all skills, data freshness policy, 6 worked agent workflows",
              "- [API Explorer](api-explorer.html) — browse api/v1 endpoints, preview JSON in-browser",
              "- llms.txt (this file) — quick agent orientation",
              "- llms-full.txt — complete guide text, all chapters + reference + guides + agents",

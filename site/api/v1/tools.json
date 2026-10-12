@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
   "updated": "2026-10-11",
-  "note": "Programmatic input schemas for the twenty interactive tools. Agents replicate each tool's logic by feeding these inputs to the documented formulas / shipped JS (assets/js/<id>.js); the UI pages are the human front-end for the same logic.",
+  "note": "Programmatic input schemas for the twenty-one interactive tools. Agents replicate each tool's logic by feeding these inputs to the documented formulas / shipped JS (assets/js/<id>.js); the UI pages are the human front-end for the same logic.",
   "tools": [
     {
       "id": "quiz",
@@ -1596,6 +1596,131 @@
       },
       "output": "Ranked matches (score of 13, strong/workable/weak bands) with per-match why-it-fits reasoning, the honest catch from the dossier's risks, creator-reported pay ranges, competition, first 3 moves, per-match mismatch flags, global honesty flags, and the rate-card context. Matching arithmetic only \u2014 never a promise of views, revenue, or growth.",
       "drive_notes": "Logic (assets/js/format-fit.js, UMD): FORMATS mirrors data/niches.json v2.1.0 breakout_format_dossiers (id, dossier_no order, pay + competition labels \u2014 tests pin the sync); axis scores experience(3)/camera(2)/hours(2)/budget(2)/goal(2)/risk(2) = 13 max; camera-clash and hours-mismatch hard penalties; bands strong >=9, workable 6\u20138, weak <6; ties break by dossier order; global flags for none-yet, <3h/week, and fast-money-plus-play-it-safe. Planning aid, not financial/legal/tax advice."
+    },
+    {
+      "id": "deal-builder",
+      "title": "Deal Builder",
+      "description": "Turn deliverables into a line-item quote from the 2026 rate card: base fees per deliverable, usage rights, whitelisting, and exclusivity as stacked line items \u2014 plus a ready-to-send proposal built from the quote and a deal checklist built from the terms.",
+      "page": "deal-builder.html",
+      "input_schema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "title": "DealBuilderInput",
+        "type": "object",
+        "required": [
+          "followers",
+          "deliverables",
+          "usage"
+        ],
+        "properties": {
+          "followers": {
+            "type": "number",
+            "minimum": 1000,
+            "description": "Follower/subscriber count on the platform being sold (nano floor 1,000)."
+          },
+          "deliverables": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 8,
+            "items": {
+              "type": "object",
+              "required": [
+                "platform",
+                "kind",
+                "count"
+              ],
+              "properties": {
+                "platform": {
+                  "type": "string",
+                  "enum": [
+                    "youtube",
+                    "tiktok",
+                    "instagram"
+                  ]
+                },
+                "kind": {
+                  "type": "string",
+                  "enum": [
+                    "dedicated",
+                    "integrated",
+                    "short",
+                    "ugc"
+                  ],
+                  "description": "dedicated = brand is the video; integrated = mid-roll slot; short = Short/TikTok/Reel; ugc = creative without posting (Storika UGC band)."
+                },
+                "count": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 12
+                }
+              }
+            },
+            "description": "The package: each deliverable is its own line item."
+          },
+          "viewsAvg": {
+            "type": "number",
+            "minimum": 0,
+            "default": 0,
+            "description": "Last-10-video average views; sponsors buy views, not subs. Without it, integrated/short lines price at half the tier band (labeled fallback)."
+          },
+          "usage": {
+            "type": "string",
+            "enum": [
+              "organic_only",
+              "paid_3mo",
+              "paid_6mo",
+              "paid_12mo",
+              "perpetual"
+            ],
+            "description": "Paid-ad usage tier from calculators.json usage_rights_benchmarks_2026."
+          },
+          "whitelistingMonths": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 24,
+            "default": 0,
+            "description": "Months the brand runs ads from YOUR account (30\u2013100%/mo of post-fee base)."
+          },
+          "exclusivity": {
+            "type": "object",
+            "properties": {
+              "scope": {
+                "type": "string",
+                "enum": [
+                  "none",
+                  "named",
+                  "category"
+                ],
+                "default": "none",
+                "description": "named = named competitors (+25% 30d / +50% 60\u201390d); category = broad lock, priced to cover lost deals or flagged."
+              },
+              "months": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 24,
+                "default": 0
+              }
+            }
+          },
+          "affiliate": {
+            "type": "object",
+            "properties": {
+              "include": {
+                "type": "boolean",
+                "default": false
+              },
+              "commissionPct": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 90,
+                "default": 0,
+                "description": "Affiliate commission % on top of the flat fee \u2014 the bonus, not the deal."
+              }
+            }
+          }
+        }
+      },
+      "output": "Line-item quote: per-deliverable lines (per-unit + line ranges with the data basis named), post-fee base, usage add-on (+25\u201350% / +50\u201375% / +75\u2013100% / perpetual from 2x), whitelisting add-on (30\u2013100%/mo), exclusivity add-on or broad-lock flag, package total, expected landing zone (~23% below the ask), bundle + multi-platform + honesty notes; exclusivity/usage-window conflict flags (walk_away/flag/note levels, incl. the can't-see-other-contracts honesty note); proposal email with unsupplied stats as [brackets] (never invented); 7-group deal checklist (usage, payment, revisions, exclusivity, FTC disclosure, deliverables, walk-away) customized to the quote's terms. All ranges and guidance, never promises.",
+      "drive_notes": "Engine (assets/js/deal-builder.js, UMD \u2014 importable in node): validInput() validates (followers \u22651,000, \u22648 deliverable lines, count 1\u201312, exclusivity consistency); tierOf() parity-pinned with Outreach.tierOf; deliverableBase() reads sponsorship_rate_card_2026 (dedicated = tier band, integrated/short = sponsored-CPM \u00d7 viewsAvg with a labeled half-band fallback, ugc = Storika $150\u2013$1,000 single-source); buildQuote() stacks base + usage (usage_rights_benchmarks_2026 tiers) + whitelisting (monthly) + exclusivity (named +25%/+50%, category flagged not invented) \u2014 2-sig-fig rounding, expectedClose \u00d7(1\u22120.23); exclusivityConflicts() checks window mismatches, perpetual+exclusivity, whitelisting-outliving-lock, UGC+affiliate edges; buildChecklist() generates the 7-group checklist from the quote; renderPitch() writes the proposal with [bracket] placeholders. Negotiation aid \u2014 not financial, legal, or tax advice; the checklist is not legal advice. See AGENT.md Workflow 14."
     }
   ]
 }

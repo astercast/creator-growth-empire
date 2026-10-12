@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<script>try{if(localStorage.getItem("cge.calm")==="1")document.documentElement.setAttribute("data-calm","1");}catch(e){}</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deal Builder — Creator Growth Empire</title>
+<meta name="description" content="From $0 to a multi-million-dollar creator company.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/motifs.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/layout.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/hub.css">
+<script defer src="assets/js/deal-builder.js"></script><script defer src="assets/js/deal-builder-ui.js"></script><link rel="stylesheet" href="assets/css/deal-builder.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <a class="brand" href="index.html"><span class="brand-plate" aria-hidden="true">CG</span> Creator Growth Empire</a>
+  <nav class="site-nav" aria-label="Primary"><a href="index.html" class="nav-link"><span class="nav-n">01</span>Empire Map</a><a href="tools.html" class="nav-link active"><span class="nav-n">02</span>Tools</a><a href="case-files.html" class="nav-link"><span class="nav-n">03</span>Case Files</a><a href="glossary.html" class="nav-link"><span class="nav-n">04</span>Glossary</a><a href="agents.html" class="nav-link"><span class="nav-n">05</span>Agents</a></nav>
+  <button class="calm-toggle" id="calmToggle" aria-pressed="false" title="Calm mode — stop ambient motion"><span class="calm-glyph" aria-hidden="true">◍</span><span>CALM</span></button>
+  <button class="nav-toggle" aria-expanded="false" aria-controls="mobileNav" aria-label="Menu">☰</button>
+</header>
+<nav id="mobileNav" class="mobile-nav" aria-label="Mobile"><a href="index.html" class="nav-link"><span class="nav-n">01</span>Empire Map</a><a href="tools.html" class="nav-link active"><span class="nav-n">02</span>All tools</a><a href="quiz.html" class="nav-link"><span class="nav-n">03</span>Niche Picker</a><a href="calculator.html" class="nav-link"><span class="nav-n">04</span>Revenue Calc</a><a href="planner.html" class="nav-link"><span class="nav-n">05</span>90-Day Plan</a><a href="deal-analyzer.html" class="nav-link"><span class="nav-n">06</span>Deal Analyzer</a><a href="hiring-calculator.html" class="nav-link"><span class="nav-n">07</span>Hire Calc</a><a href="repurpose.html" class="nav-link"><span class="nav-n">08</span>Repurpose Plan</a><a href="simulator.html" class="nav-link"><span class="nav-n">09</span>Simulator</a><a href="case-files.html" class="nav-link"><span class="nav-n">10</span>All case files</a><a href="glossary.html" class="nav-link"><span class="nav-n">11</span>Glossary</a><a href="agents.html" class="nav-link"><span class="nav-n">12</span>Agents</a></nav>
+<main id="main"><div class="tool-page"><div class="hud-panel brk brk-gold"><b class="brk-x" aria-hidden="true"></b><div class="hud-head"><span>MISSION BRIEFING // TOOL 21 — DEAL BUILDER</span><span class="hud-status">SYSTEMS ONLINE</span></div><div class="hud-body"><p class="fm-kicker"><strong>FIELD MANUAL</strong><span class="sep">//</span>DIVISION MONEY</p><h1>Deal Builder</h1><p class="lede">Turn deliverables into a line-item quote from the 2026 rate card — base fees, usage, whitelisting, and exclusivity stacked as separate lines — plus a ready-to-send proposal and a deal checklist built from your actual terms.</p><div class="briefing-rank"><span class="rank" role="img" aria-label="Tier 2"><i></i><i></i></span><span class="fm-readout">TIER 2 // MONEY</span></div></div></div><div id="deal-builder">
+<p class="lede">The package layer: turn deliverables into a line-item quote from the 2026 rate card, a ready-to-send proposal built from that quote, and a deal checklist built from the actual terms. Everything runs in your browser — no accounts, no uploads, no data leaves the machine.</p>
+<p class="muted">Got an inbound offer to benchmark instead? <a href="deal-analyzer.html">The Deal Analyzer</a> evaluates the brand's terms. Running outbound? <a href="outreach.html">The Outreach Center</a> owns the pipeline and pitch templates. The deep layer: <a href="sponsor-playbook.html">The 2026 Sponsor Playbook</a>.</p>
+
+<h2>1 · Your package</h2>
+<p class="muted">Add each deliverable as its own line — platform, format, how many. The quote prices every line from the 2026 rate card, then stacks usage, whitelisting, and exclusivity as separate line items.</p>
+<form id="db-form" aria-label="Deal Builder" novalidate>
+  <div class="calc-grid">
+    <label>Follower count <input type="number" id="db-followers" min="1000" step="1000" value="50000" required></label>
+    <label>Avg. views per video (last 10, optional) <input type="number" id="db-views" min="0" step="1000" placeholder="e.g. 25000"></label>
+  </div>
+  <div id="db-lines" aria-live="polite"></div>
+  <div style="margin:.75rem 0"><button type="button" class="btn btn-ghost" id="db-add">+ Add deliverable</button></div>
+  <div class="calc-grid">
+    <label>Paid-ad usage
+      <select id="db-usage">
+        <option value="organic_only" selected>Organic only (no paid-ad usage)</option>
+        <option value="paid_3mo">Paid ads · 3 months (+25–50%)</option>
+        <option value="paid_6mo">Paid ads · 3–6 months (+50–75%)</option>
+        <option value="paid_12mo">Paid ads · 6–12 months (+75–100%)</option>
+        <option value="perpetual">Perpetual / unlimited (from 2× base)</option>
+      </select></label>
+    <label>Whitelisting (months, 0 = none) <input type="number" id="db-wl" min="0" max="24" step="1" value="0"></label>
+    <label>Exclusivity scope
+      <select id="db-ex-scope">
+        <option value="none" selected>None</option>
+        <option value="named">Named competitors</option>
+        <option value="category">Broad category</option>
+      </select></label>
+    <label>Exclusivity window (months) <input type="number" id="db-ex-months" min="0" max="24" step="1" value="0"></label>
+  </div>
+  <div class="calc-grid">
+    <label style="display:flex;gap:.5rem;align-items:center"><input type="checkbox" id="db-aff"> Add affiliate commission on top</label>
+    <label>Commission % <input type="number" id="db-aff-pct" min="0" max="90" step="1" value="10"></label>
+  </div>
+  <p id="db-errors" role="alert" class="muted" aria-live="assertive"></p>
+  <button type="submit" class="btn btn-primary">Build my quote →</button>
+</form>
+
+<h2>2 · The quote</h2>
+<div id="db-quote" aria-live="polite"><p class="muted">Your line-item quote lands here — base fees, usage, whitelisting, exclusivity, the top-of-range ask, and the ~23% expected landing zone.</p></div>
+
+<h2>3 · Exclusivity &amp; term checks</h2>
+<div id="db-flags" aria-live="polite"><p class="muted">Window mismatches, broad-lock warnings, and the overlaps only you can verify.</p></div>
+
+<h2>4 · The proposal</h2>
+<p class="muted">Built from your actual quote — every stat you haven't supplied stays a <strong>[bracket]</strong> for you to fill. The generator never invents a number.</p>
+<div style="margin-top:1rem"><button type="button" class="btn btn-primary" id="db-pitch-gen">Generate proposal →</button></div>
+<div id="db-pitch-out" aria-live="polite" style="margin-top:1.5rem"></div>
+<div id="db-pitch-actions" style="display:none;margin-top:1rem"><button type="button" class="btn btn-ghost" id="db-pitch-copy">Copy proposal</button></div>
+
+<h2>5 · The deal checklist</h2>
+<p class="muted">Generated from the terms you just built — usage, payment, revisions, exclusivity, FTC disclosure, deliverables, your walk-away line. Tick them off as the contract answers each one. Your checks persist in this browser.</p>
+<div id="db-checklist" aria-live="polite"></div>
+
+<p class="muted">Negotiation aid — not financial, legal, or tax advice. Rates are reported 2026 benchmarks (ranges, never quotes). The checklist is not legal advice; contracts above $500 deserve a real lawyer's eyes.</p>
+</div>
+<noscript><p><strong>The Deal Builder needs JavaScript</strong> — the quote math, term checks, and proposal run entirely in your browser with no server. The 2026 rate card benchmarks live at <a href="rate-card.html">rate-card.html</a>, the deep usage-rights layer at <a href="sponsor-playbook.html">sponsor-playbook.html</a>, and the machine-readable data at <a href="api/v1/calculators.json">api/v1/calculators.json</a>.</p></noscript>
+</div></main>
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <div class="foot-brand"><span class="brand-plate" aria-hidden="true">CG</span> Creator Growth Empire</div>
+      <p class="muted">From $0 to a multi-million-dollar creator company.</p>
+      <div class="chit-row" style="margin:1rem 0 0">
+        <span class="chit chit-ghost">No guru hype</span>
+        <span class="chit chit-ghost">2026 verified</span>
+        <span class="chit chit-ghost">Field manual</span>
+      </div>
+    </div>
+    <nav aria-label="Phases">
+      <strong class="muted" style="font-size:.78rem;letter-spacing:.12em">PHASES</strong>
+      <a href="phase-0-start-from-nothing.html">Phase 0 — Start From Nothing</a>
+      <a href="phase-2-youtube-mastery.html">Phase 2 — YouTube Mastery</a>
+      <a href="phase-5-monetization-stack.html">Phase 5 — Monetization Stack</a>
+      <a href="phase-7-the-business.html">Phase 7 — The Business</a>
+    </nav>
+    <nav aria-label="Tools">
+      <strong class="muted" style="font-size:.78rem;letter-spacing:.12em">TOOLS</strong>
+      <a href="tools.html">All tools →</a>
+      <a href="quiz.html">Niche Picker</a>
+      <a href="calculator.html">Revenue Calculator</a>
+      <a href="planner.html">90-Day Planner</a>
+      <a href="deal-analyzer.html">The Deal Analyzer</a>
+      <a href="hiring-calculator.html">Hiring Cost Calculator</a>
+      <a href="repurpose.html">Repurposing Planner</a>
+      <a href="simulator.html">Empire Simulator</a>
+      <a href="money-map.html">The Money Map</a>
+      <a href="api-explorer.html">API Explorer</a>
+      <a href="glossary.html">Glossary</a>
+      <a href="agents.html">Agents</a>
+    </nav>
+    <nav aria-label="Case Files">
+      <strong class="muted" style="font-size:.78rem;letter-spacing:.12em">CASE FILES</strong>
+      <a href="case-files.html">All case files →</a>
+      <a href="case-budget-grocery.html">The Budget-Grocery Newsletter</a>
+      <a href="case-bens-bites.html">Ben's Bites</a>
+      <a href="case-sleep-channels.html">The Sleep-Channel Network</a>
+      <a href="case-mavwicks.html">Mavwicks on TikTok Shop</a>
+      <a href="case-ptya.html">The Cohort Course</a>
+      <a href="case-poly-couple.html">The Poly Couple</a>
+      <a href="case-gibi-asmr.html">Gibi ASMR</a>
+    </nav>
+  </div>
+  <div class="footer-fine"><span class="stamp stamp-sm" aria-hidden="true">CLEARED</span><span>PRIVATE RESEARCH ARCHIVE · PLATFORM FACTS VERIFIED OCT 2026 — VERIFY LIVE BEFORE ACTING · NOT FINANCIAL, LEGAL, OR TAX ADVICE</span></div>
+</footer>
+<script src="assets/js/site.js"></script>
+</body>
+</html>

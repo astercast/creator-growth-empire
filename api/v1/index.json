@@ -116,10 +116,10 @@
       "id": "tools",
       "kind": "json",
       "path": "api/v1/tools.json",
-      "description": "All twenty interactive tools with programmatic input schemas (JSON Schema draft-07), output descriptions, and drive notes \u2014 replicate the tools' logic without the UI.",
+      "description": "All twenty-one interactive tools with programmatic input schemas (JSON Schema draft-07), output descriptions, and drive notes \u2014 replicate the tools' logic without the UI.",
       "schema": "api/v1/schema/tools.json",
       "updated": "2026-10-11T00:00:00Z",
-      "records": 20,
+      "records": 21,
       "deprecated": false,
       "deprecation_note": null
     },
@@ -131,12 +131,13 @@
         "niche-atlas.html",
         "metrics-glossary.html",
         "platform-rules-bible.html",
-        "breakout-format-intel.html"
+        "breakout-format-intel.html",
+        "sponsor-playbook.html"
       ],
-      "description": "Human-readable reference pages: the 2026 sponsorship rate card, the Niche Atlas, the Metrics Glossary, the 2026 Platform Rules Bible, and the 2026 Breakout-Format Intel. Machine-readable equivalents: rate card in calculators.json sponsorship_rate_card_2026; the atlas and the ten breakout-format dossiers in niches.json (breakout_format_dossiers); glossary terms in glossary.json. Figures are creator-reported ranges and source-weighted research, never promises.",
+      "description": "Human-readable reference pages: the 2026 sponsorship rate card, the Niche Atlas, the Metrics Glossary, the 2026 Platform Rules Bible, the 2026 Breakout-Format Intel, and the 2026 Sponsor Playbook. Machine-readable equivalents: rate card in calculators.json sponsorship_rate_card_2026; the atlas and the ten breakout-format dossiers in niches.json (breakout_format_dossiers); glossary terms in glossary.json. Figures are creator-reported ranges and source-weighted research, never promises.",
       "schema": null,
       "updated": "2026-10-11T00:00:00Z",
-      "records": 5,
+      "records": 6,
       "deprecated": false,
       "deprecation_note": null
     },
@@ -163,12 +164,13 @@
         "outreach.html",
         "crosspost.html",
         "cadence.html",
-        "format-fit.html"
+        "format-fit.html",
+        "deal-builder.html"
       ],
-      "description": "The twenty interactive tools' human UI pages. Agents should prefer api/v1/tools.json input schemas over scraping these pages.",
+      "description": "The twenty-one interactive tools' human UI pages. Agents should prefer api/v1/tools.json input schemas over scraping these pages.",
       "schema": null,
       "updated": "2026-10-11T00:00:00Z",
-      "records": 20,
+      "records": 21,
       "deprecated": false,
       "deprecation_note": null
     },

@@ -1,7 +1,7 @@
 # AGENT.md — How an agent uses Creator Growth Empire
 
 > This site is a static machine-readable knowledge base for the creator
-> business: 9 phases, 20 tools, 12 skills, 9 case files, and a versioned JSON
+> business: 9 phases, 21 tools, 12 skills, 9 case files, and a versioned JSON
 > API. No API key, no server, no auth, no rate limits. Fetch and act.
 > Every workflow below was executed against the real `api/v1/` JSON files —> see `tests/agent-workflows.test.js` (run: `node tests/agent-workflows.test.js`).
 
@@ -32,7 +32,7 @@
 | `GET api/v1/calculators.json` | Per-niche RPM bands, Shorts RPM, platform thresholds w/ sources+dates, revenue splits, 2026 sponsorship rate card, 2026 research snapshots | The data contract every calculator and the sim engine read |
 | `GET api/v1/skills.json` | 12 skills: `name`, `description`, `path` | `skills/deal-negotiation/SKILL.md` for the full procedure |
 | `GET api/v1/case-files.json` | 9 creator-business deconstructions: `id`, `title`, `path`, `words`, `read_minutes` | Full text on the `case-*.html` pages |
-| `GET api/v1/tools.json` | 20 tools with programmatic `input_schema` (draft-07), output description, `drive_notes` | Replicate any tool's logic without the UI |
+| `GET api/v1/tools.json` | 21 tools with programmatic `input_schema` (draft-07), output description, `drive_notes` | Replicate any tool's logic without the UI |
 | `GET api/v1/schema/<name>.json` | JSON Schema draft-07 for every endpoint (per-doc and per-record) | Validate before you trust a payload |
 
 Skills are the executable layer: each `skills/<name>/SKILL.md` follows
@@ -452,6 +452,39 @@ lands a target by a target month, via API.
    channels ever reach 100K subscribers — single source, labeled as such).
    Not financial, legal, or tax advice.
 
+### Workflow 14 — Build a sponsor package quote (Deal Builder)
+
+Goal: turn a deliverable list into a line-item quote, a proposal, and a
+deal checklist — via API, against the real 2026 rate card.
+
+1. `GET api/v1/calculators.json` as `cfg`; engine =
+   `require("assets/js/deal-builder.js")`.
+2. `DealBuilder.buildQuote({followers: 50000, deliverables: [{platform:
+   "youtube", kind: "dedicated", count: 1}, {platform: "tiktok", kind:
+   "short", count: 2}], viewsAvg: 25000, usage: "paid_3mo",
+   whitelistingMonths: 1, exclusivity: {scope: "named", months: 1},
+   affiliate: {include: true, commissionPct: 10}},
+   cfg, cfg.usage_rights_benchmarks_2026)` → micro tier; dedicated line
+   $1,000–$10,000 (tier band); 2× short at 25K views → 2 × ($500–$875)
+   (sponsored-CPM anchoring); usage +25–50% as its own line;
+   whitelisting 1 mo × 30–100%; named 30-day exclusivity +25%;
+   package total with the top-of-range ask and the ~23% expected landing
+   zone. Verified: expected close = total × 0.77, 2-sig-fig rounding.
+3. `DealBuilder.exclusivityConflicts(input)` — window-mismatch and
+   broad-lock checks (walk_away/flag/note levels); the tool can't see your
+   other contracts and says so.
+4. `DealBuilder.buildChecklist(quote)` — the 7-group checklist
+   (usage, payment, revisions, exclusivity, FTC disclosure, deliverables,
+   walk-away), customized to the quote's actual terms.
+5. `DealBuilder.renderPitch(input, quote)` — the proposal email: real
+   quote numbers in, every unsupplied stat stays a `[bracket]` (never
+   invented). The human page is `deal-builder.html`; the deep layer is
+   the 2026 Sponsor Playbook (`sponsor-playbook.html`).
+6. Framing rule: the quote is the top of reported ranges, not a promise —
+   benchmarks disagree 2–3× within tiers; verify against current
+   creator rate reports before sending. Not financial, legal, or tax advice;
+   the checklist is not legal advice.
+
 ## Rate & expectation notes
 
 - **Static JSON.** Nothing here is live: no request counts, no streaming, no
@@ -495,6 +528,7 @@ explaining how to replicate the logic:
 | Cross-Post Optimizer | `source_platform` (tiktok/shorts/reels/facebook), `destinations[]`, `photorealistic_ai` (boolean) | `require("assets/js/content-engine.js")` — `adaptChecklist(source, dests)` → per-destination cards (hook rework, caption rewrite, CTA swap, audio rights, disclosure label) + 6 universal checks + the Oct-1 gate; matrix from `api/v1/content-engine.json` → `adaptation_matrix`; pairs with the `content-repurposing` skill — see Workflow 10 |
 | Cadence Coach | `platforms`, `weeklyHours`, `longMins`, `shortMins`, `restDay`, `stage`, `priority` (longs/shorts/balanced) | `require("assets/js/cadence.js")` — `recommend(i)` → longs/week + shorts/week, holds/tight/over utilization, 7-day grid, Oct-2026 platform revenue realities, 2-week ramp — capacity math only, never a growth promise |
 | Format Fit Finder | `experience` (teacher/tech/finance/legal/health/audio/writer/operator/none-yet), `weeklyHours`, `camera` (face/voice/hands/anything), `budget` (free/modest/real), `goal` (fast/mid/slow), `risk` (safe/balanced/bold) | `require("assets/js/format-fit.js")` — `recommend(i)` → 10 breakout formats ranked by axis scores (experience/camera/hours/budget/goal/risk = 13 max, strong ≥9), per-match why-it-fits, the catch from dossier risks, creator-reported pay ranges, first 3 moves, per-match + global mismatch flags — matching arithmetic, never a promise |
+| Deal Builder | `followers`, `deliverables[]` (`platform` youtube/tiktok/instagram, `kind` dedicated/integrated/short/ugc, `count` 1–12), `viewsAvg`, `usage` (organic_only/paid_3mo/paid_6mo/paid_12mo/perpetual), `whitelistingMonths` (0–24), `exclusivity{scope, months}`, `affiliate{include, commissionPct}` | `require("assets/js/deal-builder.js")` — `buildQuote()` for the stacked line-item quote (usage/whitelisting/exclusivity as separate lines, expected close ×0.77), `exclusivityConflicts()` for window checks, `buildChecklist()` for the 7-group checklist, `renderPitch()` for the proposal ([brackets] for unsupplied stats); tier math parity-pinned with Outreach — see Workflow 14 |
 
 Full per-tool schemas, formulas, and honesty notes live in `tools.json`;
 the UI pages (`quiz.html`, `calculator.html`, …) are the human front-end for

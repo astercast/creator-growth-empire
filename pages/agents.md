@@ -17,8 +17,8 @@
 | Content engine | `api/v1/content-engine.json` | 3 idea formats, 5 Playbook hook structures, dealing rules, batching guidance, Repurposing 2.0 derivative map, Oct-1 originality guardrails, deal-slot guidance — the Content Engine data contract (v1.1.0 adds: the Oct-2026 algorithm signal map with source-labeled claims, 6 trend-derived hook patterns, the cross-post adaptation matrix, and the weekly batch scheduler defaults) |
 | Skill index | `api/v1/skills.json` | 12 skills: name, description, path |
 | Case files | `api/v1/case-files.json` + `case-*.html` | 5 documented creator-business deconstructions: budget-grocery newsletter, Ben's Bites, faceless sleep-channel network, Mavwicks on TikTok Shop, cohort course — figures source-reported, never promises |
-| Reference | `rate-card.html`, `niche-atlas.html` + `api/v1/calculators.json`, `api/v1/niches.json` | The 2026 sponsorship rate card + the Niche Atlas (interactive explorer) |
-| Interactive tools | `quiz.html`, `calculator.html`, `planner.html`, `deal-analyzer.html`, `deal-room.html`, `hiring-calculator.html`, `repurpose.html`, `simulator.html`, `hook-builder.html`, `idea-bank.html`, `content-calendar.html`, `batching.html`, `crosspost.html`, `cadence.html`, `format-fit.html`, `api-explorer.html` | Human-facing; agents should use the API data behind them (`api/v1/tools.json` carries every tool's programmatic input schema) |
+| Reference | `rate-card.html`, `niche-atlas.html`, `sponsor-playbook.html` + `api/v1/calculators.json`, `api/v1/niches.json` | The 2026 sponsorship rate card + the Niche Atlas (interactive explorer) + the 2026 Sponsor Playbook (deal structures, usage-rights math, negotiation, contracts, FTC disclosure) |
+| Interactive tools | `quiz.html`, `calculator.html`, `planner.html`, `deal-analyzer.html`, `deal-room.html`, `hiring-calculator.html`, `repurpose.html`, `simulator.html`, `hook-builder.html`, `idea-bank.html`, `content-calendar.html`, `batching.html`, `crosspost.html`, `cadence.html`, `format-fit.html`, `deal-builder.html`, `api-explorer.html` | Human-facing; agents should use the API data behind them (`api/v1/tools.json` carries every tool's programmatic input schema) |
 | API explorer | `api-explorer.html` | Browse every `api/v1` endpoint and preview JSON in-browser |
 
 All endpoints are `GET` on static JSON. Base path: `api/v1/` (relative to the site root; the deployed site ships its own `api/` mirror, so the explorer works live too). Schemas: `api/v1/schema/` (JSON Schema draft-07).
@@ -126,3 +126,13 @@ Goal: take raw ideas through the whole production pipeline — banked, scored, d
 - API `version` follows semver: minor on content changes, major on breaking shape changes.
 - All monetary figures are USD unless noted.
 - Full API reference: `API.md` at the repo root.
+
+### 8. Build a sponsor package quote
+
+Goal: turn a deliverable list into a line-item quote, a proposal, and a deal checklist.
+
+1. `GET api/v1/tools.json` → tool `deal-builder` → `input_schema`: `followers`, `deliverables[]` (platform + kind + count), `viewsAvg`, `usage` (organic_only/paid_3mo/paid_6mo/paid_12mo/perpetual), `whitelistingMonths`, `exclusivity{scope, months}`, `affiliate{include, commissionPct}`. Engine: `require("assets/js/deal-builder.js")` (UMD, importable in node).
+2. `DealBuilder.buildQuote(input, cfg, cfg.usage_rights_benchmarks_2026)` — per-deliverable lines from the 2026 rate card (dedicated = tier band; integrated/short = sponsored-CPM × viewsAvg; UGC = Storika $150–$1,000), then usage (+25–50% / +50–75% / +75–100% / perpetual from 2×), whitelisting (30–100%/mo), and exclusivity (named +25%/+50%; broad locks flagged, never invented) stacked as separate lines. Package total, top-of-range ask, expected landing zone (×0.77).
+3. `DealBuilder.exclusivityConflicts(input)` — window mismatches and broad-lock walk-away flags; the tool can't see other contracts and says so.
+4. `DealBuilder.buildChecklist(quote)` — the 7-group checklist (usage, payment, revisions, exclusivity, FTC disclosure, deliverables, walk-away) customized to the quote; `DealBuilder.renderPitch(input, quote)` — the proposal with unsupplied stats as `[brackets]`, never invented.
+5. Framing: the quote is the top of reported ranges (benchmarks disagree 2–3× within tiers) — never a quote, never a promise. Not financial, legal, or tax advice; the checklist is not legal advice. See AGENT.md Workflow 14.

@@ -34,9 +34,10 @@ From $0 to a multi-million-dollar creator company.
 - [Cross-Post Optimizer](crosspost.html) — Move one clip to every platform without getting throttled: per-destination adaptation checklists (aspect, captions, hooks, CTAs, disclosure labels) under the Oct-1 originality rules.
 - [Cadence Coach](cadence.html) — How often should you actually post? Turn your honest weekly hours, formats, and platforms into a sustainable cadence — capacity math plus Oct-2026 platform realities. Consistency beats volume.
 - [Format Fit Finder](format-fit.html) — Answer six questions about your real situation — experience, hours, on-camera comfort, budget, timeline, risk — and get all 10 breakout formats ranked by fit, each with why it fits, the catch, creator-reported pay ranges, and your first 3 moves. Honest mismatch flags; never a promise.
+- [Deal Builder](deal-builder.html) — Turn deliverables into a line-item quote from the 2026 rate card — base fees, usage, whitelisting, and exclusivity stacked as separate lines — plus a ready-to-send proposal and a deal checklist built from your actual terms.
 - [Glossary](glossary.html)
 
-All twenty tools, grouped by job (Plan / Money / Content): [Tools hub](tools.html).
+All twenty-one tools, grouped by job (Plan / Money / Content): [Tools hub](tools.html).
 
 ## Reference
 - [Reference: 2026 Rate Card](rate-card.html) — 4 min read
@@ -44,6 +45,7 @@ All twenty tools, grouped by job (Plan / Money / Content): [Tools hub](tools.htm
 - [Reference: The Metrics Glossary](metrics-glossary.html) — 9 min read
 - [Reference: The 2026 Platform Rules Bible](platform-rules-bible.html) — 34 min read
 - [Reference: The 2026 Breakout-Format Intel](breakout-format-intel.html) — 33 min read
+- [Reference: The 2026 Sponsor Playbook](sponsor-playbook.html) — 30 min read
 
 ## Case Files — documented creator-business deconstructions
 - [Case File: The Budget-Grocery Newsletter](case-budget-grocery.html) — 3 min read
@@ -76,8 +78,8 @@ All twenty tools, grouped by job (Plan / Money / Content): [Tools hub](tools.htm
 - api/v1/schema/ — JSON Schema (draft-07) for every endpoint
 
 ## Agents
-- AGENT.md — how an agent uses this site: base URL pattern, example requests, 13 end-to-end workflows, tool input schemas
-- [Agents](agents.html) — the agent surface: endpoint table, all skills, data freshness policy, 5 worked agent workflows
+- AGENT.md — how an agent uses this site: base URL pattern, example requests, 14 end-to-end workflows, tool input schemas
+- [Agents](agents.html) — the agent surface: endpoint table, all skills, data freshness policy, 6 worked agent workflows
 - [API Explorer](api-explorer.html) — browse api/v1 endpoints, preview JSON in-browser
 - llms.txt (this file) — quick agent orientation
 - llms-full.txt — complete guide text, all chapters + reference + guides + agents

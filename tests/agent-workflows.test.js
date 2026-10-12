@@ -73,7 +73,7 @@ function check(name, cond, detail) {
 
   // tools.json drives the planner config shape
   const tools = load("tools.json").tools;
-  check("wf2: tools.json lists all 20 tools", tools.length === 20, String(tools.length));
+  check("wf2: tools.json lists all 21 tools", tools.length === 21, String(tools.length));
   const oc = tools.find((t) => t.id === "outreach");
   const ocSchema = oc && oc.input_schema;
   check("wf2: outreach input schema exposes pipeline + quote + pitch + contract fields",
@@ -99,6 +99,15 @@ function check(name, cond, detail) {
        && crossSchema.properties.source_platform && crossSchema.properties.destinations
        && crossSchema.properties.photorealistic_ai)
     && cross.page === "crosspost.html");
+  const db = tools.find((t) => t.id === "deal-builder");
+  const dbSchema = db && db.input_schema;
+  check("wf2: deal-builder input schema exposes deliverables + usage + whitelisting + exclusivity fields",
+    !!(dbSchema && dbSchema.title === "DealBuilderInput"
+       && dbSchema.properties.followers && dbSchema.properties.deliverables
+       && dbSchema.properties.viewsAvg && dbSchema.properties.usage
+       && dbSchema.properties.whitelistingMonths && dbSchema.properties.exclusivity
+       && dbSchema.properties.affiliate)
+    && db.page === "deal-builder.html");
   const cad = tools.find((t) => t.id === "cadence");
   const cadSchema = cad && cad.input_schema;
   check("wf2: cadence input schema exposes hours/minutes/priority fields",
@@ -655,6 +664,63 @@ function check(name, cond, detail) {
     { target: "stage", value: 4, month: 24, variable: "growth" });
   check("wf13: stage 4 without a team is refused with guidance",
     !st.ok && st.reason === "stage4_needs_team");
+})();
+
+
+/* ============ Workflow 14: build a sponsor package quote ============
+ * AGENT.md §Workflow 14: deliverables -> line-item quote + term checks +
+ * checklist + proposal, all through the real DealBuilder engine. */
+(function workflow14() {
+  const DB = require(path.join(__dirname, "..", "assets", "js", "deal-builder.js"));
+  const cfg = load("calculators.json");
+  const ub = cfg.usage_rights_benchmarks_2026;
+
+  const input = {
+    followers: 50000,
+    deliverables: [{ platform: "youtube", kind: "dedicated", count: 1 },
+                   { platform: "tiktok", kind: "short", count: 2 }],
+    viewsAvg: 25000, usage: "paid_3mo", whitelistingMonths: 1,
+    exclusivity: { scope: "named", months: 1 },
+    affiliate: { include: true, commissionPct: 10 }
+  };
+  check("wf14: workflow input validates", DB.validInput(input).ok);
+  const q = DB.buildQuote(input, cfg, ub);
+  check("wf14: quote builds, micro tier", q.ok && q.tier === "micro_10k_100k", q.tier);
+  check("wf14: dedicated line = tier band $1,000–$10,000",
+    q.lines[0].line[0] === 1000 && q.lines[0].line[1] === 10000);
+  check("wf14: 2x short at 25K views = 2 × ($250–$750) = $500–$1,500",
+    q.lines[1].line[0] === 500 && q.lines[1].line[1] === 1500);
+  check("wf14: usage paid_3mo add-on $380–$5,800",
+    q.usage.addon[0] === 380 && q.usage.addon[1] === 5800);
+  check("wf14: whitelisting 1mo add-on $450–$12,000",
+    q.whitelisting.addon[0] === 450 && q.whitelisting.addon[1] === 12000);
+  check("wf14: named 30d exclusivity add-on $380–$2,900",
+    q.exclusivity.addon[0] === 380 && q.exclusivity.addon[1] === 2900);
+  check("wf14: package total $2,700–$33,000",
+    q.total[0] === 2700 && q.total[1] === 33000);
+  check("wf14: expected close = ×0.77 → $2,100–$25,000",
+    q.expectedClose[0] === 2100 && q.expectedClose[1] === 25000);
+  check("wf14: 3-unit package carries the bundle note",
+    q.notes.some((n) => /41%/.test(n)));
+  check("wf14: YT+TikTok mix carries the multi-platform note",
+    q.notes.some((n) => /multi-platform/i.test(n)));
+
+  const cf = DB.exclusivityConflicts(input);
+  check("wf14: exclusivity 1mo < usage 3mo fires the window-mismatch flag",
+    cf.ok && cf.flags.some((f) => f.level === "flag" && /exclusivity ends at 1 month[^s]/i.test(f.text)));
+  check("wf14: conflicts carry the can't-see-other-contracts honesty note",
+    cf.flags.some((f) => /can't see your other contracts/i.test(f.text)));
+
+  const chk = DB.buildChecklist(q);
+  check("wf14: checklist has all 7 groups", chk.ok && chk.groups.length === 7);
+  check("wf14: walk-away line uses the expected-close floor ($2,100)",
+    chk.groups[6].items[0].detail.indexOf("$2,100") >= 0);
+
+  const pitch = DB.renderPitch(input, q);
+  check("wf14: proposal renders with the real total ($2,700)",
+    pitch.ok && pitch.body.indexOf("$2,700") >= 0);
+  check("wf14: proposal keeps unsupplied stats as [brackets]",
+    pitch.ok && pitch.bracketCount >= 8 && !/views averaged [0-9]/.test(pitch.body));
 })();
 
 console.log(`\nagent-workflows: ${pass} passed, ${fail} failed`);
