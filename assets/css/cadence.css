@@ -1,0 +1,82 @@
+/* Cadence Coach — week grid + result craft.
+   Mobile-first; container query upgrades the 7-day strip to columns on
+   wider containers (with @supports fallback). No animation: results render
+   statically, honoring prefers-reduced-motion by never moving at all. */
+
+.cc-week {
+  container-type: inline-size;
+  container-name: ccweek;
+  margin: 2rem 0;
+}
+
+.cc-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+
+.cc-day {
+  border: 1px solid var(--line, #2a2a3a);
+  border-radius: 10px;
+  padding: 0.6rem 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: var(--panel, rgba(255, 255, 255, 0.02));
+}
+
+.cc-day.is-rest {
+  opacity: 0.72;
+  border-style: dashed;
+}
+
+.cc-dayname {
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  min-width: 7.5rem;
+}
+
+.cc-rest {
+  font-size: 0.85rem;
+  color: var(--muted, #9a9ab0);
+}
+
+.cc-empty {
+  color: var(--muted, #9a9ab0);
+}
+
+.cc-chip {
+  display: inline-block;
+  font-size: 0.82rem;
+  font-weight: 600;
+  border-radius: 999px;
+  padding: 0.2rem 0.65rem;
+  margin-right: 0.4rem;
+  border: 1px solid var(--line, #2a2a3a);
+}
+
+.cc-chip.cc-long { border-color: var(--acid, #b8e62e); }
+.cc-chip.cc-short { border-color: var(--coral, #ff6b5e); }
+
+.cc-ramp {
+  border-left: 3px solid var(--acid, #b8e62e);
+  padding: 0.2rem 0 0.2rem 0.9rem;
+  margin: 1rem 0;
+  max-width: 72ch;
+}
+
+/* Wider week containers: the 7 days become a true week strip. */
+@supports (container-type: inline-size) {
+  @container ccweek (min-width: 560px) {
+    .cc-grid { grid-template-columns: repeat(7, 1fr); }
+    .cc-day {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.35rem;
+      min-height: 7rem;
+    }
+    .cc-dayname { min-width: 0; }
+  }
+}

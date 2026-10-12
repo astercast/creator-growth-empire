@@ -162,11 +162,7 @@
     </div>
   </details>
 
-  <div style="margin-top:1.5rem">
-    <button type="submit" class="btn btn-primary">Run the simulation →</button>
-    <label class="check" style="margin-left:1rem"><input type="checkbox" id="s-live" checked> Live update <span class="muted" style="font-size:.85rem">(re-run as I type)</span></label>
-    <span id="s-live-status" class="muted" role="status" style="font-size:.85rem"></span>
-  </div>
+  <button type="submit" class="btn btn-primary" style="margin-top:1.5rem">Run the simulation →</button>
 </form>
 
 <section class="hud-panel" aria-label="A/B comparison" style="margin-top:1.5rem">
@@ -181,39 +177,6 @@
     </div>
     <button type="button" class="btn" id="cmp-run">Run the comparison &rarr;</button>
     <div id="cmp-output" aria-live="polite"></div>
-  </div>
-</section>
-
-<section class="hud-panel" aria-label="Goal solver" style="margin-top:1.5rem">
-  <div class="hud-head"><span>WHAT WOULD IT TAKE? // THE GOAL SOLVER</span><span class="hud-status">INVERT THE MODEL</span></div>
-  <div class="hud-body">
-    <p class="muted" style="font-size:.9rem">Name the destination and the deadline — the solver binary-searches the model for the <em>one input</em> that gets you there, holding everything else fixed. The answer is the model's, never a promise: reality has variance, the solver doesn't.</p>
-    <div class="calc-grid">
-      <label>I want
-        <select id="s-goal-target">
-          <option value="subs" selected>Subscribers</option>
-          <option value="net">Net revenue in one month ($)</option>
-          <option value="stage">A Money Map stage</option>
-        </select></label>
-      <label>Target value
-        <input type="number" id="s-goal-value" min="1" value="100000" step="1000"></label>
-      <label id="s-goal-stage-row" style="display:none">Stage
-        <select id="s-goal-stage">
-          <option value="1">Stage 1 — First $100</option>
-          <option value="2" selected>Stage 2 — The Engine Runs</option>
-          <option value="3">Stage 3 — The Business</option>
-          <option value="4">Stage 4 — The Company</option>
-        </select></label>
-      <label>By month
-        <input type="number" id="s-goal-month" min="1" max="36" value="24" step="1"></label>
-      <label>Solve for
-        <select id="s-goal-var">
-          <option value="growth" selected>Base monthly growth rate</option>
-          <option value="cadence">Long-form videos / week</option>
-        </select></label>
-    </div>
-    <button type="button" class="btn" id="s-goal-run">Solve it →</button>
-    <div id="s-goal-out" aria-live="polite" class="goal-out"></div>
   </div>
 </section>
 

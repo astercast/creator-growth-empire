@@ -38,16 +38,6 @@
   var nicheSel = document.getElementById("s-niche");
   var nicheNote = document.getElementById("s-niche-rpm");
 
-  /* 4.0: reduced-motion-safe scrolling — smooth scroll only when the user
-   * hasn't asked for reduced motion. */
-  var REDUCED = typeof matchMedia === "function" &&
-    matchMedia("(prefers-reduced-motion: reduce)").matches;
-  function scrollToEl(el) {
-    if (!el || !el.scrollIntoView) return;
-    if (REDUCED) el.scrollIntoView({ block: "start" });
-    else el.scrollIntoView({ behavior: "smooth", block: "start" });
-  }
-
   function fmtMoney(n) { return "$" + Math.round(n).toLocaleString("en-US"); }
   function fmtSigned(n) {
     var v = Math.round(n);
@@ -287,7 +277,7 @@
     if (N === 12) return [1, 4, 7, 10, 12];
     return [1, Math.round(N / 4), Math.round(N / 2), Math.round(3 * N / 4), N];
   }
-  function subsChart(months, res) {
+  function subsChart(months) {
     var N = months.length;
     var W = 640, H = 260, pl = 46, pr = 14, pt = 18, pb = 30;
     var max = Math.max.apply(null, months.map(function (m) { return m.subs; })) * 1.08;
@@ -295,14 +285,6 @@
     var Y = function (v) { return pt + (H - pt - pb) * (1 - v / max); };
     var pts = months.map(function (m, i) { return X(i).toFixed(1) + "," + Y(m.subs).toFixed(1); });
     var area = pl + "," + Y(0).toFixed(1) + " " + pts.join(" ") + " " + X(N - 1).toFixed(1) + "," + Y(0).toFixed(1);
-    var slot = (W - pl - pr) / N;
-    /* 4.0: Money Map stage bands behind the curve — the journey, visible. */
-    var bands = months.map(function (m, i) {
-      return '<rect x="' + (pl + slot * i).toFixed(1) + '" y="' + pt + '" width="' +
-        (slot + 0.6).toFixed(1) + '" height="' + (H - pt - pb) + '" class="stage-band-' +
-        m.stage + '"><title>Month ' + m.month + " \u2014 Stage " + m.stage + " (" +
-        esc(EmpireSim.STAGES[m.stage].name) + ")</title></rect>";
-    }).join("");
     var ticks = [0, max / 2, max].map(function (v) {
       return '<line x1="' + pl + '" y1="' + Y(v) + '" x2="' + (W - pr) + '" y2="' + Y(v) +
         '" class="chart-grid"/><text x="' + (pl - 6) + '" y="' + (Y(v) + 4) +
@@ -312,44 +294,19 @@
       return '<text x="' + X(mm - 1) + '" y="' + (H - 8) +
         '" class="chart-tick" text-anchor="middle">M' + mm + "</text>";
     }).join("");
-    /* 4.0: milestone dots on the curve + what-if event markers. */
-    var dots = (res.milestones || []).map(function (ms) {
-      var i = Math.max(0, Math.min(N - 1, ms.month - 1));
-      return '<circle cx="' + X(i).toFixed(1) + '" cy="' + Y(months[i].subs).toFixed(1) +
-        '" r="4.5" class="chart-dot"><title>' + esc(ms.label) + " \u2014 month " +
-        ms.month + "</title></circle>";
-    }).join("");
-    var evMarks = months.map(function (m, i) {
-      if (!m.eventsActive.length) return "";
-      return '<text x="' + X(i).toFixed(1) + '" y="' + (Y(m.subs) - 14).toFixed(1) +
-        '" text-anchor="middle" class="chart-event">\u26a1<title>What-if active, month ' +
-        m.month + ": " + esc(m.eventsActive.map(cardName).join(", ")) + "</title></text>";
-    }).join("");
-    var endLabel = '<text x="' + (X(N - 1) - 4).toFixed(1) + '" y="' +
-      (Y(months[N - 1].subs) - 10).toFixed(1) +
-      '" text-anchor="end" class="chart-tick">' + fmtCompact(months[N - 1].subs) + " subs</text>";
-    var stageLegend = [0, 1, 2, 3, 4].map(function (s) {
-      return '<span class="legend-item"><span class="swatch stage-swatch-' + s +
-        '"></span>Stage ' + s + "</span>";
-    }).join("");
     return '<svg viewBox="0 0 ' + W + " " + H + '" class="chart" role="img" ' +
       'aria-label="Subscriber growth curve over ' + N + " months, ending at " + fmtCompact(months[N - 1].subs) + ' subscribers">' +
-      '<g aria-hidden="true">' + bands + "</g>" +
       ticks + '<polygon points="' + area + '" class="chart-area"/>' +
       '<polyline points="' + pts.join(" ") + '" class="chart-line"/>' +
-      '<g aria-hidden="true">' + dots + evMarks + "</g>" +
-      endLabel + months_ticks + "</svg>" +
-      '<div class="chart-legend" aria-hidden="true">' + stageLegend + "</div>";
+      months_ticks + "</svg>";
   }
 
-  function revenueChart(months, res) {
+  function revenueChart(months) {
     var N = months.length;
     var W = 640, H = 280, pl = 52, pr = 14, pt = 18, pb = 44;
     var max = Math.max.apply(null, months.map(function (m) { return m.total; })) * 1.08 || 1;
     var slot = (W - pl - pr) / N, bw = Math.min(34, slot * 0.62);
     var Y = function (v) { return pt + (H - pt - pb) * (1 - v / max); };
-    var best = months.reduce(function (a, b) { return b.total > a.total ? b : a; }, months[0]);
-    var labelEvery = N > 12 ? 3 : 1; /* 4.0: keep month labels readable at 24/36 mo */
     var bars = months.map(function (m, i) {
       var x = pl + slot * i + (slot - bw) / 2, y0 = Y(0), segs = "";
       var acc = 0;
@@ -362,23 +319,9 @@
           "<title>" + esc(s.label) + " M" + m.month + ": " + fmtMoney(v) + "</title></rect>";
         acc += v;
       });
-      /* 4.0: what-if event marker above the bar + best-month value label. */
-      var mark = "";
-      if (m.eventsActive.length) {
-        mark = '<text x="' + (x + bw / 2).toFixed(1) + '" y="' + (Y(acc) - 8).toFixed(1) +
-          '" text-anchor="middle" class="chart-event">\u26a1<title>What-if active, month ' +
-          m.month + ": " + esc(m.eventsActive.map(cardName).join(", ")) + "</title></text>";
-      }
-      if (m.month === best.month && best.total > 0) {
-        mark += '<text x="' + (x + bw / 2).toFixed(1) + '" y="' + (Y(acc) - (m.eventsActive.length ? 22 : 8)).toFixed(1) +
-          '" text-anchor="middle" class="chart-tick">' + fmtMoney(best.total) + "</text>";
-      }
-      var mlabel = ((m.month - 1) % labelEvery === 0)
-        ? '<text x="' + (x + bw / 2).toFixed(1) + '" y="' + (H - 24) +
-          '" class="chart-tick" text-anchor="middle">' + m.month + "</text>"
-        : "";
-      return '<g aria-hidden="true"><title>Month ' + m.month + " total " + fmtMoney(m.total) + "</title>" + segs +
-        mark + mlabel + "</g>";
+      return '<g><title>Month ' + m.month + " total " + fmtMoney(m.total) + "</title>" + segs +
+        '<text x="' + (x + bw / 2).toFixed(1) + '" y="' + (H - 24) +
+        '" class="chart-tick" text-anchor="middle">' + m.month + "</text></g>";
     }).join("");
     var ticks = [0, max / 2, max].map(function (v) {
       return '<line x1="' + pl + '" y1="' + Y(v) + '" x2="' + (W - pr) + '" y2="' + Y(v) +
@@ -398,6 +341,15 @@
 
   /* ---------- render ---------- */
   var STICKER_VARIANTS = ["", "sticker-coral", "sticker-gold", "sticker-violet"];
+
+  function hireSummary(res) {
+    var hires = res.meta.hires || [];
+    if (!hires.length) return "no hires — gross = net";
+    return hires.map(function (h) {
+      var t = EmpireSim.DEFAULTS.hireTypes[h.type];
+      return (t ? t.label : h.type) + " $" + Math.round(h.monthlyCost) + "/mo from M" + h.startMonth;
+    }).join(" · ");
+  }
 
   function hireSummary(res) {
     var hires = res.meta.hires || [];
@@ -429,40 +381,7 @@
     return html;
   }
 
-  /* 4.0: year-by-year summary cards for 24/36-month runs — the multi-year
-   * story at a glance, before the month-by-month ledger. */
-  function yearCards(res) {
-    var months = res.months;
-    if (months.length <= 12) return "";
-    var cards = "";
-    for (var y = 0; y < months.length / 12; y++) {
-      var slice = months.slice(y * 12, y * 12 + 12);
-      var gross = slice.reduce(function (a, m) { return a + m.total; }, 0);
-      var team = slice.reduce(function (a, m) { return a + m.teamCost; }, 0);
-      var last = slice[slice.length - 1];
-      cards += '<div class="calc-out"><div class="lbl">Year ' + (y + 1) + "</div>" +
-        '<div class="big">' + fmtMoney(gross - team) + '</div><div class="range">net · ' +
-        fmtCompact(last.subs) + " subs · ends Stage " + last.stage + " (" +
-        esc(EmpireSim.STAGES[last.stage].name) + ")</div>" +
-        '<p class="muted" style="font-size:.82rem;margin:.4rem 0">Gross ' +
-        fmtMoney(gross) + " − team " + fmtMoney(team) + "</p></div>";
-    }
-    return '<h3>The years</h3><div class="calc-grid">' + cards + "</div>";
-  }
-
-  /* 4.0: the assumptions panel, always visible in the results — never
-   * hidden behind the drawer. Reuses the engine's assumptionLines(). */
-  function assumptionsBlock(inputs, res) {
-    return "<h3>Assumptions — always visible</h3>" +
-      '<div class="calc-out" style="text-align:left">' +
-      "<ul style='font-size:.88rem;margin:.5rem 0;padding-left:1.2rem'>" +
-      EmpireSim.assumptionLines(inputs, res).map(function (l) {
-        return "<li>" + esc(l) + "</li>";
-      }).join("") + "</ul></div>";
-  }
-
-  function render(inputs, res, opts) {
-    opts = opts || {};
+  function render(inputs, res) {
     var months = res.months, totals = res.totals;
     var N = months.length;
     var best = months.reduce(function (a, b) { return b.total > a.total ? b : a; }, months[0]);
@@ -512,15 +431,14 @@
         "<td>" + fmtMoney(m.teamCost) + "</td><td><strong>" + fmtMoney(m.net) + "</strong></td></tr>";
     }).join("");
 
-    var html =
+    out.innerHTML =
       '<div class="hud-panel" style="margin-top:2rem"><div class="hud-head">' +
       "<span>SIMULATION COMPLETE // " + N + "-MONTH EMPIRE PROJECTION</span>" +
       '<span class="hud-status">MODEL, NOT PROPHECY</span></div><div class="hud-body">' +
       "<h2>Your empire, month by month</h2>" + meta + stats +
-      yearCards(res) + miles + stageTimeline(res) +
-      "<h3>Subscriber curve</h3>" + subsChart(months, res) +
-      "<h3>Revenue by stream</h3>" + revenueChart(months, res) +
-      assumptionsBlock(inputs, res) +
+      miles + stageTimeline(res) +
+      "<h3>Subscriber curve</h3>" + subsChart(months) +
+      "<h3>Revenue by stream</h3>" + revenueChart(months) +
       "<h3>The ledger (month-by-month P&amp;L)</h3><div class=\"table-wrap\"><table><caption>Month-by-month projection. " +
       "Compact numbers; revenue rounded. Net = total − team cost. ⚡ marks months with an active what-if event.</caption><thead><tr><th scope='col'>Mo</th>" +
       "<th scope='col'>Subs</th><th scope='col'>Stage</th><th scope='col'>Long views</th><th scope='col'>Shorts views</th>" +
@@ -534,20 +452,8 @@
       'Verify every platform number live before making decisions.</p>' +
       "</div></div>";
 
-    /* Same-document view transition (Baseline 2026) on explicit runs — the
-     * new results crossfade in as one choreographed beat. Live re-runs pass
-     * transition:false to swap plainly (no flicker); reduced-motion users
-     * and unsupporting browsers always get the plain swap. */
-    function swap() {
-      out.innerHTML = html;
-      wireShare(inputs, res);
-      if (opts.scroll !== false) scrollToEl(out);
-    }
-    if (opts.transition !== false && !REDUCED && document.startViewTransition) {
-      document.startViewTransition(swap);
-    } else {
-      swap();
-    }
+    wireShare(inputs, res);
+    out.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
   function stat(label, big, sub) {
@@ -683,7 +589,7 @@
       assumptionsPanel(cmp.nameB, B.inputs, cmp.b) + "</div>" +
       '<p class="muted" style="margin-top:1rem">Models, not predictions. Not financial, legal, or tax advice.</p>' +
       "</div></div>";
-    scrollToEl(cmpOut);
+    cmpOut.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
   var cmpA = document.getElementById("cmp-a");
@@ -715,86 +621,4 @@
     var res = EmpireSim.simulate(inputs, cfg);
     render(inputs, res);
   });
-
-  /* ---------- 4.0: live re-run (debounced) ----------
-   * The sandbox re-simulates as you type — the charts stay in sync with the
-   * form without a round-trip through the Run button. Explicit runs keep the
-   * view transition + scroll; live runs swap plainly and stay put. */
-  var liveTimer = null;
-  var liveBox = document.getElementById("s-live");
-  var liveStatus = document.getElementById("s-live-status");
-  form.addEventListener("input", function () {
-    if (!liveBox || !liveBox.checked || !cfg) return;
-    if (liveTimer) clearTimeout(liveTimer);
-    liveTimer = setTimeout(function () {
-      var inputs = readInputs();
-      var res = EmpireSim.simulate(inputs, cfg);
-      render(inputs, res, { scroll: false, transition: false });
-      if (liveStatus) {
-        var d = new Date();
-        var hh = ("0" + d.getHours()).slice(-2);
-        var mm = ("0" + d.getMinutes()).slice(-2);
-        var ss = ("0" + d.getSeconds()).slice(-2);
-        liveStatus.textContent = "Live re-ran at " + hh + ":" + mm + ":" + ss + ".";
-      }
-    }, 800);
-  });
-
-  /* ---------- 4.0: "what would it take?" goal solver ----------
-   * Inverts the model: binary-searches base growth (or long-form cadence)
-   * until the target lands by the target month. The answer is the model's,
-   * labeled as such — never a promise. */
-  var goalBtn = document.getElementById("s-goal-run");
-  if (goalBtn) {
-    var goalTarget = document.getElementById("s-goal-target");
-    var goalStageRow = document.getElementById("s-goal-stage-row");
-    goalTarget.addEventListener("change", function () {
-      if (goalStageRow) {
-        goalStageRow.style.display = goalTarget.value === "stage" ? "" : "none";
-      }
-    });
-    goalBtn.addEventListener("click", function () {
-      var goalOut = document.getElementById("s-goal-out");
-      if (!cfg) {
-        goalOut.innerHTML = '<p class="muted">Still loading the 2026 rate data — try again in a second.</p>';
-        return;
-      }
-      var target = goalTarget.value;
-      var goal = {
-        target: target,
-        value: target === "stage"
-          ? parseInt(document.getElementById("s-goal-stage").value, 10)
-          : parseFloat(document.getElementById("s-goal-value").value) || 0,
-        month: Math.max(1, Math.min(36,
-          parseInt(document.getElementById("s-goal-month").value, 10) || 12)),
-        variable: document.getElementById("s-goal-var").value
-      };
-      var inputs = readInputs();
-      var r = EmpireSim.solveForGoal(inputs, cfg, goal);
-      var html;
-      if (r.ok) {
-        html = '<div class="calc-out" style="text-align:left;border-left:4px solid var(--acid)">' +
-          "<p><strong>What it would take: " + esc(r.valueLabel) + "</strong></p>" +
-          "<p class='muted'>" + esc(r.note) + "</p>" +
-          (r.alreadyThere ? "" :
-            "<p class='muted'>Model check: at " + esc(r.valueLabel) + " the run reaches " +
-            esc(r.achievedLabel) + " by month " + r.month + ".</p>") +
-          "</div>";
-      } else if (r.reason === "stage4_needs_team") {
-        html = '<div class="calc-out" style="text-align:left;border-left:4px solid var(--gold)">' +
-          "<p><strong>Blocked:</strong> " + esc(r.note) + "</p></div>";
-      } else if (r.reason === "unreachable") {
-        html = '<div class="calc-out" style="text-align:left;border-left:4px solid var(--coral)">' +
-          "<p><strong>Not reachable in this model.</strong></p>" +
-          "<p class='muted'>" + esc(r.note) + "</p></div>";
-      } else {
-        html = '<p class="muted">Enter a target above zero first.</p>';
-      }
-      html += '<p class="muted" style="font-size:.82rem">Single-source reality check (Lilach Bullock, Oct 2026): ' +
-        "under 1% of YouTube channels ever reach 100K subscribers — plan around loyal-subscriber math, not virality. " +
-        "The solver is model math, not a plan.</p>";
-      goalOut.innerHTML = html;
-      scrollToEl(goalOut);
-    });
-  }
 })();

@@ -1,0 +1,61 @@
+<form id="cc-form" aria-label="Cadence Coach">
+  <div class="calc-grid">
+    <fieldset style="border:1px solid var(--line,#2a2a3a);border-radius:10px;padding:.75rem 1rem">
+      <legend style="padding:0 .5rem;font-weight:600">Platforms</legend>
+      <label style="display:block;margin:.25rem 0"><input type="checkbox" name="cc-plat" value="youtube" checked> YouTube long-form</label>
+      <label style="display:block;margin:.25rem 0"><input type="checkbox" name="cc-plat" value="shorts" checked> YouTube Shorts</label>
+      <label style="display:block;margin:.25rem 0"><input type="checkbox" name="cc-plat" value="tiktok"> TikTok</label>
+      <label style="display:block;margin:.25rem 0"><input type="checkbox" name="cc-plat" value="instagram"> Instagram Reels</label>
+    </fieldset>
+    <fieldset style="border:1px solid var(--line,#2a2a3a);border-radius:10px;padding:.75rem 1rem">
+      <legend style="padding:0 .5rem;font-weight:600">Time split</legend>
+      <label style="display:block;margin:.25rem 0"><input type="radio" name="cc-priority" value="longs"> Long-form first</label>
+      <label style="display:block;margin:.25rem 0"><input type="radio" name="cc-priority" value="shorts"> Short-form first</label>
+      <label style="display:block;margin:.25rem 0"><input type="radio" name="cc-priority" value="balanced" checked> Balanced 50/50</label>
+    </fieldset>
+    <label>Honest hours per week
+      <input type="number" id="cc-hours" min="1" max="80" step="0.5" value="10" required aria-describedby="cc-hint"></label>
+    <label>Money Map stage
+      <select id="cc-stage">
+        <option value="0">Stage 0 — The Start Line ($0)</option>
+        <option value="1" selected>Stage 1 — First $100</option>
+        <option value="2">Stage 2 — The Engine Runs ($1K/mo)</option>
+        <option value="3">Stage 3 — The Business ($10K/mo)</option>
+        <option value="4">Stage 4 — The Company</option>
+      </select></label>
+    <label>Rest day
+      <select id="cc-rest">
+        <option value="0">Monday</option><option value="1">Tuesday</option>
+        <option value="2">Wednesday</option><option value="3">Thursday</option>
+        <option value="4">Friday</option><option value="5">Saturday</option>
+        <option value="6" selected>Sunday</option>
+      </select></label>
+  </div>
+  <p id="cc-hint" class="muted" style="margin-top:-0.5rem">Only hours you actually have, week after week. Wishful hours are how cadences die in week three.</p>
+  <details style="margin-bottom:1rem">
+    <summary style="cursor:pointer;font-weight:600">Per-piece minutes (optional — defaults are starting estimates, not benchmarks)</summary>
+    <div class="calc-grid" style="margin-top:.75rem">
+      <label>Long-form: minutes per video<input type="number" id="cc-longmins" min="5" step="5" placeholder="570"></label>
+      <label>Short-form: minutes per post<input type="number" id="cc-shortmins" min="5" step="5" placeholder="90"></label>
+    </div>
+    <p class="muted">Your footage, your edit speed, your reality. Time one real video of each type and replace these — the single highest-leverage calibration on this page.</p>
+  </details>
+  <button type="submit" class="btn btn-primary">Build my cadence →</button>
+</form>
+<div id="cc-results" aria-live="polite" style="margin-top:1.5rem"><div class="empty-state" role="status"><span class="empty-icon" aria-hidden="true">◷</span><strong>No cadence yet.</strong>Plug in your honest hours and the coach deals your week into a posting cadence you can actually hold — and tells you straight what each platform pays in Oct 2026.</div></div>
+
+<noscript>
+  <div class="callout"><strong>How often should you post?</strong>
+  <p>Without JavaScript, here is the honest version: there is no peer-reviewed cadence science. Take your real weekly hours, subtract ~20% for comments/admin/analytics, divide what is left by how long one video actually takes you — that is your sustainable cadence. Rest one full day. Start one notch below your max for two weeks. Consistency beats volume: a schedule you keep for 90 days outperforms an ambitious one you abandon in week three. Platform facts (Oct 2026): TikTok Creator Rewards only pays videos over 1 minute ($0.40–$1.00 per 1K qualified views); Instagram Reels pay $0 per view; Shorts run $0.02–$0.20 per 1K views; long-form carries the highest ad RPM in most niches.</p></div>
+</noscript>
+
+<section aria-labelledby="cc-links-title" style="margin-top:2rem">
+  <h2 id="cc-links-title">The cadence pipeline</h2>
+  <ul>
+    <li><strong>Batching Planner</strong> (<a href="batching.html">batching.html</a>) — do your film days actually cover this cadence?</li>
+    <li><strong>90-Day Planner</strong> (<a href="planner.html">planner.html</a>) — turn the cadence into the 13-week posting schedule.</li>
+    <li><strong>Content calendar</strong> (<a href="content-calendar.html">content-calendar.html</a>) — deal your idea bank into that schedule.</li>
+    <li><strong>Simulator</strong> (<a href="simulator.html">simulator.html</a>) — model what a sustainable cadence could compound into. A model, not a prediction.</li>
+  </ul>
+</section>
+<p class="muted">No peer-reviewed cadence science exists — this is capacity arithmetic on your own hours plus platform facts. Posting more never guarantees views, revenue, or growth. A planning aid, not financial, legal, or tax advice.</p>

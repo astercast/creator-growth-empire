@@ -289,8 +289,8 @@
       "id": "no_ftc_disclosure",
       "title": "No FTC disclosure language in the contract",
       "severity": "minor",
-      "detail": "If the contract never mentions disclosure, the compliance risk quietly sits on you — and FTC fines land on the creator, not the brand's legal team. In 2026 the FTC is targeting individual creators for disclosure violations at scale (fines cited up to ~$53K per violation — the exact figure is uncertain across sources).",
-      "fix": "A disclosure clause both sides sign: clear #ad / 'paid partnership' labeling, and you keep final say on where the disclosure sits in the content. AI-generated content needs its own disclosure too in 2026."
+      "detail": "If the contract never mentions disclosure, the compliance risk quietly sits on you — and FTC fines land on the creator, not the brand's legal team.",
+      "fix": "A disclosure clause both sides sign: clear #ad / 'paid partnership' labeling, and you keep final say on where the disclosure sits in the content."
     },
     {
       "id": "scope_creep_language",
