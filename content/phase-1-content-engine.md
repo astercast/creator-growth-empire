@@ -73,7 +73,7 @@ A great video with bad packaging gets 200 views. A good video with great packagi
 - Curiosity gap, not clickbait: the video must deliver *more* than the title promises. The gap between promise and delivery is where trust — and subscribers — live.
 - Front-load keywords for searchable content; front-load curiosity for browse content.
 
-**Hooks (short-form):** the first frame + first line. Start mid-action, state the payoff, or ask the question the video answers. "Wait for it" is not a hook.
+**Hooks (short-form):** the first frame + first line. Start mid-action, state the payoff, or ask the question the video answers. "Wait for it" is not a hook. The full treatment — five hook structures with fill-in-the-blank builders, retention editing, and per-platform playbooks — lives in [The Short-Form Playbook](shortform-playbook.html).
 
 ## The weekly engine, assembled
 

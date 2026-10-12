@@ -291,3 +291,87 @@ output { font-family: var(--font-mono); color: var(--acid); font-weight: 700; }
 .swatch { width: 0.9rem; height: 0.9rem; border-radius: 3px; display: inline-block; }
 
 #sim-output h3 { margin-top: 1.8rem; }
+
+/* ---- Hook Builder: flip-through card deck (wave 11) ---- */
+.hb-deck {
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--bg-2);
+  padding: 1.25rem;
+  margin: 1rem 0;
+}
+.hb-deck:focus-visible { outline: 2px solid var(--acid); outline-offset: 3px; }
+.hb-card {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--bg-1);
+  padding: 1.25rem 1.35rem;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.hb-kicker {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin: 0 0 0.4rem;
+}
+.hb-card h3 { margin: 0 0 0.5rem; }
+.hb-desc { color: var(--muted); margin: 0 0 1rem; }
+.hb-variant {
+  margin: 0 0 1rem;
+  padding: 0.9rem 1rem;
+  border-left: 3px solid var(--acid);
+  background: var(--bg-2);
+  font-size: 1.15rem;
+  font-weight: 600;
+  line-height: 1.45;
+}
+.hb-variant-label {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin-bottom: 0.3rem;
+}
+.hb-formula, .hb-example, .hb-tip { font-size: 0.95rem; color: var(--muted); margin: 0.5rem 0; }
+.hb-formula code { color: var(--acid); }
+.hb-copy { margin-top: 0.75rem; }
+.hb-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+.hb-dots { display: flex; gap: 0.5rem; }
+.hb-dot {
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  border: 1px solid var(--line-strong);
+  background: transparent;
+  color: var(--muted);
+  font-weight: 700;
+  cursor: pointer;
+}
+.hb-dot:hover { border-color: var(--acid); color: var(--text); }
+.hb-dot-active { background: var(--acid); border-color: var(--acid); color: #000; }
+.hb-dot:focus-visible { outline: 2px solid var(--acid); outline-offset: 2px; }
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  margin: -1px; padding: 0; border: 0;
+  clip: rect(0 0 0 0); clip-path: inset(50%);
+  overflow: hidden; white-space: nowrap;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hb-card { transition: none; }
+}
+@media (max-width: 560px) {
+  .hb-deck { padding: 0.9rem; }
+  .hb-variant { font-size: 1.05rem; }
+}

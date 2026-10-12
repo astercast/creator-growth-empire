@@ -78,7 +78,7 @@ You don't need to master five platforms on day one. **Sequence it:** nail YouTub
 
 Not every idea deserves the five-platform treatment. Before you run the SOP, check the idea against the **atom test** — a repurposable idea has:
 
-1. **A standalone hook** — can the core insight survive without the other 9 minutes? If the value only exists in full context, it's a pillar-only video. That's fine — not everything must be everywhere.
+1. **A standalone hook** — can the core insight survive without the other 9 minutes? If the value only exists in full context, it's a pillar-only video. That's fine — not everything must be everywhere. The [Hook Builder tool](hook-builder.html) generates five filmed-ready openers per topic from the Short-Form Playbook's five structures.
 2. **A visual moment** — one frame or sequence striking enough to stop a scroll. Talking-head wisdom needs a visual anchor for short-form: a demo, a transformation, a surprising graphic.
 3. **A quotable line** — one sentence that works as text. If you can't extract a single banger quote, the idea might be interesting but not *spreadable*.
 4. **A debatable claim** — the clips that travel furthest are the ones people argue about. A mild take gets mild distribution.

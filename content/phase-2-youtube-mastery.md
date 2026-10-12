@@ -60,7 +60,7 @@ On October 1, 2026, YouTube changed the Shorts recommendation game: **original c
 
 **The AI disclosure rule (May 2026 enforcement).** Automated detection now flags undisclosed photorealistic AI content. Properly labeled AI videos get **normal** distribution — labels don't hurt reach. Undisclosed ones face reduced recommendations or removal. If you use AI-generated visuals, label them and you're fine; the penalty is for hiding it, not using it.
 
-**What this means for you:** the "repost trap" isn't a TikTok thing anymore — it's everywhere (Meta's March 2026 policy hit reposted content on Facebook too). The era of zero-effort redistribution is closing on every platform simultaneously. If your strategy involves anyone else's footage, the question is no longer "will I get views" — it's "what did I add that justifies my cut?" Be able to answer that sentence, or don't build there.
+**What this means for you:** the "repost trap" isn't a TikTok thing anymore — it's everywhere (Meta's March 2026 policy hit reposted content on Facebook too). The era of zero-effort redistribution is closing on every platform simultaneously. If your strategy involves anyone else's footage, the question is no longer "will I get views" — it's "what did I add that justifies my cut?" Be able to answer that sentence, or don't build there. For the originality-first Shorts playbook — hooks, retention editing, and long-form funneling under the new rules — see [The Short-Form Playbook](shortform-playbook.html).
 
 ## Consistency systems: the unglamorous multiplier
 

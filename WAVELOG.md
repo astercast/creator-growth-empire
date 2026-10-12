@@ -1,5 +1,18 @@
 # Creator Growth Empire — Wave Log
 
+## Wave 11 — deep content: "The Short-Form Playbook" (2026-10-11)
+
+What shipped:
+1. **New chapter `pages/shortform-playbook.md` → `site/shortform-playbook.html`** (MARKDOWN_PAGES, badge "Playbook", 3,012 words): "The Short-Form Playbook" — grounded in the wave-7 fuel research (sourced Oct 2026): why short-form is a different game (interest-graph not social-graph; test-pool cascade; watch-time-per-impression), **5 hook structures** (Open Loop, Cold Start, Contrarian Take, Numbered Promise, Question-as-Hook — craft formulas, flagged as craft), retention editing (cut density, burned-in captions as TikTok search index, pattern interrupts, loopability, mid-video re-hooks), platform playbooks (TikTok: completion-rate optimization + keyword-search lever + series formats; YouTube Shorts: Oct 1 2026 originality update — channel-level re-upload reach cut, recommendations-only, re-evaluation on original; May 2026 AI-disclosure rule — labels don't hurt, undisclosed photorealistic AI reduced/removed; Shorts→long-form funneling; Reels: Mosseri's sends-per-reach #1 hierarchy + sends-per-reach engineering + DM test; 7–30s discovery and >3min-not-pushed-to-non-followers both flagged single-source), posting cadence (honest: no peer-reviewed cadence science — consistency beats volume, Phase 1 baseline, anti-volume warning), series formats that compound (numbered series, recurring characters, serialized mini-dramas — cross-links the trend-machine's Oracle at github.com/astercast/trend-machine for launch-into-rising-topics), what kills reach (re-uploads, watermarks, undisclosed AI, long Reels to cold audiences, engagement bait, inconsistent volume). Every platform claim sourced or flagged single-source; no income promises, no earnings figures.
+2. **New tool: Hook Builder** (`pages/hook-builder.html` + `assets/js/hook-builder.js`, TOOLS/TOOL_HUB_META/TOOL_SCRIPTS wired — CONTENT group, 🎣 icon): 5 hook structures as flip-through cards — topic input → 5 filmed-ready hook variants, one per card; card = structure name, description, your hook, formula, worked example, delivery tip, copy-to-clipboard button. ARIA (region/slide roles, numbered dots with aria-current, polite live announcer "Card N of 5"), full keyboard (arrows/Home/End + buttons), focus-visible outlines, reduced-motion media query, mobile-first deck CSS appended to assets/css/components.css. nav_active = tools.html; linked from the Playbook chapter and Phase 3's repurposing SOP.
+3. **Cross-links** — Phase 1 hooks bullet → Playbook; Phase 2 originality-update section → Playbook; Phase 3 repurposing SOP → Hook Builder tool. Index "All 9 tools →"; llms.txt "All nine tools"; api/v1/index.json tools[] regenerated (hook-builder.html included); llms-full.txt carries the full Playbook chapter.
+
+Validation: `scripts/build.py` clean (9 chapters, 9 tools, 10 skills, 5 case files, 16,153 words); rebuild committed, then `scripts/validate.sh` **7/7 GREEN** (13 JS files incl. hook-builder.js node --check, 0 broken of ~1,5xx links, byte-identical rebuild, 16/16 sim assertions, llms counts fresh — 9 phases, 9 tools, 5 case files, 10 skills).
+
+Commit: e7192b5 (pushed 2026-10-11).
+
+---
+
 History reconstruction (waves 1–2, logged 2026-10-11):
 
 - **Wave 1: 9 chapters + 3 tools + 6 skills + API; design overhaul v2 — completed 2026-10-11**
