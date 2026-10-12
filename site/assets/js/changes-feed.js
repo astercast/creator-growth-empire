@@ -39,6 +39,53 @@
     return m ? m[1] : "date unknown";
   }
 
+  var MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+  function dateLabel(iso) {
+    var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(String(iso || ""));
+    if (!m) return "";
+    var mo = Number(m[2]), d = Number(m[3]);
+    if (mo < 1 || mo > 12 || d < 1 || d > 31) return "";
+    return MONTHS[mo - 1] + " " + d + ", " + m[1];
+  }
+
+  /* Announced / effective / logged line — only the dates the entry
+     actually carries. Must match _aw_dates_html() in scripts/build.py. */
+  function datesHtml(c) {
+    var parts = [];
+    var ann = dateLabel(c.announced_at), eff = dateLabel(c.effective_at),
+      det = dateLabel(c.detected_at);
+    if (ann) parts.push("Announced " + ann);
+    if (eff) parts.push("Takes effect " + eff);
+    if (det) parts.push("Logged " + det);
+    if (!parts.length) return "";
+    return '<p class="aw-dates">' + esc(parts.join(" · ")) + "</p>";
+  }
+
+  /* Coverage panel: every platform slot, its count, and its newest logged
+     date — or an honest "no entry" line. Must match build.py's panel. */
+  function coverageHtml(entries) {
+    var counts = {}, newest = {};
+    entries.forEach(function (c) {
+      var p = c.platform || "other";
+      counts[p] = (counts[p] || 0) + 1;
+      var d = dateOnly(c.detected_at);
+      if (!newest[p] || d > newest[p]) newest[p] = d;
+    });
+    return PLATFORM_ORDER.map(function (p) {
+      var n = counts[p] || 0;
+      if (n) {
+        return '<li class="aw-cov-row"><span class="aw-cov-plat">' + esc(cap(p)) +
+          '</span><span class="aw-cov-n">' + n + (n === 1 ? " entry" : " entries") +
+          '</span><span class="aw-cov-date">newest ' + esc(dateLabel(newest[p]) || "—") + "</span></li>";
+      }
+      return '<li class="aw-cov-row aw-cov-empty"><span class="aw-cov-plat">' + esc(cap(p)) +
+        '</span><span class="aw-cov-n">No entry in the current window</span>' +
+        '<span class="aw-cov-date">standing rules: Platform Rules Bible §13</span></li>';
+    }).join("");
+  }
+
   function confidenceChip(conf) {
     if (conf === "verified") {
       return '<span class="aw-chip aw-chip-verified">Verified</span>';
@@ -67,6 +114,7 @@
       confidenceChip(c.confidence) +
       "</div>" +
       '<p class="aw-summary">' + esc(c.summary || "") + "</p>" +
+      datesHtml(c) +
       (srcItems ? '<ul class="aw-sources" aria-label="Sources">' + srcItems + "</ul>" : "") +
       "</li>"
     );
@@ -90,7 +138,22 @@
     var filters = root.querySelector("[data-aw-filters]");
     var count = root.querySelector("[data-aw-count]");
     var updated = root.querySelector("[data-aw-updated]");
+    var status = root.querySelector("[data-aw-status]");
+    var coverage = root.querySelector("[data-aw-coverage]");
     if (!list) return;
+
+    /* Failure states are stated, never smoothed over: a reader must be
+       able to tell live data from a published copy from a baked-in page. */
+    function setStatus(text) {
+      if (!status) return;
+      if (text) {
+        status.textContent = text;
+        status.hidden = false;
+      } else {
+        status.textContent = "";
+        status.hidden = true;
+      }
+    }
 
     var entries = [];
     var activePlatform = "all";
@@ -137,10 +200,29 @@
         var payload = result.data || {};
         // live envelope data and the static doc both carry .changes[]
         var rows = Array.isArray(payload.changes) ? payload.changes : null;
-        if (!rows) return; // source "none": keep pre-rendered, badge hidden by the client
+        if (!rows) {
+          // source "none": both the live server and the static fallback
+          // failed. Keep the pre-rendered feed — and say what it is.
+          setStatus("The live server did not answer and the published feed file failed to load. " +
+            "You are reading the copy baked into this page at its last build — its dates are the " +
+            "newest confirmed state, not live data. Try again later; nothing here is being " +
+            "presented as a live check.");
+          return;
+        }
         entries = rows;
         activePlatform = "all";
         render();
+        if (coverage) coverage.innerHTML = coverageHtml(entries);
+        if (result.source === "live" && result.degraded) {
+          setStatus("The live server answered with degraded data" +
+            (result.note ? ": " + result.note : ".") +
+            " Entries below carry the server's own timestamps; check the dates before acting.");
+        } else if (result.source === "static") {
+          setStatus("The live server did not answer, so this is the last published copy of the feed. " +
+            "It is dated below — read it as a published log, not a live check.");
+        } else {
+          setStatus("");
+        }
         if (updated) {
           var gen = payload.feed_generated_at || payload.generated_at || result.generatedAt || null;
           var label = result.source === "live" ? "fresh from the server" : "last published";

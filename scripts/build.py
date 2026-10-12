@@ -1102,6 +1102,36 @@ AW_PLATFORM_LABELS = {
 }
 AW_PLATFORM_ORDER = ["youtube", "tiktok", "instagram", "facebook", "x", "other"]
 
+_AW_MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+              "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+
+def _aw_date_label(iso):
+    """'2026-09-17T00:00:00Z' -> 'Sep 17, 2026'. '' for anything unparseable."""
+    m = re.match(r"^(\d{4})-(\d{2})-(\d{2})", str(iso or ""))
+    if not m:
+        return ""
+    y, mo, d = int(m.group(1)), int(m.group(2)), int(m.group(3))
+    if not (1 <= mo <= 12 and 1 <= d <= 31):
+        return ""
+    return f"{_AW_MONTHS[mo - 1]} {d}, {y}"
+
+def _aw_dates_html(c):
+    """Announced / effective / logged line — only the dates the entry
+    actually carries. Must match datesHtml() in changes-feed.js."""
+    parts = []
+    ann = _aw_date_label(c.get("announced_at"))
+    eff = _aw_date_label(c.get("effective_at"))
+    det = _aw_date_label(c.get("detected_at"))
+    if ann:
+        parts.append(f"Announced {ann}")
+    if eff:
+        parts.append(f"Takes effect {eff}")
+    if det:
+        parts.append(f"Logged {det}")
+    if not parts:
+        return ""
+    return f'<p class="aw-dates">{" · ".join(esc(p) for p in parts)}</p>'
+
 def _aw_entry_html(c):
     plat = (c.get("platform") or "other")
     cat = (c.get("category") or "policy")
@@ -1130,6 +1160,7 @@ def _aw_entry_html(c):
         f'<span class="aw-chip {conf_cls}">{conf_label}</span>'
         "</div>"
         f'<p class="aw-summary">{esc(c.get("summary", ""))}</p>'
+        f"{_aw_dates_html(c)}"
         f"{src_html}</li>"
     )
 
@@ -1151,6 +1182,37 @@ def _build_what_changed():
             f'aria-pressed="false">{esc(label)} · {counts[p]}</button>')
     entries_html = "".join(_aw_entry_html(c) for c in rows) or \
         '<li class="aw-empty" role="status">No changes in the feed yet — the watch is running, the log is just quiet.</li>'
+    # Coverage panel: every platform slot the watch claims to cover, with
+    # its entry count and newest logged date — or an honest "no entry"
+    # line. A platform with zero entries must look uncovered, not hidden.
+    newest = {}
+    for c in rows:
+        p = c.get("platform") or "other"
+        d = str(c.get("detected_at", ""))[:10]
+        if p not in newest or d > newest[p]:
+            newest[p] = d
+    cov_rows = ""
+    for p in AW_PLATFORM_ORDER:
+        label = AW_PLATFORM_LABELS.get(p, p.capitalize())
+        n = counts.get(p, 0)
+        if n:
+            cov_rows += (
+                f'<li class="aw-cov-row"><span class="aw-cov-plat">{esc(label)}</span>'
+                f'<span class="aw-cov-n">{n} {"entry" if n == 1 else "entries"}</span>'
+                f'<span class="aw-cov-date">newest {esc(_aw_date_label(newest.get(p, "")) or "—")}</span></li>')
+        else:
+            cov_rows += (
+                f'<li class="aw-cov-row aw-cov-empty"><span class="aw-cov-plat">{esc(label)}</span>'
+                '<span class="aw-cov-n">No entry in the current window</span>'
+                '<span class="aw-cov-date">standing rules: Platform Rules Bible §13</span></li>')
+    coverage_html = (
+        '<section class="aw-coverage" aria-labelledby="aw-cov-h">'
+        '<h2 id="aw-cov-h" class="aw-sec-h">Coverage — what this watch actually covers</h2>'
+        f'<ul class="aw-cov" data-aw-coverage>{cov_rows}</ul>'
+        '<p class="aw-cov-note">Spotify, Twitch, and industry-wide changes have no slot of their '
+        'own — they are logged under <strong>Other</strong>, and their standing rules live in the '
+        'Platform Rules Bible §13. A slot with no entry is shown as no entry; the watch does not '
+        'pad a quiet platform with old news.</p></section>')
     extra = (
         '<link rel="stylesheet" href="assets/css/api-badge.css">'
         '<link rel="stylesheet" href="assets/css/what-changed.css">'
@@ -1163,14 +1225,18 @@ def _build_what_changed():
         '<div class="aw-head-row"><h1>What changed</h1>'
         '<span class="api-badge" id="aw-badge" role="status" aria-live="polite" tabindex="0" '
         'title="Feed status. Without JavaScript this shows the last published static feed.">static feed</span></div>'
-        '<p class="lede">Every platform algorithm, policy, and monetization change the watch has logged — '
-        'each one dated, sourced, and labeled with its confidence. The feed refreshes from the live server '
-        'when it can reach it; otherwise you are reading the last published copy, and the badge says so.</p>'
+        '<p class="lede">Platforms move the rules that decide what you earn. <strong>This page logs '
+        'every algorithm, policy, and monetization change that matters — dated, sourced, and labeled '
+        'with its confidence</strong> — so a rule change never reaches you through a rumor.</p>'
+        '<p class="aw-actions"><a class="btn btn-primary" href="#aw-feed-list">Read the newest change ↓</a> '
+        '<a class="btn btn-ghost" href="deal-room.html#dr-sec-watch">Price a deal against it →</a></p>'
         f'<p class="aw-updated" data-aw-updated>Feed data last published · generated {esc(gen)} UTC</p>'
+        '<p class="aw-status" data-aw-status role="status" hidden></p>'
+        + coverage_html +
         '<div class="aw-filters" data-aw-filters role="group" aria-label="Filter by platform">' +
         "".join(filter_btns) + "</div>"
         f'<p class="aw-count" data-aw-count>{len(rows)} {"change" if len(rows) == 1 else "changes"} · 90-day window</p>'
-        f'<ul class="aw-feed" data-aw-list>{entries_html}</ul>'
+        f'<ul class="aw-feed" id="aw-feed-list" data-aw-list>{entries_html}</ul>'
         '<div class="aw-note" role="note"><p class="muted"><strong>How to read this feed.</strong> '
         f'{esc(doc.get("disclaimer", ""))} '
         "Entries older than 90 days roll off — this is a watch log, not an archive. "

@@ -361,7 +361,10 @@
     "tt-creator-rewards-range-2026": "Creator Rewards pays on qualified views only. A brand quoting your raw TikTok views is using the bigger number — negotiate on the qualified-view basis you are actually paid on.",
     "ig-no-per-view-payout-2026": "Instagram views pay $0, so a sponsored Reel is often the only income those views produce. That is the argument for holding your Reel rate: the brand is buying the whole revenue line, not topping one up.",
     "ig-ranking-signals-2026": "DM shares are a stated ranking signal. Content built to be sent is what brands want to attach to — pitch the share mechanic, not just the view count.",
-    "ig-oct2026-engagement-shift": "Engagement-weighted distribution favors posts that start conversations. If your rate justification cites reach, bring engagement evidence — that is the currency the ranking now pays in."
+    "ig-oct2026-engagement-shift": "Engagement-weighted distribution favors posts that start conversations. If your rate justification cites reach, bring engagement evidence — that is the currency the ranking now pays in.",
+    "fb-content-monetization-originality-2026": "Facebook pay now runs through one program with an originality gate behind it. If a brand wants your Facebook cut of a campaign, ask whether the deliverable is your original footage — reposted or lightly edited inventory can lose reach and pay, and that risk belongs in the contract, not on you.",
+    "x-original-content-rewards-2026": "X pays on qualified impressions now — Premium viewers, Home Timeline, half the post on screen — and published no rate. If a brand prices an X post off the old Revenue Sharing numbers or your raw view count, they are pricing a program that ended September 7; negotiate the post as sponsored media, not as a share of an unknown pool.",
+    "spotify-partner-program-expansion-2026": "From October 20, a video podcast in 37 more markets earns Premium video revenue plus half the ads Spotify sells in — and you keep every dollar of sponsorships you sell yourself. If a network or sponsor claims a cut of your integrated reads on Spotify, this is the entry to quote back at them."
   };
   var DEAL_NOTE_FALLBACK = {
     monetization: "Money rules moved. Recheck what this platform pays you directly before you quote a sponsor — your rate covers the gap.",
@@ -391,6 +394,8 @@
     var entries = inWindow.slice(0, limit).map(function (e) {
       return {
         id: e.id, date: String(e.detected_at || "").slice(0, 10),
+        announced: e.announced_at ? String(e.announced_at).slice(0, 10) : null,
+        effective: e.effective_at ? String(e.effective_at).slice(0, 10) : null,
         platform: e.platform, platformLabel: PLATFORM_LABELS[e.platform] || e.platform,
         category: e.category, confidence: e.confidence,
         title: e.title, summary: e.summary,
@@ -419,6 +424,12 @@
     digest.entries.forEach(function (e) {
       L.push(e.date + " · " + e.platformLabel + " · " + String(e.category).toUpperCase() +
         " · " + e.confidence);
+      if (e.announced || e.effective) {
+        var when = [];
+        if (e.announced) when.push("announced " + e.announced);
+        if (e.effective) when.push("takes effect " + e.effective);
+        L.push("  (" + when.join(" · ") + " · logged " + e.date + ")");
+      }
       L.push("  " + e.title);
       L.push("  " + e.summary);
       L.push("  For your next deal: " + e.dealNote);

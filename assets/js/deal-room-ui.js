@@ -412,7 +412,7 @@
         '<a href="what-changed.html">Algorithm Watch</a>.</div>';
       return;
     }
-    var dg = D.watchDigest(feed, {});
+    var dg = D.watchDigest(feed, { limit: 50 });
     digestCache = dg;
     var counts = Object.keys(dg.byCategory).map(function (c) {
       return dg.byCategory[c] + " " + c;

@@ -45,6 +45,29 @@
 .aw-sources a:hover { color: var(--cyan); }
 .aw-src-tag { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.1em; color: var(--faint); margin-right: 0.5rem; }
 
+.aw-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 1.1rem 0 0.2rem; }
+.aw-status {
+  margin: 0.9rem 0 0; padding: 0.7rem 0.9rem;
+  border: 1px solid var(--gold-dim); color: var(--ink);
+  background: var(--bg-2); font-size: 0.92rem; line-height: 1.55;
+}
+.aw-dates { font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.06em; color: var(--muted); margin: 0 0 0.8rem; }
+
+.aw-coverage { margin: 1.8rem 0 0; }
+.aw-sec-h { font-size: 1.02rem; margin: 0 0 0.7rem; letter-spacing: 0.02em; }
+.aw-cov { list-style: none; margin: 0; padding: 0; border: 1px solid var(--line-strong); }
+.aw-cov-row {
+  display: flex; flex-wrap: wrap; gap: 0.3rem 1rem; align-items: baseline;
+  padding: 0.55rem 0.9rem; background: var(--bg-2);
+}
+.aw-cov-row + .aw-cov-row { border-top: 1px solid var(--line-strong); }
+.aw-cov-plat { font-family: var(--font-mono); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--cyan); min-width: 7.5rem; }
+.aw-cov-n { font-size: 0.9rem; color: var(--ink); }
+.aw-cov-date { font-family: var(--font-mono); font-size: 0.74rem; color: var(--muted); margin-left: auto; }
+.aw-cov-empty .aw-cov-plat { color: var(--faint); }
+.aw-cov-empty .aw-cov-n { color: var(--muted); }
+.aw-cov-note { color: var(--muted); font-size: 0.9rem; line-height: 1.6; margin: 0.7rem 0 0; max-width: 65ch; }
+
 .aw-empty { padding: 2.2rem 1.4rem; text-align: center; color: var(--muted); border: 1px dashed var(--line-strong); }
 .aw-note { margin-top: 2rem; }
 .aw-window { font-family: var(--font-mono); font-size: 0.74rem; color: var(--faint); letter-spacing: 0.06em; }

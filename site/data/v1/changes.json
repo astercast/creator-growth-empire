@@ -1,6 +1,69 @@
 {
   "changes": [
     {
+      "id": "spotify-partner-program-expansion-2026",
+      "platform": "other",
+      "title": "Spotify Partner Program expands to 37 more markets on Oct 20, 2026",
+      "summary": "Announced September 17: the Spotify Partner Program — Premium video revenue plus a 50% share of ads Spotify sells into episodes — opens in 37 more markets on October 20, including Spain, Italy, Poland, Brazil, and Mexico. The eligibility bar, lowered earlier in 2026, is 3 published episodes, 2,000 consumption hours, and a 1,000 audience count in the last 30 days. Creators keep 100% of sponsorships they sell themselves. Logged here on publication of Spotify's own market list; this closes the watch slot held since October 12 — the program is not new, the map is.",
+      "detected_at": "2026-10-12T10:00:00Z",
+      "announced_at": "2026-09-17T00:00:00Z",
+      "effective_at": "2026-10-20T00:00:00Z",
+      "category": "monetization",
+      "confidence": "verified",
+      "sources": [
+        {
+          "name": "Spotify Support — Spotify Partner Program (platform's own page)",
+          "url": "https://support.spotify.com/us/creators/article/spotify-partner-program/"
+        },
+        {
+          "name": "Evolved Lotus — Spotify will pay video podcasters in 35+ more countries",
+          "url": "https://blog.evolvedlotus.com/blog/2026-10-01-spotify-will-pay-video-podcasters-in-35-more-countries/"
+        }
+      ]
+    },
+    {
+      "id": "x-original-content-rewards-2026",
+      "platform": "x",
+      "title": "X retired Revenue Sharing on Sept 7; Original Content Rewards pays only for qualified impressions",
+      "summary": "X stopped new Revenue Sharing enrollments on August 7, 2026, retired the program on September 7, and opened applications for Original Content Rewards from September 8. The replacement pays on qualified impressions only: views by Premium subscribers on the Home Timeline with at least half the post visible; paid, promoted, and artificial impressions do not count. Gates: an active Premium, Premium+, or Premium Business subscription, 500 verified followers, and 500,000 verified Home Timeline impressions in the prior 90 days. Payouts run biweekly over a $30 minimum. Copied, aggregated, and lightly edited posts do not qualify, and X has published no per-impression rate — rates quoted from the old program describe a dead program.",
+      "detected_at": "2026-10-12T10:00:00Z",
+      "announced_at": "2026-08-07T00:00:00Z",
+      "effective_at": "2026-09-08T00:00:00Z",
+      "category": "monetization",
+      "confidence": "verified",
+      "sources": [
+        {
+          "name": "The Eastleigh Voice — X retires creator revenue sharing, launches original content rewards",
+          "url": "https://eastleighvoice.co.ke/technology/388240/x-retires-creator-revenue-sharing-launches-original-content-rewards-with-stricter-rules"
+        },
+        {
+          "name": "Joliba — X Original Content Rewards rollout begins",
+          "url": "https://joliba.com.ng/2026/10/10/x-original-content-rewards-rollout-begins/"
+        }
+      ]
+    },
+    {
+      "id": "fb-content-monetization-originality-2026",
+      "platform": "facebook",
+      "title": "Facebook Content Monetization: the March 2026 originality rule can cut reach, then pay",
+      "summary": "Meta ended In-Stream Ads, Ads on Reels, and the Performance Bonus on August 31, 2025 and merged them into one Content Monetization program. In March 2026 it tightened the other side of the deal: content that is duplicative, or that makes only minor edits to someone else's post — borders, captions, speed changes, a logo on a repost — is treated as unoriginal, deprioritized in distribution, and a page that keeps posting mainly unoriginal work can be marked non-recommendable and demonetized. Cross-posting your own Reels is fine. Creator guides report the gate as 10,000 followers, 600,000 eligible minutes viewed in 60 days, and 5+ published videos — and only a share of raw views ever counts as eligible plays, so plan on eligible plays, not views.",
+      "detected_at": "2026-10-12T10:00:00Z",
+      "announced_at": null,
+      "effective_at": null,
+      "category": "policy",
+      "confidence": "verified",
+      "sources": [
+        {
+          "name": "Publisher in a Box — Facebook Content Monetization approval in 2026",
+          "url": "https://publisherinabox.com/get-approved-for-facebooks-content-monetization-program"
+        },
+        {
+          "name": "FB0T — How to get Facebook Content Monetization in 2026",
+          "url": "https://fb0t.com/securebot/blog/guides/facebook-content-monetization-2026"
+        }
+      ]
+    },
+    {
       "id": "lifetak-microdrama-premiere-2026",
       "platform": "other",
       "title": "India Today Group launches Life Tak microdrama platform (flagship premieres Oct 18)",
@@ -210,8 +273,8 @@
     "verified": "Corroborated by 2+ independent sources or the platform itself."
   },
   "disclaimer": "Planning aid, not financial/legal/tax advice. RPM/CPM figures are creator-reported ranges, never promises. Verify platform figures live before acting on them.",
-  "generated_at": "2026-10-12T08:00:00Z",
-  "note": "Algorithm Watch seed feed: platform algorithm, policy, and monetization changes with source URLs and confidence flags. Updated by the daily /api/cron/algorithm-watch job (retention: 90 days).",
+  "generated_at": "2026-10-12T10:00:00Z",
+  "note": "Algorithm Watch feed: platform algorithm, policy, and monetization changes with source URLs and confidence flags. Coverage: YouTube, TikTok, Instagram, Facebook, and X have their own slots; Spotify, Twitch, and industry-wide changes are logged under Other. Updated by the daily /api/cron/algorithm-watch job (retention: 90 days).",
   "updated": "2026-10-12",
-  "version": "1.0.0"
+  "version": "1.1.0"
 }

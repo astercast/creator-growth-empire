@@ -56,11 +56,19 @@ The "what changed" feed, newest-first. Query: `?platform=`
 (youtube|tiktok|instagram|facebook|x|other|all, default all), `?since=`
 (ISO-8601, default 90 days ago = the retention window), `?limit=` (1–200,
 default 50). `data: { changes: [{ id, platform, title, summary, detected_at,
-category: algorithm|policy|monetization|legal, confidence:
-verified|single-source, sources: [{ name, url }] }], total, filters,
-feed_generated_at, disclaimer }`. 400 `BAD_INPUT` on bad params; 502
+announced_at, effective_at, category: algorithm|policy|monetization|legal,
+confidence: verified|single-source, sources: [{ name, url }] }], total,
+filters, feed_generated_at, disclaimer }`. `announced_at` / `effective_at`
+are carried only where the day is actually known (null or absent
+otherwise — the feed never rounds a month into a fake day). Feed v1.1.0
+(2026-10-12) holds 15 entries and covers all six platform slots: YouTube,
+TikTok, Instagram, Facebook, X, and Other (Spotify, Twitch, and
+industry-wide changes log under Other). 400 `BAD_INPUT` on bad params; 502
 `UPSTREAM_UNAVAILABLE` if the feed file is unreadable. Static twin:
-`data/v1/changes.json`. Human front-end: `what-changed.html`.
+`data/v1/changes.json`. Human front-end: `what-changed.html` — pre-rendered
+with a per-platform coverage panel; when both the live function and the
+static twin fail, the page says so in words and presents its baked-in copy
+as a dated published log, never as live data.
 
 ### `GET /api/niches`
 `niches.json` passthrough with `generated_at` freshness surfaced. Static
