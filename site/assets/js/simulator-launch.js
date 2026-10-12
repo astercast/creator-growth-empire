@@ -211,6 +211,17 @@
     announce("Launch scrubbed \u2014 nothing was computed.");
     var sec = $("launch-console");
     if (sec && sec.parentNode) sec.parentNode.removeChild(sec);
+    /* #lc-live dies with the console above, so the scrub notice would
+     * never reach a screen reader -- post it to the persistent
+     * #sim-output live region instead. */
+    var out = $("sim-output");
+    if (out) {
+      var note = document.createElement("p");
+      note.className = "sr-only";
+      note.setAttribute("role", "status");
+      note.textContent = "Launch scrubbed \u2014 nothing was computed.";
+      out.insertAdjacentElement("afterbegin", note);
+    }
     var btn = document.querySelector('#sim-form button[type="submit"]');
     if (btn) btn.focus();
   }
