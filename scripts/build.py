@@ -127,7 +127,7 @@ CHAPTERS = [
 ]
 
 TOOLS = [
-    ("quiz", "Niche Picker", "Answer 6 questions, get ranked niche suggestions with reasoning."),
+    ("quiz", "Niche Picker", "Answer 6 questions, get ranked niche suggestions with reasoning — or take the 4-question \"Pick my 2027 niche\" branch, scored against the Niche Atlas 2027 outlook layer."),
     ("calculator", "Revenue Calculator", "Project revenue from views, niche, sponsors, and affiliates — with honest ranges."),
     ("planner", "90-Day Planner", "Generate a posting schedule from your platforms and cadence. Printable."),
     ("deal-analyzer", "Sponsor Deal Analyzer", "Benchmark a sponsor offer against the 2026 rate card — verdict, red-flag checklist, counter-offer worksheet."),
@@ -153,7 +153,7 @@ TOOLS = [
 #              output_description, drive_notes).
 TOOLS_API = [
     ("quiz", "Niche Picker",
-     "Answer 6 questions, get ranked niche suggestions with reasoning.",
+     "Answer 6 questions, get ranked niche suggestions with reasoning — or take the 4-question \"Pick my 2027 niche\" branch.",
      "quiz.html",
      {"$schema": "http://json-schema.org/draft-07/schema#", "title": "QuizInput",
       "type": "object", "required": ["q1", "q2", "q3", "q4", "q5", "q6"],
@@ -170,9 +170,17 @@ TOOLS_API = [
                  "description": "Preferred format."},
           "q6": {"type": "string", "enum": ["extreme", "medium", "low"],
                  "description": "Competition tolerance."},
+          "q271": {"type": "string", "enum": ["rising", "search", "underserved", "evergreen"],
+                 "description": "2027 branch: what's your 2027 bet (rising format / search demand / underserved lane / evergreen)."},
+          "q272": {"type": "string", "enum": ["shorts", "long", "both"],
+                 "description": "2027 branch: shorts-first, long-form, or both."},
+          "q273": {"type": "string", "enum": ["policy", "comp", "lowpay"],
+                 "description": "2027 branch: which risk you can stomach."},
+          "q274": {"type": "string", "enum": ["teaching", "research", "personality", "hands-on", "voice"],
+                 "description": "2027 branch: skill fit."},
       }},
-     "Ranked niche list (top 3+) with per-niche reasoning and fit tags.",
-     "Scoring logic lives in assets/js/quiz.js: option tags are matched against each niche's fit[] tags, q3 sets an RPM preference filter, q6 sets the competition ceiling. The niche catalogue (9 niches, fit tags, rpm/competition levels) is embedded in quiz.js."),
+     "Ranked niche list (top 3+) with per-niche reasoning and fit tags. The 2027 branch returns top-3 niches with trajectory badges, basis sentences, and risk notes.",
+     "Scoring logic lives in assets/js/quiz.js: option tags are matched against each niche's fit[] tags, q3 sets an RPM preference filter, q6 sets the competition ceiling. The niche catalogue (9 niches, fit tags, rpm/competition levels) is embedded in quiz.js. The 2027 branch scores the 20 atlas niches against data/niches.json outlook_2027 trajectories (heating +3 / stable +1 / cooling -2), growth-signal matches, format fit, risk alignment, and atlas skill_fit — OUTLOOK_2027 in quiz.js mirrors the JSON and tests/niche-atlas.test.js checks sync."),
     ("calculator", "Revenue Calculator",
      "Project revenue from views, niche, sponsors, and affiliates — with honest ranges.",
      "calculator.html",
@@ -329,7 +337,7 @@ TOOLS_API = [
           "digital_start_month": {"type": "integer", "minimum": 1, "maximum": 24, "default": 1},
           "digital_price_usd": {"type": "number", "minimum": 1, "default": 49},
           "scenario_id": {"type": "string",
-                    "enum": ["asmr-bedroom", "tech-reviewer", "betrayal-dramas",
+                    "enum": ["asmr-bedroom", "tech-reviewer", "ai-tutorials", "betrayal-dramas",
                              "cooking-channel", "personal-finance", "fitness-coach",
                              "serialized-mini-drama", "asmr-roleplay"],
                     "description": "One-click preset: loads a full named starting config from the engine's SCENARIOS library (research-sourced assumptions)."},
@@ -1217,17 +1225,21 @@ def build():
             "id": "niches",
             "kind": "json",
             "path": "api/v1/niches.json",
-            "description": ("The Niche Atlas dataset: 20 October-2026-researched niches — "
+            "description": ("The Niche Atlas dataset v2.0.0: 20 October-2026-researched niches — "
                             "channel growth, search growth, breakout formats, creator-reported "
                             "revenue ranges (CPM/RPM), competition, startup cost, skill fit, "
-                            "chapter/simulator/case-file links, the avoid list, sources, and "
-                            "the <1%-reach-100K reality check. Ranges, never promises."),
+                            "chapter/simulator/case-file links, the avoid list (red-flag niches, "
+                            "2027-updated), sources, and the <1%-reach-100K reality check — "
+                            "plus the 2027 outlook layer: per-niche trajectory badges "
+                            "(heating/stable/cooling with basis + signals), breakout-format "
+                            "spotlights, platform signals, and the niche-to-revenue-stream fit "
+                            "matrix. Ranges, never promises."),
             "schema": "api/v1/schema/niches.json",
             "updated": BUILD_TS,
             "records": len(niches_cfg["niches"]),
             "deprecated": False,
             "deprecation_note": None,
-            "freshness_note": "Research observed 2026-10-11. Verify platform figures live before acting — every record carries its sources and observation date.",
+            "freshness_note": "Research observed 2026-10-11; 2027 outlook layer added 2026-10-11 (trajectory badges are directional reads, not forecasts). Verify platform figures live before acting — every record carries its sources and observation date.",
         },
         {
             "id": "glossary",
@@ -1541,6 +1553,22 @@ def build():
                         "description": "Source ids; every id must appear in the doc-level sources list."},
             "single_source": {"type": "boolean"},
             "caveats": {"type": "array", "items": {"type": "string"}},
+            # Wave 20: the 2027 outlook layer.
+            "outlook_2027": {"type": "object",
+                "description": "Directional 2027 read: heating/stable/cooling + the basis sentence and signal source ids. A read, not a forecast.",
+                "properties": {
+                    "trajectory": {"type": "string", "enum": ["heating", "stable", "cooling"]},
+                    "basis": {"type": "string"},
+                    "signals": {"type": "array", "items": {"type": "string"}},
+                }},
+            "stream_fit": {"type": "object",
+                "description": "Editorial fit ratings (strong/moderate/weak) for ads, sponsorships, digital_products, pod. Judgment, not reported figures.",
+                "properties": {
+                    "ads": {"type": "string", "enum": ["strong", "moderate", "weak"]},
+                    "sponsorships": {"type": "string", "enum": ["strong", "moderate", "weak"]},
+                    "digital_products": {"type": "string", "enum": ["strong", "moderate", "weak"]},
+                    "pod": {"type": "string", "enum": ["strong", "moderate", "weak"]},
+                }},
         },
     }
     (API / "schema" / "niche.json").write_text(json.dumps(niche_schema, indent=2), encoding="utf-8")
@@ -1556,6 +1584,13 @@ def build():
             "note": {"type": "string"},
             "growth_context": {"type": "string"},
             "revenue_tier_legend": {"type": "object"},
+            "stream_fit_legend": {"type": "object",
+                "description": "Legend for the editorial stream-fit ratings (strong/moderate/weak)."},
+            "outlook_2027": {"type": "object",
+                "description": "Doc-level 2027 outlook: summary, platform_signals, evidence_note."},
+            "breakout_spotlights": {"type": "array",
+                "description": "Breakout-format spotlights: growth signal, reported rates, competition, why, single_source flag.",
+                "items": {"type": "object"}},
             "sources": {"type": "array", "items": {
                 "type": "object",
                 "required": ["id", "publisher", "title", "url", "observed"],
@@ -1830,7 +1865,7 @@ def build():
         llms.append(f"- [{m['badge']}: {m['title']}]({m['path']}) — {m['read_minutes']} min read")
     llms += ["", "## API", "- api/v1/index.json — self-describing manifest: every endpoint, schema URL, updated timestamp, record counts",
              "- api/v1/chapters.json",
-             "- api/v1/niches.json — the Niche Atlas dataset: 20 researched niches, avoid list, sources, reality check",
+             "- api/v1/niches.json — the Niche Atlas dataset v2.0.0: 20 researched niches, 2027 outlook layer (trajectory badges, breakout spotlights, platform signals, stream-fit matrix), avoid list, sources, reality check",
              "- api/v1/glossary.json",
              "- api/v1/calculators.json",
              "- api/v1/skills.json",

@@ -1,31 +1,36 @@
 {
   "avoid_list": [
     {
-      "detail": "Post-October-2026 tightening: the clipping industry's revenue was hit (payments KSh 130-520 per 1K views, Kenyan Mirror, Oct 5 2026), Shorts re-upload channels face reach reduction from Oct 1, 2026 (this site's October 2026 research snapshot), and reposted clips with little commentary are flagged unoriginal and FYP-ineligible on TikTok.",
+      "detail": "Oct-2026 tightening CONFIRMED multi-source (Digital Trends, ppc.land, Storyboard18, NeoTeo): from Oct 1, 2026, Shorts recommendations prioritize original content and cut reach for re-uploads without meaningful additions; clipping payments KSh 130-520 per 1K views (Kenyan Mirror, Oct 5, 2026); reposted clips with little commentary are flagged unoriginal and FYP-ineligible on TikTok. From Feb 1, 2027, Shorts revenue sharing needs 10M qualified Shorts views per 90 days (multi-source) - a second cliff for repost-heavy Shorts channels.",
       "id": "clipping-reposts",
       "name": "Clipping / repost channels",
       "sources": [
+        "digitaltrends-shorts",
         "kenyanmirror",
-        "buytiktok"
-      ]
+        "buytiktok",
+        "auditsocials-ypp"
+      ],
+      "flag_2027": true
     },
     {
-      "detail": "YouTube's January 2026 inauthentic-content enforcement removed 16 major channels (4.7B combined views) and demonetized thousands of low-effort AI channels (UTubeKit, Jul 2026). Risky faceless formats: AI personas giving money or health advice (unmonetizable), article readings, clip compilations, templated top-5 lists (Synthesys, Oct 2026). Faceless still works \u2014 but only with visible human creativity.",
+      "detail": "YouTube's January 2026 inauthentic-content enforcement removed 16 major channels (4.7B combined views) and demonetized thousands of low-effort AI channels (UTubeKit, Jul 2026). Risky faceless formats: AI personas giving money or health advice (unmonetizable), article readings, clip compilations, templated top-5 lists (Synthesys, Oct 2026). Faceless still works — but only with visible human creativity.",
       "id": "ai-slop",
       "name": "Low-effort AI slop",
       "sources": [
         "utubekit",
         "synthesys",
         "lilachbullock"
-      ]
+      ],
+      "flag_2027": false
     },
     {
-      "detail": "Fastest channel growth measured (1.59%/mo) but the worst pay: $0.33 RPM \u2014 about 3M views to earn $1,000 (AIR Media-Tech). Growth is not revenue. Made-for-kids content also faces strict ad rules.",
+      "detail": "Fastest channel growth measured (1.59%/mo) but the worst pay: $0.33 RPM — about 3M views to earn $1,000 (AIR Media-Tech). Growth is not revenue. Made-for-kids content also faces strict ad rules. 2027 update: Shorts-heavy kids channels also face the Feb-2027 10M-views/90d Shorts revenue floor (multi-source).",
       "id": "kids-trap",
       "name": "The kids-content trap",
       "sources": [
         "air-tubeai"
-      ]
+      ],
+      "flag_2027": true
     },
     {
       "detail": "Documented removal risk on TikTok (buyTikTokAccount, Aug 2026).",
@@ -50,16 +55,26 @@
       "sources": [
         "buytiktok"
       ]
+    },
+    {
+      "id": "shorts-only-post-2027",
+      "name": "Shorts-only channels chasing pool revenue (post-Feb-2027)",
+      "detail": "From Feb 1, 2027, Shorts ad + subscription revenue sharing requires 10M qualified Shorts views per 90 days, checked monthly - below it the Shorts pool pays nothing that month (announced Aug 10, 2026; multi-source: AIR, AuditSocials, Tablet News, GSMDome). Shorts RPMs were already 3-14% of long-form (AIR, 274 channels). A Shorts-only channel with no long-form catalog is building on the thinnest revenue layer there is.",
+      "sources": [
+        "auditsocials-ypp",
+        "air-monetization-2027"
+      ],
+      "flag_2027": true
     }
   ],
-  "growth_context": "Channel-growth figures below are median monthly subscriber growth among 10K-100K-subscriber YouTube channels in the AIR Media-Tech / TubeAI study (Sep 7-27, 2026). The all-channel median was 0.97%/mo. Medians hide huge variance \u2014 they describe the middle of a cohort, not your outcome.",
+  "growth_context": "Channel-growth figures below are median monthly subscriber growth among 10K-100K-subscriber YouTube channels in the AIR Media-Tech / TubeAI study (Sep 7-27, 2026). The all-channel median was 0.97%/mo. Medians hide huge variance — they describe the middle of a cohort, not your outcome.",
   "niches": [
     {
       "breakout_rate": "10.0% of videos beat channel average 10x",
       "case_file": null,
       "caveats": [
         "Channel growth 1.44%/mo is the AI & ML cohort median (TubeAI, Sep 2026).",
-        "Competition rising fast \u2014 speed and specificity beat breadth here."
+        "Competition rising fast — speed and specificity beat breadth here."
       ],
       "channel_growth_monthly_pct": 1.44,
       "chapter_links": [
@@ -106,7 +121,22 @@
         "outlierkit-breakout"
       ],
       "startup_cost": "low",
-      "summary": "Tutorials and breakdowns of AI tools, prompts, and automation workflows \u2014 the fastest-rising search niche of 2026."
+      "summary": "Tutorials and breakdowns of AI tools, prompts, and automation workflows — the fastest-rising search niche of 2026.",
+      "outlook_2027": {
+        "trajectory": "heating",
+        "basis": "AI tutorials measured 18x growth at $15-22 CPM (OutlierKit trending guide, Sep 2026); AI tools still the fastest-rising search niche (+340%). Competition rising fast - speed and specificity win.",
+        "signals": [
+          "outlierkit-trending",
+          "outlierkit-search",
+          "haberman-2027"
+        ]
+      },
+      "stream_fit": {
+        "ads": "strong",
+        "sponsorships": "strong",
+        "digital_products": "strong",
+        "pod": "moderate"
+      }
     },
     {
       "breakout_rate": null,
@@ -156,7 +186,20 @@
         "outlierkit-search"
       ],
       "startup_cost": "low",
-      "summary": "No-code tools, Zapier/Make-style automations, and AI-agent workflows for businesses \u2014 called the most underserved niche in the 2026 research."
+      "summary": "No-code tools, Zapier/Make-style automations, and AI-agent workflows for businesses — called the most underserved niche in the 2026 research.",
+      "outlook_2027": {
+        "trajectory": "heating",
+        "basis": "Search demand +220% with the 'most underserved' label (OutlierKit). Single-source - lighter evidence, but the direction matches the platform AI/automation push.",
+        "signals": [
+          "outlierkit-search"
+        ]
+      },
+      "stream_fit": {
+        "ads": "strong",
+        "sponsorships": "strong",
+        "digital_products": "moderate",
+        "pod": "weak"
+      }
     },
     {
       "breakout_rate": "16.7% of videos beat channel average 10x",
@@ -165,7 +208,7 @@
         "title": "The Cohort Course"
       },
       "caveats": [
-        "The math forgives a small audience \u2014 but never present ranges as earnings. Educational content, not financial advice."
+        "The math forgives a small audience — but never present ranges as earnings. Educational content, not financial advice."
       ],
       "channel_growth_monthly_pct": null,
       "chapter_links": [
@@ -219,7 +262,22 @@
         "outlierkit-breakout"
       ],
       "startup_cost": "low",
-      "summary": "Budgeting, investing basics, and money psychology for a young audience \u2014 the highest breakout rate of any niche measured."
+      "summary": "Budgeting, investing basics, and money psychology for a young audience — the highest breakout rate of any niche measured.",
+      "outlook_2027": {
+        "trajectory": "stable",
+        "basis": "Highest breakout rate measured (16.7%) with $8-35 RPM ranges, but competition is high - and AIR's studio medians (May 2025-May 2026) sit far lower than advertiser CPMs suggest. Rates are real; they are not a floor.",
+        "signals": [
+          "outlierkit-breakout",
+          "outlierkit-cpm",
+          "air-monetization-2027"
+        ]
+      },
+      "stream_fit": {
+        "ads": "strong",
+        "sponsorships": "strong",
+        "digital_products": "strong",
+        "pod": "weak"
+      }
     },
     {
       "breakout_rate": null,
@@ -265,7 +323,20 @@
         "outlierkit-search"
       ],
       "startup_cost": "low",
-      "summary": "Hacking explained, privacy tools, and scam breakdowns \u2014 high advertiser demand, thin competition."
+      "summary": "Hacking explained, privacy tools, and scam breakdowns — high advertiser demand, thin competition.",
+      "outlook_2027": {
+        "trajectory": "heating",
+        "basis": "Search demand +160% at $12-28 CPM with thin competition (OutlierKit). Single-source on the figures; the advertiser-demand logic (security software budgets) is the same one that pays tech niches.",
+        "signals": [
+          "outlierkit-search"
+        ]
+      },
+      "stream_fit": {
+        "ads": "strong",
+        "sponsorships": "strong",
+        "digital_products": "moderate",
+        "pod": "weak"
+      }
     },
     {
       "breakout_rate": "21x growth",
@@ -274,7 +345,7 @@
         "title": "The Poly Couple"
       },
       "caveats": [
-        "Short-form RPMs are the lowest per view ($0.04-0.50 per 1K Shorts views, site data) \u2014 volume and series retention do the work here."
+        "Short-form RPMs are the lowest per view ($0.04-0.50 per 1K Shorts views, site data) — volume and series retention do the work here."
       ],
       "channel_growth_monthly_pct": null,
       "chapter_links": [
@@ -320,7 +391,24 @@
         "buytiktok"
       ],
       "startup_cost": "low",
-      "summary": "Serialized betrayal/revenge storytelling \u2014 21x breakout growth with low competition, and TikTok's fastest-growing new category."
+      "summary": "Serialized betrayal/revenge storytelling — 21x breakout growth with low competition, and TikTok's fastest-growing new category.",
+      "outlook_2027": {
+        "trajectory": "heating",
+        "basis": "21x breakout growth with $20-25 CPM and low competition (OutlierKit trending, multi-source); TikTok's fastest-growing new category and YouTube's 2027 micro-drama push (Shorts Series) point the same way. Shorts-first formats face the Feb-2027 10M-views/90d Shorts revenue floor.",
+        "signals": [
+          "outlierkit-trending",
+          "buytiktok",
+          "haberman-2027",
+          "fastcompany-microdrama",
+          "auditsocials-ypp"
+        ]
+      },
+      "stream_fit": {
+        "ads": "moderate",
+        "sponsorships": "moderate",
+        "digital_products": "weak",
+        "pod": "moderate"
+      }
     },
     {
       "breakout_rate": "21x growth",
@@ -374,14 +462,28 @@
         "utubekit"
       ],
       "startup_cost": "low",
-      "summary": "English-learning podcasts and lessons \u2014 21x breakout growth with premium advertiser rates."
+      "summary": "English-learning podcasts and lessons — 21x breakout growth with premium advertiser rates.",
+      "outlook_2027": {
+        "trajectory": "heating",
+        "basis": "21x breakout growth at $18-22 CPM (OutlierKit trending). Language learning is evergreen demand; AI translation and dubbing features (2027) expand global reach.",
+        "signals": [
+          "outlierkit-trending",
+          "utubekit"
+        ]
+      },
+      "stream_fit": {
+        "ads": "strong",
+        "sponsorships": "moderate",
+        "digital_products": "strong",
+        "pod": "weak"
+      }
     },
     {
       "breakout_rate": "19x growth",
       "case_file": null,
       "caveats": [
         "No creator-reported revenue range found in the October 2026 research.",
-        "Health topics must stay educational \u2014 medical-advice claims are FYP-ineligible on TikTok and risky everywhere."
+        "Health topics must stay educational — medical-advice claims are FYP-ineligible on TikTok and risky everywhere."
       ],
       "channel_growth_monthly_pct": null,
       "chapter_links": [
@@ -417,7 +519,22 @@
         "vidiq"
       ],
       "startup_cost": "low",
-      "summary": "Health explainers and tech literacy for older adults \u2014 19x breakout growth, ultra-low competition."
+      "summary": "Health explainers and tech literacy for older adults — 19x breakout growth, ultra-low competition.",
+      "outlook_2027": {
+        "trajectory": "heating",
+        "basis": "19x breakout growth with ultra-low competition (OutlierKit trending). Mini-dramas already skew older (31% of viewers 45-64, Ampere) - the senior audience is underserved everywhere.",
+        "signals": [
+          "outlierkit-trending",
+          "vidiq",
+          "fastcompany-microdrama"
+        ]
+      },
+      "stream_fit": {
+        "ads": "moderate",
+        "sponsorships": "moderate",
+        "digital_products": "moderate",
+        "pod": "weak"
+      }
     },
     {
       "breakout_rate": "14x growth",
@@ -426,8 +543,8 @@
         "title": "The Sleep-Channel Network"
       },
       "caveats": [
-        "The $40-60K/mo network figure is reported by Fortune (Dec 2025) \u2014 structures proven, figures directional.",
-        "Post-Jan-2026, faceless works only with visible human creativity \u2014 original audio and real production, not templates."
+        "The $40-60K/mo network figure is reported by Fortune (Dec 2025) — structures proven, figures directional.",
+        "Post-Jan-2026, faceless works only with visible human creativity — original audio and real production, not templates."
       ],
       "channel_growth_monthly_pct": null,
       "chapter_links": [
@@ -465,7 +582,21 @@
         "outlierkit-trending"
       ],
       "startup_cost": "low",
-      "summary": "Sleep soundscapes and ambient long-form \u2014 14x breakout growth, low competition, and a documented 5-channel network doing $40-60K/mo."
+      "summary": "Sleep soundscapes and ambient long-form — 14x breakout growth, low competition, and a documented 5-channel network doing $40-60K/mo.",
+      "outlook_2027": {
+        "trajectory": "stable",
+        "basis": "14x breakout growth, but the Jan-2026 inauthentic-content enforcement hit low-effort faceless channels hardest; only original-production channels keep monetizing.",
+        "signals": [
+          "outlierkit-trending",
+          "utubekit"
+        ]
+      },
+      "stream_fit": {
+        "ads": "moderate",
+        "sponsorships": "moderate",
+        "digital_products": "moderate",
+        "pod": "weak"
+      }
     },
     {
       "breakout_rate": null,
@@ -474,7 +605,7 @@
         "title": "Gibi ASMR"
       },
       "caveats": [
-        "Growth figure from AIR/TubeAI; revenue uses this site's lifestyle band as a declared proxy \u2014 ASMR is low-to-mid RPM."
+        "Growth figure from AIR/TubeAI; revenue uses this site's lifestyle band as a declared proxy — ASMR is low-to-mid RPM."
       ],
       "channel_growth_monthly_pct": 1.56,
       "chapter_links": [
@@ -513,14 +644,27 @@
         "air-tubeai"
       ],
       "startup_cost": "low",
-      "summary": "The second-fastest-growing channel niche in the TubeAI study \u2014 loyal, binge-watching audiences at mid-tier ad rates."
+      "summary": "The second-fastest-growing channel niche in the TubeAI study — loyal, binge-watching audiences at mid-tier ad rates.",
+      "outlook_2027": {
+        "trajectory": "stable",
+        "basis": "Second-fastest channel growth (1.56%/mo) with a loyal binge audience, but ad rates are mid-tier and competition is medium. Steady, not surging.",
+        "signals": [
+          "air-tubeai"
+        ]
+      },
+      "stream_fit": {
+        "ads": "moderate",
+        "sponsorships": "moderate",
+        "digital_products": "moderate",
+        "pod": "moderate"
+      }
     },
     {
       "breakout_rate": null,
       "case_file": null,
       "caveats": [
-        "No creator-reported revenue range in the October 2026 research \u2014 money here is sponsorships and B2B, not ads.",
-        "'Window narrowing' (OutlierKit, Sep 2026) \u2014 arrive with a differentiated angle or don't arrive."
+        "No creator-reported revenue range in the October 2026 research — money here is sponsorships and B2B, not ads.",
+        "'Window narrowing' (OutlierKit, Sep 2026) — arrive with a differentiated angle or don't arrive."
       ],
       "channel_growth_monthly_pct": 1.5,
       "chapter_links": [
@@ -557,13 +701,27 @@
         "outlierkit-search"
       ],
       "startup_cost": "low",
-      "summary": "Covering the creator business itself \u2014 fast channel growth, but the research flags the window as narrowing."
+      "summary": "Covering the creator business itself — fast channel growth, but the research flags the window as narrowing.",
+      "outlook_2027": {
+        "trajectory": "cooling",
+        "basis": "Research flags the window as narrowing (OutlierKit, Sep 2026) - fast channel growth (1.50%/mo) but high competition and no reported ad range; the money here is sponsorships, not ads.",
+        "signals": [
+          "outlierkit-search",
+          "air-tubeai"
+        ]
+      },
+      "stream_fit": {
+        "ads": "weak",
+        "sponsorships": "strong",
+        "digital_products": "strong",
+        "pod": "moderate"
+      }
     },
     {
       "breakout_rate": null,
       "case_file": null,
       "caveats": [
-        "Low RPM means you need real scale \u2014 or a format cheap enough to run weekly."
+        "Low RPM means you need real scale — or a format cheap enough to run weekly."
       ],
       "channel_growth_monthly_pct": 1.47,
       "chapter_links": [
@@ -607,13 +765,26 @@
         "air-tubeai"
       ],
       "startup_cost": "medium",
-      "summary": "Big-swing challenge and stunt formats \u2014 above-average growth at entertainment ad rates, and the production budget shows."
+      "summary": "Big-swing challenge and stunt formats — above-average growth at entertainment ad rates, and the production budget shows.",
+      "outlook_2027": {
+        "trajectory": "stable",
+        "basis": "Above-average channel growth (1.47%/mo) at entertainment-tier ad rates with real production budgets. Growth is steady; the economics only work at scale.",
+        "signals": [
+          "air-tubeai"
+        ]
+      },
+      "stream_fit": {
+        "ads": "weak",
+        "sponsorships": "moderate",
+        "digital_products": "weak",
+        "pod": "moderate"
+      }
     },
     {
       "breakout_rate": "12.5% of videos beat channel average 10x",
       "case_file": null,
       "caveats": [
-        "Research-heavy: every episode is a small investigation. Handle real cases with care \u2014 defamation risk is real and this site is not legal advice."
+        "Research-heavy: every episode is a small investigation. Handle real cases with care — defamation risk is real and this site is not legal advice."
       ],
       "channel_growth_monthly_pct": 1.34,
       "chapter_links": [
@@ -654,13 +825,27 @@
         "outlierkit-breakout"
       ],
       "startup_cost": "low",
-      "summary": "Investigative storytelling with one of the strongest breakout rates measured \u2014 one in eight videos beats the channel average 10x."
+      "summary": "Investigative storytelling with one of the strongest breakout rates measured — one in eight videos beats the channel average 10x.",
+      "outlook_2027": {
+        "trajectory": "stable",
+        "basis": "12.5% breakout rate with solid channel growth (1.34%/mo), but high competition and entertainment-tier RPMs. Storytelling formats keep working; costs are research hours.",
+        "signals": [
+          "outlierkit-breakout",
+          "air-tubeai"
+        ]
+      },
+      "stream_fit": {
+        "ads": "weak",
+        "sponsorships": "moderate",
+        "digital_products": "moderate",
+        "pod": "moderate"
+      }
     },
     {
       "breakout_rate": null,
       "case_file": null,
       "caveats": [
-        "One great explainer earns for years \u2014 but the first 20 videos are a research grind with little feedback."
+        "One great explainer earns for years — but the first 20 videos are a research grind with little feedback."
       ],
       "channel_growth_monthly_pct": 1.3,
       "chapter_links": [
@@ -700,13 +885,27 @@
         "air-tubeai"
       ],
       "startup_cost": "low",
-      "summary": "History, economics, how-things-work \u2014 evergreen catalog content at one of the highest measured RPMs."
+      "summary": "History, economics, how-things-work — evergreen catalog content at one of the highest measured RPMs.",
+      "outlook_2027": {
+        "trajectory": "heating",
+        "basis": "The highest measured median RPM ($10.22, AIR, May 2025-May 2026); interest-based custom feeds (YouTube 2027) favor exactly this kind of intent-driven niche. Evergreen catalog compounds.",
+        "signals": [
+          "air-tubeai",
+          "haberman-2027"
+        ]
+      },
+      "stream_fit": {
+        "ads": "strong",
+        "sponsorships": "strong",
+        "digital_products": "strong",
+        "pod": "weak"
+      }
     },
     {
       "breakout_rate": null,
       "case_file": null,
       "caveats": [
-        "Pick this only if you'd do it for free \u2014 the ad math is the worst on the board. Brand deals are where the money actually lives."
+        "Pick this only if you'd do it for free — the ad math is the worst on the board. Brand deals are where the money actually lives."
       ],
       "channel_growth_monthly_pct": 1.27,
       "chapter_links": [
@@ -758,13 +957,28 @@
         "buytiktok"
       ],
       "startup_cost": "low",
-      "summary": "Comedy and entertainment \u2014 the biggest audiences, the lowest ad rates, the highest viral upside."
+      "summary": "Comedy and entertainment — the biggest audiences, the lowest ad rates, the highest viral upside.",
+      "outlook_2027": {
+        "trajectory": "cooling",
+        "basis": "Lowest reported rates ($1-3 RPM) at very high competition; shorts-first entertainment faces both the Oct-2026 originality update and the Feb-2027 Shorts revenue floor.",
+        "signals": [
+          "outlierkit-rpm-table",
+          "digitaltrends-shorts",
+          "auditsocials-ypp"
+        ]
+      },
+      "stream_fit": {
+        "ads": "weak",
+        "sponsorships": "moderate",
+        "digital_products": "weak",
+        "pod": "strong"
+      }
     },
     {
       "breakout_rate": null,
       "case_file": null,
       "caveats": [
-        "Accuracy is the brand \u2014 one viral correction can undo a year of trust. Cite sources on-screen."
+        "Accuracy is the brand — one viral correction can undo a year of trust. Cite sources on-screen."
       ],
       "channel_growth_monthly_pct": 1.2,
       "chapter_links": [
@@ -804,13 +1018,27 @@
         "air-tubeai"
       ],
       "startup_cost": "low",
-      "summary": "Science communication at education-tier ad rates \u2014 curiosity as a product with an evergreen catalog."
+      "summary": "Science communication at education-tier ad rates — curiosity as a product with an evergreen catalog.",
+      "outlook_2027": {
+        "trajectory": "heating",
+        "basis": "$10.22 RPM education-tier rates; curiosity content fits the interest-based feed shift; medium competition with a real accuracy moat.",
+        "signals": [
+          "air-tubeai",
+          "haberman-2027"
+        ]
+      },
+      "stream_fit": {
+        "ads": "strong",
+        "sponsorships": "moderate",
+        "digital_products": "moderate",
+        "pod": "weak"
+      }
     },
     {
       "breakout_rate": null,
       "case_file": null,
       "caveats": [
-        "Wins come from personality plus format innovation \u2014 not from playing games well."
+        "Wins come from personality plus format innovation — not from playing games well."
       ],
       "channel_growth_monthly_pct": 1.2,
       "chapter_links": [
@@ -857,13 +1085,27 @@
         "air-tubeai"
       ],
       "startup_cost": "low",
-      "summary": "The most crowded niche on earth \u2014 still growing, but at low ad rates and extreme competition."
+      "summary": "The most crowded niche on earth — still growing, but at low ad rates and extreme competition.",
+      "outlook_2027": {
+        "trajectory": "cooling",
+        "basis": "The most crowded niche (1.20%/mo growth, $2.05 median RPM); sponsorship CPMs exist ($15-30) but only at real scale. Wins come from format innovation, not the niche itself.",
+        "signals": [
+          "air-tubeai",
+          "outlierkit-sponsorship"
+        ]
+      },
+      "stream_fit": {
+        "ads": "weak",
+        "sponsorships": "weak",
+        "digital_products": "weak",
+        "pod": "strong"
+      }
     },
     {
       "breakout_rate": null,
       "case_file": null,
       "caveats": [
-        "Fastest channel growth (1.59%/mo) but $0.33 RPM \u2014 growth is not revenue. Made-for-kids content also faces strict ad rules; verify live."
+        "Fastest channel growth (1.59%/mo) but $0.33 RPM — growth is not revenue. Made-for-kids content also faces strict ad rules; verify live."
       ],
       "channel_growth_monthly_pct": 1.59,
       "chapter_links": [
@@ -892,7 +1134,7 @@
           "hi": 0.33,
           "kind": "RPM",
           "lo": 0.33,
-          "note": "Kids & Teens, reported (AIR Media-Tech, May 2025-May 2026) \u2014 ~3M views to earn $1,000"
+          "note": "Kids & Teens, reported (AIR Media-Tech, May 2025-May 2026) — ~3M views to earn $1,000"
         }
       ],
       "revenue_tier": "low",
@@ -907,7 +1149,21 @@
         "air-tubeai"
       ],
       "startup_cost": "medium",
-      "summary": "The fastest-growing channel niche measured \u2014 and the worst-paying. The textbook growth-vs-revenue trap."
+      "summary": "The fastest-growing channel niche measured — and the worst-paying. The textbook growth-vs-revenue trap.",
+      "outlook_2027": {
+        "trajectory": "cooling",
+        "basis": "Fastest channel growth (1.59%/mo) against $0.33 RPM and strict made-for-kids ad rules; Shorts-heavy kids channels also face the Feb-2027 revenue floor. Growth is not revenue.",
+        "signals": [
+          "air-tubeai",
+          "auditsocials-ypp"
+        ]
+      },
+      "stream_fit": {
+        "ads": "weak",
+        "sponsorships": "weak",
+        "digital_products": "weak",
+        "pod": "moderate"
+      }
     },
     {
       "breakout_rate": "11.7% of videos beat channel average 10x",
@@ -916,7 +1172,7 @@
         "title": "The Budget-Grocery Newsletter"
       },
       "caveats": [
-        "No creator-reported ad range in the October 2026 research \u2014 the documented money path is a paid newsletter (~$670K/yr in the case file), not ads."
+        "No creator-reported ad range in the October 2026 research — the documented money path is a paid newsletter (~$670K/yr in the case file), not ads."
       ],
       "channel_growth_monthly_pct": null,
       "chapter_links": [
@@ -955,13 +1211,28 @@
         "outlierkit-breakout"
       ],
       "startup_cost": "low",
-      "summary": "Strong breakout rate and the classic newsletter-first monetization path \u2014 the audience converts off-platform."
+      "summary": "Strong breakout rate and the classic newsletter-first monetization path — the audience converts off-platform.",
+      "outlook_2027": {
+        "trajectory": "heating",
+        "basis": "11.7% breakout rate; food sponsors pay $18-30 CPM (OutlierKit) and YouTube's 2027 shopping priority favors shoppable food content. The documented money path is off-platform (newsletter, products).",
+        "signals": [
+          "outlierkit-breakout",
+          "outlierkit-sponsorship",
+          "haberman-2027"
+        ]
+      },
+      "stream_fit": {
+        "ads": "moderate",
+        "sponsorships": "strong",
+        "digital_products": "strong",
+        "pod": "moderate"
+      }
     },
     {
       "breakout_rate": null,
       "case_file": null,
       "caveats": [
-        "Educational content, not legal or tax advice \u2014 say so on every video.",
+        "Educational content, not legal or tax advice — say so on every video.",
         "Advertiser demand skews to tax season; expect seasonality."
       ],
       "channel_growth_monthly_pct": null,
@@ -1007,13 +1278,27 @@
         "utubekit"
       ],
       "startup_cost": "low",
-      "summary": "Called the most underserved high-paying niche in the 2026 research \u2014 premium rates, thin competition."
+      "summary": "Called the most underserved high-paying niche in the 2026 research — premium rates, thin competition.",
+      "outlook_2027": {
+        "trajectory": "heating",
+        "basis": "$15-40 CPM at low competition, called the most underserved high-payer (Famety/UTubeKit). Educational content must stay advice-free - say so on every video.",
+        "signals": [
+          "famety",
+          "utubekit"
+        ]
+      },
+      "stream_fit": {
+        "ads": "strong",
+        "sponsorships": "strong",
+        "digital_products": "moderate",
+        "pod": "weak"
+      }
     },
     {
       "breakout_rate": null,
       "case_file": null,
       "caveats": [
-        "The $12.82 RPM figure is single-sourced (UTubeKit). Post-Jan-2026, AI-narrated readings count as reused content \u2014 bring a human voice and real production."
+        "The $12.82 RPM figure is single-sourced (UTubeKit). Post-Jan-2026, AI-narrated readings count as reused content — bring a human voice and real production."
       ],
       "channel_growth_monthly_pct": null,
       "chapter_links": [
@@ -1057,12 +1342,26 @@
         "lilachbullock"
       ],
       "startup_cost": "low",
-      "summary": "Narrated stories and long-form audio dramas \u2014 strong reported RPMs and named as having room in the 2026 research."
+      "summary": "Narrated stories and long-form audio dramas — strong reported RPMs and named as having room in the 2026 research.",
+      "outlook_2027": {
+        "trajectory": "stable",
+        "basis": "$12.82 reported RPM with named room to grow, but post-Jan-2026 reuse-content enforcement demands original audio and real production - readings and templates get demonetized.",
+        "signals": [
+          "utubekit",
+          "synthesys"
+        ]
+      },
+      "stream_fit": {
+        "ads": "strong",
+        "sponsorships": "moderate",
+        "digital_products": "moderate",
+        "pod": "weak"
+      }
     }
   ],
-  "note": "The Niche Atlas dataset: 20 creator niches researched October 2026. All CPM/RPM figures are creator-reported ranges compiled from industry benchmarks \u2014 ranges, never promises. They vary by geography, season (Q4 uplift), and audience tier. Channel-growth figures are cohort medians from the AIR Media-Tech / TubeAI study (144,370 YouTube channels, 10K-100K subs, Sep 7-27, 2026), not predictions. Single-source claims are flagged on each niche record. Not financial, legal, or tax advice.",
+  "note": "The Niche Atlas dataset v2.0.0: 20 creator niches researched October 2026 plus a 2027 outlook layer (trajectory badges, breakout-format spotlights, platform signals, niche-to-revenue-stream fit, red-flag niches). All CPM/RPM figures are creator-reported ranges compiled from industry benchmarks - ranges, never promises. They vary by geography, season (Q4 uplift), and audience tier. Channel-growth figures are cohort medians from the AIR Media-Tech / TubeAI study (144,370 YouTube channels, 10K-100K subs, Sep 7-27, 2026), not predictions. Single-source claims are flagged on each record. Not financial, legal, or tax advice.",
   "reality_check": {
-    "detail": "Plan a business model around 10K-30K loyal subscribers \u2014 sponsorships, affiliates, products \u2014 not a million. Pick a niche where a small audience pays (high RPM), not one where you need millions of views to matter.",
+    "detail": "Plan a business model around 10K-30K loyal subscribers — sponsorships, affiliates, products — not a million. Pick a niche where a small audience pays (high RPM), not one where you need millions of views to matter.",
     "headline": "Fewer than 1% of YouTube channels ever reach 100K subscribers.",
     "source": "lilachbullock"
   },
@@ -1192,8 +1491,160 @@
       "publisher": "Kenyan Mirror",
       "title": "YouTube tightens grip on reposted clips, hurting clippers' revenue sources",
       "url": "https://kenyanmirror.com/article/youtube-tightens-grip-on-reposted-clips-hurting-clippers-revenue-sources"
+    },
+    {
+      "id": "haberman-2027",
+      "publisher": "Lia Haberman (ICYMI newsletter)",
+      "title": "ICYMI: TikTok, YouTube + Meta Tell You Their 2027 Priorities",
+      "url": "https://liahaberman.substack.com/p/icymi-tiktok-youtube-meta-tell-you",
+      "observed": "2026-10-11",
+      "note": "YouTube 2027: shopping, micro-dramas, custom feeds; TikTok: creator-brand partnerships."
+    },
+    {
+      "id": "fastcompany-microdrama",
+      "publisher": "FastCompany",
+      "title": "Microdrama: YouTube adopts the short and vertical video trend",
+      "url": "https://fastcompany.co.za/tech/2026-09-28-microdrama-youtube-adopts-the-short-and-vertical-video-trend/",
+      "observed": "2026-10-11",
+      "note": "6.5B microdrama views H1 2026; $14B 2026 industry estimate (single-source estimate)."
+    },
+    {
+      "id": "air-monetization-2027",
+      "publisher": "AIR Media-Tech",
+      "title": "YouTube Monetization Statistics 2026: Data From 300 Channels",
+      "url": "https://air.io/en/air-data-findings/youtube-monetization-statistics-2026",
+      "observed": "2026-10-11",
+      "note": "Median RPM table (May 2025-May 2026) + confirmed YPP 2027 changes (10M Shorts views/90d; new thresholds)."
+    },
+    {
+      "id": "auditsocials-ypp",
+      "publisher": "AuditSocials",
+      "title": "YouTube Partner Program 2027 Thresholds: What Changes",
+      "url": "https://www.auditsocials.com/blog/youtube-partner-program-2027-shorts-revenue-entry-thresholds",
+      "observed": "2026-10-11",
+      "note": "Aug 10, 2026 announcement: Feb 1, 2027 thresholds (multi-source confirmed with AIR, Tablet News, GSMDome)."
+    },
+    {
+      "id": "digitaltrends-shorts",
+      "publisher": "Digital Trends",
+      "title": "YouTube cracks down on reposted Shorts with a new recommendation update",
+      "url": "https://www.digitaltrends.com/phones/youtube-cracks-down-on-reposted-shorts-with-a-new-recommendation-update/",
+      "observed": "2026-10-11",
+      "note": "Oct 1, 2026 Shorts originality update (confirmed via ppc.land, Storyboard18, NeoTeo)."
+    },
+    {
+      "id": "outlierkit-rpm-table",
+      "publisher": "OutlierKit",
+      "title": "Best YouTube Niches in 2026: 20+ Niches Ranked by CPM Data",
+      "url": "https://outlierkit.com/resources/youtube-niches-guide/",
+      "observed": "2026-10-11",
+      "note": "Sep-2026 refreshed RPM/CPM table (personal finance $10-25 RPM; gaming $2-4; entertainment $1-3)."
+    },
+    {
+      "id": "outlierkit-sponsorship",
+      "publisher": "OutlierKit",
+      "title": "YouTube Sponsorship Rates 2026",
+      "url": "https://outlierkit.com/resources/youtube-sponsorship-rates/",
+      "observed": "2026-10-11",
+      "note": "2026 integrated-sponsor CPMs by niche (finance $30-60, AI tools $28-55, tech $25-45, food $18-30, gaming $15-30)."
     }
   ],
   "updated": "2026-10-11",
-  "version": "1.0.0"
+  "version": "2.0.0",
+  "outlook_2027": {
+    "summary": "Directional reads for 2027, not predictions: which niches the current signals point up, hold flat, or down - and why. Every trajectory carries its basis and sources; medians describe cohorts, never your outcome.",
+    "platform_signals": [
+      {
+        "signal": "YouTube's 2027 priorities: Shopping, micro-dramas, custom content feeds",
+        "source": "haberman-2027",
+        "detail": "Lia Haberman's read of Made On YouTube 2026: platform resources going to shoppable video, serialized micro-dramas (Shorts Series), and interest-curated custom feeds."
+      },
+      {
+        "signal": "Microdrama boom: 6.5B YouTube views in H1 2026; ~$14B industry 2026 estimate",
+        "source": "fastcompany-microdrama",
+        "detail": "Industry revenue estimate is single-source (FastCompany, Sep 2026); the platform commitment (Shorts Series, Made On YouTube) is multi-source."
+      },
+      {
+        "signal": "YPP 2027: Shorts revenue sharing needs 10M qualified Shorts views per 90 days from Feb 1, 2027",
+        "source": "auditsocials-ypp",
+        "detail": "Announced Aug 10, 2026; multi-source (AIR Media-Tech, AuditSocials, Tablet News, GSMDome). New applicants: 8,000 watch hours or 20M Shorts views. Existing YPP long-form monetization unaffected; below the floor the Shorts pool pays nothing that month."
+      },
+      {
+        "signal": "TikTok's 2027 priority: strengthening creator-brand partnerships",
+        "source": "haberman-2027",
+        "detail": "Signals more sponsored-content budgets flowing through TikTok's own pipelines - favors niches brands already buy (beauty, food, lifestyle, finance)."
+      },
+      {
+        "signal": "Interest-based feeds keep winning",
+        "source": "haberman-2027",
+        "detail": "YouTube custom feeds, TikTok FYP, LinkedIn dueling feeds: distribution organizes around interests, not follower counts. Niching down matters more, not less."
+      },
+      {
+        "signal": "Oct-2026 Shorts originality update confirmed",
+        "source": "digitaltrends-shorts",
+        "detail": "Confirmed multi-source (Digital Trends, ppc.land, Storyboard18, NeoTeo): Shorts recommendations prioritize original content and reduce reach for re-uploads without meaningful additions."
+      }
+    ],
+    "evidence_note": "Trajectories are the site's directional read of October-2026 signals - not forecasts. 'Heating' means multiple current signals point up; 'stable' means steady demand and steady risk; 'cooling' means the measured risks (competition, rate pressure, policy) outweigh the growth signals. Re-check before acting."
+  },
+  "breakout_spotlights": [
+    {
+      "id": "video-podcasts",
+      "name": "Video Podcasts & Interviews",
+      "growth": "15x",
+      "revenue": "$12-18 CPM (creator-reported, OutlierKit trending)",
+      "competition": "Medium",
+      "why": "YouTube Podcasts passed 1B monthly users (AIR, 2026) - long conversation formats travel to TV, and YouTube is building the rails.",
+      "sources": [
+        "outlierkit-trending",
+        "air-tubeai"
+      ],
+      "single_source": false,
+      "note": "CPM figures single-source; audience figures multi-source."
+    },
+    {
+      "id": "rural-homesteading",
+      "name": "Rural Homesteading & Off-Grid",
+      "growth": "16x",
+      "revenue": "$12-16 CPM (creator-reported, OutlierKit trending)",
+      "competition": "Low",
+      "why": "Escapism plus self-sufficiency narrative with real sponsor demand (tools, land, equipment).",
+      "sources": [
+        "outlierkit-trending"
+      ],
+      "single_source": true
+    },
+    {
+      "id": "manhwa-webtoon-recaps",
+      "name": "Manhwa & Webtoon Recaps",
+      "growth": "5.8x",
+      "revenue": "$15-19 CPM (creator-reported, OutlierKit trending)",
+      "competition": "Medium",
+      "why": "Serialized storytelling for an underserved fandom - but recaps of copyrighted work need rights or genuinely transformative commentary. This is not legal advice.",
+      "sources": [
+        "outlierkit-trending"
+      ],
+      "single_source": true
+    },
+    {
+      "id": "shorts-series",
+      "name": "Shorts Series (microdramas)",
+      "growth": "platform push",
+      "revenue": "Shorts-tier RPMs ($0.04-0.50 per 1K, site data)",
+      "competition": "Rising",
+      "why": "YouTube's Made-On-2026 Shorts Series feature bets the platform on episodic vertical storytelling; microdramas passed 6.5B views in H1 2026.",
+      "sources": [
+        "fastcompany-microdrama",
+        "haberman-2027"
+      ],
+      "single_source": false,
+      "note": "Industry revenue estimates single-source; the platform commitment is multi-source."
+    }
+  ],
+  "stream_fit_legend": {
+    "strong": "the niche's audience buys this format - documented sponsor or buyer demand",
+    "moderate": "works, but not the niche's primary money path",
+    "weak": "poor fit - audience intent or platform rules work against it",
+    "evidence_note": "Editorial fit ratings from the site's monetization research (Phase 5, the rate card, case files) - judgment, not reported figures. Use with the Niche Atlas revenue ranges."
+  }
 }

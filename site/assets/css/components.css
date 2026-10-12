@@ -420,6 +420,41 @@ output { font-family: var(--font-mono); color: var(--acid); font-weight: 700; }
   .niche-card:hover { border-color: var(--line-strong); }
 }
 
+/* ---------- Niche Atlas 2.0: 2027 outlook layer (wave 20) ---------- */
+.ne-outlook { font-size: 0.88rem; margin: 0 0 0.5rem; }
+.ne-outlook-basis { color: var(--muted); font-size: 0.84rem; }
+.ne-traj { display: inline-block; border-radius: 999px; padding: 0.15rem 0.65rem; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; border: 1px solid var(--line-strong); }
+.ne-traj-heating { background: var(--acid); color: #0d0d0d; border-color: var(--acid); }
+.ne-traj-stable { background: transparent; color: var(--muted); }
+.ne-traj-cooling { background: var(--coral); color: #0d0d0d; border-color: var(--coral); }
+
+.scatter-svg { width: 100%; height: auto; display: block; background: var(--panel, transparent); border: 1px solid var(--line-strong); border-radius: 1rem; padding: 0.5rem; }
+.scatter-axis { stroke: var(--line-strong); stroke-width: 1.5; }
+.scatter-grid { stroke: var(--line-strong); stroke-width: 1; stroke-dasharray: 4 4; opacity: 0.6; }
+.scatter-tick { font-size: 11px; fill: var(--muted, #999); font-family: var(--font-mono, monospace); }
+.scatter-pt text { font-size: 11px; fill: var(--fg, currentColor); }
+.scatter-pt circle { stroke: #0d0d0d; stroke-width: 1.5; }
+.scatter-pt.ne-traj-heating circle { fill: var(--acid); }
+.scatter-pt.ne-traj-stable circle { fill: var(--muted, #999); }
+.scatter-pt.ne-traj-cooling circle { fill: var(--coral); }
+
+.ne-alt { margin: 1rem 0; }
+.ne-alt summary { cursor: pointer; font-weight: 700; padding: 0.5rem 0; }
+.ne-alt summary:focus-visible { outline: 2px solid var(--acid); outline-offset: 2px; }
+
+.ne-redflags { list-style: none; padding: 0; margin: 0; display: grid; gap: 1rem; }
+.ne-redflag { border-left: 4px solid var(--coral); }
+.ne-redflag h3 { margin-top: 0; }
+
+.compare-table td.fit-strong { color: var(--acid); font-weight: 700; }
+.compare-table td.fit-weak { color: var(--muted); }
+
+.quiz-mode-bar { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 1.25rem; }
+.quiz-mode-btn[aria-pressed="true"] { outline: 2px solid var(--acid); outline-offset: 2px; }
+@media (min-width: 720px) {
+  .ne-redflags { grid-template-columns: repeat(2, 1fr); }
+}
+
 /* ---------- deal room (wave 15) ---------- */
 #dr-deals { list-style: none; padding: 0; max-width: 72ch; display: grid; gap: 1rem; }
 .deal-card { border: 1px solid var(--line-strong); border-radius: 1rem; padding: 1rem 1.1rem; transition: border-color 0.2s ease; }

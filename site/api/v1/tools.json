@@ -6,7 +6,7 @@
     {
       "id": "quiz",
       "title": "Niche Picker",
-      "description": "Answer 6 questions, get ranked niche suggestions with reasoning.",
+      "description": "Answer 6 questions, get ranked niche suggestions with reasoning \u2014 or take the 4-question \"Pick my 2027 niche\" branch.",
       "page": "quiz.html",
       "input_schema": {
         "$schema": "http://json-schema.org/draft-07/schema#",
@@ -78,11 +78,50 @@
               "low"
             ],
             "description": "Competition tolerance."
+          },
+          "q271": {
+            "type": "string",
+            "enum": [
+              "rising",
+              "search",
+              "underserved",
+              "evergreen"
+            ],
+            "description": "2027 branch: what's your 2027 bet (rising format / search demand / underserved lane / evergreen)."
+          },
+          "q272": {
+            "type": "string",
+            "enum": [
+              "shorts",
+              "long",
+              "both"
+            ],
+            "description": "2027 branch: shorts-first, long-form, or both."
+          },
+          "q273": {
+            "type": "string",
+            "enum": [
+              "policy",
+              "comp",
+              "lowpay"
+            ],
+            "description": "2027 branch: which risk you can stomach."
+          },
+          "q274": {
+            "type": "string",
+            "enum": [
+              "teaching",
+              "research",
+              "personality",
+              "hands-on",
+              "voice"
+            ],
+            "description": "2027 branch: skill fit."
           }
         }
       },
-      "output": "Ranked niche list (top 3+) with per-niche reasoning and fit tags.",
-      "drive_notes": "Scoring logic lives in assets/js/quiz.js: option tags are matched against each niche's fit[] tags, q3 sets an RPM preference filter, q6 sets the competition ceiling. The niche catalogue (9 niches, fit tags, rpm/competition levels) is embedded in quiz.js."
+      "output": "Ranked niche list (top 3+) with per-niche reasoning and fit tags. The 2027 branch returns top-3 niches with trajectory badges, basis sentences, and risk notes.",
+      "drive_notes": "Scoring logic lives in assets/js/quiz.js: option tags are matched against each niche's fit[] tags, q3 sets an RPM preference filter, q6 sets the competition ceiling. The niche catalogue (9 niches, fit tags, rpm/competition levels) is embedded in quiz.js. The 2027 branch scores the 20 atlas niches against data/niches.json outlook_2027 trajectories (heating +3 / stable +1 / cooling -2), growth-signal matches, format fit, risk alignment, and atlas skill_fit \u2014 OUTLOOK_2027 in quiz.js mirrors the JSON and tests/niche-atlas.test.js checks sync."
     },
     {
       "id": "calculator",
@@ -591,6 +630,7 @@
             "enum": [
               "asmr-bedroom",
               "tech-reviewer",
+              "ai-tutorials",
               "betrayal-dramas",
               "cooking-channel",
               "personal-finance",

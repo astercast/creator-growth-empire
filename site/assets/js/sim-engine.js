@@ -155,9 +155,22 @@
       id: "tech-reviewer",
       name: "Tech Reviewer",
       tagline: "High RPM, sponsor-friendly — the money-per-view play.",
-      source: "calculators.json: tech RPM band $8–$20 + the finance/tech 2–3x sponsor rule",
+      source: "calculators.json: tech RPM band $8–$20 + the finance/tech 2–3x sponsor rule + OutlierKit 2026 integrated-sponsor CPMs (tech/reviews $25–$45)",
       inputs: { niche: "tech_software", startSubs: 1500, longformPerWeek: 1, shortsPerWeek: 3,
         quality: "solid", growthRate: 0.10, rpmLevel: "mid", q4Uplift: 0.6,
+        ads: true, sponsors: true, affiliates: true,
+        digital: false, digitalStartMonth: 6, digitalPrice: 49, digitalConvPerMonth: 0.001 }
+    },
+    {
+      /* Wave 20: new — the 2027 outlook's fastest-rising search niche. Uses the
+         real tech_software engine key; growth assumption reflects the 18x
+         breakout reading (planning input, not a prediction). */
+      id: "ai-tutorials",
+      name: "AI Tutorials Channel",
+      tagline: "Tutorial volume in the fastest-rising search niche of 2026.",
+      source: "OutlierKit trending guide (Sep 2026): AI tutorials 18x growth, $15–22 CPM, medium-high competition + calculators.json tech band $8–$20 + Niche Atlas 2027 outlook (heating)",
+      inputs: { niche: "tech_software", startSubs: 1000, longformPerWeek: 2, shortsPerWeek: 4,
+        quality: "solid", growthRate: 0.12, rpmLevel: "mid", q4Uplift: 0.6,
         ads: true, sponsors: true, affiliates: true,
         digital: false, digitalStartMonth: 6, digitalPrice: 49, digitalConvPerMonth: 0.001 }
     },
@@ -165,7 +178,7 @@
       id: "betrayal-dramas",
       name: "Betrayal Mini-Dramas",
       tagline: "Serialized short-form dramas: volume first, RPM later.",
-      source: "calculators.json: entertainment band $1–$5 + the Phase 3 Shorts-first cadence",
+      source: "calculators.json: entertainment band $1–$5 + the Phase 3 Shorts-first cadence + OutlierKit trending (Sep 2026): betrayal/revenge 21x breakout, $20–25 CPM, low competition (multi-source) + Niche Atlas 2027 outlook (heating). Shorts-first formats face the Feb-2027 10M qualified Shorts views/90d revenue floor.",
       inputs: { niche: "comedy_entertainment", startSubs: 2000, longformPerWeek: 1, shortsPerWeek: 7,
         quality: "solid", growthRate: 0.15, rpmLevel: "low", q4Uplift: 0.6,
         ads: true, sponsors: false, affiliates: false,
@@ -185,7 +198,7 @@
       id: "personal-finance",
       name: "Personal Finance (Zero to Budget)",
       tagline: "Competitive niche, top RPM band, sponsors pay the 2.5x.",
-      source: "Case File: PTYA + calculators.json finance band $8–$35 + sponsor niche multiplier",
+      source: "Case File: PTYA + calculators.json finance band $8–$35 + sponsor niche multiplier + OutlierKit Sep-2026 RPM table (personal finance $10–$25 RPM) + Niche Atlas 2027 outlook (stable)",
       inputs: { niche: "finance_investing", startSubs: 700, longformPerWeek: 1, shortsPerWeek: 2,
         quality: "solid", growthRate: 0.09, rpmLevel: "mid", q4Uplift: 0.6,
         ads: true, sponsors: true, affiliates: true,

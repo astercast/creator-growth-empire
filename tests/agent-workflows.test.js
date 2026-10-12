@@ -154,12 +154,12 @@ function check(name, cond, detail) {
   check("wf4: simulator schema exposes scenario_id / horizon / hires / compare_with",
     !!(props && props.scenario_id && props.horizon && props.hires && props.compare_with),
     Object.keys(props || {}).join(","));
-  check("wf4: schema lists the 8 scenario presets",
-    Array.isArray(props.scenario_id.enum) && props.scenario_id.enum.length === 8,
+  check("wf4: schema lists the 9 scenario presets",
+    Array.isArray(props.scenario_id.enum) && props.scenario_id.enum.length === 9,
     (props.scenario_id.enum || []).join(","));
 
-  // the scenario library is real: 8 presets, RPMs trace to calculators.json bands
-  check("wf4: engine ships 8 named scenarios", EmpireSim.SCENARIOS.length === 8,
+  // the scenario library is real: 9 presets, RPMs trace to calculators.json bands
+  check("wf4: engine ships 9 named scenarios", EmpireSim.SCENARIOS.length === 9,
     String(EmpireSim.SCENARIOS.length));
   const asmr = EmpireSim.scenarioInputs("asmr-bedroom");
   const tech = EmpireSim.scenarioInputs("tech-reviewer");

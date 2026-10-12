@@ -177,6 +177,67 @@
       "items": {
         "type": "string"
       }
+    },
+    "outlook_2027": {
+      "type": "object",
+      "description": "Directional 2027 read: heating/stable/cooling + the basis sentence and signal source ids. A read, not a forecast.",
+      "properties": {
+        "trajectory": {
+          "type": "string",
+          "enum": [
+            "heating",
+            "stable",
+            "cooling"
+          ]
+        },
+        "basis": {
+          "type": "string"
+        },
+        "signals": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "stream_fit": {
+      "type": "object",
+      "description": "Editorial fit ratings (strong/moderate/weak) for ads, sponsorships, digital_products, pod. Judgment, not reported figures.",
+      "properties": {
+        "ads": {
+          "type": "string",
+          "enum": [
+            "strong",
+            "moderate",
+            "weak"
+          ]
+        },
+        "sponsorships": {
+          "type": "string",
+          "enum": [
+            "strong",
+            "moderate",
+            "weak"
+          ]
+        },
+        "digital_products": {
+          "type": "string",
+          "enum": [
+            "strong",
+            "moderate",
+            "weak"
+          ]
+        },
+        "pod": {
+          "type": "string",
+          "enum": [
+            "strong",
+            "moderate",
+            "weak"
+          ]
+        }
+      }
     }
   }
 }

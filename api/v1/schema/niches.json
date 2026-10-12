@@ -27,6 +27,21 @@
     "revenue_tier_legend": {
       "type": "object"
     },
+    "stream_fit_legend": {
+      "type": "object",
+      "description": "Legend for the editorial stream-fit ratings (strong/moderate/weak)."
+    },
+    "outlook_2027": {
+      "type": "object",
+      "description": "Doc-level 2027 outlook: summary, platform_signals, evidence_note."
+    },
+    "breakout_spotlights": {
+      "type": "array",
+      "description": "Breakout-format spotlights: growth signal, reported rates, competition, why, single_source flag.",
+      "items": {
+        "type": "object"
+      }
+    },
     "sources": {
       "type": "array",
       "items": {

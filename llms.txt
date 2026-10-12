@@ -14,7 +14,7 @@ From $0 to a multi-million-dollar creator company.
 - [Phase 8: Scale](phase-8-scale.html) — 8 min read
 
 ## Tools
-- [Niche Picker](quiz.html) — Answer 6 questions, get ranked niche suggestions with reasoning.
+- [Niche Picker](quiz.html) — Answer 6 questions, get ranked niche suggestions with reasoning — or take the 4-question "Pick my 2027 niche" branch, scored against the Niche Atlas 2027 outlook layer.
 - [Revenue Calculator](calculator.html) — Project revenue from views, niche, sponsors, and affiliates — with honest ranges.
 - [90-Day Planner](planner.html) — Generate a posting schedule from your platforms and cadence. Printable.
 - [Sponsor Deal Analyzer](deal-analyzer.html) — Benchmark a sponsor offer against the 2026 rate card — verdict, red-flag checklist, counter-offer worksheet.
@@ -35,7 +35,7 @@ All fifteen tools, grouped by job (Plan / Money / Content): [Tools hub](tools.ht
 
 ## Reference
 - [Reference: 2026 Rate Card](rate-card.html) — 3 min read
-- [Reference: The Niche Atlas](niche-atlas.html) — 7 min read
+- [Reference: The Niche Atlas](niche-atlas.html) — 14 min read
 - [Reference: The Metrics Glossary](metrics-glossary.html) — 9 min read
 
 ## Case Files — documented creator-business deconstructions
@@ -56,7 +56,7 @@ All fifteen tools, grouped by job (Plan / Money / Content): [Tools hub](tools.ht
 ## API
 - api/v1/index.json — self-describing manifest: every endpoint, schema URL, updated timestamp, record counts
 - api/v1/chapters.json
-- api/v1/niches.json — the Niche Atlas dataset: 20 researched niches, avoid list, sources, reality check
+- api/v1/niches.json — the Niche Atlas dataset v2.0.0: 20 researched niches, 2027 outlook layer (trajectory badges, breakout spotlights, platform signals, stream-fit matrix), avoid list, sources, reality check
 - api/v1/glossary.json
 - api/v1/calculators.json
 - api/v1/skills.json

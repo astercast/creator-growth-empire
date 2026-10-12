@@ -28,7 +28,7 @@
 |---|---|---|
 | `GET api/v1/index.json` | Self-describing manifest: every endpoint, schema URL, `updated`, record counts | `curl …/api/v1/index.json` → pick `endpoints[].path` |
 | `GET api/v1/chapters.json` | 9 phases: `id`, `phase`, `title`, `path`, `words`, `read_minutes` | Find `phase-5-monetization-stack`, then read its full text in `llms-full.txt` |
-| `GET api/v1/niches.json` | The Niche Atlas: 20 researched niches (growth, revenue ranges, competition, startup cost, skill fit, avoid list, sources) | `curl …/api/v1/niches.json` → filter `niches[]` by `revenue_tier`/`skill_fit` |
+| `GET api/v1/niches.json` | The Niche Atlas v2.0.0: 20 researched niches (growth, revenue ranges, competition, startup cost, skill fit, avoid list, sources) + the 2027 outlook layer (`outlook_2027` trajectory badge + basis + signals per niche, `breakout_spotlights`, `outlook_2027.platform_signals`, `stream_fit` per niche) | `curl …/api/v1/niches.json` → filter `niches[]` by `revenue_tier`/`skill_fit`/`outlook_2027.trajectory`; read `stream_fit` for the right second revenue stream |
 | `GET api/v1/glossary.json` | 26 creator-economy terms + definitions | Look up "RPM", "YPP", "whitelisting" before quoting them |
 | `GET api/v1/calculators.json` | Per-niche RPM bands, Shorts RPM, platform thresholds w/ sources+dates, revenue splits, 2026 sponsorship rate card, 2026 research snapshots | The data contract every calculator and the sim engine read |
 | `GET api/v1/skills.json` | 12 skills: `name`, `description`, `path` | `skills/deal-negotiation/SKILL.md` for the full procedure |
@@ -260,7 +260,7 @@ explaining how to replicate the logic:
 
 | Tool | Inputs (shape) | How to drive it |
 |---|---|---|
-| Niche Picker | 6 answers (`q1`–`q6`: interest, camera comfort, money-vs-audience, advantage, format, competition tolerance) | Score via `assets/js/quiz.js` tag matching, or run the `niche-validation` skill |
+| Niche Picker | 6 answers (`q1`–`q6`: interest, camera comfort, money-vs-audience, advantage, format, competition tolerance) + the **"Pick my 2027 niche" branch** (4 answers: 2027 bet, format, risk tolerance, skill fit — scored against the atlas outlook layer in `assets/js/quiz.js`) | Score via `assets/js/quiz.js` tag matching, or run the `niche-validation` skill |
 | Revenue Calculator | `niche` (RPM-band key) + monthly long-form/shorts views + sponsor deals + sponsor views + affiliate $ | `views/1000 × RPM band` per stream from `calculators.json`; affiliate ±30% |
 | 90-Day Planner | `longform_per_week` (0–7), `shorts_per_week` (0–21), `platforms[]`, `rest_day` (0–6) | Spread long-form across non-rest days, shorts 2 days apart, 13 weeks |
 | Sponsor Deal Analyzer | `platform`, `deliverable`, `followers`, `offer_usd` + `usage_rights`, `whitelisting`, `exclusivity`, `payment_terms` | Followers → tier → rate-card range; counter = range top + line items (see Workflow 1) |
