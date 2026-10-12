@@ -17,7 +17,7 @@ What shipped:
 
 Validation: `scripts/build.py` clean (9 chapters, 18 tools, 12 skills, 9 case files, 17,224 words); `scripts/validate.sh` **8/8 GREEN** (JS syntax, JSON parse, draft-07 schemas incl. the extended simulator input schema with `events`, 0 broken links (2,693 checked), byte-identical rebuild on the committed tree, 166 sim + 78 deal-room + 111 content-engine + 44 money-map + 184 video-doctor + 144 niche-atlas + 84 ypp-checker + 92 outreach engine assertions, 104 agent-workflow assertions).
 
-Commit: LOCALHASH (local) → REMOTEHASH (pushed 2026-10-11, remote tree verified via GitHub API — all wave-24 files in the recursive tree).
+Commit: 15ffa6f (local) → d0622df031ebaaa5095efcea35af099775a1ef39 (pushed 2026-10-11, remote tree verified via GitHub API — all wave-24 files in the recursive tree).
 
 ## Wave 23 — Content Engine 2.0 (2026-10-11)
 
