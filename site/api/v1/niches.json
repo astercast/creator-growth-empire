@@ -1359,7 +1359,7 @@
       }
     }
   ],
-  "note": "The Niche Atlas dataset v2.0.0: 20 creator niches researched October 2026 plus a 2027 outlook layer (trajectory badges, breakout-format spotlights, platform signals, niche-to-revenue-stream fit, red-flag niches). All CPM/RPM figures are creator-reported ranges compiled from industry benchmarks - ranges, never promises. They vary by geography, season (Q4 uplift), and audience tier. Channel-growth figures are cohort medians from the AIR Media-Tech / TubeAI study (144,370 YouTube channels, 10K-100K subs, Sep 7-27, 2026), not predictions. Single-source claims are flagged on each record. Not financial, legal, or tax advice.",
+  "note": "The Niche Atlas dataset v2.0.0: 20 creator niches researched October 2026 plus a 2027 outlook layer (trajectory badges, breakout-format spotlights, platform signals, niche-to-revenue-stream fit, red-flag niches). All CPM/RPM figures are creator-reported ranges compiled from industry benchmarks - ranges, never promises. They vary by geography, season (Q4 uplift), and audience tier. Channel-growth figures are cohort medians from the AIR Media-Tech / TubeAI study (144,370 YouTube channels, 10K-100K subs, Sep 7-27, 2026), not predictions. Single-source claims are flagged on each record. Not financial, legal, or tax advice. Wave 31 adds the breakout_format_dossiers block: 10 per-format dossiers (signal, reported ranges, competition, entry requirements, who-it-suits, risks, 2027 read, source weights) from the Oct-2026 wave-fuel niches mission + creator-economy rounds 2-7.",
   "reality_check": {
     "detail": "Plan a business model around 10K-30K loyal subscribers — sponsorships, affiliates, products — not a million. Pick a niche where a small audience pays (high RPM), not one where you need millions of views to matter.",
     "headline": "Fewer than 1% of YouTube channels ever reach 100K subscribers.",
@@ -1547,10 +1547,130 @@
       "url": "https://outlierkit.com/resources/youtube-sponsorship-rates/",
       "observed": "2026-10-11",
       "note": "2026 integrated-sponsor CPMs by niche (finance $30-60, AI tools $28-55, tech $25-45, food $18-30, gaming $15-30)."
+    },
+    {
+      "id": "the-paper-dataeye",
+      "publisher": "The Paper / DataEye",
+      "title": "Douyin AI-drama economics, H1 2026 (221,900 AI/animated dramas; 1 in 77 recouped)",
+      "url": null,
+      "observed": "2026-10-11",
+      "note": "Single-source; surfaced in creator-economy research round 7 (~Oct 5, 2026)."
+    },
+    {
+      "id": "gasp-reelshort",
+      "publisher": "GASP",
+      "title": "ReelShort AI-drama production dataset (Oct 7, 2026): 0/16 AI-made Jan -> 201/221 Sep",
+      "url": null,
+      "observed": "2026-10-11",
+      "note": "Single-source; public/auditable dataset."
+    },
+    {
+      "id": "mpa-reelshort",
+      "publisher": "Media Partners Asia (via Deadline)",
+      "title": "ReelShort $97M (2023) -> $785M (2025) -> $1.05B projected 2026; first profit year ~$40M net",
+      "url": null,
+      "observed": "2026-10-11",
+      "note": "Verified across 4+ outlets repeating the figures; forecasts, not audited."
+    },
+    {
+      "id": "thewrap-appfigures",
+      "publisher": "TheWrap / Appfigures",
+      "title": "ReelShort $1.2B consumer spending 2025 (gross in-app) - different denominator from MPA revenue",
+      "url": null,
+      "observed": "2026-10-11",
+      "note": "Verified; label the denominator."
+    },
+    {
+      "id": "yourstory-china",
+      "publisher": "YourStory",
+      "title": "China AI-generated short-drama market 2026 (470 AI short dramas/day, Jan 2026)",
+      "url": "https://yourstory.com/2026/05/china-ai-generated-short-drama-market-2026",
+      "observed": "2026-10-11",
+      "note": "Single-source."
+    },
+    {
+      "id": "metricool-tiktok",
+      "publisher": "Metricool",
+      "title": "2026 TikTok study (2.3M posts, 92K+ accounts): video reach -28.73% YoY",
+      "url": null,
+      "observed": "2026-10-11",
+      "note": "Single-source."
+    },
+    {
+      "id": "tubefilter-onepay",
+      "publisher": "Tubefilter",
+      "title": "TikTok One Pay (Sep 29, 2026): under-30-day brand-deal payouts, zero cut",
+      "url": null,
+      "observed": "2026-10-11",
+      "note": "Single-source; no creator payout reports as of Oct 11, 2026."
+    },
+    {
+      "id": "tiktok-newsroom-ai",
+      "publisher": "TikTok Newsroom",
+      "title": "October 8, 2026 AI-transparency push (AI Hub global; 3B+ videos labeled AI-generated)",
+      "url": null,
+      "observed": "2026-10-11",
+      "note": "Platform-stated."
+    },
+    {
+      "id": "hypefy-cee",
+      "publisher": "Hypefy",
+      "title": "CEE 2026 brand-deal data (CPE EUR 0.34 CEE vs 1.29 Western Europe; engagement 13.5% nano -> 1.3% mega)",
+      "url": null,
+      "observed": "2026-10-11",
+      "note": "Single-source."
+    },
+    {
+      "id": "collabstr",
+      "publisher": "Collabstr",
+      "title": "80% of brand collaborations under $300",
+      "url": null,
+      "observed": "2026-10-11",
+      "note": "Single-source."
+    },
+    {
+      "id": "socialcat",
+      "publisher": "Social Cat",
+      "title": "Aligned campaigns ~77% higher average views",
+      "url": null,
+      "observed": "2026-10-11",
+      "note": "Single-source."
+    },
+    {
+      "id": "imh-q1",
+      "publisher": "Influencer Marketing Hub",
+      "title": "Q1 finance/tax RPM exception (rates rise while market falls)",
+      "url": null,
+      "observed": "2026-10-11",
+      "note": "Single-source."
+    },
+    {
+      "id": "ritchie-short",
+      "publisher": "Rene Ritchie",
+      "title": "Shorts originality update: recommendation system will 're-evaluate reach' for affected channels",
+      "url": null,
+      "observed": "2026-10-11",
+      "note": "Verified per the October 2026 research rounds."
+    },
+    {
+      "id": "sej-short",
+      "publisher": "Search Engine Journal",
+      "title": "Oct-1 Shorts update is recommendations-only, not monetization",
+      "url": null,
+      "observed": "2026-10-11",
+      "note": "Verified per the October 2026 research rounds."
+    },
+    {
+      "id": "clownfish-clipping",
+      "publisher": "Clownfish TV",
+      "title": "$1.4M paid to clippers in five weeks (Oct 2026)",
+      "url": null,
+      "observed": "2026-10-11",
+      "note": "Single-source."
     }
   ],
   "updated": "2026-10-11",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "outlook_2027": {
     "summary": "Directional reads for 2027, not predictions: which niches the current signals point up, hold flat, or down - and why. Every trajectory carries its basis and sources; medians describe cohorts, never your outcome.",
     "platform_signals": [
@@ -1646,5 +1766,206 @@
     "moderate": "works, but not the niche's primary money path",
     "weak": "poor fit - audience intent or platform rules work against it",
     "evidence_note": "Editorial fit ratings from the site's monetization research (Phase 5, the rate card, case files) - judgment, not reported figures. Use with the Niche Atlas revenue ranges."
-  }
+  },
+  "breakout_format_dossiers": [
+    {
+      "id": "betrayal-revenge-minidramas",
+      "name": "Betrayal & revenge mini-dramas",
+      "dossier_no": "01",
+      "signal": "21x breakout multiple (OutlierKit trending); microdramas 6.5B views on YouTube H1 2026, watch time +50% YoY (AIR); Shorts seasons/episodes feature Sep 2026",
+      "pay": "$20-25 CPM creator-reported (OutlierKit) - ranges, never promises",
+      "competition": "Low (OutlierKit)",
+      "entry_requirements": "Scripted-drama production: scripts with cliffhangers, recurring cast, directing, clean dialogue audio; Shorts Series formatting. AI video cuts cost but volume-farmed versions were demonetized Jan 2026.",
+      "who_it_suits": "Storytellers with drama instincts; small production teams over solo operators",
+      "risks": "Supply glut: 1 in 77 Douyin AI dramas recouped H1 2026 (The Paper/DataEye); Jan-2026 inauthentic enforcement excludes mass-produced AI video; Feb-2027 10M/90d Shorts revenue floor",
+      "read_2027": "Heating - for original scripted series, not AI-volume farms",
+      "sources": [
+        "outlierkit-trending",
+        "air-tubeai",
+        "fastcompany-microdrama",
+        "the-paper-dataeye",
+        "utubekit",
+        "auditsocials-ypp"
+      ],
+      "single_source": true,
+      "source_note": "21x multiple, $20-25 CPM, and competition figures single-source (OutlierKit); platform tailwind multi-source."
+    },
+    {
+      "id": "english-learning-podcasts",
+      "name": "English-learning podcasts",
+      "dossier_no": "02",
+      "signal": "21x breakout multiple (OutlierKit trending); YouTube Podcasts passed 1B monthly users (AIR)",
+      "pay": "$18-22 CPM (OutlierKit); $11.88 RPM (UTubeKit Jul 2026) - creator-reported ranges",
+      "competition": "Low (OutlierKit)",
+      "entry_requirements": "Teaching ability, clear warm audio, consistent schedule; video podcast format for YouTube discovery; lesson plan per episode",
+      "who_it_suits": "Teachers, coaches, multilingual creators; patience and structure over charisma",
+      "risks": "Language-education advertisers are a specific buyer set; figures single-source - find a second source before spending",
+      "read_2027": "Heating - education-tier rates + low competition + AI translation expanding reach",
+      "sources": [
+        "outlierkit-trending",
+        "utubekit",
+        "air-tubeai"
+      ],
+      "single_source": true,
+      "source_note": "21x, $18-22 CPM single-source; $11.88 RPM from UTubeKit (verified publication, creator-reported)."
+    },
+    {
+      "id": "senior-health",
+      "name": "Senior health",
+      "dossier_no": "03",
+      "signal": "19x breakout multiple (OutlierKit trending); senior audience underserved on nearly every platform",
+      "pay": "No reported range in Oct 2026 research; lifestyle mid-tier proxy ~$4-10 RPM (directional)",
+      "competition": "Ultra-low (OutlierKit)",
+      "entry_requirements": "Accuracy as the brand: correct, clearly explained, sourced health information; warm patient delivery; large-type visuals. Education only - never diagnoses or treatment recommendations.",
+      "who_it_suits": "Health professionals, caregivers, patient communicators",
+      "risks": "Bright red line: health education fine, medical-advice claims flagged (TikTok removes; AI health personas unmonetizable)",
+      "read_2027": "Heating - growing audience, near-zero competition, accuracy moat",
+      "sources": [
+        "outlierkit-trending",
+        "vidiq",
+        "buytiktok",
+        "synthesys"
+      ],
+      "single_source": true,
+      "source_note": "19x and ultra-low competition single-source; pay range unreported."
+    },
+    {
+      "id": "sleep-ambient",
+      "name": "Sleep & ambient",
+      "dossier_no": "04",
+      "signal": "14x breakout multiple (OutlierKit trending); compounds on catalog - every night is a viewing session",
+      "pay": "Mid-tier via lifestyle proxy ~$4-10 RPM (directional); long-watching loyal audiences suit retention-based monetization",
+      "competition": "Low (OutlierKit)",
+      "entry_requirements": "Audio production quality - the sound IS the product; hours-long session design; consistency over novelty; field recorder or DAW + quiet room",
+      "who_it_suits": "Audio engineers, musicians, producers, calm voices",
+      "risks": "Jan-2026 enforcement hit low-effort faceless channels hardest: original audio and real production required; 'faceless works only with visible human creativity'",
+      "read_2027": "Stable - 14x breakout against the enforcement overhang; catalog compounds for years",
+      "sources": [
+        "outlierkit-trending",
+        "utubekit",
+        "lilachbullock"
+      ],
+      "single_source": true,
+      "source_note": "14x single-source; enforcement verified-publication (UTubeKit)."
+    },
+    {
+      "id": "ai-tools-tutorials",
+      "name": "AI tools & tutorials",
+      "dossier_no": "05",
+      "signal": "+340% YoY search growth (OutlierKit Sep 2026); 10.0% of videos beat channel avg by 10x (OutlierKit Aug); AI channels 10K-100K grew 1.44%/mo vs 0.97% median (AIR via TubeAI)",
+      "pay": "$8-20 CPM (OutlierKit Sep); $15-22 CPM breakout high-water mark (OutlierKit trending) - ranges, never promises",
+      "competition": "Rising fast - specificity wins (local AI tutorials, AI for a profession/workflow)",
+      "entry_requirements": "Technical fluency, fast iteration as tools change; on-screen teaching in your own voice (inauthentic policy lets tutorials grow, excludes mass-produced AI video); screen recording + microphone",
+      "who_it_suits": "Tech-native experimenters; niche professionals teaching AI to their industry",
+      "risks": "Tool half-lives decay the catalog; disclosure rules (May-2026 auto-labeling; TikTok Oct 2026 AI-transparency push, 3B+ videos labeled)",
+      "read_2027": "Heating - strongest multi-signal dossier; lane rewards the specific, not the general",
+      "sources": [
+        "outlierkit-search",
+        "outlierkit-breakout",
+        "outlierkit-trending",
+        "air-tubeai",
+        "vidiq",
+        "tiktok-newsroom-ai"
+      ],
+      "single_source": false,
+      "source_note": "Search growth and breakout verified-publication; $15-22 CPM single-source."
+    },
+    {
+      "id": "no-code-automation",
+      "name": "No-code & automation",
+      "dossier_no": "06",
+      "signal": "+220% YoY search growth (OutlierKit Sep 2026); 'most underserved' label (single-source)",
+      "pay": "$10-25 CPM (OutlierKit Sep); business/operator audience advertisers pay for",
+      "competition": "Low-to-underserved ('most underserved' single-source)",
+      "entry_requirements": "Build real automations and document the process - proof-of-work niche; screen recorder + actual workflows; niche B2B explainer angle",
+      "who_it_suits": "Operators, process nerds, freelancers who automate client work",
+      "risks": "Single-source weight on the core claim; tool pricing/feature changes inherited by tool-dependent channels",
+      "read_2027": "Heating - demand signal verified-publication; 'most underserved' label needs your own verification",
+      "sources": [
+        "outlierkit-search",
+        "lilachbullock"
+      ],
+      "single_source": true,
+      "source_note": "Search growth verified-publication; 'most underserved' single-source."
+    },
+    {
+      "id": "genz-personal-finance",
+      "name": "Gen Z personal finance",
+      "dossier_no": "07",
+      "signal": "+180% search growth (OutlierKit Sep); highest breakout rate measured: 16.7% of videos (OutlierKit Aug); TikTok fastest-growing niche (TikHub)",
+      "pay": "$18-45 CPM (OutlierKit); finance/business $8-35 RPM vs gaming/entertainment $1-5 (~7x gap, OutlierKit Jun); finance sponsors $40-80+ CPM (UTubeKit)",
+      "competition": "High - the dossier's central tension: best pay + highest breakout, most contested lane",
+      "entry_requirements": "Real financial literacy, research depth; educational content NOT financial advice - disclaimer on page, in video, and in your head; camera/screen + spreadsheet + sources",
+      "who_it_suits": "Disciplined researchers with real money experience; Gen Z creators talking to Gen Z peers",
+      "risks": "Advertiser CPMs are not channel medians (AIR: top 10% take 58% of ad revenue within same niches); seasonal note: finance RPMs often rise in Q1 (IMH)",
+      "read_2027": "Stable - pay is real, breakout best measured, competition is the price of admission",
+      "sources": [
+        "outlierkit-search",
+        "outlierkit-breakout",
+        "outlierkit-cpm",
+        "outlierkit-rpm-table",
+        "tikhub",
+        "utubekit",
+        "air-monetization-2027",
+        "imh-q1"
+      ],
+      "single_source": false,
+      "source_note": "Figures verified-publication; IMH Q1 exception single-source."
+    },
+    {
+      "id": "cybersecurity-privacy",
+      "name": "Cybersecurity & privacy",
+      "dossier_no": "08",
+      "signal": "+160% search growth (OutlierKit Sep 2026); thin competition (single-source)",
+      "pay": "$12-28 CPM (OutlierKit Sep); security-vendor / B2B-software buyer set",
+      "competition": "Thin (single-source)",
+      "entry_requirements": "Real technical knowledge - credibility niche; demo-based content (show the attack, show the fix); lab environment (VM), screen recorder; accuracy that never gets someone hacked",
+      "who_it_suits": "Security-curious, IT professionals, privacy advocates",
+      "risks": "Single-source weight on competition/figures; concentrated advertiser base; high-stakes wrongness",
+      "read_2027": "Heating - verify the competition claim with your own search ('this month' filter, count sub-10K channels) before committing",
+      "sources": [
+        "outlierkit-search"
+      ],
+      "single_source": true,
+      "source_note": "All figures single-source (OutlierKit)."
+    },
+    {
+      "id": "legal-tax-education",
+      "name": "Legal & tax education",
+      "dossier_no": "09",
+      "signal": "Named 'most underserved high-payer' (UTubeKit Jul 2026); the signal is the pay/competition gap",
+      "pay": "$15-40 CPM (Famety Sep); legal $10-35 CPM (upGrowth Sep)",
+      "competition": "Low - the credential is the moat",
+      "entry_requirements": "Real legal/tax knowledge; explainer-driven content (new rules, common filing errors, deadline calendars); cite the actual statute or form; camera + slides",
+      "who_it_suits": "Paralegals, accountants, tax preparers, enrolled agents - people who already answer these questions",
+      "risks": "Educational content NOT legal/tax advice - disclaimer is load-bearing; laws change by jurisdiction and year, catalog needs maintenance",
+      "read_2027": "Heating - underserved high-payers don't stay underserved forever, but the credential moat slows influx",
+      "sources": [
+        "utubekit",
+        "famety",
+        "upgrowth"
+      ],
+      "single_source": false,
+      "source_note": "Pay figures verified-publication; 'most underserved' label from UTubeKit (verified publication)."
+    },
+    {
+      "id": "story-narration-audio-dramas",
+      "name": "Story narration & audio dramas",
+      "dossier_no": "10",
+      "signal": "$12.82 RPM reported (UTubeKit Jul 2026) - the rate is the signal, not velocity",
+      "pay": "$12.82 RPM creator-reported (UTubeKit); wide error bar - one outlet's figure, varies by geography/watch time",
+      "competition": "Medium; enforcement environment is the real gate",
+      "entry_requirements": "Narration voice, original scripts or licensed/public-domain material, real audio production; microphone + DAW + patience for 40-minute episodes",
+      "who_it_suits": "Voice actors, writers, audio dramatists",
+      "risks": "Rights: copyrighted narration without transformation is reused content (Jan-2026 wave precedent); templated top-5s and article readings explicitly reused (Synthesys)",
+      "read_2027": "Stable - moat is production quality and original writing; volume farms are gone",
+      "sources": [
+        "utubekit",
+        "lilachbullock",
+        "synthesys"
+      ],
+      "single_source": false,
+      "source_note": "$12.82 RPM from UTubeKit (verified publication, creator-reported); enforcement verified-publication."
+    }
+  ]
 }

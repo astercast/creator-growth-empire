@@ -42,6 +42,7 @@ All nineteen tools, grouped by job (Plan / Money / Content): [Tools hub](tools.h
 - [Reference: The Niche Atlas](niche-atlas.html) — 14 min read
 - [Reference: The Metrics Glossary](metrics-glossary.html) — 9 min read
 - [Reference: The 2026 Platform Rules Bible](platform-rules-bible.html) — 34 min read
+- [Reference: The 2026 Breakout-Format Intel](breakout-format-intel.html) — 33 min read
 
 ## Case Files — documented creator-business deconstructions
 - [Case File: The Budget-Grocery Newsletter](case-budget-grocery.html) — 3 min read
@@ -63,7 +64,7 @@ All nineteen tools, grouped by job (Plan / Money / Content): [Tools hub](tools.h
 ## API
 - api/v1/index.json — self-describing manifest: every endpoint, schema URL, updated timestamp, record counts
 - api/v1/chapters.json
-- api/v1/niches.json — the Niche Atlas dataset v2.0.0: 20 researched niches, 2027 outlook layer (trajectory badges, breakout spotlights, platform signals, stream-fit matrix), avoid list, sources, reality check
+- api/v1/niches.json — the Niche Atlas dataset v2.1.0: 20 researched niches, 2027 outlook layer (trajectory badges, breakout spotlights, platform signals, stream-fit matrix), ten breakout-format dossiers, avoid list, sources, reality check
 - api/v1/glossary.json
 - api/v1/calculators.json
 - api/v1/skills.json

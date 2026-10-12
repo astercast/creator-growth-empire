@@ -100,6 +100,7 @@ REFERENCE_PAGES = [
     ("metrics-glossary", "content/metrics-glossary.md", "Reference", "The Metrics Glossary"),
     ("platform-rules-bible", "content/platform-rules-bible.md", "Reference", "The 2026 Platform Rules Bible",
      ["assets/js/platform-rules-ui.js"]),
+    ("breakout-format-intel", "content/breakout-format-intel.md", "Reference", "The 2026 Breakout-Format Intel"),
 ]
 
 # Interactive mount appended to the Niche Atlas reference page (wave 14).
@@ -1562,7 +1563,7 @@ def build():
             "id": "niches",
             "kind": "json",
             "path": "api/v1/niches.json",
-            "description": ("The Niche Atlas dataset v2.0.0: 20 October-2026-researched niches — "
+            "description": ("The Niche Atlas dataset v2.1.0: 20 October-2026-researched niches — "
                             "channel growth, search growth, breakout formats, creator-reported "
                             "revenue ranges (CPM/RPM), competition, startup cost, skill fit, "
                             "chapter/simulator/case-file links, the avoid list (red-flag niches, "
@@ -1570,7 +1571,10 @@ def build():
                             "plus the 2027 outlook layer: per-niche trajectory badges "
                             "(heating/stable/cooling with basis + signals), breakout-format "
                             "spotlights, platform signals, and the niche-to-revenue-stream fit "
-                            "matrix. Ranges, never promises."),
+                            "matrix — plus the ten breakout-format dossiers (signal, reported "
+                            "ranges, competition, entry requirements, who-it-suits, risks, "
+                            "2027 read, source weights) backing the Breakout-Format Intel "
+                            "reference page. Ranges, never promises."),
             "schema": "api/v1/schema/niches.json",
             "updated": BUILD_TS,
             "records": len(niches_cfg["niches"]),
@@ -1668,11 +1672,14 @@ def build():
             "kind": "html",
             "paths": [m["path"] for m in reference_meta],
             "description": ("Human-readable reference pages: the 2026 sponsorship rate card, "
-                            "the Niche Atlas, the Metrics Glossary, and the 2026 Platform "
-                            "Rules Bible. Machine-readable equivalents: rate card in "
-                            "calculators.json sponsorship_rate_card_2026; the atlas in "
-                            "niches.json; glossary terms in glossary.json. Figures are "
-                            "creator-reported ranges and source-weighted research, never promises."),
+                            "the Niche Atlas, the Metrics Glossary, the 2026 Platform "
+                            "Rules Bible, and the 2026 Breakout-Format Intel. "
+                            "Machine-readable equivalents: rate card in "
+                            "calculators.json sponsorship_rate_card_2026; the atlas and "
+                            "the ten breakout-format dossiers in niches.json "
+                            "(breakout_format_dossiers); glossary terms in glossary.json. "
+                            "Figures are creator-reported ranges and source-weighted "
+                            "research, never promises."),
             "schema": None,
             "updated": BUILD_TS,
             "records": len(reference_meta),
@@ -1954,14 +1961,17 @@ def build():
             "breakout_spotlights": {"type": "array",
                 "description": "Breakout-format spotlights: growth signal, reported rates, competition, why, single_source flag.",
                 "items": {"type": "object"}},
+            "breakout_format_dossiers": {"type": "array",
+                "description": "Wave-31 breakout-format dossiers: signal, reported pay range, competition, entry_requirements, who_it_suits, risks, read_2027, sources, single_source flag + source_note.",
+                "items": {"type": "object"}},
             "sources": {"type": "array", "items": {
                 "type": "object",
-                "required": ["id", "publisher", "title", "url", "observed"],
+                "required": ["id", "publisher", "title", "observed"],
                 "properties": {
                     "id": {"type": "string"},
                     "publisher": {"type": "string"},
                     "title": {"type": "string"},
-                    "url": {"type": "string", "format": "uri"},
+                    "url": {"type": ["string", "null"]},
                     "observed": {"type": "string"},
                     "note": {"type": "string"},
                 },
@@ -2315,7 +2325,7 @@ def build():
         llms.append(f"- [{m['badge']}: {m['title']}]({m['path']}) — {m['read_minutes']} min read")
     llms += ["", "## API", "- api/v1/index.json — self-describing manifest: every endpoint, schema URL, updated timestamp, record counts",
              "- api/v1/chapters.json",
-             "- api/v1/niches.json — the Niche Atlas dataset v2.0.0: 20 researched niches, 2027 outlook layer (trajectory badges, breakout spotlights, platform signals, stream-fit matrix), avoid list, sources, reality check",
+             "- api/v1/niches.json — the Niche Atlas dataset v2.1.0: 20 researched niches, 2027 outlook layer (trajectory badges, breakout spotlights, platform signals, stream-fit matrix), ten breakout-format dossiers, avoid list, sources, reality check",
              "- api/v1/glossary.json",
              "- api/v1/calculators.json",
              "- api/v1/skills.json",

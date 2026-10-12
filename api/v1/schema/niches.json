@@ -42,6 +42,13 @@
         "type": "object"
       }
     },
+    "breakout_format_dossiers": {
+      "type": "array",
+      "description": "Wave-31 breakout-format dossiers: signal, reported pay range, competition, entry_requirements, who_it_suits, risks, read_2027, sources, single_source flag + source_note.",
+      "items": {
+        "type": "object"
+      }
+    },
     "sources": {
       "type": "array",
       "items": {
@@ -50,7 +57,6 @@
           "id",
           "publisher",
           "title",
-          "url",
           "observed"
         ],
         "properties": {
@@ -64,8 +70,10 @@
             "type": "string"
           },
           "url": {
-            "type": "string",
-            "format": "uri"
+            "type": [
+              "string",
+              "null"
+            ]
           },
           "observed": {
             "type": "string"

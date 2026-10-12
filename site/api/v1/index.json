@@ -32,7 +32,7 @@
       "id": "niches",
       "kind": "json",
       "path": "api/v1/niches.json",
-      "description": "The Niche Atlas dataset v2.0.0: 20 October-2026-researched niches \u2014 channel growth, search growth, breakout formats, creator-reported revenue ranges (CPM/RPM), competition, startup cost, skill fit, chapter/simulator/case-file links, the avoid list (red-flag niches, 2027-updated), sources, and the <1%-reach-100K reality check \u2014 plus the 2027 outlook layer: per-niche trajectory badges (heating/stable/cooling with basis + signals), breakout-format spotlights, platform signals, and the niche-to-revenue-stream fit matrix. Ranges, never promises.",
+      "description": "The Niche Atlas dataset v2.1.0: 20 October-2026-researched niches \u2014 channel growth, search growth, breakout formats, creator-reported revenue ranges (CPM/RPM), competition, startup cost, skill fit, chapter/simulator/case-file links, the avoid list (red-flag niches, 2027-updated), sources, and the <1%-reach-100K reality check \u2014 plus the 2027 outlook layer: per-niche trajectory badges (heating/stable/cooling with basis + signals), breakout-format spotlights, platform signals, and the niche-to-revenue-stream fit matrix \u2014 plus the ten breakout-format dossiers (signal, reported ranges, competition, entry requirements, who-it-suits, risks, 2027 read, source weights) backing the Breakout-Format Intel reference page. Ranges, never promises.",
       "schema": "api/v1/schema/niches.json",
       "updated": "2026-10-11T00:00:00Z",
       "records": 20,
@@ -130,12 +130,13 @@
         "rate-card.html",
         "niche-atlas.html",
         "metrics-glossary.html",
-        "platform-rules-bible.html"
+        "platform-rules-bible.html",
+        "breakout-format-intel.html"
       ],
-      "description": "Human-readable reference pages: the 2026 sponsorship rate card, the Niche Atlas, the Metrics Glossary, and the 2026 Platform Rules Bible. Machine-readable equivalents: rate card in calculators.json sponsorship_rate_card_2026; the atlas in niches.json; glossary terms in glossary.json. Figures are creator-reported ranges and source-weighted research, never promises.",
+      "description": "Human-readable reference pages: the 2026 sponsorship rate card, the Niche Atlas, the Metrics Glossary, the 2026 Platform Rules Bible, and the 2026 Breakout-Format Intel. Machine-readable equivalents: rate card in calculators.json sponsorship_rate_card_2026; the atlas and the ten breakout-format dossiers in niches.json (breakout_format_dossiers); glossary terms in glossary.json. Figures are creator-reported ranges and source-weighted research, never promises.",
       "schema": null,
       "updated": "2026-10-11T00:00:00Z",
-      "records": 4,
+      "records": 5,
       "deprecated": false,
       "deprecation_note": null
     },

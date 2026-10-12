@@ -24,7 +24,7 @@ var d = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "data", "niches.js
 var sourceIds = {};
 (d.sources || []).forEach(function (s) { sourceIds[s.id] = true; });
 
-ok(d.version === "2.0.0", "dataset version is 2.0.0 (got " + d.version + ")");
+ok(d.version === "2.1.0", "dataset version is 2.1.0 (got " + d.version + ")");
 ok(d.niches.length === 20, "20 niche records (got " + d.niches.length + ")");
 
 var TRAJ = { heating: 1, stable: 1, cooling: 1 };
