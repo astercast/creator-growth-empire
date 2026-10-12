@@ -62,7 +62,7 @@ shipped UMD sim engine in node).
 Existing payload shapes untouched (site JS + sim engine read them); only the
 manifest shape changed, with the API Explorer updated to match.
 
-Commit: PENDING (recorded post-push).
+Commit: db5e941cff923ed9dc11c8fd9f74d491e89e9226 (pushed 2026-10-11; local 3a5fa41).
 
 ---
 
