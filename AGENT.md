@@ -1,7 +1,7 @@
 # AGENT.md — How an agent uses Creator Growth Empire
 
 > This site is a static machine-readable knowledge base for the creator
-> business: 9 phases, 22 tools, 12 skills, 9 case files, and a versioned JSON
+> business: 9 phases, 23 tools, 12 skills, 9 case files, and a versioned JSON
 > API. No API key, no server, no auth, no rate limits. Fetch and act.
 > Every workflow below was executed against the real `data/v1/` JSON files —> see `tests/agent-workflows.test.js` (run: `node tests/agent-workflows.test.js`).
 
@@ -601,6 +601,42 @@ exact reply to send, and the walk-away number — via API, against the real
    reported ranges that disagree 2–3× within tiers, never presented as a
    guarantee of what a brand will pay. Not financial, legal, or tax advice.
 
+### Workflow 16 — Build a publishable rate card (Rate Card Builder)
+
+Goal: produce a creator's rate card where every number traces to a named
+benchmark block in the site's own data — via API, against calculators
+v1.5.0 and the Algorithm Watch feed.
+
+1. `GET data/v1/calculators.json` as `cfg`; `GET data/v1/changes.json`
+   for the watch panel; engine = `require("assets/js/rate-card-builder.js")`
+   (UMD).
+2. `RateCardBuilder.buildCard({platform: "youtube", format: "dedicated",
+   followers: 50000, expectedViews: 60000, niche: "tech_software",
+   usage: "paid_6mo", whitelistingMonths: 1}, cfg, feed)` → micro tier;
+   dedicated **$2,500–$25,000** (tier band $1,000–$10,000 × tech 2.5);
+   integrated **$3,000–$5,300** (reported $20–$35 CPM × 60K views × 2.5);
+   short **$1,500–$4,500** (general $10–$30 CPM × views × 2.5); UGC
+   **$150–$1,000** (Storika single-source, never tier/niche-scaled).
+   Add-ons ride on the primary row: paid 3–6-month usage
+   **$1,300–$19,000** (+50–75%), whitelisting **$750–$25,000**
+   (30–100%/mo × 1) → card total **$4,550–$69,000**, expected landing
+   zone **$3,500–$53,000** (×0.77).
+3. Honesty rules, enforced by the engine: a format with no benchmark
+   returns a null row with the reason stated (integrated off YouTube;
+   any CPM row without average views); platforms with no tier table
+   (Twitch, Kick, Facebook, X) get the YouTube band shown unadjusted
+   and labeled **proxy** — never dressed as their own rate. Reported
+   typical quotes/asks (Cheerful) map only where the format map maps
+   them, follower bands are never interpolated (only the published
+   1K–10K and 250K+ bands exist), and the modeled Instagram
+   cross-check is named and kept out of the math.
+4. The card carries the platform's newest Algorithm Watch entries
+   (for YouTube, Watch With first) — a rate quoted against a rule that
+   just moved is a rate quoted blind. `exportCard(card)` renders the
+   plaintext card with reasoning, evidence, and watch items.
+5. Framing rule: **ranges, not quotes** — benchmarks disagree 2–3×
+   within tiers in the source data. Not financial, legal, or tax advice.
+
 ## Rate & expectation notes
 
 - **Static JSON.** Nothing here is live: no request counts, no streaming, no
@@ -649,6 +685,7 @@ explaining how to replicate the logic:
 | Format Fit Finder | `experience` (teacher/tech/finance/legal/health/audio/writer/operator/none-yet), `weeklyHours`, `camera` (face/voice/hands/anything), `budget` (free/modest/real), `goal` (fast/mid/slow), `risk` (safe/balanced/bold) | `require("assets/js/format-fit.js")` — `recommend(i)` → 10 breakout formats ranked by axis scores (experience/camera/hours/budget/goal/risk = 13 max, strong ≥9), per-match why-it-fits, the catch from dossier risks, creator-reported pay ranges, first 3 moves, per-match + global mismatch flags — matching arithmetic, never a promise |
 | Deal Builder | `followers`, `deliverables[]` (`platform` youtube/tiktok/instagram, `kind` dedicated/integrated/short/ugc, `count` 1–12), `viewsAvg`, `usage` (organic_only/paid_3mo/paid_6mo/paid_12mo/perpetual), `whitelistingMonths` (0–24), `exclusivity{scope, months}`, `affiliate{include, commissionPct}` | `require("assets/js/deal-builder.js")` — `buildQuote()` for the stacked line-item quote (usage/whitelisting/exclusivity as separate lines, expected close ×0.77), `exclusivityConflicts()` for window checks, `buildChecklist()` for the 7-group checklist, `renderPitch()` for the proposal ([brackets] for unsupplied stats); tier math parity-pinned with Outreach — see Workflow 14 |
 | Negotiation Kit | `brand`, `platform`, `deliverable` (integrated/dedicated/short/ugc), `followers`, `offer` (0 = exposure-only), `expectedViews`, `niche`, `usage`, `whitelistingMonths`, `exclusivity{scope, months}`, `postCount`, `creatorFloor` + the creator's Deal Room deal records for the walk-away panel | `require("assets/js/negotiation-kit.js")` — `buildCounter(input, calculatorsJson)` for the niche-adjusted verdict + implied CPM + reported typical-quote/ask evidence (modeled IG cross-check kept separate, nulls where unmapped) + line-item counter + expected landing zone; `walkAwayPanel(input, deals, calculatorsJson)` for the floor + pipeline stance; `replyVars()` + `renderReply()` for the 6 kit scripts in `data/v1/deal-templates.json` (`negotiation_kit_scripts`); `exportBrief()` for the plaintext brief — see Workflow 15 |
+| Rate Card Builder | `platform` (youtube/tiktok/instagram/twitch/kick/facebook/x), `format` (dedicated/integrated/short/ugc), `followers`, `expectedViews`, `niche`, `usage`, `whitelistingMonths` + the Algorithm Watch feed for the watch panel | `require("assets/js/rate-card-builder.js")` — `buildCard(input, calculatorsJson, changesFeed)` for the four format rows (tier table × niche; reported CPM bands × views; Storika UGC band unscaled; null-with-reason where no benchmark exists; labeled YouTube-band proxy for platforms with no tier table) + usage/whitelisting lines on the primary row + card total + expected landing zone ×0.77 + reported evidence kept apart + the platform's newest feed entries; `exportCard()` for the plaintext card — see Workflow 16 |
 
 Full per-tool schemas, formulas, and honesty notes live in `tools.json`;
 the UI pages (`quiz.html`, `calculator.html`, …) are the human front-end for

@@ -218,6 +218,7 @@ TOOLS = [
     ("format-fit", "Format Fit Finder", "Answer six questions about your real situation — experience, hours, on-camera comfort, budget, timeline, risk — and get all 10 breakout formats ranked by fit, each with why it fits, the catch, creator-reported pay ranges, and your first 3 moves. Honest mismatch flags; never a promise."),
     ("deal-builder", "Deal Builder", "Turn deliverables into a line-item quote from the 2026 rate card — base fees, usage, whitelisting, and exclusivity stacked as separate lines — plus a ready-to-send proposal and a deal checklist built from your actual terms."),
     ("negotiation-kit", "The Negotiation Kit", "The words and the math for a live negotiation: a counter-offer builder grounded in the 2026 rate card with the typical-quote evidence shown (reported vs modeled, kept apart), six ready-to-send reply scripts — the counter, the lowball, exposure-only, usage rights, whitelisting, late payment — each editable in place, and a walk-away panel tied to your own Deal Room pipeline numbers."),
+    ("rate-card-builder", "Rate Card Builder", "Your rate card, built in the open: pick your platform, follower band, and primary format — every format row prices itself from a named benchmark in the 2026 rate card with its reasoning printed beside the number, usage and whitelisting stacked as separate lines, the reported typical-quote evidence kept apart, and the newest Algorithm Watch changes for your platform printed under the card. Where the data carries no benchmark for a platform or format, the row says so instead of borrowing one."),
 ]
 
 
@@ -820,6 +821,28 @@ TOOLS_API = [
       }},
      "Counter-offer: niche-adjusted tier range and verdict on the offer, implied-CPM position against the deliverable's reported band, the typical-quote / typical-ask evidence (Cheerful Sep-2026, reported) and the modeled Instagram feed-post cross-check (Click Analytic 2026, labeled modeled) — null where no format maps honestly; line items (post fee at the top of the range + usage + whitelisting + named exclusivity, each with its basis), counter total, expected landing zone (~23% below the ask), and the broad-exclusivity flag. Walk-away panel: your floor (higher of rate-card floor and your own floor), your Deal Room pipeline totals (committed / paid / average paid / still open — your numbers only), and a stance on this offer. Six editable reply scripts (counter, lowball, exposure-only, usage rights, whitelisting, late payment) filled from the counter's numbers, plus a one-page negotiation brief. A model, not a prediction; never a guarantee.",
      "Engine (assets/js/negotiation-kit.js, UMD — importable in node): validInput() validates; buildCounter(input, calculatorsJson) reads sponsorship_rate_card_2026 + sponsorship_quoted_prices_2026 + usage_rights_benchmarks_2026 (calculators v1.5.0) — niche multiplier parity-pinned with DealRoom/DealAnalyzer, quoted-price format map shared with the Deal Room, unmapped formats return null evidence; walkAwayPanel(input, dealRoomDeals, calculatorsJson) totals the creator's own pipeline with no invented close probabilities; renderReply(script, vars) fills {{placeholders}} from deal-templates.json negotiation_kit_scripts (v1.2.0) and leaves unknown ones visible; replyVars(counter, extra) carries the counter's numbers into the scripts; exportBrief(counter, walk) renders the plaintext brief. Negotiation aid — not financial, legal, or tax advice. See AGENT.md Workflow 15."),
+    ("rate-card-builder", "Rate Card Builder",
+     "Build a creator's publishable rate card from the site's own benchmark data: one row per format with the reasoning and source printed beside the number.",
+     "rate-card-builder.html",
+     {"$schema": "http://json-schema.org/draft-07/schema#", "title": "RateCardBuilderInput",
+      "type": "object", "required": ["platform", "format", "followers"],
+      "properties": {
+          "platform": {"type": "string", "enum": ["youtube", "tiktok", "instagram", "twitch", "kick", "facebook", "x"],
+                       "description": "The platform the card is for. YouTube/TikTok/Instagram price from the tier table; the other four get the labeled YouTube-band proxy for dedicated and honest blanks elsewhere."},
+          "format": {"type": "string", "enum": ["dedicated", "integrated", "short", "ugc"],
+                     "description": "The primary format the creator sells — usage/whitelisting add-ons and the card total ride on this row."},
+          "followers": {"type": "number", "minimum": 1000,
+                        "description": "Follower/subscriber count (nano floor 1,000 = the rate card's lowest tier)."},
+          "expectedViews": {"type": "number", "minimum": 0, "default": 0,
+                            "description": "Last-10 average views; prices the CPM rows (integrated, short). Without it those rows fall back to the reported typical quote where one maps, or stay blank."},
+          "niche": {"type": "string",
+                    "description": "Optional niche key — the site-wide sponsor niche multiplier (parity-pinned across Deal Room / Deal Analyzer / Negotiation Kit / Rate Card Builder)."},
+          "usage": {"type": "string", "enum": ["organic_only", "paid_3mo", "paid_6mo", "paid_12mo", "perpetual"], "default": "organic_only",
+                    "description": "Paid-ad usage window priced as its own line from usage_rights_benchmarks_2026."},
+          "whitelistingMonths": {"type": "integer", "minimum": 0, "maximum": 24, "default": 0,
+                                 "description": "Whitelisting months priced at the benchmark 30–100% of the post fee per month."}}},
+     "Rate card: four format rows (dedicated from the tier table × niche; integrated from the reported YouTube CPM band × views; short from the general CPM band × views or the reported typical quote; UGC from the Storika single-source band, never tier/niche-scaled), each with basis + source + reasoning — null with a stated reason where the data has no benchmark, and a labeled unadjusted YouTube-band proxy for platforms with no tier table of their own. Usage and whitelisting add-on lines on the primary row, card total, expected landing zone (~23% below list), reported typical-quote/ask evidence kept apart from the benchmark rows (modeled Instagram cross-check named, never mixed in), and the newest Algorithm Watch entries for the platform. Ranges, not quotes.",
+     "Engine (assets/js/rate-card-builder.js, UMD — importable in node): validInput() validates; buildCard(input, calculatorsJson, changesFeed) reads sponsorship_rate_card_2026 + sponsorship_quoted_prices_2026 + usage_rights_benchmarks_2026 (calculators v1.5.0) and the Algorithm Watch feed — niche multiplier parity-pinned with DealRoom/DealAnalyzer/NegotiationKit, 2-significant-figure rounding shared with DealBuilder, quoted-price format map returns null where unmapped; exportCard(card) renders the plaintext card with reasoning, evidence, and watch items. Planning aid — not financial, legal, or tax advice. See AGENT.md Workflow 16."),
 ]
 
 # Tools hub (wave 9): grouped card index. Per tool: icon, "use when" one-liner,
@@ -869,6 +892,8 @@ TOOL_HUB_META = {
                       ["quote", "sponsorship package", "Phase 5"]),
     "negotiation-kit": ("✎", "MONEY",   "gold", "a brand replied and you need the counter, the exact words, and your walk-away number before you answer.",
                       ["counter-offer", "reply scripts", "Phase 5"]),
+    "rate-card-builder": ("▩", "MONEY",   "gold", "you need a rate card you can publish — every number on it traceable to a benchmark, with the reasoning shown.",
+                      ["rate card", "benchmarks", "Phase 5"]),
 }
 TOOL_HUB_GROUPS = [
     ("PLAN", "Pick the battlefield",
@@ -1536,6 +1561,7 @@ def build():
         "format-fit": ["assets/js/format-fit.js", "assets/js/format-fit-ui.js"],
         "deal-builder": ["assets/js/deal-builder.js", "assets/js/deal-builder-ui.js"],
         "negotiation-kit": ["assets/js/negotiation-kit.js", "assets/js/negotiation-kit-ui.js"],
+        "rate-card-builder": ["assets/js/rate-card-builder.js", "assets/js/rate-card-builder-ui.js"],
     }
     TOOL_CSS = {
         "money-map": ["assets/css/moneymap.css"],
@@ -1546,6 +1572,7 @@ def build():
         "format-fit": ["assets/css/format-fit.css"],
         "deal-builder": ["assets/css/deal-builder.css"],
         "negotiation-kit": ["assets/css/negotiation-kit.css"],
+        "rate-card-builder": ["assets/css/rate-card-builder.css"],
         "deal-room": ["assets/css/deal-room.css"],
     }
     for slug, title, desc in TOOLS:

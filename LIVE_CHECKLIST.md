@@ -68,6 +68,11 @@ tracks what's wired in the live track.
   post-October-12 development on any covered platform and no Kick
   KPP follow-up with published terms met the bar, feed unchanged
   at v1.7.0 / 25 entries (see WAVELOG 2.7);
+  Tool 23, the Rate Card Builder, shipped with the 2.7 rotation:
+  every row priced from a named calculators v1.5.0 block with its
+  reasoning shown, honest blanks and a labeled proxy where the data
+  has no benchmark, the platform's Algorithm Watch entries under
+  the card; `tests/rate-card-builder.test.js` runs in stage 6;
   `tests/algorithm-watch.test.js` and
   `tests/algorithm-watch-cron.test.js` (the exercised cron cycles:
   Twitch sponsorship classification/gating/dedupe/render, the

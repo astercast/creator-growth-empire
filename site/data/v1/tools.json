@@ -1934,6 +1934,83 @@
       },
       "output": "Counter-offer: niche-adjusted tier range and verdict on the offer, implied-CPM position against the deliverable's reported band, the typical-quote / typical-ask evidence (Cheerful Sep-2026, reported) and the modeled Instagram feed-post cross-check (Click Analytic 2026, labeled modeled) \u2014 null where no format maps honestly; line items (post fee at the top of the range + usage + whitelisting + named exclusivity, each with its basis), counter total, expected landing zone (~23% below the ask), and the broad-exclusivity flag. Walk-away panel: your floor (higher of rate-card floor and your own floor), your Deal Room pipeline totals (committed / paid / average paid / still open \u2014 your numbers only), and a stance on this offer. Six editable reply scripts (counter, lowball, exposure-only, usage rights, whitelisting, late payment) filled from the counter's numbers, plus a one-page negotiation brief. A model, not a prediction; never a guarantee.",
       "drive_notes": "Engine (assets/js/negotiation-kit.js, UMD \u2014 importable in node): validInput() validates; buildCounter(input, calculatorsJson) reads sponsorship_rate_card_2026 + sponsorship_quoted_prices_2026 + usage_rights_benchmarks_2026 (calculators v1.5.0) \u2014 niche multiplier parity-pinned with DealRoom/DealAnalyzer, quoted-price format map shared with the Deal Room, unmapped formats return null evidence; walkAwayPanel(input, dealRoomDeals, calculatorsJson) totals the creator's own pipeline with no invented close probabilities; renderReply(script, vars) fills {{placeholders}} from deal-templates.json negotiation_kit_scripts (v1.2.0) and leaves unknown ones visible; replyVars(counter, extra) carries the counter's numbers into the scripts; exportBrief(counter, walk) renders the plaintext brief. Negotiation aid \u2014 not financial, legal, or tax advice. See AGENT.md Workflow 15."
+    },
+    {
+      "id": "rate-card-builder",
+      "title": "Rate Card Builder",
+      "description": "Build a creator's publishable rate card from the site's own benchmark data: one row per format with the reasoning and source printed beside the number.",
+      "page": "rate-card-builder.html",
+      "input_schema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "title": "RateCardBuilderInput",
+        "type": "object",
+        "required": [
+          "platform",
+          "format",
+          "followers"
+        ],
+        "properties": {
+          "platform": {
+            "type": "string",
+            "enum": [
+              "youtube",
+              "tiktok",
+              "instagram",
+              "twitch",
+              "kick",
+              "facebook",
+              "x"
+            ],
+            "description": "The platform the card is for. YouTube/TikTok/Instagram price from the tier table; the other four get the labeled YouTube-band proxy for dedicated and honest blanks elsewhere."
+          },
+          "format": {
+            "type": "string",
+            "enum": [
+              "dedicated",
+              "integrated",
+              "short",
+              "ugc"
+            ],
+            "description": "The primary format the creator sells \u2014 usage/whitelisting add-ons and the card total ride on this row."
+          },
+          "followers": {
+            "type": "number",
+            "minimum": 1000,
+            "description": "Follower/subscriber count (nano floor 1,000 = the rate card's lowest tier)."
+          },
+          "expectedViews": {
+            "type": "number",
+            "minimum": 0,
+            "default": 0,
+            "description": "Last-10 average views; prices the CPM rows (integrated, short). Without it those rows fall back to the reported typical quote where one maps, or stay blank."
+          },
+          "niche": {
+            "type": "string",
+            "description": "Optional niche key \u2014 the site-wide sponsor niche multiplier (parity-pinned across Deal Room / Deal Analyzer / Negotiation Kit / Rate Card Builder)."
+          },
+          "usage": {
+            "type": "string",
+            "enum": [
+              "organic_only",
+              "paid_3mo",
+              "paid_6mo",
+              "paid_12mo",
+              "perpetual"
+            ],
+            "default": "organic_only",
+            "description": "Paid-ad usage window priced as its own line from usage_rights_benchmarks_2026."
+          },
+          "whitelistingMonths": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 24,
+            "default": 0,
+            "description": "Whitelisting months priced at the benchmark 30\u2013100% of the post fee per month."
+          }
+        }
+      },
+      "output": "Rate card: four format rows (dedicated from the tier table \u00d7 niche; integrated from the reported YouTube CPM band \u00d7 views; short from the general CPM band \u00d7 views or the reported typical quote; UGC from the Storika single-source band, never tier/niche-scaled), each with basis + source + reasoning \u2014 null with a stated reason where the data has no benchmark, and a labeled unadjusted YouTube-band proxy for platforms with no tier table of their own. Usage and whitelisting add-on lines on the primary row, card total, expected landing zone (~23% below list), reported typical-quote/ask evidence kept apart from the benchmark rows (modeled Instagram cross-check named, never mixed in), and the newest Algorithm Watch entries for the platform. Ranges, not quotes.",
+      "drive_notes": "Engine (assets/js/rate-card-builder.js, UMD \u2014 importable in node): validInput() validates; buildCard(input, calculatorsJson, changesFeed) reads sponsorship_rate_card_2026 + sponsorship_quoted_prices_2026 + usage_rights_benchmarks_2026 (calculators v1.5.0) and the Algorithm Watch feed \u2014 niche multiplier parity-pinned with DealRoom/DealAnalyzer/NegotiationKit, 2-significant-figure rounding shared with DealBuilder, quoted-price format map returns null where unmapped; exportCard(card) renders the plaintext card with reasoning, evidence, and watch items. Planning aid \u2014 not financial, legal, or tax advice. See AGENT.md Workflow 16."
     }
   ]
 }
