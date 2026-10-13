@@ -200,10 +200,10 @@ ok(pipe.openUnderpaid.length === 1 && pipe.openUnderpaid[0].brand === "A",
 /* ---------- 9. Deal Room 2.0: Algorithm Watch digest ---------- */
 console.log("2.0 algorithm watch digest");
 var feed = require(path.join(ROOT, "data", "changes.json"));
-var digest = DealRoom.watchDigest(feed, { now: "2026-10-13T03:00:00Z", days: 90, limit: 50 });
-ok(digest.total === 22 && digest.shown === 22,
-  "digest: all 22 feed entries land inside the 90-day window at 2026-10-13");
-ok(DealRoom.watchDigest(feed, { now: "2026-10-13T02:30:00Z", days: 90 }).shown === 12,
+var digest = DealRoom.watchDigest(feed, { now: "2026-10-13T03:30:00Z", days: 90, limit: 50 });
+ok(digest.total === 23 && digest.shown === 23,
+  "digest: all 23 feed entries land inside the 90-day window at 2026-10-13");
+ok(DealRoom.watchDigest(feed, { now: "2026-10-13T03:30:00Z", days: 90 }).shown === 12,
   "digest: the default limit still caps at 12 (the page asks for 50 explicitly)");
 ok(digest.entries[0].date === "2026-10-13" &&
    digest.entries.every(function (e, i, a) { return i === 0 || a[i - 1].date >= e.date; }),
@@ -212,10 +212,15 @@ ok(digest.entries.every(function (e) { return e.dealNote && e.dealNote.length > 
   "digest: every entry carries a substantive deal note");
 ok(digest.entries.every(function (e) { return e.sources.length >= 1 && /^https:\/\//.test(e.sources[0].url); }),
   "digest: every entry carries at least one https source");
-ok(digest.byCategory.monetization === 12 && digest.byCategory.policy === 6 &&
+ok(digest.byCategory.monetization === 13 && digest.byCategory.policy === 6 &&
    digest.byCategory.algorithm === 3 && digest.byCategory.legal === 1 &&
-   digest.byConfidence.verified === 12,
-  "digest: category/confidence counts match the feed (12 monetization, 6 policy, 3 algorithm, 1 legal, 12 verified)");
+   digest.byConfidence.verified === 13,
+  "digest: category/confidence counts match the feed (13 monetization, 6 policy, 3 algorithm, 1 legal, 13 verified)");
+var xmd = digest.entries.filter(function (e) { return e.id === "x-payouts-x-money-2026"; })[0];
+ok(xmd && xmd.platform === "x" && xmd.platformLabel === "X" &&
+   xmd.announced === "2026-09-02" && xmd.effective === "2026-09-02" && xmd.sources.length === 2 &&
+   /lands in X's own wallet/.test(xmd.dealNote),
+  "digest: X Money entry carries its label, Sep 2 announced/effective dates, two sources, and its curated deal note");
 var lcd = digest.entries.filter(function (e) { return e.id === "fb-link-post-cap-test-2026"; })[0];
 ok(lcd && lcd.platform === "facebook" && lcd.platformLabel === "Facebook" &&
    lcd.announced === "2026-09-17" && lcd.effective === null && lcd.sources.length === 2 &&
@@ -249,9 +254,9 @@ var twd = digest.entries.filter(function (e) { return e.id === "twitch-sponsorsh
 ok(twd && twd.platform === "twitch" && twd.platformLabel === "Twitch" &&
    twd.announced === "2026-08-20" && twd.effective === "2026-08-20" && twd.sources.length === 2,
   "digest: Twitch sponsorships entry carries its label, Aug 20 dates, and two sources");
-var narrow = DealRoom.watchDigest(feed, { now: "2026-10-13T03:00:00Z", days: 7, limit: 50 });
-ok(narrow.total === 16 && narrow.entries.every(function (e) { return e.date >= "2026-10-06"; }),
-  "digest: 7-day window narrows to the 16 freshest entries");
+var narrow = DealRoom.watchDigest(feed, { now: "2026-10-13T03:30:00Z", days: 7, limit: 50 });
+ok(narrow.total === 17 && narrow.entries.every(function (e) { return e.date >= "2026-10-06"; }),
+  "digest: 7-day window narrows to the 17 freshest entries");
 var dtxt = DealRoom.digestText(digest);
 ok(dtxt.indexOf("ALGORITHM WATCH") === 0 && dtxt.indexOf("For your next deal:") !== -1 &&
    /not financial, legal, or tax advice/i.test(dtxt) && dtxt.indexOf("https://") !== -1,

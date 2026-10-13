@@ -59,7 +59,7 @@ tracks what's wired in the live track.
   `installCommand` is an echo (no dependencies).
 - Build machine: Standard, never Turbo.
 - Last verified: 2026-10-12 (static pages 200, data/v1 JSON 200, functions
-  node-syntax-checked). Algorithm Watch feed v1.4.0: 22 entries, all
+  node-syntax-checked). Algorithm Watch feed v1.5.0: 23 entries, all
   seven platform slots covered
   (YouTube/TikTok/Instagram/Facebook/X/Twitch/Other);
   `tests/algorithm-watch.test.js` and

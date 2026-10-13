@@ -60,8 +60,8 @@ announced_at, effective_at, category: algorithm|policy|monetization|legal,
 confidence: verified|single-source, sources: [{ name, url }] }], total,
 filters, feed_generated_at, disclaimer }`. `announced_at` / `effective_at`
 are carried only where the day is actually known (null or absent
-otherwise — the feed never rounds a month into a fake day). Feed v1.4.0
-(2026-10-12) holds 22 entries and covers all seven platform slots:
+otherwise — the feed never rounds a month into a fake day). Feed v1.5.0
+(2026-10-12) holds 23 entries and covers all seven platform slots:
 YouTube, TikTok, Instagram, Facebook, X, Twitch, and Other (Spotify and
 industry-wide changes log under Other). The Twitch slot opened with the
 August 20, 2026 expansion of Creator Sponsorships to Affiliates; the
@@ -72,7 +72,9 @@ two-link-post test (policy, verified), TikTok Smart+ Creative Selection
 (monetization, verified; creator pay/opt-in terms still unpublished),
 and Kenya's 5% withholding as actually applied per platform (legal,
 verified) — each logged only once a second independent source firmed it
-up. 400 `BAD_INPUT` on bad params; 502
+up; the 2.4 wave added X's September 2, 2026 payout-rail switch (U.S.
+creator payouts moved from Stripe to X Money, mandatory for U.S.
+creators; monetization, verified — TechCrunch + PYMNTS). 400 `BAD_INPUT` on bad params; 502
 `UPSTREAM_UNAVAILABLE` if the feed file is unreadable. Static twin:
 `data/v1/changes.json`. Human front-end: `what-changed.html` — pre-rendered
 with a per-platform coverage panel; when both the live function and the

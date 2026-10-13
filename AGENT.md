@@ -208,8 +208,10 @@ priced, flag-checked, scripted, and memorized — all via API.
    builds the Algorithm Watch digest from `data/v1/changes.json`: newest
    first, dated, sourced, confidence-flagged, each entry with a curated
    deal note (this site's editorial read, labeled as such);
-   `digestText(digest)` renders it as copy-ready plaintext. Feed v1.4.0
-   holds 22 entries across all seven platform slots — the 2.3 wave
+   `digestText(digest)` renders it as copy-ready plaintext. Feed v1.5.0
+   holds 23 entries across all seven platform slots — the 2.4 wave
+   added X's September 2, 2026 payout-rail switch (U.S. creator payouts
+   moved from Stripe to X Money, mandatory for U.S. creators); the 2.3 wave
    resolved the three held near-misses (Facebook's expanded two-link-post
    test, TikTok Smart+ Creative Selection, and Kenya's 5% withholding
    scoped per platform) and wired Tubefilter's Twitch tag feed as the

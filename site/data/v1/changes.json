@@ -1,6 +1,27 @@
 {
   "changes": [
     {
+      "id": "x-payouts-x-money-2026",
+      "platform": "x",
+      "title": "X moved U.S. creator payouts from Stripe to X Money on Sept 2 — now the only route for U.S. payouts",
+      "summary": "X announced on September 2, 2026 that all U.S. payouts from Original Content Rewards and creator Subscriptions are paid through X Money, its own payments service, instead of Stripe — and confirmed to TechCrunch that the switch is mandatory for U.S. creators, with no other payout option offered. Creators outside the U.S. stay on Stripe. The practical change is timing and custody: a payout is available the moment it is sent, replacing the old Stripe run every two weeks behind a $30 minimum, but the money now lands inside X's own financial product first — X Money is not a bank; its accounts are held at FDIC-insured Cross River Bank. U.S. creators who have not opened X Money need to set it up or their next payout has nowhere to go.",
+      "detected_at": "2026-10-13T03:22:00Z",
+      "announced_at": "2026-09-02T00:00:00Z",
+      "effective_at": "2026-09-02T00:00:00Z",
+      "category": "monetization",
+      "confidence": "verified",
+      "sources": [
+        {
+          "name": "TechCrunch — X shifts US creator payouts from Stripe to X Money",
+          "url": "https://techcrunch.com/2026/09/02/x-shifts-us-creator-payouts-from-stripe-to-x-money/"
+        },
+        {
+          "name": "PYMNTS — X Moves US Creator Payouts From Stripe to X Money",
+          "url": "https://www.pymnts.com/commerce/social-commerce/2026/x-replaces-stripe-united-states-creator-payouts/"
+        }
+      ]
+    },
+    {
       "id": "fb-link-post-cap-test-2026",
       "platform": "facebook",
       "title": "Facebook's two-link-post test expanded in September: more Pages capped unless they pay for Meta One",
@@ -412,8 +433,8 @@
     "verified": "Corroborated by 2+ independent sources or the platform itself."
   },
   "disclaimer": "Planning aid, not financial/legal/tax advice. RPM/CPM figures are creator-reported ranges, never promises. Verify platform figures live before acting on them.",
-  "generated_at": "2026-10-13T02:30:00Z",
+  "generated_at": "2026-10-13T03:22:00Z",
   "note": "Algorithm Watch feed: platform algorithm, policy, and monetization changes with source URLs and confidence flags. Coverage: YouTube, TikTok, Instagram, Facebook, X, and Twitch have their own slots; Spotify and industry-wide changes are logged under Other. Updated by the daily /api/cron/algorithm-watch job (retention: 90 days).",
   "updated": "2026-10-13",
-  "version": "1.4.0"
+  "version": "1.5.0"
 }

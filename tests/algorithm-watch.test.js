@@ -36,8 +36,8 @@ var rows = feed.changes;
 
 /* ---------- 1. feed integrity ---------- */
 console.log("feed integrity");
-ok(feed.version === "1.4.0", "feed version bumped to 1.4.0 for the Twitch-sourcing + near-miss-resolution wave");
-ok(Array.isArray(rows) && rows.length === 22, "feed holds 22 entries");
+ok(feed.version === "1.5.0", "feed version bumped to 1.5.0 for the X payout-rail wave");
+ok(Array.isArray(rows) && rows.length === 23, "feed holds 23 entries");
 var ids = {};
 ok(rows.every(function (c) { return !ids[c.id] && (ids[c.id] = 1); }), "entry ids are unique");
 ok(rows.every(function (c) {
@@ -175,6 +175,20 @@ ok(!!ke && ke.platform === "other" && ke.category === "legal" &&
 ok(!/unlock the power|delve|game-changer|game changer|elevate your|supercharge|revolutioni[sz]e/i.test(
    [lc.summary, sc.summary, ke.summary].join(" ")),
   "2.3 entry copy: no AI-isms");
+
+/* ---------- 4e. the 2.4 entry: the X payout rail ---------- */
+console.log("2.4 entry");
+var xm = byId("x-payouts-x-money-2026");
+ok(!!xm && xm.platform === "x" && xm.category === "monetization" &&
+   xm.confidence === "verified" && xm.sources.length === 2 &&
+   xm.announced_at === "2026-09-02T00:00:00Z" && xm.effective_at === "2026-09-02T00:00:00Z" &&
+   /mandatory for U\.S\. creators/.test(xm.summary) && /stay on Stripe/.test(xm.summary) &&
+   /every two weeks behind a \$30 minimum/.test(xm.summary) && /Cross River Bank/.test(xm.summary) &&
+   xm.sources[0].url === "https://techcrunch.com/2026/09/02/x-shifts-us-creator-payouts-from-stripe-to-x-money/" &&
+   xm.sources[1].url === "https://www.pymnts.com/commerce/social-commerce/2026/x-replaces-stripe-united-states-creator-payouts/",
+  "X payout rail: Sep 2 announced + effective, mandatory for U.S. creators per X's own confirmation, non-U.S. stays on Stripe, old biweekly/$30 terms named, TechCrunch + PYMNTS sources");
+ok(!/unlock the power|delve|game-changer|game changer|elevate your|supercharge|revolutioni[sz]e/i.test(xm.summary),
+  "2.4 entry copy: no AI-isms");
 
 /* ---------- 5. page / build wiring ---------- */
 console.log("page/build wiring");
