@@ -1098,9 +1098,9 @@ MOBILE_NAV_LINKS = [
 
 AW_PLATFORM_LABELS = {
     "youtube": "YouTube", "tiktok": "TikTok", "instagram": "Instagram",
-    "facebook": "Facebook", "x": "X", "other": "Other",
+    "facebook": "Facebook", "x": "X", "twitch": "Twitch", "other": "Other",
 }
-AW_PLATFORM_ORDER = ["youtube", "tiktok", "instagram", "facebook", "x", "other"]
+AW_PLATFORM_ORDER = ["youtube", "tiktok", "instagram", "facebook", "x", "twitch", "other"]
 
 _AW_MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
               "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
@@ -1209,7 +1209,7 @@ def _build_what_changed():
         '<section class="aw-coverage" aria-labelledby="aw-cov-h">'
         '<h2 id="aw-cov-h" class="aw-sec-h">Coverage — what this watch actually covers</h2>'
         f'<ul class="aw-cov" data-aw-coverage>{cov_rows}</ul>'
-        '<p class="aw-cov-note">Spotify, Twitch, and industry-wide changes have no slot of their '
+        '<p class="aw-cov-note">Spotify and industry-wide changes have no slot of their '
         'own — they are logged under <strong>Other</strong>, and their standing rules live in the '
         'Platform Rules Bible §13. A slot with no entry is shown as no entry; the watch does not '
         'pad a quiet platform with old news.</p></section>')

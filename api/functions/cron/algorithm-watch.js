@@ -37,8 +37,8 @@ const SOURCES = [
 ];
 
 // Relevance gate: only items about algorithm/policy/monetization/legal.
-const RELEVANT = /algorithm|rank(ing)?|recommendation|for you|fyp|shorts|reels|monetiz|partner program|\bypp\b|payout|revenue|\brpm\b|\bcpm\b|polic|guideline|terms|disclosure|\bftc\b|lawsuit|settlement|regulation|appeal|demonetiz|distribution|reach|creator fund|rewards/i;
-const CAT_MONETIZATION = /monetiz|payout|revenue|\brpm\b|\bcpm\b|partner program|\bypp\b|shop|affiliate|creator fund|rewards/i;
+const RELEVANT = /algorithm|rank(ing)?|recommendation|for you|fyp|shorts|reels|monetiz|partner program|\bypp\b|payout|revenue|\brpm\b|\bcpm\b|polic|guideline|terms|disclosure|\bftc\b|lawsuit|settlement|regulation|appeal|demonetiz|distribution|reach|creator fund|rewards|sponsor/i;
+const CAT_MONETIZATION = /monetiz|payout|revenue|\brpm\b|\bcpm\b|partner program|\bypp\b|shop|affiliate|creator fund|rewards|sponsor/i;
 const CAT_LEGAL = /\bftc\b|lawsuit|settlement|regulation|\birs\b|tax|court/i;
 const CAT_POLICY = /polic|guideline|terms|disclosure|ban|appeal|demonetiz|enforcement/i;
 const CAT_ALGORITHM = /algorithm|rank|recommend|for you|fyp|distribution|reach|feed/i;
@@ -104,10 +104,11 @@ function detectPlatform(text) {
   if (/instagram|reels/i.test(text)) return 'instagram';
   if (/facebook|meta/i.test(text)) return 'facebook';
   if (/twitter/i.test(text)) return 'x';
+  if (/twitch/i.test(text)) return 'twitch';
   return 'other';
 }
 function makeId(platform, title, link) {
-  const pfx = { youtube: 'yt', tiktok: 'tt', instagram: 'ig', facebook: 'fb', x: 'x', other: 'cw' }[platform] || 'cw';
+  const pfx = { youtube: 'yt', tiktok: 'tt', instagram: 'ig', facebook: 'fb', x: 'x', twitch: 'tw', other: 'cw' }[platform] || 'cw';
   const slug = normTitle(title).replace(/ /g, '-').slice(0, 48).replace(/-+$/, '');
   const h = crypto.createHash('sha256').update(link).digest('hex').slice(0, 6);
   return (pfx + '-' + (slug || 'update') + '-' + h).slice(0, 80);

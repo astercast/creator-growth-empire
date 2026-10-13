@@ -44,7 +44,7 @@ All twenty-two tools, grouped by job (Plan / Money / Content): [Tools hub](tools
 - [Reference: 2026 Rate Card](rate-card.html) — 5 min read
 - [Reference: The Niche Atlas](niche-atlas.html) — 14 min read
 - [Reference: The Metrics Glossary](metrics-glossary.html) — 9 min read
-- [Reference: The 2026 Platform Rules Bible](platform-rules-bible.html) — 42 min read
+- [Reference: The 2026 Platform Rules Bible](platform-rules-bible.html) — 43 min read
 - [Reference: The 2026 Breakout-Format Intel](breakout-format-intel.html) — 33 min read
 - [Reference: The 2026 Sponsor Playbook](sponsor-playbook.html) — 30 min read
 

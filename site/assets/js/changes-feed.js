@@ -16,10 +16,10 @@
   // the fallback working from any origin that serves this page at root —
   // including a local file:// copy of the built site.
   var STATIC_PATH = "data/v1/changes.json";
-  var PLATFORM_ORDER = ["youtube", "tiktok", "instagram", "facebook", "x", "other"];
+  var PLATFORM_ORDER = ["youtube", "tiktok", "instagram", "facebook", "x", "twitch", "other"];
   var PLATFORM_LABELS = {
     youtube: "YouTube", tiktok: "TikTok", instagram: "Instagram",
-    facebook: "Facebook", x: "X", other: "Other"
+    facebook: "Facebook", x: "X", twitch: "Twitch", other: "Other"
   };
 
   function esc(s) {

@@ -59,10 +59,11 @@ tracks what's wired in the live track.
   `installCommand` is an echo (no dependencies).
 - Build machine: Standard, never Turbo.
 - Last verified: 2026-10-12 (static pages 200, data/v1 JSON 200, functions
-  node-syntax-checked). Algorithm Watch feed v1.1.0: 15 entries, all six
-  platform slots covered (YouTube/TikTok/Instagram/Facebook/X/Other);
-  `tests/algorithm-watch.test.js` (48 assertions) runs in validate.sh
-  stage 6 alongside the Deal Room and Simulator suites.
+  node-syntax-checked). Algorithm Watch feed v1.2.0: 18 entries, all
+  seven platform slots covered
+  (YouTube/TikTok/Instagram/Facebook/X/Twitch/Other);
+  `tests/algorithm-watch.test.js` runs in validate.sh stage 6 alongside
+  the Deal Room and Simulator suites.
 
 ## Track rule
 

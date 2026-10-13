@@ -53,17 +53,18 @@ meta }` — never 5xx; degrades to `degraded` with reasons instead.
 
 ### `GET /api/changes`
 The "what changed" feed, newest-first. Query: `?platform=`
-(youtube|tiktok|instagram|facebook|x|other|all, default all), `?since=`
+(youtube|tiktok|instagram|facebook|x|twitch|other|all, default all), `?since=`
 (ISO-8601, default 90 days ago = the retention window), `?limit=` (1–200,
 default 50). `data: { changes: [{ id, platform, title, summary, detected_at,
 announced_at, effective_at, category: algorithm|policy|monetization|legal,
 confidence: verified|single-source, sources: [{ name, url }] }], total,
 filters, feed_generated_at, disclaimer }`. `announced_at` / `effective_at`
 are carried only where the day is actually known (null or absent
-otherwise — the feed never rounds a month into a fake day). Feed v1.1.0
-(2026-10-12) holds 15 entries and covers all six platform slots: YouTube,
-TikTok, Instagram, Facebook, X, and Other (Spotify, Twitch, and
-industry-wide changes log under Other). 400 `BAD_INPUT` on bad params; 502
+otherwise — the feed never rounds a month into a fake day). Feed v1.2.0
+(2026-10-12) holds 18 entries and covers all seven platform slots:
+YouTube, TikTok, Instagram, Facebook, X, Twitch, and Other (Spotify and
+industry-wide changes log under Other). The Twitch slot opened with the
+August 20, 2026 expansion of Creator Sponsorships to Affiliates. 400 `BAD_INPUT` on bad params; 502
 `UPSTREAM_UNAVAILABLE` if the feed file is unreadable. Static twin:
 `data/v1/changes.json`. Human front-end: `what-changed.html` — pre-rendered
 with a per-platform coverage panel; when both the live function and the

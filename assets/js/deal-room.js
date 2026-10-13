@@ -348,7 +348,7 @@
    * DEAL_NOTES are this site's editorial read on the entry — labeled as
    * such, never presented as part of the source reporting. */
   var PLATFORM_LABELS = { youtube: "YouTube", tiktok: "TikTok",
-    instagram: "Instagram", facebook: "Facebook", x: "X", other: "Industry" };
+    instagram: "Instagram", facebook: "Facebook", x: "X", twitch: "Twitch", other: "Industry" };
   var DEAL_NOTES = {
     "lifetak-microdrama-premiere-2026": "A funded buyer is entering vertical drama. If you make microdramas, this is a licensing conversation, not a sponsorship one — keep your rights paperwork clean.",
     "agentic-commerce-protocol-2026": "Too early to price against. Don't let a brand discount your rate today for agent-commerce revenue that does not exist yet.",
@@ -364,6 +364,9 @@
     "ig-oct2026-engagement-shift": "Engagement-weighted distribution favors posts that start conversations. If your rate justification cites reach, bring engagement evidence — that is the currency the ranking now pays in.",
     "fb-content-monetization-originality-2026": "Facebook pay now runs through one program with an originality gate behind it. If a brand wants your Facebook cut of a campaign, ask whether the deliverable is your original footage — reposted or lightly edited inventory can lose reach and pay, and that risk belongs in the contract, not on you.",
     "x-original-content-rewards-2026": "X pays on qualified impressions now — Premium viewers, Home Timeline, half the post on screen — and published no rate. If a brand prices an X post off the old Revenue Sharing numbers or your raw view count, they are pricing a program that ended September 7; negotiate the post as sponsored media, not as a share of an unknown pool.",
+    "twitch-sponsorships-affiliates-2026": "Affiliates can now take brand campaigns through Twitch itself — no Partner gate, just the Sponsorship Certification and a finished Creator Profile. If a brand wants your Twitch audience, the platform is now a second door to the same deal: compare any Twitch-routed offer against your own rate before you accept the first number the dashboard shows you.",
+    "tt-community-guidelines-2026h2": "A serious TikTok violation can now reach associated accounts, so a backup account is not deal insurance. If a brand asks about account risk mid-negotiation, the honest answer is the ladder and the 90-day status window — and your main account's standing is now an asset worth naming in the pitch.",
+    "tt-one-pay-plus-2026": "TikTok One Pay promises campaign money within 30 days of posting, and One Plus adds 15% on Custom Collab deals. If a brand still pushes net-60 terms on a TikTok One deal, the platform's own payment rail is the comparison to put on the table — payment speed is part of the price.",
     "spotify-partner-program-expansion-2026": "From October 20, a video podcast in 37 more markets earns Premium video revenue plus half the ads Spotify sells in — and you keep every dollar of sponsorships you sell yourself. If a network or sponsor claims a cut of your integrated reads on Spotify, this is the entry to quote back at them."
   };
   var DEAL_NOTE_FALLBACK = {

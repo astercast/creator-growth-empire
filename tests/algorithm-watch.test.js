@@ -36,13 +36,13 @@ var rows = feed.changes;
 
 /* ---------- 1. feed integrity ---------- */
 console.log("feed integrity");
-ok(feed.version === "1.1.0", "feed version bumped to 1.1.0 for the 2.0 coverage wave");
-ok(Array.isArray(rows) && rows.length === 15, "feed holds 15 entries");
+ok(feed.version === "1.2.0", "feed version bumped to 1.2.0 for the Twitch-slot wave");
+ok(Array.isArray(rows) && rows.length === 18, "feed holds 18 entries");
 var ids = {};
 ok(rows.every(function (c) { return !ids[c.id] && (ids[c.id] = 1); }), "entry ids are unique");
 ok(rows.every(function (c) {
   return /^[a-z0-9][a-z0-9-]{2,80}$/.test(c.id) &&
-    ["youtube", "tiktok", "instagram", "facebook", "x", "other"].indexOf(c.platform) !== -1 &&
+    ["youtube", "tiktok", "instagram", "facebook", "x", "twitch", "other"].indexOf(c.platform) !== -1 &&
     ["algorithm", "policy", "monetization", "legal"].indexOf(c.category) !== -1 &&
     ["verified", "single-source"].indexOf(c.confidence) !== -1;
 }), "every entry: id shape, platform, category, confidence enums hold");
@@ -75,12 +75,12 @@ ok(rows.every(function (c) { return Date.parse(c.detected_at) <= Date.parse(feed
 
 /* ---------- 3. coverage ---------- */
 console.log("coverage");
-["youtube", "tiktok", "instagram", "facebook", "x", "other"].forEach(function (p) {
+["youtube", "tiktok", "instagram", "facebook", "x", "twitch", "other"].forEach(function (p) {
   ok(rows.some(function (c) { return c.platform === p; }),
     "coverage: " + p + " holds at least one entry");
 });
-ok(/Twitch/.test(feed.note) && /Other/.test(feed.note),
-  "feed note states where Twitch/Spotify/industry changes are logged (under Other)");
+ok(/Twitch have their own slots/.test(feed.note) && /Spotify and industry-wide/.test(feed.note) && /under Other/.test(feed.note),
+  "feed note states Twitch has its own slot and Spotify/industry changes log under Other");
 
 /* ---------- 4. the 2.0 backfill entries ---------- */
 console.log("2.0 backfill entries");
@@ -103,6 +103,30 @@ ok(!!sp && sp.platform === "other" && sp.announced_at === "2026-09-17T00:00:00Z"
    sp.sources[0].url === "https://support.spotify.com/us/creators/article/spotify-partner-program/",
   "Spotify: expansion (not a launch), official source first, lowered bar stated — the held watch slot is closed with a real source");
 
+/* ---------- 4b. the 2.1 entries: Twitch slot + fresh TikTok changes ---------- */
+console.log("2.1 entries");
+var tw = byId("twitch-sponsorships-affiliates-2026");
+ok(!!tw && tw.platform === "twitch" && tw.category === "monetization" &&
+   tw.confidence === "verified" && tw.sources.length === 2 &&
+   tw.announced_at === "2026-08-20T00:00:00Z" && tw.effective_at === "2026-08-20T00:00:00Z" &&
+   /Creator Sponsorship Certification/.test(tw.summary) && /more than half/.test(tw.summary) &&
+   tw.sources[0].url === "https://www.panstag.com/2026/08/twitch-creator-sponsorships-affiliates.html" &&
+   tw.sources[1].url === "https://www.fakta.co/twitch-expands-sponsorship-access-affiliates",
+  "Twitch: Sponsorships opened to Affiliates Aug 20, certification gate stated, 2 independent sources — the slot opens with a real entry, not a placeholder");
+var tg = byId("tt-community-guidelines-2026h2");
+ok(!!tg && tg.platform === "tiktok" && tg.category === "policy" &&
+   tg.announced_at === "2026-08-25T00:00:00Z" && tg.effective_at === "2026-09-24T00:00:00Z" &&
+   /associated accounts/.test(tg.summary) && /policy training/.test(tg.summary),
+  "TikTok guidelines 2026H2: released Aug 25, effective Sep 24, associated-accounts reach + policy training stated");
+var tp = byId("tt-one-pay-plus-2026");
+ok(!!tp && tp.platform === "tiktok" && tp.category === "monetization" &&
+   tp.announced_at === "2026-09-24T00:00:00Z" && tp.effective_at === null &&
+   /within 30 days/.test(tp.summary) && /15% more on Custom Collab/.test(tp.summary),
+  "TikTok One Pay/Plus: Sep 24, 30-day pay promise + 15% Custom Collab line, no invented effective date");
+ok(!/unlock the power|delve|game-changer|game changer|elevate your|supercharge|revolutioni[sz]e/i.test(
+   [tw.summary, tg.summary, tp.summary].join(" ")),
+  "2.1 entry copy: no AI-isms");
+
 /* ---------- 5. page / build wiring ---------- */
 console.log("page/build wiring");
 var buildSrc = fs.readFileSync(path.join(ROOT, "scripts", "build.py"), "utf8");
@@ -113,7 +137,7 @@ ok(page.indexOf("Read the newest change") !== -1 && page.indexOf('href="deal-roo
 rows.forEach(function (c) {
   ok(page.indexOf(c.title.replace(/&/g, "&amp;")) !== -1, "built page pre-renders: " + c.id);
 });
-ok((page.match(/aw-cov-row/g) || []).length >= 6, "built page: coverage panel lists all six platform slots");
+ok((page.match(/aw-cov-row/g) || []).length >= 7, "built page: coverage panel lists all seven platform slots");
 ok(page.indexOf("No entry in the current window") !== -1 || rows.length >= 6,
   "built page: empty-slot copy exists in the renderer path");
 ok(page.indexOf("data-aw-status") !== -1 && page.indexOf("data-aw-coverage") !== -1,

@@ -75,7 +75,7 @@ for c in rows:
     assert c["confidence"] in ("verified", "single-source"), c
     assert c.get("source_url") or c.get("sources"), c["id"]
     assert c["category"] in ("algorithm", "policy", "monetization", "legal"), c
-    assert c["platform"] in ("youtube","tiktok","instagram","facebook","x","other"), c
+    assert c["platform"] in ("youtube","tiktok","instagram","facebook","x","twitch","other"), c
 dates = [c["detected_at"] for c in rows]
 assert dates == sorted(dates, reverse=True), "not newest-first"
 EOF

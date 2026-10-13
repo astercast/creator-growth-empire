@@ -208,12 +208,15 @@ priced, flag-checked, scripted, and memorized — all via API.
    builds the Algorithm Watch digest from `data/v1/changes.json`: newest
    first, dated, sourced, confidence-flagged, each entry with a curated
    deal note (this site's editorial read, labeled as such);
-   `digestText(digest)` renders it as copy-ready plaintext. Feed v1.1.0
-   holds 15 entries across all six platform slots — the 2.0 backfill
+   `digestText(digest)` renders it as copy-ready plaintext. Feed v1.2.0
+   holds 18 entries across all seven platform slots — the 2.0 backfill
    added Facebook's March 2026 originality policy, X's Original Content
    Rewards (Revenue Sharing retired Sept 7, 2026; applications opened
    Sept 8), and Spotify's Partner Program expansion to 37 markets
-   (announced Sept 17, effective Oct 20) — and entries that carry
+   (announced Sept 17, effective Oct 20); the 2.1 wave gave Twitch its
+   own slot (Creator Sponsorships opened to Affiliates Aug 20, 2026)
+   and logged TikTok's 2026H2 Community Guidelines (effective Sept 24)
+   and TikTok One Pay / One Plus (Sept 24) — and entries that carry
    `announced_at` / `effective_at` print those dates in the digest text
    alongside the logged date. The Deal Room page asks for
    `{days: 90, limit: 50}` so the digest shows the whole window.

@@ -1,6 +1,61 @@
 {
   "changes": [
     {
+      "id": "twitch-sponsorships-affiliates-2026",
+      "platform": "twitch",
+      "title": "Twitch opened Creator Sponsorships to Affiliates on Aug 20, 2026",
+      "summary": "Brand campaigns run through Twitch used to be a mostly Partner-only door. From August 20, Affiliates worldwide can be found by brands, invited to campaigns, and paid through the Sponsorship Dashboard in the Creator Dashboard — the same campaign pool Partners use, not a smaller Affiliate pool. The gate is paperwork, not Partner status: accept the Sponsorship Portal terms and finish the Creator Sponsorship Certification on Creator Camp for a Certified Creator badge; each brand still picks against its own criteria, and Twitch publishes no sponsorship rate. Twitch pointed to its Minecraft trial campaigns, where more than half the paid streamers were Affiliates, as the reason the door opened.",
+      "detected_at": "2026-10-12T11:00:00Z",
+      "announced_at": "2026-08-20T00:00:00Z",
+      "effective_at": "2026-08-20T00:00:00Z",
+      "category": "monetization",
+      "confidence": "verified",
+      "sources": [
+        {
+          "name": "Panstag — Twitch just opened sponsorships to Affiliates",
+          "url": "https://www.panstag.com/2026/08/twitch-creator-sponsorships-affiliates.html"
+        },
+        {
+          "name": "Fakta — Twitch expands brand sponsorship access to global Affiliates",
+          "url": "https://www.fakta.co/twitch-expands-sponsorship-access-affiliates"
+        }
+      ]
+    },
+    {
+      "id": "tt-community-guidelines-2026h2",
+      "platform": "tiktok",
+      "title": "TikTok Community Guidelines 2026H2 (effective Sep 24): bans can reach associated accounts",
+      "summary": "Released August 25 and in force from September 24, the new guidelines leave most content rules where they were and rewrite the enforcement side. The penalty ladder is now spelled out — warning, temporary feature or account restriction, full ban — and account status (Healthy, Fair, Severe, Banned) reflects the last 90 days, with violations expiring after 90 days and no published line between statuses. Two parts are new: optional policy training can lift eligible restrictions for certain first violations (severe violations do not qualify), and a serious violation or an attempt to dodge enforcement can now reach associated accounts — a term TikTok does not define. Undisclosed ads are no longer automatically kept off For You in this text, though other TikTok pages still say they can be pulled.",
+      "detected_at": "2026-10-12T11:00:00Z",
+      "announced_at": "2026-08-25T00:00:00Z",
+      "effective_at": "2026-09-24T00:00:00Z",
+      "category": "policy",
+      "confidence": "single-source",
+      "sources": [
+        {
+          "name": "Evolved Lotus — TikTok just rewrote what gets you banned (line-by-line comparison of TikTok's own 2025 and 2026 guideline text)",
+          "url": "https://blog.evolvedlotus.com/blog/2026-10-08-tiktok-just-rewrote-what-gets-you-banned/"
+        }
+      ]
+    },
+    {
+      "id": "tt-one-pay-plus-2026",
+      "platform": "tiktok",
+      "title": "TikTok One Pay promises campaign pay within 30 days; One Plus adds 15% on Custom Collab deals",
+      "summary": "On September 24 TikTok added two payment rails inside TikTok One. TikTok One Pay promises creators payment within 30 days of posting, with no fees — a direct answer to the long waits that have been the normal cost of brand work. TikTok One Plus is invite-only and pays 15% more on Custom Collab deals at no added cost to the brand. One trade report carries both moves and TikTok has not yet published the full terms in its own help pages, so treat the figures as directional until they appear inside your TikTok One account.",
+      "detected_at": "2026-10-12T11:00:00Z",
+      "announced_at": "2026-09-24T00:00:00Z",
+      "effective_at": null,
+      "category": "monetization",
+      "confidence": "single-source",
+      "sources": [
+        {
+          "name": "Communicate Online — Meta, YouTube and TikTok bet big on creators",
+          "url": "https://communicateonline.me/news/meta-youtube-and-tiktok-bet-big-on-creators/"
+        }
+      ]
+    },
+    {
       "id": "spotify-partner-program-expansion-2026",
       "platform": "other",
       "title": "Spotify Partner Program expands to 37 more markets on Oct 20, 2026",
@@ -273,8 +328,8 @@
     "verified": "Corroborated by 2+ independent sources or the platform itself."
   },
   "disclaimer": "Planning aid, not financial/legal/tax advice. RPM/CPM figures are creator-reported ranges, never promises. Verify platform figures live before acting on them.",
-  "generated_at": "2026-10-12T10:00:00Z",
-  "note": "Algorithm Watch feed: platform algorithm, policy, and monetization changes with source URLs and confidence flags. Coverage: YouTube, TikTok, Instagram, Facebook, and X have their own slots; Spotify, Twitch, and industry-wide changes are logged under Other. Updated by the daily /api/cron/algorithm-watch job (retention: 90 days).",
+  "generated_at": "2026-10-12T11:00:00Z",
+  "note": "Algorithm Watch feed: platform algorithm, policy, and monetization changes with source URLs and confidence flags. Coverage: YouTube, TikTok, Instagram, Facebook, X, and Twitch have their own slots; Spotify and industry-wide changes are logged under Other. Updated by the daily /api/cron/algorithm-watch job (retention: 90 days).",
   "updated": "2026-10-12",
-  "version": "1.1.0"
+  "version": "1.2.0"
 }
