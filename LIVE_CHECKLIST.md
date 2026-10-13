@@ -104,6 +104,12 @@ tracks what's wired in the live track.
   the eight slots, the Kick KPP follow-up still has no first dated
   primary term (dates stay null), Snapchat slot still closed,
   feed unchanged at v1.7.0 / 25 entries;
+  The 2.13 re-sweep (2026-10-13) logged nothing new — a seventh
+  consecutive verified negative, itemized per slot in WAVELOG 2.13:
+  no post-October-12 development with published terms on any of
+  the eight slots, the Kick KPP follow-up still has no first dated
+  primary term (dates stay null), Snapchat slot still closed,
+  feed unchanged at v1.7.0 / 25 entries;
   Rotation 13 also adopted the Fleet Commons canonical
   server-toolkit into `lib/` (per-helper notes in WAVELOG) and
   shipped the placement pass through the generator (OG card,

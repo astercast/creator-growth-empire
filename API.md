@@ -108,6 +108,13 @@ first dated primary term (its dates stay honestly null), and the
 Snapchat slot stays closed with the July 31 Spotlight AI policy still
 its newest term change — a sixth verified negative, itemized per
 slot in WAVELOG 2.12; the feed stands at v1.7.0 / 25 entries unchanged.
+The 2.13 wave re-swept all eight slots a seventh consecutive time: no
+post-October-12 development with published pay, policy, or ranking
+terms surfaced on any slot, the Kick KPP follow-up still carries no
+first dated primary term (its dates stay honestly null), and the
+Snapchat slot stays closed with the July 31 Spotlight AI policy still
+its newest term change — a seventh verified negative, itemized per
+slot in WAVELOG 2.13; the feed stands at v1.7.0 / 25 entries unchanged.
 The 2.5 wave's coverage audit
 gave Kick its own slot, opened with its September 2026 Partner Program
 payout rewrite (per-stream rates replaced by a rolling calculation over
