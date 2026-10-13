@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
   "updated": "2026-10-11",
-  "note": "Programmatic input schemas for the twenty-six interactive tools. Agents replicate each tool's logic by feeding these inputs to the documented formulas / shipped JS (assets/js/<id>.js); the UI pages are the human front-end for the same logic.",
+  "note": "Programmatic input schemas for the twenty-seven interactive tools. Agents replicate each tool's logic by feeding these inputs to the documented formulas / shipped JS (assets/js/<id>.js); the UI pages are the human front-end for the same logic.",
   "tools": [
     {
       "id": "quiz",
@@ -2266,6 +2266,32 @@
       },
       "output": "The queue in send order (urgent invoiced first, then most overdue against Tool 25's stage thresholds, then longest in stage): each item carries the deal's brand, stage, stage age, days overdue, Tool 25's nudge action, the entered amount, and its Tool 24 script (label + full export text) or the reason none is attached. Demo-deal follow-ups are counted apart and never queued; an empty board and a nothing-due board are reported as different states. exportBrief() renders the plaintext brief.",
       "drive_notes": "Engine (assets/js/follow-through.js, UMD \u2014 importable in node): buildQueue(deals, opts) runs Tool 25's buildBoard and queueFromBoard(board) joins its nudges to the enriched deals, orders them, and attaches each deal's Tool 24 script \u2014 no pricing math, wording, or thresholds of its own. Browser persistence is the Deal Pipeline's localStorage key (cge.deal-pipeline.deals.v1), shared with Tool 25. Planning aid \u2014 not financial, legal, or tax advice. See AGENT.md Workflow 19."
+    },
+    {
+      "id": "repeat-sponsor-book",
+      "title": "Repeat Sponsor Book",
+      "description": "The Deal Pipeline's paid deals as one re-approach book: longest since payment first, each re-priced by the Rate Card Builder through the pipeline, the entered paid amount set against the current card total, no pitch wording attached (no repo template covers a repeat pitch), demo paid deals counted apart.",
+      "page": "repeat-sponsor-book.html",
+      "input_schema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "title": "RepeatSponsorBookInput",
+        "type": "object",
+        "required": [
+          "deals"
+        ],
+        "properties": {
+          "deals": {
+            "type": "array",
+            "description": "The Deal Pipeline's deal records (Tool 25 input shape \u2014 brand, stage, amount, stageEnteredAt, plus the pricing fields). The book reads the same records the board holds and keeps only the paid ones."
+          },
+          "now": {
+            "type": "string",
+            "description": "Optional ISO date/time the book is built for; paid ages derive from it."
+          }
+        }
+      },
+      "output": "The book in re-approach order (longest since the deal entered the paid stage first, then largest amount, then brand): each item carries the brand, the entered paid amount, days since payment stage entry, Tool 23's current card for the deal (total range + provenance, via Tool 25's priceDeal), where the paid amount sits against that range (below / inside / above), and the stated reason no pitch wording is attached. Demo paid deals are counted apart and never booked; an empty board, a no-paid-yet board, and a demo-only board are reported as different states. exportBook() renders the plaintext book.",
+      "drive_notes": "Engine (assets/js/repeat-sponsor-book.js, UMD \u2014 importable in node): buildBook(deals, opts) runs Tool 25's buildBoard and bookFromBoard(board) keeps the enriched paid deals, orders them, and sets each entered amount against Tool 23's card total \u2014 no pricing math, thresholds, or renewal-due dates of its own; the ordering claims no renewal window. Browser persistence is the Deal Pipeline's localStorage key (cge.deal-pipeline.deals.v1), shared with Tools 25/26. Planning aid \u2014 not financial, legal, or tax advice. See AGENT.md Workflow 20."
     }
   ]
 }

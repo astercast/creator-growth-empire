@@ -1,7 +1,7 @@
 # AGENT.md — How an agent uses Creator Growth Empire
 
 > This site is a static machine-readable knowledge base for the creator
-> business: 9 phases, 26 tools, 12 skills, 9 case files, and a versioned JSON
+> business: 9 phases, 27 tools, 12 skills, 9 case files, and a versioned JSON
 > API. No API key, no server, no auth, no rate limits. Fetch and act.
 > Every workflow below was executed against the real `data/v1/` JSON files —> see `tests/agent-workflows.test.js` (run: `node tests/agent-workflows.test.js`).
 
@@ -781,6 +781,48 @@ its exact words attached.
    engine says which. `exportBrief(queue)` renders the plaintext
    brief. Not financial, legal, or tax advice.
 
+### Workflow 20 — Re-approach the brands that already paid (Repeat Sponsor Book)
+
+Goal: hold the board's paid deals as one book — the deals every
+other money tool drops at the paid stage — each re-priced at
+today's card, ready to work as the re-approach list.
+
+1. Engine: `require("assets/js/repeat-sponsor-book.js")` (UMD),
+   which composes `assets/js/deal-pipeline.js` (Tool 25) — same
+   data (`calculators.json`, `deal-templates.json`,
+   `changes.json`), same clock input (`now`).
+2. `RepeatSponsorBook.buildBook(deals, {calculators: cfg,
+   dealTemplates, changesFeed, now})` runs Tool 25's `buildBoard`
+   and keeps its enriched paid deals. Verified fixture (the
+   Workflow 18 board plus one older paid deal, now = 2026-10-13):
+   the book holds exactly the board's two paid deals, in
+   re-approach order — **Early Bird Media** (integrated, $3,000
+   paid, 54d since it entered the paid stage; current card total
+   **$3,000–$5,300** from `sponsored_cpms.youtube_integrated_slot`,
+   the paid amount inside that range) → **Paid Brand** (dedicated,
+   $7,000 paid, 12d in stage; current card total **$2,500–$25,000**,
+   the paid amount inside that range). Collected stays Tool 25's
+   paid total: **$10,000** of a $28,300 pipeline.
+3. Ordering rule: **longest since payment first**, then largest
+   amount, then brand. That ordering is not a renewal-due claim —
+   the repo carries no renewal-timing data, so the book names no
+   due date and invents no window. Pricing is Tool 23's, read off
+   Tool 25's enriched board (the engine never calls `buildCard`
+   itself); the only new computation is where the entered paid
+   amount sits against the card total (below / inside / above).
+4. Wording rule: no pitch is attached, on purpose. The repo's
+   templates are a cold pitch (a brand that has never heard of
+   you), a one-time follow-up nudge, and a warm intro (a real
+   mutual connection only) — none describes a pitch to a brand
+   that already paid, so each item states the exclusion instead
+   of mislabeling one.
+5. Honesty rule: demo paid deals are counted apart and never
+   booked; an empty board (`emptyBoard`), a board with no paid
+   deals yet (`noPaidYet`), and a demo-only board (`demoOnly`)
+   are different states and the engine says which.
+   `exportBook(book)` renders the plaintext book. Not financial,
+   legal, or tax advice.
+
 ## Rate & expectation notes
 
 - **Static JSON.** Nothing here is live: no request counts, no streaming, no
@@ -833,6 +875,7 @@ explaining how to replicate the logic:
 | Negotiation Script Builder | `scenario` (lowball/usage_grab/exclusivity_lockin/late_payment), `brand`, `platform`, `deliverable`, `followers`, `expectedViews`, `offer`, `niche`, `usage`, `exclusivity{scope, months}`, `creatorFloor` + late-payment `invoiceAmount`/`invoiceDate`/`daysOverdue` | `require("assets/js/negotiation-script-builder.js")` — `buildScript(input, calculatorsJson, dealTemplatesJson, NegotiationKit)` for the 6-line script (opener, anchor, concession steps 1–3, walk-away) with per-line `sources[]` + `grounded_in`; excluded scenarios return `excluded: true` with the reason; `exportScript()` for the plaintext script — see Workflow 17 |
 | Deal Pipeline | `brand`, `stage` (lead/negotiating/terms/live/invoiced/paid), `amount`, `stageEnteredAt` + `platform`, `format`, `followers`, `expectedViews`, `niche`, `usage`, `whitelistingMonths`, `scenario` (optional) | `require("assets/js/deal-pipeline.js")` — `buildBoard(deals, {calculatorsJson, dealTemplatesJson, changesFeed, now})` groups by stage, prices each deal via Tool 23 (`priceDeal` — no pricing math of its own), attaches each deal's Tool 24 script (`scriptFor` — deal scenario or stage default), derives nudges from stage age, and totals entered deals only (demo deals counted apart); `exportBoard()` for the plaintext board — see Workflow 18 |
 | Follow-Through Queue | `deals` (the Tool 25 deal records), `now` (optional) | `require("assets/js/follow-through.js")` — `buildQueue(deals, {calculatorsJson, dealTemplatesJson, changesFeed, now})` runs Tool 25's `buildBoard` and queues its nudges in send order (urgent invoiced first, then most overdue, then longest in stage), each with Tool 24's script attached (label + export text); demo follow-ups counted apart, never queued; `emptyBoard` vs `nothingDue` reported as different states; `exportBrief()` for the plaintext brief — see Workflow 19 |
+| Repeat Sponsor Book | `deals` (the Tool 25 deal records), `now` (optional) | `require("assets/js/repeat-sponsor-book.js")` — `buildBook(deals, {calculatorsJson, dealTemplatesJson, changesFeed, now})` runs Tool 25's `buildBoard` and books its paid deals in re-approach order (longest since payment first), each with Tool 23's current card via Tool 25 (total range + provenance) and the paid amount's relation to it (below / inside / above); no pitch wording attached, with the exclusion stated; demo paid deals counted apart, never booked; `emptyBoard` vs `noPaidYet` vs `demoOnly` reported as different states; `exportBook()` for the plaintext book — see Workflow 20 |
 
 Full per-tool schemas, formulas, and honesty notes live in `tools.json`;
 the UI pages (`quiz.html`, `calculator.html`, …) are the human front-end for

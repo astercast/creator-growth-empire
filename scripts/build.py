@@ -222,6 +222,7 @@ TOOLS = [
     ("negotiation-script-builder", "Negotiation Script Builder", "The whole reply, word for word: pick one scenario the Negotiation Kit and Deal Room scripts actually cover — brand lowball, unpaid usage grab, exclusivity lock-in, late payment — add your numbers from the rate-card data, and get an opener, an anchor, a three-step concession ladder, and a walk-away line, every line naming the repo script it was assembled from. Scenarios with no repo script behind them are excluded with the reason stated, never improvised."),
     ("deal-pipeline", "Deal Pipeline", "Your live sponsorship deals on one board — lead, negotiating, terms set, live, invoiced, paid. Every deal is priced by the Rate Card Builder on its named benchmarks with the provenance carried along, its current Negotiation Script Builder script sits one click away, follow-up nudges come from stage age alone, and the totals are arithmetic on the deals you actually enter: an empty board is empty, and demo deals stay labeled DEMO and out of the totals."),
     ("follow-through", "Follow-Through Queue", "The Deal Pipeline's follow-ups, assembled into today's send list: urgent first, then most overdue, each item carrying its stage-age nudge action and its Negotiation Script Builder script ready to copy, plus one copyable brief for the whole queue. It reads the same board the Deal Pipeline writes and adds no numbers, no wording, and no thresholds of its own — an empty board and a board with nothing due are different states, and the queue says which."),
+    ("repeat-sponsor-book", "Repeat Sponsor Book", "The board's paid deals, held as the re-approach book every other money tool drops: longest since payment first, each brand's entered paid amount set against the current rate card the Rate Card Builder builds for the same deal through the Deal Pipeline, with its provenance printed, plus one copyable book for the whole list. It reads the same board the Deal Pipeline writes and adds no pricing, no thresholds, and no renewal-due date of its own — and it attaches no pitch wording, because no template in the repo describes a pitch to a brand that already paid. An empty board, a board with no paid deals yet, and a demo-only board are different states, and the book says which."),
 ]
 
 
@@ -902,6 +903,16 @@ TOOLS_API = [
           "now": {"type": "string", "description": "Optional ISO date/time the queue is built for; stage ages derive from it."}}},
      "The queue in send order (urgent invoiced first, then most overdue against Tool 25's stage thresholds, then longest in stage): each item carries the deal's brand, stage, stage age, days overdue, Tool 25's nudge action, the entered amount, and its Tool 24 script (label + full export text) or the reason none is attached. Demo-deal follow-ups are counted apart and never queued; an empty board and a nothing-due board are reported as different states. exportBrief() renders the plaintext brief.",
      "Engine (assets/js/follow-through.js, UMD — importable in node): buildQueue(deals, opts) runs Tool 25's buildBoard and queueFromBoard(board) joins its nudges to the enriched deals, orders them, and attaches each deal's Tool 24 script — no pricing math, wording, or thresholds of its own. Browser persistence is the Deal Pipeline's localStorage key (cge.deal-pipeline.deals.v1), shared with Tool 25. Planning aid — not financial, legal, or tax advice. See AGENT.md Workflow 19."),
+    ("repeat-sponsor-book", "Repeat Sponsor Book",
+     "The Deal Pipeline's paid deals as one re-approach book: longest since payment first, each re-priced by the Rate Card Builder through the pipeline, the entered paid amount set against the current card total, no pitch wording attached (no repo template covers a repeat pitch), demo paid deals counted apart.",
+     "repeat-sponsor-book.html",
+     {"$schema": "http://json-schema.org/draft-07/schema#", "title": "RepeatSponsorBookInput",
+      "type": "object", "required": ["deals"],
+      "properties": {
+          "deals": {"type": "array", "description": "The Deal Pipeline's deal records (Tool 25 input shape — brand, stage, amount, stageEnteredAt, plus the pricing fields). The book reads the same records the board holds and keeps only the paid ones."},
+          "now": {"type": "string", "description": "Optional ISO date/time the book is built for; paid ages derive from it."}}},
+     "The book in re-approach order (longest since the deal entered the paid stage first, then largest amount, then brand): each item carries the brand, the entered paid amount, days since payment stage entry, Tool 23's current card for the deal (total range + provenance, via Tool 25's priceDeal), where the paid amount sits against that range (below / inside / above), and the stated reason no pitch wording is attached. Demo paid deals are counted apart and never booked; an empty board, a no-paid-yet board, and a demo-only board are reported as different states. exportBook() renders the plaintext book.",
+     "Engine (assets/js/repeat-sponsor-book.js, UMD — importable in node): buildBook(deals, opts) runs Tool 25's buildBoard and bookFromBoard(board) keeps the enriched paid deals, orders them, and sets each entered amount against Tool 23's card total — no pricing math, thresholds, or renewal-due dates of its own; the ordering claims no renewal window. Browser persistence is the Deal Pipeline's localStorage key (cge.deal-pipeline.deals.v1), shared with Tools 25/26. Planning aid — not financial, legal, or tax advice. See AGENT.md Workflow 20."),
 ]
 
 # Tools hub (wave 9): grouped card index. Per tool: icon, "use when" one-liner,
@@ -959,6 +970,8 @@ TOOL_HUB_META = {
                       ["deal pipeline", "pipeline board", "Phase 5"]),
     "follow-through": ("▸", "MONEY",   "gold", "deals are on the board and some have sat too long — you need today's follow-ups in send order, each with its words ready.",
                       ["follow-ups", "send list", "Phase 5"]),
+    "repeat-sponsor-book": ("↻", "MONEY",   "gold", "a brand already paid you once — you need the paid deals held as one re-approach book, re-priced at today's card.",
+                      ["repeat sponsors", "paid deals", "Phase 5"]),
 }
 TOOL_HUB_GROUPS = [
     ("PLAN", "Pick the battlefield",
@@ -1680,6 +1693,7 @@ def build():
         "negotiation-script-builder": ["assets/js/negotiation-kit.js", "assets/js/negotiation-script-builder.js", "assets/js/negotiation-script-builder-ui.js"],
         "deal-pipeline": ["assets/js/rate-card-builder.js", "assets/js/negotiation-kit.js", "assets/js/negotiation-script-builder.js", "assets/js/deal-pipeline.js", "assets/js/deal-pipeline-ui.js"],
         "follow-through": ["assets/js/rate-card-builder.js", "assets/js/negotiation-kit.js", "assets/js/negotiation-script-builder.js", "assets/js/deal-pipeline.js", "assets/js/follow-through.js", "assets/js/follow-through-ui.js"],
+        "repeat-sponsor-book": ["assets/js/rate-card-builder.js", "assets/js/negotiation-kit.js", "assets/js/negotiation-script-builder.js", "assets/js/deal-pipeline.js", "assets/js/repeat-sponsor-book.js", "assets/js/repeat-sponsor-book-ui.js"],
     }
     TOOL_CSS = {
         "money-map": ["assets/css/moneymap.css"],
@@ -1694,6 +1708,7 @@ def build():
         "negotiation-script-builder": ["assets/css/negotiation-script-builder.css"],
         "deal-pipeline": ["assets/css/deal-pipeline.css"],
         "follow-through": ["assets/css/follow-through.css"],
+        "repeat-sponsor-book": ["assets/css/repeat-sponsor-book.css"],
         "deal-room": ["assets/css/deal-room.css"],
     }
     for slug, title, desc in TOOLS:
@@ -2151,7 +2166,7 @@ def build():
             "id": "tools",
             "kind": "json",
             "path": "data/v1/tools.json",
-            "description": "All twenty-six interactive tools with programmatic input schemas (JSON Schema draft-07), output descriptions, and drive notes — replicate the tools' logic without the UI.",
+            "description": "All twenty-seven interactive tools with programmatic input schemas (JSON Schema draft-07), output descriptions, and drive notes — replicate the tools' logic without the UI.",
             "schema": "data/v1/schema/tools.json",
             "updated": BUILD_TS,
             "records": len(TOOLS_API),
@@ -2182,7 +2197,7 @@ def build():
             "id": "tool-pages",
             "kind": "html",
             "paths": [f"{slug}.html" for slug, _, _ in TOOLS],
-            "description": "The twenty-six interactive tools' human UI pages. Agents should prefer data/v1/tools.json input schemas over scraping these pages.",
+            "description": "The twenty-seven interactive tools' human UI pages. Agents should prefer data/v1/tools.json input schemas over scraping these pages.",
             "schema": None,
             "updated": BUILD_TS,
             "records": len(TOOLS),
@@ -2268,7 +2283,7 @@ def build():
     # ---- tools.json: every tool with its programmatic input schema ----
     (DATA_V1 / "tools.json").write_text(json.dumps({
         "version": "1.0.0", "updated": "2026-10-11",
-        "note": ("Programmatic input schemas for the twenty-six interactive tools. "
+        "note": ("Programmatic input schemas for the twenty-seven interactive tools. "
                  "Agents replicate each tool's logic by feeding these inputs to the "
                  "documented formulas / shipped JS (assets/js/<id>.js); the UI pages "
                  "are the human front-end for the same logic."),
@@ -2881,7 +2896,7 @@ def build():
     for slug, title, desc in TOOLS:
         llms.append(f"- [{title}]({slug}.html) — {desc}")
     llms += ["- [Glossary](glossary.html)", "",
-             "All twenty-six tools, grouped by job (Plan / Money / Content): [Tools hub](tools.html).",
+             "All twenty-seven tools, grouped by job (Plan / Money / Content): [Tools hub](tools.html).",
              "", "## Reference"]
     for m in reference_meta:
         llms.append(f"- [{m['badge']}: {m['title']}]({m['path']}) — {m['read_minutes']} min read")

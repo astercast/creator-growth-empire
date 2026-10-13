@@ -128,10 +128,10 @@
       "id": "tools",
       "kind": "json",
       "path": "data/v1/tools.json",
-      "description": "All twenty-six interactive tools with programmatic input schemas (JSON Schema draft-07), output descriptions, and drive notes \u2014 replicate the tools' logic without the UI.",
+      "description": "All twenty-seven interactive tools with programmatic input schemas (JSON Schema draft-07), output descriptions, and drive notes \u2014 replicate the tools' logic without the UI.",
       "schema": "data/v1/schema/tools.json",
       "updated": "2026-10-11T00:00:00Z",
-      "records": 26,
+      "records": 27,
       "deprecated": false,
       "deprecation_note": null
     },
@@ -182,12 +182,13 @@
         "rate-card-builder.html",
         "negotiation-script-builder.html",
         "deal-pipeline.html",
-        "follow-through.html"
+        "follow-through.html",
+        "repeat-sponsor-book.html"
       ],
-      "description": "The twenty-six interactive tools' human UI pages. Agents should prefer data/v1/tools.json input schemas over scraping these pages.",
+      "description": "The twenty-seven interactive tools' human UI pages. Agents should prefer data/v1/tools.json input schemas over scraping these pages.",
       "schema": null,
       "updated": "2026-10-11T00:00:00Z",
-      "records": 26,
+      "records": 27,
       "deprecated": false,
       "deprecation_note": null
     },

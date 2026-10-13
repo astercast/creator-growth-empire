@@ -73,7 +73,7 @@ function check(name, cond, detail) {
 
   // tools.json drives the planner config shape
   const tools = load("tools.json").tools;
-  check("wf2: tools.json lists all 26 tools", tools.length === 26, String(tools.length));
+  check("wf2: tools.json lists all 27 tools", tools.length === 27, String(tools.length));
   const oc = tools.find((t) => t.id === "outreach");
   const ocSchema = oc && oc.input_schema;
   check("wf2: outreach input schema exposes pipeline + quote + pitch + contract fields",
@@ -890,6 +890,54 @@ function check(name, cond, detail) {
       now: new Date("2026-10-13T00:00:00Z"), dp: DP }).demoDue === 3 &&
     FT.buildQueue([], { calculators: cfg, dealTemplates: tpl, changesFeed: feed,
       now: new Date("2026-10-13T00:00:00Z"), dp: DP }).emptyBoard === true);
+})();
+
+/* ============ Workflow 20: the repeat sponsor book ==============
+ * AGENT.md §Workflow 20: the board's paid deals, booked in
+ * re-approach order with Tool 23's current card via Tool 25. */
+(function workflow20() {
+  const RSB = require(path.join(__dirname, "..", "assets", "js", "repeat-sponsor-book.js"));
+  const DP = require(path.join(__dirname, "..", "assets", "js", "deal-pipeline.js"));
+  const cfg = load("calculators.json");
+  const tpl = load("deal-templates.json");
+  const feed = load("changes.json");
+  const deals = [
+    { id: "a", brand: "Ridge Wallet", platform: "youtube", format: "integrated", followers: 50000,
+      expectedViews: 60000, niche: "tech_software", usage: "paid_6mo", amount: 12000,
+      stage: "negotiating", stageEnteredAt: "2026-10-05", scenario: "lowball" },
+    { id: "b", brand: "Trail Snacks Co", platform: "tiktok", format: "short", followers: 50000,
+      expectedViews: 60000, niche: "lifestyle", usage: "organic_only", amount: 1800,
+      stage: "lead", stageEnteredAt: "2026-10-08" },
+    { id: "c", brand: "Northwind VPN", platform: "youtube", format: "integrated", followers: 50000,
+      expectedViews: 60000, niche: "tech_software", usage: "paid_3mo", amount: 4500,
+      stage: "invoiced", stageEnteredAt: "2026-09-20" },
+    { id: "d", brand: "Paid Brand", platform: "youtube", format: "dedicated", followers: 50000,
+      expectedViews: 60000, niche: "tech_software", usage: "organic_only", amount: 7000,
+      stage: "paid", stageEnteredAt: "2026-10-01" },
+    { id: "e", brand: "Early Bird Media", platform: "youtube", format: "integrated", followers: 50000,
+      expectedViews: 60000, niche: "tech_software", usage: "organic_only", amount: 3000,
+      stage: "paid", stageEnteredAt: "2026-08-20" }
+  ];
+  const b = RSB.buildBook(deals, { calculators: cfg, dealTemplates: tpl, changesFeed: feed,
+    now: new Date("2026-10-13T00:00:00Z"), dp: DP });
+  check("wf20: book holds the board's 2 paid deals, longest-paid first (Early Bird 54d, Paid Brand 12d)",
+    b.ok && b.paidCount === 2 &&
+    b.items.map((i) => i.brand).join("|") === "Early Bird Media|Paid Brand" &&
+    b.items[0].paidAgeDays === 54 && b.items[1].paidAgeDays === 12);
+  check("wf20: collected stays Tool 25's paid total ($10,000 of a $28,300 pipeline)",
+    b.collected === 10000 && b.totals.pipelineValue === 28300);
+  check("wf20: current cards are Tool 23's via Tool 25 (Early Bird total $3,000–$5,300; Paid Brand $2,500–$25,000; both paid amounts inside)",
+    b.items[0].rateCard.total.range.join("-") === "3000-5300" &&
+    b.items[1].rateCard.total.range.join("-") === "2500-25000" &&
+    b.items.every((i) => i.relation === "inside"));
+  check("wf20: no pitch attached, exclusion stated; demo paid counted apart; empty != no-paid-yet != demo-only",
+    b.items.every((i) => i.pitch.ok === false && /already paid/.test(i.pitch.reason)) &&
+    RSB.buildBook([], { calculators: cfg, dealTemplates: tpl, changesFeed: feed,
+      now: new Date("2026-10-13T00:00:00Z"), dp: DP }).emptyBoard === true &&
+    RSB.buildBook([deals[1]], { calculators: cfg, dealTemplates: tpl, changesFeed: feed,
+      now: new Date("2026-10-13T00:00:00Z"), dp: DP }).noPaidYet === true &&
+    RSB.buildBook(DP.DEMO_DEALS, { calculators: cfg, dealTemplates: tpl, changesFeed: feed,
+      now: new Date("2026-10-13T00:00:00Z"), dp: DP }).demoOnly === true);
 })();
 
 console.log(`\nagent-workflows: ${pass} passed, ${fail} failed`);

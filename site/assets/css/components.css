@@ -343,14 +343,20 @@ fieldset.hud-panel:has(select:focus-visible, input:focus-visible, textarea:focus
 /* goal-solver panel */
 .goal-out { margin-top: 1rem; }
 
-/* ---- view transitions (wave 26, tokens re-mapped) ---- */
-::view-transition-old(root),
-::view-transition-new(root) {
-  animation-duration: var(--dur-moderate);
-  animation-timing-function: var(--ease-decelerate);
-}
+/* ---- view transitions (wave 26, tokens re-mapped; rotation 14:
+   aligned to Fleet Commons canonical v1.0.0 — the guard is the
+   pattern, so the root shaping moved inside the no-preference
+   guard with the @view-transition rule; reduced-motion visitors
+   get no transition at all. Shape stays this site's own tokens.
+   view-transition-name pairings deliberately not adopted:
+   duplicate-name risk across 59+ generated pages.) ---- */
 @media (prefers-reduced-motion: no-preference) {
   @view-transition { navigation: auto; }
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: var(--dur-moderate);
+    animation-timing-function: var(--ease-decelerate);
+  }
 }
 .deal-report p, .deal-report li, .da-explain { max-inline-size: 65ch; }
 @supports (text-wrap: pretty) {

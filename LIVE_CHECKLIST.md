@@ -105,6 +105,22 @@ tracks what's wired in the live track.
   honest JSON-LD on index + tools hub, robots.txt; og:image stays
   relative until the GO_LIVE absolutize step runs against a real
   domain); `tests/placement.test.js` guards it in stage 6.
+  Tool 27, the Repeat Sponsor Book, shipped with the 2.11
+  rotation: the Deal Pipeline's paid deals as one re-approach
+  book (longest since payment first), each re-priced by the
+  Rate Card Builder through the pipeline with the entered paid
+  amount set against the current card total, no pitch wording
+  attached (no repo template covers a repeat pitch — the
+  exclusion is stated per item), demo paid deals counted apart;
+  fully client-side (no new function — the free-tier audit
+  below holds at 4 functions);
+  `tests/repeat-sponsor-book.test.js` runs in stage 6;
+  Rotation 14 also aligned the cross-document View Transitions
+  adoption in `assets/css/components.css` to Fleet Commons
+  canonical v1.0.0 (root shaping moved inside the
+  prefers-reduced-motion: no-preference guard; site tokens kept;
+  view-transition-name pairings still not adopted);
+  `tests/view-transitions.test.js` runs in stage 6;
   Tool 26, the Follow-Through Queue, shipped with the 2.10
   rotation: the Deal Pipeline's stage-age nudges as one prioritized
   send list with each deal's Tool 24 script attached, composing
