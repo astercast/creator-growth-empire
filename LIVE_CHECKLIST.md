@@ -59,9 +59,11 @@ tracks what's wired in the live track.
   `installCommand` is an echo (no dependencies).
 - Build machine: Standard, never Turbo.
 - Last verified: 2026-10-12 (static pages 200, data/v1 JSON 200, functions
-  node-syntax-checked). Algorithm Watch feed v1.6.0: 24 entries, all
+  node-syntax-checked). Algorithm Watch feed v1.7.0: 25 entries, all
   eight platform slots covered
-  (YouTube/TikTok/Instagram/Facebook/X/Twitch/Kick/Other);
+  (YouTube/TikTok/Instagram/Facebook/X/Twitch/Kick/Other); Snapchat
+  slot considered in 2.6 and not opened — no current source-backed
+  Snapchat development met the logging bar (see WAVELOG 2.6);
   `tests/algorithm-watch.test.js` and
   `tests/algorithm-watch-cron.test.js` (the exercised cron cycles:
   Twitch sponsorship classification/gating/dedupe/render, the

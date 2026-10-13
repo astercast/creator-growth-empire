@@ -36,8 +36,8 @@ var rows = feed.changes;
 
 /* ---------- 1. feed integrity ---------- */
 console.log("feed integrity");
-ok(feed.version === "1.6.0", "feed version bumped to 1.6.0 for the Kick slot wave");
-ok(Array.isArray(rows) && rows.length === 24, "feed holds 24 entries");
+ok(feed.version === "1.7.0", "feed version bumped to 1.7.0 for the Watch With backfill wave");
+ok(Array.isArray(rows) && rows.length === 25, "feed holds 25 entries");
 var ids = {};
 ok(rows.every(function (c) { return !ids[c.id] && (ids[c.id] = 1); }), "entry ids are unique");
 ok(rows.every(function (c) {
@@ -204,6 +204,22 @@ ok(!!kk && kk.platform === "kick" && kk.category === "monetization" &&
   "Kick: KPP rolling-rate rewrite + September backpay, manual-error cause stated, 95/5 unchanged, no invented day or rate — the slot opens with a real entry, not a placeholder");
 ok(!/unlock the power|delve|game-changer|game changer|elevate your|supercharge|revolutioni[sz]e/i.test(kk.summary),
   "2.5 entry copy: no AI-isms");
+
+/* ---------- 4g. the 2.6 entry: YouTube Watch With expansion (Sept 23 backfill) ---------- */
+console.log("2.6 entry");
+var ww = byId("yt-watch-with-expansion-2026");
+ok(!!ww && ww.platform === "youtube" && ww.category === "monetization" &&
+   ww.confidence === "verified" && ww.sources.length === 2 &&
+   ww.announced_at === "2026-09-23T00:00:00Z" && ww.effective_at === null &&
+   /React live/.test(ww.summary) && /keeps the live ad revenue and any fan funding/.test(ww.summary) &&
+   /not paid a share/.test(ww.summary) && /added view credit/.test(ww.summary) &&
+   /has not published what makes a video eligible/.test(ww.summary) &&
+   /no start date has been published/.test(ww.summary) &&
+   ww.sources[0].url === "https://www.fonearena.com/blog/493327/made-on-youtube-2026-announcements.html" &&
+   ww.sources[1].url === "https://blog.evolvedlotus.com/blog/2026-09-28-youtube-will-let-reactors-keep-the-ad-money-from-your-videos/",
+  "YouTube Watch With: announced Sept 23 at Made on YouTube, reactors keep live ad revenue + fan funding, originals get attribution + view credit + eligibility control but no share, eligibility criteria and rollout date unpublished — stated, not filled in");
+ok(!/unlock the power|delve|game-changer|game changer|elevate your|supercharge|revolutioni[sz]e/i.test(ww.summary),
+  "2.6 entry copy: no AI-isms");
 
 /* ---------- 5. page / build wiring ---------- */
 console.log("page/build wiring");

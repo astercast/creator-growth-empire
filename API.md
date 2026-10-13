@@ -60,10 +60,20 @@ announced_at, effective_at, category: algorithm|policy|monetization|legal,
 confidence: verified|single-source, sources: [{ name, url }] }], total,
 filters, feed_generated_at, disclaimer }`. `announced_at` / `effective_at`
 are carried only where the day is actually known (null or absent
-otherwise — the feed never rounds a month into a fake day). Feed v1.6.0
-(2026-10-13) holds 24 entries and covers all eight platform slots:
+otherwise — the feed never rounds a month into a fake day). Feed v1.7.0
+(2026-10-13) holds 25 entries and covers all eight platform slots:
 YouTube, TikTok, Instagram, Facebook, X, Twitch, Kick, and Other (Spotify and
-industry-wide changes log under Other). The 2.5 wave's coverage audit
+industry-wide changes log under Other). The 2.6 wave backfilled YouTube's
+Watch With expansion, announced September 23, 2026 at Made on YouTube
+(reacting creators keep the live ad revenue and fan funding from a
+reaction stream; the original creator gets attribution, Studio view
+credit, and eligibility control, but no revenue share; monetization,
+verified — FoneArena + Evolved Lotus, both reporting YouTube's own
+September 23 post; rollout begins later in 2026 with no published start
+date, so `effective_at` is null). The same wave decided the Snapchat
+slot: not opened — the newest source-backed Snapchat term change is
+still the July 31, 2026 Spotlight AI policy, and no current development
+met the bar (see WAVELOG 2.6). The 2.5 wave's coverage audit
 gave Kick its own slot, opened with its September 2026 Partner Program
 payout rewrite (per-stream rates replaced by a rolling calculation over
 recent broadcasts, September's manual-calculation errors repaid through

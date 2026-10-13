@@ -208,8 +208,15 @@ priced, flag-checked, scripted, and memorized — all via API.
    builds the Algorithm Watch digest from `data/v1/changes.json`: newest
    first, dated, sourced, confidence-flagged, each entry with a curated
    deal note (this site's editorial read, labeled as such);
-   `digestText(digest)` renders it as copy-ready plaintext. Feed v1.6.0
-   holds 24 entries across all eight platform slots — the 2.5 wave's
+   `digestText(digest)` renders it as copy-ready plaintext. Feed v1.7.0
+   holds 25 entries across all eight platform slots — the 2.6 wave
+   backfilled YouTube's Watch With expansion (announced Sept 23, 2026:
+   reactors keep the live ad revenue and fan funding; originals get
+   attribution, view credit, and eligibility control, no revenue share;
+   rollout date unpublished, `effective_at` null) and decided against a
+   Snapchat slot (newest source-backed term change still the July 31,
+   2026 Spotlight AI policy — no current development met the bar);
+   the 2.5 wave's
    coverage audit gave Kick its own slot, opened with the September 2026
    Partner Program payout rewrite (rolling rate over recent broadcasts
    replacing per-stream rates; September's manual-calculation errors
