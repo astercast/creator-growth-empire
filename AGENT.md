@@ -1,7 +1,7 @@
 # AGENT.md — How an agent uses Creator Growth Empire
 
 > This site is a static machine-readable knowledge base for the creator
-> business: 9 phases, 31 tools, 12 skills, 9 case files, and a versioned JSON
+> business: 9 phases, 32 tools, 12 skills, 9 case files, and a versioned JSON
 > API. No API key, no server, no auth, no rate limits. Fetch and act.
 > Every workflow below was executed against the real `data/v1/` JSON files —> see `tests/agent-workflows.test.js` (run: `node tests/agent-workflows.test.js`).
 
@@ -277,6 +277,14 @@ priced, flag-checked, scripted, and memorized — all via API.
    the 2.15 wave re-swept all eight slots a ninth consecutive
    time and logged nothing — a ninth verified negative, itemized
    per slot in WAVELOG 2.15: no post-October-12 development with
+   published terms on any slot, the Kick KPP follow-up still has
+   no first dated primary term (dates stay null), and Snapchat's
+   newest term change remains the July 31 Spotlight AI policy
+   behind the still-closed slot, so the feed stands unchanged
+   at v1.7.0 / 25 entries;
+   the 2.16 wave re-swept all eight slots a tenth consecutive
+   time and logged nothing — a tenth verified negative, itemized
+   per slot in WAVELOG 2.16: no post-October-12 development with
    published terms on any slot, the Kick KPP follow-up still has
    no first dated primary term (dates stay null), and Snapchat's
    newest term change remains the July 31 Spotlight AI policy
@@ -1002,6 +1010,38 @@ owed, and how much is still open.
    ledger. `exportLedger(ledger)` renders the plaintext
    ledger. Not financial, legal, or tax advice.
 
+### Workflow 25 — Keep a saved-tools shelf (Saved Shelf, T-CREATOR-4)
+
+Goal: answer the returning-visitor question the hub never
+answered — which of the manual's tools are *mine*, the ones I
+use every day, held in one place in the order I chose them.
+
+1. Engine: `require("assets/js/saved-shelf.js")` (UMD). The
+   catalogue is this repo's own committed tool records
+   (`data/v1/tools.json`); the saved set is the visitor's own
+   slug list (browser localStorage `cge.saved-tools.v1`,
+   written by the save toggle the generator puts in every tool
+   page's briefing panel).
+2. `SavedShelf.shelfFromToolsJson(toolsJson, saved)` joins the
+   two. Verified fixture: with the real catalogue (32 records)
+   and saves `["platform-ledger", "quiz", "retired-tool"]`,
+   the shelf holds exactly 2 entries in save order —
+   **Platform Ledger** → **Niche Picker** — and counts
+   `retired-tool` apart as 1 stale save.
+3. Set rule: `toggleSaved` appends on save and removes on
+   unsave, `normalizeSaved` dedupes and keeps first-save order;
+   the only work is set arithmetic on the two lists — no
+   ranking, no scoring. There is no most-saved order: that
+   signal needs usage collected across visitors, this site
+   collects none, and the shelf prints that instead of
+   inventing a popularity order.
+4. Honesty rule: a saved slug the catalogue no longer lists is
+   counted apart as stale, named in the export, and never
+   rendered as a tool; nothing saved yet (`emptyShelf`) and
+   saves that are all stale (`staleOnly`) are different states
+   and the engine says which. `exportShelf(shelf)` renders the
+   plaintext shelf. Not financial, legal, or tax advice.
+
 ## Rate & expectation notes
 
 - **Static JSON.** Nothing here is live: no request counts, no streaming, no
@@ -1059,6 +1099,7 @@ explaining how to replicate the logic:
 | Receivables Register | `deals` (the Tool 25 deal records), `now` (optional) | `require("assets/js/receivables-register.js")` — `buildRegister(deals, {now})` runs Tool 25's `buildBoard` and registers its invoiced deals (every one, fresh included — no follow-up-threshold gating), longest outstanding first; the total owed stays Tool 25's invoiced outstanding figure; each entry carries the board's Tool 24 late-payment script or the reason none is attached; demo invoiced deals counted apart, never registered; `emptyBoard` vs `nothingOwed` vs `demoOnly` reported as different states; `exportRegister()` for the plaintext register — see Workflow 22 |
 | Brand Ledger | `deals` (the Tool 25 deal records), `now` (optional) | `require("assets/js/brand-ledger.js")` — `buildLedger(deals, {now})` runs Tool 25's `buildBoard` and groups all its deals by brand, largest relationship first: per brand, total across all stages split into collected (paid) / owed (invoiced) / still open (lead/negotiating/terms/live), share of Tool 25's pipeline value, deal + stage counts, platforms; the pipeline total stays Tool 25's figure; a brand total is a sum of current-stage amounts, never a history or lifetime value; demo deals counted apart, never ledgered; `emptyBoard` vs `demoOnly` reported as different states (no none-yet state by design — every real deal belongs to a brand); `exportLedger()` for the plaintext ledger — see Workflow 23 |
 | Platform Ledger | `deals` (the Tool 25 deal records), `now` (optional) | `require("assets/js/platform-ledger.js")` — `buildLedger(deals, {now})` runs Tool 25's `buildBoard` and groups all its deals by platform, largest total first: per platform, total across all stages split into collected (paid) / owed (invoiced) / still open (lead/negotiating/terms/live), share of Tool 25's pipeline value, deal + stage counts, brands; the pipeline total stays Tool 25's figure; a platform total is a sum of current-stage amounts, never a platform history; demo deals counted apart, never ledgered; `emptyBoard` vs `demoOnly` reported as different states (no none-yet state by design — every real deal belongs to a platform); `exportLedger()` for the plaintext ledger — see Workflow 24 |
+| Saved Shelf | `catalog` (the tools.json records), `saved` (saved slugs in save order) | `require("assets/js/saved-shelf.js")` — `buildShelf(catalog, saved)` / `shelfFromToolsJson(doc, saved)` joins the visitor's saved set against the hub's own committed catalogue, in save order, each entry carrying the catalogue's own title, description, and page; stale saves (slugs the catalogue no longer lists) counted apart, named, never rendered; no most-saved ranking (no cross-visitor usage is collected — the absence is stated, not filled); `emptyShelf` vs `staleOnly` reported as different states; `toggleSaved()` / `normalizeSaved()` manage the set; `exportShelf()` for the plaintext shelf — see Workflow 25 (gap T-CREATOR-4) |
 
 Full per-tool schemas, formulas, and honesty notes live in `tools.json`;
 the UI pages (`quiz.html`, `calculator.html`, …) are the human front-end for

@@ -1,0 +1,21 @@
+<div id="saved-shelf">
+<p class="svs-stamp"><span class="badge gold">SAVED SHELF</span> <span class="muted">Your saved tools, in the order you saved them — stored only in this browser.</span></p>
+<p class="lede">The hub holds every tool in the manual, and a working creator uses a handful of them over and over. This page is the shelf for that handful: open any tool, tap “Save to your shelf” in its briefing panel, and it waits for you here — one tap back to each tool, one tap to remove it, and one copyable list for the whole shelf.</p>
+<p class="muted">The catalogue behind this page is the hub's own tool list (<a href="tools.html">All Tools</a>). Your saves live only in this browser's local storage — there is no account, nothing is sent anywhere, and clearing this browser's site data clears the shelf. There is deliberately no most-saved ranking here: that signal needs usage collected across visitors, and this site collects none, so no popularity order is invented in its place.</p>
+<nav class="svs-jump" aria-label="Saved Shelf sections">
+  <a href="#svs-sec-shelf">The shelf</a>
+  <a href="#svs-sec-export">The export</a>
+</nav>
+
+<h2 id="svs-sec-shelf">1 · The shelf — your saved tools, in save order</h2>
+<p id="svs-status" class="svs-status" aria-live="polite"></p>
+<div id="svs-shelf" aria-live="polite"></div>
+<p><button type="button" id="svs-hub" class="btn">Re-read the shelf</button>
+<a class="btn" href="tools.html">Browse the hub</a></p>
+<p class="muted">A saved tool that the catalogue no longer lists — renamed or retired after you saved it — is counted as stale in the status line and the export, and never rendered as a tool. Removing a tool here and unsaving it on its own page write the same record; both stay in step because both read the same key.</p>
+
+<h2 id="svs-sec-export">2 · The shelf as plaintext</h2>
+<textarea id="svs-export" rows="14" readonly aria-label="Your saved tools shelf as plaintext"></textarea>
+<p><button type="button" id="svs-copy" class="btn btn-primary">Copy the shelf</button></p>
+<p class="muted">A planning aid, not financial, legal, or tax advice. Titles and descriptions are the catalogue's own records; the shelf adds no ranking, scoring, or counts of anyone else's saves.</p>
+</div>

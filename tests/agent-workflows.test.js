@@ -73,7 +73,7 @@ function check(name, cond, detail) {
 
   // tools.json drives the planner config shape
   const tools = load("tools.json").tools;
-  check("wf2: tools.json lists all 31 tools", tools.length === 31, String(tools.length));
+  check("wf2: tools.json lists all 32 tools", tools.length === 32, String(tools.length));
   const oc = tools.find((t) => t.id === "outreach");
   const ocSchema = oc && oc.input_schema;
   check("wf2: outreach input schema exposes pipeline + quote + pitch + contract fields",
@@ -1137,6 +1137,25 @@ function check(name, cond, detail) {
     PL.buildLedger([], { dp: DP }).emptyBoard === true &&
     PL.buildLedger(DP.DEMO_DEALS, { dp: DP }).demoOnly === true &&
     PL.buildLedger(DP.DEMO_DEALS, { dp: DP }).demoValue === 18300);
+})();
+
+/* ============ Workflow 25: the saved shelf (T-CREATOR-4) =============
+ * AGENT.md §Workflow 25: the visitor's saved slugs, joined against
+ * the real tools.json catalogue — save order kept, stale apart. */
+(function workflow25() {
+  const SS = require(path.join(__dirname, "..", "assets", "js", "saved-shelf.js"));
+  const toolsDoc = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "data", "v1", "tools.json"), "utf8"));
+  const s = SS.shelfFromToolsJson(toolsDoc, ["platform-ledger", "quiz", "retired-tool"]);
+  check("wf25: shelf joins saves against the real 32-tool catalogue — 2 entries, 1 stale save counted apart",
+    s.ok && s.catalogCount === 32 && s.savedCount === 2 && s.staleCount === 1 &&
+    s.staleIds.join("|") === "retired-tool");
+  check("wf25: entries keep save order and carry the catalogue's own records (Platform Ledger -> Niche Picker)",
+    s.entries.map((e) => e.title).join("|") === "Platform Ledger|Niche Picker" &&
+    s.entries[0].page === "platform-ledger.html");
+  check("wf25: empty != stale-only; toggle round-trips a save",
+    SS.shelfFromToolsJson(toolsDoc, []).emptyShelf === true &&
+    SS.shelfFromToolsJson(toolsDoc, ["retired-tool"]).staleOnly === true &&
+    SS.toggleSaved(SS.toggleSaved([], "quiz"), "quiz").length === 0);
 })();
 
 console.log(`\nagent-workflows: ${pass} passed, ${fail} failed`);

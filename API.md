@@ -26,7 +26,7 @@ Skill index: `version`, `updated`, `skills: [{ "name", "description", "path" }]`
 Case-file index: `version`, `updated`, `note`, `case_files: [{ "id", "badge", "title", "path", "words", "read_minutes" }]` for all nine documented creator-business deconstructions (budget-grocery newsletter, Ben's Bites, faceless sleep-channel network, Mavwicks on TikTok Shop, cohort course, the poly couple, Gibi ASMR, the clipping squeeze, the monthly Shorts floor). Full text on the `case-*.html` pages. Figures are source-reported, not audited — never present as promises.
 
 ### `GET data/v1/tools.json`
-`{ "version", "updated", "note", "tools": [{ "id", "title", "description", "page", "input_schema", "output", "drive_notes" }] }` — all thirty-one interactive tools with programmatic input schemas (JSON Schema draft-07), output descriptions, and drive notes. Replicate any tool's logic without the UI; the `*.html` tool pages are the human front-end for the same logic.
+`{ "version", "updated", "note", "tools": [{ "id", "title", "description", "page", "input_schema", "output", "drive_notes" }] }` — all thirty-two interactive tools with programmatic input schemas (JSON Schema draft-07), output descriptions, and drive notes. Replicate any tool's logic without the UI; the `*.html` tool pages are the human front-end for the same logic.
 
 ### `GET data/v1/content-engine.json`
 `{ "version", "updated", "disclaimer", "idea_formats", "hook_structures", "dealing_rules", "batching", "repurposing_2_0", "originality_guardrails", "deal_slots", "simulator_bridge", "algorithm_signals", "hook_patterns", "adaptation_matrix", "batching_scheduler", "source" }` — the Content Engine data contract (v1.1.0): 3 idea formats (long/short/community) with effort notes, the 5 Short-Form Playbook hook structures (open loop, cold start, contrarian, numbered promise, question-as-hook — craft formulas, not platform documentation), calendar dealing rules (same arithmetic as the 90-Day Planner), batching guidance (consistency-beats-volume), the Repurposing 2.0 derivative map (7 derivatives, each with its required original element — repurposing is not re-uploading), the Oct-1 originality guardrails (no identical re-uploads, fresh hooks, native grammar, written text derivatives, atom-test gate) — plus the 2.0 additions: `algorithm_signals` (the Oct-2026 TikTok/Shorts/Reels signal map, every claim carrying `source` + `source_label`: platform-published / verified-multi-source / single-source / creator-lore), `hook_patterns` (6 trend-derived structural hook patterns, each with the mechanic it exploits), `adaptation_matrix` (12 source→destination adaptation rule sets + 6 universal checks + the Oct-1 gate), and `batching_scheduler` (weekly-hours → film/edit/publish day-block defaults). Niche tags resolve against `data/v1/niches.json`. **A planning aid, not financial, legal, or tax advice.**
@@ -129,6 +129,13 @@ first dated primary term (its dates stay honestly null), and the
 Snapchat slot stays closed with the July 31 Spotlight AI policy still
 its newest term change — a ninth verified negative, itemized per
 slot in WAVELOG 2.15; the feed stands at v1.7.0 / 25 entries unchanged.
+The 2.16 wave re-swept all eight slots a tenth consecutive time: no
+post-October-12 development with published pay, policy, or ranking
+terms surfaced on any slot, the Kick KPP follow-up still carries no
+first dated primary term (its dates stay honestly null), and the
+Snapchat slot stays closed with the July 31 Spotlight AI policy still
+its newest term change — a tenth verified negative, itemized per
+slot in WAVELOG 2.16; the feed stands at v1.7.0 / 25 entries unchanged.
 The 2.5 wave's coverage audit
 gave Kick its own slot, opened with its September 2026 Partner Program
 payout rewrite (per-stream rates replaced by a rolling calculation over

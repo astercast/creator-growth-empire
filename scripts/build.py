@@ -227,6 +227,7 @@ TOOLS = [
     ("receivables-register", "Receivables Register", "The board's invoiced deals as one register of money owed — the list behind the Deal Pipeline's invoiced-outstanding lump: every invoiced deal, fresh ones included, longest outstanding first, each with the amount owed, the date it entered the invoiced stage, its days outstanding, and its late-payment script from the Negotiation Script Builder through the board, plus one copyable register for the whole record. It reads the same board the Deal Pipeline writes and adds no pricing, no wording, and no thresholds of its own — it deliberately does not gate on the follow-up thresholds the Follow-Through Queue owns, because a register's job is completeness. An empty board, a board with nothing invoiced yet, and a demo-only board are different states, and the register says which."),
     ("brand-ledger", "Brand Ledger", "Every brand on the board as one relationship total — the question no stage-filtered tool answers: for each brand, how much business is there in total across the whole board, how much of it has been collected, how much is owed, and how much is still open, and which brands the whole pipeline rides on. Each brand carries its total, its collected (paid-stage) sum, its owed (invoiced-stage) sum, its still-open sum (lead, negotiating, terms set, live), its deal and stage counts, its platforms, and its share of the Deal Pipeline's pipeline value, largest relationship first, plus one copyable ledger for the whole record. It reads the same board the Deal Pipeline writes and adds no pricing, no wording, and no thresholds of its own — its only arithmetic is summing and grouping the entered amounts by brand and stage, and a brand total is a sum of current-stage amounts, never claimed as a relationship history or lifetime value. An empty board and a demo-only board are different states, and the ledger says which."),
     ("platform-ledger", "Platform Ledger", "Every platform on the board as one total — the question no whole-board tool answers: for each platform, how much business is there in total across every stage, how much of it has been collected, how much is owed, and how much is still open, and which platform the whole pipeline rides on. Each platform carries its total, its collected (paid-stage) sum, its owed (invoiced-stage) sum, its still-open sum (lead, negotiating, terms set, live), its deal and stage counts, its brands, and its share of the Deal Pipeline's pipeline value, largest total first, plus one copyable ledger for the whole record. It reads the same board the Deal Pipeline writes and adds no pricing, no wording, and no thresholds of its own — its only arithmetic is summing and grouping the entered amounts by platform and stage, and a platform total is a sum of current-stage amounts, never claimed as a platform history. An empty board and a demo-only board are different states, and the ledger says which."),
+    ("saved-shelf", "Saved Shelf", "Your saved tools, held as one shelf — the favourites pattern the hub never had: save any tool from its own page and it waits here, in the order you saved it, one tap back and one tap to remove, plus one copyable list for the whole shelf. The catalogue is the hub's own committed tool records; the saved set is yours alone, stored only in this browser, never sent anywhere. There is deliberately no most-saved ranking — that signal needs usage collected across visitors, and this site collects none. A saved tool the catalogue no longer lists is counted apart as stale and never rendered as a tool; a shelf with nothing saved yet and a shelf whose saves are all stale are different states, and the shelf says which."),
 ]
 
 
@@ -957,6 +958,16 @@ TOOLS_API = [
           "now": {"type": "string", "description": "Optional ISO date/time the ledger is built for."}}},
      "The ledger in platform order (largest platform total first, then most collected, then platform): each entry carries the platform, its total across all stages, its collected / owed / still-open sums, its share of Tool 25's pipeline value, its deal count and per-stage counts, and its brands. A platform total is a sum of current-stage amounts — not a platform history, and no timing is claimed beyond the board's stage-entry dates. Demo deals are counted apart and never ledgered; an empty board and a demo-only board are reported as different states. exportLedger() renders the plaintext ledger.",
      "Engine (assets/js/platform-ledger.js, UMD — importable in node): buildLedger(deals, opts) runs Tool 25's buildBoard and ledgerFromBoard(board) groups its deals by platform and stage class — no pricing, no wording, and no thresholds of its own; the pipeline total stays Tool 25's pipeline value. Browser persistence is the Deal Pipeline's localStorage key (cge.deal-pipeline.deals.v1), shared with Tools 25/26/27/28/29/30. Planning aid — not financial, legal, or tax advice. See AGENT.md Workflow 24."),
+    ("saved-shelf", "Saved Shelf",
+     "The visitor's saved tools as one shelf: the catalogue's own records for the saved slugs, in save order, with stale saves counted apart.",
+     "saved-shelf.html",
+     {"$schema": "http://json-schema.org/draft-07/schema#", "title": "SavedShelfInput",
+      "type": "object", "required": ["catalog", "saved"],
+      "properties": {
+          "catalog": {"type": "array", "description": "The hub's tool records (this tools.json payload's own tools array — id, title, description, page). The shelf joins the saved set against these records and no others."},
+          "saved": {"type": "array", "description": "The saved tool slugs, in save order — the visitor's own localStorage record (key cge.saved-tools.v1), written by the save toggle on each tool page."}}},
+     "The shelf in save order: each entry carries the catalogue's own id, title, description, and page for one saved slug. Saved slugs with no catalogue record are counted apart as stale (staleIds), never rendered as tools. emptyShelf (nothing saved) and staleOnly (saves exist, all stale) are reported as different states. No ranking or most-saved order is produced — that signal needs usage collected across visitors, which this site does not collect. exportShelf() renders the plaintext shelf.",
+     "Engine (assets/js/saved-shelf.js, UMD — importable in node): buildShelf(catalog, saved) joins the saved set against the catalogue; shelfFromToolsJson(doc, saved) reads the tools array off a tools.json payload; toggleSaved / normalizeSaved / isSaved manage the saved set. Browser persistence is the shelf's own localStorage key (cge.saved-tools.v1), written by assets/js/save-toggle-ui.js on every tool page and by the shelf page itself. Planning aid — not financial, legal, or tax advice. See AGENT.md Workflow 25."),
 ]
 
 # Tools hub (wave 9): grouped card index. Per tool: icon, "use when" one-liner,
@@ -1024,6 +1035,8 @@ TOOL_HUB_META = {
                       ["brand ledger", "brand relationships", "Phase 5"]),
     "platform-ledger": ("▦", "MONEY",   "gold", "your deals sit on more than one platform — you need each platform as one total across every stage: collected, owed, and still open, not a collected-only split.",
                       ["platform ledger", "platform totals", "Phase 5"]),
+    "saved-shelf": ("▤", "CONTENT",   "gold", "you keep coming back to the same few tools — you need your own shelf, saved in this browser, instead of the whole hub every time.",
+                      ["saved tools", "your shelf", "favourites"]),
 }
 TOOL_HUB_GROUPS = [
     ("PLAN", "Pick the battlefield",
@@ -1750,6 +1763,7 @@ def build():
         "receivables-register": ["assets/js/rate-card-builder.js", "assets/js/negotiation-kit.js", "assets/js/negotiation-script-builder.js", "assets/js/deal-pipeline.js", "assets/js/receivables-register.js", "assets/js/receivables-register-ui.js"],
         "brand-ledger": ["assets/js/rate-card-builder.js", "assets/js/negotiation-kit.js", "assets/js/negotiation-script-builder.js", "assets/js/deal-pipeline.js", "assets/js/brand-ledger.js", "assets/js/brand-ledger-ui.js"],
         "platform-ledger": ["assets/js/rate-card-builder.js", "assets/js/negotiation-kit.js", "assets/js/negotiation-script-builder.js", "assets/js/deal-pipeline.js", "assets/js/platform-ledger.js", "assets/js/platform-ledger-ui.js"],
+        "saved-shelf": ["assets/js/saved-shelf.js", "assets/js/saved-shelf-ui.js"],
     }
     TOOL_CSS = {
         "money-map": ["assets/css/moneymap.css"],
@@ -1769,6 +1783,7 @@ def build():
         "receivables-register": ["assets/css/receivables-register.css"],
         "brand-ledger": ["assets/css/brand-ledger.css"],
         "platform-ledger": ["assets/css/platform-ledger.css"],
+        "saved-shelf": ["assets/css/saved-shelf.css"],
         "deal-room": ["assets/css/deal-room.css"],
     }
     for slug, title, desc in TOOLS:
@@ -1785,13 +1800,22 @@ def build():
         tool_idx = [t[0] for t in TOOLS].index(slug)
         tier = {"PLAN": 1, "MONEY": 2, "CONTENT": 3}[TOOL_HUB_META[slug][1]]
         tier_name = TOOL_HUB_META[slug][1]
+        # T-CREATOR-4: every tool page except the shelf itself carries the
+        # save toggle (generator level — one button, one shared script pair)
+        save_btn = ""
+        if slug != "saved-shelf":
+            extra += ('<script defer src="assets/js/saved-shelf.js"></script>'
+                      '<script defer src="assets/js/save-toggle-ui.js"></script>')
+            save_btn = (f'<p class="save-row"><button type="button" class="btn" '
+                        f'data-save-tool="{slug}" aria-pressed="false">Save to your shelf</button> '
+                        f'<a href="saved-shelf.html">Your saved shelf</a></p>')
         hud_open = (f'<div class="tool-page"><div class="hud-panel brk brk-gold"><b class="brk-x" aria-hidden="true"></b><div class="hud-head">'
                     f'<span>MISSION BRIEFING // TOOL {tool_idx + 1:02d} — {esc(title).upper()}</span>'
                     f'<span class="hud-status">SYSTEMS ONLINE</span></div>'
                     f'<div class="hud-body"><p class="fm-kicker"><strong>FIELD MANUAL</strong><span class="sep">//</span>DIVISION {tier_name}</p>'
                     f"<h1>{esc(title)}</h1><p class=\"lede\">{esc(desc)}</p>"
                     f'<div class="briefing-rank">{_rank_chevrons(tier)}<span class="fm-readout">TIER {tier} // {tier_name}</span></div>'
-                    "</div></div>")
+                    f"{save_btn}</div></div>")
         page = page_template(title, f'{hud_open}{tool_body}</div>',
                              active="tools.html", extra_head=extra, path=f"{slug}.html")
         (SITE / f"{slug}.html").write_text(page, encoding="utf-8")
@@ -1858,6 +1882,9 @@ def build():
                  f"{len(TOOLS)} field tools, one command center. Pick the briefing that matches where you are.",
                  "cyan")
         + hub_sections
+        + '<section class="section"><h2>Your shelf</h2>'
+        "<p>Working the same few tools every day? Save any of them from its own page and they wait for you on the "
+        "<a href=\"saved-shelf.html\">Saved Shelf</a> — in this browser only, nothing sent anywhere, no most-saved ranking invented.</p></section>"
         + '<section class="section honesty"><h2>Pick by job, not by shine</h2>'
         "<p>Every tool on this page reads the same 2026 research the rest of the site is built on. "
         "Start with the Niche Picker if you're undecided, the Revenue Calculator if you have views, "
@@ -2956,7 +2983,7 @@ def build():
     for slug, title, desc in TOOLS:
         llms.append(f"- [{title}]({slug}.html) — {desc}")
     llms += ["- [Glossary](glossary.html)", "",
-             "All thirty-one tools, grouped by job (Plan / Money / Content): [Tools hub](tools.html).",
+             "All thirty-two tools, grouped by job (Plan / Money / Content): [Tools hub](tools.html).",
              "", "## Reference"]
     for m in reference_meta:
         llms.append(f"- [{m['badge']}: {m['title']}]({m['path']}) — {m['read_minutes']} min read")

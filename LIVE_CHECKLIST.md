@@ -122,6 +122,27 @@ tracks what's wired in the live track.
   the eight slots, the Kick KPP follow-up still has no first dated
   primary term (dates stay null), Snapchat slot still closed,
   feed unchanged at v1.7.0 / 25 entries;
+  The 2.16 re-sweep (2026-10-13) logged nothing new — a tenth
+  consecutive verified negative, itemized per slot in WAVELOG 2.16:
+  no post-October-12 development with published terms on any of
+  the eight slots, the Kick KPP follow-up still has no first dated
+  primary term (dates stay null), Snapchat slot still closed,
+  feed unchanged at v1.7.0 / 25 entries (15 verified — the
+  rotation-17 floor; no other lane's figure is propagated here);
+  Tool 32, the Saved Shelf, shipped with the 2.16 rotation,
+  closing gap T-CREATOR-4: a localStorage saved shelf over the
+  hub's own tools — the generator puts a save/unsave toggle in
+  every tool page's briefing panel (key cge.saved-tools.v1),
+  and the shelf page joins the saved set against the committed
+  catalogue (data/v1/tools.json) in save order, with remove
+  controls and a plaintext export; stale saves (slugs the
+  catalogue no longer lists) counted apart and never rendered;
+  the most-saved signal stays honestly absent (it needs real
+  cross-visitor usage, which this site does not collect);
+  empty-shelf vs stale-only states named distinctly; fully
+  client-side (no new function — the free-tier audit below
+  holds at 4 functions);
+  `tests/saved-shelf.test.js` runs in stage 6;
   Tool 31, the Platform Ledger, shipped with the 2.15
   rotation: every platform on the Deal Pipeline board as one
   total across every stage (largest first), split collected (paid) /

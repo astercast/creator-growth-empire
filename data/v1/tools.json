@@ -2396,6 +2396,33 @@
       },
       "output": "The ledger in platform order (largest platform total first, then most collected, then platform): each entry carries the platform, its total across all stages, its collected / owed / still-open sums, its share of Tool 25's pipeline value, its deal count and per-stage counts, and its brands. A platform total is a sum of current-stage amounts \u2014 not a platform history, and no timing is claimed beyond the board's stage-entry dates. Demo deals are counted apart and never ledgered; an empty board and a demo-only board are reported as different states. exportLedger() renders the plaintext ledger.",
       "drive_notes": "Engine (assets/js/platform-ledger.js, UMD \u2014 importable in node): buildLedger(deals, opts) runs Tool 25's buildBoard and ledgerFromBoard(board) groups its deals by platform and stage class \u2014 no pricing, no wording, and no thresholds of its own; the pipeline total stays Tool 25's pipeline value. Browser persistence is the Deal Pipeline's localStorage key (cge.deal-pipeline.deals.v1), shared with Tools 25/26/27/28/29/30. Planning aid \u2014 not financial, legal, or tax advice. See AGENT.md Workflow 24."
+    },
+    {
+      "id": "saved-shelf",
+      "title": "Saved Shelf",
+      "description": "The visitor's saved tools as one shelf: the catalogue's own records for the saved slugs, in save order, with stale saves counted apart.",
+      "page": "saved-shelf.html",
+      "input_schema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "title": "SavedShelfInput",
+        "type": "object",
+        "required": [
+          "catalog",
+          "saved"
+        ],
+        "properties": {
+          "catalog": {
+            "type": "array",
+            "description": "The hub's tool records (this tools.json payload's own tools array \u2014 id, title, description, page). The shelf joins the saved set against these records and no others."
+          },
+          "saved": {
+            "type": "array",
+            "description": "The saved tool slugs, in save order \u2014 the visitor's own localStorage record (key cge.saved-tools.v1), written by the save toggle on each tool page."
+          }
+        }
+      },
+      "output": "The shelf in save order: each entry carries the catalogue's own id, title, description, and page for one saved slug. Saved slugs with no catalogue record are counted apart as stale (staleIds), never rendered as tools. emptyShelf (nothing saved) and staleOnly (saves exist, all stale) are reported as different states. No ranking or most-saved order is produced \u2014 that signal needs usage collected across visitors, which this site does not collect. exportShelf() renders the plaintext shelf.",
+      "drive_notes": "Engine (assets/js/saved-shelf.js, UMD \u2014 importable in node): buildShelf(catalog, saved) joins the saved set against the catalogue; shelfFromToolsJson(doc, saved) reads the tools array off a tools.json payload; toggleSaved / normalizeSaved / isSaved manage the saved set. Browser persistence is the shelf's own localStorage key (cge.saved-tools.v1), written by assets/js/save-toggle-ui.js on every tool page and by the shelf page itself. Planning aid \u2014 not financial, legal, or tax advice. See AGENT.md Workflow 25."
     }
   ]
 }

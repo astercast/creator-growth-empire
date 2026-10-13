@@ -131,7 +131,7 @@
       "description": "All thirty-one interactive tools with programmatic input schemas (JSON Schema draft-07), output descriptions, and drive notes \u2014 replicate the tools' logic without the UI.",
       "schema": "data/v1/schema/tools.json",
       "updated": "2026-10-11T00:00:00Z",
-      "records": 31,
+      "records": 32,
       "deprecated": false,
       "deprecation_note": null
     },
@@ -187,12 +187,13 @@
         "sponsor-income-ledger.html",
         "receivables-register.html",
         "brand-ledger.html",
-        "platform-ledger.html"
+        "platform-ledger.html",
+        "saved-shelf.html"
       ],
       "description": "The thirty-one interactive tools' human UI pages. Agents should prefer data/v1/tools.json input schemas over scraping these pages.",
       "schema": null,
       "updated": "2026-10-11T00:00:00Z",
-      "records": 31,
+      "records": 32,
       "deprecated": false,
       "deprecation_note": null
     },
