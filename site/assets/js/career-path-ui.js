@@ -60,7 +60,7 @@
         var note = les.kind === "read" ? esc(les.detail || "") : esc(les.doneWhen || "");
         return "<li class=\"cp-lesson" + (les.done ? " cp-done" : "") + "\">" +
           "<label><input type=\"checkbox\" data-lesson=\"" + esc(les.id) + "\"" + (les.done ? " checked" : "") + "> " +
-          "<span class=\"cp-kind\">" + (les.kind === "read" ? "READ" : "DRILL") + "</span> <strong>" + esc(les.title) + "</strong></label>" +
+          "<span class=\"cp-kind\">" + esc(les.provenanceLabel || "Provenance not recorded") + "</span> <strong>" + esc(les.title) + "</strong></label>" +
           (note ? "<p class=\"muted\">" + note + "</p>" : "") +
           (action ? "<p class=\"cp-action\">" + action + "</p>" : "") + "</li>";
       }).join("");

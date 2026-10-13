@@ -31,6 +31,28 @@ lessons.forEach(function (x) {
     ok(st.tools.indexOf(x.lesson.tool) >= 0, x.lesson.id + " drill tool is in its stage toolkit");
   }
 });
+// --- provenance labelling (G-1): every lesson labelled from its own data ---
+var builtLessons = [];
+CP.buildPath([]).stages.forEach(function (s) { s.lessons.forEach(function (l) { builtLessons.push(l); }); });
+eq(builtLessons.length, 32, "built path carries all 32 lessons for provenance check");
+eq(builtLessons.filter(function (l) { return l.provenanceLabel === "Creator Academy \u2014 original drill"; }).length, 19, "19 drills labelled Creator Academy \u2014 original drill");
+eq(builtLessons.filter(function (l) { return l.provenance === "read" && l.provenanceLabel.indexOf("Read \u2014 from ") === 0; }).length, 13, "13 reads labelled Read \u2014 from [their named source]");
+ok(builtLessons.every(function (l) { return typeof l.provenanceLabel === "string" && l.provenanceLabel.length > 0 && l.provenanceLabel !== "Provenance not recorded"; }), "no lesson on the path is left with unknown provenance");
+lessons.forEach(function (x) {
+  if (x.lesson.kind === "read") {
+    ok(typeof x.lesson.source === "string" && x.lesson.source.length > 0, x.lesson.id + " read names its source in the data");
+    eq(CP.lessonProvenance(x.lesson).label, "Read \u2014 from " + x.lesson.source, x.lesson.id + " label is derived from its recorded source");
+  }
+  if (x.lesson.kind === "drill") eq(CP.lessonProvenance(x.lesson).origin, "creator-academy", x.lesson.id + " drill provenance is Creator Academy original");
+});
+eq(CP.lessonProvenance({ kind: "read", title: "sourceless" }).label, "Provenance not recorded", "a read with no recorded source gets the honest unknown, never a guess");
+eq(CP.lessonProvenance({ kind: "mystery" }).label, "Provenance not recorded", "an unknown lesson kind gets the honest unknown");
+eq(CP.lessonProvenance(null).label, "Provenance not recorded", "a missing lesson gets the honest unknown");
+var expProv = CP.exportPath(CP.buildPath([]));
+ok(expProv.indexOf("Creator Academy \u2014 original drill") >= 0 && expProv.indexOf("Read \u2014 from Phase 0") >= 0, "export carries the provenance labels");
+var uiSrc = fs.readFileSync(path.join(__dirname, "..", "assets", "js", "career-path-ui.js"), "utf8");
+ok(uiSrc.indexOf("provenanceLabel") >= 0, "page UI renders the provenance label from the lesson data");
+
 // reads resolve to generated pages that exist in content/CHAPTERS space
 var readHrefs = lessons.filter(function (x) { return x.lesson.kind === "read"; }).map(function (x) { return x.lesson.href; });
 ["phase-0-start-from-nothing.html", "phase-5-monetization-stack.html", "phase-8-scale.html", "platform-rules-bible.html", "sponsor-playbook.html", "rate-card.html", "breakout-format-intel.html"].forEach(function (h) {

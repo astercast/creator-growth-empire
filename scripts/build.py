@@ -2272,7 +2272,7 @@ def build():
             "id": "tools",
             "kind": "json",
             "path": "data/v1/tools.json",
-            "description": "All thirty-one interactive tools with programmatic input schemas (JSON Schema draft-07), output descriptions, and drive notes — replicate the tools' logic without the UI.",
+            "description": "All thirty-two interactive tools with programmatic input schemas (JSON Schema draft-07), output descriptions, and drive notes — replicate the tools' logic without the UI.",
             "schema": "data/v1/schema/tools.json",
             "updated": BUILD_TS,
             "records": len(TOOLS_API),
@@ -2303,7 +2303,7 @@ def build():
             "id": "tool-pages",
             "kind": "html",
             "paths": [f"{slug}.html" for slug, _, _ in TOOLS],
-            "description": "The thirty-one interactive tools' human UI pages. Agents should prefer data/v1/tools.json input schemas over scraping these pages.",
+            "description": "The thirty-two interactive tools' human UI pages. Agents should prefer data/v1/tools.json input schemas over scraping these pages.",
             "schema": None,
             "updated": BUILD_TS,
             "records": len(TOOLS),
@@ -2389,7 +2389,7 @@ def build():
     # ---- tools.json: every tool with its programmatic input schema ----
     (DATA_V1 / "tools.json").write_text(json.dumps({
         "version": "1.0.0", "updated": "2026-10-11",
-        "note": ("Programmatic input schemas for the thirty-one interactive tools. "
+        "note": ("Programmatic input schemas for the thirty-two interactive tools. "
                  "Agents replicate each tool's logic by feeding these inputs to the "
                  "documented formulas / shipped JS (assets/js/<id>.js); the UI pages "
                  "are the human front-end for the same logic."),

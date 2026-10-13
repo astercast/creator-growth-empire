@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
   "updated": "2026-10-11",
-  "note": "Programmatic input schemas for the thirty-one interactive tools. Agents replicate each tool's logic by feeding these inputs to the documented formulas / shipped JS (assets/js/<id>.js); the UI pages are the human front-end for the same logic.",
+  "note": "Programmatic input schemas for the thirty-two interactive tools. Agents replicate each tool's logic by feeding these inputs to the documented formulas / shipped JS (assets/js/<id>.js); the UI pages are the human front-end for the same logic.",
   "tools": [
     {
       "id": "quiz",

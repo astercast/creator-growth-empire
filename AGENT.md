@@ -1085,6 +1085,16 @@ stays 32 and every tool sits inside it.
    Algorithm Watch (Workflow 5), never baked into a stage.
    `exportPath(path)` renders the plaintext progress record.
    Not financial, legal, or tax advice.
+5. Provenance (gap G-1, closed after rotation 20):
+   `lessonProvenance(lesson)` derives every lesson's visible
+   label from its own record — drills read "Creator Academy —
+   original drill" (authored for the Path); reads read "Read —
+   from …" naming the exact committed chapter/intel file in the
+   lesson's `source` field (the 9 phase chapters + Breakout
+   Format Intel, Rate Card, Sponsor Playbook, Platform Rules
+   Bible). A lesson with no determinable provenance is labelled
+   "Provenance not recorded", never guessed. The page UI and
+   `exportPath()` both render the label from `buildPath()`.
 
 ## Rate & expectation notes
 
