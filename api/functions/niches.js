@@ -5,8 +5,8 @@
 
 const fs = require('fs');
 const path = require('path');
-const env = require('../lib/envelope.js');
-const { checkLimit, clientIp, ipHash } = require('../lib/ratelimit.js');
+const env = require('../../lib/envelope.js');
+const { checkLimit, clientIp, ipHash } = require('../../lib/ratelimit.js');
 
 const SERVICE = 'creator-algwatch';
 const VERSION = '1.0.0';

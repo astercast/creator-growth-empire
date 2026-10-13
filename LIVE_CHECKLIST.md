@@ -48,8 +48,15 @@ tracks what's wired in the live track.
 - No static .js data files under api/ ever — Vercel deploys every .js there
   as a function (functions map is not an allowlist); basename collisions
   (x.js + x.json) fail the build (2026-10-12). Audit 2026-10-12: clean —
-  `api/` holds only `functions/*.js` (4 real handlers) and `lib/*.js`
-  (shared helpers, not functions).
+  `api/` held only `functions/*.js` (4 real handlers) and `lib/*.js`
+  (shared helpers, not functions). **Re-audit 2026-10-13 (Release
+  Engineer round-1 audit blocker, fixed):** the shared helpers moved
+  OUT of `api/` entirely to top-level `lib/*.js` — under `api/` they
+  would deploy as 5 unintended public endpoints on any live push.
+  `api/` now holds ONLY `functions/*.js` (the 4 real handlers, incl.
+  `functions/cron/algorithm-watch.js`); build.py copies `lib/` →
+  `site/lib/` and rewrites the functions' lib-require depth for the
+  served layout. Function count unchanged: **4 real functions**.
 - Vercel never serves static files under api/ — all static data lives in
   data/v1/; only real function handlers under api/ (2026-10-12). The
   generator emits to `data/v1/`, the build mirrors it to `site/data/v1/`,
@@ -156,7 +163,7 @@ the headroom below survives 10× that traffic.
   state and the static twins keep serving (no user-facing failure,
   one missed refresh). Second: the per-instance rate limiter
   (60/min/IP on the public bucket) resets on cold start — documented
-  best-effort in `api/lib/ratelimit.js`, not a security boundary.
+  best-effort in `lib/ratelimit.js`, not a security boundary.
 - **Pattern alignment (checked this audit):** static-first (every
   page renders from the committed `data/v1/` twins; functions are an
   enhancement, never the only path); SWR caching on both layers —

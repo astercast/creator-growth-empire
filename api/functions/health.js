@@ -5,8 +5,8 @@
 
 const fs = require('fs');
 const path = require('path');
-const env = require('../lib/envelope.js');
-const { secretConfigured } = require('../lib/cronauth.js');
+const env = require('../../lib/envelope.js');
+const { secretConfigured } = require('../../lib/cronauth.js');
 
 const SERVICE = 'creator-algwatch';
 const VERSION = '1.0.0';

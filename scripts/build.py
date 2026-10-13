@@ -2776,11 +2776,34 @@ def build():
 
     # ---- ship serverless functions + shared lib into the served root ----
     # (site/ is rebuilt from scratch every run, so these live canonically
-    # under api/functions + api/lib and are copied here; vercel.json detects
-    # them as functions because outputDirectory=site.)
-    fn_src, lib_src = ROOT / "api" / "functions", ROOT / "api" / "lib"
+    # under api/functions + top-level lib/ and are copied here; vercel.json
+    # detects them as functions because outputDirectory=site. The shared
+    # lib must NEVER live under api/ in the source tree: Vercel deploys
+    # every .js under api/ as a function, so api/lib/*.js would ship as
+    # unintended public endpoints — Release Engineer round-1 audit
+    # blocker, fixed 2026-10-13 by moving api/lib -> lib/.)
+    # Depth note: in the source tree a function at api/functions[/cron]
+    # reaches the lib via ../../lib (../../../lib for cron); in the served
+    # root the same file sits at site/api[/cron], one level shallower, so
+    # the copy step rewrites the lib require prefix per file depth:
+    # source prefix ('../' * (depth+2) + 'lib/') -> served ('../' * (depth+1) + 'lib/').
+    fn_src, lib_src = ROOT / "api" / "functions", ROOT / "lib"
     if fn_src.exists():
-        shutil.copytree(fn_src, SITE / "api", dirs_exist_ok=True)
+        for fsrc in sorted(fn_src.rglob("*")):
+            if fsrc.is_dir():
+                continue
+            rel = fsrc.relative_to(fn_src)
+            fdst = SITE / "api" / rel
+            fdst.parent.mkdir(parents=True, exist_ok=True)
+            if fsrc.suffix == ".js":
+                depth = len(rel.parts) - 1
+                src_prefix = "../" * (depth + 2) + "lib/"
+                dst_prefix = "../" * (depth + 1) + "lib/"
+                text = fsrc.read_text(encoding="utf-8")
+                fdst.write_text(text.replace(src_prefix, dst_prefix),
+                                encoding="utf-8")
+            else:
+                shutil.copy(fsrc, fdst)
     if lib_src.exists():
         shutil.copytree(lib_src, SITE / "lib", dirs_exist_ok=True)
 

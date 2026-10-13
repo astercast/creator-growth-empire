@@ -13,10 +13,10 @@
    Fits the 10s Hobby function budget. Idempotent (§4.3). */
 
 const crypto = require('crypto');
-const env = require('../../lib/envelope.js');
-const { fetchTimeout } = require('../../lib/fetchx.js');
-const { assertCron } = require('../../lib/cronauth.js');
-const { readJson, writeJsonIfChanged } = require('../../lib/github.js');
+const env = require('../../../lib/envelope.js');
+const { fetchTimeout } = require('../../../lib/fetchx.js');
+const { assertCron } = require('../../../lib/cronauth.js');
+const { readJson, writeJsonIfChanged } = require('../../../lib/github.js');
 
 const SERVICE = 'creator-algwatch';
 const VERSION = '1.0.0';

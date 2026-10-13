@@ -50,7 +50,7 @@ while IFS= read -r f; do
   if ! node --check "$f" >/dev/null 2>&1; then
     fail "$f"; JS_OK=0
   fi
-done < <(find assets/js tests api/functions api/lib -name '*.js' 2>/dev/null | sort)
+done < <(find assets/js tests api/functions lib -name '*.js' 2>/dev/null | sort)
 if [ "$JS_OK" = 1 ]; then pass "$JS_N source JS files parse"; fi
 
 # ---------------------------------------------------------------- stage 2 ---

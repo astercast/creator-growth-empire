@@ -88,8 +88,9 @@ async function readJson(repoFile) {
   try {
     // Served root layout: site/api/*.js functions, site/lib/*.js helpers,
     // site/data/v1/*.json static data (this file lives in site/lib/).
-    // Repo source layout: api/functions/*.js, api/lib/*.js, data/v1/*.json
-    // (this file lives in api/lib/). Try both.
+    // Repo source layout: api/functions/*.js, lib/*.js, data/v1/*.json
+    // (this file lives in lib/ — moved out of api/ 2026-10-13 so the
+    // helpers never deploy as functions). Try both.
     const cands = [
       path.join(__dirname, '..', repoFile),
       path.join(__dirname, '..', '..', repoFile),
