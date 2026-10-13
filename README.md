@@ -20,6 +20,10 @@ The most comprehensive creator-growth guide ever made: the $0 → multi-million-
 
 Every chapter is 1,500+ words of substantive, actionable content. No stubs.
 
+## The Zero-to-Career Path (rotation 20)
+
+The site's center is `career-path.html`: five stages (Foundation → Build → Publish Rhythm → Growth → Monetization & Career) that order the nine phases and four intel files into 13 reads, add 19 authored drills with done criteria, place all 32 tools at the stage where each is needed, and track the learner's progress in their own browser (localStorage `cge.career-path.v1`) with a visible current-stage / next-step readout. The Saved Shelf is the learner's cross-path collection, set up in Stage 1. Durable foundations live in the stages; volatile platform terms live in Algorithm Watch, on top.
+
 ## Interactive tools
 
 Eighteen tools (`pages/*.html` → `site/*.html`): **Niche Picker** (quiz), **Revenue Calculator** (calculator), **90-Day Planner** (planner), **The Deal Analyzer** (deal-analyzer), **The Deal Room** (deal-room), **Hiring Cost Calculator** (hiring-calculator), **Repurposing Planner** (repurpose), **Empire Simulator** (simulator), **API Explorer** (api-explorer), **Hook Builder** (hook-builder), **Idea Bank** (idea-bank), **90-Day Content Calendar** (content-calendar), **Batching Planner** (batching). **The Money Map** (money-map), **Diagnose My Video** (video-doctor), **YPP 2027 Eligibility Checker** (ypp-checker), **The Outreach Center** (outreach), **Cross-Post Optimizer** (crosspost). Every tool's programmatic input schema lives in `data/v1/tools.json`.

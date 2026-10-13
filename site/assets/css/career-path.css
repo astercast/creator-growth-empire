@@ -1,0 +1,24 @@
+/* Career Path — stage blocks + lesson check-offs.
+ * Scoped to .cp-* / #career-path. */
+#career-path p, #career-path li { max-inline-size: 68ch; }
+#career-path :focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+#career-path textarea { width: 100%; max-width: 72ch; font-family: var(--font-mono); font-size: 0.82rem; }
+.cp-readout { font-size: 1.05rem; }
+.cp-next { border: 1px solid var(--gold); border-radius: var(--radius-sm); background: var(--bg-2); padding: 0.9rem 1.1rem; max-width: 72ch; }
+.cp-stage { border: 1px solid var(--line-strong); border-radius: var(--radius-sm); background: var(--bg-2); padding: 1.1rem 1.2rem; margin-bottom: 1.2rem; }
+.cp-stage-head { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: baseline; justify-content: space-between; }
+.cp-stage-head h2 { margin: 0; text-wrap: balance; }
+.cp-stage-num, .cp-stage-status { font-family: var(--font-cond); font-weight: 600; font-size: 0.82rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.cp-bar { height: 0.5rem; border: 1px solid var(--line-strong); border-radius: var(--radius-sm); margin: 0.7rem 0; max-width: 72ch; }
+.cp-bar span { display: block; height: 100%; background: var(--gold); }
+.cp-do { border-left: 3px solid var(--gold); padding-left: 0.8rem; }
+.cp-lessons { list-style: none; margin: 0.8rem 0; padding: 0; }
+.cp-lesson { border-top: 1px solid var(--line-strong); padding: 0.7rem 0; }
+.cp-lesson label { display: flex; gap: 0.55rem; align-items: baseline; cursor: pointer; }
+.cp-lesson input { flex: none; }
+.cp-lesson p { margin: 0.3rem 0 0 1.6rem; }
+.cp-done strong { text-decoration: line-through; }
+.cp-kind { font-family: var(--font-cond); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; color: var(--gold); }
+.cp-tools { display: flex; flex-wrap: wrap; gap: 0.4rem; list-style: none; margin: 0.4rem 0; padding: 0; }
+.cp-tools a { font-family: var(--font-cond); font-weight: 600; font-size: 0.82rem; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; color: var(--muted); border: 1px solid var(--line-strong); border-radius: var(--radius-sm); padding: 0.3rem 0.65rem; }
+.cp-tools a:hover, .cp-tools a:focus-visible { color: var(--gold); border-color: var(--gold); }

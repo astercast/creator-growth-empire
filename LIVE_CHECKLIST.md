@@ -129,6 +129,21 @@ tracks what's wired in the live track.
   primary term (dates stay null), Snapchat slot still closed,
   feed unchanged at v1.7.0 / 25 entries (15 verified — the
   rotation-17 floor; no other lane's figure is propagated here);
+  The 2.17 re-sweep (2026-10-13) logged nothing new — an eleventh
+  consecutive verified negative, itemized per slot in WAVELOG 2.17:
+  no post-October-12 development with published terms on any of
+  the eight slots, the Kick KPP follow-up still has no first dated
+  primary term (dates stay null), Snapchat slot still closed,
+  feed unchanged at v1.7.0 / 25 entries (15 verified);
+  Rotation 20 moved the site's center from the tool shelf to the
+  Zero-to-Career Path (career-path.html): five stages, 32 lessons
+  (13 reads from the committed chapters/intel + 19 authored
+  drills), all 32 tools mapped into exactly one stage each, the
+  Saved Shelf wired in as the learner's cross-path collection,
+  and localStorage progress (cge.career-path.v1) with a visible
+  current-stage / next-step readout. The Path is a system page,
+  not Tool 33 — the tool count stays 32 by decision (see
+  WAVELOG rotation 20);
   Tool 32, the Saved Shelf, shipped with the 2.16 rotation,
   closing gap T-CREATOR-4: a localStorage saved shelf over the
   hub's own tools — the generator puts a save/unsave toggle in

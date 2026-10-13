@@ -1236,6 +1236,7 @@ def word_count(md):
 # nav and the footer.
 DESKTOP_NAV_LINKS = [
     ("index.html", "Empire Map"),
+    ("career-path.html", "The Path"),
     ("tools.html", "Tools"),
     ("case-files.html", "Case Files"),
     ("glossary.html", "Glossary"),
@@ -1244,6 +1245,7 @@ DESKTOP_NAV_LINKS = [
 
 MOBILE_NAV_LINKS = [
     ("index.html", "Empire Map"),
+    ("career-path.html", "The Path"),
     ("tools.html", "All tools"),
     ("quiz.html", "Niche Picker"),
     ("calculator.html", "Revenue Calc"),
@@ -1881,6 +1883,10 @@ def build():
         hub_hero("COMMAND CENTER", "All Tools",
                  f"{len(TOOLS)} field tools, one command center. Pick the briefing that matches where you are.",
                  "cyan")
+        + '<section class="section"><h2>Tools live inside the Path</h2>'
+        "<p>Every tool below sits at the stage of <a href=\"career-path.html\">The Zero-to-Career Path</a> where a creator actually needs it — "
+        "Foundation, Build, Publish Rhythm, Growth, Monetization &amp; Career. If you are not sure which tool is yours yet, "
+        "don't browse the shelf: start the Path and it will hand you each tool in order.</p></section>"
         + hub_sections
         + '<section class="section"><h2>Your shelf</h2>'
         "<p>Working the same few tools every day? Save any of them from its own page and they wait for you on the "
@@ -1892,6 +1898,19 @@ def build():
         "Not sure where you stand at all? Take <a href=\"money-map.html\">The Money Map</a> — "
         "7 questions, your stage, your next 3 moves.</p></section>")
     (SITE / "tools.html").write_text(page_template("All Tools", tools_body, active="tools.html", path="tools.html", extra_head=_tools_json_ld()), encoding="utf-8")
+
+    # ---- career path page (rotation 20): the site's center moves from the
+    # tool shelf to the guided Zero-to-Career system. Not a tool (no TOOLS
+    # entry, no count change): the stages, lessons, and progress engine live
+    # in assets/js/career-path.js; this block only wraps the page shell.
+    cp_body = (PAGES / "career-path.html").read_text(encoding="utf-8")
+    cp_extra = ('<script defer src="assets/js/career-path.js"></script>'
+                '<script defer src="assets/js/saved-shelf.js"></script>'
+                '<script defer src="assets/js/career-path-ui.js"></script>'
+                '<link rel="stylesheet" href="assets/css/career-path.css">')
+    (SITE / "career-path.html").write_text(
+        page_template("The Zero-to-Career Path", cp_body, active="career-path.html",
+                      extra_head=cp_extra, path="career-path.html"), encoding="utf-8")
 
     # case-files hub: sourced headline cards + comparison table
     case_meta_by_id = {m["id"]: m for m in mdpage_meta if m["badge"] == "Case File"}
@@ -2030,9 +2049,9 @@ def build():
   <p class="fm-kicker" style="margin-bottom:1rem"><strong>MISSION BRIEFING</strong><span class="sep">//</span>CLEARANCE // ALL RECRUITS</p>
   <h1 class="mega">BUILD YOUR<br><span class="mega-outline">EMPIRE</span></h1>
   <p class="lede">Nine phases. Zero to multi-million-dollar creator company \u2014 YouTube, TikTok, Facebook, merch, brand deals, LLC, taxes, scale. <strong>No guru hype. Just the playbook.</strong></p>
-  <div class="hero-cta"><a class="btn btn-primary" href="money-map.html">Find your stage \u2192</a>
+  <div class="hero-cta"><a class="btn btn-primary" href="career-path.html">Start the Zero-to-Career Path \u2192</a>
   <a class="btn btn-ghost" href="tools.html">Browse the {n_tools} field tools</a></div>
-  <p class="hero-note">New here? The 2-minute <strong>Money Map survey</strong> finds your stage \u2014 and every mission you clear earns XP toward your Field Manual rank, Recruit to General. Your progress never leaves this device.</p>
+  <p class="hero-note">New here? The <strong>Path</strong> starts at Stage 1, Lesson 1 and walks you from $0 to a career \u2014 five stages, teaching first, tools where you need them, progress saved on this device. Not sure where you stand? The 2-minute <strong>Money Map survey</strong> finds your stage.</p>
   <p class="hero-meta"><span class="stamp stamp-gold stamp-slam">2026 VERIFIED</span><span>9 phases \u00b7 {n_tools} tools \u00b7 9 case files</span></p>
 </div>
 </section>

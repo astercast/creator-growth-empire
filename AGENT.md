@@ -290,6 +290,14 @@ priced, flag-checked, scripted, and memorized — all via API.
    newest term change remains the July 31 Spotlight AI policy
    behind the still-closed slot, so the feed stands unchanged
    at v1.7.0 / 25 entries;
+   the 2.17 wave re-swept all eight slots an eleventh consecutive
+   time and logged nothing — an eleventh verified negative,
+   itemized per slot in WAVELOG 2.17: no post-October-12
+   development with published terms on any slot, the Kick KPP
+   follow-up still has no first dated primary term (dates stay
+   null), and Snapchat's newest term change remains the
+   July 31 Spotlight AI policy behind the still-closed slot, so
+   the feed stands unchanged at v1.7.0 / 25 entries;
    the 2.5 wave's
    coverage audit gave Kick its own slot, opened with the September 2026
    Partner Program payout rewrite (rolling rate over recent broadcasts
@@ -1042,6 +1050,42 @@ use every day, held in one place in the order I chose them.
    and the engine says which. `exportShelf(shelf)` renders the
    plaintext shelf. Not financial, legal, or tax advice.
 
+### Workflow 26 — Walk the Zero-to-Career Path (rotation 20)
+
+Goal: guide a visitor from $0 and no content to a full career —
+the site's center since rotation 20. The Path is a system page
+(`career-path.html`), not a thirty-third tool: the tool count
+stays 32 and every tool sits inside it.
+
+1. Engine: `require("assets/js/career-path.js")` (UMD). Five
+   stages in journey order — Foundation, Build, Publish Rhythm,
+   Growth, Monetization & Career — carrying 32 lessons: 13 reads
+   (the manual's own committed chapters and intel files: Phases
+   0–8, Breakout Format Intel, Rate Card, Sponsor Playbook,
+   Platform Rules Bible) and 19 authored drills, each with a
+   done criterion and its tool.
+2. Tool mapping: `toolStageMap()` places every one of the 32
+   catalogue tools in exactly one stage (pinned against
+   `data/v1/tools.json` by tests/career-path.test.js). The Saved
+   Shelf sits in Foundation — set up once, it holds the learner's
+   own tools from every stage (key `cge.saved-tools.v1`, read
+   through Tool 32's own engine).
+3. Progress: the visitor's done-set is browser localStorage
+   `cge.career-path.v1`. `buildPath(done)` derives per-stage
+   status (not-started / in-progress / complete), the current
+   stage, and the single next step; unknown lesson ids are
+   counted apart as stale and never rendered as progress.
+   Verified fixture: done-set of Stage 1's five lessons plus
+   `b-read-phase1` reports 6 of 32 (19%), current stage Build,
+   next step "Bank twenty ideas".
+4. Honesty rule: each stage prints a DO-verdict — what the
+   learner can do after it that they couldn't before — and the
+   page states the layer split on its surface: foundations are
+   durable in the stages; volatile platform terms live in
+   Algorithm Watch (Workflow 5), never baked into a stage.
+   `exportPath(path)` renders the plaintext progress record.
+   Not financial, legal, or tax advice.
+
 ## Rate & expectation notes
 
 - **Static JSON.** Nothing here is live: no request counts, no streaming, no
@@ -1100,6 +1144,7 @@ explaining how to replicate the logic:
 | Brand Ledger | `deals` (the Tool 25 deal records), `now` (optional) | `require("assets/js/brand-ledger.js")` — `buildLedger(deals, {now})` runs Tool 25's `buildBoard` and groups all its deals by brand, largest relationship first: per brand, total across all stages split into collected (paid) / owed (invoiced) / still open (lead/negotiating/terms/live), share of Tool 25's pipeline value, deal + stage counts, platforms; the pipeline total stays Tool 25's figure; a brand total is a sum of current-stage amounts, never a history or lifetime value; demo deals counted apart, never ledgered; `emptyBoard` vs `demoOnly` reported as different states (no none-yet state by design — every real deal belongs to a brand); `exportLedger()` for the plaintext ledger — see Workflow 23 |
 | Platform Ledger | `deals` (the Tool 25 deal records), `now` (optional) | `require("assets/js/platform-ledger.js")` — `buildLedger(deals, {now})` runs Tool 25's `buildBoard` and groups all its deals by platform, largest total first: per platform, total across all stages split into collected (paid) / owed (invoiced) / still open (lead/negotiating/terms/live), share of Tool 25's pipeline value, deal + stage counts, brands; the pipeline total stays Tool 25's figure; a platform total is a sum of current-stage amounts, never a platform history; demo deals counted apart, never ledgered; `emptyBoard` vs `demoOnly` reported as different states (no none-yet state by design — every real deal belongs to a platform); `exportLedger()` for the plaintext ledger — see Workflow 24 |
 | Saved Shelf | `catalog` (the tools.json records), `saved` (saved slugs in save order) | `require("assets/js/saved-shelf.js")` — `buildShelf(catalog, saved)` / `shelfFromToolsJson(doc, saved)` joins the visitor's saved set against the hub's own committed catalogue, in save order, each entry carrying the catalogue's own title, description, and page; stale saves (slugs the catalogue no longer lists) counted apart, named, never rendered; no most-saved ranking (no cross-visitor usage is collected — the absence is stated, not filled); `emptyShelf` vs `staleOnly` reported as different states; `toggleSaved()` / `normalizeSaved()` manage the set; `exportShelf()` for the plaintext shelf — see Workflow 25 (gap T-CREATOR-4) |
+| Career Path (system page, not a tool) | `done` (the visitor's done lesson ids) | `require("assets/js/career-path.js")` — `buildPath(done)` derives stage statuses, current stage, and next step over 5 stages / 32 lessons (13 reads from committed chapters + 19 authored drills); `toolStageMap()` places all 32 tools in exactly one stage; `toggleLesson()` / `normalizeProgress()` manage the done-set; stale lesson ids counted apart; `exportPath()` for the plaintext record — see Workflow 26 |
 
 Full per-tool schemas, formulas, and honesty notes live in `tools.json`;
 the UI pages (`quiz.html`, `calculator.html`, …) are the human front-end for
