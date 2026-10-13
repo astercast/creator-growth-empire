@@ -116,6 +116,25 @@ tracks what's wired in the live track.
   the eight slots, the Kick KPP follow-up still has no first dated
   primary term (dates stay null), Snapchat slot still closed,
   feed unchanged at v1.7.0 / 25 entries;
+  The 2.15 re-sweep (2026-10-13) logged nothing new — a ninth
+  consecutive verified negative, itemized per slot in WAVELOG 2.15:
+  no post-October-12 development with published terms on any of
+  the eight slots, the Kick KPP follow-up still has no first dated
+  primary term (dates stay null), Snapchat slot still closed,
+  feed unchanged at v1.7.0 / 25 entries;
+  Tool 31, the Platform Ledger, shipped with the 2.15
+  rotation: every platform on the Deal Pipeline board as one
+  total across every stage (largest first), split collected (paid) /
+  owed (invoiced) / still open (lead, negotiating, terms set,
+  live), with each platform's share of Tool 25's pipeline value,
+  deal and stage counts, and brands — grouping arithmetic
+  only, no pricing, wording, or thresholds; a platform total is a
+  sum of current-stage amounts, never a platform history;
+  demo deals counted apart; empty board vs demo-only
+  states named distinctly (no none-yet state by design — every
+  real deal belongs to a platform); fully client-side (no new
+  function — the free-tier audit below holds at 4 functions);
+  `tests/platform-ledger.test.js` runs in stage 6;
   Tool 30, the Brand Ledger, shipped with the 2.14
   rotation: every brand on the Deal Pipeline board as one
   relationship total (largest first), split collected (paid) /

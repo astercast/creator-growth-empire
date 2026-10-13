@@ -226,6 +226,7 @@ TOOLS = [
     ("sponsor-income-ledger", "Sponsor Income Ledger", "The board's paid deals as a month-by-month ledger — the collected money broken open instead of left as one lump total: each paid deal grouped under the month it entered the paid stage, a running cumulative, per-brand totals with each brand's share of collected, and per-platform totals, plus one copyable ledger for the whole record. It reads the same board the Deal Pipeline writes and adds no pricing, no rate card, and no thresholds of its own — its only arithmetic is summing and grouping the entered amounts, and its months are stage-entry months, never claimed clearing or payout dates. An empty board, a board with no paid deals yet, and a demo-only board are different states, and the ledger says which."),
     ("receivables-register", "Receivables Register", "The board's invoiced deals as one register of money owed — the list behind the Deal Pipeline's invoiced-outstanding lump: every invoiced deal, fresh ones included, longest outstanding first, each with the amount owed, the date it entered the invoiced stage, its days outstanding, and its late-payment script from the Negotiation Script Builder through the board, plus one copyable register for the whole record. It reads the same board the Deal Pipeline writes and adds no pricing, no wording, and no thresholds of its own — it deliberately does not gate on the follow-up thresholds the Follow-Through Queue owns, because a register's job is completeness. An empty board, a board with nothing invoiced yet, and a demo-only board are different states, and the register says which."),
     ("brand-ledger", "Brand Ledger", "Every brand on the board as one relationship total — the question no stage-filtered tool answers: for each brand, how much business is there in total across the whole board, how much of it has been collected, how much is owed, and how much is still open, and which brands the whole pipeline rides on. Each brand carries its total, its collected (paid-stage) sum, its owed (invoiced-stage) sum, its still-open sum (lead, negotiating, terms set, live), its deal and stage counts, its platforms, and its share of the Deal Pipeline's pipeline value, largest relationship first, plus one copyable ledger for the whole record. It reads the same board the Deal Pipeline writes and adds no pricing, no wording, and no thresholds of its own — its only arithmetic is summing and grouping the entered amounts by brand and stage, and a brand total is a sum of current-stage amounts, never claimed as a relationship history or lifetime value. An empty board and a demo-only board are different states, and the ledger says which."),
+    ("platform-ledger", "Platform Ledger", "Every platform on the board as one total — the question no whole-board tool answers: for each platform, how much business is there in total across every stage, how much of it has been collected, how much is owed, and how much is still open, and which platform the whole pipeline rides on. Each platform carries its total, its collected (paid-stage) sum, its owed (invoiced-stage) sum, its still-open sum (lead, negotiating, terms set, live), its deal and stage counts, its brands, and its share of the Deal Pipeline's pipeline value, largest total first, plus one copyable ledger for the whole record. It reads the same board the Deal Pipeline writes and adds no pricing, no wording, and no thresholds of its own — its only arithmetic is summing and grouping the entered amounts by platform and stage, and a platform total is a sum of current-stage amounts, never claimed as a platform history. An empty board and a demo-only board are different states, and the ledger says which."),
 ]
 
 
@@ -946,6 +947,16 @@ TOOLS_API = [
           "now": {"type": "string", "description": "Optional ISO date/time the ledger is built for."}}},
      "The ledger in relationship order (largest brand total first, then most collected, then brand): each entry carries the brand, its total across all stages, its collected / owed / still-open sums, its share of Tool 25's pipeline value, its deal count and per-stage counts, and its platforms. A brand total is a sum of current-stage amounts — not a relationship history or lifetime value, and no timing is claimed beyond the board's stage-entry dates. Demo deals are counted apart and never ledgered; an empty board and a demo-only board are reported as different states. exportLedger() renders the plaintext ledger.",
      "Engine (assets/js/brand-ledger.js, UMD — importable in node): buildLedger(deals, opts) runs Tool 25's buildBoard and ledgerFromBoard(board) groups its deals by brand and stage class — no pricing, no wording, and no thresholds of its own; the pipeline total stays Tool 25's pipeline value. Browser persistence is the Deal Pipeline's localStorage key (cge.deal-pipeline.deals.v1), shared with Tools 25/26/27/28/29. Planning aid — not financial, legal, or tax advice. See AGENT.md Workflow 23."),
+    ("platform-ledger", "Platform Ledger",
+     "The Deal Pipeline's deals as one ledger per platform: each platform's total across every stage, split into collected (paid), owed (invoiced), and still open (lead / negotiating / terms set / live), with deal and stage counts, brands, and each platform's share of the pipeline value; demo deals counted apart.",
+     "platform-ledger.html",
+     {"$schema": "http://json-schema.org/draft-07/schema#", "title": "PlatformLedgerInput",
+      "type": "object", "required": ["deals"],
+      "properties": {
+          "deals": {"type": "array", "description": "The Deal Pipeline's deal records (Tool 25 input shape — platform, stage, amount, stageEnteredAt, plus the pricing fields). The ledger reads the same records the board holds and groups all of them by platform."},
+          "now": {"type": "string", "description": "Optional ISO date/time the ledger is built for."}}},
+     "The ledger in platform order (largest platform total first, then most collected, then platform): each entry carries the platform, its total across all stages, its collected / owed / still-open sums, its share of Tool 25's pipeline value, its deal count and per-stage counts, and its brands. A platform total is a sum of current-stage amounts — not a platform history, and no timing is claimed beyond the board's stage-entry dates. Demo deals are counted apart and never ledgered; an empty board and a demo-only board are reported as different states. exportLedger() renders the plaintext ledger.",
+     "Engine (assets/js/platform-ledger.js, UMD — importable in node): buildLedger(deals, opts) runs Tool 25's buildBoard and ledgerFromBoard(board) groups its deals by platform and stage class — no pricing, no wording, and no thresholds of its own; the pipeline total stays Tool 25's pipeline value. Browser persistence is the Deal Pipeline's localStorage key (cge.deal-pipeline.deals.v1), shared with Tools 25/26/27/28/29/30. Planning aid — not financial, legal, or tax advice. See AGENT.md Workflow 24."),
 ]
 
 # Tools hub (wave 9): grouped card index. Per tool: icon, "use when" one-liner,
@@ -1011,6 +1022,8 @@ TOOL_HUB_META = {
                       ["receivables", "invoiced deals", "Phase 5"]),
     "brand-ledger": ("▦", "MONEY",   "gold", "you work the same brands across stages — you need each brand as one relationship total: collected, owed, and still open, not slices in three tools.",
                       ["brand ledger", "brand relationships", "Phase 5"]),
+    "platform-ledger": ("▦", "MONEY",   "gold", "your deals sit on more than one platform — you need each platform as one total across every stage: collected, owed, and still open, not a collected-only split.",
+                      ["platform ledger", "platform totals", "Phase 5"]),
 }
 TOOL_HUB_GROUPS = [
     ("PLAN", "Pick the battlefield",
@@ -1736,6 +1749,7 @@ def build():
         "sponsor-income-ledger": ["assets/js/rate-card-builder.js", "assets/js/negotiation-kit.js", "assets/js/negotiation-script-builder.js", "assets/js/deal-pipeline.js", "assets/js/sponsor-income-ledger.js", "assets/js/sponsor-income-ledger-ui.js"],
         "receivables-register": ["assets/js/rate-card-builder.js", "assets/js/negotiation-kit.js", "assets/js/negotiation-script-builder.js", "assets/js/deal-pipeline.js", "assets/js/receivables-register.js", "assets/js/receivables-register-ui.js"],
         "brand-ledger": ["assets/js/rate-card-builder.js", "assets/js/negotiation-kit.js", "assets/js/negotiation-script-builder.js", "assets/js/deal-pipeline.js", "assets/js/brand-ledger.js", "assets/js/brand-ledger-ui.js"],
+        "platform-ledger": ["assets/js/rate-card-builder.js", "assets/js/negotiation-kit.js", "assets/js/negotiation-script-builder.js", "assets/js/deal-pipeline.js", "assets/js/platform-ledger.js", "assets/js/platform-ledger-ui.js"],
     }
     TOOL_CSS = {
         "money-map": ["assets/css/moneymap.css"],
@@ -1754,6 +1768,7 @@ def build():
         "sponsor-income-ledger": ["assets/css/sponsor-income-ledger.css"],
         "receivables-register": ["assets/css/receivables-register.css"],
         "brand-ledger": ["assets/css/brand-ledger.css"],
+        "platform-ledger": ["assets/css/platform-ledger.css"],
         "deal-room": ["assets/css/deal-room.css"],
     }
     for slug, title, desc in TOOLS:
@@ -2211,7 +2226,7 @@ def build():
             "id": "tools",
             "kind": "json",
             "path": "data/v1/tools.json",
-            "description": "All thirty interactive tools with programmatic input schemas (JSON Schema draft-07), output descriptions, and drive notes — replicate the tools' logic without the UI.",
+            "description": "All thirty-one interactive tools with programmatic input schemas (JSON Schema draft-07), output descriptions, and drive notes — replicate the tools' logic without the UI.",
             "schema": "data/v1/schema/tools.json",
             "updated": BUILD_TS,
             "records": len(TOOLS_API),
@@ -2242,7 +2257,7 @@ def build():
             "id": "tool-pages",
             "kind": "html",
             "paths": [f"{slug}.html" for slug, _, _ in TOOLS],
-            "description": "The thirty interactive tools' human UI pages. Agents should prefer data/v1/tools.json input schemas over scraping these pages.",
+            "description": "The thirty-one interactive tools' human UI pages. Agents should prefer data/v1/tools.json input schemas over scraping these pages.",
             "schema": None,
             "updated": BUILD_TS,
             "records": len(TOOLS),
@@ -2328,7 +2343,7 @@ def build():
     # ---- tools.json: every tool with its programmatic input schema ----
     (DATA_V1 / "tools.json").write_text(json.dumps({
         "version": "1.0.0", "updated": "2026-10-11",
-        "note": ("Programmatic input schemas for the thirty interactive tools. "
+        "note": ("Programmatic input schemas for the thirty-one interactive tools. "
                  "Agents replicate each tool's logic by feeding these inputs to the "
                  "documented formulas / shipped JS (assets/js/<id>.js); the UI pages "
                  "are the human front-end for the same logic."),
@@ -2941,7 +2956,7 @@ def build():
     for slug, title, desc in TOOLS:
         llms.append(f"- [{title}]({slug}.html) — {desc}")
     llms += ["- [Glossary](glossary.html)", "",
-             "All thirty tools, grouped by job (Plan / Money / Content): [Tools hub](tools.html).",
+             "All thirty-one tools, grouped by job (Plan / Money / Content): [Tools hub](tools.html).",
              "", "## Reference"]
     for m in reference_meta:
         llms.append(f"- [{m['badge']}: {m['title']}]({m['path']}) — {m['read_minutes']} min read")

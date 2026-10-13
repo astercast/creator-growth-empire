@@ -73,7 +73,7 @@ function check(name, cond, detail) {
 
   // tools.json drives the planner config shape
   const tools = load("tools.json").tools;
-  check("wf2: tools.json lists all 30 tools", tools.length === 30, String(tools.length));
+  check("wf2: tools.json lists all 31 tools", tools.length === 31, String(tools.length));
   const oc = tools.find((t) => t.id === "outreach");
   const ocSchema = oc && oc.input_schema;
   check("wf2: outreach input schema exposes pipeline + quote + pitch + contract fields",
@@ -1088,6 +1088,55 @@ function check(name, cond, detail) {
     BL.buildLedger([], { dp: DP }).emptyBoard === true &&
     BL.buildLedger(DP.DEMO_DEALS, { dp: DP }).demoOnly === true &&
     BL.buildLedger(DP.DEMO_DEALS, { dp: DP }).demoValue === 18300);
+})();
+
+/* ============ Workflow 24: the platform ledger =============
+ * AGENT.md §Workflow 24: the Workflow 23 board, grouped by platform —
+ * each platform's total split collected / owed / still open. */
+(function workflow24() {
+  const PL = require(path.join(__dirname, "..", "assets", "js", "platform-ledger.js"));
+  const DP = require(path.join(__dirname, "..", "assets", "js", "deal-pipeline.js"));
+  const deals = [
+    { id: "a", brand: "Ridge Wallet", platform: "youtube", format: "integrated", followers: 50000,
+      expectedViews: 60000, niche: "tech_software", usage: "paid_6mo", amount: 12000,
+      stage: "negotiating", stageEnteredAt: "2026-10-05", scenario: "lowball" },
+    { id: "b", brand: "Trail Snacks Co", platform: "tiktok", format: "short", followers: 50000,
+      expectedViews: 60000, niche: "lifestyle", usage: "organic_only", amount: 1800,
+      stage: "lead", stageEnteredAt: "2026-10-08" },
+    { id: "c", brand: "Northwind VPN", platform: "youtube", format: "integrated", followers: 50000,
+      expectedViews: 60000, niche: "tech_software", usage: "paid_3mo", amount: 4500,
+      stage: "invoiced", stageEnteredAt: "2026-09-20" },
+    { id: "d", brand: "Paid Brand", platform: "youtube", format: "dedicated", followers: 50000,
+      expectedViews: 60000, niche: "tech_software", usage: "organic_only", amount: 7000,
+      stage: "paid", stageEnteredAt: "2026-10-01" },
+    { id: "e", brand: "Early Bird Media", platform: "youtube", format: "integrated", followers: 50000,
+      expectedViews: 60000, niche: "tech_software", usage: "organic_only", amount: 3000,
+      stage: "paid", stageEnteredAt: "2026-08-20" },
+    { id: "f", brand: "Trail Snacks Co", platform: "tiktok", format: "short", followers: 50000,
+      expectedViews: 60000, niche: "lifestyle", usage: "organic_only", amount: 1500,
+      stage: "paid", stageEnteredAt: "2026-08-05" },
+    { id: "g", brand: "Northwind VPN", platform: "youtube", format: "integrated", followers: 50000,
+      expectedViews: 60000, niche: "tech_software", usage: "organic_only", amount: 2000,
+      stage: "paid", stageEnteredAt: "2026-09-15" },
+    { id: "h", brand: "Fresh Invoice Co", platform: "youtube", format: "integrated", followers: 50000,
+      expectedViews: 60000, niche: "tech_software", usage: "organic_only", amount: 2500,
+      stage: "invoiced", stageEnteredAt: "2026-10-12" },
+    { id: "i", brand: "Slow Payer LLC", platform: "tiktok", format: "short", followers: 120000,
+      expectedViews: 200000, niche: "lifestyle", usage: "organic_only", amount: 6000,
+      stage: "invoiced", stageEnteredAt: "2026-08-30" }
+  ];
+  const l = PL.buildLedger(deals, { now: new Date("2026-10-13T00:00:00Z"), dp: DP });
+  check("wf24: ledger holds the board's 9 deals under 2 platforms, largest total first; pipeline stays Tool 25's $40,300",
+    l.ok && l.platformCount === 2 && l.pipelineValue === 40300 &&
+    l.platforms.map((p) => p.platform).join("|") === "youtube|tiktok");
+  check("wf24: top platform youtube $31,000 at 76.9% of pipeline ($12,000 collected + $7,000 owed + $12,000 open); tiktok $9,300",
+    l.topPlatform.platform === "youtube" && l.topPlatform.share === 76.9 &&
+    l.platforms[0].collected === 12000 && l.platforms[0].owed === 7000 && l.platforms[0].open === 12000 &&
+    l.platforms[1].total === 9300);
+  check("wf24: demo deals counted apart; empty != demo-only",
+    PL.buildLedger([], { dp: DP }).emptyBoard === true &&
+    PL.buildLedger(DP.DEMO_DEALS, { dp: DP }).demoOnly === true &&
+    PL.buildLedger(DP.DEMO_DEALS, { dp: DP }).demoValue === 18300);
 })();
 
 console.log(`\nagent-workflows: ${pass} passed, ${fail} failed`);

@@ -1,7 +1,7 @@
 # AGENT.md — How an agent uses Creator Growth Empire
 
 > This site is a static machine-readable knowledge base for the creator
-> business: 9 phases, 30 tools, 12 skills, 9 case files, and a versioned JSON
+> business: 9 phases, 31 tools, 12 skills, 9 case files, and a versioned JSON
 > API. No API key, no server, no auth, no rate limits. Fetch and act.
 > Every workflow below was executed against the real `data/v1/` JSON files —> see `tests/agent-workflows.test.js` (run: `node tests/agent-workflows.test.js`).
 
@@ -269,6 +269,14 @@ priced, flag-checked, scripted, and memorized — all via API.
    the 2.14 wave re-swept all eight slots an eighth consecutive
    time and logged nothing — an eighth verified negative, itemized
    per slot in WAVELOG 2.14: no post-October-12 development with
+   published terms on any slot, the Kick KPP follow-up still has
+   no first dated primary term (dates stay null), and Snapchat's
+   newest term change remains the July 31 Spotlight AI policy
+   behind the still-closed slot, so the feed stands unchanged
+   at v1.7.0 / 25 entries;
+   the 2.15 wave re-swept all eight slots a ninth consecutive
+   time and logged nothing — a ninth verified negative, itemized
+   per slot in WAVELOG 2.15: no post-October-12 development with
    published terms on any slot, the Kick KPP follow-up still has
    no first dated primary term (dates stay null), and Snapchat's
    newest term change remains the July 31 Spotlight AI policy
@@ -958,6 +966,42 @@ much is owed, and how much is still open.
    ledger. `exportLedger(ledger)` renders the plaintext
    ledger. Not financial, legal, or tax advice.
 
+### Workflow 24 — Ledger each platform's whole board (Platform Ledger)
+
+Goal: answer the platform question no whole-board tool answers —
+for each platform, how much business is there in total across
+every stage, how much of it has been collected, how much is
+owed, and how much is still open.
+
+1. Engine: `require("assets/js/platform-ledger.js")` (UMD), which
+   composes `assets/js/deal-pipeline.js` (Tool 25) — same
+   board, same clock input (`now`).
+2. `PlatformLedger.buildLedger(deals, {now})` runs Tool 25's
+   `buildBoard` and groups its deals by platform. Verified fixture
+   (the Workflow 23 board, now = 2026-10-13): nine deals ledger
+   under two platforms, largest total first — **youtube**
+   $31,000 ($12,000 collected + $7,000 owed + $12,000 still
+   open, 6 deals) → **tiktok** $9,300 ($1,500 collected +
+   $6,000 owed + $1,800 still open, 3 deals). The pipeline total stays
+   Tool 25's pipeline value: **$40,300**.
+3. Grouping rule: collected is the paid stage, owed is the
+   invoiced stage, still open is lead / negotiating / terms set
+   / live; each platform's share is its share of Tool 25's
+   pipeline value (youtube **76.9%**). The only arithmetic
+   is summing and grouping entered amounts — no pricing, no
+   wording, no thresholds. No timing is claimed: a platform total
+   is a sum of current-stage amounts, not a platform
+   history — the board carries no record
+   of stages a deal has already left.
+4. Honesty rule: demo deals are counted apart and never
+   ledgered (the demo board's three deals count apart at
+   $18,300); an empty board (`emptyBoard`) and a demo-only
+   board (`demoOnly`) are different states and the engine says
+   which. There is no none-yet state by design: every real deal
+   belongs to a platform, so a non-empty real board always has a
+   ledger. `exportLedger(ledger)` renders the plaintext
+   ledger. Not financial, legal, or tax advice.
+
 ## Rate & expectation notes
 
 - **Static JSON.** Nothing here is live: no request counts, no streaming, no
@@ -1014,6 +1058,7 @@ explaining how to replicate the logic:
 | Sponsor Income Ledger | `deals` (the Tool 25 deal records), `now` (optional) | `require("assets/js/sponsor-income-ledger.js")` — `buildLedger(deals, {now})` runs Tool 25's `buildBoard` and groups its paid deals by stage-entry month (chronological, running cumulative), by brand (totals + share of collected), and by platform; collected stays Tool 25's paid total; undated paid deals flagged under Undated, never dropped; demo paid deals counted apart, never ledgered; `emptyBoard` vs `noPaidYet` vs `demoOnly` reported as different states; `exportLedger()` for the plaintext ledger — see Workflow 21 |
 | Receivables Register | `deals` (the Tool 25 deal records), `now` (optional) | `require("assets/js/receivables-register.js")` — `buildRegister(deals, {now})` runs Tool 25's `buildBoard` and registers its invoiced deals (every one, fresh included — no follow-up-threshold gating), longest outstanding first; the total owed stays Tool 25's invoiced outstanding figure; each entry carries the board's Tool 24 late-payment script or the reason none is attached; demo invoiced deals counted apart, never registered; `emptyBoard` vs `nothingOwed` vs `demoOnly` reported as different states; `exportRegister()` for the plaintext register — see Workflow 22 |
 | Brand Ledger | `deals` (the Tool 25 deal records), `now` (optional) | `require("assets/js/brand-ledger.js")` — `buildLedger(deals, {now})` runs Tool 25's `buildBoard` and groups all its deals by brand, largest relationship first: per brand, total across all stages split into collected (paid) / owed (invoiced) / still open (lead/negotiating/terms/live), share of Tool 25's pipeline value, deal + stage counts, platforms; the pipeline total stays Tool 25's figure; a brand total is a sum of current-stage amounts, never a history or lifetime value; demo deals counted apart, never ledgered; `emptyBoard` vs `demoOnly` reported as different states (no none-yet state by design — every real deal belongs to a brand); `exportLedger()` for the plaintext ledger — see Workflow 23 |
+| Platform Ledger | `deals` (the Tool 25 deal records), `now` (optional) | `require("assets/js/platform-ledger.js")` — `buildLedger(deals, {now})` runs Tool 25's `buildBoard` and groups all its deals by platform, largest total first: per platform, total across all stages split into collected (paid) / owed (invoiced) / still open (lead/negotiating/terms/live), share of Tool 25's pipeline value, deal + stage counts, brands; the pipeline total stays Tool 25's figure; a platform total is a sum of current-stage amounts, never a platform history; demo deals counted apart, never ledgered; `emptyBoard` vs `demoOnly` reported as different states (no none-yet state by design — every real deal belongs to a platform); `exportLedger()` for the plaintext ledger — see Workflow 24 |
 
 Full per-tool schemas, formulas, and honesty notes live in `tools.json`;
 the UI pages (`quiz.html`, `calculator.html`, …) are the human front-end for
