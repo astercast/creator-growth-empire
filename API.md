@@ -60,13 +60,19 @@ announced_at, effective_at, category: algorithm|policy|monetization|legal,
 confidence: verified|single-source, sources: [{ name, url }] }], total,
 filters, feed_generated_at, disclaimer }`. `announced_at` / `effective_at`
 are carried only where the day is actually known (null or absent
-otherwise — the feed never rounds a month into a fake day). Feed v1.3.0
-(2026-10-12) holds 19 entries and covers all seven platform slots:
+otherwise — the feed never rounds a month into a fake day). Feed v1.4.0
+(2026-10-12) holds 22 entries and covers all seven platform slots:
 YouTube, TikTok, Instagram, Facebook, X, Twitch, and Other (Spotify and
 industry-wide changes log under Other). The Twitch slot opened with the
 August 20, 2026 expansion of Creator Sponsorships to Affiliates; the
 2.2 wave added Meta's October 8, 2026 ban on TikTok/ByteDance ads in
-seven countries (Reuters + Bloomberg, verified). 400 `BAD_INPUT` on bad params; 502
+seven countries (Reuters + Bloomberg, verified); the 2.3 wave resolved
+the three items earlier waves held as near-misses — Facebook's expanded
+two-link-post test (policy, verified), TikTok Smart+ Creative Selection
+(monetization, verified; creator pay/opt-in terms still unpublished),
+and Kenya's 5% withholding as actually applied per platform (legal,
+verified) — each logged only once a second independent source firmed it
+up. 400 `BAD_INPUT` on bad params; 502
 `UPSTREAM_UNAVAILABLE` if the feed file is unreadable. Static twin:
 `data/v1/changes.json`. Human front-end: `what-changed.html` — pre-rendered
 with a per-platform coverage panel; when both the live function and the
@@ -85,7 +91,13 @@ canonical-JSON compare, commits via `writeJsonIfChanged` only when the feed
 actually changed (no change → no commit → no redeploy). Without
 `GITHUB_REPO_TOKEN` it runs read-only and reports the would-be diff.
 Returns `{ checked, changed, committed, sources_ok, new_changes[], retained }`
-with per-source `meta.upstream`.
+with per-source `meta.upstream`. Upstream sources (3): Tubefilter's main
+feed, Social Media Today, and — since the 2.3 wave — Tubefilter's Twitch
+tag feed (`tubefilter.com/tag/twitch/feed/`), wired after a live probe
+showed the two general feeds carrying no Twitch stories while the tag
+feed's current window was 12/12 Twitch-tagged; a dead source degrades
+the envelope (`sources_ok` drops, the failure is named in the note)
+rather than failing the run.
 
 ### The fallback contract (frontend)
 

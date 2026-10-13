@@ -36,8 +36,8 @@ var rows = feed.changes;
 
 /* ---------- 1. feed integrity ---------- */
 console.log("feed integrity");
-ok(feed.version === "1.3.0", "feed version bumped to 1.3.0 for the first-Twitch-cron-cycle wave");
-ok(Array.isArray(rows) && rows.length === 19, "feed holds 19 entries");
+ok(feed.version === "1.4.0", "feed version bumped to 1.4.0 for the Twitch-sourcing + near-miss-resolution wave");
+ok(Array.isArray(rows) && rows.length === 22, "feed holds 22 entries");
 var ids = {};
 ok(rows.every(function (c) { return !ids[c.id] && (ids[c.id] = 1); }), "entry ids are unique");
 ok(rows.every(function (c) {
@@ -141,6 +141,41 @@ ok(!!mb && mb.platform === "facebook" && mb.category === "policy" &&
 ok(!/unlock the power|delve|game-changer|game changer|elevate your|supercharge|revolutioni[sz]e/i.test(mb.summary),
   "2.2 entry copy: no AI-isms");
 
+/* ---------- 4d. the 2.3 entries: the three rotation-5 near-misses, resolved ---------- */
+console.log("2.3 entries");
+var lc = byId("fb-link-post-cap-test-2026");
+ok(!!lc && lc.platform === "facebook" && lc.category === "policy" &&
+   lc.confidence === "verified" && lc.sources.length === 2 &&
+   lc.announced_at === "2026-09-17T00:00:00Z" && lc.effective_at === null &&
+   /December 2025/.test(lc.summary) && /two organic posts/.test(lc.summary) &&
+   /news-publisher Pages are excluded/.test(lc.summary) && /\$49\.99/.test(lc.summary) &&
+   /still a test, not a rule for every Page/.test(lc.summary) &&
+   lc.sources[0].url === "https://pressgazette.co.uk/platforms/facebook-cash-for-links-scheme-excludes-publishers-for-now/" &&
+   lc.sources[1].url === "https://www.relevantaudience.com/meta/facebook-pages-charged-for-link-posts-meta-one/",
+  "Facebook link cap: expanded test (Dec 2025 origin, Sep 17 expansion), two-free cap, publisher exclusion, paid tiers, still-a-test stated, Press Gazette + SMT-recap sources — logged only once it firmed up");
+var sc = byId("tt-smart-plus-creative-selection-2026");
+ok(!!sc && sc.platform === "tiktok" && sc.category === "monetization" &&
+   sc.confidence === "verified" && sc.sources.length === 2 &&
+   sc.announced_at === "2026-10-05T00:00:00Z" && sc.effective_at === null &&
+   /Symphony/.test(sc.summary) && /creator content/.test(sc.summary) &&
+   /no pay rate, no revenue share/.test(sc.summary) &&
+   sc.sources[0].url === "https://www.marketingdive.com/news/tiktok-broadens-agentic-ai-play-brings-global-ad-network-to-us/832007/" &&
+   sc.sources[1].url === "https://www.mediapost.com/publications/article/418523/tiktok-ai-expands-search-creative-merchant-ad-fo.html",
+  "TikTok Smart+ Creative Selection: Oct 5, three creative sources in one advertiser approval flow, Marketing Dive + MediaPost, and the unpublished creator pay/opt-in terms stated plainly");
+var ke = byId("kenya-withholding-platform-payouts-2026");
+ok(!!ke && ke.platform === "other" && ke.category === "legal" &&
+   ke.confidence === "verified" && ke.sources.length === 2 &&
+   ke.announced_at === null && ke.effective_at === null &&
+   /Finance Act 2023/.test(ke.summary) && /January 1, 2026/.test(ke.summary) &&
+   /September 2026 earnings paid in October/.test(ke.summary) && /October 1/.test(ke.summary) &&
+   /has published no rate, start date, or consequence/.test(ke.summary) &&
+   ke.sources[0].url === "https://tech-ish.com/2026/09/16/tiktok-is-now-asking-kenyan-creators-for-their-tax-information/" &&
+   ke.sources[1].url === "https://www.dawan.africa/news/tiktok-joins-meta-and-youtube-as-kenya-moves-creator-taxes-into-platform-payouts",
+  "Kenya withholding: country tax (not a platform fee), Meta Jan 1 + YouTube Sep-earnings/Oct 1 PIN dates per platform, TikTok's missing rate stated — the blanket claim corrected, not repeated");
+ok(!/unlock the power|delve|game-changer|game changer|elevate your|supercharge|revolutioni[sz]e/i.test(
+   [lc.summary, sc.summary, ke.summary].join(" ")),
+  "2.3 entry copy: no AI-isms");
+
 /* ---------- 5. page / build wiring ---------- */
 console.log("page/build wiring");
 var buildSrc = fs.readFileSync(path.join(ROOT, "scripts", "build.py"), "utf8");
@@ -149,7 +184,7 @@ var page = fs.readFileSync(path.join(ROOT, "site", "what-changed.html"), "utf8")
 ok(page.indexOf("Read the newest change") !== -1 && page.indexOf('href="deal-room.html#dr-sec-watch"') !== -1,
   "built page: sleek hero with one primary action + one secondary (Deal Room)");
 rows.forEach(function (c) {
-  ok(page.indexOf(c.title.replace(/&/g, "&amp;")) !== -1, "built page pre-renders: " + c.id);
+  ok(page.indexOf(c.title.replace(/&/g, "&amp;").replace(/'/g, "&#x27;")) !== -1, "built page pre-renders: " + c.id);
 });
 ok((page.match(/aw-cov-row/g) || []).length >= 7, "built page: coverage panel lists all seven platform slots");
 ok(page.indexOf("No entry in the current window") !== -1 || rows.length >= 6,

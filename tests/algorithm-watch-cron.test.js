@@ -21,12 +21,20 @@
  *     or same title behind a different link) is deduped, not re-added.
  *  4. An off-topic story is filtered by the relevance gate.
  *  5. A dead upstream feed degrades the envelope honestly
- *     (sources_ok 1/2, degraded note) instead of failing the run.
+ *     (sources_ok 2/3, degraded note) instead of failing the run.
  *  6. A second delivery inside 60s is suppressed as a duplicate.
  *  7. The client renderer (assets/js/changes-feed.js) renders the
  *     shipped Twitch entry end to end: platform/category/confidence
  *     chips, announced/effective/logged dates, source links, the
  *     Twitch filter chip, and the coverage row.
+ *  8. Rotation 6 (2.3): the third upstream is Tubefilter's Twitch tag
+ *     feed (probed live 2026-10-12: 200 RSS, 12/12 items Twitch-tagged,
+ *     where the two general feeds carried 0 Twitch stories). A Twitch
+ *     Shopping story served ONLY by that feed survives — the relevance
+ *     gate now carries the shop term its own monetization classifier
+ *     already used, the same gate/classifier mismatch Rotation 4
+ *     fixed for sponsor- — and a Twitch story with no gate terms is
+ *     still filtered, from the tag feed as from any other.
  */
 "use strict";
 var fs = require("fs");
@@ -77,6 +85,7 @@ function stubFetch(map) {
 }
 var TUBEFILTER = "https://www.tubefilter.com/feed/";
 var SMT = "https://www.socialmediatoday.com/feeds/news/";
+var TF_TWITCH = "https://www.tubefilter.com/tag/twitch/feed/";
 var SECRET = "test-cron-secret-0123456789";
 process.env.CRON_SECRET = SECRET;
 delete process.env.GITHUB_REPO_TOKEN;
@@ -117,15 +126,16 @@ async function main() {
       { title: "Studio announces a new cooking show for fall", link: "https://example.com/cooking-show",
         desc: "A beloved chef returns with twelve episodes of weeknight dinners." }
     ]) },
-    [SMT]: { fail: 503 }
+    [SMT]: { fail: 503 },
+    [TF_TWITCH]: { xml: rss([]) }
   });
   res = mockRes();
   await freshHandler()(mockReq("GET", SECRET), res);
   var body = res.json();
   ok(res.statusCode === 200 && body.ok === true, "cycle A: handler returns a 200 ok envelope");
-  ok(body.data.sources_ok === "1/2" && body.meta.degraded === true &&
+  ok(body.data.sources_ok === "2/3" && body.meta.degraded === true &&
      /socialmediatoday-rss/.test(body.meta.note || ""),
-    "cycle A: the dead feed degrades the run honestly (sources_ok 1/2, named in the note)");
+    "cycle A: the dead feed degrades the run honestly (sources_ok 2/3, named in the note)");
   ok(body.data.new_changes.length === 1,
     "cycle A: exactly one new change survives the gates (dupe + off-topic filtered)");
   var nc = body.data.new_changes[0] || {};
@@ -153,22 +163,50 @@ async function main() {
     [SMT]: { xml: rss([
       { title: EXISTING_TWITCH_TITLE, link: "https://example.com/a-different-link-to-the-same-story",
         desc: "Sponsorship revenue for Affiliates through the Twitch dashboard." }
-    ]) }
+    ]) },
+    [TF_TWITCH]: { xml: rss([]) }
   });
   res = mockRes();
   await freshHandler()(mockReq("GET", SECRET), res);
   body = res.json();
-  ok(body.data.sources_ok === "2/2" && body.meta.degraded === false,
-    "cycle B: both feeds up -> sources_ok 2/2, not degraded");
+  ok(body.data.sources_ok === "3/3" && body.meta.degraded === false,
+    "cycle B: all three feeds up -> sources_ok 3/3, not degraded");
   ok(body.data.new_changes.length === 1 && body.data.new_changes[0].category === "monetization" &&
      /^cw-/.test(body.data.new_changes[0].id || ""),
     "cycle B: a sponsor- story with no platform name still passes the gate and classifies monetization (other/cw-)");
   ok(!body.data.new_changes.some(function (e) { return /creator-sponsorships/.test(e.id); }),
     "cycle B: the shipped Twitch entry is deduped by title even behind a different link");
 
+  /* ---------- 5b. cycle C: the Twitch tag feed carries a Twitch story ---------- */
+  console.log("cycle C: twitch tag feed sourcing");
+  stubFetch({
+    [TUBEFILTER]: { xml: rss([]) },
+    [SMT]: { xml: rss([]) },
+    [TF_TWITCH]: { xml: rss([
+      { title: "Twitch has streaming deals in its new Shopping category",
+        link: "https://example.com/twitch-shopping-category",
+        desc: "Twitch is linking up with Amazon to populate a new Shopping category that showcases streamers who are selling products to their viewers." },
+      { title: "Twitch streamer completes a 3,000-mile walk for charity",
+        link: "https://example.com/twitch-walk",
+        desc: "Fans followed along as the walk crossed the country, one town at a time." }
+    ]) }
+  });
+  res = mockRes();
+  await freshHandler()(mockReq("GET", SECRET), res);
+  body = res.json();
+  ok(body.data.sources_ok === "3/3",
+    "cycle C: the handler consults all three upstreams, including the Twitch tag feed");
+  ok(body.data.new_changes.length === 1,
+    "cycle C: exactly one tag-feed story survives (the gate still filters Twitch stories with no watch terms)");
+  var shop = body.data.new_changes[0] || {};
+  ok(shop.platform === "twitch" && shop.category === "monetization" && /^tw-/.test(shop.id || ""),
+    "cycle C: the Shopping story classifies twitch/monetization with a tw- id — the shop gate term carries it");
+  ok(shop.title === "Twitch has streaming deals in its new Shopping category",
+    "cycle C: the surviving change is the tag feed's Shopping story itself");
+
   /* ---------- 6. duplicate delivery cooldown ---------- */
   console.log("duplicate delivery");
-  stubFetch({ [TUBEFILTER]: { xml: rss([]) }, [SMT]: { xml: rss([]) } });
+  stubFetch({ [TUBEFILTER]: { xml: rss([]) }, [SMT]: { xml: rss([]) }, [TF_TWITCH]: { xml: rss([]) } });
   var handler = freshHandler();
   res = mockRes();
   await handler(mockReq("GET", SECRET), res);
@@ -226,8 +264,8 @@ async function main() {
     "render: coverage panel carries the Twitch row (1 entry, newest Oct 12, 2026)");
   ok(filtersEl.innerHTML.indexOf('data-aw-platform="twitch"') !== -1 &&
      filtersEl.innerHTML.indexOf("Twitch · 1") !== -1 &&
-     filtersEl.innerHTML.indexOf("Facebook · 2") !== -1,
-    "render: filter chips include Twitch · 1 and Facebook · 2 (the Oct 8 Meta entry)");
+     filtersEl.innerHTML.indexOf("Facebook · 3") !== -1,
+    "render: filter chips include Twitch · 1 and Facebook · 3 (originality + the Oct 8 Meta entry + the link-cap test)");
 
   console.log("\n" + (total - failures) + "/" + total + " assertions" +
     (failures === 0 ? " — ALL PASS" : " — " + failures + " FAILURES"));

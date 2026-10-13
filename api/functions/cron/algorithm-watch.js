@@ -30,14 +30,26 @@ const MAX_NEW_PER_RUN = 25;
 // blog.youtube/feeds/posts/default serve HTML (no official RSS), and
 // newsroom.tiktok.com/en-us/feed times out — both were dropped rather than
 // left permanently failing. Re-probe before re-adding; do not guess URLs.
-// Each entry: { name, url }.
+// Twitch sourcing (probed 2026-10-12, Rotation 6): the two general feeds
+// carried 0 Twitch stories in their current windows, so a Twitch-only
+// story reached this job only by luck. Candidates probed with this job's
+// own fetch + parser: the Twitch blog serves HTML at every feed-shaped
+// URL (no official RSS), Dot Esports 403s, Esports Insider 403s, Kotaku
+// tag RSS timed out, StreamerSquare redirects to an HTML guides page.
+// Two tag feeds answered clean RSS/Atom: The Verge's Twitch tag (viable,
+// held as a fallback — broader and noisier) and Tubefilter's Twitch tag
+// feed, which is wired below: same publisher as the existing main feed,
+// 12/12 current items Twitch-tagged (Aug 25–Oct 6, 2026), 3 passing the
+// relevance gate through the real parser on probe day (a Twitch/Amazon
+// class-action lawsuit among them). Each entry: { name, url }.
 const SOURCES = [
   { name: 'tubefilter-rss', url: 'https://www.tubefilter.com/feed/' },
   { name: 'socialmediatoday-rss', url: 'https://www.socialmediatoday.com/feeds/news/' },
+  { name: 'tubefilter-twitch-rss', url: 'https://www.tubefilter.com/tag/twitch/feed/' },
 ];
 
 // Relevance gate: only items about algorithm/policy/monetization/legal.
-const RELEVANT = /algorithm|rank(ing)?|recommendation|for you|fyp|shorts|reels|monetiz|partner program|\bypp\b|payout|revenue|\brpm\b|\bcpm\b|polic|guideline|terms|disclosure|\bftc\b|lawsuit|settlement|regulation|appeal|demonetiz|distribution|reach|creator fund|rewards|sponsor/i;
+const RELEVANT = /algorithm|rank(ing)?|recommendation|for you|fyp|shorts|reels|monetiz|partner program|\bypp\b|payout|revenue|\brpm\b|\bcpm\b|polic|guideline|terms|disclosure|\bftc\b|lawsuit|settlement|regulation|appeal|demonetiz|distribution|reach|creator fund|rewards|sponsor|shop/i;
 const CAT_MONETIZATION = /monetiz|payout|revenue|\brpm\b|\bcpm\b|partner program|\bypp\b|shop|affiliate|creator fund|rewards|sponsor/i;
 const CAT_LEGAL = /\bftc\b|lawsuit|settlement|regulation|\birs\b|tax|court/i;
 const CAT_POLICY = /polic|guideline|terms|disclosure|ban|appeal|demonetiz|enforcement/i;

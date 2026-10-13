@@ -1,6 +1,69 @@
 {
   "changes": [
     {
+      "id": "fb-link-post-cap-test-2026",
+      "platform": "facebook",
+      "title": "Facebook's two-link-post test expanded in September: more Pages capped unless they pay for Meta One",
+      "summary": "Meta has run this as a test since December 2025, and in September 2026 — as Meta One for Business launched (announced September 15) — managers at more Pages and professional-mode accounts began hitting the cap: two organic posts with external links per calendar month for free, with anything past that shown as plain text rather than a clickable link. Social Media Today reported the expansion on September 17; Press Gazette reported on October 7 that news-publisher Pages are excluded for now, and priced the tiers that lift the cap: $49.99 a month for 8 link posts, $149.99 for 20, $499.99 for unlimited, while the $14.99 Essential tier adds none. Later reporting says links in comments count toward the allowance too. It is still a test, not a rule for every Page — some accounts are capped and others are not — so check your own Page's notice before planning a month of link posts around it.",
+      "detected_at": "2026-10-13T02:00:00Z",
+      "announced_at": "2026-09-17T00:00:00Z",
+      "effective_at": null,
+      "category": "policy",
+      "confidence": "verified",
+      "sources": [
+        {
+          "name": "Press Gazette — News publishers excluded from new Meta One limits on links",
+          "url": "https://pressgazette.co.uk/platforms/facebook-cash-for-links-scheme-excludes-publishers-for-now/"
+        },
+        {
+          "name": "Relevant Audience — Facebook charges Pages for link posts (recapping Social Media Today's September 17, 2026 report)",
+          "url": "https://www.relevantaudience.com/meta/facebook-pages-charged-for-link-posts-meta-one/"
+        }
+      ]
+    },
+    {
+      "id": "tt-smart-plus-creative-selection-2026",
+      "platform": "tiktok",
+      "title": "TikTok Smart+ Creative Selection pools creator videos into paid ad campaigns (announced Oct 5)",
+      "summary": "Announced October 5 at Advertising Week New York and reported the same week by Marketing Dive and MediaPost: Smart+ Creative Selection brings three sources of creative — an advertiser's own assets, Symphony AI-generated video, and creator content — into a single approval workflow for performance campaigns. The system surfaces recommended groups of creative matched to the campaign objective, and the advertiser decides what goes live. What TikTok has not published is the creator side of the terms: no pay rate, no revenue share, and no stated opt-in or opt-out for the creators whose videos enter the pool. Until those terms appear, a creator clip used this way is a usage-rights question — what a brand may do with your video in paid media belongs in your contract, not in an assumption from the announcement.",
+      "detected_at": "2026-10-13T02:00:00Z",
+      "announced_at": "2026-10-05T00:00:00Z",
+      "effective_at": null,
+      "category": "monetization",
+      "confidence": "verified",
+      "sources": [
+        {
+          "name": "Marketing Dive — TikTok broadens agentic AI play, brings global ad network to US",
+          "url": "https://www.marketingdive.com/news/tiktok-broadens-agentic-ai-play-brings-global-ad-network-to-us/832007/"
+        },
+        {
+          "name": "MediaPost — TikTok AI expands search, creative, merchant ad formats",
+          "url": "https://www.mediapost.com/publications/article/418523/tiktok-ai-expands-search-creative-merchant-ad-fo.html"
+        }
+      ]
+    },
+    {
+      "id": "kenya-withholding-platform-payouts-2026",
+      "platform": "other",
+      "title": "Kenya's 5% withholding now comes off platform payouts — Meta from January, YouTube from September earnings",
+      "summary": "The 5% is not a new platform fee: it is Kenya's withholding tax on digital-content income (in law since the Finance Act 2023), and 2026 is the year the platforms began deducting it at source. Meta went first — creators were told in November 2025 that 5% would come off Facebook and Instagram payouts from January 1, 2026, shown on the monthly remittance advice. Google followed for YouTube: 5% off finalised AdSense earnings, starting with September 2026 earnings paid in October, with a verified Kenya Revenue Authority PIN due in AdSense by October 1 or payments are held. TikTok asked Kenyan creators for tax information in mid-September, but has published no rate, start date, or consequence — do not assume the 5% figure or the YouTube deadlines are TikTok's. The withheld amount is an advance against your own tax bill, credited through a withholding certificate, not a second tax on the same income.",
+      "detected_at": "2026-10-13T02:00:00Z",
+      "announced_at": null,
+      "effective_at": null,
+      "category": "legal",
+      "confidence": "verified",
+      "sources": [
+        {
+          "name": "Tech-ish — TikTok is now asking Kenyan creators for their tax information",
+          "url": "https://tech-ish.com/2026/09/16/tiktok-is-now-asking-kenyan-creators-for-their-tax-information/"
+        },
+        {
+          "name": "Dawan Africa — TikTok joins Meta and YouTube as Kenya moves creator taxes into platform payouts",
+          "url": "https://www.dawan.africa/news/tiktok-joins-meta-and-youtube-as-kenya-moves-creator-taxes-into-platform-payouts"
+        }
+      ]
+    },
+    {
       "id": "meta-bytedance-ad-ban-2026",
       "platform": "facebook",
       "title": "Meta banned TikTok and ByteDance ads on Facebook and Instagram in seven countries (Oct 8)",
@@ -349,8 +412,8 @@
     "verified": "Corroborated by 2+ independent sources or the platform itself."
   },
   "disclaimer": "Planning aid, not financial/legal/tax advice. RPM/CPM figures are creator-reported ranges, never promises. Verify platform figures live before acting on them.",
-  "generated_at": "2026-10-12T12:30:00Z",
+  "generated_at": "2026-10-13T02:30:00Z",
   "note": "Algorithm Watch feed: platform algorithm, policy, and monetization changes with source URLs and confidence flags. Coverage: YouTube, TikTok, Instagram, Facebook, X, and Twitch have their own slots; Spotify and industry-wide changes are logged under Other. Updated by the daily /api/cron/algorithm-watch job (retention: 90 days).",
-  "updated": "2026-10-12",
-  "version": "1.3.0"
+  "updated": "2026-10-13",
+  "version": "1.4.0"
 }

@@ -208,8 +208,12 @@ priced, flag-checked, scripted, and memorized — all via API.
    builds the Algorithm Watch digest from `data/v1/changes.json`: newest
    first, dated, sourced, confidence-flagged, each entry with a curated
    deal note (this site's editorial read, labeled as such);
-   `digestText(digest)` renders it as copy-ready plaintext. Feed v1.3.0
-   holds 19 entries across all seven platform slots — the 2.2 wave
+   `digestText(digest)` renders it as copy-ready plaintext. Feed v1.4.0
+   holds 22 entries across all seven platform slots — the 2.3 wave
+   resolved the three held near-misses (Facebook's expanded two-link-post
+   test, TikTok Smart+ Creative Selection, and Kenya's 5% withholding
+   scoped per platform) and wired Tubefilter's Twitch tag feed as the
+   cron's third upstream; the 2.2 wave
    added Meta's October 8, 2026 ban on TikTok/ByteDance ads in seven
    countries; the 2.0 backfill
    added Facebook's March 2026 originality policy, X's Original Content
