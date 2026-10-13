@@ -208,8 +208,10 @@ priced, flag-checked, scripted, and memorized — all via API.
    builds the Algorithm Watch digest from `data/v1/changes.json`: newest
    first, dated, sourced, confidence-flagged, each entry with a curated
    deal note (this site's editorial read, labeled as such);
-   `digestText(digest)` renders it as copy-ready plaintext. Feed v1.2.0
-   holds 18 entries across all seven platform slots — the 2.0 backfill
+   `digestText(digest)` renders it as copy-ready plaintext. Feed v1.3.0
+   holds 19 entries across all seven platform slots — the 2.2 wave
+   added Meta's October 8, 2026 ban on TikTok/ByteDance ads in seven
+   countries; the 2.0 backfill
    added Facebook's March 2026 originality policy, X's Original Content
    Rewards (Revenue Sharing retired Sept 7, 2026; applications opened
    Sept 8), and Spotify's Partner Program expansion to 37 markets

@@ -97,7 +97,7 @@
       "description": "Algorithm Watch feed: dated platform algorithm, policy, and monetization changes \u2014 id, platform, title, summary, detected_at, announced_at, effective_at, source_url(s), category (algorithm/policy/monetization/legal), confidence (verified/single-source). Every entry carries its source and confidence flag; no change is ever stated as fact without one. Refreshed by the daily /api/cron/algorithm-watch job; 90-day retention. Live function: /api/changes. A planning aid, not financial/legal/tax advice. RPM/CPM figures are creator-reported ranges, never promises.",
       "schema": "data/v1/schema/changes.json",
       "updated": "2026-10-11T00:00:00Z",
-      "records": 18,
+      "records": 19,
       "deprecated": false,
       "deprecation_note": null,
       "freshness_note": "Verify platform figures live before acting on them \u2014 every entry carries its sources and confidence flag."
@@ -196,7 +196,7 @@
       "description": "Algorithm Watch \u2014 the 'what changed' feed's human front-end: dated platform algorithm, policy, and monetization changes, pre-rendered from data/v1/changes.json and live-updated from /api/changes when the server is reachable. Fully readable with JavaScript disabled; the status badge reports live / cached state honestly. Machine-readable feed: data/v1/changes.json; live function: /api/changes.",
       "schema": null,
       "updated": "2026-10-11T00:00:00Z",
-      "records": 18,
+      "records": 19,
       "deprecated": false,
       "deprecation_note": null
     },

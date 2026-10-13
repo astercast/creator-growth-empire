@@ -36,8 +36,8 @@ var rows = feed.changes;
 
 /* ---------- 1. feed integrity ---------- */
 console.log("feed integrity");
-ok(feed.version === "1.2.0", "feed version bumped to 1.2.0 for the Twitch-slot wave");
-ok(Array.isArray(rows) && rows.length === 18, "feed holds 18 entries");
+ok(feed.version === "1.3.0", "feed version bumped to 1.3.0 for the first-Twitch-cron-cycle wave");
+ok(Array.isArray(rows) && rows.length === 19, "feed holds 19 entries");
 var ids = {};
 ok(rows.every(function (c) { return !ids[c.id] && (ids[c.id] = 1); }), "entry ids are unique");
 ok(rows.every(function (c) {
@@ -126,6 +126,20 @@ ok(!!tp && tp.platform === "tiktok" && tp.category === "monetization" &&
 ok(!/unlock the power|delve|game-changer|game changer|elevate your|supercharge|revolutioni[sz]e/i.test(
    [tw.summary, tg.summary, tp.summary].join(" ")),
   "2.1 entry copy: no AI-isms");
+
+/* ---------- 4c. the 2.2 entry: Meta's ByteDance ad ban ---------- */
+console.log("2.2 entry");
+var mb = byId("meta-bytedance-ad-ban-2026");
+ok(!!mb && mb.platform === "facebook" && mb.category === "policy" &&
+   mb.confidence === "verified" && mb.sources.length === 2 &&
+   mb.announced_at === "2026-10-08T00:00:00Z" && mb.effective_at === "2026-10-08T00:00:00Z" &&
+   /seven countries|United States, Canada, Egypt, Indonesia, Japan, Thailand, and Vietnam/.test(mb.summary) &&
+   /third-party advertisers/.test(mb.summary) && /Organic posts/.test(mb.summary) &&
+   mb.sources[0].url === "https://www.lapost.com/content/meta-bans-tiktok-from-advertising-on-its-apps-bloomberg-news-reports" &&
+   mb.sources[1].url === "https://www.moneyweb.co.za/news/international/meta-bans-ads-from-tiktok-on-its-apps-in-escalating-feud/",
+  "Meta ad ban: Oct 8, seven named markets, third-party reach stated, organic posts excluded, Reuters + Bloomberg wires — a paid-promotion policy, not an access ban");
+ok(!/unlock the power|delve|game-changer|game changer|elevate your|supercharge|revolutioni[sz]e/i.test(mb.summary),
+  "2.2 entry copy: no AI-isms");
 
 /* ---------- 5. page / build wiring ---------- */
 console.log("page/build wiring");

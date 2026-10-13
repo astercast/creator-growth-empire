@@ -60,11 +60,13 @@ announced_at, effective_at, category: algorithm|policy|monetization|legal,
 confidence: verified|single-source, sources: [{ name, url }] }], total,
 filters, feed_generated_at, disclaimer }`. `announced_at` / `effective_at`
 are carried only where the day is actually known (null or absent
-otherwise — the feed never rounds a month into a fake day). Feed v1.2.0
-(2026-10-12) holds 18 entries and covers all seven platform slots:
+otherwise — the feed never rounds a month into a fake day). Feed v1.3.0
+(2026-10-12) holds 19 entries and covers all seven platform slots:
 YouTube, TikTok, Instagram, Facebook, X, Twitch, and Other (Spotify and
 industry-wide changes log under Other). The Twitch slot opened with the
-August 20, 2026 expansion of Creator Sponsorships to Affiliates. 400 `BAD_INPUT` on bad params; 502
+August 20, 2026 expansion of Creator Sponsorships to Affiliates; the
+2.2 wave added Meta's October 8, 2026 ban on TikTok/ByteDance ads in
+seven countries (Reuters + Bloomberg, verified). 400 `BAD_INPUT` on bad params; 502
 `UPSTREAM_UNAVAILABLE` if the feed file is unreadable. Static twin:
 `data/v1/changes.json`. Human front-end: `what-changed.html` — pre-rendered
 with a per-platform coverage panel; when both the live function and the
