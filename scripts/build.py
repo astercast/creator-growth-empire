@@ -1098,9 +1098,9 @@ MOBILE_NAV_LINKS = [
 
 AW_PLATFORM_LABELS = {
     "youtube": "YouTube", "tiktok": "TikTok", "instagram": "Instagram",
-    "facebook": "Facebook", "x": "X", "twitch": "Twitch", "other": "Other",
+    "facebook": "Facebook", "x": "X", "twitch": "Twitch", "kick": "Kick", "other": "Other",
 }
-AW_PLATFORM_ORDER = ["youtube", "tiktok", "instagram", "facebook", "x", "twitch", "other"]
+AW_PLATFORM_ORDER = ["youtube", "tiktok", "instagram", "facebook", "x", "twitch", "kick", "other"]
 
 _AW_MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
               "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]

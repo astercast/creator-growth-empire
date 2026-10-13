@@ -27,7 +27,7 @@ function dataFile(name) {
 }
 const FILE = dataFile('changes.json');
 
-const PLATFORMS = ['youtube', 'tiktok', 'instagram', 'facebook', 'x', 'twitch', 'other', 'all'];
+const PLATFORMS = ['youtube', 'tiktok', 'instagram', 'facebook', 'x', 'twitch', 'kick', 'other', 'all'];
 
 function query(req) {
   if (req.query && typeof req.query === 'object') return req.query;
@@ -64,7 +64,7 @@ module.exports = (req, res) => {
   const q = query(req);
   const fields = {};
 
-  // platform: youtube|tiktok|instagram|facebook|x|twitch|other|all (default all)
+  // platform: youtube|tiktok|instagram|facebook|x|twitch|kick|other|all (default all)
   const platform = String(q.platform || 'all').toLowerCase();
   if (!PLATFORMS.includes(platform)) {
     fields.platform = 'must be one of: ' + PLATFORMS.join(', ');

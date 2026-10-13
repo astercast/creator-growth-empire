@@ -208,8 +208,13 @@ priced, flag-checked, scripted, and memorized — all via API.
    builds the Algorithm Watch digest from `data/v1/changes.json`: newest
    first, dated, sourced, confidence-flagged, each entry with a curated
    deal note (this site's editorial read, labeled as such);
-   `digestText(digest)` renders it as copy-ready plaintext. Feed v1.5.0
-   holds 23 entries across all seven platform slots — the 2.4 wave
+   `digestText(digest)` renders it as copy-ready plaintext. Feed v1.6.0
+   holds 24 entries across all eight platform slots — the 2.5 wave's
+   coverage audit gave Kick its own slot, opened with the September 2026
+   Partner Program payout rewrite (rolling rate over recent broadcasts
+   replacing per-stream rates; September's manual-calculation errors
+   repaid via Stripe; no day or numeric rate published, dates null);
+   the 2.4 wave
    added X's September 2, 2026 payout-rail switch (U.S. creator payouts
    moved from Stripe to X Money, mandatory for U.S. creators); the 2.3 wave
    resolved the three held near-misses (Facebook's expanded two-link-post

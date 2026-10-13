@@ -1,6 +1,27 @@
 {
   "changes": [
     {
+      "id": "kick-kpp-rolling-rate-2026",
+      "platform": "kick",
+      "title": "Kick rewrote Partner Program pay math in September: rolling rate replaces per-stream rate, September errors repaid",
+      "summary": "In September 2026, Kick Partner Program (KPP) creators reported payouts lower than expected and rates swinging sharply between streams. Kick's director Ethan Wright said the shortfall traced to a manual calculation error: Kick corrected the affected calculations and issued backpay to impacted partners through Stripe — the backpay shows in a creator's Stripe dashboard, not in Kick's on-site earnings interface. The rate model changed at the same time: KPP rates were calculated stream by stream, and are now calculated on a rolling basis over a stretch of recent broadcasts including the current one, so a single quiet stream moves the rate less. Kick says the revised method is also meant to make view botting and tab manipulation harder to profit from. The 95/5 subscription split and KICKs tipping are unchanged, and neither report publishes a numeric KPP rate or a calendar day in September for the change — the dates below stay null rather than borrow one.",
+      "detected_at": "2026-10-13T03:55:00Z",
+      "announced_at": null,
+      "effective_at": null,
+      "category": "monetization",
+      "confidence": "verified",
+      "sources": [
+        {
+          "name": "Streams Charts — Kick revises Partner Program payouts after September errors",
+          "url": "https://streamscharts.com/news/kick-revises-kpp-september-2026-update"
+        },
+        {
+          "name": "WIN.gg — Kick admits KPP payment errors",
+          "url": "https://win.gg/kick-admits-kpp-payment-errors/"
+        }
+      ]
+    },
+    {
       "id": "x-payouts-x-money-2026",
       "platform": "x",
       "title": "X moved U.S. creator payouts from Stripe to X Money on Sept 2 — now the only route for U.S. payouts",
@@ -433,8 +454,8 @@
     "verified": "Corroborated by 2+ independent sources or the platform itself."
   },
   "disclaimer": "Planning aid, not financial/legal/tax advice. RPM/CPM figures are creator-reported ranges, never promises. Verify platform figures live before acting on them.",
-  "generated_at": "2026-10-13T03:22:00Z",
-  "note": "Algorithm Watch feed: platform algorithm, policy, and monetization changes with source URLs and confidence flags. Coverage: YouTube, TikTok, Instagram, Facebook, X, and Twitch have their own slots; Spotify and industry-wide changes are logged under Other. Updated by the daily /api/cron/algorithm-watch job (retention: 90 days).",
+  "generated_at": "2026-10-13T03:55:00Z",
+  "note": "Algorithm Watch feed: platform algorithm, policy, and monetization changes with source URLs and confidence flags. Coverage: YouTube, TikTok, Instagram, Facebook, X, Twitch, and Kick have their own slots; Spotify and industry-wide changes are logged under Other. Updated by the daily /api/cron/algorithm-watch job (retention: 90 days).",
   "updated": "2026-10-13",
-  "version": "1.5.0"
+  "version": "1.6.0"
 }

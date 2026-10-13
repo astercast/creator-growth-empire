@@ -36,13 +36,13 @@ var rows = feed.changes;
 
 /* ---------- 1. feed integrity ---------- */
 console.log("feed integrity");
-ok(feed.version === "1.5.0", "feed version bumped to 1.5.0 for the X payout-rail wave");
-ok(Array.isArray(rows) && rows.length === 23, "feed holds 23 entries");
+ok(feed.version === "1.6.0", "feed version bumped to 1.6.0 for the Kick slot wave");
+ok(Array.isArray(rows) && rows.length === 24, "feed holds 24 entries");
 var ids = {};
 ok(rows.every(function (c) { return !ids[c.id] && (ids[c.id] = 1); }), "entry ids are unique");
 ok(rows.every(function (c) {
   return /^[a-z0-9][a-z0-9-]{2,80}$/.test(c.id) &&
-    ["youtube", "tiktok", "instagram", "facebook", "x", "twitch", "other"].indexOf(c.platform) !== -1 &&
+    ["youtube", "tiktok", "instagram", "facebook", "x", "twitch", "kick", "other"].indexOf(c.platform) !== -1 &&
     ["algorithm", "policy", "monetization", "legal"].indexOf(c.category) !== -1 &&
     ["verified", "single-source"].indexOf(c.confidence) !== -1;
 }), "every entry: id shape, platform, category, confidence enums hold");
@@ -75,12 +75,12 @@ ok(rows.every(function (c) { return Date.parse(c.detected_at) <= Date.parse(feed
 
 /* ---------- 3. coverage ---------- */
 console.log("coverage");
-["youtube", "tiktok", "instagram", "facebook", "x", "twitch", "other"].forEach(function (p) {
+["youtube", "tiktok", "instagram", "facebook", "x", "twitch", "kick", "other"].forEach(function (p) {
   ok(rows.some(function (c) { return c.platform === p; }),
     "coverage: " + p + " holds at least one entry");
 });
-ok(/Twitch have their own slots/.test(feed.note) && /Spotify and industry-wide/.test(feed.note) && /under Other/.test(feed.note),
-  "feed note states Twitch has its own slot and Spotify/industry changes log under Other");
+ok(/Twitch, and Kick have their own slots/.test(feed.note) && /Spotify and industry-wide/.test(feed.note) && /under Other/.test(feed.note),
+  "feed note states Twitch and Kick have their own slots and Spotify/industry changes log under Other");
 
 /* ---------- 4. the 2.0 backfill entries ---------- */
 console.log("2.0 backfill entries");
@@ -190,6 +190,21 @@ ok(!!xm && xm.platform === "x" && xm.category === "monetization" &&
 ok(!/unlock the power|delve|game-changer|game changer|elevate your|supercharge|revolutioni[sz]e/i.test(xm.summary),
   "2.4 entry copy: no AI-isms");
 
+/* ---------- 4f. the 2.5 entry: Kick gets its own slot (coverage audit) ---------- */
+console.log("2.5 entry");
+var kk = byId("kick-kpp-rolling-rate-2026");
+ok(!!kk && kk.platform === "kick" && kk.category === "monetization" &&
+   kk.confidence === "verified" && kk.sources.length === 2 &&
+   kk.announced_at === null && kk.effective_at === null &&
+   /manual calculation error/.test(kk.summary) && /rolling basis/.test(kk.summary) &&
+   /stream by stream/.test(kk.summary) && /95\/5 subscription split/.test(kk.summary) &&
+   /no numeric KPP rate|neither report publishes a numeric KPP rate/.test(kk.summary) &&
+   kk.sources[0].url === "https://streamscharts.com/news/kick-revises-kpp-september-2026-update" &&
+   kk.sources[1].url === "https://win.gg/kick-admits-kpp-payment-errors/",
+  "Kick: KPP rolling-rate rewrite + September backpay, manual-error cause stated, 95/5 unchanged, no invented day or rate — the slot opens with a real entry, not a placeholder");
+ok(!/unlock the power|delve|game-changer|game changer|elevate your|supercharge|revolutioni[sz]e/i.test(kk.summary),
+  "2.5 entry copy: no AI-isms");
+
 /* ---------- 5. page / build wiring ---------- */
 console.log("page/build wiring");
 var buildSrc = fs.readFileSync(path.join(ROOT, "scripts", "build.py"), "utf8");
@@ -200,7 +215,7 @@ ok(page.indexOf("Read the newest change") !== -1 && page.indexOf('href="deal-roo
 rows.forEach(function (c) {
   ok(page.indexOf(c.title.replace(/&/g, "&amp;").replace(/'/g, "&#x27;")) !== -1, "built page pre-renders: " + c.id);
 });
-ok((page.match(/aw-cov-row/g) || []).length >= 7, "built page: coverage panel lists all seven platform slots");
+ok((page.match(/aw-cov-row/g) || []).length >= 8, "built page: coverage panel lists all eight platform slots");
 ok(page.indexOf("No entry in the current window") !== -1 || rows.length >= 6,
   "built page: empty-slot copy exists in the renderer path");
 ok(page.indexOf("data-aw-status") !== -1 && page.indexOf("data-aw-coverage") !== -1,

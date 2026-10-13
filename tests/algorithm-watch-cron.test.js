@@ -204,6 +204,26 @@ async function main() {
   ok(shop.title === "Twitch has streaming deals in its new Shopping category",
     "cycle C: the surviving change is the tag feed's Shopping story itself");
 
+  /* ---------- 5c. cycle D: a Kick story classifies into the new slot (2.5) ---------- */
+  console.log("cycle D: kick slot classification");
+  stubFetch({
+    [TUBEFILTER]: { xml: rss([
+      { title: "Kick revises Partner Program payout calculations for streamers",
+        link: "https://example.com/kick-kpp-rolling-rate",
+        desc: "Kick said Partner Program payout rates now use recent broadcasts, after September payment errors were repaid to creators." }
+    ]) },
+    [SMT]: { xml: rss([]) },
+    [TF_TWITCH]: { xml: rss([]) }
+  });
+  res = mockRes();
+  await freshHandler()(mockReq("GET", SECRET), res);
+  body = res.json();
+  ok(body.data.new_changes.length === 1,
+    "cycle D: exactly one new change survives (the Kick story)");
+  var kick = body.data.new_changes[0] || {};
+  ok(kick.platform === "kick" && kick.category === "monetization" && /^ki-/.test(kick.id || ""),
+    "cycle D: the Kick payout story classifies kick/monetization with a ki- id — the 2.5 slot is wired into the cron, not just the feed");
+
   /* ---------- 6. duplicate delivery cooldown ---------- */
   console.log("duplicate delivery");
   stubFetch({ [TUBEFILTER]: { xml: rss([]) }, [SMT]: { xml: rss([]) }, [TF_TWITCH]: { xml: rss([]) } });
@@ -262,6 +282,12 @@ async function main() {
      /Twitch<\/span><span class="aw-cov-n">1 entry<\/span>/.test(coverageEl.innerHTML) &&
      coverageEl.innerHTML.indexOf("newest Oct 12, 2026") !== -1,
     "render: coverage panel carries the Twitch row (1 entry, newest Oct 12, 2026)");
+  ok(listEl.innerHTML.indexOf('data-platform="kick"') !== -1 &&
+     coverageEl.innerHTML.indexOf(">Kick</span>") !== -1 &&
+     /Kick<\/span><span class="aw-cov-n">1 entry<\/span>/.test(coverageEl.innerHTML) &&
+     filtersEl.innerHTML.indexOf('data-aw-platform="kick"') !== -1 &&
+     filtersEl.innerHTML.indexOf("Kick · 1") !== -1,
+    "render: the Kick entry renders as a kick-platform card with its coverage row and filter chip");
   ok(filtersEl.innerHTML.indexOf('data-aw-platform="twitch"') !== -1 &&
      filtersEl.innerHTML.indexOf("Twitch · 1") !== -1 &&
      filtersEl.innerHTML.indexOf("Facebook · 3") !== -1,

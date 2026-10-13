@@ -53,17 +53,22 @@ meta }` — never 5xx; degrades to `degraded` with reasons instead.
 
 ### `GET /api/changes`
 The "what changed" feed, newest-first. Query: `?platform=`
-(youtube|tiktok|instagram|facebook|x|twitch|other|all, default all), `?since=`
+(youtube|tiktok|instagram|facebook|x|twitch|kick|other|all, default all), `?since=`
 (ISO-8601, default 90 days ago = the retention window), `?limit=` (1–200,
 default 50). `data: { changes: [{ id, platform, title, summary, detected_at,
 announced_at, effective_at, category: algorithm|policy|monetization|legal,
 confidence: verified|single-source, sources: [{ name, url }] }], total,
 filters, feed_generated_at, disclaimer }`. `announced_at` / `effective_at`
 are carried only where the day is actually known (null or absent
-otherwise — the feed never rounds a month into a fake day). Feed v1.5.0
-(2026-10-12) holds 23 entries and covers all seven platform slots:
-YouTube, TikTok, Instagram, Facebook, X, Twitch, and Other (Spotify and
-industry-wide changes log under Other). The Twitch slot opened with the
+otherwise — the feed never rounds a month into a fake day). Feed v1.6.0
+(2026-10-13) holds 24 entries and covers all eight platform slots:
+YouTube, TikTok, Instagram, Facebook, X, Twitch, Kick, and Other (Spotify and
+industry-wide changes log under Other). The 2.5 wave's coverage audit
+gave Kick its own slot, opened with its September 2026 Partner Program
+payout rewrite (per-stream rates replaced by a rolling calculation over
+recent broadcasts, September's manual-calculation errors repaid through
+Stripe; monetization, verified — Streams Charts + WIN.gg; no calendar
+day or numeric rate published, so both date fields are null). The Twitch slot opened with the
 August 20, 2026 expansion of Creator Sponsorships to Affiliates; the
 2.2 wave added Meta's October 8, 2026 ban on TikTok/ByteDance ads in
 seven countries (Reuters + Bloomberg, verified); the 2.3 wave resolved

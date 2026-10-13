@@ -117,10 +117,11 @@ function detectPlatform(text) {
   if (/facebook|meta/i.test(text)) return 'facebook';
   if (/twitter/i.test(text)) return 'x';
   if (/twitch/i.test(text)) return 'twitch';
+  if (/\bkick\b/i.test(text)) return 'kick';
   return 'other';
 }
 function makeId(platform, title, link) {
-  const pfx = { youtube: 'yt', tiktok: 'tt', instagram: 'ig', facebook: 'fb', x: 'x', twitch: 'tw', other: 'cw' }[platform] || 'cw';
+  const pfx = { youtube: 'yt', tiktok: 'tt', instagram: 'ig', facebook: 'fb', x: 'x', twitch: 'tw', kick: 'ki', other: 'cw' }[platform] || 'cw';
   const slug = normTitle(title).replace(/ /g, '-').slice(0, 48).replace(/-+$/, '');
   const h = crypto.createHash('sha256').update(link).digest('hex').slice(0, 6);
   return (pfx + '-' + (slug || 'update') + '-' + h).slice(0, 80);

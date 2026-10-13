@@ -348,7 +348,7 @@
    * DEAL_NOTES are this site's editorial read on the entry — labeled as
    * such, never presented as part of the source reporting. */
   var PLATFORM_LABELS = { youtube: "YouTube", tiktok: "TikTok",
-    instagram: "Instagram", facebook: "Facebook", x: "X", twitch: "Twitch", other: "Industry" };
+    instagram: "Instagram", facebook: "Facebook", x: "X", twitch: "Twitch", kick: "Kick", other: "Industry" };
   var DEAL_NOTES = {
     "lifetak-microdrama-premiere-2026": "A funded buyer is entering vertical drama. If you make microdramas, this is a licensing conversation, not a sponsorship one — keep your rights paperwork clean.",
     "agentic-commerce-protocol-2026": "Too early to price against. Don't let a brand discount your rate today for agent-commerce revenue that does not exist yet.",
@@ -372,6 +372,7 @@
     "meta-bytedance-ad-ban-2026": "Paid cross-promotion just lost a lane: in the seven listed markets a Meta campaign can no longer send viewers to your TikTok. If a brand deal includes paid amplification pointing at TikTok, name the destination in the contract and agree who re-plans the spend if Meta rejects it at review — that is a media-plan problem, not a creator-performance problem.",
     "fb-link-post-cap-test-2026": "On a capped Page your link posts are now a rationed asset: two free a month. If a brand deal promises Facebook posts that drive to a landing page, count the links the deliverable needs before you sign — and price the paid tier, or the native rewrite, into the deal instead of discovering the cap mid-campaign.",
     "tt-smart-plus-creative-selection-2026": "If a brand finds your video through Smart+ Creative Selection, the campaign runs on TikTok's approval flow, not your rate card. Keep paid-usage terms — term, territory, and fee — in your own contract for any clip a brand wants to run as an ad, and ask how the video entered the pool before you agree it can stay there.",
+    "kick-kpp-rolling-rate-2026": "If Kick pays part of your streaming income, check Stripe — not the Kick earnings page — for the September backpay, and do not price a Kick deal off one strong stream: the KPP rate now rides on a stretch of recent broadcasts, so a quiet week moves it less than it used to, in both directions.",
     "kenya-withholding-platform-payouts-2026": "If you are paid through a Kenyan payout account, the 5% now leaves before the money reaches you on Meta (from January) and YouTube (from September earnings). Quote and budget on the net figure, keep your KRA PIN current in AdSense, and file the withholding certificates at year end — the deduction is a credit, but only if the paperwork ties it to you."
   };
   var DEAL_NOTE_FALLBACK = {
