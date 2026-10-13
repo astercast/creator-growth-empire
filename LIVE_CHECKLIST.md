@@ -111,6 +111,17 @@ tracks what's wired in the live track.
   honest JSON-LD on index + tools hub, robots.txt; og:image stays
   relative until the GO_LIVE absolutize step runs against a real
   domain); `tests/placement.test.js` guards it in stage 6.
+  Tool 28, the Sponsor Income Ledger, shipped with the 2.12
+  rotation: the Deal Pipeline's paid deals as a month-by-month
+  ledger (grouped by the month each deal entered the paid
+  stage, running cumulative, per-brand totals with shares of
+  collected, per-platform totals), collected staying Tool 25's
+  paid total — grouping arithmetic only, no pricing; months are
+  stage-entry months, never claimed clearing/payout dates, and
+  undated paid deals are flagged under Undated, never dropped;
+  demo paid deals counted apart; fully client-side (no new
+  function — the free-tier audit below holds at 4 functions);
+  `tests/sponsor-income-ledger.test.js` runs in stage 6;
   Tool 27, the Repeat Sponsor Book, shipped with the 2.11
   rotation: the Deal Pipeline's paid deals as one re-approach
   book (longest since payment first), each re-priced by the

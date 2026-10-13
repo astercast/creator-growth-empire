@@ -73,7 +73,7 @@ function check(name, cond, detail) {
 
   // tools.json drives the planner config shape
   const tools = load("tools.json").tools;
-  check("wf2: tools.json lists all 27 tools", tools.length === 27, String(tools.length));
+  check("wf2: tools.json lists all 28 tools", tools.length === 28, String(tools.length));
   const oc = tools.find((t) => t.id === "outreach");
   const ocSchema = oc && oc.input_schema;
   check("wf2: outreach input schema exposes pipeline + quote + pitch + contract fields",
@@ -938,6 +938,49 @@ function check(name, cond, detail) {
       now: new Date("2026-10-13T00:00:00Z"), dp: DP }).noPaidYet === true &&
     RSB.buildBook(DP.DEMO_DEALS, { calculators: cfg, dealTemplates: tpl, changesFeed: feed,
       now: new Date("2026-10-13T00:00:00Z"), dp: DP }).demoOnly === true);
+})();
+
+/* ============ Workflow 21: the sponsor income ledger =============
+ * AGENT.md §Workflow 21: the Workflow 20 board plus two more paid
+ * deals, grouped by stage-entry month, brand, and platform. */
+(function workflow21() {
+  const SIL = require(path.join(__dirname, "..", "assets", "js", "sponsor-income-ledger.js"));
+  const DP = require(path.join(__dirname, "..", "assets", "js", "deal-pipeline.js"));
+  const deals = [
+    { id: "a", brand: "Ridge Wallet", platform: "youtube", format: "integrated", followers: 50000,
+      expectedViews: 60000, niche: "tech_software", usage: "paid_6mo", amount: 12000,
+      stage: "negotiating", stageEnteredAt: "2026-10-05", scenario: "lowball" },
+    { id: "b", brand: "Trail Snacks Co", platform: "tiktok", format: "short", followers: 50000,
+      expectedViews: 60000, niche: "lifestyle", usage: "organic_only", amount: 1800,
+      stage: "lead", stageEnteredAt: "2026-10-08" },
+    { id: "c", brand: "Northwind VPN", platform: "youtube", format: "integrated", followers: 50000,
+      expectedViews: 60000, niche: "tech_software", usage: "paid_3mo", amount: 4500,
+      stage: "invoiced", stageEnteredAt: "2026-09-20" },
+    { id: "d", brand: "Paid Brand", platform: "youtube", format: "dedicated", followers: 50000,
+      expectedViews: 60000, niche: "tech_software", usage: "organic_only", amount: 7000,
+      stage: "paid", stageEnteredAt: "2026-10-01" },
+    { id: "e", brand: "Early Bird Media", platform: "youtube", format: "integrated", followers: 50000,
+      expectedViews: 60000, niche: "tech_software", usage: "organic_only", amount: 3000,
+      stage: "paid", stageEnteredAt: "2026-08-20" },
+    { id: "f", brand: "Trail Snacks Co", platform: "tiktok", format: "short", followers: 50000,
+      expectedViews: 60000, niche: "lifestyle", usage: "organic_only", amount: 1500,
+      stage: "paid", stageEnteredAt: "2026-08-05" },
+    { id: "g", brand: "Northwind VPN", platform: "youtube", format: "integrated", followers: 50000,
+      expectedViews: 60000, niche: "tech_software", usage: "organic_only", amount: 2000,
+      stage: "paid", stageEnteredAt: "2026-09-15" }
+  ];
+  const l = SIL.buildLedger(deals, { now: new Date("2026-10-13T00:00:00Z"), dp: DP });
+  check("wf21: ledger holds the board's 4 paid deals across Aug/Sep/Oct ($4,500 / $2,000 / $7,000; cumulative $13,500)",
+    l.ok && l.paidCount === 4 && l.collected === 13500 &&
+    l.months.map((m) => m.month + ":" + m.total + ":" + m.cumulative).join("|") ===
+    "2026-08:4500:4500|2026-09:2000:6500|2026-10:7000:13500");
+  check("wf21: top brand Paid Brand $7,000 at 51.9% of collected; YouTube $12,000 at 88.9%",
+    l.topBrand.key === "Paid Brand" && l.topBrand.share === 51.9 &&
+    l.byPlatform[0].key === "youtube" && l.byPlatform[0].total === 12000 && l.byPlatform[0].share === 88.9);
+  check("wf21: demo paid counted apart; empty != no-paid-yet != demo-only",
+    SIL.buildLedger([], { dp: DP }).emptyBoard === true &&
+    SIL.buildLedger([deals[1]], { dp: DP }).noPaidYet === true &&
+    SIL.buildLedger(DP.DEMO_DEALS, { dp: DP }).demoOnly === true);
 })();
 
 console.log(`\nagent-workflows: ${pass} passed, ${fail} failed`);

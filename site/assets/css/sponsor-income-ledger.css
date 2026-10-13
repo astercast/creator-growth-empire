@@ -1,0 +1,17 @@
+/* Sponsor Income Ledger — monthly ledger + groupings + export.
+ * Scoped to .sil-* / #sponsor-income-ledger. */
+.sil-stamp { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; margin-bottom: 0.5rem; }
+.sil-jump { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 1rem 0 0.5rem; }
+.sil-jump a { font-family: var(--font-cond); font-weight: 600; font-size: 0.82rem; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; color: var(--muted); border: 1px solid var(--line-strong); border-radius: var(--radius-sm); padding: 0.3rem 0.65rem; }
+.sil-jump a:hover, .sil-jump a:focus-visible { color: var(--gold); border-color: var(--gold); }
+#sponsor-income-ledger h2 { text-wrap: balance; }
+#sponsor-income-ledger p, #sponsor-income-ledger li { max-inline-size: 65ch; }
+#sponsor-income-ledger :focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+#sponsor-income-ledger textarea { width: 100%; max-width: 72ch; font-family: var(--font-mono); font-size: 0.82rem; }
+.sil-status { font-size: 1.02rem; }
+.sil-empty { border: 1px dashed var(--line-strong); border-radius: var(--radius-sm); background: var(--bg-2); padding: 1rem 1.1rem; max-width: 72ch; }
+.sil-month { border: 1px solid var(--line-strong); border-radius: var(--radius-sm); background: var(--bg-2); padding: 0.8rem 1rem; margin-bottom: 0.8rem; }
+.sil-month h3 { margin: 0 0 0.4rem; }
+.sil-deals, .sil-groups { list-style: none; margin: 0 0 0.4rem; padding: 0; }
+.sil-deals li, .sil-groups li { padding: 0.15rem 0; }
+.sil-fig { font-family: var(--font-mono); font-weight: 700; }

@@ -1,7 +1,7 @@
 # AGENT.md — How an agent uses Creator Growth Empire
 
 > This site is a static machine-readable knowledge base for the creator
-> business: 9 phases, 27 tools, 12 skills, 9 case files, and a versioned JSON
+> business: 9 phases, 28 tools, 12 skills, 9 case files, and a versioned JSON
 > API. No API key, no server, no auth, no rate limits. Fetch and act.
 > Every workflow below was executed against the real `data/v1/` JSON files —> see `tests/agent-workflows.test.js` (run: `node tests/agent-workflows.test.js`).
 
@@ -831,6 +831,41 @@ today's card, ready to work as the re-approach list.
    `exportBook(book)` renders the plaintext book. Not financial,
    legal, or tax advice.
 
+### Workflow 21 — Ledger the money that landed (Sponsor Income Ledger)
+
+Goal: break the board's collected total open — what landed in
+which month, how much rides on one brand, and which platform it
+came through — without inventing any timing the board does not
+carry.
+
+1. Engine: `require("assets/js/sponsor-income-ledger.js")` (UMD),
+   which composes `assets/js/deal-pipeline.js` (Tool 25) — same
+   board, same clock input (`now`).
+2. `SponsorIncomeLedger.buildLedger(deals, {now})` runs Tool 25's
+   `buildBoard` and groups its paid deals. Verified fixture (the
+   Workflow 20 board plus two more paid deals, now = 2026-10-13):
+   the ledger holds exactly the board's four paid deals across
+   three months — **August 2026 $4,500** (Early Bird Media $3,000
+   + Trail Snacks Co $1,500; cumulative $4,500) → **September 2026
+   $2,000** (Northwind VPN; cumulative $6,500) → **October 2026
+   $7,000** (Paid Brand; cumulative $13,500). Collected stays
+   Tool 25's paid total: **$13,500**.
+3. Grouping rule: months are the month each deal entered the
+   paid stage — the only payment timing the board carries. The
+   ledger names no clearing, payout, or tax-period date. A paid
+   deal whose stage entry date cannot be read is ledgered under
+   Undated, flagged, and still counted. By brand, **Paid Brand**
+   leads at $7,000 (**51.9%** of collected); by platform, YouTube
+   carries $12,000 (88.9%) and TikTok $1,500 (11.1%). The only
+   arithmetic is summing and grouping entered amounts — no
+   pricing, no rate card, no thresholds.
+4. Honesty rule: demo paid deals are counted apart and never
+   ledgered; an empty board (`emptyBoard`), a board with no paid
+   deals yet (`noPaidYet`), and a demo-only board (`demoOnly`)
+   are different states and the engine says which.
+   `exportLedger(ledger)` renders the plaintext ledger. Not
+   financial, legal, or tax advice.
+
 ## Rate & expectation notes
 
 - **Static JSON.** Nothing here is live: no request counts, no streaming, no
@@ -884,6 +919,7 @@ explaining how to replicate the logic:
 | Deal Pipeline | `brand`, `stage` (lead/negotiating/terms/live/invoiced/paid), `amount`, `stageEnteredAt` + `platform`, `format`, `followers`, `expectedViews`, `niche`, `usage`, `whitelistingMonths`, `scenario` (optional) | `require("assets/js/deal-pipeline.js")` — `buildBoard(deals, {calculatorsJson, dealTemplatesJson, changesFeed, now})` groups by stage, prices each deal via Tool 23 (`priceDeal` — no pricing math of its own), attaches each deal's Tool 24 script (`scriptFor` — deal scenario or stage default), derives nudges from stage age, and totals entered deals only (demo deals counted apart); `exportBoard()` for the plaintext board — see Workflow 18 |
 | Follow-Through Queue | `deals` (the Tool 25 deal records), `now` (optional) | `require("assets/js/follow-through.js")` — `buildQueue(deals, {calculatorsJson, dealTemplatesJson, changesFeed, now})` runs Tool 25's `buildBoard` and queues its nudges in send order (urgent invoiced first, then most overdue, then longest in stage), each with Tool 24's script attached (label + export text); demo follow-ups counted apart, never queued; `emptyBoard` vs `nothingDue` reported as different states; `exportBrief()` for the plaintext brief — see Workflow 19 |
 | Repeat Sponsor Book | `deals` (the Tool 25 deal records), `now` (optional) | `require("assets/js/repeat-sponsor-book.js")` — `buildBook(deals, {calculatorsJson, dealTemplatesJson, changesFeed, now})` runs Tool 25's `buildBoard` and books its paid deals in re-approach order (longest since payment first), each with Tool 23's current card via Tool 25 (total range + provenance) and the paid amount's relation to it (below / inside / above); no pitch wording attached, with the exclusion stated; demo paid deals counted apart, never booked; `emptyBoard` vs `noPaidYet` vs `demoOnly` reported as different states; `exportBook()` for the plaintext book — see Workflow 20 |
+| Sponsor Income Ledger | `deals` (the Tool 25 deal records), `now` (optional) | `require("assets/js/sponsor-income-ledger.js")` — `buildLedger(deals, {now})` runs Tool 25's `buildBoard` and groups its paid deals by stage-entry month (chronological, running cumulative), by brand (totals + share of collected), and by platform; collected stays Tool 25's paid total; undated paid deals flagged under Undated, never dropped; demo paid deals counted apart, never ledgered; `emptyBoard` vs `noPaidYet` vs `demoOnly` reported as different states; `exportLedger()` for the plaintext ledger — see Workflow 21 |
 
 Full per-tool schemas, formulas, and honesty notes live in `tools.json`;
 the UI pages (`quiz.html`, `calculator.html`, …) are the human front-end for
