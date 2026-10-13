@@ -73,7 +73,11 @@ September 23 post; rollout begins later in 2026 with no published start
 date, so `effective_at` is null). The same wave decided the Snapchat
 slot: not opened — the newest source-backed Snapchat term change is
 still the July 31, 2026 Spotlight AI policy, and no current development
-met the bar (see WAVELOG 2.6). The 2.5 wave's coverage audit
+met the bar (see WAVELOG 2.6). The 2.7 wave re-swept all eight
+platforms and Kick specifically: nothing dated after October 12, 2026
+met the bar, and no KPP follow-up with published terms surfaced, so
+the feed stands at v1.7.0 / 25 entries unchanged (see WAVELOG 2.7).
+The 2.5 wave's coverage audit
 gave Kick its own slot, opened with its September 2026 Partner Program
 payout rewrite (per-stream rates replaced by a rolling calculation over
 recent broadcasts, September's manual-calculation errors repaid through

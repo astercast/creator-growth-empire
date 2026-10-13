@@ -216,6 +216,10 @@ priced, flag-checked, scripted, and memorized — all via API.
    rollout date unpublished, `effective_at` null) and decided against a
    Snapchat slot (newest source-backed term change still the July 31,
    2026 Spotlight AI policy — no current development met the bar);
+   the 2.7 wave re-swept all eight platforms plus Kick specifically
+   and logged nothing — no post-October-12 development and no KPP
+   follow-up with published terms met the bar, so the feed stands
+   unchanged at v1.7.0 / 25 entries;
    the 2.5 wave's
    coverage audit gave Kick its own slot, opened with the September 2026
    Partner Program payout rewrite (rolling rate over recent broadcasts

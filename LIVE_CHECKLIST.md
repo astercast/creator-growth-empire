@@ -64,6 +64,10 @@ tracks what's wired in the live track.
   (YouTube/TikTok/Instagram/Facebook/X/Twitch/Kick/Other); Snapchat
   slot considered in 2.6 and not opened — no current source-backed
   Snapchat development met the logging bar (see WAVELOG 2.6);
+  the 2.7 re-sweep (2026-10-13) logged nothing new — no
+  post-October-12 development on any covered platform and no Kick
+  KPP follow-up with published terms met the bar, feed unchanged
+  at v1.7.0 / 25 entries (see WAVELOG 2.7);
   `tests/algorithm-watch.test.js` and
   `tests/algorithm-watch-cron.test.js` (the exercised cron cycles:
   Twitch sponsorship classification/gating/dedupe/render, the
