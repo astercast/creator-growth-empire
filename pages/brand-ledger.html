@@ -1,0 +1,21 @@
+<div id="brand-ledger">
+<p class="bl-stamp"><span class="badge gold">BRAND LEDGER</span> <span class="muted">Every brand on the board as one relationship — collected, owed, and still open, per brand.</span></p>
+<p class="lede">The money tools each hold one slice of a brand: a paid deal in the income ledger, an invoice in the receivables register, a negotiation on the board. This page ledgers the whole relationship: every brand on the board with its total across all stages, how much of it has been collected, how much is owed, how much is still open, and its share of the whole pipeline — plus one copyable ledger for the whole record.</p>
+<p class="muted">Deals are entered on the <a href="deal-pipeline.html">Deal Pipeline</a> — this ledger reads the same board (same browser, same localStorage). The collected money by month lives in the <a href="sponsor-income-ledger.html">Sponsor Income Ledger</a>; the money owed, deal by deal, in the <a href="receivables-register.html">Receivables Register</a>. This page adds no pricing, no wording, and no thresholds of its own; its only arithmetic is summing and grouping the amounts you entered, by brand and stage.</p>
+<nav class="bl-jump" aria-label="Brand Ledger sections">
+  <a href="#bl-sec-ledger">The ledger</a>
+  <a href="#bl-sec-export">The export</a>
+</nav>
+
+<h2 id="bl-sec-ledger">1 · The ledger — brands, largest relationship first</h2>
+<p id="bl-status" class="bl-status" aria-live="polite"></p>
+<div id="bl-ledger" aria-live="polite"></div>
+<p><button type="button" id="bl-board" class="btn">Re-read the board</button>
+<button type="button" id="bl-demo" class="btn">Preview with the demo board (labeled DEMO)</button></p>
+<p class="muted">Collected is the paid stage, owed is the invoiced stage, and still open is lead, negotiating, terms set, and live. A brand total is a sum of current-stage amounts — the board carries no record of stages a deal has already left, so this is not a relationship history or a lifetime value, and no stage-entry date is presented as anything else. Demo deals are counted and excluded, never ledgered as real brand relationships.</p>
+
+<h2 id="bl-sec-export">2 · The ledger as plaintext</h2>
+<textarea id="bl-export" rows="14" readonly aria-label="Your brand ledger as plaintext"></textarea>
+<p><button type="button" id="bl-copy" class="btn btn-primary">Copy the ledger</button></p>
+<p class="muted">A planning aid, not financial, legal, or tax advice. Amounts are the figures you entered on the board; the pipeline total is the Deal Pipeline's pipeline value, grouped by brand — never re-derived from any rate card.</p>
+</div>

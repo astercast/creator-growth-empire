@@ -73,7 +73,7 @@ function check(name, cond, detail) {
 
   // tools.json drives the planner config shape
   const tools = load("tools.json").tools;
-  check("wf2: tools.json lists all 29 tools", tools.length === 29, String(tools.length));
+  check("wf2: tools.json lists all 30 tools", tools.length === 30, String(tools.length));
   const oc = tools.find((t) => t.id === "outreach");
   const ocSchema = oc && oc.input_schema;
   check("wf2: outreach input schema exposes pipeline + quote + pitch + contract fields",
@@ -1039,6 +1039,55 @@ function check(name, cond, detail) {
     RR.buildRegister([deals[1]], { dp: DP }).nothingOwed === true &&
     RR.buildRegister(DP.DEMO_DEALS, { dp: DP }).demoOnly === true &&
     RR.buildRegister(DP.DEMO_DEALS, { dp: DP }).demoInvoicedValue === 4500);
+})();
+
+/* ============ Workflow 23: the brand ledger =============
+ * AGENT.md §Workflow 23: the Workflow 22 board, grouped by brand —
+ * each brand's total split collected / owed / still open. */
+(function workflow23() {
+  const BL = require(path.join(__dirname, "..", "assets", "js", "brand-ledger.js"));
+  const DP = require(path.join(__dirname, "..", "assets", "js", "deal-pipeline.js"));
+  const deals = [
+    { id: "a", brand: "Ridge Wallet", platform: "youtube", format: "integrated", followers: 50000,
+      expectedViews: 60000, niche: "tech_software", usage: "paid_6mo", amount: 12000,
+      stage: "negotiating", stageEnteredAt: "2026-10-05", scenario: "lowball" },
+    { id: "b", brand: "Trail Snacks Co", platform: "tiktok", format: "short", followers: 50000,
+      expectedViews: 60000, niche: "lifestyle", usage: "organic_only", amount: 1800,
+      stage: "lead", stageEnteredAt: "2026-10-08" },
+    { id: "c", brand: "Northwind VPN", platform: "youtube", format: "integrated", followers: 50000,
+      expectedViews: 60000, niche: "tech_software", usage: "paid_3mo", amount: 4500,
+      stage: "invoiced", stageEnteredAt: "2026-09-20" },
+    { id: "d", brand: "Paid Brand", platform: "youtube", format: "dedicated", followers: 50000,
+      expectedViews: 60000, niche: "tech_software", usage: "organic_only", amount: 7000,
+      stage: "paid", stageEnteredAt: "2026-10-01" },
+    { id: "e", brand: "Early Bird Media", platform: "youtube", format: "integrated", followers: 50000,
+      expectedViews: 60000, niche: "tech_software", usage: "organic_only", amount: 3000,
+      stage: "paid", stageEnteredAt: "2026-08-20" },
+    { id: "f", brand: "Trail Snacks Co", platform: "tiktok", format: "short", followers: 50000,
+      expectedViews: 60000, niche: "lifestyle", usage: "organic_only", amount: 1500,
+      stage: "paid", stageEnteredAt: "2026-08-05" },
+    { id: "g", brand: "Northwind VPN", platform: "youtube", format: "integrated", followers: 50000,
+      expectedViews: 60000, niche: "tech_software", usage: "organic_only", amount: 2000,
+      stage: "paid", stageEnteredAt: "2026-09-15" },
+    { id: "h", brand: "Fresh Invoice Co", platform: "youtube", format: "integrated", followers: 50000,
+      expectedViews: 60000, niche: "tech_software", usage: "organic_only", amount: 2500,
+      stage: "invoiced", stageEnteredAt: "2026-10-12" },
+    { id: "i", brand: "Slow Payer LLC", platform: "tiktok", format: "short", followers: 120000,
+      expectedViews: 200000, niche: "lifestyle", usage: "organic_only", amount: 6000,
+      stage: "invoiced", stageEnteredAt: "2026-08-30" }
+  ];
+  const l = BL.buildLedger(deals, { now: new Date("2026-10-13T00:00:00Z"), dp: DP });
+  check("wf23: ledger holds the board's 9 deals under 7 brands, largest relationship first; pipeline stays Tool 25's $40,300",
+    l.ok && l.brandCount === 7 && l.pipelineValue === 40300 &&
+    l.brands.map((b) => b.brand).join("|") ===
+    "Ridge Wallet|Paid Brand|Northwind VPN|Slow Payer LLC|Trail Snacks Co|Early Bird Media|Fresh Invoice Co");
+  check("wf23: top brand Ridge Wallet $12,000 at 29.8% of pipeline; Northwind VPN is one relationship ($2,000 collected + $4,500 owed = $6,500)",
+    l.topBrand.brand === "Ridge Wallet" && l.topBrand.share === 29.8 &&
+    l.brands[2].collected === 2000 && l.brands[2].owed === 4500 && l.brands[2].total === 6500);
+  check("wf23: demo deals counted apart; empty != demo-only",
+    BL.buildLedger([], { dp: DP }).emptyBoard === true &&
+    BL.buildLedger(DP.DEMO_DEALS, { dp: DP }).demoOnly === true &&
+    BL.buildLedger(DP.DEMO_DEALS, { dp: DP }).demoValue === 18300);
 })();
 
 console.log(`\nagent-workflows: ${pass} passed, ${fail} failed`);

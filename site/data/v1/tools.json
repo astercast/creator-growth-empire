@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
   "updated": "2026-10-11",
-  "note": "Programmatic input schemas for the twenty-nine interactive tools. Agents replicate each tool's logic by feeding these inputs to the documented formulas / shipped JS (assets/js/<id>.js); the UI pages are the human front-end for the same logic.",
+  "note": "Programmatic input schemas for the thirty interactive tools. Agents replicate each tool's logic by feeding these inputs to the documented formulas / shipped JS (assets/js/<id>.js); the UI pages are the human front-end for the same logic.",
   "tools": [
     {
       "id": "quiz",
@@ -2344,6 +2344,32 @@
       },
       "output": "The register in outstanding order (longest in the invoiced stage first, then largest amount, then brand): each entry carries the brand, the entered amount owed, the platform, the date the deal entered the invoiced stage, its days outstanding, and its Tool 24 late-payment script (label + full export text, via the board) or the reason none is attached. Every invoiced deal is registered regardless of age \u2014 the register does not gate on Tool 25's follow-up thresholds; that gating is the Follow-Through Queue's job. Demo invoiced deals are counted apart and never registered; an empty board, a nothing-owed board, and a demo-only board are reported as different states. exportRegister() renders the plaintext register.",
       "drive_notes": "Engine (assets/js/receivables-register.js, UMD \u2014 importable in node): buildRegister(deals, opts) runs Tool 25's buildBoard and registerFromBoard(board) keeps its invoiced deals, orders them, and attaches each deal's board-composed script \u2014 no pricing, no wording, and no thresholds of its own; the total owed stays Tool 25's invoiced outstanding figure. Browser persistence is the Deal Pipeline's localStorage key (cge.deal-pipeline.deals.v1), shared with Tools 25/26/27/28. Planning aid \u2014 not financial, legal, or tax advice. See AGENT.md Workflow 22."
+    },
+    {
+      "id": "brand-ledger",
+      "title": "Brand Ledger",
+      "description": "The Deal Pipeline's deals as one ledger per brand: each brand's total across every stage, split into collected (paid), owed (invoiced), and still open (lead / negotiating / terms set / live), with deal and stage counts, platforms, and each brand's share of the pipeline value; demo deals counted apart.",
+      "page": "brand-ledger.html",
+      "input_schema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "title": "BrandLedgerInput",
+        "type": "object",
+        "required": [
+          "deals"
+        ],
+        "properties": {
+          "deals": {
+            "type": "array",
+            "description": "The Deal Pipeline's deal records (Tool 25 input shape \u2014 brand, stage, amount, stageEnteredAt, plus the pricing fields). The ledger reads the same records the board holds and groups all of them by brand."
+          },
+          "now": {
+            "type": "string",
+            "description": "Optional ISO date/time the ledger is built for."
+          }
+        }
+      },
+      "output": "The ledger in relationship order (largest brand total first, then most collected, then brand): each entry carries the brand, its total across all stages, its collected / owed / still-open sums, its share of Tool 25's pipeline value, its deal count and per-stage counts, and its platforms. A brand total is a sum of current-stage amounts \u2014 not a relationship history or lifetime value, and no timing is claimed beyond the board's stage-entry dates. Demo deals are counted apart and never ledgered; an empty board and a demo-only board are reported as different states. exportLedger() renders the plaintext ledger.",
+      "drive_notes": "Engine (assets/js/brand-ledger.js, UMD \u2014 importable in node): buildLedger(deals, opts) runs Tool 25's buildBoard and ledgerFromBoard(board) groups its deals by brand and stage class \u2014 no pricing, no wording, and no thresholds of its own; the pipeline total stays Tool 25's pipeline value. Browser persistence is the Deal Pipeline's localStorage key (cge.deal-pipeline.deals.v1), shared with Tools 25/26/27/28/29. Planning aid \u2014 not financial, legal, or tax advice. See AGENT.md Workflow 23."
     }
   ]
 }
