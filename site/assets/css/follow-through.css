@@ -1,0 +1,18 @@
+/* Follow-Through Queue — prioritized send list + brief.
+ * Scoped to .ft-* / #follow-through. */
+.ft-stamp { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; margin-bottom: 0.5rem; }
+.ft-jump { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 1rem 0 0.5rem; }
+.ft-jump a { font-family: var(--font-cond); font-weight: 600; font-size: 0.82rem; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; color: var(--muted); border: 1px solid var(--line-strong); border-radius: var(--radius-sm); padding: 0.3rem 0.65rem; }
+.ft-jump a:hover, .ft-jump a:focus-visible { color: var(--gold); border-color: var(--gold); }
+#follow-through h2 { text-wrap: balance; }
+#follow-through p, #follow-through li { max-inline-size: 65ch; }
+#follow-through :focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+#follow-through textarea { width: 100%; max-width: 72ch; font-family: var(--font-mono); font-size: 0.82rem; }
+.ft-status { font-size: 1.02rem; }
+.ft-empty { border: 1px dashed var(--line-strong); border-radius: var(--radius-sm); background: var(--bg-2); padding: 1rem 1.1rem; max-width: 72ch; }
+.ft-list { list-style: none; margin: 0; padding: 0; }
+.ft-item { border: 1px solid var(--line-strong); border-radius: var(--radius-sm); background: var(--bg-2); padding: 0.8rem 1rem; margin-bottom: 0.8rem; }
+.ft-urgent { border-left: 3px solid var(--stamp); }
+.ft-head { margin: 0 0 0.3rem; }
+.ft-fig { font-family: var(--font-mono); font-weight: 700; }
+.ft-action { border-left: 3px solid var(--gold); background: var(--bg); padding: 0.5rem 0.7rem; }

@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
   "updated": "2026-10-11",
-  "note": "Programmatic input schemas for the twenty-five interactive tools. Agents replicate each tool's logic by feeding these inputs to the documented formulas / shipped JS (assets/js/<id>.js); the UI pages are the human front-end for the same logic.",
+  "note": "Programmatic input schemas for the twenty-six interactive tools. Agents replicate each tool's logic by feeding these inputs to the documented formulas / shipped JS (assets/js/<id>.js); the UI pages are the human front-end for the same logic.",
   "tools": [
     {
       "id": "quiz",
@@ -2240,6 +2240,32 @@
       },
       "output": "Board grouped by the six stages; each deal enriched with its Rate Card Builder pricing (primary range, basis, source, reasoning, card total) and its current Negotiation Script Builder script; follow-up nudges from stage age (lead 3d, negotiating 7d, terms 5d, live 14d, invoiced 14d, paid none); pipeline totals (counts and sums per stage, pipeline value, open value, invoiced outstanding, paid total) computed from real entered deals only \u2014 demo deals counted apart, an empty board totals to zero. exportBoard() renders the plaintext board.",
       "drive_notes": "Engine (assets/js/deal-pipeline.js, UMD \u2014 importable in node): validDeal() validates; priceDeal(deal, calculatorsJson, changesFeed, rateCardBuilder) delegates ALL pricing to Tool 23 (no pricing math of its own); scriptFor(deal, calculatorsJson, dealTemplatesJson, {nsb, nk}) delegates ALL wording to Tool 24; buildBoard(deals, opts) groups, prices, scripts, and nudges; pipelineTotals(deals) sums entered deals only. Browser persistence is localStorage (key cge.deal-pipeline.deals.v1). Planning aid \u2014 not financial, legal, or tax advice. See AGENT.md Workflow 18."
+    },
+    {
+      "id": "follow-through",
+      "title": "Follow-Through Queue",
+      "description": "Turn the Deal Pipeline board into today's prioritized follow-up send list: every due nudge in send order with its Tool 24 script attached, and a copyable brief for the whole queue.",
+      "page": "follow-through.html",
+      "input_schema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "title": "FollowThroughInput",
+        "type": "object",
+        "required": [
+          "deals"
+        ],
+        "properties": {
+          "deals": {
+            "type": "array",
+            "description": "The Deal Pipeline's deal records (Tool 25 input shape \u2014 brand, stage, amount, stageEnteredAt, plus the pricing/script fields). The queue reads the same records the board holds."
+          },
+          "now": {
+            "type": "string",
+            "description": "Optional ISO date/time the queue is built for; stage ages derive from it."
+          }
+        }
+      },
+      "output": "The queue in send order (urgent invoiced first, then most overdue against Tool 25's stage thresholds, then longest in stage): each item carries the deal's brand, stage, stage age, days overdue, Tool 25's nudge action, the entered amount, and its Tool 24 script (label + full export text) or the reason none is attached. Demo-deal follow-ups are counted apart and never queued; an empty board and a nothing-due board are reported as different states. exportBrief() renders the plaintext brief.",
+      "drive_notes": "Engine (assets/js/follow-through.js, UMD \u2014 importable in node): buildQueue(deals, opts) runs Tool 25's buildBoard and queueFromBoard(board) joins its nudges to the enriched deals, orders them, and attaches each deal's Tool 24 script \u2014 no pricing math, wording, or thresholds of its own. Browser persistence is the Deal Pipeline's localStorage key (cge.deal-pipeline.deals.v1), shared with Tool 25. Planning aid \u2014 not financial, legal, or tax advice. See AGENT.md Workflow 19."
     }
   ]
 }

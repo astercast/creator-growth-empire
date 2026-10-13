@@ -1,7 +1,7 @@
 # AGENT.md — How an agent uses Creator Growth Empire
 
 > This site is a static machine-readable knowledge base for the creator
-> business: 9 phases, 25 tools, 12 skills, 9 case files, and a versioned JSON
+> business: 9 phases, 26 tools, 12 skills, 9 case files, and a versioned JSON
 > API. No API key, no server, no auth, no rate limits. Fetch and act.
 > Every workflow below was executed against the real `data/v1/` JSON files —> see `tests/agent-workflows.test.js` (run: `node tests/agent-workflows.test.js`).
 
@@ -741,6 +741,38 @@ totaled from the deals actually entered.
    invented. `exportBoard(board)` renders the plaintext board.
    Not financial, legal, or tax advice.
 
+### Workflow 19 — Send today's follow-ups (Follow-Through Queue)
+
+Goal: turn the board's scattered per-card nudges into one
+prioritized send list — every due follow-up with its action and
+its exact words attached.
+
+1. Engine: `require("assets/js/follow-through.js")` (UMD), which
+   composes `assets/js/deal-pipeline.js` (Tool 25) — same data
+   (`calculators.json`, `deal-templates.json`, `changes.json`),
+   same clock input (`now`).
+2. `FollowThrough.buildQueue(deals, {calculators: cfg,
+   dealTemplates, changesFeed, now})` runs Tool 25's `buildBoard`
+   and joins its nudges to the enriched deals. Verified fixture
+   (the Workflow 18 board, now = 2026-10-13): the queue holds
+   exactly the board's three nudges, in send order — **Northwind
+   VPN** (invoiced, 23d in stage, 9d past its 14d mark, $4,500,
+   late-payment script), **Trail Snacks Co** (lead, 5d in stage,
+   2d past its 3d mark, $1,800), **Ridge Wallet** (negotiating,
+   8d in stage, 1d past its 7d mark, $12,000, lowball script whose
+   export carries the **$38,000–$44,000** counter).
+3. Ordering rule: **urgent first** (Tool 25's own flag — an
+   invoiced deal at 30+ days), then most overdue against Tool
+   25's stage thresholds, then longest in stage. The queue adds
+   no thresholds, no pricing, and no wording of its own; items
+   carry only the entered amount and Tool 24's script (label +
+   full export text) or the reason none is attached.
+4. Honesty rule: demo-deal follow-ups are counted apart and
+   never queued; an empty board (`emptyBoard`) and a board with
+   nothing due (`nothingDue`) are different states and the
+   engine says which. `exportBrief(queue)` renders the plaintext
+   brief. Not financial, legal, or tax advice.
+
 ## Rate & expectation notes
 
 - **Static JSON.** Nothing here is live: no request counts, no streaming, no
@@ -792,6 +824,7 @@ explaining how to replicate the logic:
 | Rate Card Builder | `platform` (youtube/tiktok/instagram/twitch/kick/facebook/x), `format` (dedicated/integrated/short/ugc), `followers`, `expectedViews`, `niche`, `usage`, `whitelistingMonths` + the Algorithm Watch feed for the watch panel | `require("assets/js/rate-card-builder.js")` — `buildCard(input, calculatorsJson, changesFeed)` for the four format rows (tier table × niche; reported CPM bands × views; Storika UGC band unscaled; null-with-reason where no benchmark exists; labeled YouTube-band proxy for platforms with no tier table) + usage/whitelisting lines on the primary row + card total + expected landing zone ×0.77 + reported evidence kept apart + the platform's newest feed entries; `exportCard()` for the plaintext card — see Workflow 16 |
 | Negotiation Script Builder | `scenario` (lowball/usage_grab/exclusivity_lockin/late_payment), `brand`, `platform`, `deliverable`, `followers`, `expectedViews`, `offer`, `niche`, `usage`, `exclusivity{scope, months}`, `creatorFloor` + late-payment `invoiceAmount`/`invoiceDate`/`daysOverdue` | `require("assets/js/negotiation-script-builder.js")` — `buildScript(input, calculatorsJson, dealTemplatesJson, NegotiationKit)` for the 6-line script (opener, anchor, concession steps 1–3, walk-away) with per-line `sources[]` + `grounded_in`; excluded scenarios return `excluded: true` with the reason; `exportScript()` for the plaintext script — see Workflow 17 |
 | Deal Pipeline | `brand`, `stage` (lead/negotiating/terms/live/invoiced/paid), `amount`, `stageEnteredAt` + `platform`, `format`, `followers`, `expectedViews`, `niche`, `usage`, `whitelistingMonths`, `scenario` (optional) | `require("assets/js/deal-pipeline.js")` — `buildBoard(deals, {calculatorsJson, dealTemplatesJson, changesFeed, now})` groups by stage, prices each deal via Tool 23 (`priceDeal` — no pricing math of its own), attaches each deal's Tool 24 script (`scriptFor` — deal scenario or stage default), derives nudges from stage age, and totals entered deals only (demo deals counted apart); `exportBoard()` for the plaintext board — see Workflow 18 |
+| Follow-Through Queue | `deals` (the Tool 25 deal records), `now` (optional) | `require("assets/js/follow-through.js")` — `buildQueue(deals, {calculatorsJson, dealTemplatesJson, changesFeed, now})` runs Tool 25's `buildBoard` and queues its nudges in send order (urgent invoiced first, then most overdue, then longest in stage), each with Tool 24's script attached (label + export text); demo follow-ups counted apart, never queued; `emptyBoard` vs `nothingDue` reported as different states; `exportBrief()` for the plaintext brief — see Workflow 19 |
 
 Full per-tool schemas, formulas, and honesty notes live in `tools.json`;
 the UI pages (`quiz.html`, `calculator.html`, …) are the human front-end for

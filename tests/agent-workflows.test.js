@@ -73,7 +73,7 @@ function check(name, cond, detail) {
 
   // tools.json drives the planner config shape
   const tools = load("tools.json").tools;
-  check("wf2: tools.json lists all 25 tools", tools.length === 25, String(tools.length));
+  check("wf2: tools.json lists all 26 tools", tools.length === 26, String(tools.length));
   const oc = tools.find((t) => t.id === "outreach");
   const ocSchema = oc && oc.input_schema;
   check("wf2: outreach input schema exposes pipeline + quote + pitch + contract fields",
@@ -850,6 +850,46 @@ function check(name, cond, detail) {
   check("wf18: demo deals stay out of totals; empty board is empty",
     DP.pipelineTotals(DP.DEMO_DEALS).pipelineValue === 0 &&
     DP.pipelineTotals(DP.DEMO_DEALS).demoCount === 3 && DP.pipelineTotals([]).empty === true);
+})();
+
+/* ============ Workflow 19: today's follow-up send list ==========
+ * AGENT.md §Workflow 19: the Workflow 18 board's nudges, queued in
+ * send order with each deal's Tool 24 script attached. */
+(function workflow19() {
+  const FT = require(path.join(__dirname, "..", "assets", "js", "follow-through.js"));
+  const DP = require(path.join(__dirname, "..", "assets", "js", "deal-pipeline.js"));
+  const cfg = load("calculators.json");
+  const tpl = load("deal-templates.json");
+  const feed = load("changes.json");
+  const deals = [
+    { id: "a", brand: "Ridge Wallet", platform: "youtube", format: "integrated", followers: 50000,
+      expectedViews: 60000, niche: "tech_software", usage: "paid_6mo", amount: 12000,
+      stage: "negotiating", stageEnteredAt: "2026-10-05", scenario: "lowball" },
+    { id: "b", brand: "Trail Snacks Co", platform: "tiktok", format: "short", followers: 50000,
+      expectedViews: 60000, niche: "lifestyle", usage: "organic_only", amount: 1800,
+      stage: "lead", stageEnteredAt: "2026-10-08" },
+    { id: "c", brand: "Northwind VPN", platform: "youtube", format: "integrated", followers: 50000,
+      expectedViews: 60000, niche: "tech_software", usage: "paid_3mo", amount: 4500,
+      stage: "invoiced", stageEnteredAt: "2026-09-20" },
+    { id: "d", brand: "Paid Brand", platform: "youtube", format: "dedicated", followers: 50000,
+      expectedViews: 60000, niche: "tech_software", usage: "organic_only", amount: 7000,
+      stage: "paid", stageEnteredAt: "2026-10-01" }
+  ];
+  const q = FT.buildQueue(deals, { calculators: cfg, dealTemplates: tpl, changesFeed: feed,
+    now: new Date("2026-10-13T00:00:00Z"), dp: DP });
+  check("wf19: queue holds the board's 3 nudges in send order (Northwind, Trail Snacks, Ridge)",
+    q.ok && q.due === 3 &&
+    q.items.map((i) => i.brand).join("|") === "Northwind VPN|Trail Snacks Co|Ridge Wallet");
+  check("wf19: Northwind item carries Tool 25's threshold math (23d in stage, 9d over) + late-payment script",
+    q.items[0].ageDays === 23 && q.items[0].overdueBy === 9 &&
+    q.items[0].script.ok && q.items[0].script.scenario === "late_payment");
+  check("wf19: Ridge item's script export is Tool 24's (carries the $38,000–$44,000 counter)",
+    q.items[2].script.ok && q.items[2].script.exportText.indexOf("$38,000") >= 0);
+  check("wf19: demo follow-ups counted apart, never queued; empty != nothing-due",
+    FT.buildQueue(DP.DEMO_DEALS, { calculators: cfg, dealTemplates: tpl, changesFeed: feed,
+      now: new Date("2026-10-13T00:00:00Z"), dp: DP }).demoDue === 3 &&
+    FT.buildQueue([], { calculators: cfg, dealTemplates: tpl, changesFeed: feed,
+      now: new Date("2026-10-13T00:00:00Z"), dp: DP }).emptyBoard === true);
 })();
 
 console.log(`\nagent-workflows: ${pass} passed, ${fail} failed`);
