@@ -73,7 +73,7 @@ function check(name, cond, detail) {
 
   // tools.json drives the planner config shape
   const tools = load("tools.json").tools;
-  check("wf2: tools.json lists all 23 tools", tools.length === 23, String(tools.length));
+  check("wf2: tools.json lists all 24 tools", tools.length === 24, String(tools.length));
   const oc = tools.find((t) => t.id === "outreach");
   const ocSchema = oc && oc.input_schema;
   check("wf2: outreach input schema exposes pipeline + quote + pitch + contract fields",
@@ -790,6 +790,30 @@ function check(name, cond, detail) {
     && /a model, not a prediction/i.test(brief.text)
     && /not financial, legal, or tax advice/i.test(brief.text));
 })();
+;
+/* ============ Workflow 17: word-for-word negotiation script =======
+ * AGENT.md §Workflow 17: one live thread -> opener, anchor, ladder,
+ * walk-away, every line traced to a repo script. */
+(function workflow17() {
+  const NSB = require(path.join(__dirname, "..", "assets", "js", "negotiation-script-builder.js"));
+  const NK2 = require(path.join(__dirname, "..", "assets", "js", "negotiation-kit.js"));
+  const cfg = load("calculators.json");
+  const tpl = load("deal-templates.json");
+  const r = NSB.buildScript({ scenario: "lowball", brand: "Acme", platform: "youtube",
+    deliverable: "integrated", followers: 50000, expectedViews: 60000, offer: 500,
+    niche: "tech_software", usage: "paid_6mo" }, cfg, tpl, NK2);
+  check("wf17: lowball script builds with 6 lines in stage order",
+    r.ok && r.lines.length === 6 && r.lines[0].stage === "opener" && r.lines[5].stage === "walk-away");
+  check("wf17: anchor carries the Workflow 15 counter total $38,000–$44,000",
+    r.counter.total[0] === 38000 && r.counter.total[1] === 44000 && r.lines[1].text.indexOf("$38,000") >= 0);
+  check("wf17: walk-away line carries the $2,500 floor; every line is sourced",
+    r.walkAway === 2500 && r.lines.every((l) => l.sources.length > 0 && l.grounded_in.length > 10));
+  const ex = NSB.buildScript({ scenario: "ip_assignment", platform: "youtube",
+    deliverable: "integrated", followers: 50000, offer: 500 }, cfg, tpl, NK2);
+  check("wf17: contract-flag-only scenario is excluded with a reason, never improvised",
+    !ex.ok && ex.excluded === true && /contract_flags/.test(ex.reason));
+})();
 
 console.log(`\nagent-workflows: ${pass} passed, ${fail} failed`);
+
 process.exit(fail ? 1 : 0);

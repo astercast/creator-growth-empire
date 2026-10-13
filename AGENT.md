@@ -1,7 +1,7 @@
 # AGENT.md — How an agent uses Creator Growth Empire
 
 > This site is a static machine-readable knowledge base for the creator
-> business: 9 phases, 23 tools, 12 skills, 9 case files, and a versioned JSON
+> business: 9 phases, 24 tools, 12 skills, 9 case files, and a versioned JSON
 > API. No API key, no server, no auth, no rate limits. Fetch and act.
 > Every workflow below was executed against the real `data/v1/` JSON files —> see `tests/agent-workflows.test.js` (run: `node tests/agent-workflows.test.js`).
 
@@ -220,6 +220,12 @@ priced, flag-checked, scripted, and memorized — all via API.
    and logged nothing — no post-October-12 development and no KPP
    follow-up with published terms met the bar, so the feed stands
    unchanged at v1.7.0 / 25 entries;
+   the 2.8 wave re-swept all eight platforms again and logged
+   nothing — the sweep surfaced only recaps of already-logged
+   programs (YPP overhaul, X Original Content Rewards, Kick KPP),
+   the already-held Kick Talks reassurance, and the July 31
+   Snapchat Spotlight AI policy behind the still-closed Snapchat
+   slot, so the feed stands unchanged at v1.7.0 / 25 entries;
    the 2.5 wave's
    coverage audit gave Kick its own slot, opened with the September 2026
    Partner Program payout rewrite (rolling rate over recent broadcasts
@@ -637,6 +643,45 @@ v1.5.0 and the Algorithm Watch feed.
 5. Framing rule: **ranges, not quotes** — benchmarks disagree 2–3×
    within tiers in the source data. Not financial, legal, or tax advice.
 
+### Workflow 17 — Generate a word-for-word negotiation script (Negotiation Script Builder)
+
+Goal: take one live thread and produce the exact reply — opener, anchor,
+concession ladder, walk-away line — where every line traces to a script
+the repo already carries, priced by the rate-card data.
+
+1. `GET data/v1/calculators.json` as `cfg`; `GET data/v1/deal-templates.json`
+   for the source scripts; engines =
+   `require("assets/js/negotiation-script-builder.js")` (UMD) and
+   `require("assets/js/negotiation-kit.js")`.
+2. `NegotiationScriptBuilder.buildScript({scenario: "lowball",
+   brand: "Acme", platform: "youtube", deliverable: "integrated",
+   followers: 50000, expectedViews: 60000, offer: 500,
+   niche: "tech_software", usage: "paid_6mo"}, cfg, dealTemplates,
+   NegotiationKit)` → 6 lines in stage order. The anchor carries the
+   Workflow 15 counter total **$38,000–$44,000**; concession step 3
+   carries the landing zone and the **$2,500** walk-away floor; the
+   walk-away line names that floor. Every line carries `sources[]`
+   (repo script ids — `lowball_reply`, `counter_offer`,
+   `lowball_counter`) and a `grounded_in` provenance string; the
+   engine fails the build if a named source script is missing from
+   deal-templates.json.
+3. Covered scenarios, and only those: `lowball` (Kit lowball +
+   Deal Room lowball counter), `usage_grab` (usage-rights reply +
+   upsell), `exclusivity_lockin` (exclusivity pushback — named
+   competitors 30 days +25%, 60–90 days +50%), `late_payment`
+   (late-payment reply; invoice amount/date/days overdue required).
+   Excluded with reasons, never improvised: IP assignment,
+   view-guarantee clawback, and one-sided morality disputes
+   (contract-flag checklist items only — no reply script exists)
+   and the perpetual buyout (usage tiers return guidance, never a
+   multiplier). Asking for an excluded scenario returns
+   `{ok: false, excluded: true, reason}`.
+4. `exportScript(result)` renders the plaintext script with the
+   provenance under each line and the excluded list attached.
+5. Framing rule: **assemble and adapt, invent no new doctrine** —
+   the ladder trades scope, windows, and exclusivity before price,
+   exactly as the source scripts do. Not financial, legal, or tax advice.
+
 ## Rate & expectation notes
 
 - **Static JSON.** Nothing here is live: no request counts, no streaming, no
@@ -686,6 +731,7 @@ explaining how to replicate the logic:
 | Deal Builder | `followers`, `deliverables[]` (`platform` youtube/tiktok/instagram, `kind` dedicated/integrated/short/ugc, `count` 1–12), `viewsAvg`, `usage` (organic_only/paid_3mo/paid_6mo/paid_12mo/perpetual), `whitelistingMonths` (0–24), `exclusivity{scope, months}`, `affiliate{include, commissionPct}` | `require("assets/js/deal-builder.js")` — `buildQuote()` for the stacked line-item quote (usage/whitelisting/exclusivity as separate lines, expected close ×0.77), `exclusivityConflicts()` for window checks, `buildChecklist()` for the 7-group checklist, `renderPitch()` for the proposal ([brackets] for unsupplied stats); tier math parity-pinned with Outreach — see Workflow 14 |
 | Negotiation Kit | `brand`, `platform`, `deliverable` (integrated/dedicated/short/ugc), `followers`, `offer` (0 = exposure-only), `expectedViews`, `niche`, `usage`, `whitelistingMonths`, `exclusivity{scope, months}`, `postCount`, `creatorFloor` + the creator's Deal Room deal records for the walk-away panel | `require("assets/js/negotiation-kit.js")` — `buildCounter(input, calculatorsJson)` for the niche-adjusted verdict + implied CPM + reported typical-quote/ask evidence (modeled IG cross-check kept separate, nulls where unmapped) + line-item counter + expected landing zone; `walkAwayPanel(input, deals, calculatorsJson)` for the floor + pipeline stance; `replyVars()` + `renderReply()` for the 6 kit scripts in `data/v1/deal-templates.json` (`negotiation_kit_scripts`); `exportBrief()` for the plaintext brief — see Workflow 15 |
 | Rate Card Builder | `platform` (youtube/tiktok/instagram/twitch/kick/facebook/x), `format` (dedicated/integrated/short/ugc), `followers`, `expectedViews`, `niche`, `usage`, `whitelistingMonths` + the Algorithm Watch feed for the watch panel | `require("assets/js/rate-card-builder.js")` — `buildCard(input, calculatorsJson, changesFeed)` for the four format rows (tier table × niche; reported CPM bands × views; Storika UGC band unscaled; null-with-reason where no benchmark exists; labeled YouTube-band proxy for platforms with no tier table) + usage/whitelisting lines on the primary row + card total + expected landing zone ×0.77 + reported evidence kept apart + the platform's newest feed entries; `exportCard()` for the plaintext card — see Workflow 16 |
+| Negotiation Script Builder | `scenario` (lowball/usage_grab/exclusivity_lockin/late_payment), `brand`, `platform`, `deliverable`, `followers`, `expectedViews`, `offer`, `niche`, `usage`, `exclusivity{scope, months}`, `creatorFloor` + late-payment `invoiceAmount`/`invoiceDate`/`daysOverdue` | `require("assets/js/negotiation-script-builder.js")` — `buildScript(input, calculatorsJson, dealTemplatesJson, NegotiationKit)` for the 6-line script (opener, anchor, concession steps 1–3, walk-away) with per-line `sources[]` + `grounded_in`; excluded scenarios return `excluded: true` with the reason; `exportScript()` for the plaintext script — see Workflow 17 |
 
 Full per-tool schemas, formulas, and honesty notes live in `tools.json`;
 the UI pages (`quiz.html`, `calculator.html`, …) are the human front-end for

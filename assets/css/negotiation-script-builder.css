@@ -1,0 +1,16 @@
+/* Negotiation Script Builder — script blocks, provenance, excluded
+ * list, export. Scoped to .nsb-* / #negotiation-script-builder. */
+.nsb-stamp { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; margin-bottom: 0.5rem; }
+.nsb-jump { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 1rem 0 0.5rem; }
+.nsb-jump a { font-family: var(--font-cond); font-weight: 600; font-size: 0.82rem; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; color: var(--muted); border: 1px solid var(--line-strong); border-radius: var(--radius-sm); padding: 0.3rem 0.65rem; }
+.nsb-jump a:hover, .nsb-jump a:focus-visible { color: var(--gold); border-color: var(--gold); }
+#negotiation-script-builder h2 { text-wrap: balance; }
+#negotiation-script-builder p, #negotiation-script-builder li { max-inline-size: 65ch; }
+#negotiation-script-builder :focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+#negotiation-script-builder textarea { width: 100%; max-width: 72ch; font-family: var(--font-mono); font-size: 0.82rem; }
+.nsb-empty { border: 1px dashed var(--line-strong); border-radius: var(--radius-sm); background: var(--bg-2); padding: 1rem 1.1rem; max-width: 72ch; }
+.nsb-stage { font-family: var(--font-cond); letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-top: 1.4rem; }
+.nsb-line { border-left: 3px solid var(--gold); background: var(--bg-2); margin: 0.5rem 0 0.25rem; padding: 0.8rem 1rem; max-width: 72ch; font-size: 1.02rem; }
+.nsb-src { font-size: 0.82rem; max-width: 72ch; }
+.nsb-excluded { max-width: 72ch; padding-left: 1.2rem; }
+.nsb-excluded li { margin-bottom: 0.5rem; }

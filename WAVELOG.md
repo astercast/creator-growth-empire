@@ -1,5 +1,30 @@
 # Creator Growth Empire — Wave Log
 
+## FLAGSHIP (with 2.8) — Negotiation Script Builder, Tool 24: the whole reply, word for word, every line sourced (2026-10-13)
+
+**Headline improvement (named before, verified after):** the Kit gave creators a counter number and six separate reply scripts; nobody assembled them into the single sendable script for the thread actually in front of them. Tool 24 does — verified by `tests/negotiation-script-builder.test.js` (24 assertions, ALL PASS), `tests/agent-workflows.test.js` Workflow 17 (154 passed), and desktop + 390px screenshots of the empty and generated states with zero page errors.
+
+**What shipped — Tool 24, the Negotiation Script Builder (`negotiation-script-builder.html`):**
+- **Four scenarios, and only the covered ones.** Brand lowball (Kit `lowball_reply` + `counter_offer`, Deal Room `lowball_counter`), unpaid usage grab (`usage_rights_reply` + `usage_rights_upsell`), exclusivity lock-in (`exclusivity_pushback` — named competitors 30 days +25%, 60–90 days +50%), late payment (`late_payment_reply`, invoice amount/date/days-overdue required). Each generates six lines in stage order: opener, anchor, concession steps 1–3, walk-away line. The ladder trades scope, usage windows, and exclusivity before it ever trades price — the source scripts' own doctrine, not a new one.
+- **Numbers from the rate-card data, through the Kit engine.** The script prices via `NegotiationKit.buildCounter` + `walkAwayPanel` on calculators v1.5.0 — the same blocks the Rate Card Builder reads. Verified fixture (Workflow 17): the lowball script's anchor carries the Workflow 15 counter total $38,000–$44,000 and its walk-away line carries the $2,500 floor.
+- **Provenance enforced by the engine.** Every line carries `sources[]` (repo script ids) and a `grounded_in` string, printed under the line on the page and in the plaintext export. The build *fails* if a named source script is missing from `deal-templates.json` — a line that cannot name its source does not ship (pinned by test).
+- **Exclusions, stated.** IP assignment, view-guarantee clawback, and one-sided morality disputes exist in the repo only as `contract_flags` checklist items, and the perpetual buyout exists only as guidance with no multiplier — all four are excluded with the reason printed on the page and returned as `{excluded: true, reason}`, never improvised.
+- **Wired like Tool 23:** TOOLS + TOOLS_API (Tool 24 in the HUD briefing), hub card in Division Money, engine + UI + scoped CSS registered in build.py (engine loads after the Negotiation Kit it depends on), AGENT.md Workflow 17 with the verified fixture, API.md/README/AGENT counts at 24 tools, agent-workflows count pin updated, LIVE_CHECKLIST noted, test registered in `validate.sh` stage 6. The page starts EMPTY — no script exists until the creator builds one.
+
+**Validation:** `tests/negotiation-script-builder.test.js` **24 assertions ALL PASS**; `tests/agent-workflows.test.js` **154 passed** (Workflow 17 pins added). Headless Chromium (Playwright) over local HTTP, desktop + 390px: HUD hero (Mission Briefing // Tool 24), empty state rendering ("No script yet"), generated state rendering 6 script lines + 4 excluded items + a 2,661-character plaintext export, zero page errors (only the sandbox's fonts-tunnel failure). AI-ism sweep clean; no TODOs.
+
+**Fresh-eyes assessment:** the money tools formed a chain with one missing link: the Rate Card Builder prices before a thread, the Kit counters inside one, and the Deal Room records after one — but the actual words, in order, with the numbers inside them, were still the creator's job at midnight. This tool closes that link without adding doctrine: its strongest feature is the provenance gate, which turns "assembled from the repo" from a claim in the copy into a build failure when it stops being true.
+
+## ALGORITHM WATCH 2.8 — full re-sweep logs nothing, Snapchat slot stays closed, feed stands at v1.7.0 (2026-10-13)
+
+**Currency sweep — nothing logged; the feed stands at v1.7.0, 25 entries** (YouTube 7, TikTok 4, Instagram 3, Facebook 3, X 2, Twitch 1, Kick 1, Other 4; 15 monetization / 6 policy / 3 algorithm / 1 legal; 15 verified). Checked and *not* logged, itemized:
+- **Recaps of logged programs, no new term:** YouTube YPP overhaul explainers (already logged), X Original Content Rewards rollout explainers (already logged — the phased rollout restates the September program), Facebook Creator Fast Track explainers (earlier-2026 program, no new term), Instagram Reels monetization guides (InfluenceFlow analysis, already held twice).
+- **Kick Talks reassurance, again:** WIN.gg's report of Eddie Craven's recent Kick Talks comments on ads/KPP is the same executive-reassurance class 2.6 and 2.7 declined — no published term, no dated policy update, no KPP follow-up. Not logged.
+- **Snapchat re-check:** the newest source-backed term change is still the July 31, 2026 Spotlight AI policy (TechCrunch/Tubefilter coverage resurfacing in the sweep). No new current development — slot stays closed per the 2.6 decision.
+- **Twitch, TikTok, Spotify/Other:** no post-October-12 development with published pay, policy, or ranking terms surfaced on any of them.
+
+**Docs in sync:** API.md, AGENT.md Workflow 5 step 7, and LIVE_CHECKLIST.md each carry the 2.8 outcome against the unchanged counts (feed v1.7.0, 25 entries, eight slots). No feed file, test pin, or digest changed — there was nothing to pin. No source was skipped under the fetch rule this wave — every source consulted answered through ordinary search.
+
 ## FLAGSHIP (with 2.7) — Rate Card Builder, Tool 23: the publishable rate card with its reasoning shown (2026-10-13)
 
 **The mandate:** the escalation order — flagship-scale work every rotation, design at the extreme-makeover bar. This rotation's flagship turns the site's three money data layers (the Algorithm Watch feed, the Deal Room's terms, and the calculators' benchmark blocks) into the one document a creator actually publishes: their rate card.

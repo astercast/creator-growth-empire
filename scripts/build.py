@@ -219,6 +219,7 @@ TOOLS = [
     ("deal-builder", "Deal Builder", "Turn deliverables into a line-item quote from the 2026 rate card — base fees, usage, whitelisting, and exclusivity stacked as separate lines — plus a ready-to-send proposal and a deal checklist built from your actual terms."),
     ("negotiation-kit", "The Negotiation Kit", "The words and the math for a live negotiation: a counter-offer builder grounded in the 2026 rate card with the typical-quote evidence shown (reported vs modeled, kept apart), six ready-to-send reply scripts — the counter, the lowball, exposure-only, usage rights, whitelisting, late payment — each editable in place, and a walk-away panel tied to your own Deal Room pipeline numbers."),
     ("rate-card-builder", "Rate Card Builder", "Your rate card, built in the open: pick your platform, follower band, and primary format — every format row prices itself from a named benchmark in the 2026 rate card with its reasoning printed beside the number, usage and whitelisting stacked as separate lines, the reported typical-quote evidence kept apart, and the newest Algorithm Watch changes for your platform printed under the card. Where the data carries no benchmark for a platform or format, the row says so instead of borrowing one."),
+    ("negotiation-script-builder", "Negotiation Script Builder", "The whole reply, word for word: pick one scenario the Negotiation Kit and Deal Room scripts actually cover — brand lowball, unpaid usage grab, exclusivity lock-in, late payment — add your numbers from the rate-card data, and get an opener, an anchor, a three-step concession ladder, and a walk-away line, every line naming the repo script it was assembled from. Scenarios with no repo script behind them are excluded with the reason stated, never improvised."),
 ]
 
 
@@ -843,6 +844,29 @@ TOOLS_API = [
                                  "description": "Whitelisting months priced at the benchmark 30–100% of the post fee per month."}}},
      "Rate card: four format rows (dedicated from the tier table × niche; integrated from the reported YouTube CPM band × views; short from the general CPM band × views or the reported typical quote; UGC from the Storika single-source band, never tier/niche-scaled), each with basis + source + reasoning — null with a stated reason where the data has no benchmark, and a labeled unadjusted YouTube-band proxy for platforms with no tier table of their own. Usage and whitelisting add-on lines on the primary row, card total, expected landing zone (~23% below list), reported typical-quote/ask evidence kept apart from the benchmark rows (modeled Instagram cross-check named, never mixed in), and the newest Algorithm Watch entries for the platform. Ranges, not quotes.",
      "Engine (assets/js/rate-card-builder.js, UMD — importable in node): validInput() validates; buildCard(input, calculatorsJson, changesFeed) reads sponsorship_rate_card_2026 + sponsorship_quoted_prices_2026 + usage_rights_benchmarks_2026 (calculators v1.5.0) and the Algorithm Watch feed — niche multiplier parity-pinned with DealRoom/DealAnalyzer/NegotiationKit, 2-significant-figure rounding shared with DealBuilder, quoted-price format map returns null where unmapped; exportCard(card) renders the plaintext card with reasoning, evidence, and watch items. Planning aid — not financial, legal, or tax advice. See AGENT.md Workflow 16."),
+    ("negotiation-script-builder", "Negotiation Script Builder",
+     "Assemble a word-for-word negotiation script — opener, anchor, concession ladder, walk-away line — for one covered scenario, priced by the Negotiation Kit counter on the rate-card data, every line traced to a Kit / Deal Room script.",
+     "negotiation-script-builder.html",
+     {"$schema": "http://json-schema.org/draft-07/schema#", "title": "NegotiationScriptBuilderInput",
+      "type": "object", "required": ["scenario", "platform", "deliverable", "followers", "offer"],
+      "properties": {
+          "scenario": {"type": "string", "enum": ["lowball", "usage_grab", "exclusivity_lockin", "late_payment"],
+                       "description": "Only scenarios a repo script covers. Contract-flag-only scenarios (ip_assignment, view_guarantee_clawback, morality_clause) and perpetual_buyout are excluded with reasons — never improvised."},
+          "brand": {"type": "string"},
+          "platform": {"type": "string", "enum": ["youtube", "tiktok", "instagram"]},
+          "deliverable": {"type": "string", "enum": ["integrated", "dedicated", "short", "ugc"]},
+          "followers": {"type": "number", "minimum": 1000},
+          "expectedViews": {"type": "number", "minimum": 0, "default": 0},
+          "offer": {"type": "number", "minimum": 0},
+          "niche": {"type": "string", "description": "Optional sponsor niche key — shared multiplier table."},
+          "usage": {"type": "string", "enum": ["organic_only", "paid_3mo", "paid_6mo", "paid_12mo", "perpetual"], "default": "organic_only"},
+          "exclusivity": {"type": "object", "properties": {"scope": {"type": "string", "enum": ["none", "named", "category"]}, "months": {"type": "integer", "minimum": 0, "maximum": 24}}},
+          "creatorFloor": {"type": "number", "minimum": 0, "default": 0},
+          "invoiceAmount": {"type": "number", "minimum": 0, "description": "Late payment only."},
+          "invoiceDate": {"type": "string", "description": "Late payment only — as written on the invoice."},
+          "daysOverdue": {"type": "number", "minimum": 0, "description": "Late payment only."}}},
+     "Script lines in stage order (opener, anchor, concession steps 1-3, walk-away), each with sources[] (repo script ids) and grounded_in provenance; the counter total, expected landing zone, and walk-away number the lines carry; and the excluded-scenario list with reasons. exportScript() renders the plaintext script with provenance.",
+     "Engine (assets/js/negotiation-script-builder.js, UMD — importable in node): validInput() validates and returns excluded:true for excluded scenarios; buildScript(input, calculatorsJson, dealTemplatesJson, negotiationKit) fails if any named source script is missing from deal-templates.json, prices via NegotiationKit.buildCounter + walkAwayPanel on calculators v1.5.0, and assembles lines only from negotiation_scripts + negotiation_kit_scripts frameworks. Negotiation aid — not financial, legal, or tax advice. See AGENT.md Workflow 17."),
 ]
 
 # Tools hub (wave 9): grouped card index. Per tool: icon, "use when" one-liner,
@@ -894,6 +918,8 @@ TOOL_HUB_META = {
                       ["counter-offer", "reply scripts", "Phase 5"]),
     "rate-card-builder": ("▩", "MONEY",   "gold", "you need a rate card you can publish — every number on it traceable to a benchmark, with the reasoning shown.",
                       ["rate card", "benchmarks", "Phase 5"]),
+    "negotiation-script-builder": ("✐", "MONEY",   "gold", "a thread is live and you need the exact words — opener, anchor, concessions, walk-away — not just the number.",
+                      ["negotiation script", "concessions", "Phase 5"]),
 }
 TOOL_HUB_GROUPS = [
     ("PLAN", "Pick the battlefield",
@@ -1562,6 +1588,7 @@ def build():
         "deal-builder": ["assets/js/deal-builder.js", "assets/js/deal-builder-ui.js"],
         "negotiation-kit": ["assets/js/negotiation-kit.js", "assets/js/negotiation-kit-ui.js"],
         "rate-card-builder": ["assets/js/rate-card-builder.js", "assets/js/rate-card-builder-ui.js"],
+        "negotiation-script-builder": ["assets/js/negotiation-kit.js", "assets/js/negotiation-script-builder.js", "assets/js/negotiation-script-builder-ui.js"],
     }
     TOOL_CSS = {
         "money-map": ["assets/css/moneymap.css"],
@@ -1573,6 +1600,7 @@ def build():
         "deal-builder": ["assets/css/deal-builder.css"],
         "negotiation-kit": ["assets/css/negotiation-kit.css"],
         "rate-card-builder": ["assets/css/rate-card-builder.css"],
+        "negotiation-script-builder": ["assets/css/negotiation-script-builder.css"],
         "deal-room": ["assets/css/deal-room.css"],
     }
     for slug, title, desc in TOOLS:

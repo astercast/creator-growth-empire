@@ -2011,6 +2011,123 @@
       },
       "output": "Rate card: four format rows (dedicated from the tier table \u00d7 niche; integrated from the reported YouTube CPM band \u00d7 views; short from the general CPM band \u00d7 views or the reported typical quote; UGC from the Storika single-source band, never tier/niche-scaled), each with basis + source + reasoning \u2014 null with a stated reason where the data has no benchmark, and a labeled unadjusted YouTube-band proxy for platforms with no tier table of their own. Usage and whitelisting add-on lines on the primary row, card total, expected landing zone (~23% below list), reported typical-quote/ask evidence kept apart from the benchmark rows (modeled Instagram cross-check named, never mixed in), and the newest Algorithm Watch entries for the platform. Ranges, not quotes.",
       "drive_notes": "Engine (assets/js/rate-card-builder.js, UMD \u2014 importable in node): validInput() validates; buildCard(input, calculatorsJson, changesFeed) reads sponsorship_rate_card_2026 + sponsorship_quoted_prices_2026 + usage_rights_benchmarks_2026 (calculators v1.5.0) and the Algorithm Watch feed \u2014 niche multiplier parity-pinned with DealRoom/DealAnalyzer/NegotiationKit, 2-significant-figure rounding shared with DealBuilder, quoted-price format map returns null where unmapped; exportCard(card) renders the plaintext card with reasoning, evidence, and watch items. Planning aid \u2014 not financial, legal, or tax advice. See AGENT.md Workflow 16."
+    },
+    {
+      "id": "negotiation-script-builder",
+      "title": "Negotiation Script Builder",
+      "description": "Assemble a word-for-word negotiation script \u2014 opener, anchor, concession ladder, walk-away line \u2014 for one covered scenario, priced by the Negotiation Kit counter on the rate-card data, every line traced to a Kit / Deal Room script.",
+      "page": "negotiation-script-builder.html",
+      "input_schema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "title": "NegotiationScriptBuilderInput",
+        "type": "object",
+        "required": [
+          "scenario",
+          "platform",
+          "deliverable",
+          "followers",
+          "offer"
+        ],
+        "properties": {
+          "scenario": {
+            "type": "string",
+            "enum": [
+              "lowball",
+              "usage_grab",
+              "exclusivity_lockin",
+              "late_payment"
+            ],
+            "description": "Only scenarios a repo script covers. Contract-flag-only scenarios (ip_assignment, view_guarantee_clawback, morality_clause) and perpetual_buyout are excluded with reasons \u2014 never improvised."
+          },
+          "brand": {
+            "type": "string"
+          },
+          "platform": {
+            "type": "string",
+            "enum": [
+              "youtube",
+              "tiktok",
+              "instagram"
+            ]
+          },
+          "deliverable": {
+            "type": "string",
+            "enum": [
+              "integrated",
+              "dedicated",
+              "short",
+              "ugc"
+            ]
+          },
+          "followers": {
+            "type": "number",
+            "minimum": 1000
+          },
+          "expectedViews": {
+            "type": "number",
+            "minimum": 0,
+            "default": 0
+          },
+          "offer": {
+            "type": "number",
+            "minimum": 0
+          },
+          "niche": {
+            "type": "string",
+            "description": "Optional sponsor niche key \u2014 shared multiplier table."
+          },
+          "usage": {
+            "type": "string",
+            "enum": [
+              "organic_only",
+              "paid_3mo",
+              "paid_6mo",
+              "paid_12mo",
+              "perpetual"
+            ],
+            "default": "organic_only"
+          },
+          "exclusivity": {
+            "type": "object",
+            "properties": {
+              "scope": {
+                "type": "string",
+                "enum": [
+                  "none",
+                  "named",
+                  "category"
+                ]
+              },
+              "months": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 24
+              }
+            }
+          },
+          "creatorFloor": {
+            "type": "number",
+            "minimum": 0,
+            "default": 0
+          },
+          "invoiceAmount": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Late payment only."
+          },
+          "invoiceDate": {
+            "type": "string",
+            "description": "Late payment only \u2014 as written on the invoice."
+          },
+          "daysOverdue": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Late payment only."
+          }
+        }
+      },
+      "output": "Script lines in stage order (opener, anchor, concession steps 1-3, walk-away), each with sources[] (repo script ids) and grounded_in provenance; the counter total, expected landing zone, and walk-away number the lines carry; and the excluded-scenario list with reasons. exportScript() renders the plaintext script with provenance.",
+      "drive_notes": "Engine (assets/js/negotiation-script-builder.js, UMD \u2014 importable in node): validInput() validates and returns excluded:true for excluded scenarios; buildScript(input, calculatorsJson, dealTemplatesJson, negotiationKit) fails if any named source script is missing from deal-templates.json, prices via NegotiationKit.buildCounter + walkAwayPanel on calculators v1.5.0, and assembles lines only from negotiation_scripts + negotiation_kit_scripts frameworks. Negotiation aid \u2014 not financial, legal, or tax advice. See AGENT.md Workflow 17."
     }
   ]
 }

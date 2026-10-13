@@ -1,0 +1,93 @@
+<div id="negotiation-script-builder">
+<p class="nsb-stamp"><span class="badge gold">NEGOTIATION SCRIPT BUILDER</span> <span class="muted">Assembled only from the Negotiation Kit and Deal Room scripts already in this site's data — every line names its source.</span></p>
+<p class="lede">The whole reply, word for word: pick the scenario that matches the thread you are in, add your numbers from the rate-card data, and get an opener, an anchor, a three-step concession ladder, and a walk-away line you can send as written.</p>
+<p class="muted">Need the counter math on its own? The <a href="negotiation-kit.html">Negotiation Kit</a> builds it. Pricing a package before any reply? The <a href="deal-builder.html">Deal Builder</a>. Publishing your rates? The <a href="rate-card-builder.html">Rate Card Builder</a>. This page is the script for one live thread.</p>
+<nav class="nsb-jump" aria-label="Negotiation Script Builder sections">
+  <a href="#nsb-sec-build">Build</a>
+  <a href="#nsb-sec-script">Your script</a>
+  <a href="#nsb-sec-export">Export</a>
+</nav>
+
+<h2 id="nsb-sec-build">1 · Pick the scenario, add your numbers</h2>
+<p class="muted">Four scenarios — the ones the Kit and Deal Room scripts actually cover. A scenario with no repo script behind it is excluded below the script, with the reason, instead of being improvised.</p>
+<form id="nsb-form" aria-label="Build a negotiation script" novalidate>
+  <div class="calc-grid">
+    <label>Scenario
+      <select id="nsb-scenario">
+        <option value="lowball" selected>Brand lowball — offer under your floor</option>
+        <option value="usage_grab">Unpaid usage grab — paid ads folded into the post fee</option>
+        <option value="exclusivity_lockin">Exclusivity lock-in — broad or long lock, unpaid</option>
+        <option value="late_payment">Late payment — agreed invoice past its terms</option>
+      </select></label>
+    <label>Brand <input type="text" id="nsb-brand" maxlength="120" placeholder="e.g. Ridge Wallet"></label>
+    <label>Platform
+      <select id="nsb-platform">
+        <option value="youtube" selected>YouTube</option>
+        <option value="tiktok">TikTok</option>
+        <option value="instagram">Instagram</option>
+      </select></label>
+    <label>Deliverable
+      <select id="nsb-deliverable">
+        <option value="integrated" selected>Integrated slot (mid-roll mention)</option>
+        <option value="dedicated">Dedicated video (brand is the video)</option>
+        <option value="short">Short-form video (Short / TikTok / Reel)</option>
+        <option value="ugc">UGC (no posting)</option>
+      </select></label>
+    <label>Follower count <input type="number" id="nsb-followers" min="1000" step="1000" value="50000"></label>
+    <label>Avg. views per video (last 10) <input type="number" id="nsb-views" min="0" step="1000" value="60000"></label>
+    <label>Brand's offer ($) — 0 for exposure-only <input type="number" id="nsb-offer" min="0" step="50" value="500"></label>
+    <label>Niche (adjusts the benchmark)
+      <select id="nsb-niche">
+        <option value="" selected>No niche adjustment</option>
+        <option value="finance_investing">Finance / Investing (×2.5)</option>
+        <option value="tech_software">Tech / Software (×2.5)</option>
+        <option value="ai_ml">AI &amp; ML (×2.5)</option>
+        <option value="creator_economy">Creator Economy (×1.5)</option>
+        <option value="education">Education (×1)</option>
+        <option value="health_fitness">Health / Fitness (×1)</option>
+        <option value="lifestyle">Lifestyle (×1)</option>
+        <option value="science">Science Explainers (×1)</option>
+        <option value="gaming">Gaming (×0.6)</option>
+        <option value="comedy_entertainment">Comedy / Entertainment (×0.6)</option>
+        <option value="entertainment">Entertainment &amp; Comedy (×0.6)</option>
+        <option value="music">Music (×0.6)</option>
+        <option value="kids">Kids Content (×0.6)</option>
+        <option value="asmr">ASMR (×0.6)</option>
+        <option value="challenges_stunts">Challenges &amp; Stunts (×0.6)</option>
+        <option value="true_crime">True Crime (×0.6)</option>
+      </select></label>
+    <label>Paid-ad usage in the offer
+      <select id="nsb-usage">
+        <option value="organic_only" selected>Organic only — stays on my channel</option>
+        <option value="paid_3mo">Paid ads, 3 months</option>
+        <option value="paid_6mo">Paid ads, 3–6 months</option>
+        <option value="paid_12mo">Paid ads, 6–12 months</option>
+        <option value="perpetual">Perpetual / unlimited</option>
+      </select></label>
+    <label>Exclusivity scope
+      <select id="nsb-ex-scope">
+        <option value="none" selected>None</option>
+        <option value="named">Named competitors</option>
+        <option value="category">Broad category</option>
+      </select></label>
+    <label>Exclusivity window (months) <input type="number" id="nsb-ex-months" min="0" max="24" step="1" value="0"></label>
+    <label>Your own floor ($) — optional <input type="number" id="nsb-floor" min="0" step="50" value="0"></label>
+    <label>Invoice amount ($) — late payment only <input type="number" id="nsb-inv-amount" min="0" step="50" value="2500"></label>
+    <label>Invoice issued — late payment only <input type="text" id="nsb-inv-date" value="September 3"></label>
+    <label>Days overdue — late payment only <input type="number" id="nsb-inv-days" min="0" step="1" value="14"></label>
+  </div>
+  <p id="nsb-errors" role="alert" class="muted" aria-live="assertive"></p>
+  <button type="submit" class="btn btn-primary">Build my script →</button>
+</form>
+
+<h2 id="nsb-sec-script">2 · Your script — word for word</h2>
+<p class="muted">Opener, anchor, a concession ladder that trades scope and windows before it ever trades price, and the walk-away line. The source script for every line prints under it — if a line cannot name its source, it does not ship.</p>
+<div id="nsb-out" aria-live="polite"></div>
+<div id="nsb-prov" aria-live="polite"></div>
+
+<h2 id="nsb-sec-export">3 · Export — the script as plaintext</h2>
+<p class="muted">The script with its provenance attached, ready to paste into the thread or your notes.</p>
+<textarea id="nsb-export" rows="16" readonly aria-label="Your negotiation script as plaintext"></textarea>
+<p><button type="button" id="nsb-copy" class="btn">Copy the script</button></p>
+<p class="muted">A negotiation aid, not financial, legal, or tax advice. Benchmarks are reported 2026 ranges that disagree 2–3× within tiers — a model, not a prediction.</p>
+</div>

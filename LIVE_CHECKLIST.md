@@ -68,6 +68,17 @@ tracks what's wired in the live track.
   post-October-12 development on any covered platform and no Kick
   KPP follow-up with published terms met the bar, feed unchanged
   at v1.7.0 / 25 entries (see WAVELOG 2.7);
+  The 2.8 re-sweep (2026-10-13) logged nothing new — only recaps
+  of already-logged programs, the already-held Kick Talks
+  reassurance, and the July 31 Snapchat policy behind the
+  still-closed slot surfaced, feed unchanged at v1.7.0 / 25
+  entries (see WAVELOG 2.8);
+  Tool 24, the Negotiation Script Builder, shipped with the 2.8
+  rotation: word-for-word opener / anchor / concession ladder /
+  walk-away for the four scenarios the Kit and Deal Room scripts
+  cover, every line sourced, contract-flag-only scenarios
+  excluded with reasons; `tests/negotiation-script-builder.test.js`
+  runs in stage 6;
   Tool 23, the Rate Card Builder, shipped with the 2.7 rotation:
   every row priced from a named calculators v1.5.0 block with its
   reasoning shown, honest blanks and a labeled proxy where the data
