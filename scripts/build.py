@@ -220,6 +220,7 @@ TOOLS = [
     ("negotiation-kit", "The Negotiation Kit", "The words and the math for a live negotiation: a counter-offer builder grounded in the 2026 rate card with the typical-quote evidence shown (reported vs modeled, kept apart), six ready-to-send reply scripts — the counter, the lowball, exposure-only, usage rights, whitelisting, late payment — each editable in place, and a walk-away panel tied to your own Deal Room pipeline numbers."),
     ("rate-card-builder", "Rate Card Builder", "Your rate card, built in the open: pick your platform, follower band, and primary format — every format row prices itself from a named benchmark in the 2026 rate card with its reasoning printed beside the number, usage and whitelisting stacked as separate lines, the reported typical-quote evidence kept apart, and the newest Algorithm Watch changes for your platform printed under the card. Where the data carries no benchmark for a platform or format, the row says so instead of borrowing one."),
     ("negotiation-script-builder", "Negotiation Script Builder", "The whole reply, word for word: pick one scenario the Negotiation Kit and Deal Room scripts actually cover — brand lowball, unpaid usage grab, exclusivity lock-in, late payment — add your numbers from the rate-card data, and get an opener, an anchor, a three-step concession ladder, and a walk-away line, every line naming the repo script it was assembled from. Scenarios with no repo script behind them are excluded with the reason stated, never improvised."),
+    ("deal-pipeline", "Deal Pipeline", "Your live sponsorship deals on one board — lead, negotiating, terms set, live, invoiced, paid. Every deal is priced by the Rate Card Builder on its named benchmarks with the provenance carried along, its current Negotiation Script Builder script sits one click away, follow-up nudges come from stage age alone, and the totals are arithmetic on the deals you actually enter: an empty board is empty, and demo deals stay labeled DEMO and out of the totals."),
 ]
 
 
@@ -867,6 +868,29 @@ TOOLS_API = [
           "daysOverdue": {"type": "number", "minimum": 0, "description": "Late payment only."}}},
      "Script lines in stage order (opener, anchor, concession steps 1-3, walk-away), each with sources[] (repo script ids) and grounded_in provenance; the counter total, expected landing zone, and walk-away number the lines carry; and the excluded-scenario list with reasons. exportScript() renders the plaintext script with provenance.",
      "Engine (assets/js/negotiation-script-builder.js, UMD — importable in node): validInput() validates and returns excluded:true for excluded scenarios; buildScript(input, calculatorsJson, dealTemplatesJson, negotiationKit) fails if any named source script is missing from deal-templates.json, prices via NegotiationKit.buildCounter + walkAwayPanel on calculators v1.5.0, and assembles lines only from negotiation_scripts + negotiation_kit_scripts frameworks. Negotiation aid — not financial, legal, or tax advice. See AGENT.md Workflow 17."),
+    ("deal-pipeline", "Deal Pipeline",
+     "Run a creator's live sponsorship deals on one board: six stages, each deal priced by the Rate Card Builder and scripted by the Negotiation Script Builder, with stage-age follow-up nudges and totals from entered deals only.",
+     "deal-pipeline.html",
+     {"$schema": "http://json-schema.org/draft-07/schema#", "title": "DealPipelineInput",
+      "type": "object", "required": ["brand", "stage", "amount", "stageEnteredAt"],
+      "properties": {
+          "brand": {"type": "string", "description": "Brand on the deal."},
+          "stage": {"type": "string", "enum": ["lead", "negotiating", "terms", "live", "invoiced", "paid"],
+                    "description": "Where the deal sits on the board."},
+          "amount": {"type": "number", "minimum": 0, "description": "Current agreed or offered figure in USD (0 is a real value — an unpaid lead)."},
+          "stageEnteredAt": {"type": "string", "description": "ISO date the deal entered its current stage; stage age and nudges derive from it."},
+          "platform": {"type": "string", "enum": ["youtube", "tiktok", "instagram", "twitch", "kick", "facebook", "x"]},
+          "format": {"type": "string", "enum": ["dedicated", "integrated", "short", "ugc"]},
+          "followers": {"type": "number", "minimum": 1000},
+          "expectedViews": {"type": "number", "minimum": 0, "default": 0},
+          "niche": {"type": "string", "description": "Optional sponsor niche key — shared multiplier table."},
+          "usage": {"type": "string", "enum": ["organic_only", "paid_3mo", "paid_6mo", "paid_12mo", "perpetual"], "default": "organic_only"},
+          "whitelistingMonths": {"type": "integer", "minimum": 0, "maximum": 24, "default": 0},
+          "scenario": {"type": "string", "enum": ["lowball", "usage_grab", "exclusivity_lockin", "late_payment"],
+                       "description": "Optional Tool 24 scenario; otherwise the stage default applies (lead/negotiating lowball, terms/live usage grab, invoiced late payment, paid none)."},
+          "demo": {"type": "boolean", "default": False, "description": "Demo records are labeled DEMO and excluded from every total."}}},
+     "Board grouped by the six stages; each deal enriched with its Rate Card Builder pricing (primary range, basis, source, reasoning, card total) and its current Negotiation Script Builder script; follow-up nudges from stage age (lead 3d, negotiating 7d, terms 5d, live 14d, invoiced 14d, paid none); pipeline totals (counts and sums per stage, pipeline value, open value, invoiced outstanding, paid total) computed from real entered deals only — demo deals counted apart, an empty board totals to zero. exportBoard() renders the plaintext board.",
+     "Engine (assets/js/deal-pipeline.js, UMD — importable in node): validDeal() validates; priceDeal(deal, calculatorsJson, changesFeed, rateCardBuilder) delegates ALL pricing to Tool 23 (no pricing math of its own); scriptFor(deal, calculatorsJson, dealTemplatesJson, {nsb, nk}) delegates ALL wording to Tool 24; buildBoard(deals, opts) groups, prices, scripts, and nudges; pipelineTotals(deals) sums entered deals only. Browser persistence is localStorage (key cge.deal-pipeline.deals.v1). Planning aid — not financial, legal, or tax advice. See AGENT.md Workflow 18."),
 ]
 
 # Tools hub (wave 9): grouped card index. Per tool: icon, "use when" one-liner,
@@ -920,6 +944,8 @@ TOOL_HUB_META = {
                       ["rate card", "benchmarks", "Phase 5"]),
     "negotiation-script-builder": ("✐", "MONEY",   "gold", "a thread is live and you need the exact words — opener, anchor, concessions, walk-away — not just the number.",
                       ["negotiation script", "concessions", "Phase 5"]),
+    "deal-pipeline": ("▤", "MONEY",   "gold", "you have live deals at different stages and need one board — rate card, script, and follow-up state for each.",
+                      ["deal pipeline", "pipeline board", "Phase 5"]),
 }
 TOOL_HUB_GROUPS = [
     ("PLAN", "Pick the battlefield",
@@ -1589,6 +1615,7 @@ def build():
         "negotiation-kit": ["assets/js/negotiation-kit.js", "assets/js/negotiation-kit-ui.js"],
         "rate-card-builder": ["assets/js/rate-card-builder.js", "assets/js/rate-card-builder-ui.js"],
         "negotiation-script-builder": ["assets/js/negotiation-kit.js", "assets/js/negotiation-script-builder.js", "assets/js/negotiation-script-builder-ui.js"],
+        "deal-pipeline": ["assets/js/rate-card-builder.js", "assets/js/negotiation-kit.js", "assets/js/negotiation-script-builder.js", "assets/js/deal-pipeline.js", "assets/js/deal-pipeline-ui.js"],
     }
     TOOL_CSS = {
         "money-map": ["assets/css/moneymap.css"],
@@ -1601,6 +1628,7 @@ def build():
         "negotiation-kit": ["assets/css/negotiation-kit.css"],
         "rate-card-builder": ["assets/css/rate-card-builder.css"],
         "negotiation-script-builder": ["assets/css/negotiation-script-builder.css"],
+        "deal-pipeline": ["assets/css/deal-pipeline.css"],
         "deal-room": ["assets/css/deal-room.css"],
     }
     for slug, title, desc in TOOLS:
@@ -2058,7 +2086,7 @@ def build():
             "id": "tools",
             "kind": "json",
             "path": "data/v1/tools.json",
-            "description": "All twenty-two interactive tools with programmatic input schemas (JSON Schema draft-07), output descriptions, and drive notes — replicate the tools' logic without the UI.",
+            "description": "All twenty-five interactive tools with programmatic input schemas (JSON Schema draft-07), output descriptions, and drive notes — replicate the tools' logic without the UI.",
             "schema": "data/v1/schema/tools.json",
             "updated": BUILD_TS,
             "records": len(TOOLS_API),
@@ -2089,7 +2117,7 @@ def build():
             "id": "tool-pages",
             "kind": "html",
             "paths": [f"{slug}.html" for slug, _, _ in TOOLS],
-            "description": "The twenty-two interactive tools' human UI pages. Agents should prefer data/v1/tools.json input schemas over scraping these pages.",
+            "description": "The twenty-five interactive tools' human UI pages. Agents should prefer data/v1/tools.json input schemas over scraping these pages.",
             "schema": None,
             "updated": BUILD_TS,
             "records": len(TOOLS),
@@ -2175,7 +2203,7 @@ def build():
     # ---- tools.json: every tool with its programmatic input schema ----
     (DATA_V1 / "tools.json").write_text(json.dumps({
         "version": "1.0.0", "updated": "2026-10-11",
-        "note": ("Programmatic input schemas for the twenty-two interactive tools. "
+        "note": ("Programmatic input schemas for the twenty-five interactive tools. "
                  "Agents replicate each tool's logic by feeding these inputs to the "
                  "documented formulas / shipped JS (assets/js/<id>.js); the UI pages "
                  "are the human front-end for the same logic."),
@@ -2765,7 +2793,7 @@ def build():
     for slug, title, desc in TOOLS:
         llms.append(f"- [{title}]({slug}.html) — {desc}")
     llms += ["- [Glossary](glossary.html)", "",
-             "All twenty-two tools, grouped by job (Plan / Money / Content): [Tools hub](tools.html).",
+             "All twenty-five tools, grouped by job (Plan / Money / Content): [Tools hub](tools.html).",
              "", "## Reference"]
     for m in reference_meta:
         llms.append(f"- [{m['badge']}: {m['title']}]({m['path']}) — {m['read_minutes']} min read")

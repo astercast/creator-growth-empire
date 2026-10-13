@@ -1,0 +1,23 @@
+/* Deal Pipeline — board, stage columns, deal cards, nudges.
+ * Scoped to .dp-* / #deal-pipeline. */
+.dp-stamp { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; margin-bottom: 0.5rem; }
+.dp-jump { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 1rem 0 0.5rem; }
+.dp-jump a { font-family: var(--font-cond); font-weight: 600; font-size: 0.82rem; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; color: var(--muted); border: 1px solid var(--line-strong); border-radius: var(--radius-sm); padding: 0.3rem 0.65rem; }
+.dp-jump a:hover, .dp-jump a:focus-visible { color: var(--gold); border-color: var(--gold); }
+#deal-pipeline h2 { text-wrap: balance; }
+#deal-pipeline p, #deal-pipeline li { max-inline-size: 65ch; }
+#deal-pipeline :focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+#deal-pipeline textarea { width: 100%; max-width: 72ch; font-family: var(--font-mono); font-size: 0.82rem; }
+.dp-empty { border: 1px dashed var(--line-strong); border-radius: var(--radius-sm); background: var(--bg-2); padding: 1rem 1.1rem; max-width: 72ch; }
+.dp-totals-line { font-size: 1.02rem; }
+.dp-board { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; align-items: start; }
+.dp-stage { border: 1px solid var(--line-strong); border-radius: var(--radius-sm); background: var(--bg-2); padding: 0.8rem 0.9rem; }
+.dp-stage h3 { font-family: var(--font-cond); letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); margin-top: 0; }
+.dp-deal { border-top: 1px solid var(--line-strong); padding: 0.7rem 0; }
+.dp-deal-head { margin: 0 0 0.3rem; }
+.dp-fig { font-family: var(--font-mono); font-weight: 700; }
+.dp-prov { font-size: 0.82rem; }
+.dp-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
+.dp-nudge { border-left: 3px solid var(--gold); background: var(--bg); padding: 0.5rem 0.7rem; }
+.dp-line { border-left: 3px solid var(--gold); background: var(--bg-2); margin: 0.5rem 0 0.25rem; padding: 0.8rem 1rem; max-width: 72ch; font-size: 1.02rem; }
+@media (max-width: 480px) { .dp-board { grid-template-columns: 1fr; } }

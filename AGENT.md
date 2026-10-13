@@ -1,7 +1,7 @@
 # AGENT.md — How an agent uses Creator Growth Empire
 
 > This site is a static machine-readable knowledge base for the creator
-> business: 9 phases, 24 tools, 12 skills, 9 case files, and a versioned JSON
+> business: 9 phases, 25 tools, 12 skills, 9 case files, and a versioned JSON
 > API. No API key, no server, no auth, no rate limits. Fetch and act.
 > Every workflow below was executed against the real `data/v1/` JSON files —> see `tests/agent-workflows.test.js` (run: `node tests/agent-workflows.test.js`).
 
@@ -226,6 +226,14 @@ priced, flag-checked, scripted, and memorized — all via API.
    the already-held Kick Talks reassurance, and the July 31
    Snapchat Spotlight AI policy behind the still-closed Snapchat
    slot, so the feed stands unchanged at v1.7.0 / 25 entries;
+   the 2.9 wave re-swept all eight slots a third consecutive time
+   and logged nothing — a verified negative, itemized per slot in
+   WAVELOG 2.9: no post-October-12 development with published terms
+   on any slot, the Kick KPP follow-up still has no first dated
+   primary term (dates stay null), and Snapchat's newest term
+   change remains the July 31 Spotlight AI policy behind the
+   still-closed slot, so the feed stands unchanged at v1.7.0 /
+   25 entries;
    the 2.5 wave's
    coverage audit gave Kick its own slot, opened with the September 2026
    Partner Program payout rewrite (rolling rate over recent broadcasts
@@ -682,6 +690,49 @@ the repo already carries, priced by the rate-card data.
    the ladder trades scope, windows, and exclusivity before price,
    exactly as the source scripts do. Not financial, legal, or tax advice.
 
+### Workflow 18 — Run the live deal board (Deal Pipeline)
+
+Goal: keep every live sponsorship deal on one board — staged,
+priced by Tool 23, scripted by Tool 24, nudged by stage age, and
+totaled from the deals actually entered.
+
+1. Engines: `require("assets/js/deal-pipeline.js")` (UMD), which
+   composes `assets/js/rate-card-builder.js` (Tool 23) and
+   `assets/js/negotiation-script-builder.js` +
+   `assets/js/negotiation-kit.js` (Tool 24). Data: `GET
+   data/v1/calculators.json` as `cfg`, `GET
+   data/v1/deal-templates.json`, `GET data/v1/changes.json`.
+2. `DealPipeline.buildBoard(deals, {calculators: cfg,
+   dealTemplates, changesFeed, now})` with deals shaped
+   `{brand, stage, amount, stageEnteredAt, platform, format,
+   followers, expectedViews, niche, usage, whitelistingMonths,
+   scenario?}`. Stages: `lead → negotiating → terms → live →
+   invoiced → paid`. Verified fixture (now = 2026-10-13): four
+   deals — Ridge Wallet (negotiating, $12,000, entered 2026-10-05,
+   YouTube integrated, 50K followers, 60K views, tech, paid 6mo
+   usage), Trail Snacks Co (lead, $1,800, entered 2026-10-08),
+   Northwind VPN (invoiced, $4,500, entered 2026-09-20), Paid Brand
+   (paid, $7,000) — total **pipeline $25,300, open $18,300,
+   invoiced outstanding $4,500, paid $7,000**, with three nudges
+   due (negotiating 8d, lead 5d, invoiced 23d).
+3. Pricing rule: **the pipeline adds no pricing math** — each
+   deal's `rateCard` is Tool 23's own output (Ridge Wallet:
+   integrated primary **$3,000–$5,300** from
+   `sponsored_cpms.youtube_integrated_slot` [benchmark], card total
+   **$4,500–$9,300**), provenance string attached. Scripts rule:
+   each deal's `script` is Tool 24's output — the deal's own
+   scenario when set, otherwise the stage default (lead/negotiating
+   lowball, terms/live usage grab, invoiced late payment, paid
+   none). Ridge Wallet's lowball script carries the Workflow 15
+   counter total **$38,000–$44,000** and the **$2,500** walk-away.
+4. Totals rule: arithmetic on entered deals only. Demo deals
+   (`demo: true`, DEMO brand prefix) are counted apart and excluded
+   from every total; an empty board totals to zero and says so.
+   Nudges derive from stage age alone (lead 3d, negotiating 7d,
+   terms 5d, live 14d, invoiced 14d) — no close probabilities are
+   invented. `exportBoard(board)` renders the plaintext board.
+   Not financial, legal, or tax advice.
+
 ## Rate & expectation notes
 
 - **Static JSON.** Nothing here is live: no request counts, no streaming, no
@@ -732,6 +783,7 @@ explaining how to replicate the logic:
 | Negotiation Kit | `brand`, `platform`, `deliverable` (integrated/dedicated/short/ugc), `followers`, `offer` (0 = exposure-only), `expectedViews`, `niche`, `usage`, `whitelistingMonths`, `exclusivity{scope, months}`, `postCount`, `creatorFloor` + the creator's Deal Room deal records for the walk-away panel | `require("assets/js/negotiation-kit.js")` — `buildCounter(input, calculatorsJson)` for the niche-adjusted verdict + implied CPM + reported typical-quote/ask evidence (modeled IG cross-check kept separate, nulls where unmapped) + line-item counter + expected landing zone; `walkAwayPanel(input, deals, calculatorsJson)` for the floor + pipeline stance; `replyVars()` + `renderReply()` for the 6 kit scripts in `data/v1/deal-templates.json` (`negotiation_kit_scripts`); `exportBrief()` for the plaintext brief — see Workflow 15 |
 | Rate Card Builder | `platform` (youtube/tiktok/instagram/twitch/kick/facebook/x), `format` (dedicated/integrated/short/ugc), `followers`, `expectedViews`, `niche`, `usage`, `whitelistingMonths` + the Algorithm Watch feed for the watch panel | `require("assets/js/rate-card-builder.js")` — `buildCard(input, calculatorsJson, changesFeed)` for the four format rows (tier table × niche; reported CPM bands × views; Storika UGC band unscaled; null-with-reason where no benchmark exists; labeled YouTube-band proxy for platforms with no tier table) + usage/whitelisting lines on the primary row + card total + expected landing zone ×0.77 + reported evidence kept apart + the platform's newest feed entries; `exportCard()` for the plaintext card — see Workflow 16 |
 | Negotiation Script Builder | `scenario` (lowball/usage_grab/exclusivity_lockin/late_payment), `brand`, `platform`, `deliverable`, `followers`, `expectedViews`, `offer`, `niche`, `usage`, `exclusivity{scope, months}`, `creatorFloor` + late-payment `invoiceAmount`/`invoiceDate`/`daysOverdue` | `require("assets/js/negotiation-script-builder.js")` — `buildScript(input, calculatorsJson, dealTemplatesJson, NegotiationKit)` for the 6-line script (opener, anchor, concession steps 1–3, walk-away) with per-line `sources[]` + `grounded_in`; excluded scenarios return `excluded: true` with the reason; `exportScript()` for the plaintext script — see Workflow 17 |
+| Deal Pipeline | `brand`, `stage` (lead/negotiating/terms/live/invoiced/paid), `amount`, `stageEnteredAt` + `platform`, `format`, `followers`, `expectedViews`, `niche`, `usage`, `whitelistingMonths`, `scenario` (optional) | `require("assets/js/deal-pipeline.js")` — `buildBoard(deals, {calculatorsJson, dealTemplatesJson, changesFeed, now})` groups by stage, prices each deal via Tool 23 (`priceDeal` — no pricing math of its own), attaches each deal's Tool 24 script (`scriptFor` — deal scenario or stage default), derives nudges from stage age, and totals entered deals only (demo deals counted apart); `exportBoard()` for the plaintext board — see Workflow 18 |
 
 Full per-tool schemas, formulas, and honesty notes live in `tools.json`;
 the UI pages (`quiz.html`, `calculator.html`, …) are the human front-end for

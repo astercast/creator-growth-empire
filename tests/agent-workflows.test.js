@@ -73,7 +73,7 @@ function check(name, cond, detail) {
 
   // tools.json drives the planner config shape
   const tools = load("tools.json").tools;
-  check("wf2: tools.json lists all 24 tools", tools.length === 24, String(tools.length));
+  check("wf2: tools.json lists all 25 tools", tools.length === 25, String(tools.length));
   const oc = tools.find((t) => t.id === "outreach");
   const ocSchema = oc && oc.input_schema;
   check("wf2: outreach input schema exposes pipeline + quote + pitch + contract fields",
@@ -812,6 +812,44 @@ function check(name, cond, detail) {
     deliverable: "integrated", followers: 50000, offer: 500 }, cfg, tpl, NK2);
   check("wf17: contract-flag-only scenario is excluded with a reason, never improvised",
     !ex.ok && ex.excluded === true && /contract_flags/.test(ex.reason));
+})();
+
+/* ============ Workflow 18: the live deal board =================
+ * AGENT.md §Workflow 18: staged deals, Tool 23 pricing, Tool 24
+ * scripts, stage-age nudges, totals from entered deals only. */
+(function workflow18() {
+  const DP = require(path.join(__dirname, "..", "assets", "js", "deal-pipeline.js"));
+  const cfg = load("calculators.json");
+  const tpl = load("deal-templates.json");
+  const feed = load("changes.json");
+  const deals = [
+    { id: "a", brand: "Ridge Wallet", platform: "youtube", format: "integrated", followers: 50000,
+      expectedViews: 60000, niche: "tech_software", usage: "paid_6mo", amount: 12000,
+      stage: "negotiating", stageEnteredAt: "2026-10-05", scenario: "lowball" },
+    { id: "b", brand: "Trail Snacks Co", platform: "tiktok", format: "short", followers: 50000,
+      expectedViews: 60000, niche: "lifestyle", usage: "organic_only", amount: 1800,
+      stage: "lead", stageEnteredAt: "2026-10-08" },
+    { id: "c", brand: "Northwind VPN", platform: "youtube", format: "integrated", followers: 50000,
+      expectedViews: 60000, niche: "tech_software", usage: "paid_3mo", amount: 4500,
+      stage: "invoiced", stageEnteredAt: "2026-09-20" },
+    { id: "d", brand: "Paid Brand", platform: "youtube", format: "dedicated", followers: 50000,
+      expectedViews: 60000, niche: "tech_software", usage: "organic_only", amount: 7000,
+      stage: "paid", stageEnteredAt: "2026-10-01" }
+  ];
+  const b = DP.buildBoard(deals, { calculators: cfg, dealTemplates: tpl, changesFeed: feed,
+    now: new Date("2026-10-13T00:00:00Z") });
+  check("wf18: board totals $25,300 pipeline / $18,300 open / $4,500 invoiced / $7,000 paid",
+    b.totals.pipelineValue === 25300 && b.totals.openValue === 18300 &&
+    b.totals.invoicedOutstanding === 4500 && b.totals.paidTotal === 7000);
+  check("wf18: Ridge Wallet priced by Tool 23 ($3,000–$5,300 primary, $4,500–$9,300 total)",
+    b.deals[0].rateCard.primary.range[0] === 3000 && b.deals[0].rateCard.primary.range[1] === 5300 &&
+    b.deals[0].rateCard.total.range[0] === 4500 && b.deals[0].rateCard.total.range[1] === 9300);
+  check("wf18: Ridge Wallet script is Tool 24's (counter $38,000–$44,000, walk-away $2,500); 3 nudges due",
+    b.deals[0].script.counter.total[0] === 38000 && b.deals[0].script.counter.total[1] === 44000 &&
+    b.deals[0].script.walkAway === 2500 && b.nudges.length === 3);
+  check("wf18: demo deals stay out of totals; empty board is empty",
+    DP.pipelineTotals(DP.DEMO_DEALS).pipelineValue === 0 &&
+    DP.pipelineTotals(DP.DEMO_DEALS).demoCount === 3 && DP.pipelineTotals([]).empty === true);
 })();
 
 console.log(`\nagent-workflows: ${pass} passed, ${fail} failed`);

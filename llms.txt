@@ -38,9 +38,10 @@ From $0 to a multi-million-dollar creator company.
 - [The Negotiation Kit](negotiation-kit.html) — The words and the math for a live negotiation: a counter-offer builder grounded in the 2026 rate card with the typical-quote evidence shown (reported vs modeled, kept apart), six ready-to-send reply scripts — the counter, the lowball, exposure-only, usage rights, whitelisting, late payment — each editable in place, and a walk-away panel tied to your own Deal Room pipeline numbers.
 - [Rate Card Builder](rate-card-builder.html) — Your rate card, built in the open: pick your platform, follower band, and primary format — every format row prices itself from a named benchmark in the 2026 rate card with its reasoning printed beside the number, usage and whitelisting stacked as separate lines, the reported typical-quote evidence kept apart, and the newest Algorithm Watch changes for your platform printed under the card. Where the data carries no benchmark for a platform or format, the row says so instead of borrowing one.
 - [Negotiation Script Builder](negotiation-script-builder.html) — The whole reply, word for word: pick one scenario the Negotiation Kit and Deal Room scripts actually cover — brand lowball, unpaid usage grab, exclusivity lock-in, late payment — add your numbers from the rate-card data, and get an opener, an anchor, a three-step concession ladder, and a walk-away line, every line naming the repo script it was assembled from. Scenarios with no repo script behind them are excluded with the reason stated, never improvised.
+- [Deal Pipeline](deal-pipeline.html) — Your live sponsorship deals on one board — lead, negotiating, terms set, live, invoiced, paid. Every deal is priced by the Rate Card Builder on its named benchmarks with the provenance carried along, its current Negotiation Script Builder script sits one click away, follow-up nudges come from stage age alone, and the totals are arithmetic on the deals you actually enter: an empty board is empty, and demo deals stay labeled DEMO and out of the totals.
 - [Glossary](glossary.html)
 
-All twenty-two tools, grouped by job (Plan / Money / Content): [Tools hub](tools.html).
+All twenty-five tools, grouped by job (Plan / Money / Content): [Tools hub](tools.html).
 
 ## Reference
 - [Reference: 2026 Rate Card](rate-card.html) — 5 min read

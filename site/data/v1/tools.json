@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
   "updated": "2026-10-11",
-  "note": "Programmatic input schemas for the twenty-two interactive tools. Agents replicate each tool's logic by feeding these inputs to the documented formulas / shipped JS (assets/js/<id>.js); the UI pages are the human front-end for the same logic.",
+  "note": "Programmatic input schemas for the twenty-five interactive tools. Agents replicate each tool's logic by feeding these inputs to the documented formulas / shipped JS (assets/js/<id>.js); the UI pages are the human front-end for the same logic.",
   "tools": [
     {
       "id": "quiz",
@@ -2128,6 +2128,118 @@
       },
       "output": "Script lines in stage order (opener, anchor, concession steps 1-3, walk-away), each with sources[] (repo script ids) and grounded_in provenance; the counter total, expected landing zone, and walk-away number the lines carry; and the excluded-scenario list with reasons. exportScript() renders the plaintext script with provenance.",
       "drive_notes": "Engine (assets/js/negotiation-script-builder.js, UMD \u2014 importable in node): validInput() validates and returns excluded:true for excluded scenarios; buildScript(input, calculatorsJson, dealTemplatesJson, negotiationKit) fails if any named source script is missing from deal-templates.json, prices via NegotiationKit.buildCounter + walkAwayPanel on calculators v1.5.0, and assembles lines only from negotiation_scripts + negotiation_kit_scripts frameworks. Negotiation aid \u2014 not financial, legal, or tax advice. See AGENT.md Workflow 17."
+    },
+    {
+      "id": "deal-pipeline",
+      "title": "Deal Pipeline",
+      "description": "Run a creator's live sponsorship deals on one board: six stages, each deal priced by the Rate Card Builder and scripted by the Negotiation Script Builder, with stage-age follow-up nudges and totals from entered deals only.",
+      "page": "deal-pipeline.html",
+      "input_schema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "title": "DealPipelineInput",
+        "type": "object",
+        "required": [
+          "brand",
+          "stage",
+          "amount",
+          "stageEnteredAt"
+        ],
+        "properties": {
+          "brand": {
+            "type": "string",
+            "description": "Brand on the deal."
+          },
+          "stage": {
+            "type": "string",
+            "enum": [
+              "lead",
+              "negotiating",
+              "terms",
+              "live",
+              "invoiced",
+              "paid"
+            ],
+            "description": "Where the deal sits on the board."
+          },
+          "amount": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Current agreed or offered figure in USD (0 is a real value \u2014 an unpaid lead)."
+          },
+          "stageEnteredAt": {
+            "type": "string",
+            "description": "ISO date the deal entered its current stage; stage age and nudges derive from it."
+          },
+          "platform": {
+            "type": "string",
+            "enum": [
+              "youtube",
+              "tiktok",
+              "instagram",
+              "twitch",
+              "kick",
+              "facebook",
+              "x"
+            ]
+          },
+          "format": {
+            "type": "string",
+            "enum": [
+              "dedicated",
+              "integrated",
+              "short",
+              "ugc"
+            ]
+          },
+          "followers": {
+            "type": "number",
+            "minimum": 1000
+          },
+          "expectedViews": {
+            "type": "number",
+            "minimum": 0,
+            "default": 0
+          },
+          "niche": {
+            "type": "string",
+            "description": "Optional sponsor niche key \u2014 shared multiplier table."
+          },
+          "usage": {
+            "type": "string",
+            "enum": [
+              "organic_only",
+              "paid_3mo",
+              "paid_6mo",
+              "paid_12mo",
+              "perpetual"
+            ],
+            "default": "organic_only"
+          },
+          "whitelistingMonths": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 24,
+            "default": 0
+          },
+          "scenario": {
+            "type": "string",
+            "enum": [
+              "lowball",
+              "usage_grab",
+              "exclusivity_lockin",
+              "late_payment"
+            ],
+            "description": "Optional Tool 24 scenario; otherwise the stage default applies (lead/negotiating lowball, terms/live usage grab, invoiced late payment, paid none)."
+          },
+          "demo": {
+            "type": "boolean",
+            "default": false,
+            "description": "Demo records are labeled DEMO and excluded from every total."
+          }
+        }
+      },
+      "output": "Board grouped by the six stages; each deal enriched with its Rate Card Builder pricing (primary range, basis, source, reasoning, card total) and its current Negotiation Script Builder script; follow-up nudges from stage age (lead 3d, negotiating 7d, terms 5d, live 14d, invoiced 14d, paid none); pipeline totals (counts and sums per stage, pipeline value, open value, invoiced outstanding, paid total) computed from real entered deals only \u2014 demo deals counted apart, an empty board totals to zero. exportBoard() renders the plaintext board.",
+      "drive_notes": "Engine (assets/js/deal-pipeline.js, UMD \u2014 importable in node): validDeal() validates; priceDeal(deal, calculatorsJson, changesFeed, rateCardBuilder) delegates ALL pricing to Tool 23 (no pricing math of its own); scriptFor(deal, calculatorsJson, dealTemplatesJson, {nsb, nk}) delegates ALL wording to Tool 24; buildBoard(deals, opts) groups, prices, scripts, and nudges; pipelineTotals(deals) sums entered deals only. Browser persistence is localStorage (key cge.deal-pipeline.deals.v1). Planning aid \u2014 not financial, legal, or tax advice. See AGENT.md Workflow 18."
     }
   ]
 }

@@ -73,6 +73,19 @@ tracks what's wired in the live track.
   reassurance, and the July 31 Snapchat policy behind the
   still-closed slot surfaced, feed unchanged at v1.7.0 / 25
   entries (see WAVELOG 2.8);
+  The 2.9 re-sweep (2026-10-13) logged nothing new — a third
+  consecutive verified negative, itemized per slot in WAVELOG 2.9:
+  no post-October-12 development with published terms on any of
+  the eight slots, the Kick KPP follow-up still has no first dated
+  primary term (dates stay null), Snapchat slot still closed,
+  feed unchanged at v1.7.0 / 25 entries;
+  Tool 25, the Deal Pipeline, shipped with the 2.9 rotation: a
+  six-stage board (lead → negotiating → terms set → live →
+  invoiced → paid) composing Tool 23 pricing and Tool 24 scripts
+  per deal, stage-age nudges, totals from entered deals only,
+  demo deals labeled and excluded; fully client-side (no new
+  function — the free-tier audit below holds at 4 functions);
+  `tests/deal-pipeline.test.js` runs in stage 6;
   Tool 24, the Negotiation Script Builder, shipped with the 2.8
   rotation: word-for-word opener / anchor / concession ladder /
   walk-away for the four scenarios the Kit and Deal Room scripts
@@ -91,6 +104,83 @@ tracks what's wired in the live track.
   wired as the third upstream after a live probe — and the 2.5 Kick
   classification cycle into the new slot) run
   in validate.sh stage 6 alongside the Deal Room and Simulator suites.
+
+## Free-tier / best-pattern audit (Rotation 12, 2026-10-13)
+
+Traffic assumption (stated, not measured): ~5,000 site visits/month —
+a small creator-guide site on Hobby. All estimates scale linearly;
+the headroom below survives 10× that traffic.
+
+- **Function count: 4 of the ≤12 cap** (`health`, `changes`, `niches`,
+  `cron/algorithm-watch` — explicit paths in vercel.json, each
+  `{"maxDuration": 10}`, no `runtime` key, zero npm dependencies).
+  Tool 25 (Deal Pipeline) is fully client-side and added no function.
+- **Estimated monthly invocations at that traffic:**
+  - `/api/changes` ≈ 1,200 (What Changed visits + API Explorer +
+    Deal Room digest loads; envelope sends `s-maxage=600,
+    stale-while-revalidate=86400`, so edge cache absorbs most repeats
+    and origin invocations run well below the request count).
+  - `/api/niches` ≈ 600 (API Explorer + Niche Atlas loads; same SWR).
+  - `/api/health` ≈ 820 (an hourly uptime probe = 720, plus manual
+    checks ≈ 100).
+  - `/api/cron/algorithm-watch` = **30** (one scheduled run/day,
+    Hobby's daily-cron minimum). Each run makes 3 outbound feed
+    fetches (not billable invocations) and at most one GitHub commit,
+    only when the feed actually changed (`writeJsonIfChanged`).
+  - **Total ≈ 2,650 origin invocations/month ≈ 2.7% of the Hobby
+    100,000-invocation budget.** No other paid service is used:
+  GitHub (repo storage + cron commits) and the three RSS upstreams
+  are free at this volume, and builds are a pre-built echo on the
+  Standard machine.
+  - **Honest limit — the cron's invocation math:** the 30/month figure
+    is arithmetic from the vercel.json schedule (`0 12 * * *` UTC),
+    not an observed count. Vercel-side cron execution is **not
+    observable from this repo** — no run logs or execution history
+    live here. What is proven is test-level only:
+    `tests/algorithm-watch-cron.test.js` (30/30) exercises the real
+    handler's auth, gating, classification, dedupe, and degraded
+    states against stubbed feeds. No live run is claimed.
+- **Worst-case duration vs the 10s ceiling:** the three read handlers
+  do one local JSON read + filter/sort — sub-second in practice
+  (largest file is the 25-entry feed). The cron is the worst case by
+  design: its three upstream fetches run in parallel
+  (`Promise.allSettled`, 4s timeout each), so a fully hung upstream
+  set costs ~4s, plus a GitHub read and a conditional write —
+  **≈6s worst case, ~4s of headroom**. Nothing retries in a loop;
+  a dead feed degrades the envelope (`sources_ok 2/3`, failure named)
+  instead of extending the run.
+- **First degradation point:** the cron, not the readers. If GitHub's
+  API slows on the same run where all three feeds hang to their 4s
+  timeout, the run approaches the 10s ceiling and can be cut off
+  mid-commit — the feed then simply stays at its last committed
+  state and the static twins keep serving (no user-facing failure,
+  one missed refresh). Second: the per-instance rate limiter
+  (60/min/IP on the public bucket) resets on cold start — documented
+  best-effort in `api/lib/ratelimit.js`, not a security boundary.
+- **Pattern alignment (checked this audit):** static-first (every
+  page renders from the committed `data/v1/` twins; functions are an
+  enhancement, never the only path); SWR caching on both layers —
+  function envelopes already sent `s-maxage=600,
+  stale-while-revalidate=86400`, and this audit **fixed the gap on
+  the static layer**: vercel.json now sends the same SWR
+  `Cache-Control` for `/data/*` (previously the twins carried only
+  the security headers); precomputed JSON (the feed and all datasets
+  are build-time artifacts, no request-time computation beyond
+  filter/sort); request coalescing (the cron fetches its three
+  upstreams once in parallel and commits only on change — no
+  redeploy loop; the frontend loads its datasets with
+  `Promise.allSettled`, one fetch per file); honest upstream-failure
+  fallbacks (502 envelope naming the static fallback path; the What
+  Changed page presents its baked-in copy as a dated published log,
+  never as live); small handlers (63–272 lines, shared lib, no
+  dependencies); health surfacing (`/api/health` never 5xx — it
+  degrades to `degraded` with per-file freshness vs the 24h SLA,
+  the Live Wire model).
+- **Fixes shipped with this audit:** (1) the `/data/*` SWR header
+  above; (2) API.md's stale "`nodejs22.x`" runtime claim corrected —
+  no runtime is pinned (the pin is what Vercel rejects; see the
+  known-good notes above). Nothing else in the function layer would
+  break, throttle, or bill at the stated traffic or 10× it.
 
 ## Track rule
 

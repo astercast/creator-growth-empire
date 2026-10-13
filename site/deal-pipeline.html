@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<script>try{if(localStorage.getItem("cge.calm")==="1")document.documentElement.setAttribute("data-calm","1");}catch(e){}</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deal Pipeline — Creator Growth Empire</title>
+<meta name="description" content="From $0 to a multi-million-dollar creator company.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/motifs.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/layout.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/hub.css">
+<script defer src="assets/js/rate-card-builder.js"></script><script defer src="assets/js/negotiation-kit.js"></script><script defer src="assets/js/negotiation-script-builder.js"></script><script defer src="assets/js/deal-pipeline.js"></script><script defer src="assets/js/deal-pipeline-ui.js"></script><link rel="stylesheet" href="assets/css/deal-pipeline.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <a class="brand" href="index.html"><span class="brand-plate" aria-hidden="true">CG</span> Creator Growth Empire</a>
+  <nav class="site-nav" aria-label="Primary"><a href="index.html" class="nav-link"><span class="nav-n">01</span>Empire Map</a><a href="tools.html" class="nav-link active"><span class="nav-n">02</span>Tools</a><a href="case-files.html" class="nav-link"><span class="nav-n">03</span>Case Files</a><a href="glossary.html" class="nav-link"><span class="nav-n">04</span>Glossary</a><a href="agents.html" class="nav-link"><span class="nav-n">05</span>Agents</a></nav>
+  <button class="calm-toggle" id="calmToggle" aria-pressed="false" title="Calm mode — stop ambient motion"><span class="calm-glyph" aria-hidden="true">◍</span><span>CALM</span></button>
+  <button class="nav-toggle" aria-expanded="false" aria-controls="mobileNav" aria-label="Menu">☰</button>
+</header>
+<nav id="mobileNav" class="mobile-nav" aria-label="Mobile"><a href="index.html" class="nav-link"><span class="nav-n">01</span>Empire Map</a><a href="tools.html" class="nav-link active"><span class="nav-n">02</span>All tools</a><a href="quiz.html" class="nav-link"><span class="nav-n">03</span>Niche Picker</a><a href="calculator.html" class="nav-link"><span class="nav-n">04</span>Revenue Calc</a><a href="planner.html" class="nav-link"><span class="nav-n">05</span>90-Day Plan</a><a href="deal-analyzer.html" class="nav-link"><span class="nav-n">06</span>Deal Analyzer</a><a href="hiring-calculator.html" class="nav-link"><span class="nav-n">07</span>Hire Calc</a><a href="repurpose.html" class="nav-link"><span class="nav-n">08</span>Repurpose Plan</a><a href="simulator.html" class="nav-link"><span class="nav-n">09</span>Simulator</a><a href="case-files.html" class="nav-link"><span class="nav-n">10</span>All case files</a><a href="glossary.html" class="nav-link"><span class="nav-n">11</span>Glossary</a><a href="agents.html" class="nav-link"><span class="nav-n">12</span>Agents</a></nav>
+<main id="main"><div class="tool-page"><div class="hud-panel brk brk-gold"><b class="brk-x" aria-hidden="true"></b><div class="hud-head"><span>MISSION BRIEFING // TOOL 25 — DEAL PIPELINE</span><span class="hud-status">SYSTEMS ONLINE</span></div><div class="hud-body"><p class="fm-kicker"><strong>FIELD MANUAL</strong><span class="sep">//</span>DIVISION MONEY</p><h1>Deal Pipeline</h1><p class="lede">Your live sponsorship deals on one board — lead, negotiating, terms set, live, invoiced, paid. Every deal is priced by the Rate Card Builder on its named benchmarks with the provenance carried along, its current Negotiation Script Builder script sits one click away, follow-up nudges come from stage age alone, and the totals are arithmetic on the deals you actually enter: an empty board is empty, and demo deals stay labeled DEMO and out of the totals.</p><div class="briefing-rank"><span class="rank" role="img" aria-label="Tier 2"><i></i><i></i></span><span class="fm-readout">TIER 2 // MONEY</span></div></div></div><div id="deal-pipeline">
+<p class="dp-stamp"><span class="badge gold">DEAL PIPELINE</span> <span class="muted">Your live sponsorship deals on one board — priced by the Rate Card Builder, scripted by the Negotiation Script Builder, totaled from the deals you actually enter.</span></p>
+<p class="lede">Six stages — lead, negotiating, terms set, live, invoiced, paid. Every deal carries its rate-card numbers with their provenance, its current negotiation script one click away, and a follow-up nudge when it has sat in a stage too long.</p>
+<p class="muted">Pricing a card before a deal exists? The <a href="rate-card-builder.html">Rate Card Builder</a>. Working one thread's words? The <a href="negotiation-script-builder.html">Negotiation Script Builder</a>. This page is the board those two tools feed.</p>
+<nav class="dp-jump" aria-label="Deal Pipeline sections">
+  <a href="#dp-sec-add">Add a deal</a>
+  <a href="#dp-sec-board">Board</a>
+  <a href="#dp-sec-nudges">Follow-ups</a>
+  <a href="#dp-sec-export">Export</a>
+</nav>
+
+<h2 id="dp-sec-add">1 · Add a deal</h2>
+<p class="muted">Stored in this browser only (localStorage). The amount is the deal's current agreed or offered figure — totals are arithmetic on what you enter here, nothing else.</p>
+<form id="dp-form" aria-label="Add a deal to the pipeline" novalidate>
+  <div class="calc-grid">
+    <label>Brand <input type="text" id="dp-brand" maxlength="120" placeholder="e.g. Ridge Wallet"></label>
+    <label>Stage
+      <select id="dp-stage">
+        <option value="lead" selected>Lead</option>
+        <option value="negotiating">Negotiating</option>
+        <option value="terms">Terms set</option>
+        <option value="live">Live</option>
+        <option value="invoiced">Invoiced</option>
+        <option value="paid">Paid</option>
+      </select></label>
+    <label>Amount ($) — agreed or offered <input type="number" id="dp-amount" min="0" step="50" value="0"></label>
+    <label>Entered this stage on <input type="date" id="dp-entered"></label>
+    <label>Platform
+      <select id="dp-platform">
+        <option value="youtube" selected>YouTube</option>
+        <option value="tiktok">TikTok</option>
+        <option value="instagram">Instagram</option>
+        <option value="twitch">Twitch</option>
+        <option value="kick">Kick</option>
+        <option value="facebook">Facebook</option>
+        <option value="x">X</option>
+      </select></label>
+    <label>Format
+      <select id="dp-format">
+        <option value="dedicated" selected>Dedicated video / post</option>
+        <option value="integrated">Integrated slot (mid-roll mention)</option>
+        <option value="short">Short-form video (Short / TikTok / Reel)</option>
+        <option value="ugc">UGC (no posting)</option>
+      </select></label>
+    <label>Follower count <input type="number" id="dp-followers" min="1000" step="1000" value="50000"></label>
+    <label>Avg. views per video (last 10) <input type="number" id="dp-views" min="0" step="1000" value="60000"></label>
+    <label>Niche (adjusts the benchmark)
+      <select id="dp-niche">
+        <option value="" selected>No niche adjustment</option>
+        <option value="finance_investing">Finance / Investing (×2.5)</option>
+        <option value="tech_software">Tech / Software (×2.5)</option>
+        <option value="ai_ml">AI &amp; ML (×2.5)</option>
+        <option value="creator_economy">Creator Economy (×1.5)</option>
+        <option value="education">Education (×1)</option>
+        <option value="health_fitness">Health / Fitness (×1)</option>
+        <option value="lifestyle">Lifestyle (×1)</option>
+        <option value="science">Science Explainers (×1)</option>
+        <option value="gaming">Gaming (×0.6)</option>
+        <option value="comedy_entertainment">Comedy / Entertainment (×0.6)</option>
+        <option value="entertainment">Entertainment &amp; Comedy (×0.6)</option>
+        <option value="music">Music (×0.6)</option>
+        <option value="kids">Kids Content (×0.6)</option>
+        <option value="asmr">ASMR (×0.6)</option>
+        <option value="challenges_stunts">Challenges &amp; Stunts (×0.6)</option>
+        <option value="true_crime">True Crime (×0.6)</option>
+      </select></label>
+    <label>Paid-ad usage
+      <select id="dp-usage">
+        <option value="organic_only" selected>Organic only — stays on my channel</option>
+        <option value="paid_3mo">Paid ads, 3 months</option>
+        <option value="paid_6mo">Paid ads, 3–6 months</option>
+        <option value="paid_12mo">Paid ads, 6–12 months</option>
+        <option value="perpetual">Perpetual / unlimited</option>
+      </select></label>
+    <label>Whitelisting months <input type="number" id="dp-wl-months" min="0" max="24" step="1" value="0"></label>
+    <label>Negotiation scenario (optional — stage picks one otherwise)
+      <select id="dp-scenario">
+        <option value="" selected>Stage default</option>
+        <option value="lowball">Brand lowball</option>
+        <option value="usage_grab">Unpaid usage grab</option>
+        <option value="exclusivity_lockin">Exclusivity lock-in</option>
+        <option value="late_payment">Late payment</option>
+      </select></label>
+  </div>
+  <p id="dp-errors" role="alert" class="muted" aria-live="assertive"></p>
+  <button type="submit" class="btn btn-primary">Add to the board →</button>
+  <button type="button" id="dp-demo" class="btn">Load the demo board (labeled DEMO)</button>
+  <button type="button" id="dp-clear" class="btn">Clear the board</button>
+</form>
+
+<h2 id="dp-sec-board">2 · The board</h2>
+<div id="dp-totals" aria-live="polite"></div>
+<div id="dp-board" class="dp-board" aria-live="polite"></div>
+<div id="dp-script" aria-live="polite"></div>
+
+<h2 id="dp-sec-nudges">3 · Follow-ups due</h2>
+<p class="muted">Derived from stage age alone — no scores, no invented close probabilities.</p>
+<div id="dp-nudges" aria-live="polite"></div>
+
+<h2 id="dp-sec-export">4 · Export — the board as plaintext</h2>
+<textarea id="dp-export" rows="14" readonly aria-label="Your deal pipeline as plaintext"></textarea>
+<p><button type="button" id="dp-copy" class="btn">Copy the board</button></p>
+<p class="muted">A planning aid, not financial, legal, or tax advice. Rates are reported 2026 ranges from the Rate Card Builder's named benchmarks — a model, not a prediction.</p>
+</div>
+</div></main>
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <div class="foot-brand"><span class="brand-plate" aria-hidden="true">CG</span> Creator Growth Empire</div>
+      <p class="muted">From $0 to a multi-million-dollar creator company.</p>
+      <div class="chit-row" style="margin:1rem 0 0">
+        <span class="chit chit-ghost">No guru hype</span>
+        <span class="chit chit-ghost">2026 verified</span>
+        <span class="chit chit-ghost">Field manual</span>
+      </div>
+    </div>
+    <nav aria-label="Phases">
+      <strong class="muted" style="font-size:.78rem;letter-spacing:.12em">PHASES</strong>
+      <a href="phase-0-start-from-nothing.html">Phase 0 — Start From Nothing</a>
+      <a href="phase-2-youtube-mastery.html">Phase 2 — YouTube Mastery</a>
+      <a href="phase-5-monetization-stack.html">Phase 5 — Monetization Stack</a>
+      <a href="phase-7-the-business.html">Phase 7 — The Business</a>
+    </nav>
+    <nav aria-label="Tools">
+      <strong class="muted" style="font-size:.78rem;letter-spacing:.12em">TOOLS</strong>
+      <a href="tools.html">All tools →</a>
+      <a href="quiz.html">Niche Picker</a>
+      <a href="calculator.html">Revenue Calculator</a>
+      <a href="planner.html">90-Day Planner</a>
+      <a href="deal-analyzer.html">The Deal Analyzer</a>
+      <a href="hiring-calculator.html">Hiring Cost Calculator</a>
+      <a href="repurpose.html">Repurposing Planner</a>
+      <a href="simulator.html">Empire Simulator</a>
+      <a href="money-map.html">The Money Map</a>
+      <a href="api-explorer.html">API Explorer</a>
+      <a href="what-changed.html">Algorithm Watch</a>
+      <a href="glossary.html">Glossary</a>
+      <a href="agents.html">Agents</a>
+    </nav>
+    <nav aria-label="Case Files">
+      <strong class="muted" style="font-size:.78rem;letter-spacing:.12em">CASE FILES</strong>
+      <a href="case-files.html">All case files →</a>
+      <a href="case-budget-grocery.html">The Budget-Grocery Newsletter</a>
+      <a href="case-bens-bites.html">Ben's Bites</a>
+      <a href="case-sleep-channels.html">The Sleep-Channel Network</a>
+      <a href="case-mavwicks.html">Mavwicks on TikTok Shop</a>
+      <a href="case-ptya.html">The Cohort Course</a>
+      <a href="case-poly-couple.html">The Poly Couple</a>
+      <a href="case-gibi-asmr.html">Gibi ASMR</a>
+    </nav>
+  </div>
+  <div class="footer-fine"><span class="stamp stamp-sm" aria-hidden="true">CLEARED</span><span>PRIVATE RESEARCH ARCHIVE · PLATFORM FACTS VERIFIED OCT 2026 — VERIFY LIVE BEFORE ACTING · NOT FINANCIAL, LEGAL, OR TAX ADVICE · SET IN THE FIELD, PRINTED ON RECYCLED PIXELS</span></div>
+</footer>
+<script src="assets/js/site.js"></script>
+</body>
+</html>
