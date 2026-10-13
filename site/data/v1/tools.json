@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
   "updated": "2026-10-11",
-  "note": "Programmatic input schemas for the twenty-eight interactive tools. Agents replicate each tool's logic by feeding these inputs to the documented formulas / shipped JS (assets/js/<id>.js); the UI pages are the human front-end for the same logic.",
+  "note": "Programmatic input schemas for the twenty-nine interactive tools. Agents replicate each tool's logic by feeding these inputs to the documented formulas / shipped JS (assets/js/<id>.js); the UI pages are the human front-end for the same logic.",
   "tools": [
     {
       "id": "quiz",
@@ -2318,6 +2318,32 @@
       },
       "output": "The ledger: months in chronological order (each with its paid deals, month total, and running cumulative), per-brand totals with each brand's share of the collected total, per-platform totals with shares, and the top brand. Months are the month each deal entered the paid stage \u2014 the only payment timing the board carries; a paid deal whose stage entry date cannot be read is ledgered under Undated, flagged, and still counted. Demo paid deals are counted apart and never ledgered; an empty board, a no-paid-yet board, and a demo-only board are reported as different states. exportLedger() renders the plaintext ledger.",
       "drive_notes": "Engine (assets/js/sponsor-income-ledger.js, UMD \u2014 importable in node): buildLedger(deals, opts) runs Tool 25's buildBoard and ledgerFromBoard(board) groups its paid deals by stage-entry month, brand, and platform \u2014 no pricing, no rate card, and no thresholds of its own; collected stays Tool 25's paid total. Browser persistence is the Deal Pipeline's localStorage key (cge.deal-pipeline.deals.v1), shared with Tools 25/26/27. Planning aid \u2014 not financial, legal, or tax advice. See AGENT.md Workflow 21."
+    },
+    {
+      "id": "receivables-register",
+      "title": "Receivables Register",
+      "description": "The Deal Pipeline's invoiced deals as one register of money owed: every invoiced deal (fresh ones included), longest outstanding first, the total staying Tool 25's invoiced outstanding figure, each entry carrying its Tool 24 late-payment script through the board; demo invoiced deals counted apart.",
+      "page": "receivables-register.html",
+      "input_schema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "title": "ReceivablesRegisterInput",
+        "type": "object",
+        "required": [
+          "deals"
+        ],
+        "properties": {
+          "deals": {
+            "type": "array",
+            "description": "The Deal Pipeline's deal records (Tool 25 input shape \u2014 brand, stage, amount, stageEnteredAt, plus the pricing/script fields). The register reads the same records the board holds and keeps only the invoiced ones."
+          },
+          "now": {
+            "type": "string",
+            "description": "Optional ISO date/time the register is built for; days outstanding derive from it."
+          }
+        }
+      },
+      "output": "The register in outstanding order (longest in the invoiced stage first, then largest amount, then brand): each entry carries the brand, the entered amount owed, the platform, the date the deal entered the invoiced stage, its days outstanding, and its Tool 24 late-payment script (label + full export text, via the board) or the reason none is attached. Every invoiced deal is registered regardless of age \u2014 the register does not gate on Tool 25's follow-up thresholds; that gating is the Follow-Through Queue's job. Demo invoiced deals are counted apart and never registered; an empty board, a nothing-owed board, and a demo-only board are reported as different states. exportRegister() renders the plaintext register.",
+      "drive_notes": "Engine (assets/js/receivables-register.js, UMD \u2014 importable in node): buildRegister(deals, opts) runs Tool 25's buildBoard and registerFromBoard(board) keeps its invoiced deals, orders them, and attaches each deal's board-composed script \u2014 no pricing, no wording, and no thresholds of its own; the total owed stays Tool 25's invoiced outstanding figure. Browser persistence is the Deal Pipeline's localStorage key (cge.deal-pipeline.deals.v1), shared with Tools 25/26/27/28. Planning aid \u2014 not financial, legal, or tax advice. See AGENT.md Workflow 22."
     }
   ]
 }

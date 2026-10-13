@@ -1,7 +1,7 @@
 # AGENT.md — How an agent uses Creator Growth Empire
 
 > This site is a static machine-readable knowledge base for the creator
-> business: 9 phases, 28 tools, 12 skills, 9 case files, and a versioned JSON
+> business: 9 phases, 29 tools, 12 skills, 9 case files, and a versioned JSON
 > API. No API key, no server, no auth, no rate limits. Fetch and act.
 > Every workflow below was executed against the real `data/v1/` JSON files —> see `tests/agent-workflows.test.js` (run: `node tests/agent-workflows.test.js`).
 
@@ -874,6 +874,43 @@ carry.
    `exportLedger(ledger)` renders the plaintext ledger. Not
    financial, legal, or tax advice.
 
+### Workflow 22 — Register the money owed (Receivables Register)
+
+Goal: give the board's invoiced-outstanding lump its list — who
+owes, how much, and since when — without turning the register
+into a second follow-up queue.
+
+1. Engine: `require("assets/js/receivables-register.js")` (UMD),
+   which composes `assets/js/deal-pipeline.js` (Tool 25) — same
+   board, same clock input (`now`).
+2. `ReceivablesRegister.buildRegister(deals, {now, calculators,
+   dealTemplates})` runs Tool 25's `buildBoard` and registers its
+   invoiced deals. Verified fixture (the Workflow 21 board plus
+   two more invoiced deals, now = 2026-10-13): the register
+   holds exactly the board's three invoiced deals, longest
+   outstanding first — **Slow Payer LLC** $6,000 (44d) →
+   **Northwind VPN** $4,500 (23d) → **Fresh Invoice Co** $2,500
+   (1d). The total owed stays Tool 25's invoiced outstanding:
+   **$13,000**.
+3. Completeness rule: every invoiced deal registers, fresh ones
+   included — the register does not gate on Tool 25's follow-up
+   thresholds (the board raises no nudge for the 1-day-old
+   invoice, and it registers anyway; gating is the
+   Follow-Through Queue's job). Each entry carries the deal's
+   Tool 24 late-payment script exactly as the board composed it,
+   or the reason none is attached. The only arithmetic is
+   summing entered invoiced amounts and the ordering — no
+   pricing, no wording, no thresholds of its own. Invoiced dates
+   are invoiced-stage entry dates, the only invoice timing the
+   board carries.
+4. Honesty rule: demo invoiced deals are counted apart and
+   never registered (the demo board's invoiced deal counts apart
+   at $4,500); an empty board (`emptyBoard`), a board with
+   nothing invoiced yet (`nothingOwed`), and a demo-only board
+   (`demoOnly`) are different states and the engine says which.
+   `exportRegister(register)` renders the plaintext register.
+   Not financial, legal, or tax advice.
+
 ## Rate & expectation notes
 
 - **Static JSON.** Nothing here is live: no request counts, no streaming, no
@@ -928,6 +965,7 @@ explaining how to replicate the logic:
 | Follow-Through Queue | `deals` (the Tool 25 deal records), `now` (optional) | `require("assets/js/follow-through.js")` — `buildQueue(deals, {calculatorsJson, dealTemplatesJson, changesFeed, now})` runs Tool 25's `buildBoard` and queues its nudges in send order (urgent invoiced first, then most overdue, then longest in stage), each with Tool 24's script attached (label + export text); demo follow-ups counted apart, never queued; `emptyBoard` vs `nothingDue` reported as different states; `exportBrief()` for the plaintext brief — see Workflow 19 |
 | Repeat Sponsor Book | `deals` (the Tool 25 deal records), `now` (optional) | `require("assets/js/repeat-sponsor-book.js")` — `buildBook(deals, {calculatorsJson, dealTemplatesJson, changesFeed, now})` runs Tool 25's `buildBoard` and books its paid deals in re-approach order (longest since payment first), each with Tool 23's current card via Tool 25 (total range + provenance) and the paid amount's relation to it (below / inside / above); no pitch wording attached, with the exclusion stated; demo paid deals counted apart, never booked; `emptyBoard` vs `noPaidYet` vs `demoOnly` reported as different states; `exportBook()` for the plaintext book — see Workflow 20 |
 | Sponsor Income Ledger | `deals` (the Tool 25 deal records), `now` (optional) | `require("assets/js/sponsor-income-ledger.js")` — `buildLedger(deals, {now})` runs Tool 25's `buildBoard` and groups its paid deals by stage-entry month (chronological, running cumulative), by brand (totals + share of collected), and by platform; collected stays Tool 25's paid total; undated paid deals flagged under Undated, never dropped; demo paid deals counted apart, never ledgered; `emptyBoard` vs `noPaidYet` vs `demoOnly` reported as different states; `exportLedger()` for the plaintext ledger — see Workflow 21 |
+| Receivables Register | `deals` (the Tool 25 deal records), `now` (optional) | `require("assets/js/receivables-register.js")` — `buildRegister(deals, {now})` runs Tool 25's `buildBoard` and registers its invoiced deals (every one, fresh included — no follow-up-threshold gating), longest outstanding first; the total owed stays Tool 25's invoiced outstanding figure; each entry carries the board's Tool 24 late-payment script or the reason none is attached; demo invoiced deals counted apart, never registered; `emptyBoard` vs `nothingOwed` vs `demoOnly` reported as different states; `exportRegister()` for the plaintext register — see Workflow 22 |
 
 Full per-tool schemas, formulas, and honesty notes live in `tools.json`;
 the UI pages (`quiz.html`, `calculator.html`, …) are the human front-end for

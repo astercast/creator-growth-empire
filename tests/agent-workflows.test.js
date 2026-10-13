@@ -73,7 +73,7 @@ function check(name, cond, detail) {
 
   // tools.json drives the planner config shape
   const tools = load("tools.json").tools;
-  check("wf2: tools.json lists all 28 tools", tools.length === 28, String(tools.length));
+  check("wf2: tools.json lists all 29 tools", tools.length === 29, String(tools.length));
   const oc = tools.find((t) => t.id === "outreach");
   const ocSchema = oc && oc.input_schema;
   check("wf2: outreach input schema exposes pipeline + quote + pitch + contract fields",
@@ -981,6 +981,64 @@ function check(name, cond, detail) {
     SIL.buildLedger([], { dp: DP }).emptyBoard === true &&
     SIL.buildLedger([deals[1]], { dp: DP }).noPaidYet === true &&
     SIL.buildLedger(DP.DEMO_DEALS, { dp: DP }).demoOnly === true);
+})();
+
+/* ============ Workflow 22: the receivables register =============
+ * AGENT.md §Workflow 22: the Workflow 21 board plus two more
+ * invoiced deals, registered longest outstanding first. */
+(function workflow22() {
+  const RR = require(path.join(__dirname, "..", "assets", "js", "receivables-register.js"));
+  const DP = require(path.join(__dirname, "..", "assets", "js", "deal-pipeline.js"));
+  const R = require(path.join(__dirname, "..", "assets", "js", "rate-card-builder.js"));
+  const NK = require(path.join(__dirname, "..", "assets", "js", "negotiation-kit.js"));
+  const NSB = require(path.join(__dirname, "..", "assets", "js", "negotiation-script-builder.js"));
+  const cfg = require(path.join(__dirname, "..", "data", "calculators.json"));
+  const tpl = require(path.join(__dirname, "..", "data", "v1", "deal-templates.json"));
+  const feed = require(path.join(__dirname, "..", "data", "changes.json"));
+  const deals = [
+    { id: "a", brand: "Ridge Wallet", platform: "youtube", format: "integrated", followers: 50000,
+      expectedViews: 60000, niche: "tech_software", usage: "paid_6mo", amount: 12000,
+      stage: "negotiating", stageEnteredAt: "2026-10-05", scenario: "lowball" },
+    { id: "b", brand: "Trail Snacks Co", platform: "tiktok", format: "short", followers: 50000,
+      expectedViews: 60000, niche: "lifestyle", usage: "organic_only", amount: 1800,
+      stage: "lead", stageEnteredAt: "2026-10-08" },
+    { id: "c", brand: "Northwind VPN", platform: "youtube", format: "integrated", followers: 50000,
+      expectedViews: 60000, niche: "tech_software", usage: "paid_3mo", amount: 4500,
+      stage: "invoiced", stageEnteredAt: "2026-09-20" },
+    { id: "d", brand: "Paid Brand", platform: "youtube", format: "dedicated", followers: 50000,
+      expectedViews: 60000, niche: "tech_software", usage: "organic_only", amount: 7000,
+      stage: "paid", stageEnteredAt: "2026-10-01" },
+    { id: "e", brand: "Early Bird Media", platform: "youtube", format: "integrated", followers: 50000,
+      expectedViews: 60000, niche: "tech_software", usage: "organic_only", amount: 3000,
+      stage: "paid", stageEnteredAt: "2026-08-20" },
+    { id: "f", brand: "Trail Snacks Co", platform: "tiktok", format: "short", followers: 50000,
+      expectedViews: 60000, niche: "lifestyle", usage: "organic_only", amount: 1500,
+      stage: "paid", stageEnteredAt: "2026-08-05" },
+    { id: "g", brand: "Northwind VPN", platform: "youtube", format: "integrated", followers: 50000,
+      expectedViews: 60000, niche: "tech_software", usage: "organic_only", amount: 2000,
+      stage: "paid", stageEnteredAt: "2026-09-15" },
+    { id: "h", brand: "Fresh Invoice Co", platform: "youtube", format: "integrated", followers: 50000,
+      expectedViews: 60000, niche: "tech_software", usage: "organic_only", amount: 2500,
+      stage: "invoiced", stageEnteredAt: "2026-10-12" },
+    { id: "i", brand: "Slow Payer LLC", platform: "tiktok", format: "short", followers: 120000,
+      expectedViews: 200000, niche: "lifestyle", usage: "organic_only", amount: 6000,
+      stage: "invoiced", stageEnteredAt: "2026-08-30" }
+  ];
+  const opts = { calculators: cfg, dealTemplates: tpl, changesFeed: feed,
+    now: new Date("2026-10-13T00:00:00Z"), rcb: R, nsb: NSB, nk: NK, dp: DP };
+  const r = RR.buildRegister(deals, opts);
+  check("wf22: register holds the board's 3 invoiced deals, longest outstanding first (Slow Payer 44d, Northwind 23d, Fresh Invoice 1d)",
+    r.ok && r.invoicedCount === 3 && r.owed === 13000 &&
+    r.items.map((it) => it.brand + ":" + it.daysOutstanding).join("|") ===
+    "Slow Payer LLC:44|Northwind VPN:23|Fresh Invoice Co:1");
+  check("wf22: total owed stays Tool 25's invoiced outstanding; the fresh invoice registers with no nudge behind it",
+    r.owed === r.totals.invoicedOutstanding &&
+    r.items[1].script.ok === true && /Late payment/.test(r.items[1].script.label));
+  check("wf22: demo invoiced counted apart; empty != nothing-owed != demo-only",
+    RR.buildRegister([], { dp: DP }).emptyBoard === true &&
+    RR.buildRegister([deals[1]], { dp: DP }).nothingOwed === true &&
+    RR.buildRegister(DP.DEMO_DEALS, { dp: DP }).demoOnly === true &&
+    RR.buildRegister(DP.DEMO_DEALS, { dp: DP }).demoInvoicedValue === 4500);
 })();
 
 console.log(`\nagent-workflows: ${pass} passed, ${fail} failed`);

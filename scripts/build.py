@@ -224,6 +224,7 @@ TOOLS = [
     ("follow-through", "Follow-Through Queue", "The Deal Pipeline's follow-ups, assembled into today's send list: urgent first, then most overdue, each item carrying its stage-age nudge action and its Negotiation Script Builder script ready to copy, plus one copyable brief for the whole queue. It reads the same board the Deal Pipeline writes and adds no numbers, no wording, and no thresholds of its own — an empty board and a board with nothing due are different states, and the queue says which."),
     ("repeat-sponsor-book", "Repeat Sponsor Book", "The board's paid deals, held as the re-approach book every other money tool drops: longest since payment first, each brand's entered paid amount set against the current rate card the Rate Card Builder builds for the same deal through the Deal Pipeline, with its provenance printed, plus one copyable book for the whole list. It reads the same board the Deal Pipeline writes and adds no pricing, no thresholds, and no renewal-due date of its own — and it attaches no pitch wording, because no template in the repo describes a pitch to a brand that already paid. An empty board, a board with no paid deals yet, and a demo-only board are different states, and the book says which."),
     ("sponsor-income-ledger", "Sponsor Income Ledger", "The board's paid deals as a month-by-month ledger — the collected money broken open instead of left as one lump total: each paid deal grouped under the month it entered the paid stage, a running cumulative, per-brand totals with each brand's share of collected, and per-platform totals, plus one copyable ledger for the whole record. It reads the same board the Deal Pipeline writes and adds no pricing, no rate card, and no thresholds of its own — its only arithmetic is summing and grouping the entered amounts, and its months are stage-entry months, never claimed clearing or payout dates. An empty board, a board with no paid deals yet, and a demo-only board are different states, and the ledger says which."),
+    ("receivables-register", "Receivables Register", "The board's invoiced deals as one register of money owed — the list behind the Deal Pipeline's invoiced-outstanding lump: every invoiced deal, fresh ones included, longest outstanding first, each with the amount owed, the date it entered the invoiced stage, its days outstanding, and its late-payment script from the Negotiation Script Builder through the board, plus one copyable register for the whole record. It reads the same board the Deal Pipeline writes and adds no pricing, no wording, and no thresholds of its own — it deliberately does not gate on the follow-up thresholds the Follow-Through Queue owns, because a register's job is completeness. An empty board, a board with nothing invoiced yet, and a demo-only board are different states, and the register says which."),
 ]
 
 
@@ -924,6 +925,16 @@ TOOLS_API = [
           "now": {"type": "string", "description": "Optional ISO date/time the ledger is built for."}}},
      "The ledger: months in chronological order (each with its paid deals, month total, and running cumulative), per-brand totals with each brand's share of the collected total, per-platform totals with shares, and the top brand. Months are the month each deal entered the paid stage — the only payment timing the board carries; a paid deal whose stage entry date cannot be read is ledgered under Undated, flagged, and still counted. Demo paid deals are counted apart and never ledgered; an empty board, a no-paid-yet board, and a demo-only board are reported as different states. exportLedger() renders the plaintext ledger.",
      "Engine (assets/js/sponsor-income-ledger.js, UMD — importable in node): buildLedger(deals, opts) runs Tool 25's buildBoard and ledgerFromBoard(board) groups its paid deals by stage-entry month, brand, and platform — no pricing, no rate card, and no thresholds of its own; collected stays Tool 25's paid total. Browser persistence is the Deal Pipeline's localStorage key (cge.deal-pipeline.deals.v1), shared with Tools 25/26/27. Planning aid — not financial, legal, or tax advice. See AGENT.md Workflow 21."),
+    ("receivables-register", "Receivables Register",
+     "The Deal Pipeline's invoiced deals as one register of money owed: every invoiced deal (fresh ones included), longest outstanding first, the total staying Tool 25's invoiced outstanding figure, each entry carrying its Tool 24 late-payment script through the board; demo invoiced deals counted apart.",
+     "receivables-register.html",
+     {"$schema": "http://json-schema.org/draft-07/schema#", "title": "ReceivablesRegisterInput",
+      "type": "object", "required": ["deals"],
+      "properties": {
+          "deals": {"type": "array", "description": "The Deal Pipeline's deal records (Tool 25 input shape — brand, stage, amount, stageEnteredAt, plus the pricing/script fields). The register reads the same records the board holds and keeps only the invoiced ones."},
+          "now": {"type": "string", "description": "Optional ISO date/time the register is built for; days outstanding derive from it."}}},
+     "The register in outstanding order (longest in the invoiced stage first, then largest amount, then brand): each entry carries the brand, the entered amount owed, the platform, the date the deal entered the invoiced stage, its days outstanding, and its Tool 24 late-payment script (label + full export text, via the board) or the reason none is attached. Every invoiced deal is registered regardless of age — the register does not gate on Tool 25's follow-up thresholds; that gating is the Follow-Through Queue's job. Demo invoiced deals are counted apart and never registered; an empty board, a nothing-owed board, and a demo-only board are reported as different states. exportRegister() renders the plaintext register.",
+     "Engine (assets/js/receivables-register.js, UMD — importable in node): buildRegister(deals, opts) runs Tool 25's buildBoard and registerFromBoard(board) keeps its invoiced deals, orders them, and attaches each deal's board-composed script — no pricing, no wording, and no thresholds of its own; the total owed stays Tool 25's invoiced outstanding figure. Browser persistence is the Deal Pipeline's localStorage key (cge.deal-pipeline.deals.v1), shared with Tools 25/26/27/28. Planning aid — not financial, legal, or tax advice. See AGENT.md Workflow 22."),
 ]
 
 # Tools hub (wave 9): grouped card index. Per tool: icon, "use when" one-liner,
@@ -985,6 +996,8 @@ TOOL_HUB_META = {
                       ["repeat sponsors", "paid deals", "Phase 5"]),
     "sponsor-income-ledger": ("▦", "MONEY",   "gold", "brands have paid you — you need the collected money as a ledger by month, brand, and platform, not one lump total.",
                       ["income ledger", "paid deals", "Phase 5"]),
+    "receivables-register": ("▤", "MONEY",   "gold", "brands owe you money — you need every invoiced deal as one register, longest outstanding first, not one lump total.",
+                      ["receivables", "invoiced deals", "Phase 5"]),
 }
 TOOL_HUB_GROUPS = [
     ("PLAN", "Pick the battlefield",
@@ -1708,6 +1721,7 @@ def build():
         "follow-through": ["assets/js/rate-card-builder.js", "assets/js/negotiation-kit.js", "assets/js/negotiation-script-builder.js", "assets/js/deal-pipeline.js", "assets/js/follow-through.js", "assets/js/follow-through-ui.js"],
         "repeat-sponsor-book": ["assets/js/rate-card-builder.js", "assets/js/negotiation-kit.js", "assets/js/negotiation-script-builder.js", "assets/js/deal-pipeline.js", "assets/js/repeat-sponsor-book.js", "assets/js/repeat-sponsor-book-ui.js"],
         "sponsor-income-ledger": ["assets/js/rate-card-builder.js", "assets/js/negotiation-kit.js", "assets/js/negotiation-script-builder.js", "assets/js/deal-pipeline.js", "assets/js/sponsor-income-ledger.js", "assets/js/sponsor-income-ledger-ui.js"],
+        "receivables-register": ["assets/js/rate-card-builder.js", "assets/js/negotiation-kit.js", "assets/js/negotiation-script-builder.js", "assets/js/deal-pipeline.js", "assets/js/receivables-register.js", "assets/js/receivables-register-ui.js"],
     }
     TOOL_CSS = {
         "money-map": ["assets/css/moneymap.css"],
@@ -1724,6 +1738,7 @@ def build():
         "follow-through": ["assets/css/follow-through.css"],
         "repeat-sponsor-book": ["assets/css/repeat-sponsor-book.css"],
         "sponsor-income-ledger": ["assets/css/sponsor-income-ledger.css"],
+        "receivables-register": ["assets/css/receivables-register.css"],
         "deal-room": ["assets/css/deal-room.css"],
     }
     for slug, title, desc in TOOLS:
@@ -2181,7 +2196,7 @@ def build():
             "id": "tools",
             "kind": "json",
             "path": "data/v1/tools.json",
-            "description": "All twenty-eight interactive tools with programmatic input schemas (JSON Schema draft-07), output descriptions, and drive notes — replicate the tools' logic without the UI.",
+            "description": "All twenty-nine interactive tools with programmatic input schemas (JSON Schema draft-07), output descriptions, and drive notes — replicate the tools' logic without the UI.",
             "schema": "data/v1/schema/tools.json",
             "updated": BUILD_TS,
             "records": len(TOOLS_API),
@@ -2212,7 +2227,7 @@ def build():
             "id": "tool-pages",
             "kind": "html",
             "paths": [f"{slug}.html" for slug, _, _ in TOOLS],
-            "description": "The twenty-eight interactive tools' human UI pages. Agents should prefer data/v1/tools.json input schemas over scraping these pages.",
+            "description": "The twenty-nine interactive tools' human UI pages. Agents should prefer data/v1/tools.json input schemas over scraping these pages.",
             "schema": None,
             "updated": BUILD_TS,
             "records": len(TOOLS),
@@ -2298,7 +2313,7 @@ def build():
     # ---- tools.json: every tool with its programmatic input schema ----
     (DATA_V1 / "tools.json").write_text(json.dumps({
         "version": "1.0.0", "updated": "2026-10-11",
-        "note": ("Programmatic input schemas for the twenty-eight interactive tools. "
+        "note": ("Programmatic input schemas for the twenty-nine interactive tools. "
                  "Agents replicate each tool's logic by feeding these inputs to the "
                  "documented formulas / shipped JS (assets/js/<id>.js); the UI pages "
                  "are the human front-end for the same logic."),
@@ -2911,7 +2926,7 @@ def build():
     for slug, title, desc in TOOLS:
         llms.append(f"- [{title}]({slug}.html) — {desc}")
     llms += ["- [Glossary](glossary.html)", "",
-             "All twenty-eight tools, grouped by job (Plan / Money / Content): [Tools hub](tools.html).",
+             "All twenty-nine tools, grouped by job (Plan / Money / Content): [Tools hub](tools.html).",
              "", "## Reference"]
     for m in reference_meta:
         llms.append(f"- [{m['badge']}: {m['title']}]({m['path']}) — {m['read_minutes']} min read")

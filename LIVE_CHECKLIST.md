@@ -128,6 +128,18 @@ tracks what's wired in the live track.
   demo paid deals counted apart; fully client-side (no new
   function — the free-tier audit below holds at 4 functions);
   `tests/sponsor-income-ledger.test.js` runs in stage 6;
+  Tool 29, the Receivables Register, shipped with the 2.13
+  rotation: the Deal Pipeline's invoiced deals as one register
+  of money owed (every invoiced deal, fresh ones included —
+  no follow-up-threshold gating, longest outstanding first),
+  the total owed staying Tool 25's invoiced outstanding
+  figure, each entry carrying its Tool 24 late-payment script
+  through the board; invoiced dates are invoiced-stage entry
+  dates; demo invoiced deals counted apart; empty board vs
+  nothing-owed vs demo-only states named distinctly; fully
+  client-side (no new function — the free-tier audit below
+  holds at 4 functions);
+  `tests/receivables-register.test.js` runs in stage 6;
   Tool 27, the Repeat Sponsor Book, shipped with the 2.11
   rotation: the Deal Pipeline's paid deals as one re-approach
   book (longest since payment first), each re-priced by the
