@@ -86,6 +86,25 @@ tracks what's wired in the live track.
   the eight slots, the Kick KPP follow-up still has no first dated
   primary term (dates stay null), Snapchat slot still closed,
   feed unchanged at v1.7.0 / 25 entries;
+  The 2.10 re-sweep (2026-10-13) logged nothing new — a fourth
+  consecutive verified negative, itemized per slot in WAVELOG 2.10:
+  no post-October-12 development with published terms on any of
+  the eight slots, the Kick KPP follow-up still has no first dated
+  primary term (dates stay null), Snapchat slot still closed,
+  feed unchanged at v1.7.0 / 25 entries;
+  Rotation 13 also adopted the Fleet Commons canonical
+  server-toolkit into `lib/` (per-helper notes in WAVELOG) and
+  shipped the placement pass through the generator (OG card,
+  theme-color, HUD-reticle favicon set, root-relative canonicals,
+  honest JSON-LD on index + tools hub, robots.txt; og:image stays
+  relative until the GO_LIVE absolutize step runs against a real
+  domain); `tests/placement.test.js` guards it in stage 6.
+  Tool 26, the Follow-Through Queue, shipped with the 2.10
+  rotation: the Deal Pipeline's stage-age nudges as one prioritized
+  send list with each deal's Tool 24 script attached, composing
+  Tools 25/24/23 with no math of its own; fully client-side (no
+  new function — the free-tier audit below holds at 4 functions);
+  `tests/follow-through.test.js` runs in stage 6;
   Tool 25, the Deal Pipeline, shipped with the 2.9 rotation: a
   six-stage board (lead → negotiating → terms set → live →
   invoiced → paid) composing Tool 23 pricing and Tool 24 scripts

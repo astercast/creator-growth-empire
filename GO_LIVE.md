@@ -90,6 +90,22 @@ state, spinner, or blank widget because the backend was cold or down.
    `what-changed.html` → assert the full pre-rendered feed shows with an
    honest amber `cached · updated HH:MM` badge. Zero blank widgets, zero
    console errors from `api-client.js`.
+9. **MANDATORY — absolutize the placement URLs against the real domain**
+   (rotation 13 placement pass; this site shipped with no live domain, so
+   the generator emits relative social URLs on purpose). The moment a
+   domain exists, before announcing the site anywhere:
+   - In `scripts/build.py`'s `page_template`, change `og:image` and
+     `twitter:image` from `assets/og-card.png` to
+     `https://<domain>/assets/og-card.png` (major social crawlers do not
+     render relative `og:image` URLs — the relative form is a pre-deploy
+     placeholder, not a shipping state).
+   - Absolutize the canonicals in the same pass: `rel="canonical"` is
+     emitted root-relative (`/<page>.html`) per page; rewrite it to
+     `https://<domain>/<page>.html` (and the WebSite/ItemList JSON-LD
+     `url` fields on index/tools if absolute URLs are added there).
+   - Rebuild, confirm `tests/placement.test.js` expectations are updated
+     to the absolute forms in the same commit, and re-run
+     `scripts/validate.sh` before pushing the `-live` snapshot.
 
 ## 4. Env var table
 

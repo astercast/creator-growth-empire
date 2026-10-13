@@ -1322,12 +1322,34 @@ def _build_what_changed():
         "</div>"
     )
     (SITE / "what-changed.html").write_text(
-        page_template("What Changed", body, active="", extra_head=extra), encoding="utf-8")
+        page_template("What Changed", body, active="", extra_head=extra, path="what-changed.html"), encoding="utf-8")
     return len(rows)
 
 # ---------- end wave B ----------
 
-def page_template(title, body, active="", extra_head=""):
+def _website_json_ld():
+    """Honest JSON-LD for the homepage: the site's own name + tagline only.
+    No url (no live domain yet — absolutized at GO_LIVE with the OG sweep),
+    no ratings, no invented dates."""
+    data = {"@context": "https://schema.org", "@type": "WebSite",
+            "name": SITE_NAME, "description": TAGLINE}
+    return ('<script type="application/ld+json">'
+            + json.dumps(data, ensure_ascii=False) + "</script>")
+
+
+def _tools_json_ld():
+    """Honest JSON-LD for the tools hub: an ItemList of the tools that
+    actually exist in TOOLS, in hub order, with root-relative page paths."""
+    items = [{"@type": "ListItem", "position": i + 1, "name": t[1],
+              "url": t[0] + ".html"} for i, t in enumerate(TOOLS)]
+    data = {"@context": "https://schema.org", "@type": "ItemList",
+            "name": "Creator Growth Empire — field tools",
+            "numberOfItems": len(items), "itemListElement": items}
+    return ('<script type="application/ld+json">'
+            + json.dumps(data, ensure_ascii=False) + "</script>")
+
+
+def page_template(title, body, active="", extra_head="", path=""):
     desktop_nav = "".join(
         f'<a href="{href}" class="nav-link{" active" if href == active else ""}"><span class="nav-n">{i + 1:02d}</span>{label}</a>'
         for i, (href, label) in enumerate(DESKTOP_NAV_LINKS)
@@ -1345,6 +1367,22 @@ def page_template(title, body, active="", extra_head=""):
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{esc(title)} — {SITE_NAME}</title>
 <meta name="description" content="{esc(TAGLINE)}">
+<meta name="theme-color" content="#0d120d">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+{('<link rel="canonical" href="/' + path + '">') if path else ''}
+<!-- RELATIVE until deploy: absolutize og:image + twitter:image against the live domain at GO_LIVE (mandatory step, GO_LIVE.md) -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="{esc(title)} — {SITE_NAME}">
+<meta property="og:description" content="{esc(TAGLINE)}">
+<meta property="og:image" content="assets/og-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{esc(title)} — {SITE_NAME}">
+<meta name="twitter:description" content="{esc(TAGLINE)}">
+<meta name="twitter:image" content="assets/og-card.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="{FONT_URL}" rel="stylesheet">
@@ -1433,6 +1471,18 @@ def build():
     for f in (ASSETS / "js").glob("*.js"):
         shutil.copy(f, SITE / "assets" / "js" / f.name)
 
+    # placement pass (rotation 13): OG card + the HUD-reticle icon set ship
+    # from assets/ into the generated site root; robots.txt is generated
+    # here too. No sitemap is published by this repo, so robots.txt carries
+    # no Sitemap pointer (add one in the same edit that adds a sitemap).
+    if (ASSETS / "og-card.png").exists():
+        shutil.copy(ASSETS / "og-card.png", SITE / "assets" / "og-card.png")
+    for icon in ("favicon.svg", "favicon.ico", "icon-192.png",
+                 "icon-512.png", "apple-touch-icon.png"):
+        if (ASSETS / icon).exists():
+            shutil.copy(ASSETS / icon, SITE / icon)
+    (SITE / "robots.txt").write_text("User-agent: *\nAllow: /\n", encoding="utf-8")
+
     chapters_meta = []
     llms_full_parts = []
     for slug, src, phase, short in CHAPTERS:
@@ -1493,7 +1543,7 @@ def build():
         page = page_template(f"{phase}: {short}",
                              f'<div class="chapter-with-map">{raside}'
                              f'<article class="chapter">{hero}{rdetails}{body_html}{cnav}</article></div>',
-                             active="")
+                             active="", path=f"{slug}.html")
         (SITE / f"{slug}.html").write_text(page, encoding="utf-8")
         chapters_meta.append({
             "id": slug, "phase": phase, "title": short,
@@ -1545,7 +1595,7 @@ def build():
         page = page_template(f"{short}",
                              f'<div class="chapter-with-map">{raside}'
                              f'<article class="chapter">{hero}{rdetails}{body_html}{mount}{cnav}</article></div>',
-                             active="", extra_head=extra_head)
+                             active="", extra_head=extra_head, path=f"{slug}.html")
         (SITE / f"{slug}.html").write_text(page, encoding="utf-8")
         reference_meta.append({"id": slug, "badge": badge, "title": short,
                                "path": f"{slug}.html", "words": wc, "read_minutes": read_min})
@@ -1581,7 +1631,7 @@ def build():
                 f'<a class="nav-next" href="{nxt[0]}.html"><span class="nav-dir">Next →</span>'
                 f'<span class="nav-title">{esc(nxt[1])}</span></a></nav>')
         nav_active = "case-files.html" if badge == "Case File" else f"{slug}.html"
-        page = page_template(short, f'<article class="chapter">{hero}{body_html}{cnav}</article>', active=nav_active)
+        page = page_template(short, f'<article class="chapter">{hero}{body_html}{cnav}</article>', active=nav_active, path=f"{slug}.html")
         (SITE / f"{slug}.html").write_text(page, encoding="utf-8")
         mdpage_meta.append({"id": slug, "badge": badge, "title": short,
                             "path": f"{slug}.html", "words": wc, "read_minutes": read_min,
@@ -1653,7 +1703,7 @@ def build():
                     f'<div class="briefing-rank">{_rank_chevrons(tier)}<span class="fm-readout">TIER {tier} // {tier_name}</span></div>'
                     "</div></div>")
         page = page_template(title, f'{hud_open}{tool_body}</div>',
-                             active="tools.html", extra_head=extra)
+                             active="tools.html", extra_head=extra, path=f"{slug}.html")
         (SITE / f"{slug}.html").write_text(page, encoding="utf-8")
 
     # glossary page
@@ -1662,7 +1712,7 @@ def build():
     for term in sorted(glossary["terms"], key=lambda t: t["term"].lower()):
         gloss_html += f"<div class='gloss-entry'><dt id='g-{term['term'].lower().replace(' ', '-')}'>{esc(term['term'])}</dt><dd>{inline(term['definition'])}</dd></div>"
     gloss_html += "</dl>"
-    (SITE / "glossary.html").write_text(page_template("Glossary", gloss_html, active="glossary.html"), encoding="utf-8")
+    (SITE / "glossary.html").write_text(page_template("Glossary", gloss_html, active="glossary.html", path="glossary.html"), encoding="utf-8")
 
     # ---- Algorithm Watch feed page (wave B): pre-rendered from data/changes.json,
     #      live-updated from /api/changes when the server is reachable ----
@@ -1724,7 +1774,7 @@ def build():
         "and The Deal Analyzer the moment a brand emails you. "
         "Not sure where you stand at all? Take <a href=\"money-map.html\">The Money Map</a> — "
         "7 questions, your stage, your next 3 moves.</p></section>")
-    (SITE / "tools.html").write_text(page_template("All Tools", tools_body, active="tools.html"), encoding="utf-8")
+    (SITE / "tools.html").write_text(page_template("All Tools", tools_body, active="tools.html", path="tools.html", extra_head=_tools_json_ld()), encoding="utf-8")
 
     # case-files hub: sourced headline cards + comparison table
     case_meta_by_id = {m["id"]: m for m in mdpage_meta if m["badge"] == "Case File"}
@@ -1771,7 +1821,7 @@ def build():
         "<p>Every figure on these cards is reported by the cited source — interviews, company pages, "
         "or (in one case) verified AdSense records — not audited financials. Treat the structures as "
         "proven and the figures as directional. Read the full file before you copy a play.</p></section>")
-    (SITE / "case-files.html").write_text(page_template("Case Files", case_body, active="case-files.html"), encoding="utf-8")
+    (SITE / "case-files.html").write_text(page_template("Case Files", case_body, active="case-files.html", path="case-files.html"), encoding="utf-8")
 
     # index
     GROUP_TIER_COLOR = {"PLAN": "var(--cyan)", "MONEY": "var(--gold)", "CONTENT": "var(--stamp)"}
@@ -1899,7 +1949,7 @@ def build():
 <section class="section honesty reveal"><span class="honesty-stamp stamp stamp-sm stamp-slam" aria-hidden="true">STANDING ORDER</span><h2>The honesty policy</h2>
 <p>Every platform number on this site was verified against 2026 sources or is flagged <strong>verify live</strong>. Income ranges are illustrative, never promises. The LLC/tax phase is educational \u2014 <strong>not legal or tax advice</strong>. Platforms change rules constantly; the most dangerous number on the internet is a stale one.</p></section>
 """
-    (SITE / "index.html").write_text(page_template(SITE_NAME, index_body, active="index.html"), encoding="utf-8")
+    (SITE / "index.html").write_text(page_template(SITE_NAME, index_body, active="index.html", path="index.html", extra_head=_website_json_ld()), encoding="utf-8")
 
     # wave 30: dossier-styled 404 — the file that never filed its paperwork.
     # noindex: a 404 must never be indexed. All links resolve (stage 4 checks).
