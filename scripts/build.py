@@ -1563,7 +1563,7 @@ def page_template(title, body, active="", extra_head="", path=""):
 <meta name="twitter:title" content="{esc(title)}, {SITE_NAME}">
 <meta name="twitter:description" content="{esc(TAGLINE)}">
 <meta name="twitter:image" content="assets/og-card.png">
-<link rel="preload" href="assets/fonts/barlow-latin-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/archivo-latin-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/fonts.css">
 <link rel="stylesheet" href="assets/css/tokens.css">
 <link rel="stylesheet" href="assets/css/motifs.css">
@@ -2218,25 +2218,68 @@ def build():
             f'<span class="ci-name">{esc(_m["title"])}</span>'
             f'<span class="ci-kind">{_m["read_minutes"]} min \u00b7 {_m["words"]:,} words</span></a>'
             f'<p class="ci-contract">{esc(_m["lede"])}</p></li>')
-    index_body = f"""
-<section class="hero">
-  <h1>From $0 to a working creator business.</h1>
-  <p class="lede">Nine phases in order, niche, content, YouTube, every platform, community, money, brand, the business, scale. <strong>No guru hype. Just the playbook, with the numbers shown.</strong></p>
-  <div class="hero-cta"><a class="btn btn-primary" href="career-path.html">Start the Career Path \u2192</a></div>
-  <p class="hero-meta"><span>9 phases</span><span>{n_tools} tools</span><span>9 case files</span><span>32 lessons on the Path: 13 reads, 19 drills</span></p>
-</section>
-<section class="section front-matter"><h2>How this manual names things</h2>
-<p>Every lesson and tool is named by one formula, in every place it appears: <strong>number, name, kind word, state word</strong>. A lesson's number is its stage and its position in the stage. A tool's number is its position in the tools listing. The kind word for a lesson is <em>read</em> or <em>drill</em>; for a tool it is its job.</p>
-<p>The state vocabulary is closed: a lesson or tool is <strong>current</strong>, or it has been replaced and is marked <strong>superseded</strong>, with its replacement named. Difficulty uses five grades only: Very easy, Easy, Moderate, Difficult, Very difficult. Every lesson opens with its spec block before any prose and closes with a conclusion line naming the artifact it produces.</p>
-<p>Every tool carries the date it was added to this manual and the date it last changed, in its spec line below. Spot an error? The manual keeps a corrections ledger on the <a href="what-changed.html">Algorithm Watch</a> page: file a correction there and accepted corrections print in the ledger, dated, with what changed.</p>
-</section>
-<section class="section contents"><div class="section-head"><h2>The contents</h2><a href="career-path.html" class="section-more">The Career Path \u2192</a></div>
-<p class="section-lede">The whole manual on one page. Work it in order: the Path starts at Part 1, Lesson 1.1, teaches first, and hands you each tool where you need it, progress saved on this device. Not sure where you stand? The 2-minute <a href="money-map.html">Money Map</a> finds your stage.</p>
+    # ---- rotation 23: screen one IS the formula, drawn (FINDINGS
+    # Section 5.8). The specimen is a real lesson's full name, set
+    # huge and annotated like a specimen plate: number, name, kind
+    # word, state word, each carrying its coordinate in mono. The
+    # naming system is demonstrated here, never lectured; the old
+    # front-matter paragraphs that explained it are gone, and what
+    # they carried now lives in the specimen's annotations, in the
+    # closed-vocabulary line at the plate's foot, and on the lesson
+    # pages themselves (spec block first, conclusion last).
+    _spec = LESSONS_BY_ID["f-drill-statement"]
+    _spec_stage = LESSON_STAGE_NAMES[_spec["stage"]]
+    _n_lessons = len(LESSONS_BY_ID)
+    _n_drills = sum(1 for _l in LESSONS_BY_ID.values() if _l["kind"] == "drill")
+    _n_reads = _n_lessons - _n_drills
+    _specimen = f"""
+<section class="specimen" aria-label="One lesson's name, annotated">
+  <p class="spec-kicker">Creator Growth Empire \u00b7 a field manual for creators \u00b7 specimen 01</p>
+  <div class="spec-plate">
+    <div class="spec-row"><span class="spec-coord">Number</span><span class="spec-num">{esc(_spec["number"])}</span></div>
+    <div class="spec-row"><span class="spec-coord">Name</span><h1 class="spec-name">{esc(_spec["title"])}</h1></div>
+    <div class="spec-row"><span class="spec-coord">Kind \u00b7 State</span><span class="spec-kind">{esc(_spec["kind"])} \u00b7 {esc(_spec["state"])}</span></div>
+    <dl class="spec-notes">
+      <div><dt>{esc(_spec["number"])}</dt><dd>Stage 1, {_spec_stage}, second lesson in it. The number is the address: stage, then position.</dd></div>
+      <div><dt>{esc(_spec["kind"])}</dt><dd>A kind word. A drill is done, not read: {esc(_spec["time"])}, {esc(_spec["difficulty"].lower())}. The other kind word is read.</dd></div>
+      <div><dt>{esc(_spec["state"])}</dt><dd>A state word. Still true as filed. A replaced lesson reads superseded, with its replacement named.</dd></div>
+    </dl>
+    <p class="spec-done">Done, for this drill, is an artifact in hand: {esc(_spec["artifact"])}</p>
+    <p class="spec-vocab">Difficulty, five grades only: very easy \u00b7 easy \u00b7 moderate \u00b7 difficult \u00b7 very difficult</p>
+  </div>
+  <p class="spec-claim"><span class="claim-num">{_n_lessons}</span> lessons. <span class="claim-num">{_n_drills}</span> are drills you do, not read.</p>
+  <div class="hero-cta"><a class="btn btn-primary" href="career-path.html">Start the Career Path \u2192</a><a class="spec-open" href="career-path.html">Open lesson {_spec["number"]} on the Path \u2192</a></div>
+</section>"""
+    # ---- rotation 23: the Path as a numbered contents composition.
+    # The nine phases are the page's structure: 01 to 09, ruled
+    # plates, each opening its chapter. Counts ride in the heading
+    # prose, not in a stat strip.
+    _path_plates = ""
+    for _pi, _pm in enumerate(chapters_meta):
+        _path_plates += (
+            f'<li><a class="path-plate" href="{_pm["path"]}">'
+            f'<span class="pp-num">{_pi + 1:02d}</span>'
+            f'<span class="pp-main"><span class="pp-phase">{esc(_pm["phase"])}</span>'
+            f'<span class="pp-title">{esc(_pm["title"])}</span>'
+            f'<span class="pp-lede">{esc(PHASE_LEDES[_pi])}</span></span>'
+            f'<span class="pp-meta">{_pm["read_minutes"]} min read</span></a></li>')
+    _path_section = f"""
+<section class="section path-contents"><div class="section-head"><h2>The Path, in nine phases</h2><a href="career-path.html" class="section-more">The Career Path \u2192</a></div>
+<p class="section-lede">Nine phases, in order, from $0 and no content to a working creator business. Open one, or work the Path end to end: it starts at Lesson 1.1, teaches first, and hands you each of the {n_tools} tools where you need it, progress saved on this device. Not sure where you stand? The 2-minute <a href="money-map.html">Money Map</a> finds your stage.</p>
+<ol class="path-plates">{_path_plates}</ol>
+</section>"""
+    index_body = f"""{_specimen}
+{_path_section}
+<section class="section contents"><div class="section-head"><h2>The contents, entire</h2></div>
+<p class="section-lede">Every lesson, every tool, every case file in this manual, named the way the specimen is named. Nothing here is a teaser.</p>
 {_contents_parts}
 <h3 class="ci-part ci-part-tools">The tools, by job</h3>
 {_contents_tools}
 <h3 class="ci-part ci-part-cases">The case files</h3>
 <ul class="ci-list">{_contents_cases}</ul>
+</section>
+<section class="section corrections-note"><h2>Filed wrong? Correct it.</h2>
+<p>Every tool carries the date it was added to this manual and the date it last changed, in its spec line above. Spot an error anywhere? The manual keeps a corrections ledger on the <a href="what-changed.html">Algorithm Watch</a> page: file a correction there and accepted corrections print in the ledger, dated, with what changed.</p>
 </section>
 {signal_log}
 <section class="section"><div class="curator-note">

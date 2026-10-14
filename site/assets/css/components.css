@@ -678,6 +678,8 @@ input[type="range"] { min-height: 2.75rem; }
 .lesson-spec { border: 1px solid var(--line); border-left: 3px solid var(--gold, #c9a227);
   padding: .9rem 1rem; margin: 1.2rem 0 1.6rem; background: var(--bg-2); }
 .lesson-spec h2 { font-size: 1.05rem; margin: 0 0 .6rem; }
+/* rotation 23: the formula line is coordinates, set in the mono voice */
+.ls-formula { font-family: var(--font-mono); font-weight: 700; margin: 0 0 .7rem; }
 .ls-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr)); gap: .5rem 1.2rem; margin: 0; }
 .ls-grid dt { font-size: .78rem; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
 .ls-grid dd { margin: .1rem 0 0; font-weight: 600; }

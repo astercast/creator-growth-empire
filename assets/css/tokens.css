@@ -1,7 +1,8 @@
 /* Design tokens, R21 field-manual system.
    A working manual, not a costume: near-monochrome field neutrals, ONE
-   accent (mustard), two type families (Barlow for reading and headings,
-   JetBrains Mono for data and numbers), squared corners, no shadows.
+   accent (mustard), squared corners, no shadows. Type: Barlow for
+   reading, JetBrains Mono for data and numbers; from rotation 23,
+   Archivo takes display sizes (see the type tokens below).
    Numbered sections are content structure, not decoration.
    Legacy colour names (--cyan/--sage/--stamp) remain as aliases so older
    fragments resolve, but every one now resolves inside the mustard /
@@ -30,14 +31,18 @@
   --sage: #d6dbc9;
   --sage-dim: #8f9782;
   --sage-ink: #141a12;
-  /* type, two families only */
-  --font-display: "Barlow", "Barlow Fallback", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-cond: "Barlow", "Barlow Fallback", system-ui, -apple-system, "Segoe UI", sans-serif;
+  /* type: rotation 23 gives display sizes to Archivo, a grotesk with
+     more character; Barlow keeps body and reading sizes; JetBrains
+     Mono carries the formula's coordinates (numbers, kind and state
+     words), a second voice with a job */
+  --font-display: "Archivo", "Archivo Fallback", "Barlow", "Barlow Fallback", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-cond: "Archivo", "Archivo Fallback", "Barlow", "Barlow Fallback", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-body: "Barlow", "Barlow Fallback", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: "JetBrains Mono", "JetBrains Mono Fallback", ui-monospace, SFMono-Regular, Menlo, monospace;
-  --radius-sm: 2px;
-  --radius: 4px;
-  --radius-lg: 6px;
+  /* rotation 23: square corners. Ruled manual plates do not round. */
+  --radius-sm: 0;
+  --radius: 0;
+  --radius-lg: 0;
   --max-w: 1140px;
   --shadow-chisel: none;
   --shadow-plate: none;

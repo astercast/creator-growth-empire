@@ -190,6 +190,48 @@
   src: url("../fonts/jetbrains-mono-latin-ext-var.woff2") format("woff2-variations");
   unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
+/* Archivo, variable, full measured range 100 to 900 (rotation 23).
+   Display voice from rotation 23: Barlow yields at display sizes to
+   Archivo, a grotesk with more character; Barlow keeps body and UI.
+   Google serves Archivo as one variable file per subset (the css2
+   responses for weights 600, 700, 800 and 900 all point at the same
+   URL), so it ships as a variable face, like JetBrains Mono above.
+   Measured with fontTools on the shipped files: upm 1000, x-height
+   526 (constant across the weight axis), hhea ascent 878, descent
+   210, line gap 0. Rule 5 holds for this face too: font-display swap,
+   the variable latin file is the preloaded display face in every
+   page head (emitted by scripts/build.py), and the metric-adjusted
+   fallback below aligns the Arial class x-height (Liberation Sans,
+   1082 of 2048) to Archivo's 526 of 1000: size-adjust 99.56%,
+   ascent override 87.8%, descent override 21%. Weight is only ever
+   set with the font-weight property. */
+@font-face {
+  font-family: "Archivo";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("../fonts/archivo-latin-var.woff2") format("woff2-variations");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Archivo";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("../fonts/archivo-latin-ext-var.woff2") format("woff2-variations");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* Archivo metric-adjusted fallback, covering the full range. */
+@font-face {
+  font-family: "Archivo Fallback";
+  font-style: normal;
+  font-weight: 100 900;
+  src: local("Arial"), local("Helvetica Neue"), local("Liberation Sans");
+  size-adjust: 99.56%;
+  ascent-override: 87.8%;
+  descent-override: 21%;
+  line-gap-override: 0%;
+}
 /* JetBrains Mono metric-adjusted fallback, covering the full range.
    size-adjust aligns the mono fallback x-height (Liberation Mono,
    1082 of 2048) to the JetBrains Mono x-height (550 of 1000);

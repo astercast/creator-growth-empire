@@ -169,7 +169,8 @@ a.brief-card:hover, a.brief-card:focus-visible {
 .ci-row { display: flex; flex-wrap: wrap; align-items: baseline; gap: .15rem .7rem;
   padding: .65rem .25rem; min-height: 44px; text-decoration: none; color: var(--ink); }
 .ci-row:hover .ci-name, .ci-row:focus-visible .ci-name { text-decoration: underline; }
-.ci-num { font-family: var(--font-display); font-weight: 700; min-width: 3.4rem; color: var(--gold); }
+.ci-num { font-family: var(--font-mono); font-weight: 700; min-width: 3.4rem; color: var(--gold); }
+.ci-kind, .ci-state { font-family: var(--font-mono); }
 .ci-list .ci-num { min-width: 3.4rem; }
 .ci-name { font-weight: 600; flex: 1 1 12rem; }
 .ci-kind { color: var(--muted); font-size: .92rem; }
@@ -191,4 +192,52 @@ a.brief-card:hover, a.brief-card:focus-visible {
   .ci-num { min-width: 2.9rem; }
   .ci-name { flex-basis: 100%; order: 2; }
   .ci-num { order: 1; } .ci-kind { order: 3; } .ci-state { order: 4; }
+}
+
+/* ---- rotation 23: the formula, drawn (FINDINGS Section 5.8) ----
+   Screen one is a specimen plate: one lesson's full name set huge,
+   its coordinates in the mono voice, annotated like a specimen.
+   Ruled plates, square corners; the palette is untouched. */
+.specimen { padding: 3.2rem 0 2.6rem; }
+.spec-kicker { font-family: var(--font-mono); font-size: .78rem; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); margin: 0 0 1.4rem; max-width: none; }
+.spec-plate { border-top: 2px solid var(--ink); border-bottom: 1px solid var(--line-strong); padding: 1.2rem 0 1.4rem; }
+.spec-row { display: grid; grid-template-columns: 8.5rem 1fr; gap: .4rem 1.2rem; align-items: baseline; padding: .55rem 0; border-top: 1px solid var(--line); }
+.spec-row:first-child { border-top: none; padding-top: 0; }
+.spec-coord { font-family: var(--font-mono); font-size: .72rem; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+.spec-num { font-family: var(--font-mono); font-weight: 700; font-size: clamp(1.6rem, 4vw, 2.6rem); color: var(--gold); }
+.spec-name { font-family: var(--font-display); font-weight: 900; font-size: clamp(2.6rem, 7.2vw, 5.4rem); line-height: .98; letter-spacing: -0.02em; text-transform: uppercase; margin: 0; }
+.spec-kind { font-family: var(--font-mono); font-weight: 700; font-size: clamp(1.3rem, 3.4vw, 2.1rem); letter-spacing: .08em; text-transform: uppercase; }
+/* annotations are ruled rows with hanging coordinate labels, in the
+   plate's own indent, never a three-column feature grid */
+.spec-notes { margin: 1.1rem 0 0; padding-left: 9.7rem; }
+.spec-notes > div { display: grid; grid-template-columns: 6.5rem 1fr; gap: .3rem 1rem; border-top: 1px solid var(--line); padding: .55rem 0; align-items: baseline; }
+.spec-notes dt { font-family: var(--font-mono); font-weight: 700; color: var(--gold); font-size: .95rem; }
+.spec-notes dd { margin: 0; color: var(--muted); font-size: .98rem; line-height: 1.55; max-width: 58ch; }
+.spec-done { margin: 1.2rem 0 0; padding-left: 9.7rem; font-size: 1.05rem; max-width: 62ch; }
+.spec-vocab { font-family: var(--font-mono); font-size: .78rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: .9rem 0 0; padding-left: 9.7rem; max-width: none; }
+.spec-claim { font-family: var(--font-display); font-weight: 800; font-size: clamp(1.5rem, 3.6vw, 2.3rem); line-height: 1.2; margin: 2.2rem 0 1.2rem; }
+.spec-claim .claim-num { color: var(--gold); }
+.spec-open { display: inline-flex; align-items: center; min-height: 44px; padding: .35rem 0; font-weight: 600; }
+.corrections-note p { max-width: 68ch; }
+
+/* the Path as numbered contents: 01 to 09, ruled plates */
+.path-plates { list-style: none; margin: 0; padding: 0; border-bottom: 1px solid var(--line-strong); }
+.path-plate { display: grid; grid-template-columns: 5.2rem 1fr auto; gap: .3rem 1.2rem; align-items: baseline; border-top: 1px solid var(--line-strong); padding: 1rem .25rem; min-height: 44px; text-decoration: none; color: var(--ink); }
+.path-plate:hover .pp-title, .path-plate:focus-visible .pp-title { text-decoration: underline; }
+.pp-num { font-family: var(--font-display); font-weight: 900; font-size: clamp(1.7rem, 3.6vw, 2.5rem); color: var(--gold); line-height: 1; }
+.pp-main { display: block; }
+.pp-phase { display: block; font-family: var(--font-mono); font-size: .74rem; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+.pp-title { display: block; font-family: var(--font-display); font-weight: 800; font-size: clamp(1.3rem, 2.8vw, 1.8rem); line-height: 1.15; }
+.pp-lede { display: block; color: var(--muted); margin-top: .3rem; max-width: 56ch; line-height: 1.55; }
+.pp-meta { font-family: var(--font-mono); font-size: .8rem; color: var(--muted); white-space: nowrap; }
+@media (max-width: 720px) {
+  .spec-notes { padding-left: 0; }
+  .spec-notes > div { grid-template-columns: 4.6rem 1fr; }
+  .spec-done, .spec-vocab { padding-left: 0; }
+}
+@media (max-width: 560px) {
+  .specimen { padding: 2.2rem 0 2rem; }
+  .spec-row { grid-template-columns: 1fr; gap: .15rem; }
+  .path-plate { grid-template-columns: 3.6rem 1fr; }
+  .pp-meta { grid-column: 2; }
 }

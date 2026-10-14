@@ -35,7 +35,26 @@ at the same URL, and the file's measured fvar range is wght 400 to
 | jetbrains-mono-latin-ext-var.woff2 | JetBrains Mono | latin-ext | variable 400 to 800 | https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPx7cwhsk.woff2 |
 
 Delivery rules (Aesthetics ROUND-001 section 5) live in
-assets/css/fonts.css: font-display swap everywhere, the Barlow 700
-latin display face preloaded from the page head at the generator
-source, one metric-adjusted fallback face per shipped face, and
+assets/css/fonts.css: font-display swap everywhere, the display
+face preloaded from the page head at the generator source, one
+metric-adjusted fallback face per shipped face, and
 font-synthesis-weight none at the root in assets/css/base.css.
+
+## Rotation 23 addition: Archivo (the display voice)
+
+Downloaded 2026-10-14 from the Google Fonts css2 API (woff2),
+request `family=Archivo:wght@600;700;800;900`. Archivo arrives as
+one variable file per subset: the css2 responses for all four
+weights point at the same URL, and the file's measured fvar range
+is wght 100 to 900 (fontTools), which covers every weight the site
+sets. Measured on the shipped files: upm 1000, x-height 526
+(constant across the weight axis), hhea ascent 878, descent 210.
+
+| file | family | subset | weight | source URL |
+|---|---|---|---|---|
+| archivo-latin-var.woff2 | Archivo | latin | variable 100 to 900 | https://fonts.gstatic.com/s/archivo/v25/k3kPo8UDI-1M0wlSV9XAw6lQkqWY8Q82sLydOxKsv4Rn.woff2 |
+| archivo-latin-ext-var.woff2 | Archivo | latin-ext | variable 100 to 900 | https://fonts.gstatic.com/s/archivo/v25/k3kPo8UDI-1M0wlSV9XAw6lQkqWY8Q82sLyTOxKsv4RnUPU.woff2 |
+
+From rotation 23 the preloaded display face is the Archivo latin
+variable file (it replaced the Barlow 700 latin preload at the
+generator source); Barlow remains shipped in full for body text.

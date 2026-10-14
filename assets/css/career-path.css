@@ -18,7 +18,10 @@
 .cp-lesson input { flex: none; }
 .cp-lesson p { margin: 0.3rem 0 0 1.6rem; }
 .cp-done strong { text-decoration: line-through; }
-.cp-kind { font-family: var(--font-cond); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; color: var(--gold); }
+.cp-kind { font-family: var(--font-mono); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; color: var(--gold); }
+/* rotation 23: the demonstration line on the Path, one real lesson
+   name in the formula's own setting, mono coordinates, ruled. */
+.cp-demo { font-family: var(--font-mono); font-size: 1rem; border-top: 1px solid var(--line-strong); border-bottom: 1px solid var(--line-strong); padding: 0.7rem 0.25rem; max-width: 72ch; }
 .cp-tools { display: flex; flex-wrap: wrap; gap: 0.4rem; list-style: none; margin: 0.4rem 0; padding: 0; }
 /* rotation 23 fitting: the Path's per-lesson tool rows were 28px text
    chips; same chips, padded to real touch rows. */
@@ -30,8 +33,8 @@
  * steps, conclusion, in the fixed order, all in residence. */
 .cp-lesson-head { display: flex; gap: 0.6rem; align-items: baseline; justify-content: space-between; }
 .cp-lesson-head label { flex: 1 1 auto; }
-.cp-num { font-family: var(--font-cond); font-weight: 600; font-size: 0.82rem; letter-spacing: 0.06em; color: var(--muted); }
-.cp-state { font-family: var(--font-cond); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.cp-num { font-family: var(--font-mono); font-weight: 600; font-size: 0.82rem; letter-spacing: 0.06em; color: var(--muted); }
+.cp-state { font-family: var(--font-mono); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
 .cp-stamp, .cp-stage-stamp { flex: none; transform: rotate(-4deg); }
 .cp-stamp-slot { flex: none; inline-size: 4.2rem; }
 .cp-spec { display: grid; grid-template-columns: repeat(auto-fit, minmax(7.5rem, 1fr)); gap: 0.45rem 1rem; margin: 0.55rem 0 0.3rem 1.6rem; padding: 0.6rem 0.8rem; border: 1px solid var(--line-strong); border-radius: var(--radius-sm); background: var(--bg); max-width: 72ch; }
