@@ -33,10 +33,10 @@
 /* Term-check flags: level is encoded in the label text + border side,
    never in color alone. */
 .db-flag {
-  border-left: 3px solid var(--cyan, #5fe8ff);
+  border-left: 3px solid var(--cyan, #ffc42e);
   padding: .6rem .9rem;
   margin: .6rem 0;
-  background: rgba(95, 232, 255, .05);
+  background: rgba(255, 196, 46, .05);
   max-inline-size: 65ch;
 }
 .db-flag-flag { border-left-color: var(--gold, #ffd166); background: rgba(255, 209, 102, .06); }
@@ -60,7 +60,7 @@
   font-size: .85rem;
   letter-spacing: .08em;
   text-transform: uppercase;
-  color: var(--cyan, #5fe8ff);
+  color: var(--cyan, #ffc42e);
   margin: 1.25rem 0 .5rem;
 }
 .db-check-group ul { list-style: none; padding: 0; margin: 0; }
@@ -78,10 +78,10 @@
   width: 1.15rem;
   height: 1.15rem;
   margin-top: .15rem;
-  accent-color: var(--cyan, #5fe8ff);
+  accent-color: var(--cyan, #ffc42e);
   flex-shrink: 0;
 }
-.db-check.db-checked { border-color: var(--cyan, #5fe8ff); }
+.db-check.db-checked { border-color: var(--cyan, #ffc42e); }
 .db-check.db-checked > span > strong { text-decoration: line-through; }
 
 .db-line {

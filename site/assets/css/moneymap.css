@@ -56,13 +56,13 @@
   font-weight: 800;
   margin-bottom: 0.6rem;
 }
-.map-node.you-are-here .map-node-num { border-color: var(--cyan); background: rgba(200,255,46,.12); }
+.map-node.you-are-here .map-node-num { border-color: var(--cyan); background: rgba(255,196,46,.12); }
 .map-node.stage-done .map-node-num { border-color: var(--gold); }
 .map-node.stage-done .map-node-num::after { content: " ✓"; color: var(--gold); font-size: 0.9rem; }
 
 .map-node h3 { margin: 0 0 0.2rem; font-size: 1.05rem; }
 .map-node .map-band { font-family: var(--font-mono); font-size: 0.75rem; color: var(--muted); letter-spacing: 0.08em; }
-.map-node.you-are-here { border-color: var(--cyan); box-shadow: 4px 4px 0 rgba(200,255,46,.25); }
+.map-node.you-are-here { border-color: var(--cyan); box-shadow: 4px 4px 0 rgba(255,196,46,.25); }
 
 /* quiz results */
 .map-result {
@@ -95,7 +95,7 @@
   margin-bottom: 1.6rem;
   scroll-margin-top: 5rem;
 }
-.stage-card:target { border-color: var(--cyan); box-shadow: 5px 5px 0 rgba(200,255,46,.2); }
+.stage-card:target { border-color: var(--cyan); box-shadow: 5px 5px 0 rgba(255,196,46,.2); }
 .stage-head { display: flex; align-items: baseline; gap: 1rem; flex-wrap: wrap; margin-bottom: 0.6rem; }
 .stage-head h3 { margin: 0; font-size: 1.6rem; }
 .stage-band {

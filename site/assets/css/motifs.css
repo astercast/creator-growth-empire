@@ -10,8 +10,7 @@
 .brk { position: relative; --brk: var(--cyan); }
 .brk::before, .brk::after,
 .brk .brk-x::before, .brk .brk-x::after {
-  content: ""; position: absolute; width: 16px; height: 16px; z-index: 2;
-  border: 3px solid var(--brk); pointer-events: none;
+  content: none;
 }
 .brk::before { top: 8px; left: 8px; border-right: none; border-bottom: none; }
 .brk::after { bottom: 8px; right: 8px; border-left: none; border-top: none; }
@@ -121,25 +120,22 @@
    A tab that reads like a pulled file-folder label. */
 .folder-tab {
   display: inline-block;
-  font-family: var(--font-cond); font-weight: 700; font-size: 0.85rem;
-  letter-spacing: 0.2em; text-transform: uppercase;
-  color: var(--cyan-ink); background: var(--cyan);
-  padding: 0.45rem 1.4rem 0.4rem 1rem;
-  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 100%, 0 100%);
-  margin-bottom: -1px;
+  font-family: var(--font-mono); font-weight: 400; font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  color: var(--muted); background: transparent;
+  padding: 0; margin-bottom: 0.4rem;
 }
-.folder-tab-gold { background: var(--gold); color: var(--gold-ink); }
-.folder-tab-sage { background: var(--sage); color: var(--sage-ink); }
+.folder-tab-gold, .folder-tab-sage { background: transparent; color: var(--muted); }
 
 /* ============ S2 — field-manual kickers ============
    The dossier grammar: FIELD MANUAL // ENTRY 04 // PHASE 2.
    Mono readouts for data, condensed for section labels. */
 .fm-kicker {
-  font-family: var(--font-cond); font-weight: 600;
-  font-size: 0.82rem; letter-spacing: 0.24em; text-transform: uppercase;
+  font-family: var(--font-mono); font-weight: 400;
+  font-size: 0.78rem; letter-spacing: 0.06em;
   color: var(--muted);
 }
-.fm-kicker strong { color: var(--cyan); font-weight: 700; }
+.fm-kicker strong { color: var(--ink); font-weight: 700; }
 .fm-kicker .sep { color: var(--faint); margin: 0 0.5em; }
 .fm-readout {
   font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.08em;
@@ -214,17 +210,11 @@
 }
 .kf-num::before { content: "▸ "; color: var(--cyan); }
 .kf-call {
-  font-family: var(--font-mono); font-weight: 700; font-size: 0.8rem;
-  letter-spacing: 0.08em; text-transform: uppercase;
-  color: var(--cyan); white-space: nowrap;
+  font-family: var(--font-body); font-weight: 700; font-size: 0.95rem;
+  color: var(--ink); white-space: nowrap;
 }
 .kf-text { color: var(--muted); font-size: 0.95rem; }
-.kf-chit {
-  font-family: var(--font-cond); font-weight: 700; font-size: 0.68rem;
-  letter-spacing: 0.22em; text-transform: uppercase; white-space: nowrap;
-  color: var(--gold); border: 1px solid var(--gold-dim); border-radius: 3px;
-  padding: 0.18rem 0.55rem 0.12rem 0.7rem;
-}
+.kf-chit { display: none; }
 a.kf-msg:hover, a.kf-msg:focus-visible { background: var(--bg-3); }
 a.kf-msg:hover .kf-call, a.kf-msg:focus-visible .kf-call { color: var(--ink); }
 a.kf-msg:hover .kf-text, a.kf-msg:focus-visible .kf-text { color: var(--ink); }
@@ -346,16 +336,3 @@ html[data-calm="1"] .scan-sweep::after { display: none; }
 html[data-calm="1"] .ticker-track { animation: none; }
 html[data-calm="1"] { scroll-behavior: auto; }
 
-/* ============ ambient: scanline sweep (hero only) ============
-   One ambient motion per site. A thin cyan line sweeps the briefing board
-   every few seconds — the board is alive. Gated; reduced-motion removes it. */
-@media (prefers-reduced-motion: no-preference) {
-  .scan-sweep { position: relative; overflow: hidden; }
-  .scan-sweep::after {
-    content: ""; position: absolute; left: 0; right: 0; top: -10%;
-    height: 2px; background: var(--cyan); opacity: 0.35;
-    animation: sweep 7s linear infinite;
-    pointer-events: none;
-  }
-  @keyframes sweep { to { top: 110%; } }
-}

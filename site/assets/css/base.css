@@ -13,17 +13,11 @@ body {
   font-size: 1.05rem;
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
-  /* survey dot-grid — the manual's paper, dark edition */
-  background-image:
-    radial-gradient(rgba(159, 212, 168, 0.055) 1px, transparent 1.5px),
-    linear-gradient(rgba(159, 212, 168, 0.028) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(159, 212, 168, 0.028) 1px, transparent 1px);
-  background-size: 26px 26px, 104px 104px, 104px 104px;
 }
 /* grain overlay — unified physical grain, sits above everything, non-interactive */
 body::after {
-  content: ""; position: fixed; inset: 0; z-index: 999; pointer-events: none;
-  opacity: 0.5;
+  content: none; position: fixed; inset: 0; z-index: 999; pointer-events: none;
+  opacity: 0;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
@@ -38,18 +32,18 @@ body::after {
 h1, h2, h3, h4 { text-wrap: balance; margin: 2.4rem 0 1rem; }
 /* stencil display — h1s only; never body, never small UI */
 h1 {
-  font-family: var(--font-display); font-weight: 400;
-  font-size: clamp(2.4rem, 6vw, 4.2rem);
-  line-height: 1.04; letter-spacing: 0.01em; text-transform: uppercase;
+  font-family: var(--font-display); font-weight: 800;
+  font-size: clamp(2.2rem, 5vw, 3.6rem);
+  line-height: 1.08; letter-spacing: -0.015em;
 }
 /* condensed tactical — section headers carry the manual's voice */
 h2, h3 {
   font-family: var(--font-cond); font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.04em; line-height: 1.08;
+  letter-spacing: -0.01em; line-height: 1.15;
 }
 h2 { font-size: clamp(1.7rem, 4vw, 2.6rem); }
 h3 { font-size: clamp(1.25rem, 2.6vw, 1.6rem); }
-h4 { font-family: var(--font-cond); font-weight: 600; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 0.06em; }
+h4 { font-family: var(--font-cond); font-weight: 600; font-size: 1.05rem; }
 p { margin: 0 0 1.1rem; max-width: 68ch; }
 a { color: var(--cyan); text-decoration-thickness: 2px; text-underline-offset: 3px; }
 a:hover { color: var(--ink); }
@@ -74,7 +68,7 @@ img { max-width: 100%; height: auto; }
 .skip-link {
   position: absolute; left: -999px; top: 0; background: var(--gold); color: var(--gold-ink);
   padding: 0.6rem 1rem; font-weight: 700; z-index: 1000;
-  font-family: var(--font-cond); text-transform: uppercase; letter-spacing: 0.08em;
+  font-family: var(--font-body); font-weight: 700;
 }
 .skip-link:focus { left: 0.5rem; top: 0.5rem; }
 .muted { color: var(--muted); }
@@ -86,11 +80,11 @@ table { width: 100%; border-collapse: collapse; font-size: 0.95rem; font-variant
 th, td { text-align: left; padding: 0.7rem 1rem; border-bottom: 1px solid var(--line); vertical-align: top; }
 th {
   background: var(--bg-3);
-  font-family: var(--font-cond); font-weight: 700; font-size: 0.88rem;
-  text-transform: uppercase; letter-spacing: 0.1em; color: var(--cyan);
+  font-family: var(--font-body); font-weight: 700; font-size: 0.88rem;
+  color: var(--ink);
 }
 tr:last-child td { border-bottom: none; }
-tbody tr:hover td { background: rgba(95, 232, 255, 0.03); }
+tbody tr:hover td { background: rgba(255, 196, 46, 0.03); }
 
 /* scroll-reveal: finished-visible is the CSS default; the hidden starting state
    only applies when JS is present (.js on <html>, set by site.js) and the

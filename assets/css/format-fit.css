@@ -28,7 +28,7 @@
   font-size: 0.8rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--cyan, #5fe8ff);
+  color: var(--cyan, #ffc42e);
 }
 
 /* Score: segmented bar + tabular numeral. The number is the encoding —
@@ -50,7 +50,7 @@
   height: 100%;
 }
 .ff-scorefill.is-strong { background: var(--gold, #ffc42e); }
-.ff-scorefill.is-workable { background: var(--cyan, #5fe8ff); }
+.ff-scorefill.is-workable { background: var(--cyan, #ffc42e); }
 .ff-scorefill.is-weak { background: var(--stamp, #ff6a55); }
 .ff-scoreval {
   font-size: 1.5rem;

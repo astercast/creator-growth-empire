@@ -9,13 +9,9 @@
   letter-spacing: 0.14em; text-transform: uppercase;
   padding: 0.45rem 0.95rem;
   background: var(--cyan); color: var(--cyan-ink);
-  clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
-  white-space: nowrap;
+  white-space: nowrap; background: transparent; color: var(--muted); border: 1px solid var(--line-strong); border-radius: var(--radius);
 }
-.chit-stamp { background: var(--stamp-dim); color: #fff; }
-.chit-gold { background: var(--gold); color: var(--gold-ink); }
-.chit-sage { background: var(--sage); color: var(--sage-ink); }
-.chit-ghost { background: var(--bg-3); color: var(--ink); border: 1px solid var(--line-strong); }
+.chit-stamp, .chit-gold, .chit-sage, .chit-ghost { background: transparent; color: var(--muted); }
 .chit-row { display: flex; flex-wrap: wrap; gap: 0.7rem; margin: 1.8rem 0; }
 /* legacy .sticker aliases (pre-wave-29 fragments) */
 .sticker { display: inline-block; font-family: var(--font-cond); font-weight: 700; font-size: 0.85rem; letter-spacing: 0.14em; text-transform: uppercase; padding: 0.45rem 0.95rem; background: var(--cyan); color: var(--cyan-ink); white-space: nowrap; }
@@ -48,32 +44,26 @@
 /* ---------- HUD panel: tool chrome with corner brackets ---------- */
 .hud-panel {
   position: relative;
-  background: var(--bg-2);
-  border: 1px solid var(--line-strong);
-  border-radius: var(--radius-sm);
+  background: transparent;
+  border: none;
   padding: 0;
-  margin: 1.6rem 0;
-  overflow: hidden;
+  margin: 2.5rem 0;
+  overflow: visible;
 }
-.hud-panel::before, .hud-panel::after {
-  content: ""; position: absolute; width: 18px; height: 18px; z-index: 2;
-  border: 3px solid var(--cyan);
-}
-.hud-panel::before { top: 10px; left: 10px; border-right: none; border-bottom: none; }
-.hud-panel::after { bottom: 10px; right: 10px; border-left: none; border-top: none; }
+.hud-panel::before, .hud-panel::after { content: none; }
 /* when the full 4-corner reticle is requested, it replaces the 2-corner default */
 .hud-panel.brk::before, .hud-panel.brk::after { display: none; }
 .hud-head {
   display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; row-gap: 0.35rem;
-  padding: 0.7rem 1.4rem;
-  background: var(--bg-3);
-  border-bottom: 1px solid var(--line-strong);
+  padding: 0 0 0.6rem;
+  background: transparent;
+  border-bottom: none;
   font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.16em;
   text-transform: uppercase; color: var(--muted);
 }
 .hud-head .hud-status { color: var(--cyan); }
 .hud-head .hud-status::before { content: "● "; }
-.hud-body { padding: 1.6rem 1.6rem 1.8rem; }
+.hud-body { padding: 0; }
 .hud-body > h1:first-child, .hud-body > h2:first-child { margin-top: 0; }
 
 /* ---------- stat callouts: big mono numbers ---------- */
@@ -111,42 +101,27 @@
 .callout strong:first-child { display: block; font-family: var(--font-cond); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.3rem; }
 /* mission briefing: the "orders" variant */
 .callout.mission {
-  border: 2px solid var(--cyan); border-radius: var(--radius-sm);
+  border: 1px solid var(--line-strong); border-radius: var(--radius-sm);
   background: var(--bg-2);
-  box-shadow: var(--shadow-plate);
 }
-.callout.mission strong:first-child { color: var(--cyan); letter-spacing: 0.1em; }
+.callout.mission strong:first-child { color: var(--ink); }
 
 /* ---------- chapter hero: mission briefing card ---------- */
 .chapter-hero {
   position: relative;
-  margin: 0 -1.5rem 2.5rem; padding: 3.2rem 1.5rem 2.4rem;
-  border-bottom: 2px solid var(--line-strong);
-  overflow: hidden;
-  background: var(--bg-2);
+  margin: 0 0 2.5rem; padding: 3.5rem 0 0.5rem;
+  overflow: visible;
+  background: transparent;
+  max-width: 46rem;
 }
-/* dossier pin-stripes */
-.chapter-hero::before {
-  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 8px;
-  background: repeating-linear-gradient(90deg, var(--phase-accent, var(--cyan)) 0 34px, transparent 34px 52px);
-  opacity: 0.8;
-}
-.chapter-num {
-  position: absolute; right: 0.5rem; top: -1.6rem;
-  font-family: var(--font-display); font-weight: 400;
-  font-size: clamp(8rem, 26vw, 19rem); line-height: 1;
-  color: transparent; -webkit-text-stroke: 2px var(--phase-accent, var(--cyan));
-  opacity: 0.28; pointer-events: none; user-select: none;
-}
-@supports not (-webkit-text-stroke: 1px black) {
-  .chapter-num { color: var(--phase-accent, var(--cyan)); opacity: 0.12; -webkit-text-stroke: 0; }
-}
+.chapter-hero::before { content: none; }
+.chapter-num { display: none; }
 .chapter-hero .chapter-kicker { position: relative; margin: 0.4rem 0 1rem; }
 .chapter-hero h1 {
   position: relative; margin: 0 0 1rem; max-width: 16ch;
   font-size: clamp(2.4rem, 7.5vw, 5rem);
 }
-.chapter-hero h1 .accent-word { color: var(--phase-accent, var(--cyan)); }
+.chapter-hero h1 .accent-word { color: inherit; }
 .chapter-meta-strip {
   position: relative; display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center;
   font-family: var(--font-mono); font-size: 0.78rem; color: var(--muted);
@@ -191,9 +166,7 @@
   background: var(--bg-2); border: 1px solid var(--line-strong); border-radius: var(--radius-sm); padding: 1.4rem;
   position: relative; overflow: hidden;
 }
-.calc-out::before {
-  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--cyan);
-}
+.calc-out::before { content: none; }
 .calc-out .big { font-family: var(--font-mono); font-weight: 700; font-size: 2rem; color: var(--cyan); font-variant-numeric: tabular-nums; }
 .calc-out .lbl { color: var(--muted); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.12em; font-family: var(--font-cond); font-weight: 600; }
 .calc-out .range { font-size: 0.9rem; color: var(--muted); }
@@ -204,7 +177,7 @@
   padding: 0; margin-bottom: 1.2rem; overflow: hidden;
 }
 .plan-week > h3 {
-  margin: 0; padding: 0.9rem 1.4rem; color: var(--cyan-ink); background: var(--cyan);
+  margin: 0; padding: 0.9rem 1.4rem; color: var(--ink); background: var(--bg-3);
   font-size: 1.05rem; letter-spacing: 0.08em;
   display: flex; justify-content: space-between; align-items: center; gap: 1rem;
 }
@@ -255,12 +228,11 @@ kbd, .kbd {
 
 /* ---------- Empire Simulator ---------- */
 .honesty-banner {
-  border: 2px solid var(--stamp);
+  border: 1px solid var(--line-strong);
   background: var(--bg-2);
   border-radius: var(--radius-sm);
   padding: 1.1rem 1.3rem;
   margin: 0 0 1.5rem;
-  box-shadow: var(--shadow-plate);
 }
 .honesty-banner strong {
   display: block;

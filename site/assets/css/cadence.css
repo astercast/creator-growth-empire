@@ -57,11 +57,11 @@
   border: 1px solid var(--line, #2a2a3a);
 }
 
-.cc-chip.cc-long { border-color: var(--cyan, #5fe8ff); }
+.cc-chip.cc-long { border-color: var(--cyan, #ffc42e); }
 .cc-chip.cc-short { border-color: var(--stamp, #ff6a55); }
 
 .cc-ramp {
-  border-left: 3px solid var(--cyan, #5fe8ff);
+  border-left: 3px solid var(--cyan, #ffc42e);
   padding: 0.2rem 0 0.2rem 0.9rem;
   margin: 1rem 0;
   max-inline-size: 65ch;
@@ -119,7 +119,7 @@
   transform: rotate(-90deg);
   transform-origin: center;
 }
-.cc-ring-fill.is-holds { stroke: var(--cyan, #5fe8ff); }
+.cc-ring-fill.is-holds { stroke: var(--cyan, #ffc42e); }
 .cc-ring-fill.is-tight { stroke: var(--gold, #e8b62e); }
 .cc-ring-fill.is-over { stroke: var(--stamp, #ff6a55); }
 

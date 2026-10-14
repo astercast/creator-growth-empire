@@ -1,63 +1,47 @@
-/* Design tokens — "THE FIELD MANUAL" system (wave 29).
-   Night-ops field manual: deep field green-charcoal ground, HUD cyan as the
-   one signal color (data, interaction, links), XP gold for progress and earned
-   value, stamp red for alerts and ink approvals, sage for support data.
-   THESIS: the site is a field manual issued to a recruit — every surface obeys
-   the manual's rules: dossier kickers, corner-bracket frames, ink stamps,
-   chevron rank insignias, segmented XP bars, NATO-style entry numbering.
-   REFUSALS: no gradients-as-decoration (flat color only; texture = grain +
-   dot grid), no emoji-as-icon, no glassmorphism, no pastel, no rounded-pill
-   everything, no motion without a job, no generic dark-SaaS look. */
+/* Design tokens — R21 field-manual system.
+   A working manual, not a costume: near-monochrome field neutrals, ONE
+   accent (mustard), two type families (Barlow for reading and headings,
+   JetBrains Mono for data and numbers), squared corners, no shadows.
+   Numbered sections are content structure, not decoration.
+   Legacy colour names (--cyan/--sage/--stamp) remain as aliases so older
+   fragments resolve, but every one now resolves inside the mustard /
+   neutral family — there is no cyan, sage, or red in the rendered site. */
 :root {
-  /* surfaces — deep field, green-tinted */
   --bg: #0d120d;
-  --bg-2: #131a13;
-  --bg-3: #1a221a;
-  --bg-4: #232c22;
-  /* ink */
+  --bg-2: #12160f;
+  --bg-3: #181d15;
+  --bg-4: #20261d;
   --ink: #edf0e2;
   --muted: #a4ad9b;
   --faint: #6a7261;
   --line: #242c23;
   --line-strong: #3a4539;
-  /* signal: HUD cyan — the one interactive/data color */
-  --cyan: #5fe8ff;
-  --cyan-dim: #35b6d6;
-  --cyan-ink: #032630;
-  /* earned: XP gold — progress, achievements, money-guide accents */
+  /* the one accent: mustard — actions, links, current state, key numbers */
   --gold: #ffc42e;
   --gold-dim: #d9a21c;
   --gold-ink: #201400;
-  /* alert: stamp red — warnings + ink stamp approvals (large/bold text use,
-     3:1 minimum met; body-critical text pairs it with --ink) */
-  --stamp: #ff6a55;
-  --stamp-dim: #c74a38;
-  --stamp-ink: #330b05;
-  /* support: sage — secondary data series, info, calm accents */
-  --sage: #9fd4a8;
-  --sage-dim: #6fa878;
-  --sage-ink: #0c2011;
-  /* type — stencil display + condensed tactical + clean sans + mono readouts */
-  --font-display: "Black Ops One", "Arial Black", system-ui, sans-serif;
-  --font-cond: "Barlow Condensed", "Arial Narrow", system-ui, sans-serif;
+  /* legacy aliases, all inside the one-accent family */
+  --cyan: #ffc42e;
+  --cyan-dim: #d9a21c;
+  --cyan-ink: #201400;
+  --stamp: #ffcf5c;
+  --stamp-dim: #8c6a12;
+  --stamp-ink: #201400;
+  --sage: #d6dbc9;
+  --sage-dim: #8f9782;
+  --sage-ink: #141a12;
+  /* type — two families only */
+  --font-display: "Barlow", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-cond: "Barlow", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-body: "Barlow", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
-  /* shape — chiseled, squared-off; the manual is not a pill bottle */
-  --radius-sm: 6px;
-  --radius: 10px;
-  --radius-lg: 16px;
+  --radius-sm: 2px;
+  --radius: 4px;
+  --radius-lg: 6px;
   --max-w: 1140px;
-  /* depth — hard plate shadows, the signature depth cue */
-  --shadow-chisel: 6px 6px 0 rgba(0, 0, 0, 0.55);
-  --shadow-plate: 4px 4px 0 rgba(0, 0, 0, 0.55);
-  --shadow-lift: 8px 8px 0 rgba(0, 0, 0, 0.6);
-  /* motion — 5 named durations + 3 named easings + 1 emphasized accent
-     (web-craft round 4: expo.out 0.16,1,0.3,1 is the primary reveal curve;
-     back.out(1.7) is reserved for the ONE emphasized accent per view — the
-     stamp slam. One primary easing + exit + emphasized; mixed curve
-     vocabularies are the fastest way to feel template-assembled.)
-     Never exceed 500ms on a UI interaction. Physics: entrances decelerate,
-     exits accelerate, scroll-synced motion is linear. */
+  --shadow-chisel: none;
+  --shadow-plate: none;
+  --shadow-lift: none;
   --dur-instant: 0ms;
   --dur-fast: 120ms;
   --dur-base: 200ms;
@@ -67,8 +51,6 @@
   --ease-decelerate: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-accelerate: cubic-bezier(0.3, 0, 1, 1);
   --ease-emphasized: cubic-bezier(0.34, 1.56, 0.64, 1);
-  /* legacy aliases — DO NOT USE in new code; kept so older fragments that
-     slipped through still resolve. New code uses the names above. */
   --dur-med: 320ms;
   --ease-snap: cubic-bezier(0.2, 0.9, 0.25, 1.15);
   --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
