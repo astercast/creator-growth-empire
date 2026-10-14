@@ -311,3 +311,13 @@ legend { font-family: var(--font-cond); font-weight: 700; letter-spacing: 0.08em
   .calm-toggle { margin-left: auto; padding: 0.35rem 0.5rem; font-size: 0.72rem; }
   .nav-toggle { margin-left: 0; padding: 0.3rem 0.55rem; }
 }
+
+/* Rotation 29 (S6): phone tap-target floors, max-width 720px only.
+   The save-row link beside the Save button was a 26px block on phones;
+   case-file title links in table headers were 17-41px. Both are
+   standalone navigation, not prose, so both get the 44px floor the
+   rotation 23 fittings gave footer nav. Desktop is untouched. */
+@media (max-width: 720px) {
+  .save-row a { display: inline-flex; align-items: center; min-height: 44px; }
+  th a { display: inline-flex; align-items: center; min-height: 44px; }
+}

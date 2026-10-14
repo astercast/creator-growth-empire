@@ -55,3 +55,12 @@
   .dr2-table { min-width: 480px; }
   .dr2-stat .v { font-size: 1.15rem; }
 }
+
+/* Rotation 29 (S6): phone tap-target floor for entry source links,
+   max-width 720px only. These are a dedicated Sources list, not prose,
+   and take the same inline-block + min-height pattern the Algorithm
+   Watch source links already use (.aw-sources a). max-width keeps a
+   long source name wrapping inside its entry, as VP-0035 required. */
+@media (max-width: 720px) {
+  .dr2-entry .srcs a { display: inline-block; min-height: 44px; padding: 0.55rem 0; max-width: 100%; }
+}

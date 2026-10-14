@@ -692,3 +692,26 @@ input[type="range"] { min-height: 2.75rem; }
 .ls-block ul, .ls-block ol { margin: 0; padding-left: 1.2rem; }
 .lesson-conclusion { border-top: 1px solid var(--line); padding-top: .8rem; margin-top: 2rem; }
 @media (max-width: 560px) { .ls-grid { grid-template-columns: 1fr 1fr; } }
+
+/* Rotation 29 (S6): phone tap-target floors, max-width 720px only, so
+   desktop geometry is untouched. Component rows that were 17-36px tall
+   on phones become real 44px touch rows, in the same spirit as the
+   rotation 23 fittings (footer nav, .aw-sources a). The jump-nav rule
+   lives here, in the sheet every page loads, because the twelve
+   per-tool .xx-jump a rules set type and padding only, never display
+   or min-height; one shared floor beats twelve copies of it.
+   Checkbox/radio inputs inside labels are deliberately NOT resized
+   here: the label is the presented target, so the label classes below
+   (.ne-chip, .ne-check, label.check, .radio-group label) carry the
+   44px floor instead. Prose-inline links are also left alone: a link
+   inside a sentence keeps the sentence's line height. */
+@media (max-width: 720px) {
+  .bl-jump a, .dp-jump a, .dr2-jump a, .ft-jump a, .nk-jump a, .nsb-jump a,
+  .pld-jump a, .rcb-jump a, .rr-jump a, .rsb-jump a, .svs-jump a, .sil-jump a {
+    display: inline-flex; align-items: center; min-height: 44px;
+  }
+  .ne-links a { display: inline-flex; align-items: center; min-height: 44px; }
+  .breadcrumb a { display: inline-flex; align-items: center; min-height: 44px; }
+  .ne-sort select, .ne-compare-controls select { min-height: 44px; }
+  .ne-chip, .ne-check, label.check, .radio-group label { min-height: 44px; }
+}

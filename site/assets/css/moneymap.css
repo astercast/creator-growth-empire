@@ -195,3 +195,12 @@
 @media (prefers-reduced-motion: reduce) {
   .move-check { transition: none; }
 }
+
+/* Rotation 29 (S6): phone tap-target floors, max-width 720px only.
+   The XP ledger summary was a 25px row; move-check labels were 36px
+   on one line at 390px. Both are standalone controls, so both get
+   the 44px floor. Desktop is untouched. */
+@media (max-width: 720px) {
+  .climb-ledger summary { display: flex; align-items: center; min-height: 44px; }
+  .move-check { min-height: 44px; }
+}
