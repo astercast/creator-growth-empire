@@ -1309,7 +1309,11 @@ DESKTOP_NAV_LINKS = [
     ("glossary.html", "Glossary"),
 ]  # R21: 5 items, visitor words, no numbering; wordmark is Home
 
-MOBILE_NAV_LINKS = DESKTOP_NAV_LINKS  # R21: mobile is the same 5 items, no second menu
+MOBILE_NAV_LINKS = [("index.html", "Home")] + DESKTOP_NAV_LINKS
+# R21: mobile carried the same 5 items, no second menu. VP-0045 (rotation 30):
+# the mobile menu gains the Home entry the desktop gets from the wordmark, so
+# the menu can mark the current page on the home page too (aria-current via
+# _nav_link). The desktop header stays exactly the 5 items above.
 
 # ---------- wave B: Algorithm Watch feed page ("what changed") ----------
 # The feed surface for the creator-algwatch service. Entries are pre-rendered
@@ -1539,6 +1543,10 @@ def page_template(title, body, active="", extra_head="", path=""):
     desktop_nav = "".join(_nav_link(h, l) for h, l in DESKTOP_NAV_LINKS)
     mobile_nav = "".join(_nav_link(h, l) for h, l in MOBILE_NAV_LINKS)
     nav = desktop_nav  # historical name kept for the mobile fallback below
+    # VP-0045 (rotation 30): on the home page the wordmark IS the current
+    # page; mark it so current location is evident in the header too (the
+    # desktop nav has no Home item by design, the wordmark is Home).
+    brand_cur = ' aria-current="page"' if active == "index.html" else ""
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1576,7 +1584,7 @@ def page_template(title, body, active="", extra_head="", path=""):
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
 <header class="site-header">
-  <a class="brand" href="index.html">{SITE_NAME}</a>
+  <a class="brand" href="index.html"{brand_cur}>{SITE_NAME}</a>
   <nav class="site-nav" aria-label="Primary">{desktop_nav}</nav>
   <button class="calm-toggle" id="calmToggle" aria-pressed="false" title="Calm mode, stop ambient motion"><span class="calm-glyph" aria-hidden="true">◍</span><span>CALM</span></button>
   <button class="nav-toggle" aria-expanded="false" aria-controls="mobileNav" aria-label="Menu">☰</button>
@@ -1789,7 +1797,7 @@ def build():
         page = page_template(f"{phase}: {short}",
                              f'<div class="chapter-with-map">{raside}'
                              f'<article class="chapter">{hero}{_lesson_spec_html(slug)}{rdetails}{body_html}{_lesson_conclusion_html(slug)}{cnav}</article></div>',
-                             active="", path=f"{slug}.html")
+                             active="career-path.html", path=f"{slug}.html")
         (SITE / f"{slug}.html").write_text(page, encoding="utf-8")
         chapters_meta.append({
             "id": slug, "phase": phase, "title": short,
@@ -1840,7 +1848,7 @@ def build():
         page = page_template(f"{short}",
                              f'<div class="chapter-with-map">{raside}'
                              f'<article class="chapter">{hero}{_lesson_spec_html(slug)}{rdetails}{body_html}{mount}{_lesson_conclusion_html(slug)}{cnav}</article></div>',
-                             active="", extra_head=extra_head, path=f"{slug}.html")
+                             active="glossary.html" if slug == "metrics-glossary" else "career-path.html", extra_head=extra_head, path=f"{slug}.html")
         (SITE / f"{slug}.html").write_text(page, encoding="utf-8")
         reference_meta.append({"id": slug, "badge": badge, "title": short,
                                "path": f"{slug}.html", "words": wc, "read_minutes": read_min})
@@ -1875,7 +1883,11 @@ def build():
                 '<a href="index.html"><span class="nav-dir">← Back</span><span class="nav-title">Home</span></a>'
                 f'<a class="nav-next" href="{nxt[0]}.html"><span class="nav-dir">Next →</span>'
                 f'<span class="nav-title">{esc(nxt[1])}</span></a></nav>')
-        nav_active = "case-files.html" if badge == "Case File" else f"{slug}.html"
+        # VP-0045 (rotation 30): mark the section the page belongs to, so the
+        # menus mark current location on leaf pages too. Case files already
+        # marked Case Files; the Agents surface is a Tools-section page (it
+        # sits under Tools in the footer map).
+        nav_active = "case-files.html" if badge == "Case File" else "tools.html" if slug == "agents" else f"{slug}.html"
         page = page_template(short, f'<article class="chapter">{hero}{body_html}{cnav}</article>', active=nav_active, path=f"{slug}.html")
         (SITE / f"{slug}.html").write_text(page, encoding="utf-8")
         mdpage_meta.append({"id": slug, "badge": badge, "title": short,
@@ -2182,7 +2194,11 @@ def build():
     for _si, _sid in enumerate(_stage_order):
         _rows = ""
         for _les in _lessons_by_stage[_sid]:
-            _href = _les.get("href") or "career-path.html"
+            # VP-0045 (rotation 30): a contents link lands on the lesson it
+            # names. Reads have their own pages; drills live on the Path, so
+            # they land on their anchored lesson there (career-path-ui.js
+            # renders each lesson with id="lesson-<id>" and scrolls to it).
+            _href = _les.get("href") or f"career-path.html#lesson-{_les['id']}"
             _rows += (
                 f'<li><a class="ci-row" href="{_href}">'
                 f'<span class="ci-num">{esc(_les["number"])}</span>'
@@ -2233,11 +2249,12 @@ def build():
     _n_drills = sum(1 for _l in LESSONS_BY_ID.values() if _l["kind"] == "drill")
     _n_reads = _n_lessons - _n_drills
     _specimen = f"""
-<section class="specimen" aria-label="One lesson's name, annotated">
-  <p class="spec-kicker">Creator Growth Empire \u00b7 a field manual for creators \u00b7 specimen 01</p>
+<section class="specimen" aria-label="Start page: the site, and one lesson's name, annotated">
+  <p class="spec-kicker">A field manual for creators \u00b7 start here \u00b7 specimen 01</p>
+  <h1 class="spec-site">{SITE_NAME}</h1>
   <div class="spec-plate">
     <div class="spec-row"><span class="spec-coord">Number</span><span class="spec-num">{esc(_spec["number"])}</span></div>
-    <div class="spec-row"><span class="spec-coord">Name</span><h1 class="spec-name">{esc(_spec["title"])}</h1></div>
+    <div class="spec-row"><span class="spec-coord">Name</span><p class="spec-name">{esc(_spec["title"])}</p></div>
     <div class="spec-row"><span class="spec-coord">Kind \u00b7 State</span><span class="spec-kind">{esc(_spec["kind"])} \u00b7 {esc(_spec["state"])}</span></div>
     <dl class="spec-notes">
       <div><dt>{esc(_spec["number"])}</dt><dd>Stage 1, {_spec_stage}, second lesson in it. The number is the address: stage, then position.</dd></div>
@@ -2248,7 +2265,7 @@ def build():
     <p class="spec-vocab">Difficulty, five grades only: very easy \u00b7 easy \u00b7 moderate \u00b7 difficult \u00b7 very difficult</p>
   </div>
   <p class="spec-claim"><span class="claim-num">{_n_lessons}</span> lessons. <span class="claim-num">{_n_drills}</span> are drills you do, not read.</p>
-  <div class="hero-cta"><a class="btn btn-primary" href="career-path.html">Start the Career Path \u2192</a><a class="spec-open" href="career-path.html">Open lesson {_spec["number"]} on the Path \u2192</a></div>
+  <div class="hero-cta"><a class="btn btn-primary" href="career-path.html">Start the Career Path \u2192</a><a class="spec-open" href="career-path.html#lesson-{_spec["id"]}">Open lesson {_spec["number"]} on the Path \u2192</a></div>
 </section>"""
     # ---- rotation 23: the Path as a numbered contents composition.
     # The nine phases are the page's structure: 01 to 09, ruled
@@ -2264,7 +2281,7 @@ def build():
             f'<span class="pp-lede">{esc(PHASE_LEDES[_pi])}</span></span>'
             f'<span class="pp-meta">{_pm["read_minutes"]} min read</span></a></li>')
     _path_section = f"""
-<section class="section path-contents"><div class="section-head"><h2>The Path, in nine phases</h2><a href="career-path.html" class="section-more">The Career Path \u2192</a></div>
+<section class="section path-contents"><div class="section-head"><h2>The Path, in nine phases</h2></div>
 <p class="section-lede">Nine phases, in order, from $0 and no content to a working creator business. Open one, or work the Path end to end: it starts at Lesson 1.1, teaches first, and hands you each of the {n_tools} tools where you need it, progress saved on this device. Not sure where you stand? The 2-minute <a href="money-map.html">Money Map</a> finds your stage.</p>
 <ol class="path-plates">{_path_plates}</ol>
 </section>"""

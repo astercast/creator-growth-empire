@@ -40,6 +40,8 @@
 .nav-link:hover { color: var(--ink); background: var(--bg-3); }
 .nav-link:hover .nav-n { color: var(--cyan); }
 .nav-link.active { color: var(--cyan); background: rgba(255, 196, 46, 0.07); }
+/* VP-0045 (rotation 30): on the home page the wordmark is the current page */
+.brand[aria-current="page"] { color: var(--cyan); box-shadow: inset 0 -2px 0 var(--cyan); }
 .nav-link.active .nav-n { color: var(--cyan); }
 .nav-toggle { display: none; margin-left: auto; background: none; border: 1px solid var(--line-strong); color: var(--ink); font-size: 1.2rem; border-radius: var(--radius-sm); padding: 0.3rem 0.7rem; cursor: pointer; min-height: 44px; }
 .mobile-nav { display: none; flex-direction: column; padding: 0.5rem 1rem 1rem; border-bottom: 1px solid var(--line-strong); background: var(--bg); }

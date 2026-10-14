@@ -22,7 +22,7 @@
   var nextEl = document.getElementById("cp-next");
   var shelfEl = document.getElementById("cp-shelf-line");
   var exportBox = document.getElementById("cp-export");
-  var DATA = { catalog: null, spec: null };
+  var DATA = { catalog: null, spec: null, settled: 0 };
   var JOB_RANK = { "Planning": 0, "Money": 1, "Content": 2 };
 
   function load() {
@@ -76,7 +76,7 @@
       "<span class=\"cp-kind\">" + esc(les.kind) + "</span> <span class=\"cp-state\">" + esc(les.state || "current") + "</span></span></label>" + stamp + "</div>";
     if (!les.time && !les.artifact) {
       var note0 = les.kind === "read" ? esc(les.detail || "") : esc(les.doneWhen || "");
-      return "<li class=\"cp-lesson" + (les.done ? " cp-done" : "") + "\">" + head +
+      return "<li id=\"lesson-" + esc(les.id) + "\" class=\"cp-lesson" + (les.done ? " cp-done" : "") + "\">" + head +
         "<p class=\"cp-prov\">" + esc(les.provenanceLabel || "Provenance not recorded") + "</p>" +
         "<p class=\"muted\">Spec not recorded for this lesson.</p>" +
         (note0 ? "<p class=\"muted\">" + note0 + "</p>" : "") +
@@ -94,7 +94,7 @@
     var steps = les.steps && les.steps.length
       ? "<div class=\"cp-block\"><h4>" + (les.kind === "read" ? "The read" : "The drill") + "</h4><ol>" + les.steps.map(function (n) { return "<li>" + esc(n) + "</li>"; }).join("") + "</ol></div>"
       : "";
-    return "<li class=\"cp-lesson" + (les.done ? " cp-done" : "") + "\">" + head + spec +
+    return "<li id=\"lesson-" + esc(les.id) + "\" class=\"cp-lesson" + (les.done ? " cp-done" : "") + "\">" + head + spec +
       "<p class=\"cp-prov\">" + esc(les.provenanceLabel || "Provenance not recorded") + "</p>" +
       (les.kind === "read" && les.detail ? "<p class=\"cp-detail muted\">" + esc(les.detail) + "</p>" : "") +
       needs + steps +
@@ -138,6 +138,19 @@
         (s.id === "foundation" ? "<p class=\"muted\">The Saved Shelf sits in Stage 1 because you set it up once, here, it then holds your most-used tools from <em>every</em> stage, in this browser only.</p>" : "") +
         "</section>";
     }).join("");
+    // VP-0045 (rotation 30): anchored landings. Contents links point at
+    // career-path.html#lesson-<id>; the lessons render from JS, so scroll
+    // to the named lesson on the load renders. Lesson heights grow when
+    // the spec table lands, so keep re-landing until both data fetches
+    // settle; the settled flag keeps check-off re-renders from dragging
+    // the visitor back.
+    if (!render.hashScrolled && location.hash.indexOf("#lesson-") === 0) {
+      var target = root.querySelector(location.hash);
+      if (target) {
+        target.scrollIntoView();
+        if (DATA.settled >= 2) render.hashScrolled = true;
+      }
+    }
     Array.prototype.forEach.call(root.querySelectorAll("[data-lesson]"), function (box) {
       box.addEventListener("change", function () {
         save(CP.toggleLesson(load(), box.getAttribute("data-lesson")));
@@ -165,11 +178,11 @@
 
   render();
   fetch("data/v1/tools.json").then(function (r) { return r.json(); }).then(function (doc) {
-    DATA.catalog = doc; render();
-  }).catch(function () { /* catalogue unreachable, ids still render, titles resolve on next load */ });
+    DATA.catalog = doc; DATA.settled++; render();
+  }).catch(function () { DATA.settled++; render(); /* catalogue unreachable, ids still render, titles resolve on next load */ });
   fetch("data/v1/lessons.json").then(function (r) { return r.json(); }).then(function (doc) {
     var map = {};
     (doc.lessons || []).forEach(function (les) { map[les.id] = les; });
-    DATA.spec = map; render();
-  }).catch(function () { /* spec table unreachable, lessons render with the honest fallback */ });
+    DATA.spec = map; DATA.settled++; render();
+  }).catch(function () { DATA.settled++; render(); /* spec table unreachable, lessons render with the honest fallback */ });
 })();

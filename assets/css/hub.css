@@ -199,6 +199,9 @@ a.brief-card:hover, a.brief-card:focus-visible {
    its coordinates in the mono voice, annotated like a specimen.
    Ruled plates, square corners; the palette is untouched. */
 .specimen { padding: 3.2rem 0 2.6rem; }
+/* VP-0045 (rotation 30): the home H1 names the site, so the page reads as
+   the start page; the specimen lesson keeps its plate below the H1. */
+.spec-site { font-family: var(--font-display); font-weight: 900; font-size: clamp(2.1rem, 5.4vw, 3.9rem); line-height: 1.02; letter-spacing: -0.01em; text-transform: uppercase; margin: 0 0 1.6rem; }
 .spec-kicker { font-family: var(--font-mono); font-size: .78rem; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); margin: 0 0 1.4rem; max-width: none; }
 .spec-plate { border-top: 2px solid var(--ink); border-bottom: 1px solid var(--line-strong); padding: 1.2rem 0 1.4rem; }
 .spec-row { display: grid; grid-template-columns: 8.5rem 1fr; gap: .4rem 1.2rem; align-items: baseline; padding: .55rem 0; border-top: 1px solid var(--line); }

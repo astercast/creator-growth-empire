@@ -23,11 +23,15 @@ eq(drills, 19, '19 drills');
 const home = fs.readFileSync(path.join(ROOT, 'site/index.html'), 'utf8');
 const pathPage = fs.readFileSync(path.join(ROOT, 'site/career-path.html'), 'utf8');
 
-/* the specimen: lesson 1.2, named in full */
+/* the specimen: lesson 1.2, named in full.
+ * VP-0045 (rotation 30) supersedes the h1 half of this invariant: the home
+ * H1 now names the site so the page reads as the start page, and the
+ * specimen lesson keeps its plate as a presented name, not the H1. */
 const specimen = lessons.find(l => l.number === '1.2');
 ok(home.includes('class="specimen"'), 'home carries the specimen plate');
 ok(home.includes(`<span class="spec-num">${specimen.number}</span>`), 'specimen number is lesson 1.2');
-ok(home.includes(`<h1 class="spec-name">${specimen.title}</h1>`), 'specimen name is the lesson title, set as the h1');
+ok(home.includes('<h1 class="spec-site">Creator Growth Empire</h1>'), 'home h1 names the site (VP-0045)');
+ok(home.includes(`<p class="spec-name">${specimen.title}</p>`), 'specimen name is the lesson title, presented in the plate');
 ok(home.includes(`${specimen.kind} \u00b7 ${specimen.state}`), 'specimen kind and state words ride the name');
 ok(home.includes(specimen.artifact), 'specimen states the lesson artifact as its done line');
 
