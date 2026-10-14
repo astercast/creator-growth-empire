@@ -50,6 +50,10 @@
 .dr2-entry .note { border-left: 3px solid var(--cyan); padding: 0.45rem 0.8rem; margin: 0.6rem 0; font-size: 0.92rem; }
 .dr2-entry .note strong { color: var(--cyan); }
 .dr2-entry .srcs { font-size: 0.8rem; color: var(--muted); margin: 0.35rem 0 0; }
+/* Rotation 30 (S6 wart): the source list's own rows (see deal-room-ui.js).
+   Each source is a list item; there is no separator text to orphan. */
+.dr2-entry .src-list { list-style: none; margin: 0.25rem 0 0; padding: 0; }
+.dr2-entry .src-list li + li { margin-top: 0.25rem; }
 
 @media (max-width: 640px) {
   .dr2-table { min-width: 480px; }
@@ -60,7 +64,8 @@
    max-width 720px only. These are a dedicated Sources list, not prose,
    and take the same inline-block + min-height pattern the Algorithm
    Watch source links already use (.aw-sources a). max-width keeps a
-   long source name wrapping inside its entry, as VP-0035 required. */
+   long source name wrapping inside its entry, as VP-0035 required.
+   Rotation 30: the selector follows the list markup (li a, not p a). */
 @media (max-width: 720px) {
-  .dr2-entry .srcs a { display: inline-block; min-height: 44px; padding: 0.55rem 0; max-width: 100%; }
+  .dr2-entry .src-list a { display: inline-block; min-height: 44px; padding: 0.55rem 0; max-width: 100%; }
 }

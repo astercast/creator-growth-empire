@@ -426,9 +426,15 @@
         badge(e.confidence === "verified" ? "good" : "warn", e.confidence.toUpperCase()) + "</div>" +
         "<h3>" + esc(e.title) + '</h3><p class="muted">' + esc(e.summary) + "</p>" +
         '<p class="note"><strong>For your next deal:</strong> ' + esc(e.dealNote) + "</p>" +
-        '<p class="srcs">Sources: ' + e.sources.map(function (s) {
-          return '<a href="' + esc(s.url) + '" rel="noopener">' + esc(s.name) + "</a>";
-        }).join(" · ") + "</p></article>";
+        // Rotation 30 (S6 wart): sources render as a list, the site's own
+        // .aw-sources pattern, not a sentence of links joined by " · ".
+        // With the r29 phone floor (44px inline-block links) the text
+        // separators wrapped onto lines of their own between the taller
+        // rows; a list has no separators to orphan, at any width.
+        '<div class="srcs"><span class="srcs-label">Sources:</span>' +
+        '<ul class="src-list" aria-label="Sources">' + e.sources.map(function (s) {
+          return '<li><a href="' + esc(s.url) + '" rel="noopener">' + esc(s.name) + "</a></li>";
+        }).join("") + "</ul></div></article>";
     }).join("");
     html += '<p class="muted">' + esc(dg.disclaimer) +
       ' Confidence: verified = corroborated by 2+ sources or the platform; single-source = one report, treat as directional. ' +
