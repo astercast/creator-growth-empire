@@ -61,6 +61,13 @@ blockquote {
 }
 ul, ol { max-width: 68ch; padding-left: 1.4rem; }
 li { margin-bottom: 0.55rem; }
+/* VP-0035 (rotation 28): unbreakable strings in manual prose — source URLs
+   printed in full in case-file citation lists, API signatures in inline
+   code on the agent surface — break inside their box instead of stretching
+   the page sideways at phone widths. overflow-wrap only engages when a
+   string would otherwise overflow its line, so ordinary line breaks (and
+   desktop layout) are untouched; no citation is truncated or removed. */
+.chapter li, .chapter p, .chapter a, .chapter code { overflow-wrap: anywhere; }
 li::marker { color: var(--cyan); font-weight: 700; font-family: var(--font-mono); }
 img { max-width: 100%; height: auto; }
 /* focus: gold perimeter, always visible, never removed without replacement */

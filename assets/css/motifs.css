@@ -229,6 +229,9 @@ a.kf-msg:hover .kf-text, a.kf-msg:focus-visible .kf-text { color: var(--ink); }
 html[data-calm="1"] .hud-head .hud-status-live::before { animation: none; }
 @media (max-width: 720px) {
   .kf-msg { grid-template-columns: auto minmax(0, 1fr); }
+  /* VP-0035 (rotation 28): the callsign may wrap on phone widths instead of
+     spilling its ink past the 1fr column (desktop keeps the one-line call). */
+  .kf-call { white-space: normal; }
   .kf-text { grid-column: 1 / -1; }
   .kf-chit { grid-column: 2; justify-self: start; }
 }

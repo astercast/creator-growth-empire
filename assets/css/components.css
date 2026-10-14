@@ -545,7 +545,11 @@ html[data-calm] *::after {
 .script-text { border-left: 3px solid var(--gold); padding: 0.6rem 0.9rem; margin: 0.6rem 0; font-style: normal; }
 .flag-row { display: flex; gap: 0.6rem; align-items: flex-start; border: 1px solid var(--line-strong); border-radius: 0.75rem; padding: 0.7rem 0.9rem; max-width: 72ch; margin-bottom: 0.6rem; cursor: pointer; }
 .flag-row:hover { border-color: var(--cyan); }
-.flag-row input { margin-top: 0.25rem; flex: none; }
+/* VP-0035 (rotation 28): the global form rule sets input width:100%, which
+   stretched this checkbox to the row's full width and pushed the flag text
+   outside the row at every width. Size it like label.check's checkbox. */
+.flag-row input { margin-top: 0.25rem; flex: none; width: 1.15rem; height: 1.15rem; accent-color: var(--cyan); }
+.flag-row > span { min-width: 0; }
 .memo-pre { white-space: pre-wrap; word-wrap: break-word; border: 1px solid var(--line-strong); border-radius: 0.75rem; padding: 1rem 1.1rem; max-width: 72ch; font-size: 0.9rem; }
 .memo-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.75rem; }
 @media (prefers-reduced-motion: reduce) {
