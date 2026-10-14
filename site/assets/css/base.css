@@ -4,7 +4,7 @@
    Barlow Condensed (section headers, kickers, nav), Barlow (body),
    JetBrains Mono (readouts, data). */
 *, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; color-scheme: dark; }
+html { scroll-behavior: smooth; color-scheme: dark; font-synthesis-weight: none; }
 body {
   margin: 0;
   background: var(--bg);

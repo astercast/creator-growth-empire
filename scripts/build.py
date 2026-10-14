@@ -20,8 +20,8 @@ DATA_V1 = ROOT / "data" / "v1"
 
 SITE_NAME = "Creator Growth Empire"
 TAGLINE = "From $0 to a multi-million-dollar creator company."
-FONT_URL = ("https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800"
-           "&family=JetBrains+Mono:wght@400;700&display=swap")
+# QA-013: fonts are self-hosted (assets/fonts/, assets/css/fonts.css).
+# No remote font call is emitted anywhere; see assets/fonts/FONTS.md.
 
 PHASE_ACCENTS = ["gold"] * 9  # R21: one accent only (mustard); per-phase colour coding removed
 
@@ -1456,9 +1456,8 @@ def page_template(title, body, active="", extra_head="", path=""):
 <meta name="twitter:title" content="{esc(title)} — {SITE_NAME}">
 <meta name="twitter:description" content="{esc(TAGLINE)}">
 <meta name="twitter:image" content="assets/og-card.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="{FONT_URL}" rel="stylesheet">
+<link rel="preload" href="assets/fonts/barlow-latin-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/fonts.css">
 <link rel="stylesheet" href="assets/css/tokens.css">
 <link rel="stylesheet" href="assets/css/motifs.css">
 <link rel="stylesheet" href="assets/css/base.css">
@@ -1531,6 +1530,7 @@ def build():
         shutil.rmtree(SITE)
     (SITE / "assets" / "css").mkdir(parents=True)
     (SITE / "assets" / "js").mkdir(parents=True)
+    (SITE / "assets" / "fonts").mkdir(parents=True)
     DATA_V1.mkdir(parents=True, exist_ok=True)
     (DATA_V1 / "schema").mkdir(exist_ok=True)
 
@@ -1538,6 +1538,8 @@ def build():
         shutil.copy(f, SITE / "assets" / "css" / f.name)
     for f in (ASSETS / "js").glob("*.js"):
         shutil.copy(f, SITE / "assets" / "js" / f.name)
+    for f in (ASSETS / "fonts").glob("*.woff2"):
+        shutil.copy(f, SITE / "assets" / "fonts" / f.name)
 
     # placement pass (rotation 13): OG card + the HUD-reticle icon set ship
     # from assets/ into the generated site root; robots.txt is generated
