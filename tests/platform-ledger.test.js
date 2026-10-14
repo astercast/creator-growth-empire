@@ -83,7 +83,7 @@ ok(/DEMO deal/.test(PL.exportLedger(mixed)), "the export names the excluded demo
 
 console.log("platform-ledger — the export");
 var exp = PL.exportLedger(l);
-ok(/PLATFORM LEDGER — 2 platform\(s\), \$40,300 across the board/.test(exp) &&
+ok(/PLATFORM LEDGER · 2 platform\(s\), \$40,300 across the board/.test(exp) &&
    /youtube · \$31,000 total · 76.9% of pipeline/.test(exp) &&
    /Collected \$12,000 · owed \$7,000/.test(exp) &&
    /not a platform history/.test(exp) && /current stages/.test(exp),

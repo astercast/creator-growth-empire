@@ -1,7 +1,7 @@
-/* Follow-Through Queue — engine (UMD, importable in node for tests).
+/* Follow-Through Queue, engine (UMD, importable in node for tests).
  *
  * Tool 26. The Deal Pipeline (Tool 25) knows which deals have sat in
- * a stage too long — but its nudges live one per card across six
+ * a stage too long, but its nudges live one per card across six
  * columns. This tool assembles them into the creator's morning send
  * list: one prioritized queue, each item carrying its nudge action
  * and the exact words to send, plus one copyable brief for the
@@ -12,16 +12,16 @@
  * (buildBoard); the scripts are the Negotiation Script Builder's
  * (Tool 24), attached by Tool 25's scriptFor; the amounts are the
  * figures the creator entered on the board. The only logic here is
- * the ordering — urgent first (an invoiced deal at 30+ days, Tool
+ * the ordering, urgent first (an invoiced deal at 30+ days, Tool
  * 25's own urgent flag), then most overdue against Tool 25's own
- * stage thresholds, then longest in stage — and the brief layout.
+ * stage thresholds, then longest in stage, and the brief layout.
  *
  * Demo deals never enter the queue: their nudges are counted apart,
  * the same discipline pipelineTotals applies to demo money. An
  * empty board and a board with nothing due are different states
  * and this engine says which one it is.
  *
- * A planning aid — not financial, legal, or tax advice. */
+ * A planning aid, not financial, legal, or tax advice. */
 (function (root, factory) {
   var api = factory(root);
   if (typeof module !== "undefined" && module.exports) module.exports = api;
@@ -86,7 +86,7 @@
     };
   }
 
-  /* Build the queue straight from entered deals — the board is
+  /* Build the queue straight from entered deals, the board is
    * Tool 25's buildBoard with the caller's own data and clock. */
   function buildQueue(deals, opts) {
     opts = opts || {};
@@ -100,29 +100,29 @@
     if (!queue || !queue.ok) return "";
     var out = [];
     var date = String(queue.generatedFor || "").slice(0, 10);
-    out.push("FOLLOW-THROUGH QUEUE — " + queue.due + " due" +
+    out.push("FOLLOW-THROUGH QUEUE · " + queue.due + " due" +
       (queue.urgentCount ? " (" + queue.urgentCount + " urgent)" : "") +
       (date ? " · " + date : ""));
     if (queue.emptyBoard) {
-      out.push("No deals on the board — this queue is empty because the Deal Pipeline is empty, not because nothing is due.");
+      out.push("No deals on the board, this queue is empty because the Deal Pipeline is empty, not because nothing is due.");
     } else if (queue.demoOnly) {
-      out.push("Only demo deals are on the board — their follow-ups are demo data and stay out of the real queue.");
+      out.push("Only demo deals are on the board, their follow-ups are demo data and stay out of the real queue.");
     } else if (queue.nothingDue) {
-      out.push("Nothing is due. Every deal on the board is still inside its follow-up window — the queue is empty because no stage has aged past its threshold.");
+      out.push("Nothing is due. Every deal on the board is still inside its follow-up window, the queue is empty because no stage has aged past its threshold.");
     }
     if (queue.demoDue) {
-      out.push("Plus " + queue.demoDue + " DEMO follow-up(s) on the demo board — demo data, excluded from this queue.");
+      out.push("Plus " + queue.demoDue + " DEMO follow-up(s) on the demo board, demo data, excluded from this queue.");
     }
     queue.items.forEach(function (it, i) {
       out.push("");
-      out.push((i + 1) + ". " + (it.urgent ? "URGENT — " : "") + it.brand + " · " + it.stageLabel +
+      out.push((i + 1) + ". " + (it.urgent ? "URGENT, " : "") + it.brand + " · " + it.stageLabel +
         " · " + it.ageDays + "d in stage (follow-up at " + it.thresholdDays + "d, " + it.overdueBy + "d over) · " + fmt(it.amount));
       out.push("   Do: " + it.action);
       if (it.script.ok) {
-        out.push("   Send — " + it.script.label + ":");
+        out.push("   Send, " + it.script.label + ":");
         out.push(it.script.exportText.split("\n").map(function (l) { return "   " + l; }).join("\n"));
       } else {
-        out.push("   Script: none attached — " + it.script.reason);
+        out.push("   Script: none attached, " + it.script.reason);
       }
     });
     out.push("");

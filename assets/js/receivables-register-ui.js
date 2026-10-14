@@ -1,7 +1,7 @@
-/* Receivables Register — page wiring. Engine (assets/js/receivables-register.js)
+/* Receivables Register, page wiring. Engine (assets/js/receivables-register.js)
  * composes the Deal Pipeline (Tool 25): the register reads the SAME
  * localStorage board the pipeline writes (key cge.deal-pipeline.deals.v1)
- * — deals are entered on the Deal Pipeline page, registered here.
+ *, deals are entered on the Deal Pipeline page, registered here.
  * No deals are created on this page; demo deals load only from the
  * labeled demo control and never enter the real register. */
 (function () {
@@ -23,7 +23,7 @@
     } catch (e) { return []; }
   }
   function save() {
-    try { window.localStorage.setItem(P.STORAGE_KEY, JSON.stringify(deals)); } catch (e) { /* storage blocked — register still renders in memory */ }
+    try { window.localStorage.setItem(P.STORAGE_KEY, JSON.stringify(deals)); } catch (e) { /* storage blocked, register still renders in memory */ }
   }
   function esc(s) {
     return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
@@ -36,23 +36,23 @@
       changesFeed: DATA.feed, now: new Date() });
     if (!r.ok) { regEl.innerHTML = "<p class=\"muted\">" + esc(r.errors.join("; ")) + "</p>"; return; }
     statusEl.textContent = r.emptyBoard
-      ? "The board is empty — enter deals on the Deal Pipeline and the brands that owe you are registered here."
+      ? "The board is empty, enter deals on the Deal Pipeline and the brands that owe you are registered here."
       : r.demoOnly
-        ? "Demo board preview — demo deals are counted, none registered as real receivables."
+        ? "Demo board preview, demo deals are counted, none registered as real receivables."
         : r.nothingOwed
-          ? "Nothing is owed — no deal on the board sits in the invoiced stage."
+          ? "Nothing is owed, no deal on the board sits in the invoiced stage."
           : r.invoicedCount + " invoiced deal(s) · " + RR.fmt(r.owed) + " owed" +
             (r.oldest ? " · longest outstanding: " + r.oldest.brand + " at " +
               (r.oldest.daysOutstanding == null ? "?" : r.oldest.daysOutstanding) + "d" : "") +
             (r.demoInvoiced ? " · " + r.demoInvoiced + " DEMO invoiced deal(s) excluded" : "");
     if (!r.items.length) {
       regEl.innerHTML = "<div class=\"rr-empty\"><p><strong>" +
-        (r.emptyBoard ? "No deals, no register." : r.demoOnly ? "Demo board — no real register." : "Nothing owed.") + "</strong> " +
+        (r.emptyBoard ? "No deals, no register." : r.demoOnly ? "Demo board, no real register." : "Nothing owed.") + "</strong> " +
         (r.emptyBoard
-          ? "This page registers the invoiced deals from the <a href=\"deal-pipeline.html\">Deal Pipeline</a> board. The board is genuinely empty — the register is empty because nothing has been entered."
+          ? "This page registers the invoiced deals from the <a href=\"deal-pipeline.html\">Deal Pipeline</a> board. The board is genuinely empty, the register is empty because nothing has been entered."
           : r.demoOnly
-            ? "The demo board's invoiced deal is counted above and excluded here — demo data never registers as real money owed, the same rule the Deal Pipeline applies to demo money. Enter a real deal on the board, deliver it, invoice it, and it is registered here."
-            : "Every deal on the board is short of the invoiced stage, or already past it. When a delivered deal is invoiced, move it to Invoiced on the Deal Pipeline — it is registered here from that day, however fresh the invoice is.") +
+            ? "The demo board's invoiced deal is counted above and excluded here, demo data never registers as real money owed, the same rule the Deal Pipeline applies to demo money. Enter a real deal on the board, deliver it, invoice it, and it is registered here."
+            : "Every deal on the board is short of the invoiced stage, or already past it. When a delivered deal is invoiced, move it to Invoiced on the Deal Pipeline, it is registered here from that day, however fresh the invoice is.") +
         "</p></div>";
     } else {
       regEl.innerHTML = "<ol class=\"rr-list\">" + r.items.map(function (it, i) {
@@ -62,9 +62,9 @@
           "<span class=\"muted\">" + esc(it.platform) + " · invoiced " + esc(it.invoicedAt || "(no date)") +
           " · " + (it.daysOutstanding == null ? "?" : it.daysOutstanding) + "d outstanding</span></p>" +
           (it.script.ok
-            ? "<details class=\"rr-script\"><summary>Late-payment script — " + esc(it.script.label) + "</summary><pre>" +
+            ? "<details class=\"rr-script\"><summary>Late-payment script, " + esc(it.script.label) + "</summary><pre>" +
               esc(it.script.exportText) + "</pre></details>"
-            : "<p class=\"muted\">Late-payment script: none — " + esc(it.script.reason) + "</p>") +
+            : "<p class=\"muted\">Late-payment script: none, " + esc(it.script.reason) + "</p>") +
           "</li>";
       }).join("") + "</ol>";
     }

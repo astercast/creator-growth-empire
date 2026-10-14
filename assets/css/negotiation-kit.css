@@ -1,4 +1,4 @@
-/* Negotiation Kit — counter table, evidence cards, editable reply
+/* Negotiation Kit, counter table, evidence cards, editable reply
  * scripts, walk-away strip. Field Manual chit style: flat panels, hard
  * borders, mono figures. Scoped to .nk-* / #negotiation-kit. Motion is
  * transform/opacity only and dies under the global reduced-motion rule. */
@@ -33,7 +33,7 @@
 .nk-table tbody tr { transition: background 0.15s ease; }
 .nk-table tbody tr:hover { background: var(--bg-3); }
 
-/* evidence cards — reported and modeled look different on purpose */
+/* evidence cards, reported and modeled look different on purpose */
 .nk-evidence { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.6rem; max-width: 72ch; margin: 0.8rem 0; }
 .nk-ev-card { border: 1px solid var(--line-strong); border-radius: var(--radius-sm); background: var(--bg-2); padding: 0.75rem 0.9rem; }
 .nk-ev-card .big { font-family: var(--font-mono); font-weight: 700; font-size: 1.5rem; color: var(--cyan); font-variant-numeric: tabular-nums; }
@@ -44,7 +44,7 @@
 
 .nk-flag { border-left: 3px solid var(--stamp); background: var(--bg-2); padding: 0.6rem 0.9rem; margin: 0.8rem 0; max-width: 72ch; font-size: 0.92rem; }
 
-/* reply scripts — folded until needed (progressive disclosure) */
+/* reply scripts, folded until needed (progressive disclosure) */
 .nk-script { border: 1px solid var(--line-strong); border-radius: var(--radius-sm); background: var(--bg-2); max-width: 72ch; margin-bottom: 0.6rem; }
 .nk-script summary { cursor: pointer; padding: 0.75rem 1rem; font-size: 0.95rem; }
 .nk-script summary:hover { color: var(--gold); }

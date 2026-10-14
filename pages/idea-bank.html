@@ -1,6 +1,6 @@
 <form id="ib-form" aria-label="Idea bank capture">
   <div class="calc-grid">
-    <label>Your idea (one line — the core of the video)
+    <label>Your idea (one line, the core of the video)
       <input type="text" id="ib-title" maxlength="120" placeholder="e.g. I roasted my old setup and rebuilt it for $200" required></label>
     <label>Niche tag
       <input type="text" id="ib-niche" list="ib-niche-list" maxlength="60" placeholder="e.g. tech_software" aria-describedby="ib-niche-hint"></label>
@@ -22,25 +22,25 @@
       </select></label>
   </div>
   <fieldset>
-    <legend>Hook strength (1–5) — score the idea's hook before you bank it</legend>
-    <label><input type="radio" name="hook" value="1"> 1 — no clear hook</label>
-    <label><input type="radio" name="hook" value="2"> 2 — a topic, not a promise</label>
-    <label><input type="radio" name="hook" value="3" checked> 3 — decent: one clear payoff</label>
-    <label><input type="radio" name="hook" value="4"> 4 — strong: payoff + curiosity gap</label>
-    <label><input type="radio" name="hook" value="5"> 5 — scroll-stopper: I'd click this blind</label>
+    <legend>Hook strength (1–5), score the idea's hook before you bank it</legend>
+    <label><input type="radio" name="hook" value="1"> 1, no clear hook</label>
+    <label><input type="radio" name="hook" value="2"> 2, a topic, not a promise</label>
+    <label><input type="radio" name="hook" value="3" checked> 3, decent: one clear payoff</label>
+    <label><input type="radio" name="hook" value="4"> 4, strong: payoff + curiosity gap</label>
+    <label><input type="radio" name="hook" value="5"> 5, scroll-stopper: I'd click this blind</label>
   </fieldset>
   <button type="submit" class="btn btn-primary">Bank this idea →</button>
 </form>
 <p id="ib-live" class="muted" aria-live="polite" style="margin-top:.5rem"></p>
 
 <section aria-labelledby="ib-ref-title" style="margin-top:2rem">
-  <h2 id="ib-ref-title">Hook structures — the Playbook reference</h2>
+  <h2 id="ib-ref-title">Hook structures: the Playbook reference</h2>
   <p class="muted">Score against these five structures from the <a href="shortform-playbook.html">Short-Form Playbook</a>. Build the actual hooks in the <a href="hook-builder.html">Hook Builder</a>.</p>
   <div class="brief-grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr))">
     <div class="brief-card" style="--card-accent: var(--coral);"><div class="brief-body"><h3>The Open Loop</h3><p class="brief-usage">State a payoff, withhold the answer.</p></div></div>
-    <div class="brief-card" style="--card-accent: var(--coral);"><div class="brief-body"><h3>The Cold Start</h3><p class="brief-usage">Begin mid-action — no intro, no logo.</p></div></div>
-    <div class="brief-card" style="--card-accent: var(--coral);"><div class="brief-body"><h3>The Contrarian Take</h3><p class="brief-usage">A clean contradiction — defensible, not bait.</p></div></div>
-    <div class="brief-card" style="--card-accent: var(--coral);"><div class="brief-body"><h3>The Numbered Promise</h3><p class="brief-usage">3 items — #2 is the one that matters.</p></div></div>
+    <div class="brief-card" style="--card-accent: var(--coral);"><div class="brief-body"><h3>The Cold Start</h3><p class="brief-usage">Begin mid-action: no intro, no logo.</p></div></div>
+    <div class="brief-card" style="--card-accent: var(--coral);"><div class="brief-body"><h3>The Contrarian Take</h3><p class="brief-usage">A clean contradiction: defensible, not bait.</p></div></div>
+    <div class="brief-card" style="--card-accent: var(--coral);"><div class="brief-body"><h3>The Numbered Promise</h3><p class="brief-usage">3 items: #2 is the one that matters.</p></div></div>
     <div class="brief-card" style="--card-accent: var(--coral);"><div class="brief-body"><h3>The Question as Hook</h3><p class="brief-usage">Ask the exact question the video answers.</p></div></div>
   </div>
 </section>
@@ -61,8 +61,8 @@
         <option value="community">Community post</option>
       </select></label>
   </div>
-  <div id="ib-empty"><div class="empty-state" role="status"><span class="empty-icon" aria-hidden="true">✦</span><strong>Nothing banked yet.</strong>The bank is where ideas wait for their week — score one and it lands here, highest hook first.</div></div>
+  <div id="ib-empty"><div class="empty-state" role="status"><span class="empty-icon" aria-hidden="true">✦</span><strong>Nothing banked yet.</strong>The bank is where ideas wait for their week, score one and it lands here, highest hook first.</div></div>
   <div id="ib-list" class="brief-grid" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr))" aria-live="polite"></div>
 </section>
 
-<p class="muted" style="margin-top:2rem">Promoted ideas deal straight into the <a href="content-calendar.html">90-day content calendar</a>. Your bank lives in this browser's localStorage — nothing leaves your device.</p>
+<p class="muted" style="margin-top:2rem">Promoted ideas deal straight into the <a href="content-calendar.html">90-day content calendar</a>. Your bank lives in this browser's localStorage, nothing leaves your device.</p>

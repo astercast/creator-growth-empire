@@ -1,4 +1,4 @@
-/* The Deal Room 2.0 — browser UI wiring (no pure math here).
+/* The Deal Room 2.0, browser UI wiring (no pure math here).
  * Storage: localStorage only (keys cge.deal-room.*), no accounts, no network
  * writes. Math lives in window.DealRoom (assets/js/deal-room.js, UMD);
  * benchmarks come from data/v1/calculators.json, scripts/checklists/tiers from
@@ -31,7 +31,7 @@
 
   var cfg = null;   /* calculators.json */
   var tpl = null;   /* deal-templates.json */
-  var feed = null;  /* changes.json (Algorithm Watch) — optional, digest only */
+  var feed = null;  /* changes.json (Algorithm Watch), optional, digest only */
   var deals = db ? db.get(LS.deals, []) : [];
   var checkedFlags = db ? db.get(LS.flags, []) : [];
 
@@ -55,7 +55,7 @@
     if (!qc.formatQuote) return "";
     var q = qc.formatQuote;
     var pct = q.ratio === null ? "" :
-      " — this offer is " + Math.round(q.ratio * 100) + "% of the typical quote";
+      ", this offer is " + Math.round(q.ratio * 100) + "% of the typical quote";
     return '<p class="muted">Typical quote for a ' + esc(q.label.toLowerCase()) + ": <strong>" +
       D.fmt(q.quoted) + "</strong> (" + esc(q.source) + " · reported)" + esc(pct) +
       ". Asking prices, not closing prices.</p>";
@@ -83,7 +83,7 @@
     if (!list.length) {
       dealsOut.innerHTML = '<div class="empty-state" role="status"><span class="empty-icon" aria-hidden="true">◫</span>' +
         "<strong>No deals here yet.</strong>" +
-        (deals.length ? "Nothing matches this filter — try another status." : "Log your first offer above. Every deal gets scored against the 2026 rate card.") + "</div>";
+        (deals.length ? "Nothing matches this filter, try another status." : "Log your first offer above. Every deal gets scored against the 2026 rate card.") + "</div>";
       renderPipeline();
       return;
     }
@@ -145,7 +145,7 @@
     save(); renderDeals(); refreshMemoSelect();
     form.reset();
     var live = document.getElementById("dr-confirm");
-    live.textContent = "Deal logged — " + (deal.brand || "untitled") + " scored " +
+    live.textContent = "Deal logged, " + (deal.brand || "untitled") + " scored " +
       scoreDeal(deal).badge + " against the rate card.";
   });
 
@@ -157,13 +157,13 @@
     var tiers = tpl.usage_rights_tiers;
     var u = D.priceUsage(base, tierId, tiers);
     var tier = tiers.filter(function (t) { return t.id === tierId; })[0] || {};
-    var html = '<div class="calc-out"><div class="lbl">Usage line item — ' + esc(tier.label || "") + "</div>";
+    var html = '<div class="calc-out"><div class="lbl">Usage line item, ' + esc(tier.label || "") + "</div>";
     if (tierId === "whitelisting") {
       var rate = Math.max(0, parseFloat(document.getElementById("dr-white-rate").value) || 0);
       var months = Math.max(0, parseFloat(document.getElementById("dr-white-months").value) || 0);
       var total = rate * months;
       html += '<div class="big">' + D.fmt(rate) + "/mo</div>" +
-        '<div class="range">' + D.fmt(total) + " for " + months + " month(s) — separate line, monthly, revocable.</div></div>";
+        '<div class="range">' + D.fmt(total) + " for " + months + " month(s), separate line, monthly, revocable.</div></div>";
     } else if (u && u.addonLo !== null) {
       var addon = u.addonHi === null || u.addonHi === u.addonLo
         ? D.fmt(u.addonLo)
@@ -178,7 +178,7 @@
         '<div class="range">' + esc(u ? u.note : "") + "</div></div>";
     }
     html += '<p class="muted">' + esc(tier.basis || "") +
-      (tier.reported ? ' <strong>Reported range — not gospel.</strong>' : "") + "</p>";
+      (tier.reported ? ' <strong>Reported range, not gospel.</strong>' : "") + "</p>";
     usageOut.innerHTML = html;
   }
   document.getElementById("dr-usage-form").addEventListener("input", renderUsage);
@@ -226,7 +226,7 @@
       ta.style.position = "fixed"; ta.style.opacity = "0";
       document.body.appendChild(ta);
       ta.select();
-      try { document.execCommand("copy"); done(); } catch (e) { announce("Copy failed — select the text manually."); }
+      try { document.execCommand("copy"); done(); } catch (e) { announce("Copy failed, select the text manually."); }
       document.body.removeChild(ta);
     }
   }
@@ -234,7 +234,7 @@
     var id = e.target.getAttribute && e.target.getAttribute("data-copy-script");
     if (!id) return;
     var s = tpl.negotiation_scripts.filter(function (x) { return x.id === id; })[0];
-    if (s) copyText(D.renderScript(s, ctxVars()), "Script copied — paste it into your reply.");
+    if (s) copyText(D.renderScript(s, ctxVars()), "Script copied, paste it into your reply.");
   });
 
   /* ---------------- 4. red-flag checklist ---------------- */
@@ -272,8 +272,8 @@
     var cur = memoSel.value;
     memoSel.innerHTML = deals.length
       ? deals.map(function (d) {
-          return '<option value="' + esc(d.id) + '">' + esc(d.brand || "(no brand)") + " — " +
-            esc(D.STATUS_LABELS[d.status]) + " — " + D.fmt(+d.offer || 0) + "</option>";
+          return '<option value="' + esc(d.id) + '">' + esc(d.brand || "(no brand)") + ", " +
+            esc(D.STATUS_LABELS[d.status]) + ", " + D.fmt(+d.offer || 0) + "</option>";
         }).join("")
       : '<option value="">No deals logged yet</option>';
     if (cur && deals.some(function (d) { return d.id === cur; })) memoSel.value = cur;
@@ -296,14 +296,14 @@
   }
   memoSel.addEventListener("change", renderMemo);
   document.getElementById("dr-copy-memo").addEventListener("click", function () {
-    if (memoOut._text) copyText(memoOut._text, "Deal memo copied — paste it into your records.");
+    if (memoOut._text) copyText(memoOut._text, "Deal memo copied, paste it into your records.");
   });
   document.getElementById("dr-download-memo").addEventListener("click", function () {
     if (!memoOut._text) return;
     var blob = new Blob([memoOut._text], { type: "text/plain;charset=utf-8" });
     var a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
-    a.download = "deal-memo-" + (memoSel.options[memoSel.selectedIndex].text.split(" — ")[0] || "deal")
+    a.download = "deal-memo-" + (memoSel.options[memoSel.selectedIndex].text.split(", ")[0] || "deal")
       .toLowerCase().replace(/[^a-z0-9]+/g, "-") + ".txt";
     document.body.appendChild(a);
     a.click();
@@ -322,7 +322,7 @@
     var p = D.pipelineSummary(deals, cfg.sponsorship_rate_card_2026);
     if (!p.totalDeals) {
       pipeOut.innerHTML = '<div class="empty-state" role="status"><span class="empty-icon" aria-hidden="true">▤</span>' +
-        "<strong>Nothing in the pipeline.</strong>Log a deal and this strip totals your offers, signed value, and paid money — and names the underpaid deals still worth a counter.</div>";
+        "<strong>Nothing in the pipeline.</strong>Log a deal and this strip totals your offers, signed value, and paid money, and names the underpaid deals still worth a counter.</div>";
       return;
     }
     var html = '<div class="dr2-pipe">' +
@@ -335,11 +335,11 @@
         p.verdicts.under + " underpaid vs the rate card", p.verdicts.under ? "hot" : "") +
       "</div>";
     if (p.openUnderpaid.length) {
-      html += '<div class="calc-out dr2-under"><div class="lbl">Still in play — and underpaid</div>' +
+      html += '<div class="calc-out dr2-under"><div class="lbl">Still in play, and underpaid</div>' +
         '<div class="range">' + p.openUnderpaid.map(function (u) {
           return "<strong>" + esc(u.brand) + "</strong> at " + D.fmt(u.offer) +
             (u.range ? " vs a " + D.fmt(u.range[0]) + "–" + D.fmt(u.range[1]) + " benchmark" : "");
-        }).join(" · ") + ". Counter before these go stale — the scripts below carry the wording.</div></div>";
+        }).join(" · ") + ". Counter before these go stale, the scripts below carry the wording.</div></div>";
     }
     pipeOut.innerHTML = html;
   }
@@ -348,7 +348,7 @@
   var rcOut = document.getElementById("dr-ratecard");
   var followersInput = document.getElementById("dr-followers");
   function moneyRange(r) {
-    if (!r) return "—";
+    if (!r) return "·";
     return r[1] === null ? "from " + D.fmt(r[0]) : D.fmt(r[0]) + "–" + D.fmt(r[1]);
   }
   function renderRatecard() {
@@ -356,7 +356,7 @@
     var t = D.rateCardTable(cfg.sponsorship_rate_card_2026, cfg.sponsorship_quoted_prices_2026);
     var myTier = D.tierOf(Math.max(0, parseFloat(followersInput.value) || 0));
     var html = '<div class="dr2-table-wrap"><table class="dr2-table"><caption class="muted" style="text-align:left;padding:0.6rem 0.8rem">' +
-      "Per video / per post, by follower tier — reported 2026 agency benchmarks. Your row (from the tracker's follower count) is lit in gold.</caption>" +
+      "Per video / per post, by follower tier, reported 2026 agency benchmarks. Your row (from the tracker's follower count) is lit in gold.</caption>" +
       "<thead><tr><th scope=\"col\">Tier</th><th scope=\"col\">YouTube</th><th scope=\"col\">TikTok</th><th scope=\"col\">Instagram</th></tr></thead><tbody>";
     t.tiers.forEach(function (row) {
       html += '<tr' + (row.id === myTier ? ' class="you"' : "") + '><th scope="row">' +
@@ -382,9 +382,9 @@
         }).join("") + "</div>" +
         '<p class="muted">Typical asking prices by size: ' + q.typical_ask_by_followers.map(function (a) {
           return "<strong>" + D.fmt(a.ask_usd) + "</strong> at " + esc(a.band);
-        }).join(" · ") + " (" + esc(q.sources[0].name.split(" — ")[0]) +
-        "). Quoted prices are asks, not closes — the ~23% listed-vs-accepted gap still applies.</p>";
-      html += '<h3>Instagram feed post — the modeled cross-check</h3><div class="dr2-table-wrap"><table class="dr2-table">' +
+        }).join(" · ") + " (" + esc(q.sources[0].name.split(", ")[0]) +
+        "). Quoted prices are asks, not closes, the ~23% listed-vs-accepted gap still applies.</p>";
+      html += '<h3>Instagram feed post: the modeled cross-check</h3><div class="dr2-table-wrap"><table class="dr2-table">' +
         "<thead><tr><th scope=\"col\">Tier (Click Analytic cuts)</th><th scope=\"col\">One sponsored feed post</th><th scope=\"col\">Basis</th></tr></thead><tbody>" +
         q.instagram_feed_post_modeled.map(function (r) {
           return '<tr><th scope="row">' + esc(r.label) + "</th><td>" + moneyRange(r.range_usd) +
@@ -392,7 +392,7 @@
         }).join("") + "</tbody></table></div>" +
         '<p class="muted">' + esc(q.instagram_modeled_note) + " " + esc(q.audience_quality_note) + "</p>";
       html += '<p class="muted">Sources: ' + q.sources.map(function (s) {
-        return '<a href="' + esc(s.url) + '" rel="noopener">' + esc(s.name.split(" — ")[0]) +
+        return '<a href="' + esc(s.url) + '" rel="noopener">' + esc(s.name.split(", ")[0]) +
           "</a> (" + esc(s.basis) + ")";
       }).join(" · ") + "</p>";
     }
@@ -408,7 +408,7 @@
     if (!digestOut) return;
     if (!feed) {
       digestOut.innerHTML = '<div class="empty-state" role="status"><span class="empty-icon" aria-hidden="true">◔</span>' +
-        "<strong>Digest unavailable offline.</strong>The feed file (data/v1/changes.json) did not load — the full feed lives at " +
+        "<strong>Digest unavailable offline.</strong>The feed file (data/v1/changes.json) did not load, the full feed lives at " +
         '<a href="what-changed.html">Algorithm Watch</a>.</div>';
       return;
     }
@@ -437,8 +437,8 @@
   }
   var digestBtn = document.getElementById("dr-copy-digest");
   if (digestBtn) digestBtn.addEventListener("click", function () {
-    if (digestCache) copyText(D.digestText(digestCache), "Digest copied — paste it into your notes or newsletter draft.");
-    else announce("Digest hasn't loaded yet — give it a second and try again.");
+    if (digestCache) copyText(D.digestText(digestCache), "Digest copied, paste it into your notes or newsletter draft.");
+    else announce("Digest hasn't loaded yet, give it a second and try again.");
   });
 
   /* ---------------- data boot ---------------- */

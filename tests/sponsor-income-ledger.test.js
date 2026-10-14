@@ -84,7 +84,7 @@ var demoL = SIL.buildLedger(P.DEMO_DEALS, OPTS);
 ok(demoL.paidCount === 0 && demoL.demoOnly === true && demoL.emptyBoard === false && demoL.noPaidYet === false,
   "the demo board (no paid deals) is named demoOnly — not no-paid-yet");
 var demoPaid = SIL.buildLedger(P.DEMO_DEALS.concat([
-  { id: "demo-9", demo: true, brand: "DEMO — Paid Demo", platform: "youtube", format: "dedicated",
+  { id: "demo-9", demo: true, brand: "DEMO · Paid Demo", platform: "youtube", format: "dedicated",
     followers: 50000, expectedViews: 60000, niche: "tech_software", usage: "organic_only", whitelistingMonths: 0,
     amount: 9999, stage: "paid", stageEnteredAt: "2026-09-01" }
 ]), OPTS);
@@ -94,8 +94,8 @@ ok(/DEMO paid deal/.test(SIL.exportLedger(demoPaid)), "the export names the excl
 
 console.log("sponsor-income-ledger — the export");
 var exp = SIL.exportLedger(l);
-ok(/SPONSOR INCOME LEDGER — 4 paid deal\(s\), \$13,500 collected/.test(exp) &&
-   /AUGUST 2026 — \$4,500/.test(exp) && /BY BRAND/.test(exp) && /BY PLATFORM/.test(exp) &&
+ok(/SPONSOR INCOME LEDGER · 4 paid deal\(s\), \$13,500 collected/.test(exp) &&
+   /AUGUST 2026 · \$4,500/.test(exp) && /BY BRAND/.test(exp) && /BY PLATFORM/.test(exp) &&
    /entered the paid stage/.test(exp) && /no clearing or payout date/.test(exp),
   "export carries the months, the groupings, and the stage-entry-month honesty note");
 ok(exp.indexOf("AUGUST 2026") < exp.indexOf("OCTOBER 2026"), "export months match ledger order");

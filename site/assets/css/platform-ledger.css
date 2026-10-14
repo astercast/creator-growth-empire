@@ -1,4 +1,4 @@
-/* Platform Ledger — per-platform entries + export.
+/* Platform Ledger, per-platform entries + export.
  * Scoped to .pld-* / #platform-ledger. */
 .pld-stamp { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; margin-bottom: 0.5rem; }
 .pld-jump { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 1rem 0 0.5rem; }

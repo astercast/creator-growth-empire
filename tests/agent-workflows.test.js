@@ -401,7 +401,7 @@ function check(name, cond, detail) {
       timeline: "Draft by Nov 1", createdAt: "2026-10-11" },
     scored, { verdictText: "Walk away — unlimited revisions.", checkedTitles: ["Unlimited revisions"] });
   check("wf5: memo names the brand, verdict, and red flag",
-    memo.startsWith("DEAL MEMO — Acme") && memo.includes("FAIR") && memo.includes("Unlimited revisions"));
+    memo.startsWith("DEAL MEMO · Acme") && memo.includes("FAIR") && memo.includes("Unlimited revisions"));
   check("wf5: memo carries the disclaimer", /not financial, legal, or tax advice/i.test(memo));
 })();
 
@@ -644,7 +644,7 @@ function check(name, cond, detail) {
   const rep = DA.exportReport({ brand: "FinBrand", deal, evaluation: ev,
     termFlags, contractRisk: risk, counter: co });
   check("wf12: export report opens with brand + carries verdict and disclaimers",
-    rep.indexOf("DEAL EVALUATION — FinBrand") === 0
+    rep.indexOf("DEAL EVALUATION · FinBrand") === 0
     && rep.indexOf("RATE-CARD VERDICT: UNDERPAID") !== -1
     && /NOT legal advice/.test(rep) && /not financial advice/.test(rep));
 

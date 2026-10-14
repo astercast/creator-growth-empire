@@ -1,4 +1,4 @@
-/* Negotiation Script Builder — script blocks, provenance, excluded
+/* Negotiation Script Builder, script blocks, provenance, excluded
  * list, export. Scoped to .nsb-* / #negotiation-script-builder. */
 .nsb-stamp { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; margin-bottom: 0.5rem; }
 .nsb-jump { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 1rem 0 0.5rem; }

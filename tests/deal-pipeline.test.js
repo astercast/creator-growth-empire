@@ -55,7 +55,7 @@ var empty = P.buildBoard([], OPTS);
 ok(empty.totals.empty === true && empty.totals.pipelineValue === 0 && empty.nudges.length === 0 &&
    /genuinely|empty/.test(P.exportBoard(empty)) && /No real deals entered/.test(P.exportBoard(empty)),
   "empty board totals to zero and says so");
-ok(P.DEMO_DEALS.length === 3 && P.DEMO_DEALS.every(function (x) { return x.demo === true && /^DEMO — /.test(x.brand); }),
+ok(P.DEMO_DEALS.length === 3 && P.DEMO_DEALS.every(function (x) { return x.demo === true && /^DEMO · /.test(x.brand); }),
   "demo deals are flagged demo:true with DEMO brand prefixes");
 var demoTotals = P.pipelineTotals(P.DEMO_DEALS);
 ok(demoTotals.totalDeals === 0 && demoTotals.pipelineValue === 0 && demoTotals.demoCount === 3 && demoTotals.demoValue === 18300,

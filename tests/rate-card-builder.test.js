@@ -130,7 +130,7 @@ Object.keys(R.NICHE_MULT).forEach(function (k) {
 /* ---------- 7. export + wiring ---------- */
 console.log("rate card — export and wiring");
 var text = R.exportCard(c);
-ok(/RATE CARD — YouTube/.test(text) && /CARD TOTAL/.test(text) &&
+ok(/RATE CARD · YouTube/.test(text) && /CARD TOTAL/.test(text) &&
    /ON THE WATCH/.test(text), "export carries the card, the total, and the watch");
 ok(text.indexOf(R.HONESTY) >= 0 && text.indexOf(R.ADVICE) >= 0,
   "export carries the honesty line and the not-advice line");

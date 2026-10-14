@@ -1,11 +1,11 @@
-/* Rate Card Builder — engine (UMD, importable in node for tests).
+/* Rate Card Builder, engine (UMD, importable in node for tests).
  *
  * Turns the site's own benchmark data into a creator's rate card:
  * one row per format, every row priced from a named block of
  * data/v1/calculators.json (the 2026 tier table, the sponsored-CPM
  * bands, the reported typical quotes, the usage-rights benchmarks)
  * with the reasoning printed next to the number. Where the data
- * carries no benchmark for a platform or format, the row says so —
+ * carries no benchmark for a platform or format, the row says so,
  * it never borrows a number silently. The one stated exception is
  * the proxy row: platforms with no tier table of their own show the
  * YouTube band unadjusted and labeled as a reference, not a rate.
@@ -15,7 +15,7 @@
  * card, because a rate quoted against a rule that just moved is a
  * rate quoted blind.
  *
- * Planning aid — ranges, not quotes. Not financial, legal, or tax
+ * Planning aid, ranges, not quotes. Not financial, legal, or tax
  * advice. */
 (function (root, factory) {
   var api = factory();
@@ -24,13 +24,13 @@
 })(typeof self !== "undefined" ? self : this, function () {
   "use strict";
 
-  var HONESTY = "Ranges, not quotes — every figure traces to a named " +
+  var HONESTY = "Ranges, not quotes, every figure traces to a named " +
     "benchmark block in this site's data, and rows with no benchmark " +
     "say so instead of borrowing one.";
   var ADVICE = "Planning aid, not financial, legal, or tax advice.";
 
   /* Same sponsor niche table as DealRoom.NICHE_MULT,
-   * DealAnalyzer.nicheMult, and NegotiationKit — tests pin parity
+   * DealAnalyzer.nicheMult, and NegotiationKit, tests pin parity
    * across all four. */
   var NICHE_MULT = {
     finance_investing: 2.5, tech_software: 2.5,
@@ -52,7 +52,7 @@
   };
 
   /* Platforms the 2026 tier table prices directly. Every other
-   * platform the watch covers gets the proxy treatment — the data
+   * platform the watch covers gets the proxy treatment, the data
    * has no tier band and no platform multiplier for it. */
   var TIER_PLATFORMS = ["youtube", "tiktok", "instagram"];
   var PLATFORMS = ["youtube", "tiktok", "instagram", "twitch", "kick", "facebook", "x"];
@@ -68,7 +68,7 @@
     ugc: "UGC (no posting)"
   };
   /* Which reported typical quote (Cheerful, Sep 2026) honestly maps
-   * to which platform+format. Unmapped pairs return null — the same
+   * to which platform+format. Unmapped pairs return null, the same
    * discipline the Negotiation Kit's evidence panel keeps. */
   var QUOTED_MAP = {
     "youtube:integrated": "video_integration",
@@ -76,15 +76,15 @@
     "instagram:short": "instagram_reel",
     "any:ugc": "ugc_no_post"
   };
-  var UGC_RANGE = [150, 1000]; /* Storika Oct 2026, single-source —
+  var UGC_RANGE = [150, 1000]; /* Storika Oct 2026, single-source,
     the same band DealBuilder prices UGC from. */
 
   var LISTED_VS_ACCEPTED = 0.23; /* rate-card disclaimer: creators
-    list ~23% above what they accept — shared with the Deal Room. */
+    list ~23% above what they accept, shared with the Deal Room. */
 
   function fmt(n) { return "$" + Math.round(n).toLocaleString("en-US"); }
 
-  /* Honest rounding for card numbers: 2 significant figures — the
+  /* Honest rounding for card numbers: 2 significant figures, the
    * same rounding Outreach, DealAnalyzer, and DealBuilder use. */
   function nice(n) {
     if (!isFinite(n) || n <= 0) return 0;
@@ -137,7 +137,7 @@
   }
 
   /* One format row. Returns { id, label, range|null, basis, source,
-   * reasoning } — range is null exactly when the data has no honest
+   * reasoning }, range is null exactly when the data has no honest
    * number for the pair, and reasoning says why. */
   function formatRow(format, ctx) {
     var rc = ctx.rateCard, cpms = rc.sponsored_cpms || {};
@@ -158,7 +158,7 @@
         reasoning: "This site's data carries no sponsorship tier band and no platform " +
           "multiplier for " + PLATFORM_LABELS[ctx.platform] + ". Shown unadjusted: the " +
           "YouTube band at your tier (" + fmt(ytBand[0]) + "–" + fmt(ytBand[1]) + ")" + nicheNote +
-          " — a reference ceiling to sanity-check against, not a " +
+          ", a reference ceiling to sanity-check against, not a " +
           PLATFORM_LABELS[ctx.platform] + " rate." };
     }
     if (format === "integrated") {
@@ -167,7 +167,7 @@
           source: "no benchmark in this site's data",
           reasoning: "Integrated slots are priced in this site's data as a YouTube " +
             "long-form CPM band. No integrated benchmark exists for " +
-            PLATFORM_LABELS[ctx.platform] + " — the card leaves the row blank rather " +
+            PLATFORM_LABELS[ctx.platform] + ", the card leaves the row blank rather " +
             "than stretch a YouTube number across platforms." };
       }
       if (!(ctx.views > 0)) {
@@ -201,25 +201,25 @@
       if (q) {
         return { id: format, label: FORMAT_LABELS[format],
           range: [q.quoted_usd, q.quoted_usd], basis: "reported",
-          source: q.source + " — typical quoted price (" + q.label + ")",
+          source: q.source + ", typical quoted price (" + q.label + ")",
           reasoning: "No average views given, so no CPM math. The reported typical " +
             "quote for this format is " + fmt(q.quoted_usd) + " across tiers (" + q.source +
-            ") — a cross-tier reference point, not a price scaled to your follower band." };
+            "), a cross-tier reference point, not a price scaled to your follower band." };
       }
       return { id: format, label: FORMAT_LABELS[format], range: null, basis: "none",
         source: "no benchmark in this site's data",
         reasoning: "Short-form prices in this site's data come from a CPM band (needs " +
-          "your average views) or a reported typical quote — and no typical quote is " +
+          "your average views) or a reported typical quote, and no typical quote is " +
           "carried for " + PLATFORM_LABELS[ctx.platform] + " shorts. The row stays blank." };
     }
     /* ugc */
     return { id: format, label: FORMAT_LABELS[format],
       range: UGC_RANGE.slice(), basis: "single-source",
-      source: "Storika, Oct 2026 — UGC per-30s band (single-source)",
+      source: "Storika, Oct 2026, UGC per-30s band (single-source)",
       reasoning: "UGC is production work, not audience rental: beginner " +
         fmt(150) + "–" + fmt(400) + " / intermediate " + fmt(400) + "–" + fmt(1000) +
         " per 30 seconds (Storika, Oct 2026, single-source). Tier and niche do not " +
-        "scale it — your footage quality does." };
+        "scale it, your footage quality does." };
   }
 
   function buildCard(input, calculators, changesFeed) {
@@ -241,7 +241,7 @@
     var rows = FORMATS.map(function (f) { return formatRow(f, ctx); });
     var primary = rows.filter(function (r) { return r.id === input.format; })[0];
 
-    /* Usage add-on rides on the primary row — the format the card
+    /* Usage add-on rides on the primary row, the format the card
      * is being built around. */
     var usageId = input.usage || "organic_only";
     var usageTier = usageTiers.filter(function (t) { return t.id === usageId; })[0] || usageTiers[0];
@@ -249,7 +249,7 @@
     if (usageTier && usageTier.id !== "organic_only") {
       if (primary.range) {
         var pct = usageTier.addon_pct;
-        addons.push({ id: "usage", label: "Paid-ad usage — " + usageTier.label,
+        addons.push({ id: "usage", label: "Paid-ad usage, " + usageTier.label,
           range: pct[1] == null
             ? [nice(primary.range[0] * pct[0] / 100), null]
             : niceRange([primary.range[0] * pct[0] / 100, primary.range[1] * pct[1] / 100]),
@@ -258,10 +258,10 @@
           reasoning: usageTier.note + " Priced as its own line: +" + pct[0] + "%" +
             (pct[1] == null ? " and up" : "–" + pct[1] + "%") + " of the primary format's fee." });
       } else {
-        addons.push({ id: "usage", label: "Paid-ad usage — " + usageTier.label,
+        addons.push({ id: "usage", label: "Paid-ad usage, " + usageTier.label,
           range: null, openEnded: false, basis: "none",
           source: "usage_rights_benchmarks_2026 (" + usageTier.label + ")",
-          reasoning: "Usage prices as a percentage of the primary format's fee — and " +
+          reasoning: "Usage prices as a percentage of the primary format's fee, and " +
             "that row has no benchmark, so no usage number is invented here either. " +
             usageTier.note });
       }
@@ -270,20 +270,20 @@
     if (wlMonths > 0) {
       var wl = calculators.usage_rights_benchmarks_2026.whitelisting_per_month_pct || [30, 100];
       if (primary.range) {
-        addons.push({ id: "whitelisting", label: "Whitelisting — " + wlMonths + " month" + (wlMonths === 1 ? "" : "s"),
+        addons.push({ id: "whitelisting", label: "Whitelisting, " + wlMonths + " month" + (wlMonths === 1 ? "" : "s"),
           range: niceRange([primary.range[0] * wl[0] / 100 * wlMonths,
                             primary.range[1] * wl[1] / 100 * wlMonths]),
           openEnded: false, basis: "reported",
           source: "usage_rights_benchmarks_2026.whitelisting_per_month_pct",
           reasoning: "Whitelisting runs " + wl[0] + "–" + wl[1] + "% of the post fee " +
             "per month (2026 benchmarks) × " + wlMonths + " month" + (wlMonths === 1 ? "" : "s") +
-            " — a separate line, never folded into the post fee." });
+            ", a separate line, never folded into the post fee." });
       } else {
-        addons.push({ id: "whitelisting", label: "Whitelisting — " + wlMonths + " month" + (wlMonths === 1 ? "" : "s"),
+        addons.push({ id: "whitelisting", label: "Whitelisting, " + wlMonths + " month" + (wlMonths === 1 ? "" : "s"),
           range: null, openEnded: false, basis: "none",
           source: "usage_rights_benchmarks_2026.whitelisting_per_month_pct",
           reasoning: "Whitelisting is a percentage of the post fee (" + wl[0] + "–" + wl[1] +
-            "% per month) and the primary row has no benchmark — no number is invented." });
+            "% per month) and the primary row has no benchmark, no number is invented." });
       }
     }
 
@@ -298,7 +298,7 @@
         expectedClose: [nice(lo * (1 - LISTED_VS_ACCEPTED)), nice(hi * (1 - LISTED_VS_ACCEPTED))] };
     }
 
-    /* Evidence — reported typical quotes, kept apart from the
+    /* Evidence, reported typical quotes, kept apart from the
      * benchmark rows; the modeled Instagram cross-check rides
      * separately and only for Instagram, exactly as the Deal Room
      * keeps the two bases apart. */
@@ -311,11 +311,11 @@
     if (ask) evidence.push({ kind: "reported-ask", label: ask.band,
       value: ask.ask_usd, basis: "reported", source: ask.source,
       note: "Typical ask in your follower band (reported). Only two bands are " +
-            "published in the source — no band is interpolated for you." });
+            "published in the source, no band is interpolated for you." });
     if (platform === "instagram" && quoted.instagram_feed_post_modeled) {
       evidence.push({ kind: "modeled-crosscheck", label: "Instagram feed post (modeled)",
         value: null, basis: "modeled", source: "Click Analytic, Creator Pricing Report 2026",
-        note: "A modeled cross-check lives in the Deal Room's rate-card table — " +
+        note: "A modeled cross-check lives in the Deal Room's rate-card table, " +
               "kept out of this card's math so reported and modeled bases never mix." });
     }
 
@@ -340,9 +340,9 @@
       primaryFormat: input.format, rows: rows, primary: primary,
       addons: addons, total: total, evidence: evidence, watch: watch,
       notes: [
-        "Creators list rates ~23% above what they accept — the card's total " +
+        "Creators list rates ~23% above what they accept, the card's total " +
         "carries the expected landing zone at ×0.77 so the gap is priced in, not discovered mid-thread.",
-        "41% of creators offer package discounts on 3+ posts (rate-card data) — " +
+        "41% of creators offer package discounts on 3+ posts (rate-card data), " +
         "a bundle price is a choice, stated on the card, never an assumed discount.",
         rc.holiday_2026_note ? "Seasonality, from the rate card: " + rc.holiday_2026_note : ""
       ].filter(Boolean),
@@ -361,22 +361,22 @@
   function exportCard(card) {
     if (!card || !card.ok) return "";
     var out = [];
-    out.push("RATE CARD — " + card.platformLabel + " · " + card.tierLabel +
+    out.push("RATE CARD · " + card.platformLabel + " · " + card.tierLabel +
       " followers" + (card.niche.label ? " · " + card.niche.label + " (×" + card.niche.mult + ")" : ""));
     out.push("");
     card.rows.forEach(function (r) {
       out.push((r.id === card.primaryFormat ? "▸ " : "  ") + r.label + ": " +
-        rangeText(r.range) + "  [" + r.basis + " — " + r.source + "]");
+        rangeText(r.range) + "  [" + r.basis + ", " + r.source + "]");
       out.push("    " + r.reasoning);
     });
     card.addons.forEach(function (a) {
       out.push("+ " + a.label + ": " + rangeText(a.range, a.openEnded) +
-        "  [" + a.basis + " — " + a.source + "]");
+        "  [" + a.basis + ", " + a.source + "]");
     });
     if (card.total) {
       out.push("");
       out.push("CARD TOTAL (primary format + add-ons): " + rangeText(card.total.range, card.total.openEnded));
-      out.push("Expected landing zone (×0.77 — creators list ~23% above accepted): " +
+      out.push("Expected landing zone (×0.77, creators list ~23% above accepted): " +
         rangeText(card.total.expectedClose));
     }
     if (card.evidence.length) {
@@ -384,7 +384,7 @@
       out.push("EVIDENCE (reported, kept apart from the benchmark rows):");
       card.evidence.forEach(function (e) {
         out.push("- " + e.label + (e.value != null ? ": " + fmt(e.value) : "") +
-          " [" + e.basis + " — " + e.source + "] " + e.note);
+          " [" + e.basis + ", " + e.source + "] " + e.note);
       });
     }
     if (card.watch.length) {

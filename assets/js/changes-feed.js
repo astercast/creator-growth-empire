@@ -1,4 +1,4 @@
-/* changes-feed.js — Algorithm Watch "what changed" feed widget (Wave B).
+/* changes-feed.js, Algorithm Watch "what changed" feed widget (Wave B).
  *
  * Contract (ARCHITECTURE.md §3): the page ships pre-rendered with the static
  * feed baked in. On load this calls /api/changes first (7s timeout via
@@ -13,7 +13,7 @@
 
   var LIVE_PATH = "/api/changes?limit=200";
   // relative (not root-absolute): matches the site's asset convention and keeps
-  // the fallback working from any origin that serves this page at root —
+  // the fallback working from any origin that serves this page at root,
   // including a local file:// copy of the built site.
   var STATIC_PATH = "data/v1/changes.json";
   var PLATFORM_ORDER = ["youtube", "tiktok", "instagram", "facebook", "x", "twitch", "kick", "other"];
@@ -50,7 +50,7 @@
     return MONTHS[mo - 1] + " " + d + ", " + m[1];
   }
 
-  /* Announced / effective / logged line — only the dates the entry
+  /* Announced / effective / logged line, only the dates the entry
      actually carries. Must match _aw_dates_html() in scripts/build.py. */
   function datesHtml(c) {
     var parts = [];
@@ -64,7 +64,7 @@
   }
 
   /* Coverage panel: every platform slot, its count, and its newest logged
-     date — or an honest "no entry" line. Must match build.py's panel. */
+     date, or an honest "no entry" line. Must match build.py's panel. */
   function coverageHtml(entries) {
     var counts = {}, newest = {};
     entries.forEach(function (c) {
@@ -78,7 +78,7 @@
       if (n) {
         return '<li class="aw-cov-row"><span class="aw-cov-plat">' + esc(cap(p)) +
           '</span><span class="aw-cov-n">' + n + (n === 1 ? " entry" : " entries") +
-          '</span><span class="aw-cov-date">newest ' + esc(dateLabel(newest[p]) || "—") + "</span></li>";
+          '</span><span class="aw-cov-date">newest ' + esc(dateLabel(newest[p]) || "·") + "</span></li>";
       }
       return '<li class="aw-cov-row aw-cov-empty"><span class="aw-cov-plat">' + esc(cap(p)) +
         '</span><span class="aw-cov-n">No entry in the current window</span>' +
@@ -177,7 +177,7 @@
         return activePlatform === "all" || (c.platform || "other") === activePlatform;
       });
       if (!shown.length) {
-        list.innerHTML = '<li class="aw-empty" role="status">No changes in this slice of the feed yet — the watch is running, the log is just quiet here.</li>';
+        list.innerHTML = '<li class="aw-empty" role="status">No changes in this slice of the feed yet, the watch is running, the log is just quiet here.</li>';
       } else {
         list.innerHTML = shown.map(entryHtml).join("");
       }
@@ -202,9 +202,9 @@
         var rows = Array.isArray(payload.changes) ? payload.changes : null;
         if (!rows) {
           // source "none": both the live server and the static fallback
-          // failed. Keep the pre-rendered feed — and say what it is.
+          // failed. Keep the pre-rendered feed, and say what it is.
           setStatus("The live server did not answer and the published feed file failed to load. " +
-            "You are reading the copy baked into this page at its last build — its dates are the " +
+            "You are reading the copy baked into this page at its last build, its dates are the " +
             "newest confirmed state, not live data. Try again later; nothing here is being " +
             "presented as a live check.");
           return;
@@ -219,7 +219,7 @@
             " Entries below carry the server's own timestamps; check the dates before acting.");
         } else if (result.source === "static") {
           setStatus("The live server did not answer, so this is the last published copy of the feed. " +
-            "It is dated below — read it as a published log, not a live check.");
+            "It is dated below, read it as a published log, not a live check.");
         } else {
           setStatus("");
         }

@@ -1,9 +1,9 @@
-/* MOTIFS — the Field Manual motif kit (wave 29).
+/* MOTIFS, the Field Manual motif kit (wave 29).
    4 primary motifs + 2 secondary. Usage rules inline per motif.
    Every motif: pure CSS/SVG, scales to 16px, carries in-world meaning.
    Refusal list: no emoji glyphs, no generic gradients, no glow-everywhere. */
 
-/* ============ P1 — corner-bracket frames (HUD targeting reticle) ============
+/* ============ P1, corner-bracket frames (HUD targeting reticle) ============
    Where: dossier cards, briefing headers, tool HUD panels, phase cards.
    Markup: <div class="brk"><b class="brk-x" aria-hidden="true"></b>…content…</div>
    The <b> carries the other two corners. Color: var(--brk, --cyan). */
@@ -20,10 +20,10 @@
 .brk-stamp { --brk: var(--stamp); }
 .brk-sage { --brk: var(--sage); }
 
-/* ============ P2 — ink stamps (approval marks) ============
+/* ============ P2, ink stamps (approval marks) ============
    Where: completed checklists, verified honesty panels, hero marks.
    Color job: stamp red = alert/denied, gold = verified/cleared.
-   Motion: .stamp-slam (see below) — one impact per viewport, reduced-motion
+   Motion: .stamp-slam (see below), one impact per viewport, reduced-motion
    shows the finished stamp instantly. */
 .stamp {
   display: inline-block;
@@ -46,7 +46,7 @@
 .stamp-cyan { color: var(--cyan); border-color: var(--cyan); outline-color: var(--cyan); }
 .stamp-sm { font-size: 0.72rem; border-width: 2px; padding: 0.25rem 0.6rem 0.2rem 0.8rem; }
 .stamp-lg { font-size: 1.4rem; border-width: 4px; }
-/* signature motion: the stamp slam — one impact, then it sits.
+/* signature motion: the stamp slam, one impact, then it sits.
    The emphasized easing (back.out 1.7) is reserved for this one accent. */
 @media (prefers-reduced-motion: no-preference) {
   .stamp-slam.slammed {
@@ -60,13 +60,13 @@
   }
 }
 
-/* ============ P3 — XP bars (progress as experience meters) ============
+/* ============ P3, XP bars (progress as experience meters) ============
    Where: quiz progress, manual-readiness hero meter, tool completion states.
    Markup: <div class="xp" role="progressbar" aria-valuenow="…" aria-valuemin="0"
    aria-valuemax="100" aria-label="…"><div class="xp-fill" style="--xp:72%"></div>
    <span class="xp-tag">…</span></div>
    Segment ticks are texture (the XP segments), not decoration. Fill animates
-   on .inview (JS); the finished state is the CSS default — reduced-motion and
+   on .inview (JS); the finished state is the CSS default, reduced-motion and
    no-JS visitors see the true value. */
 .xp {
   position: relative; height: 22px;
@@ -100,8 +100,8 @@
   .xp.inview .xp-fill, .xp-fill.static { width: var(--xp, 0%); }
 }
 
-/* ============ P4 — rank insignias (tier chevrons) ============
-   Where: tool cards, phase cards, briefing headers — tier badges.
+/* ============ P4, rank insignias (tier chevrons) ============
+   Where: tool cards, phase cards, briefing headers, tier badges.
    Markup: <span class="rank" role="img" aria-label="Tier 3"><i></i><i></i><i></i></span>
    Chevron count = tier. Pure CSS chevrons, gold for earned tiers. */
 .rank { display: inline-flex; gap: 3px; align-items: center; }
@@ -115,7 +115,7 @@
 .rank-dim i { background: var(--line-strong); }
 .rank-sm i { width: 7px; height: 10px; }
 
-/* ============ S1 — dossier folder tabs ============
+/* ============ S1, dossier folder tabs ============
    Where: section dividers, hub group headers, card tops.
    A tab that reads like a pulled file-folder label. */
 .folder-tab {
@@ -127,7 +127,7 @@
 }
 .folder-tab-gold, .folder-tab-sage { background: transparent; color: var(--muted); }
 
-/* ============ S2 — field-manual kickers ============
+/* ============ S2, field-manual kickers ============
    The dossier grammar: FIELD MANUAL // ENTRY 04 // PHASE 2.
    Mono readouts for data, condensed for section labels. */
 .fm-kicker {
@@ -143,18 +143,18 @@
   font-variant-numeric: tabular-nums;
 }
 
-/* ============ P5 — empty states: the "no intel yet" dossier plate ============
+/* ============ P5, empty states: the "no intel yet" dossier plate ============
    Where: every tool's pre-run results panel (static fragments + JS-rendered).
    The plate reads as an unfilled form: dashed border, diagonal corner
    brackets, a boxed tactical glyph (never an emoji), and a ghost
-   "AWAITING ORDERS" stamp — decorative chrome via ::before; the
+   "AWAITING ORDERS" stamp, decorative chrome via ::before; the
    role="status" text stays the accessible content. */
 .empty-state {
   position: relative;
   border: 1px dashed var(--line-strong);
   border-radius: var(--radius-sm);
   background-color: var(--bg-2);
-  /* diagonal corner brackets — flat lines drawn with gradient stops
+  /* diagonal corner brackets, flat lines drawn with gradient stops
      (same job as P1's corners; precedent: the P3 XP segment ticks) */
   background-image:
     linear-gradient(var(--cyan-dim), var(--cyan-dim)),
@@ -191,8 +191,8 @@
   .empty-state { padding: 2.2rem 1.1rem 1.5rem; }
 }
 
-/* ============ P6 — signal log: the kill-feed of field wins ============
-   Where: the homepage SIGNAL LOG. Tactical comms lines — mono MSG numbers,
+/* ============ P6, signal log: the kill-feed of field wins ============
+   Where: the homepage SIGNAL LOG. Tactical comms lines, mono MSG numbers,
    cyan callsigns, one-line transmission text, gold FILED chits. Entries are
    numbered transmissions, never fake timestamps (the build can't know
    "recent", so it doesn't claim it). */
@@ -220,7 +220,7 @@ a.kf-msg:hover .kf-call, a.kf-msg:focus-visible .kf-call { color: var(--ink); }
 a.kf-msg:hover .kf-text, a.kf-msg:focus-visible .kf-text { color: var(--ink); }
 .killfeed-foot { margin: 1.1rem 0 0; font-size: 0.85rem; }
 /* monitored-status dot: the hud-status ● pulses gold only when motion is
-   welcome — one dot, never two (the ::before is the dot). */
+   welcome, one dot, never two (the ::before is the dot). */
 .hud-head .hud-status-live::before { color: var(--gold); }
 @media (prefers-reduced-motion: no-preference) {
   .hud-head .hud-status-live::before { animation: live-blink 2.6s ease-in-out infinite; }
@@ -233,9 +233,9 @@ html[data-calm="1"] .hud-head .hud-status-live::before { animation: none; }
   .kf-chit { grid-column: 2; justify-self: start; }
 }
 
-/* ============ P7 — radar: the dossier section map ============
+/* ============ P7, radar: the dossier section map ============
    Where: long chapter + reference pages. A sticky dossier nav tracking
-   reading position — numbered sections, cyan position marker, a thin
+   reading position, numbered sections, cyan position marker, a thin
    read-progress rail. aria-current is state, not motion (survives reduced
    motion); the rail fill is a state indicator with an instant update. */
 .chapter-with-map {
@@ -315,11 +315,11 @@ html[data-calm="1"] .hud-head .hud-status-live::before { animation: none; }
 
 /* ============ calm mode: the sensory-envelope kill switch ============
    Web-craft round 4: prefers-reduced-motion is not a listed WCAG 2.2.2
-   technique for pause/stop/hide — every ambient loop gets a real, visible
+   technique for pause/stop/hide, every ambient loop gets a real, visible
    pause control. The header CALM toggle sets data-calm="1" (same key the
    simulator's calm mode uses: localStorage "cge.calm"), and these rules
    kill every ambient loop on the site. State feedback (stamps, XP fills,
-   aria-current) is untouched — calm kills motion, never information. */
+   aria-current) is untouched, calm kills motion, never information. */
 .calm-toggle {
   display: inline-flex; align-items: center; gap: 0.5rem;
   font-family: var(--font-cond); font-weight: 700; font-size: 0.78rem;

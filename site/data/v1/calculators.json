@@ -1,5 +1,5 @@
 {
-  "note": "Illustrative ranges compiled from 2026 third-party data (AIR Media-Tech, vidIQ, creatorblade, shorts/saturaai, flowshorts, projectcasting, creatorsjet, elev8or). Platform rates change constantly — verify live before making decisions. These are ranges, not promises.",
+  "note": "Illustrative ranges compiled from 2026 third-party data (AIR Media-Tech, vidIQ, creatorblade, shorts/saturaai, flowshorts, projectcasting, creatorsjet, elev8or). Platform rates change constantly, verify live before making decisions. These are ranges, not promises.",
   "platform_thresholds": {
     "facebook_content_monetization": {
       "fast_track_mar2026": "$1,000/mo at 100K+ followers or $3,000/mo at 1M+ followers (IG/TikTok/YT count), US/Canada, 3-month cap, 15 original Reels/month across 10+ days (TechCrunch/PetaPixel Mar 2026)",
@@ -8,7 +8,7 @@
       "min_videos": 5,
       "minutes_viewed_60d": 600000,
       "note_2025": "Meta paid ~$3B to creators in 2025 (+35% YoY, ~60% on Reels); Reels generated ~60% of payouts (socialbee Sep 2026)",
-      "rpm_note": "Wide range; Reels often $0.02–$0.20. Instagram has NO standing Reels bonus (Reels Play ended 2023) — IG stack is brand deals, affiliates, subscriptions, invite-only bonuses (timetopost.co)",
+      "rpm_note": "Wide range; Reels often $0.02–$0.20. Instagram has NO standing Reels bonus (Reels Play ended 2023). IG stack is brand deals, affiliates, subscriptions, invite-only bonuses (timetopost.co)",
       "rpm_per_1000_views": [
         1.0,
         10.0
@@ -21,7 +21,7 @@
     },
     "tiktok_creator_rewards": {
       "eligibility": "10K followers + 100K video views in last 30 days + 18+ + personal account in good standing (kompozy Jul 2026, multilogin Sep 2026)",
-      "eligible_countries_note": "Availability figures vary across sources (8–50+) — verify against creators.tiktok.com",
+      "eligible_countries_note": "Availability figures vary across sources (8–50+), verify against creators.tiktok.com",
       "followers": 10000,
       "min_age": 18,
       "rpm_by_niche": {
@@ -96,7 +96,7 @@
       "watch_hours_12mo_or": 3000
     },
     "youtube_ypp_tier2_full": {
-      "note_2027": "CONFIRMED via fresh check Oct 11, 2026: YouTube announced Aug 10, 2026 — new applicants from Feb 1, 2027 need 1,000 subs + 8,000 qualified watch hours over 365 days OR 20M qualified Shorts views over 90 days (up from 4,000 hrs / 10M views). 1,000-sub floor unchanged; existing partners grandfathered; fan-funding tier unchanged. Multiple press: Cartoon Brew, Tech Times, Hypebeast, AIR Media-Tech, Music Business Worldwide.",
+      "note_2027": "CONFIRMED via fresh check Oct 11, 2026: YouTube announced Aug 10, 2026, new applicants from Feb 1, 2027 need 1,000 subs + 8,000 qualified watch hours over 365 days OR 20M qualified Shorts views over 90 days (up from 4,000 hrs / 10M views). 1,000-sub floor unchanged; existing partners grandfathered; fan-funding tier unchanged. Multiple press: Cartoon Brew, Tech Times, Hypebeast, AIR Media-Tech, Music Business Worldwide.",
       "shorts_views_90d_or": 10000000,
       "source": "YouTube Help Center via 1of10/air.io, Oct 2026; 2027 change confirmed via press Aug 2026",
       "subscribers": 1000,
@@ -106,7 +106,7 @@
         "YouTube Premium revenue"
       ],
       "watch_hours_12mo_or": 4000,
-      "watch_time_gate_note": "Thresholds are entry fees, not guarantees — watch-time is the real gate, and YouTube's Jan 2026 enforcement wave reportedly stripped tens of millions of subscribers from mass-produced/AI-content channels (medium.com Sep 2026, single source — flag)"
+      "watch_time_gate_note": "Thresholds are entry fees, not guarantees, watch-time is the real gate, and YouTube's Jan 2026 enforcement wave reportedly stripped tens of millions of subscribers from mass-produced/AI-content channels (medium.com Sep 2026, single source, flag)"
     }
   },
   "revenue_splits": {
@@ -136,7 +136,7 @@
     ]
   },
   "sponsorship_rate_card_2026": {
-    "disclaimer": "Negotiation ranges, not quotes. Compiled 2026 agency benchmarks (air.io, projectcasting, creatorsjet, talentir) — benchmarks disagree 2-3x within tiers. Niche, engagement, format, and usage rights move numbers as much as follower count. Creators list rates ~23% above what they accept; 41% offer package discounts on 3+ posts.",
+    "disclaimer": "Negotiation ranges, not quotes. Compiled 2026 agency benchmarks (air.io, projectcasting, creatorsjet, talentir), benchmarks disagree 2-3x within tiers. Niche, engagement, format, and usage rights move numbers as much as follower count. Creators list rates ~23% above what they accept; 41% offer package discounts on 3+ posts.",
     "per_video_or_post_by_tier": {
       "macro_100k_1m": {
         "followers": "100K–1M",
@@ -219,19 +219,19 @@
         35
       ]
     },
-    "holiday_2026_note": "Black Friday brand deals can pay LESS per post than normal rates — brands buy in bulk during BFCM (Lilach Bullock, Oct 2026). Affiliate commissions are often cut during BFCM week because brand margins are thin from the discount itself. 2026 usage-rights benchmarks: paid ad usage 3 months +25-50%, 3-6 months +50-75%, 6-12 months +75-100%, perpetual from 2x base; whitelisting 30-100% of base fee per month (projectcasting 2026)."
+    "holiday_2026_note": "Black Friday brand deals can pay LESS per post than normal rates, brands buy in bulk during BFCM (Lilach Bullock, Oct 2026). Affiliate commissions are often cut during BFCM week because brand margins are thin from the discount itself. 2026 usage-rights benchmarks: paid ad usage 3 months +25-50%, 3-6 months +50-75%, 6-12 months +75-100%, perpetual from 2x base; whitelisting 30-100% of base fee per month (projectcasting 2026)."
   },
   "sponsorship_quoted_prices_2026": {
     "date": "2026-10-12",
-    "note": "What creators actually quote, measured from real negotiations — a second lens beside the tier table. Quoted/asking prices are what creators ask, not what deals close at: the rate card's ~23% listed-vs-accepted gap still applies. Modeled figures are planning estimates from the source's own model, labeled as such — never mix the two bases in one quote.",
+    "note": "What creators actually quote, measured from real negotiations, a second lens beside the tier table. Quoted/asking prices are what creators ask, not what deals close at: the rate card's ~23% listed-vs-accepted gap still applies. Modeled figures are planning estimates from the source's own model, labeled as such, never mix the two bases in one quote.",
     "sources": [
       {
-        "name": "Cheerful, September 2026 — 905 creator asks, 298 brand offers, 2,356 itemized rate-card lines from real brand-creator email threads (reported via Talentir's 2026 influencer-rates roundup)",
+        "name": "Cheerful, September 2026, 905 creator asks, 298 brand offers, 2,356 itemized rate-card lines from real brand-creator email threads (reported via Talentir's 2026 influencer-rates roundup)",
         "url": "https://www.talentir.com/blog/influencer-rates-how-much-should-you-pay-creators",
         "basis": "reported"
       },
       {
-        "name": "Click Analytic, Creator Pricing Report 2026 — modeled cost of one sponsored Instagram feed post from 5.9 million Instagram accounts (full-year 2025 data snapshot, published as the 2026 edition)",
+        "name": "Click Analytic, Creator Pricing Report 2026, modeled cost of one sponsored Instagram feed post from 5.9 million Instagram accounts (full-year 2025 data snapshot, published as the 2026 edition)",
         "url": "https://www.talentir.com/blog/influencer-rates-how-much-should-you-pay-creators",
         "basis": "modeled"
       }
@@ -327,22 +327,22 @@
       }
     ],
     "instagram_modeled_basis": "modeled",
-    "instagram_modeled_note": "Click Analytic's model prices ONE sponsored Instagram feed post. Its tiers are cut differently from this site's rate-card tiers (10K–50K nano, not 1K–10K) — compare shapes, not labels. The source itself states these are modeled planning benchmarks, not guaranteed creator quotes.",
-    "audience_quality_note": "Only 14.6% of the 5.9 million Instagram accounts Click Analytic analyzed had both good audience quality and at least 2% engagement. The top of any tier range is a quality price, not a follower price — brands pay it for the accounts that clear both bars."
+    "instagram_modeled_note": "Click Analytic's model prices ONE sponsored Instagram feed post. Its tiers are cut differently from this site's rate-card tiers (10K–50K nano, not 1K–10K), compare shapes, not labels. The source itself states these are modeled planning benchmarks, not guaranteed creator quotes.",
+    "audience_quality_note": "Only 14.6% of the 5.9 million Instagram accounts Click Analytic analyzed had both good audience quality and at least 2% engagement. The top of any tier range is a quality price, not a follower price, brands pay it for the accounts that clear both bars."
   },
   "sponsorship_rule_of_thumb": {
     "dedicated_cpm_range": [
       20,
       50
     ],
-    "integrated_vs_ad_rpm": "An integrated YouTube sponsor slot pays $20–$35 per 1,000 views vs ~$2.30 median ad RPM (9–15x) — sponsorships dwarf platform payouts (air.io, Oct 10 2026)",
-    "negotiation_note": "Listed rates run ~23% above accepted rates — negotiate. Usage rights are the most-neglected line item: price paid-ad usage of your content SEPARATELY from the post fee (projectcasting.com, Sep 2026)",
+    "integrated_vs_ad_rpm": "An integrated YouTube sponsor slot pays $20–$35 per 1,000 views vs ~$2.30 median ad RPM (9–15x), sponsorships dwarf platform payouts (air.io, Oct 10 2026)",
+    "negotiation_note": "Listed rates run ~23% above accepted rates, negotiate. Usage rights are the most-neglected line item: price paid-ad usage of your content SEPARATELY from the post fee (projectcasting.com, Sep 2026)",
     "note": "Common starting point: $20–$50 per 1,000 expected views for a dedicated integration in mid-value niches; finance/tech 2–3x, entertainment lower. Negotiate on audience quality, not just views. Verify with current creator rate reports."
   },
   "usage_rights_benchmarks_2026": {
     "date": "2026-10-11",
     "source": "projectcasting 2026 usage-rights benchmarks (via the wave-25 Q4 2026 research sweep); the same figures are carried in prose in sponsorship_rate_card_2026.holiday_2026_note",
-    "note": "Add-ons are percentages ON TOP of the base post fee, priced as separate line items — never folded into the post fee. Ranges, not quotes. Verify against current creator rate reports before quoting.",
+    "note": "Add-ons are percentages ON TOP of the base post fee, priced as separate line items, never folded into the post fee. Ranges, not quotes. Verify against current creator rate reports before quoting.",
     "tiers": [
       {
         "id": "organic_only",
@@ -351,7 +351,7 @@
           0,
           0
         ],
-        "note": "Base post fee covers organic placement on your channel only — the absence of a line item, not a market rate."
+        "note": "Base post fee covers organic placement on your channel only, the absence of a line item, not a market rate."
       },
       {
         "id": "paid_3mo",
@@ -387,14 +387,14 @@
           100,
           null
         ],
-        "note": "From 2x the base fee (add-on of +100% or more) — price as its OWN line item, or refuse. A perpetual paid-ads license turns your post into the brand's permanent ad creative."
+        "note": "From 2x the base fee (add-on of +100% or more), price as its OWN line item, or refuse. A perpetual paid-ads license turns your post into the brand's permanent ad creative."
       }
     ],
     "whitelisting_per_month_pct": [
       30,
       100
     ],
-    "whitelisting_note": "Whitelisting (ads run from YOUR account) is priced monthly, separately from the post fee — always revocable, never perpetual."
+    "whitelisting_note": "Whitelisting (ads run from YOUR account) is priced monthly, separately from the post fee, always revocable, never perpetual."
   },
   "updated": "2026-10-12",
   "version": "1.5.0",
@@ -455,7 +455,7 @@
           10
         ],
         "basis": "proxy",
-        "source": "site lifestyle band (calculators.json) — ambient content is low-RPM; no creator-reported ASMR band exists yet"
+        "source": "site lifestyle band (calculators.json), ambient content is low-RPM; no creator-reported ASMR band exists yet"
       },
       "creator_economy": {
         "band": [
@@ -463,7 +463,7 @@
           10
         ],
         "basis": "proxy",
-        "source": "site education band (calculators.json) — creator-education is ad-friendly; no creator-reported creator-economy RPM band exists yet"
+        "source": "site education band (calculators.json), creator-education is ad-friendly; no creator-reported creator-economy RPM band exists yet"
       },
       "challenges_stunts": {
         "band": [
@@ -479,7 +479,7 @@
           20
         ],
         "basis": "cpm-reported",
-        "source": "OutlierKit, Sep 2026 (AI tutorials CPM $8-$20 — CPM, not RPM)"
+        "source": "OutlierKit, Sep 2026 (AI tutorials CPM $8-$20. CPM, not RPM)"
       },
       "true_crime": {
         "band": [
@@ -616,7 +616,7 @@
       "gap_note": "roughly a 7x gap per view between finance and gaming/entertainment (OutlierKit)"
     },
     "reality_checks": [
-      "Fewer than 1% of YouTube channels ever reach 100K subscribers (Lilach Bullock, Oct 2026) — plan a business model around 10K-30K loyal subscribers, not a million.",
+      "Fewer than 1% of YouTube channels ever reach 100K subscribers (Lilach Bullock, Oct 2026), plan a business model around 10K-30K loyal subscribers, not a million.",
       "Clipping/re-upload channels face channel-level reach reduction on Shorts from Oct 1, 2026 (announced by Creator Liaison Rene Ritchie).",
       "YouTube's January 2026 inauthentic-content enforcement removed 16 major channels (4.7B combined views) and demonetized thousands of low-effort AI channels (UTubeKit)."
     ]
@@ -633,14 +633,14 @@
         "likes (moderate and declining weight)"
       ],
       "mechanics": "interest-graph, not social graph; every upload is tested against a small audience pool first and widened only if early signals clear thresholds",
-      "search_engine": "captions, on-screen text, and spoken keywords decide whether content is discoverable months later — keyword delivery is a 2026 growth lever",
-      "source": "Hootsuite, Vamp, fivebbc, DMA, viral.app (2026) — index reads Oct 11, 2026"
+      "search_engine": "captions, on-screen text, and spoken keywords decide whether content is discoverable months later, keyword delivery is a 2026 growth lever",
+      "source": "Hootsuite, Vamp, fivebbc, DMA, viral.app (2026), index reads Oct 11, 2026"
     },
     "youtube_shorts": {
-      "oct_1_2026_originality_update": "Shorts recommendations now prioritize original content and reduce reach of re-uploaded material 'without adding anything of your own' — judgment is made at the CHANNEL level",
+      "oct_1_2026_originality_update": "Shorts recommendations now prioritize original content and reduce reach of re-uploaded material 'without adding anything of your own', judgment is made at the CHANNEL level",
       "announced_by": "Creator Liaison Rene Ritchie, Oct 1, 2026 (Creator Insider + TeamYouTube community post)",
       "safe_when": "adding real commentary, unique edits, or storytelling",
-      "scope": "recommendations only — payout formulas unchanged",
+      "scope": "recommendations only, payout formulas unchanged",
       "ai_disclosure": "May 2026 enforcement: labeled AI videos get normal distribution; undisclosed photorealistic AI faces reduced recommendations or removal",
       "source": "Social Media Today, Storyboard18, readus247, aituber (Oct 2026)"
     },
@@ -653,7 +653,7 @@
         "likes per reach",
         "comments"
       ],
-      "over_3_min_rule": "Reels longer than 3 minutes are not pushed to non-followers; discovery sweet spot 7-30 seconds (single source — treat as reported)",
+      "over_3_min_rule": "Reels longer than 3 minutes are not pushed to non-followers; discovery sweet spot 7-30 seconds (single source, treat as reported)",
       "watermarks": "TikTok watermarks explicitly deprioritized; low-resolution and engagement-bait penalized",
       "source": "Virvid (Mosseri quotes), CreatorFlow, SocialPilot, orangemonke, FlowShorts (2026)"
     }
@@ -674,7 +674,7 @@
     "q4_estimate_source": "CheckTheWorth (estimate, via passionfru.it Oct 2026)",
     "nov_dec_rpm_vs_q1": "+30 to +50%",
     "nov_dec_source": "becomeviral.com creator-reported guide (Oct 2026)",
-    "exception": "finance/tax channels often see RPM rises in Q1 (Influencer Marketing Hub) — seasonality is not universal",
+    "exception": "finance/tax channels often see RPM rises in Q1 (Influencer Marketing Hub), seasonality is not universal",
     "engine_default_q4_uplift": 0.6,
     "engine_basis_note": "engine q4Uplift default (+60%) sits inside the verified +40-60% December-vs-January band",
     "source_note": "wave-25 Q4 2026 creator-economy research sweep; verify live in YouTube Studio"
@@ -684,7 +684,7 @@
     "h1_2026_global_gmv": "$50.3B (+92% YoY)",
     "h1_source": "Momentum Works + Tabcut, via TubeFilter (Aug 2026)",
     "h1_2026_us_gmv": "$11.8B (+103% YoY, largest market globally)",
-    "full_year_2026_projection": "$112.2B (ringly.io) to $123.5B (Momentum Works pace) — projections, not reported",
+    "full_year_2026_projection": "$112.2B (ringly.io) to $123.5B (Momentum Works pace), projections, not reported",
     "us_attribution_h1_2026": {
       "shop_tab": "51.4%",
       "video": "40.4%",
@@ -698,7 +698,7 @@
     "bfcm_source": "TikTok Newsroom, via socialpilot.co stats (Oct 2026)",
     "us_2025_sales": "$15.82B (+108% YoY; 18.2% of US social commerce)",
     "us_2025_source": "eMarketer, via sqmagazine.co.uk",
-    "us_2026_sales_projection": "$23.41B (+48%) — projection, not reported (eMarketer, via sqmagazine.co.uk)",
+    "us_2026_sales_projection": "$23.41B (+48%), projection, not reported (eMarketer, via sqmagazine.co.uk)",
     "adobe_holiday_2026_forecast": "$275.1B US online holiday spend Nov 1-Dec 31 (+6.7% YoY); affiliate/partner share of retail revenue +12%; social media share +17%; creators = 22% of affiliate traffic",
     "adobe_source": "Adobe Analytics forecast, Sept 28, 2026"
   }

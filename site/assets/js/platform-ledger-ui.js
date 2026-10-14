@@ -1,7 +1,7 @@
-/* Platform Ledger — page wiring. Engine (assets/js/platform-ledger.js)
+/* Platform Ledger, page wiring. Engine (assets/js/platform-ledger.js)
  * composes the Deal Pipeline (Tool 25): the ledger reads the SAME
  * localStorage board the pipeline writes (key cge.deal-pipeline.deals.v1)
- * — deals are entered on the Deal Pipeline page, ledgered here by platform.
+ *, deals are entered on the Deal Pipeline page, ledgered here by platform.
  * No deals are created on this page; demo deals load only from the
  * labeled demo control and never enter the real ledger. */
 (function () {
@@ -23,7 +23,7 @@
     } catch (e) { return []; }
   }
   function save() {
-    try { window.localStorage.setItem(P.STORAGE_KEY, JSON.stringify(deals)); } catch (e) { /* storage blocked — ledger still renders in memory */ }
+    try { window.localStorage.setItem(P.STORAGE_KEY, JSON.stringify(deals)); } catch (e) { /* storage blocked, ledger still renders in memory */ }
   }
   function esc(s) {
     return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
@@ -36,18 +36,18 @@
       changesFeed: DATA.feed, now: new Date() });
     if (!l.ok) { ledgerEl.innerHTML = "<p class=\"muted\">" + esc(l.errors.join("; ")) + "</p>"; return; }
     statusEl.textContent = l.emptyBoard
-      ? "The board is empty — enter deals on the Deal Pipeline and each platform's business is ledgered here."
+      ? "The board is empty, enter deals on the Deal Pipeline and each platform's business is ledgered here."
       : l.demoOnly
-        ? "Demo board preview — demo deals are counted, none ledgered as real platform business."
+        ? "Demo board preview, demo deals are counted, none ledgered as real platform business."
         : l.platformCount + " platform(s) · " + PL.fmt(l.pipelineValue) + " across the board" +
           (l.topPlatform ? " · top platform " + l.topPlatform.platform + " at " + l.topPlatform.share + "% of pipeline" : "") +
           (l.demoCount ? " · " + l.demoCount + " DEMO deal(s) excluded" : "");
     if (!l.platforms.length) {
       ledgerEl.innerHTML = "<div class=\"pld-empty\"><p><strong>" +
-        (l.emptyBoard ? "No deals, no ledger." : "Demo board — no real ledger.") + "</strong> " +
+        (l.emptyBoard ? "No deals, no ledger." : "Demo board, no real ledger.") + "</strong> " +
         (l.emptyBoard
-          ? "This page ledgers the platforms on the <a href=\"deal-pipeline.html\">Deal Pipeline</a> board, one platform total per platform. The board is genuinely empty — the ledger is empty because nothing has been entered."
-          : "The demo board's deals are counted above and excluded here — demo data never ledgers as real platform business, the same rule the Deal Pipeline applies to demo money. Enter a real deal on the board and its platform is ledgered here from that day.") +
+          ? "This page ledgers the platforms on the <a href=\"deal-pipeline.html\">Deal Pipeline</a> board, one platform total per platform. The board is genuinely empty, the ledger is empty because nothing has been entered."
+          : "The demo board's deals are counted above and excluded here, demo data never ledgers as real platform business, the same rule the Deal Pipeline applies to demo money. Enter a real deal on the board and its platform is ledgered here from that day.") +
         "</p></div>";
     } else {
       ledgerEl.innerHTML = "<ol class=\"pld-list\">" + l.platforms.map(function (p, i) {

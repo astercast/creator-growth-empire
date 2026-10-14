@@ -1,6 +1,6 @@
-/* api-badge.css — the fallback-contract status badge (ARCHITECTURE.md §3.2/§3.3).
+/* api-badge.css, the fallback-contract status badge (ARCHITECTURE.md §3.2/§3.3).
    Field Manual readouts: squared, mono, signal-dot + text. The badge is the
-   honesty mechanism — "cached · updated HH:MM" is never hidden. */
+   honesty mechanism, "cached · updated HH:MM" is never hidden. */
 .api-badge {
   display: inline-flex;
   align-items: center;
@@ -24,17 +24,17 @@
   flex: none;
   background: var(--faint);
 }
-/* live — fresh from the server */
+/* live, fresh from the server */
 .api-badge[data-api-state="live"] { color: var(--sage); border-color: var(--sage-dim); }
 .api-badge[data-api-state="live"]::before { background: var(--sage); }
-/* waking — fetch in flight; static data already on screen */
+/* waking, fetch in flight; static data already on screen */
 .api-badge[data-api-state="waking"] { color: var(--cyan); border-color: var(--cyan-dim); }
 .api-badge[data-api-state="waking"]::before { background: var(--cyan); animation: aw-blink 1s steps(2, start) infinite; }
 @keyframes aw-blink { 50% { opacity: 0.25; } }
-/* cached — fallback or live-but-stale; amber, visually distinct from live */
+/* cached, fallback or live-but-stale; amber, visually distinct from live */
 .api-badge[data-api-state="cached"] { color: var(--gold); border-color: var(--gold-dim); }
 .api-badge[data-api-state="cached"]::before { background: var(--gold); }
-/* none — both failed; pre-rendered content stays, badge hides */
+/* none, both failed; pre-rendered content stays, badge hides */
 .api-badge[data-api-state="none"] { display: none; }
 /* the pre-rendered badge carries no state until JS runs; the base muted tone
    (7.62:1 on the badge ground, AA-passing) keeps it honest but quiet. */

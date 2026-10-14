@@ -1,4 +1,4 @@
-/* Format Fit Finder UI — pure-math-free DOM wiring.
+/* Format Fit Finder UI, pure-math-free DOM wiring.
    The matching logic lives in assets/js/format-fit.js (FormatFit). */
 (function () {
   "use strict";
@@ -30,11 +30,11 @@
   };
   var VERDICTS = {
     strong: { badge: "gold", label: "STRONG FIT ON FILE" },
-    workable: { badge: "money", label: "WORKABLE — WITH HONEST CAVEATS" },
-    "no-fit": { badge: "bad", label: "NO STRONG FIT — READ THE FLAGS" }
+    workable: { badge: "money", label: "WORKABLE, WITH HONEST CAVEATS" },
+    "no-fit": { badge: "bad", label: "NO STRONG FIT. READ THE FLAGS" }
   };
 
-  /* Same-document view transition (Baseline since Oct 2025 — research
+  /* Same-document view transition (Baseline since Oct 2025, research
      web-craft round 1 §2). Gated on no-preference; fallback is a plain
      swap. The site honors reduced motion everywhere. */
   function swap(html) {
@@ -50,7 +50,7 @@
   function flagList(flags) {
     if (!flags.length) return "";
     return '<div class="ff-flags" role="note" aria-label="Honest flags">' +
-      '<p class="ff-flags-head">Honest flags — read before you act</p><ul>' +
+      '<p class="ff-flags-head">Honest flags, read before you act</p><ul>' +
       flags.map(function (f) { return "<li>" + esc(f) + "</li>"; }).join("") +
       "</ul></div>";
   }
@@ -59,7 +59,7 @@
     var b = BANDS[m.band];
     var MAX = 13, MIN = -7;
     var pct = Math.max(0, Math.min(100, Math.round(((m.score - MIN) / (MAX - MIN)) * 100)));
-    var barLabel = m.score + " of " + MAX + " — " + b.label.toLowerCase();
+    var barLabel = m.score + " of " + MAX + ", " + b.label.toLowerCase();
     return '<article class="ff-card hud-panel">' +
       '<div class="hud-head"><span>FIT ' + (rank < 10 ? "0" + rank : rank) +
       " // DOSSIER " + esc(m.dossier_no) + "</span>" +
@@ -86,7 +86,7 @@
       var b = BANDS[m.band];
       return "<tr><td>" + (i + 1) + "</td><td>" + esc(m.name) + "</td>" +
         '<td><span class="badge ' + b.badge + '">' + m.score + "</span></td>" +
-        "<td>" + esc(m.competition.split(" —")[0].split(" (")[0]) + "</td>" +
+        "<td>" + esc(m.competition.split(/[,;(]/)[0].trim()) + "</td>" +
         "<td>" + esc(m.timeToMoney === "fast" ? "<6 mo" : m.timeToMoney === "mid" ? "6–18 mo" : "18+ mo") + "</td></tr>";
     }).join("");
     return '<details class="ff-all"><summary>All 10 formats, ranked (' +
@@ -97,7 +97,7 @@
       "<th scope=\"col\">Time to money</th></tr></thead><tbody>" + rows +
       "</tbody></table></div>" +
       '<p class="muted ff-prose">Scores are axis arithmetic (experience + camera + hours + budget + timeline + risk = 13 max). ' +
-      "Lower ranks are not rejections — they are honest statements about what your situation makes hard right now.</p></details>";
+      "Lower ranks are not rejections, they are honest statements about what your situation makes hard right now.</p></details>";
   }
 
   function render(r) {
@@ -114,8 +114,8 @@
       '<div class="callout mission" style="margin:0 0 1rem"><strong><span class="badge ' + v.badge + '">' + v.label + "</span></strong>" +
       "<p>" + esc(inp) + "</p>" +
       (r.verdict === "no-fit"
-        ? "<p>Nothing scored high — and the tool says so instead of handing you a 'winner'. Read the flags: the fix is in your inputs (more hours, real experience, a tuition phase), not in a different format.</p>"
-        : "<p>Ranked by how well your situation actually matches each dossier's entry bar — not by which format is 'hottest'. The catch under each match is the part most tools would hide.</p>") +
+        ? "<p>Nothing scored high, and the tool says so instead of handing you a 'winner'. Read the flags: the fix is in your inputs (more hours, real experience, a tuition phase), not in a different format.</p>"
+        : "<p>Ranked by how well your situation actually matches each dossier's entry bar, not by which format is 'hottest'. The catch under each match is the part most tools would hide.</p>") +
       "</div>" +
       flagList(r.globalFlags) +
       "</div></div>" +
@@ -158,7 +158,7 @@
       if (saved.hours !== undefined && document.getElementById("ff-hours"))
         document.getElementById("ff-hours").value = saved.hours;
     }
-  } catch (e) { /* storage unavailable — form still works */ }
+  } catch (e) { /* storage unavailable, form still works */ }
 
   form.addEventListener("submit", function (e) {
     e.preventDefault();
@@ -178,7 +178,7 @@
         "ff-camera": raw.camera, "ff-budget": raw.budget,
         "ff-goal": raw.goal, "ff-risk": raw.risk
       }));
-    } catch (err) { /* private mode — results still render */ }
+    } catch (err) { /* private mode, results still render */ }
     render(r);
   });
 })();

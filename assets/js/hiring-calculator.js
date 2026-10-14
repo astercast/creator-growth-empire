@@ -10,7 +10,7 @@
     editor: "Typical 2026 range for this role: $150–$500/video, or $25–$75/hr (see the hiring guide).",
     thumbnail: "Typical 2026 range for this role: $5–$40/thumbnail (see the hiring guide).",
     va: "Typical 2026 range for this role: $3–$25/hr offshore, $25–$50/hr US (see the hiring guide).",
-    manager: "No public 2026 benchmark on file — price off the value of the hours returned (see the hiring guide)."
+    manager: "No public 2026 benchmark on file, price off the value of the hours returned (see the hiring guide)."
   };
   var ROLE_LABEL = { editor: "Video editor", thumbnail: "Thumbnail designer", va: "Virtual assistant", manager: "Channel manager" };
 
@@ -67,21 +67,21 @@
       var num = function (n) { return Math.round(n).toLocaleString("en-US"); };
 
       out.innerHTML =
-        card("Monthly cost — " + role, range(monthly, loaded),
+        card("Monthly cost, " + role, range(monthly, loaded),
           basis + " · upper end includes ~15% operating overhead (management, revisions, fees)") +
         card("Annual cost", range(annual, annualLoaded), "sticker rate vs loaded") +
-        card("Share of your ad revenue", pctLo > 0 ? "~" + Math.round(pctLo) + "%" : "—",
+        card("Share of your ad revenue", pctLo > 0 ? "~" + Math.round(pctLo) + "%" : "·",
           "loaded cost vs mid-range ad revenue from " + num(views) + " monthly views (RPM $" + band[0] + "–$" + band[1] + ")") +
         card("Monthly views needed to cover it", num(needLo) + " – " + num(needHi),
-          "at this niche's RPM band — lower RPM needs more views") +
+          "at this niche's RPM band, lower RPM needs more views") +
         '<div class="calc-out" style="border-color:var(--cyan)"><div class="lbl">3-month coverage reserve</div>' +
         '<div class="big">' + range(threeMo / 1.15, threeMo) + "</div>" +
-        '<div class="range">The hiring rule: cover 3 months from revenue before you sign. Not a guarantee — a math check.</div></div>';
+        '<div class="range">The hiring rule: cover 3 months from revenue before you sign. Not a guarantee, a math check.</div></div>';
     }).catch(function () {
       out.innerHTML = '<div class="error-state" role="alert" style="grid-column:1/-1">' +
         "<strong>CONFIG LOAD FAILED</strong>" +
         "<p>Could not load the calculator config (<code>data/v1/calculators.json</code>). " +
-        "Check that <code>data/v1/</code> is deployed alongside this page, then try again — your inputs are still here.</p>" +
+        "Check that <code>data/v1/</code> is deployed alongside this page, then try again, your inputs are still here.</p>" +
         '<button type="button" class="btn btn-ghost" data-retry>Try again</button></div>';
     });
   });

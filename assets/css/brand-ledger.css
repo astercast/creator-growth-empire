@@ -1,4 +1,4 @@
-/* Brand Ledger — per-brand entries + export.
+/* Brand Ledger, per-brand entries + export.
  * Scoped to .bl-* / #brand-ledger. */
 .bl-stamp { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; margin-bottom: 0.5rem; }
 .bl-jump { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 1rem 0 0.5rem; }

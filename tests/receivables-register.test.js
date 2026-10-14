@@ -63,7 +63,7 @@ ok(invoicedNudges.join("|") === "Northwind VPN|Slow Payer LLC" &&
    r.items.some(function (it) { return it.brand === "Fresh Invoice Co"; }),
   "a 1-day-old invoice is registered even though the board raises no follow-up nudge for it — the register is not the queue");
 ok(r.items.every(function (it) { return it.script.ok; }) &&
-   r.items[1].script.label === "Late payment — agreed invoice past its terms" &&
+   r.items[1].script.label === "Late payment, agreed invoice past its terms" &&
    r.items[1].script.exportText.indexOf("$4,500") >= 0,
   "each entry carries the board's Tool 24 late-payment script for that deal (label + full text)");
 ok(r.emptyBoard === false && r.nothingOwed === false && r.demoOnly === false,
@@ -90,7 +90,7 @@ ok(/DEMO invoiced deal/.test(RR.exportRegister(mixed)), "the export names the ex
 
 console.log("receivables-register — the export");
 var exp = RR.exportRegister(r);
-ok(/RECEIVABLES REGISTER — 3 invoiced deal\(s\), \$13,000 owed/.test(exp) &&
+ok(/RECEIVABLES REGISTER · 3 invoiced deal\(s\), \$13,000 owed/.test(exp) &&
    /Slow Payer LLC · \$6,000 owed/.test(exp) && /Late-payment script \(Tool 24, via the board\)/.test(exp) &&
    /not a follow-up queue/.test(exp) && /entered the invoiced stage/.test(exp),
   "export carries the entries, the scripts, and the register-not-queue honesty note");

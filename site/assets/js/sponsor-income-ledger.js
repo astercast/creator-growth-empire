@@ -1,8 +1,8 @@
-/* Sponsor Income Ledger — engine (UMD, importable in node for tests).
+/* Sponsor Income Ledger, engine (UMD, importable in node for tests).
  *
  * Tool 28. The money chain prices deals (Tool 23), scripts them
  * (Tool 24), boards them (Tool 25), queues their follow-ups
- * (Tool 26), and books the paid ones for re-approach (Tool 27) —
+ * (Tool 26), and books the paid ones for re-approach (Tool 27),
  * but the collected money itself only ever appears as one lump
  * paid total on the board. A creator running a business needs it
  * broken open: what landed in which month, how much of the total
@@ -11,8 +11,8 @@
  *
  * It COMPOSES Tool 25's buildBoard and adds no pricing, no rate
  * card, and no thresholds of its own. Its only arithmetic is
- * summing and grouping the entered amounts — by the month each
- * deal entered the paid stage, by brand, and by platform — the
+ * summing and grouping the entered amounts, by the month each
+ * deal entered the paid stage, by brand, and by platform, the
  * same discipline pipelineTotals applies to demo money. The
  * month a deal is ledgered under is the month it entered the
  * paid stage, because that is the only payment timing the board
@@ -24,7 +24,7 @@
  * demo-only board are different states and this engine says
  * which one it is.
  *
- * A planning aid — not financial, legal, or tax advice. */
+ * A planning aid, not financial, legal, or tax advice. */
 (function (root, factory) {
   var api = factory(root);
   if (typeof module !== "undefined" && module.exports) module.exports = api;
@@ -50,14 +50,14 @@
   }
   /* The ledger month of a paid deal: the YYYY-MM its stage entry
    * date falls in. A paid deal whose date cannot be read is not
-   * dropped and not guessed into a month — it is ledgered under
+   * dropped and not guessed into a month, it is ledgered under
    * "undated", flagged, and still counted in the collected total. */
   function monthKey(deal) {
     var s = String((deal && deal.stageEnteredAt) || "").slice(0, 7);
     return /^\d{4}-(0[1-9]|1[0-2])$/.test(s) ? s : "undated";
   }
   function monthLabel(key) {
-    if (key === "undated") return "Undated — stage entry date unreadable";
+    if (key === "undated") return "Undated, stage entry date unreadable";
     var y = key.slice(0, 4), m = MONTHS[Number(key.slice(5, 7)) - 1];
     return m + " " + y;
   }
@@ -100,7 +100,7 @@
     });
 
     /* By brand and by platform: totals with each share of the
-     * collected total — plain shares of entered amounts. */
+     * collected total, plain shares of entered amounts. */
     function groupBy(field) {
       var g = {};
       paid.forEach(function (p) {
@@ -132,7 +132,7 @@
     };
   }
 
-  /* Build the ledger straight from entered deals — the board is
+  /* Build the ledger straight from entered deals, the board is
    * Tool 25's buildBoard with the caller's own data and clock. */
   function buildLedger(deals, opts) {
     opts = opts || {};
@@ -146,22 +146,22 @@
     if (!ledger || !ledger.ok) return "";
     var out = [];
     var date = String(ledger.generatedFor || "").slice(0, 10);
-    out.push("SPONSOR INCOME LEDGER — " + ledger.paidCount + " paid deal(s), " +
+    out.push("SPONSOR INCOME LEDGER · " + ledger.paidCount + " paid deal(s), " +
       fmt(ledger.collected) + " collected" + (date ? " · " + date : ""));
     if (ledger.emptyBoard) {
-      out.push("No deals on the board — this ledger is empty because the Deal Pipeline is empty, not because no brand has paid yet.");
+      out.push("No deals on the board, this ledger is empty because the Deal Pipeline is empty, not because no brand has paid yet.");
     } else if (ledger.demoOnly) {
-      out.push("Only demo deals are on the board — demo data stays out of the real ledger.");
+      out.push("Only demo deals are on the board, demo data stays out of the real ledger.");
     } else if (ledger.noPaidYet) {
       out.push("No brand has paid yet. Deals reach this ledger when they reach the paid stage on the Deal Pipeline.");
     }
     if (ledger.demoPaid) {
       out.push("Plus " + ledger.demoPaid + " DEMO paid deal(s) worth " + fmt(ledger.demoPaidValue) +
-        " — demo data, excluded from this ledger.");
+        ", demo data, excluded from this ledger.");
     }
     ledger.months.forEach(function (m) {
       out.push("");
-      out.push(m.label.toUpperCase() + " — " + fmt(m.total) + " (" + m.count +
+      out.push(m.label.toUpperCase() + " · " + fmt(m.total) + " (" + m.count +
         " paid deal(s); cumulative " + fmt(m.cumulative) + ")");
       m.deals.forEach(function (d) {
         out.push("- " + d.brand + " · " + fmt(d.amount) + " · " + d.platform);
@@ -180,7 +180,7 @@
       });
     }
     out.push("");
-    out.push(ledger.advice + " Months are the month each deal entered the paid stage on the Deal Pipeline (Tool 25) — the only payment timing the board carries; this ledger claims no clearing or payout date beyond it. Amounts are the figures entered on the board; collected is Tool 25's paid total.");
+    out.push(ledger.advice + " Months are the month each deal entered the paid stage on the Deal Pipeline (Tool 25), the only payment timing the board carries; this ledger claims no clearing or payout date beyond it. Amounts are the figures entered on the board; collected is Tool 25's paid total.");
     return out.join("\n");
   }
 

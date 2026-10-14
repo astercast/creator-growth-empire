@@ -94,9 +94,9 @@ var d = sl.debriefFor(goodInputs(), fakeRes, "Test Scenario", names);
 ok(/MISSION LOGGED/.test(d.title) && /4-month/.test(d.title),
   "debrief title: mission logged + horizon");
 ok(d.stats.length === 4, "four debrief stats");
-ok(d.stats[0].value === "720" && d.stats[3].value === "Stage 1 \u2014 First $100",
+ok(d.stats[0].value === "720" && d.stats[3].value === "Stage 1 · First $100",
   "debrief stats: end subs + end stage (got " + d.stats[0].value + " / " + d.stats[3].value + ")");
-ok(d.xpLine === "+25 XP \u2014 MISSION LOGGED \u00b7 recorded in your Empire Climb journal",
+ok(d.xpLine === "+25 XP: MISSION LOGGED \u00b7 recorded in your Empire Climb journal",
   "XP line pins +25 and the journal framing");
 ok(/not a prediction/i.test(d.honesty) && /not financial, legal, or tax advice/i.test(d.honesty),
   "honesty footer rides the debrief");

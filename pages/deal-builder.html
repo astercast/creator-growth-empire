@@ -1,9 +1,9 @@
 <div id="deal-builder">
-<p class="lede">The package layer: turn deliverables into a line-item quote from the 2026 rate card, a ready-to-send proposal built from that quote, and a deal checklist built from the actual terms. Everything runs in your browser — no accounts, no uploads, no data leaves the machine.</p>
+<p class="lede">The package layer: turn deliverables into a line-item quote from the 2026 rate card, a ready-to-send proposal built from that quote, and a deal checklist built from the actual terms. Everything runs in your browser, no accounts, no uploads, no data leaves the machine.</p>
 <p class="muted">Got an inbound offer to benchmark instead? <a href="deal-analyzer.html">The Deal Analyzer</a> evaluates the brand's terms. Running outbound? <a href="outreach.html">The Outreach Center</a> owns the pipeline and pitch templates. The deep layer: <a href="sponsor-playbook.html">The 2026 Sponsor Playbook</a>.</p>
 
 <h2>1 · Your package</h2>
-<p class="muted">Add each deliverable as its own line — platform, format, how many. The quote prices every line from the 2026 rate card, then stacks usage, whitelisting, and exclusivity as separate line items.</p>
+<p class="muted">Add each deliverable as its own line, platform, format, how many. The quote prices every line from the 2026 rate card, then stacks usage, whitelisting, and exclusivity as separate line items.</p>
 <form id="db-form" aria-label="Deal Builder" novalidate>
   <div class="calc-grid">
     <label>Follower count <input type="number" id="db-followers" min="1000" step="1000" value="50000" required></label>
@@ -38,21 +38,21 @@
 </form>
 
 <h2>2 · The quote</h2>
-<div id="db-quote" aria-live="polite"><p class="muted">Your line-item quote lands here — base fees, usage, whitelisting, exclusivity, the top-of-range ask, and the ~23% expected landing zone.</p></div>
+<div id="db-quote" aria-live="polite"><p class="muted">Your line-item quote lands here, base fees, usage, whitelisting, exclusivity, the top-of-range ask, and the ~23% expected landing zone.</p></div>
 
 <h2>3 · Exclusivity &amp; term checks</h2>
 <div id="db-flags" aria-live="polite"><p class="muted">Window mismatches, broad-lock warnings, and the overlaps only you can verify.</p></div>
 
 <h2>4 · The proposal</h2>
-<p class="muted">Built from your actual quote — every stat you haven't supplied stays a <strong>[bracket]</strong> for you to fill. The generator never invents a number.</p>
+<p class="muted">Built from your actual quote, every stat you haven't supplied stays a <strong>[bracket]</strong> for you to fill. The generator never invents a number.</p>
 <div style="margin-top:1rem"><button type="button" class="btn btn-primary" id="db-pitch-gen">Generate proposal →</button></div>
 <div id="db-pitch-out" aria-live="polite" style="margin-top:1.5rem"></div>
 <div id="db-pitch-actions" style="display:none;margin-top:1rem"><button type="button" class="btn btn-ghost" id="db-pitch-copy">Copy proposal</button></div>
 
 <h2>5 · The deal checklist</h2>
-<p class="muted">Generated from the terms you just built — usage, payment, revisions, exclusivity, FTC disclosure, deliverables, your walk-away line. Tick them off as the contract answers each one. Your checks persist in this browser.</p>
+<p class="muted">Generated from the terms you just built, usage, payment, revisions, exclusivity, FTC disclosure, deliverables, your walk-away line. Tick them off as the contract answers each one. Your checks persist in this browser.</p>
 <div id="db-checklist" aria-live="polite"></div>
 
-<p class="muted">Negotiation aid — not financial, legal, or tax advice. Rates are reported 2026 benchmarks (ranges, never quotes). The checklist is not legal advice; contracts above $500 deserve a real lawyer's eyes.</p>
+<p class="muted">Negotiation aid, not financial, legal, or tax advice. Rates are reported 2026 benchmarks (ranges, never quotes). The checklist is not legal advice; contracts above $500 deserve a real lawyer's eyes.</p>
 </div>
-<noscript><p><strong>The Deal Builder needs JavaScript</strong> — the quote math, term checks, and proposal run entirely in your browser with no server. The 2026 rate card benchmarks live at <a href="rate-card.html">rate-card.html</a>, the deep usage-rights layer at <a href="sponsor-playbook.html">sponsor-playbook.html</a>, and the machine-readable data at <a href="data/v1/calculators.json">data/v1/calculators.json</a>.</p></noscript>
+<noscript><p><strong>The Deal Builder needs JavaScript</strong>, the quote math, term checks, and proposal run entirely in your browser with no server. The 2026 rate card benchmarks live at <a href="rate-card.html">rate-card.html</a>, the deep usage-rights layer at <a href="sponsor-playbook.html">sponsor-playbook.html</a>, and the machine-readable data at <a href="data/v1/calculators.json">data/v1/calculators.json</a>.</p></noscript>

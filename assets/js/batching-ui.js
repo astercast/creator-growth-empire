@@ -1,4 +1,4 @@
-/* Batching Planner — "film day" math. Pure-math-free:
+/* Batching Planner, "film day" math. Pure-math-free:
    capacity/required arithmetic lives in assets/js/content-engine.js. */
 (function () {
   "use strict";
@@ -17,8 +17,8 @@
   }
 
   var VERDICTS = {
-    surplus: { badge: "money", label: "THE CADENCE HOLDS — WITH SLACK" },
-    balanced: { badge: "warn", label: "THE CADENCE HOLDS — NO SLACK" },
+    surplus: { badge: "money", label: "THE CADENCE HOLDS. WITH SLACK" },
+    balanced: { badge: "warn", label: "THE CADENCE HOLDS. NO SLACK" },
     shortfall: { badge: "bad", label: "THE CADENCE DOESN'T HOLD" }
   };
 
@@ -44,8 +44,8 @@
     function row(label, required, capacity, delta) {
       var d = delta >= 0 ? "+" + delta : String(delta);
       return '<div class="calc-grid" style="margin-bottom:.75rem">' +
-        '<div class="calc-out"><div class="lbl">' + esc(label) + " — required/month</div><div class=\"big\">" + required + "</div></div>" +
-        '<div class="calc-out"><div class="lbl">' + esc(label) + " — shoot capacity/month</div><div class=\"big\">" + capacity + "</div></div>" +
+        '<div class="calc-out"><div class="lbl">' + esc(label) + ", required/month</div><div class=\"big\">" + required + "</div></div>" +
+        '<div class="calc-out"><div class="lbl">' + esc(label) + ", shoot capacity/month</div><div class=\"big\">" + capacity + "</div></div>" +
         '<div class="calc-out"><div class="lbl">Delta</div><div class="big">' + d + "</div></div></div>" +
         bar(required, capacity);
     }
@@ -61,11 +61,11 @@
       "<p>" + esc(r.guidance) + "</p>" +
       "<p class='muted'>Consistency beats volume. A cadence you can film for 90 days straight is " +
       "worth more than an ambitious one you abandon in week three. If the math is red, shrink the " +
-      "cadence — don't promise yourself heroics.</p>" +
+      "cadence, don't promise yourself heroics.</p>" +
       '<p class="muted">Inputs: ' + r.inputs.videosPerShootDay + " long-form videos per shoot day · " +
       r.inputs.shootDaysPerMonth + " shoot days/month · " + r.inputs.longsPerWeek + " longs + " +
       r.inputs.shortsPerWeek + " shorts per week. Weeks per month: " + r.inputs.weeksPerMonth.toFixed(2) +
-      " (52/12 — the honest month, not 4).</p>" +
+      " (52/12, the honest month, not 4).</p>" +
       '<p><a class="btn btn-ghost" href="planner.html">Open the 90-Day Planner \u2192</a> ' +
       '<a class="btn btn-ghost" href="simulator.html">Model it in the Simulator \u2192</a></p>' +
       "</div>";
@@ -73,7 +73,7 @@
   });
 })();
 
-/* Weekly batch scheduler — hours -> day blocks. Pure-math-free:
+/* Weekly batch scheduler, hours -> day blocks. Pure-math-free:
    the week arithmetic lives in assets/js/content-engine.js (planBatchWeek). */
 (function () {
   "use strict";
@@ -101,7 +101,7 @@
 
   var VERDICTS = {
     holds: { badge: "money", label: "THE WEEK HOLDS" },
-    tight: { badge: "warn", label: "THE WEEK HOLDS — NO MARGIN" },
+    tight: { badge: "warn", label: "THE WEEK HOLDS. NO MARGIN" },
     over: { badge: "bad", label: "THE WEEK DOESN'T HOLD" }
   };
 
@@ -132,7 +132,7 @@
     }
     function dayCard(d) {
       var tasks = d.tasks.map(function (t) {
-        return "<li>" + esc(t.label) + " — " + t.hours + "h</li>";
+        return "<li>" + esc(t.label) + ", " + t.hours + "h</li>";
       }).join("");
       return '<div class="calc-out" style="margin-bottom:.5rem"><div class="lbl">' + esc(d.day) +
         '</div><ul style="margin:.25rem 0 0;padding-left:1.1rem">' + tasks + "</ul></div>";
@@ -153,7 +153,7 @@
       r.blocks.map(blockRow).join("") + "</div>" +
       (r.days.length
         ? '<h3 style="margin:.5rem 0">The week</h3>' + r.days.map(dayCard).join("")
-        : '<p class="muted">No work blocks — the cadence is zero. The week holds trivially.</p>') +
+        : '<p class="muted">No work blocks, the cadence is zero. The week holds trivially.</p>') +
       "</div></div>" +
       '<div class="callout mission"><strong><span class="badge ' + v.badge + '">' + v.label + "</span></strong>" +
       "<p>" + esc(r.guidance) + "</p>" +
@@ -161,8 +161,8 @@
       r.inputs.taskMinutes.long.edit + "/" + r.inputs.taskMinutes.long.publish +
       " min (film/edit/publish) · short-form " + r.inputs.taskMinutes.short.film + "/" +
       r.inputs.taskMinutes.short.edit + "/" + r.inputs.taskMinutes.short.publish +
-      " min. Defaults are starting estimates — time one real video and replace them.</p>" +
-      '<p class="muted">Pure arithmetic on your own inputs — scheduling more never guarantees views, revenue, or growth. A planning aid, not financial, legal, or tax advice.</p>' +
+      " min. Defaults are starting estimates, time one real video and replace them.</p>" +
+      '<p class="muted">Pure arithmetic on your own inputs, scheduling more never guarantees views, revenue, or growth. A planning aid, not financial, legal, or tax advice.</p>' +
       "</div>";
     out.scrollIntoView({ behavior: "smooth", block: "start" });
   });

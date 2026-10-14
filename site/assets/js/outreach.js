@@ -1,9 +1,9 @@
-/* The Outreach Center — pure outreach math (no DOM).
+/* The Outreach Center, pure outreach math (no DOM).
  * UMD: works in the browser (window.Outreach) and in node (module.exports).
  *
  * HONESTY CONTRACT: every benchmark is a reported range from the 2026 rate
  * card (data/v1/calculators.json sponsorship_rate_card_2026), never a quote.
- * Pitch templates never invent metrics — every stat is a [bracketed]
+ * Pitch templates never invent metrics, every stat is a [bracketed]
  * placeholder the creator fills with their own real numbers. The contract
  * checklist is a negotiation aid, NOT legal advice. Not financial, legal, or
  * tax advice.
@@ -18,7 +18,7 @@
 })(typeof self !== "undefined" ? self : this, function () {
   "use strict";
 
-  /* Creators list rates ~23% above what they accept — from the 2026 rate
+  /* Creators list rates ~23% above what they accept, from the 2026 rate
    * card chapter (projectcasting / InfluenceFlow 2026, 1,347 creator
    * profiles; re-verified Oct 2026). Quoted in rate calculations as the
    * reason to quote at the top of the range and expect to be negotiated
@@ -46,8 +46,8 @@
   }
 
   function tierLabel(t) {
-    return { nano_1k_10k: "Nano (1K\u201310K)", micro_10k_100k: "Micro (10K\u2013100K)",
-             macro_100k_1m: "Macro (100K\u20131M)", mega_1m_plus: "Mega (1M+)" }[t];
+    return { nano_1k_10k: "Nano (1K–10K)", micro_10k_100k: "Micro (10K–100K)",
+             macro_100k_1m: "Macro (100K–1M)", mega_1m_plus: "Mega (1M+)" }[t];
   }
 
   /* Honest rounding for quote numbers: 2 significant figures. */
@@ -74,7 +74,7 @@
   /* Pipeline stats over an array of deal records. Response rate = deals that
    * drew any reply (replied/negotiating/signed) over all contacted; close
    * rate = signed over all contacted. ~5% reply rate is normal per the
-   * sponsorship-pitch skill — the system works on volume. */
+   * sponsorship-pitch skill, the system works on volume. */
   function pipelineStats(deals) {
     var list = Array.isArray(deals) ? deals : [];
     var contacted = list.length;
@@ -92,7 +92,7 @@
       signed: signed,
       responseRate: pct(responded),
       closeRate: pct(signed),
-      note: "~5% reply rate is normal for cold outreach (sponsorship-pitch skill) \u2014 the system works on volume, not on chasing."
+      note: "~5% reply rate is normal for cold outreach (sponsorship-pitch skill). the system works on volume, not on chasing."
     };
   }
 
@@ -113,11 +113,11 @@
     return out;
   }
 
-  /* "What should I charge?" — range from the 2026 rate card tier, a CPM
+  /* "What should I charge?", range from the 2026 rate card tier, a CPM
    * cross-check from expected views, and negotiation guidance. RANGES ONLY:
    * the output never claims a price is correct, and every number carries
    * its provenance. Usage-rights pricing is deliberately left out of the
-   * total here — it's a separate line item (Deal Room), never folded in. */
+   * total here, it's a separate line item (Deal Room), never folded in. */
   function quoteCalc(input, rateCard, ruleOfThumb) {
     input = input || {};
     var followers = Math.max(0, Number(input.followers) || 0);
@@ -138,11 +138,11 @@
     if (deliverable === "integrated") {
       cpmBand = rateCard.sponsored_cpms.youtube_integrated_slot;
       cpmLabel = "YouTube integrated slot";
-      cpmBasis = "reported benchmark $20\u2013$35 per 1,000 views";
+      cpmBasis = "reported benchmark $20–$35 per 1,000 views";
     } else if (deliverable === "dedicated") {
       cpmBand = ruleOfThumb.dedicated_cpm_range;
       cpmLabel = "Dedicated video";
-      cpmBasis = "rule-of-thumb starting point $20\u2013$50 per 1,000 expected views \u2014 not a benchmark";
+      cpmBasis = "rule-of-thumb starting point $20–$50 per 1,000 expected views. not a benchmark";
     } else {
       if (platform === "instagram") {
         cpmBand = [rateCard.sponsored_cpms.ig_sponsored_reel_median,
@@ -152,7 +152,7 @@
       } else {
         cpmBand = rateCard.sponsored_cpms.tiktok_youtube_general;
         cpmLabel = "Short-form video";
-        cpmBasis = "reported benchmark $10\u2013$30 per 1,000 views";
+        cpmBasis = "reported benchmark $10–$30 per 1,000 views";
       }
     }
     var impliedCpm = expectedViews > 0
@@ -163,15 +163,15 @@
         cpmLabel.toLowerCase() + " benchmark.";
     } else if (impliedCpm > cpmBand[1]) {
       cpmNote = "At " + fmt(expectedViews) + " expected views, quoting " + fmt(quotePoint) +
-        " implies ~$" + impliedCpm + " per 1,000 views \u2014 above the " + cpmLabel +
+        " implies ~$" + impliedCpm + " per 1,000 views: above the " + cpmLabel +
         " band (" + cpmBasis + "). Either the views support dedication-level pricing, or the quote sits above what the views defend.";
     } else if (impliedCpm < cpmBand[0]) {
       cpmNote = "At " + fmt(expectedViews) + " expected views, quoting " + fmt(quotePoint) +
-        " implies ~$" + impliedCpm + " per 1,000 views \u2014 below the " + cpmLabel +
+        " implies ~$" + impliedCpm + " per 1,000 views: below the " + cpmLabel +
         " band (" + cpmBasis + "). There may be room to quote higher.";
     } else {
       cpmNote = "At " + fmt(expectedViews) + " expected views, quoting " + fmt(quotePoint) +
-        " implies ~$" + impliedCpm + " per 1,000 views \u2014 inside the " + cpmLabel +
+        " implies ~$" + impliedCpm + " per 1,000 views: inside the " + cpmLabel +
         " band (" + cpmBasis + ").";
     }
 
@@ -181,12 +181,12 @@
       platform: platform,
       deliverable: deliverable,
       range: [lo, hi],
-      rangeLabel: fmt(lo) + "\u2013" + fmt(hi),
+      rangeLabel: fmt(lo) + "–" + fmt(hi),
       quotePoint: quotePoint,
       expectedClose: expectedClose,
       guidance: "Quote at the top of your tier range (" + fmt(quotePoint) + "). Creators list rates ~" +
-        Math.round(LISTED_VS_ACCEPTED * 100) + "% above what they accept \u2014 if you open at the top, expect to land near " +
-        fmt(expectedClose) + ". 41% of creators offer package discounts on 3+ posts (InfluenceFlow 2026) \u2014 build the discount into a bundle, never into a one-off.",
+        Math.round(LISTED_VS_ACCEPTED * 100) + "% above what they accept, if you open at the top, expect to land near " +
+        fmt(expectedClose) + ". 41% of creators offer package discounts on 3+ posts (InfluenceFlow 2026). build the discount into a bundle, never into a one-off.",
       cpm: {
         deliverableLabel: cpmLabel,
         band: cpmBand,
@@ -194,14 +194,14 @@
         impliedCpmAtQuote: impliedCpm,
         note: cpmNote
       },
-      crossPlatform: "At equal followers, YouTube pays ~1.7\u00d7 Instagram and TikTok ~0.85\u00d7 (wave-1 research, consistent with 2026 agency tables \u2014 use it to move a quote across platforms, not to inflate one).",
-      usageRightsNote: "This range is the POST FEE ONLY. Paid-ad usage, whitelisting, and exclusivity are separate line items \u2014 price them in the Deal Room, never fold them in here.",
-      disclaimer: "A negotiation range compiled from 2026 benchmarks that disagree 2\u20133\u00d7 within tiers \u2014 never a quote, never a promise. Niche, engagement rate, and audience geography move the real number as much as follower count. Not financial advice."
+      crossPlatform: "At equal followers, YouTube pays ~1.7\u00d7 Instagram and TikTok ~0.85\u00d7 (wave-1 research, consistent with 2026 agency tables. use it to move a quote across platforms, not to inflate one).",
+      usageRightsNote: "This range is the POST FEE ONLY. Paid-ad usage, whitelisting, and exclusivity are separate line items. price them in the Deal Room, never fold them in here.",
+      disclaimer: "A negotiation range compiled from 2026 benchmarks that disagree 2–3\u00d7 within tiers. never a quote, never a promise. Niche, engagement rate, and audience geography move the real number as much as follower count. Not financial advice."
     };
   }
 
   /* Fill a pitch template's [bracketed] and {{mustache}} placeholders from
-   * vars. Unknown placeholders stay visible so nothing silently lies \u2014
+   * vars. Unknown placeholders stay visible so nothing silently lies, 
    * and no stat is ever invented for the user. */
   function renderPitch(template, vars) {
     if (!template) return "";
@@ -239,20 +239,20 @@
     var verdict, verdictText;
     if (walkAway.length) {
       verdict = "dont_sign";
-      verdictText = "Don't sign as written \u2014 a walk-away clause is checked (" +
+      verdictText = "Don't sign as written, a walk-away clause is checked (" +
         walkAway.map(function (f) { return f.title; }).join("; ") +
         "), and no price fixes a hostile structure. Send it back with the fixes below.";
     } else if (score >= 3) {
       verdict = "dont_sign";
-      verdictText = "Don't sign as written \u2014 the flagged terms stack up (" + score +
+      verdictText = "Don't sign as written, the flagged terms stack up (" + score +
         " points) to a contract that can cost you more than the deal pays. Renegotiate the fixes below first.";
     } else if (score >= 1) {
       verdict = "caution";
-      verdictText = "Caution \u2014 fix the flagged terms in writing before you sign (" + score +
+      verdictText = "Caution: fix the flagged terms in writing before you sign (" + score +
         " point" + (score === 1 ? "" : "s") + "). Nothing here is fatal, but unwritten terms always favor the brand.";
     } else {
       verdict = "clean";
-      verdictText = "Clean \u2014 no structural contract flags checked. Price the post next, and keep usage rights as separate line items.";
+      verdictText = "Clean: no structural contract flags checked. Price the post next, and keep usage rights as separate line items.";
     }
     return {
       score: score,

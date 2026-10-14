@@ -1,5 +1,5 @@
 <div id="rate-card-builder">
-<p class="lede">Your rate card, built in the open: pick your platform, your follower band, and the format you sell most. Every row prices itself from a named benchmark in this site's data and prints its reasoning next to the number — and a row with no benchmark behind it says so, in words, instead of borrowing one.</p>
+<p class="lede">Your rate card, built in the open: pick your platform, your follower band, and the format you sell most. Every row prices itself from a named benchmark in this site's data and prints its reasoning next to the number, and a row with no benchmark behind it says so, in words, instead of borrowing one.</p>
 <p class="muted">Pricing one live deal instead? The <a href="deal-builder.html">Deal Builder</a> stacks a multi-deliverable quote. Brand already replied? The <a href="negotiation-kit.html">Negotiation Kit</a> builds the counter. This page is the card you publish before either of those conversations start.</p>
 <nav class="rcb-jump" aria-label="Rate Card Builder sections">
   <a href="#rcb-sec-build">Build</a>
@@ -29,7 +29,7 @@
         <option value="ugc">UGC (no posting)</option>
       </select></label>
     <label>Follower count <input type="number" id="rcb-followers" min="1000" step="1000" value="50000"></label>
-    <label>Avg. views per video (last 10) — prices the CPM rows <input type="number" id="rcb-views" min="0" step="1000" value="60000"></label>
+    <label>Avg. views per video (last 10), prices the CPM rows <input type="number" id="rcb-views" min="0" step="1000" value="60000"></label>
     <label>Niche (adjusts the benchmark)
       <select id="rcb-niche">
         <option value="" selected>No niche adjustment</option>
@@ -52,7 +52,7 @@
       </select></label>
     <label>Paid-ad usage on the card
       <select id="rcb-usage">
-        <option value="organic_only" selected>Organic only — stays on my channel</option>
+        <option value="organic_only" selected>Organic only, stays on my channel</option>
         <option value="paid_3mo">Paid ads, 3 months</option>
         <option value="paid_6mo">Paid ads, 3–6 months</option>
         <option value="paid_12mo">Paid ads, 6–12 months</option>
@@ -65,12 +65,12 @@
 </form>
 
 <h2 id="rcb-sec-card">2 · Your rate card</h2>
-<p class="muted">Every row carries its basis: <strong>benchmark</strong> (the 2026 tier table or CPM band), <strong>reported</strong> (what creators actually quote), <strong>single-source</strong> (one report, flagged), <strong>proxy</strong> (a labeled reference where this platform has no benchmark of its own), or <strong>no data</strong> — the honest blank. Under the card: the newest Algorithm Watch changes for your platform, because a rate quoted against a rule that just moved is a rate quoted blind.</p>
+<p class="muted">Every row carries its basis: <strong>benchmark</strong> (the 2026 tier table or CPM band), <strong>reported</strong> (what creators actually quote), <strong>single-source</strong> (one report, flagged), <strong>proxy</strong> (a labeled reference where this platform has no benchmark of its own), or <strong>no data</strong>, the honest blank. Under the card: the newest Algorithm Watch changes for your platform, because a rate quoted against a rule that just moved is a rate quoted blind.</p>
 <div id="rcb-out" aria-live="polite"></div>
 
-<h2 id="rcb-sec-export">3 · Export — the card as plaintext</h2>
+<h2 id="rcb-sec-export">3 · Export: the card as plaintext</h2>
 <p class="muted">The whole card, reasoning included, ready to paste into a media kit, an email, or your notes. The reasoning travels with the numbers on purpose: a rate you can explain is a rate you can hold.</p>
 <textarea id="rcb-export" rows="16" readonly aria-label="Your rate card as plaintext"></textarea>
 <p><button type="button" id="rcb-copy" class="btn">Copy the card</button></p>
-<p class="muted">Ranges, not quotes. Benchmarks disagree 2–3× within tiers in the source data; niche, engagement, format, and usage move the real number as much as follower count does. Planning aid — not financial, legal, or tax advice.</p>
+<p class="muted">Ranges, not quotes. Benchmarks disagree 2–3× within tiers in the source data; niche, engagement, format, and usage move the real number as much as follower count does. Planning aid, not financial, legal, or tax advice.</p>
 </div>

@@ -4,7 +4,7 @@
   "skills": [
     {
       "name": "analytics-review",
-      "description": "Run the monthly analytics ritual \u2014 find outliers, diagnose retention, and decide what to make more of.",
+      "description": "Run the monthly analytics ritual, find outliers, diagnose retention, and decide what to make more of.",
       "path": "skills/analytics-review/SKILL.md"
     },
     {
@@ -14,47 +14,47 @@
     },
     {
       "name": "deal-negotiation",
-      "description": "Evaluate a sponsorship offer against the 2026 rate card \u2014 benchmark the price, flag contract traps, and build a defensible counter-offer.",
+      "description": "Evaluate a sponsorship offer against the 2026 rate card, benchmark the price, flag contract traps, and build a defensible counter-offer.",
       "path": "skills/deal-negotiation/SKILL.md"
     },
     {
       "name": "first-hire-planner",
-      "description": "Plan a creator's first hire end to end \u2014 bottleneck test (editor vs VA vs designer vs ops), 2026 rate ranges, coverage math via the Hiring Cost Calculator logic, the 2-week paid trial, SOP templates, and contractor-vs-employee basics. Not legal or tax advice.",
+      "description": "Plan a creator's first hire end to end, bottleneck test (editor vs VA vs designer vs ops), 2026 rate ranges, coverage math via the Hiring Cost Calculator logic, the 2-week paid trial, SOP templates, and contractor-vs-employee basics. Not legal or tax advice.",
       "path": "skills/first-hire-planner/SKILL.md"
     },
     {
       "name": "hook-writing",
-      "description": "Write and stress-test video hooks \u2014 the first 30 seconds (long-form) or first 2 seconds (short-form) that decide everything.",
+      "description": "Write and stress-test video hooks, the first 30 seconds (long-form) or first 2 seconds (short-form) that decide everything.",
       "path": "skills/hook-writing/SKILL.md"
     },
     {
       "name": "live-shopping-playbook",
-      "description": "Plan a TikTok live selling session from the Phase 6 POD research \u2014 format, timing, and the unit economics of selling live.",
+      "description": "Plan a TikTok live selling session from the Phase 6 POD research, format, timing, and the unit economics of selling live.",
       "path": "skills/live-shopping-playbook/SKILL.md"
     },
     {
       "name": "niche-validation",
-      "description": "Validate a creator niche before committing \u2014 demand, competition, monetization, and winnability scored in one pass.",
+      "description": "Validate a creator niche before committing, demand, competition, monetization, and winnability scored in one pass.",
       "path": "skills/niche-validation/SKILL.md"
     },
     {
       "name": "rate-card-reader",
-      "description": "Look up fair 2026 sponsorship price ranges for any follower tier, platform, and deliverable \u2014 straight from the site's rate-card data.",
+      "description": "Look up fair 2026 sponsorship price ranges for any follower tier, platform, and deliverable, straight from the site's rate-card data.",
       "path": "skills/rate-card-reader/SKILL.md"
     },
     {
       "name": "repurposing-sprint",
-      "description": "Execute the 5-platform pillar-to-everywhere SOP from the Phase 3 playbook \u2014 one pillar video becomes five native posts on a staggered schedule.",
+      "description": "Execute the 5-platform pillar-to-everywhere SOP from the Phase 3 playbook, one pillar video becomes five native posts on a staggered schedule.",
       "path": "skills/repurposing-sprint/SKILL.md"
     },
     {
       "name": "shortform-hook-craft",
-      "description": "Craft and stress-test short-form hooks using the five Short-Form Playbook structures \u2014 open loop, cold start, contrarian take, numbered promise, question-as-hook \u2014 with retention editing rules and the anti-hook checklist.",
+      "description": "Craft and stress-test short-form hooks using the five Short-Form Playbook structures, open loop, cold start, contrarian take, numbered promise, question-as-hook, with retention editing rules and the anti-hook checklist.",
       "path": "skills/shortform-hook-craft/SKILL.md"
     },
     {
       "name": "sponsorship-pitch",
-      "description": "Build a complete sponsor outreach system \u2014 targeting, email, pricing, and negotiation for creator brand deals.",
+      "description": "Build a complete sponsor outreach system, targeting, email, pricing, and negotiation for creator brand deals.",
       "path": "skills/sponsorship-pitch/SKILL.md"
     },
     {

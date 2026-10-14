@@ -1,7 +1,7 @@
-/* Sponsor Income Ledger — page wiring. Engine (assets/js/sponsor-income-ledger.js)
+/* Sponsor Income Ledger, page wiring. Engine (assets/js/sponsor-income-ledger.js)
  * composes the Deal Pipeline (Tool 25): the ledger reads the SAME
  * localStorage board the pipeline writes (key cge.deal-pipeline.deals.v1)
- * — deals are entered on the Deal Pipeline page, ledgered here.
+ *, deals are entered on the Deal Pipeline page, ledgered here.
  * No deals are created on this page; demo deals load only from the
  * labeled demo control and never enter the real ledger. */
 (function () {
@@ -22,7 +22,7 @@
     } catch (e) { return []; }
   }
   function save() {
-    try { window.localStorage.setItem(P.STORAGE_KEY, JSON.stringify(deals)); } catch (e) { /* storage blocked — ledger still renders in memory */ }
+    try { window.localStorage.setItem(P.STORAGE_KEY, JSON.stringify(deals)); } catch (e) { /* storage blocked, ledger still renders in memory */ }
   }
   function esc(s) {
     return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
@@ -34,27 +34,27 @@
     var l = SIL.buildLedger(deals, { now: new Date() });
     if (!l.ok) { ledgerEl.innerHTML = "<p class=\"muted\">" + esc(l.errors.join("; ")) + "</p>"; return; }
     statusEl.textContent = l.emptyBoard
-      ? "The board is empty — enter deals on the Deal Pipeline and the brands that pay are ledgered here."
+      ? "The board is empty, enter deals on the Deal Pipeline and the brands that pay are ledgered here."
       : l.demoOnly
-        ? "Demo board preview — demo deals are counted, none ledgered as real income."
+        ? "Demo board preview, demo deals are counted, none ledgered as real income."
         : l.noPaidYet
-          ? "No brand has paid yet — this ledger fills when a deal reaches the paid stage."
+          ? "No brand has paid yet, this ledger fills when a deal reaches the paid stage."
           : l.paidCount + " paid deal(s) · " + SIL.fmt(l.collected) + " collected across " +
             l.months.length + " month(s)" +
             (l.topBrand ? " · top brand " + l.topBrand.key + " at " + l.topBrand.share + "% of collected" : "") +
             (l.demoPaid ? " · " + l.demoPaid + " DEMO paid deal(s) excluded" : "");
     if (!l.months.length) {
       ledgerEl.innerHTML = "<div class=\"sil-empty\"><p><strong>" +
-        (l.emptyBoard ? "No deals, no ledger." : l.demoOnly ? "Demo board — no real ledger." : "No paid deals yet.") + "</strong> " +
+        (l.emptyBoard ? "No deals, no ledger." : l.demoOnly ? "Demo board, no real ledger." : "No paid deals yet.") + "</strong> " +
         (l.emptyBoard
-          ? "This page ledgers the paid deals from the <a href=\"deal-pipeline.html\">Deal Pipeline</a> board. The board is genuinely empty — the ledger is empty because nothing has been entered."
+          ? "This page ledgers the paid deals from the <a href=\"deal-pipeline.html\">Deal Pipeline</a> board. The board is genuinely empty, the ledger is empty because nothing has been entered."
           : l.demoOnly
-            ? "The demo board carries no paid deals, and demo data would stay out of the real ledger even if it did — demo paid deals are counted above and excluded here, the same rule the Deal Pipeline applies to demo money. Enter a real deal on the board, move it to paid when the money lands, and it is ledgered here."
-            : "Every deal on the board is still short of the paid stage. When a brand pays, move the deal to Paid on the Deal Pipeline — it is ledgered here under the month it entered the paid stage.") +
+            ? "The demo board carries no paid deals, and demo data would stay out of the real ledger even if it did, demo paid deals are counted above and excluded here, the same rule the Deal Pipeline applies to demo money. Enter a real deal on the board, move it to paid when the money lands, and it is ledgered here."
+            : "Every deal on the board is still short of the paid stage. When a brand pays, move the deal to Paid on the Deal Pipeline, it is ledgered here under the month it entered the paid stage.") +
         "</p></div>";
     } else {
       var html = l.months.map(function (m) {
-        return "<section class=\"sil-month\"><h3>" + esc(m.label) + " — " + SIL.fmt(m.total) +
+        return "<section class=\"sil-month\"><h3>" + esc(m.label) + ": " + SIL.fmt(m.total) +
           " <span class=\"muted\">(" + m.count + " paid deal(s); cumulative " + SIL.fmt(m.cumulative) + ")</span></h3>" +
           "<ul class=\"sil-deals\">" + m.deals.map(function (d) {
             return "<li><strong>" + esc(d.brand) + "</strong> <span class=\"sil-fig\">" + SIL.fmt(d.amount) +

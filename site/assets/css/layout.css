@@ -1,4 +1,4 @@
-/* Layout — the Field Manual scaffolding (wave 29).
+/* Layout, the Field Manual scaffolding (wave 29).
    Header = ops bar. Hero = mission briefing board. Cards = dossier folders. */
 
 /* ---------- ops bar ---------- */
@@ -102,7 +102,7 @@ main { max-width: var(--max-w); margin: 0 auto; padding: 0 1.5rem 4rem; }
 .ticker-track span::after { content: "///"; position: absolute; right: -0.6rem; color: var(--cyan-dim); }
 .ticker-track span:nth-child(odd) { color: var(--cyan); }
 @keyframes tick { to { transform: translateX(-50%); } }
-/* the tape is ambient motion: still under reduced motion (and under calm mode —
+/* the tape is ambient motion: still under reduced motion (and under calm mode,
    see motifs.css), readable either way since the slogans are duplicated */
 @media (prefers-reduced-motion: reduce) {
   .ticker-track { animation: none; }
@@ -296,3 +296,13 @@ legend { font-family: var(--font-cond); font-weight: 700; letter-spacing: 0.08em
 .phase-lvl { font-family: var(--font-mono); font-size: 0.75rem; color: var(--muted); letter-spacing: 0.04em; border: none; padding: 0; }
 .trail-lvl { text-transform: none; }
 .footer-fine { text-transform: none; letter-spacing: 0.02em; font-family: var(--font-body); font-size: 0.85rem; }
+
+/* Rotation 22, mobile: the ops bar must fit a phone. At base the brand,
+   calm toggle, and menu button overflowed a 320px viewport and pushed
+   the menu button off-canvas. Compact the bar instead of squeezing it. */
+@media (max-width: 560px) {
+  .site-header { padding: 0.55rem 0.75rem; gap: 0.6rem; }
+  .brand { font-size: 0.9rem; gap: 0.45rem; min-width: 0; }
+  .calm-toggle { margin-left: auto; padding: 0.35rem 0.5rem; font-size: 0.72rem; }
+  .nav-toggle { margin-left: 0; padding: 0.3rem 0.55rem; }
+}

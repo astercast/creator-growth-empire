@@ -1,9 +1,9 @@
-/* Receivables Register — engine (UMD, importable in node for tests).
+/* Receivables Register, engine (UMD, importable in node for tests).
  *
  * Tool 29. The money chain prices deals (Tool 23), scripts them
  * (Tool 24), boards them (Tool 25), queues their follow-ups
  * (Tool 26), books the paid ones for re-approach (Tool 27), and
- * ledgers what landed (Tool 28) — but the money OWED exists only
+ * ledgers what landed (Tool 28), but the money OWED exists only
  * as one lump total on the board, with no list behind it. The
  * Follow-Through Queue surfaces an invoiced deal only once it
  * crosses the board's follow-up mark, so a fresh invoice is
@@ -11,8 +11,8 @@
  * that register.
  *
  * It COMPOSES Tool 25's buildBoard and adds nothing of its own:
- * every invoiced deal on the board is registered — fresh ones
- * included — because a register's job is completeness, not
+ * every invoiced deal on the board is registered, fresh ones
+ * included, because a register's job is completeness, not
  * nudging; the queue already owns the follow-up marks and this
  * engine deliberately does not gate on them. Its only arithmetic
  * is summing the entered invoiced amounts (the register total
@@ -28,7 +28,7 @@
  * yet, and a demo-only board are different states and this
  * engine says which one it is.
  *
- * A planning aid — not financial, legal, or tax advice. */
+ * A planning aid, not financial, legal, or tax advice. */
 (function (root, factory) {
   var api = factory(root);
   if (typeof module !== "undefined" && module.exports) module.exports = api;
@@ -66,7 +66,7 @@
         daysOutstanding: e.ageDays,
         script: sc ? { ok: true, label: sc.label, exportText: sc.exportText }
           : { ok: false, reason: e.script ? (e.script.reason || (e.script.errors || []).join("; ") || "no script is attached to this deal")
-                                         : "no late-payment script is attached — the board composes one when its data files load" }
+                                         : "no late-payment script is attached, the board composes one when its data files load" }
       });
     });
     /* Longest outstanding first, then largest amount, then brand.
@@ -94,7 +94,7 @@
     };
   }
 
-  /* Build the register straight from entered deals — the board is
+  /* Build the register straight from entered deals, the board is
    * Tool 25's buildBoard with the caller's own data and clock. */
   function buildRegister(deals, opts) {
     opts = opts || {};
@@ -108,18 +108,18 @@
     if (!reg || !reg.ok) return "";
     var out = [];
     var date = String(reg.generatedFor || "").slice(0, 10);
-    out.push("RECEIVABLES REGISTER — " + reg.invoicedCount + " invoiced deal(s), " +
+    out.push("RECEIVABLES REGISTER · " + reg.invoicedCount + " invoiced deal(s), " +
       fmt(reg.owed) + " owed" + (date ? " · " + date : ""));
     if (reg.emptyBoard) {
-      out.push("No deals on the board — this register is empty because the Deal Pipeline is empty, not because no brand owes you.");
+      out.push("No deals on the board, this register is empty because the Deal Pipeline is empty, not because no brand owes you.");
     } else if (reg.demoOnly) {
-      out.push("Only demo deals are on the board — demo data stays out of the real register.");
+      out.push("Only demo deals are on the board, demo data stays out of the real register.");
     } else if (reg.nothingOwed) {
       out.push("Nothing is owed. Deals reach this register when they reach the invoiced stage on the Deal Pipeline.");
     }
     if (reg.demoInvoiced) {
       out.push("Plus " + reg.demoInvoiced + " DEMO invoiced deal(s) worth " + fmt(reg.demoInvoicedValue) +
-        " — demo data, excluded from this register.");
+        ", demo data, excluded from this register.");
     }
     reg.items.forEach(function (it, i) {
       out.push("");
@@ -128,10 +128,10 @@
         " · " + (it.daysOutstanding == null ? "?" : it.daysOutstanding) + "d outstanding");
       out.push(it.script.ok
         ? "   Late-payment script (Tool 24, via the board): " + it.script.label
-        : "   Late-payment script: none — " + it.script.reason);
+        : "   Late-payment script: none, " + it.script.reason);
     });
     out.push("");
-    out.push(reg.advice + " Every invoiced deal is registered, fresh ones included — this is a register of what is owed, not a follow-up queue; the Follow-Through Queue (Tool 26) owns the day's sends. Invoiced dates are the dates deals entered the invoiced stage on the Deal Pipeline (Tool 25) — the only invoice timing the board carries. Amounts are the figures entered on the board; the total owed is Tool 25's invoiced outstanding figure.");
+    out.push(reg.advice + " Every invoiced deal is registered, fresh ones included, this is a register of what is owed, not a follow-up queue; the Follow-Through Queue (Tool 26) owns the day's sends. Invoiced dates are the dates deals entered the invoiced stage on the Deal Pipeline (Tool 25), the only invoice timing the board carries. Amounts are the figures entered on the board; the total owed is Tool 25's invoiced outstanding figure.");
     return out.join("\n");
   }
 

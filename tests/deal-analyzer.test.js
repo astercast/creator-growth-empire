@@ -218,7 +218,7 @@ var analysis = {
   counter: DA.counterOffer(deal(), RC, UB)
 };
 var rep = DA.exportReport(analysis);
-ok(rep.indexOf("DEAL EVALUATION — Acme") === 0, "report opens with the brand");
+ok(rep.indexOf("DEAL EVALUATION · Acme") === 0, "report opens with the brand");
 ok(rep.indexOf("RATE-CARD VERDICT: FAIR") !== -1, "report carries the verdict");
 ok(rep.indexOf("Counter total: " + analysis.counter.totalLabel) !== -1, "report carries the counter total");
 ok(rep.indexOf("NOT legal advice") !== -1 && rep.indexOf("not financial advice") !== -1,

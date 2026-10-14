@@ -12,7 +12,7 @@
   if (!list || !out) return;
 
   /* Static fallback catalogue if index.json itself can't be reached.
-     Kept in sync with data/v1/index.json by hand — update both together. */
+     Kept in sync with data/v1/index.json by hand, update both together. */
   var FALLBACK = [
     { name: "index.json", desc: "Self-describing manifest: every endpoint, schema URL, timestamp, record counts." },
     { name: "chapters.json", desc: "All 9 phases: id, title, words, read time, path." },
@@ -80,12 +80,12 @@
         try { data = JSON.parse(text); }
         catch (e) { throw new Error("Response was not valid JSON."); }
         var bytes = new Blob([text]).size;
-        meta.textContent = "GET " + BASE + name + " — " +
+        meta.textContent = "GET " + BASE + name + ", " +
           (bytes / 1024).toFixed(1) + " KB · top-level: " + topKeys(data);
         out.textContent = JSON.stringify(data, null, 2);
       })
       .catch(function (e) {
-        showError("Could not load " + BASE + name + " — fetch failed (" +
+        showError("Could not load " + BASE + name + ", fetch failed (" +
           (e && e.message ? e.message : "unknown error") + "). " +
           "Check that data/v1/ is deployed alongside this page and try again.");
       });
@@ -100,7 +100,7 @@
       btn.className = "btn btn-ghost";
       btn.style.margin = "0 .5rem .5rem 0";
       btn.textContent = "GET " + it.name;
-      btn.setAttribute("aria-label", "Preview " + BASE + it.name + " — " + (it.desc || ""));
+      btn.setAttribute("aria-label", "Preview " + BASE + it.name + ", " + (it.desc || ""));
       btn.addEventListener("click", function () { load(it.name); });
       li.appendChild(btn);
       var span = document.createElement("span");
@@ -112,7 +112,7 @@
   }
 
   /* Discover endpoints from the API index itself; fall back to the static list.
-     Wave 12: the manifest is a list of endpoint records — JSON endpoints are
+     Wave 12: the manifest is a list of endpoint records. JSON endpoints are
      listed directly, schema files come from the "schemas" record's files[]. */
   fetch(BASE + "index.json", { headers: { "Accept": "application/json" } })
     .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
@@ -124,15 +124,15 @@
         if (ep.kind === "json" && ep.path) {
           items.push({
             name: ep.path.replace(/^api\/v1\//, ""),
-            desc: (ep.records != null ? ep.records + " records — " : "") +
+            desc: (ep.records != null ? ep.records + " records, " : "") +
                   (ep.description || (ep.id + " endpoint."))
           });
         } else if (ep.id === "schemas" && ep.files) {
           ep.files.forEach(function (f) {
-            var parts = String(f).split(" — ");
+            var parts = String(f).split(", ");
             schemaItems.push({
               name: "schema/" + parts[0],
-              desc: parts.slice(1).join(" — ") || ("JSON Schema: " + parts[0])
+              desc: parts.slice(1).join(", ") || ("JSON Schema: " + parts[0])
             });
           });
         }
@@ -148,7 +148,7 @@
     })
     .catch(function () {
       render(FALLBACK);
-      showError("Could not reach " + BASE + "index.json — showing the static endpoint list. " +
+      showError("Could not reach " + BASE + "index.json, showing the static endpoint list. " +
         "Previews below will retry the fetch when you pick one.");
     });
 })();

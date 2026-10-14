@@ -1,4 +1,4 @@
-/* Diagnose My Video (wave 19) — symptom picker + ranked diagnosis.
+/* Diagnose My Video (wave 19), symptom picker + ranked diagnosis.
  * Reuses quiz-opt/quiz-opts/quiz-q/quiz-actions from layout.css. */
 
 .vd-symptom-grid { grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); }

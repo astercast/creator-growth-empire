@@ -1,4 +1,4 @@
-/* Follow-Through Queue — prioritized send list + brief.
+/* Follow-Through Queue, prioritized send list + brief.
  * Scoped to .ft-* / #follow-through. */
 .ft-stamp { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; margin-bottom: 0.5rem; }
 .ft-jump { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 1rem 0 0.5rem; }

@@ -1,9 +1,9 @@
-/* The Negotiation Kit — counter-offer math, reply scripts, and the
+/* The Negotiation Kit, counter-offer math, reply scripts, and the
  * walk-away panel. UMD: works in the browser (window.NegotiationKit)
  * and in node (module.exports).
  *
  * Built on Deal Room 2.0's data: every figure reads from the real
- * calculators.json v1.5.0 blocks — sponsorship_rate_card_2026 (tier
+ * calculators.json v1.5.0 blocks, sponsorship_rate_card_2026 (tier
  * ranges), sponsorship_quoted_prices_2026 (Cheerful Sep-2026 reported
  * asks/quotes; Click Analytic 2026 Instagram model, labeled modeled),
  * usage_rights_benchmarks_2026, and sponsorship_rule_of_thumb. Bases
@@ -28,7 +28,7 @@
   "use strict";
 
   var LISTED_VS_ACCEPTED = 0.23;
-  var DISCLAIMER = "A negotiation aid, built from reported 2026 ranges — " +
+  var DISCLAIMER = "A negotiation aid, built from reported 2026 ranges, " +
     "a model, not a prediction, and never a guarantee of what a brand will pay. " +
     "Not financial, legal, or tax advice.";
   var MODEL_NOTE = "A model, not a prediction: benchmarks disagree 2–3x within " +
@@ -46,7 +46,7 @@
   var EXCL_SCOPES = ["none", "named", "category"];
 
   /* Same sponsor niche table as DealRoom.NICHE_MULT and
-   * DealAnalyzer.nicheMult — tests pin parity across all three. */
+   * DealAnalyzer.nicheMult, tests pin parity across all three. */
   var NICHE_MULT = {
     finance_investing: 2.5, tech_software: 2.5,
     education: 1.0, health_fitness: 1.0, lifestyle: 1.0,
@@ -74,7 +74,7 @@
   }
   function fmt(n) { return "$" + Math.round(n).toLocaleString("en-US"); }
   function fmtRange(r) {
-    if (!r) return "—";
+    if (!r) return "·";
     if (r[1] === null) return "from " + fmt(r[0]);
     if (r[1] === r[0]) return fmt(r[0]);
     return fmt(r[0]) + "–" + fmt(r[1]);
@@ -144,7 +144,7 @@
   /* The CPM band a deliverable is checked against. Dedicated carries the
    * AIR agency-benchmark compilation ($50–$90, reported); integrated
    * YouTube carries the rate card's integrated slot; short-form carries
-   * the general band. UGC has no CPM check — it is production work. */
+   * the general band. UGC has no CPM check, it is production work. */
   function cpmBandFor(inp, rateCard) {
     var cpms = (rateCard && rateCard.sponsored_cpms) || {};
     if (inp.deliverable === "dedicated") {
@@ -154,17 +154,17 @@
     if (inp.deliverable === "integrated" && inp.platform === "youtube") {
       return cpms.youtube_integrated_slot
         ? { range: cpms.youtube_integrated_slot, basis: "reported",
-            source: "2026 rate card — YouTube integrated slot" } : null;
+            source: "2026 rate card, YouTube integrated slot" } : null;
     }
     if (inp.deliverable === "short" || inp.deliverable === "integrated") {
       return cpms.tiktok_youtube_general
         ? { range: cpms.tiktok_youtube_general, basis: "reported",
-            source: "2026 rate card — TikTok/YouTube general sponsored CPM" } : null;
+            source: "2026 rate card, TikTok/YouTube general sponsored CPM" } : null;
     }
     return null;
   }
 
-  /* Format mapping onto the Cheerful quoted-prices block — the same map
+  /* Format mapping onto the Cheerful quoted-prices block, the same map
    * the Deal Room uses. Unmapped formats return null evidence. */
   var FORMAT_QUOTE_MAP = {
     "instagram:short": "instagram_reel",
@@ -239,7 +239,7 @@
     }
 
     var counterBase = range[1];
-    var lines = [{ id: "base", label: "Post fee — top of your " + tierLabel(tier) + " range" +
+    var lines = [{ id: "base", label: "Post fee, top of your " + tierLabel(tier) + " range" +
       (nm.label ? " (" + nm.label + " ×" + nm.mult + ")" : ""),
       range: [counterBase, counterBase], basis: "reported",
       source: "2026 rate card, " + PLATFORM_LABELS[inp.platform] + " tier band" }];
@@ -254,7 +254,7 @@
       var lo = nice(counterBase * pct[0] / 100);
       var hi = pct[1] === null ? null : nice(counterBase * pct[1] / 100);
       if (hi === null) openEnded = true;
-      lines.push({ id: "usage", label: usageTier.label + " — separate line item",
+      lines.push({ id: "usage", label: usageTier.label + ", separate line item",
         range: [lo, hi], basis: "reported",
         source: "2026 usage-rights benchmarks: +" + pct[0] +
           (pct[1] === null ? "% or more" : "–" + pct[1] + "%") + " on the post fee" });
@@ -262,7 +262,7 @@
     if (inp.whitelistingMonths > 0) {
       var wlPct = (usageRights && usageRights.whitelisting_per_month_pct) || [30, 100];
       lines.push({ id: "whitelisting",
-        label: "Whitelisting — " + inp.whitelistingMonths + " month(s), monthly and revocable",
+        label: "Whitelisting, " + inp.whitelistingMonths + " month(s), monthly and revocable",
         range: [nice(counterBase * wlPct[0] / 100 * inp.whitelistingMonths),
                 nice(counterBase * wlPct[1] / 100 * inp.whitelistingMonths)],
         basis: "reported",
@@ -273,14 +273,14 @@
       var exPct = inp.exclusivity.months <= 1 ? 25 : 50;
       var exVal = nice(counterBase * exPct / 100);
       lines.push({ id: "exclusivity",
-        label: "Exclusivity — named competitors, " + inp.exclusivity.months + " month(s)",
+        label: "Exclusivity, named competitors, " + inp.exclusivity.months + " month(s)",
         range: [exVal, exVal], basis: "reported",
         source: "Rate-card lever: +" + exPct + "% (" +
           (inp.exclusivity.months <= 1 ? "30 days" : "60–90 days") + ")" });
     } else if (inp.exclusivity.scope === "category") {
       exFlag = "Broad category exclusivity for " + inp.exclusivity.months +
         " month(s) carries no benchmark multiplier in this kit. The premium has to cover " +
-        "the deals the lock costs you — narrow it to named competitors, or price your lost pipeline yourself.";
+        "the deals the lock costs you, narrow it to named competitors, or price your lost pipeline yourself.";
     }
 
     var totalLo = lines.reduce(function (a, l) { return a + l.range[0]; }, 0);
@@ -292,7 +292,7 @@
 
     var notes = [];
     if (inp.offer === 0) {
-      notes.push("This offer carries no fee. The counter below is the paid-slot price — " +
+      notes.push("This offer carries no fee. The counter below is the paid-slot price, " +
         "the exposure-only reply in the scripts section is the matching words.");
     }
     if (inp.postCount >= 3) {
@@ -324,7 +324,7 @@
   /* The walk-away panel. Deals are the creator's own Deal Room tracker
    * records (may be empty). The walk-away number is the higher of the
    * rate-card floor for this deal's context and the creator's own floor
-   * — arithmetic on their numbers, never an invented probability. */
+   *, arithmetic on their numbers, never an invented probability. */
   var STATUSES = ["offer", "negotiating", "signed", "delivered", "paid"];
   function walkAwayPanel(input, deals, calculators) {
     var v = validInput(input);
@@ -355,7 +355,7 @@
     if (inp.offer < walkAway) {
       stance = "below";
       action = "Below your walk-away. Counter at the number the builder produced, " +
-        "or pass cleanly — taking this offer reprices every deal after it.";
+        "or pass cleanly, taking this offer reprices every deal after it.";
     } else if (inp.offer < walkAway * 1.25) {
       stance = "at_floor";
       action = "At your floor. Workable only with the terms clean: usage priced, " +
@@ -370,7 +370,7 @@
         (nm.label ? " (" + nm.label + " ×" + nm.mult + ")" : "") + ": " + fmt(rateFloor) + ".",
       creatorFloor > 0
         ? "Your own floor, as you set it: " + fmt(creatorFloor) + "."
-        : "No personal floor set — the rate-card floor is doing the work. Set yours before the call, not during it."
+        : "No personal floor set, the rate-card floor is doing the work. Set yours before the call, not during it."
     ];
     if (list.length) {
       reasons.push("Your pipeline: " + list.length + " logged deal(s), " + fmt(committed) +
@@ -425,12 +425,12 @@
       typical_quote: counter.evidence.formatQuote ? num(counter.evidence.formatQuote.quoted) : "{{typical_quote}}",
       implied_cpm: counter.impliedCpm !== null ? counter.impliedCpm.toFixed(2) : "{{implied_cpm}}",
       usage_line: usageLine
-        ? usageLine.label.split(" — ")[0].toLowerCase() + " at " +
+        ? usageLine.label.split(", ")[0].toLowerCase() + " at " +
           (usageLine.range[1] === null ? "from $" + num(usageLine.range[0])
                                        : "$" + num(usageLine.range[0]) +
                                          (usageLine.range[1] !== usageLine.range[0]
                                            ? "–$" + num(usageLine.range[1]) : ""))
-        : "organic placement only — no paid usage in this counter",
+        : "organic placement only, no paid usage in this counter",
       usage_ask: inp.usage === "organic_only" ? "paid usage folded into the post fee"
         : "the usage window in the draft",
       whitelisting_monthly: wlLine ? num(Math.round((wlLine.range[0] + (wlLine.range[1] || wlLine.range[0])) / 2 / Math.max(1, inp.whitelistingMonths))) : "{{whitelisting_monthly}}",
@@ -451,7 +451,7 @@
     if (!counter || !counter.ok) return { ok: false, errors: ["build the counter first"] };
     var inp = counter.input;
     var L = [];
-    L.push("NEGOTIATION BRIEF — " + (inp.brand || "(brand TBD)") + " · " +
+    L.push("NEGOTIATION BRIEF, " + (inp.brand || "(brand TBD)") + " · " +
       PLATFORM_LABELS[inp.platform] + " " + DELIVERABLE_LABELS[inp.deliverable]);
     L.push("Generated by the Negotiation Kit (Creator Growth Empire) from calculators.json v1.5.0 data.");
     L.push("");
@@ -473,15 +473,15 @@
         " (" + ev.typicalAsk.source + " · " + ev.typicalAsk.basis + ")");
     }
     if (ev.modeledFeedPost) {
-      L.push("  Modeled cross-check — one sponsored Instagram feed post, " +
+      L.push("  Modeled cross-check, one sponsored Instagram feed post, " +
         ev.modeledFeedPost.label + ": " + fmtRange(ev.modeledFeedPost.range) +
         " (" + ev.modeledFeedPost.source + " · " + ev.modeledFeedPost.basis +
-        " — a planning model, kept separate from the reported figures)");
+        ", a planning model, kept separate from the reported figures)");
     }
     L.push("");
     L.push("THE COUNTER");
     counter.lines.forEach(function (l) {
-      L.push("  " + l.label + ": " + fmtRange(l.range) + " [" + l.basis + " — " + l.source + "]");
+      L.push("  " + l.label + ": " + fmtRange(l.range) + " [" + l.basis + ", " + l.source + "]");
     });
     L.push("  Counter total: " + fmtRange(counter.total));
     L.push("  Expected landing zone (~23% listed-vs-accepted): " + fmtRange(counter.expectedClose));
@@ -491,7 +491,7 @@
       L.push("WALK-AWAY");
       L.push("  Your walk-away: " + fmt(walk.walkAway) + " (rate floor " + fmt(walk.rateFloor) +
         (walk.creatorFloor ? ", your floor " + fmt(walk.creatorFloor) : "") + ")");
-      L.push("  Stance on this offer: " + walk.stance + " — " + walk.action);
+      L.push("  Stance on this offer: " + walk.stance + ", " + walk.action);
       L.push("  Pipeline on file: " + walk.pipeline.totalDeals + " deal(s), " +
         fmt(walk.pipeline.committed) + " committed, " + fmt(walk.pipeline.paidTotal) + " paid.");
     }

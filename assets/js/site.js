@@ -62,30 +62,14 @@
     });
   });
 
-  // Scroll-reveal: .reveal elements animate in via IntersectionObserver.
-  // Reduced-motion users and no-IO browsers get everything visible immediately.
+  // Rotation 22: the scroll-reveal estate is removed (CREATOR-STUDY
+  // Section 5.4). Pages render in their finished state; nothing waits
+  // for a scroll trigger to become visible.
   var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  function revealize(scope) {
-    (scope || document).querySelectorAll(".chapter h2, .chapter .callout, .chapter blockquote, .chapter .table-wrap").forEach(function (el) {
-      el.classList.add("reveal");
-    });
-  }
-  revealize(document);
-  var revealEls = document.querySelectorAll(".reveal");
-  if (reduceMotion || !("IntersectionObserver" in window)) {
-    revealEls.forEach(function (el) { el.classList.add("visible"); });
-  } else {
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (en) {
-        if (en.isIntersecting) { en.target.classList.add("visible"); io.unobserve(en.target); }
-      });
-    }, { rootMargin: "0px 0px -8% 0px", threshold: 0.08 });
-    revealEls.forEach(function (el) { io.observe(el); });
-  }
 
   // Signature motion: stamp slams + XP fills, fired once per viewport.
   // Reduced-motion and no-IO visitors get the finished state instantly
-  // (CSS default) — feedback survives, physics doesn't.
+  // (CSS default), feedback survives, physics doesn't.
   var impactEls = document.querySelectorAll(".stamp-slam, .xp");
   if (reduceMotion || !("IntersectionObserver" in window)) {
     impactEls.forEach(function (el) {
@@ -124,8 +108,8 @@
       meterFill.style.width = pct + "%";
       if (meter) meter.setAttribute("aria-valuenow", String(answered));
       if (meterLabel) {
-        var words = ["keep going, commander", "warming up", "halfway to intel", "almost there", "one more", "intel complete — hit the button"];
-        meterLabel.innerHTML = "<strong>" + answered + "/" + TOTAL_Q + "</strong> answered — " + (words[Math.min(answered, 5)] || words[0]);
+        var words = ["keep going, commander", "warming up", "halfway to intel", "almost there", "one more", "intel complete, hit the button"];
+        meterLabel.innerHTML = "<strong>" + answered + "/" + TOTAL_Q + "</strong> answered, " + (words[Math.min(answered, 5)] || words[0]);
       }
     };
     quizWrap.addEventListener("change", function (e) {
@@ -143,7 +127,7 @@
     updateMeter();
   }
 
-  // Calm mode — the site-wide sensory-envelope kill switch (wave 30).
+  // Calm mode, the site-wide sensory-envelope kill switch (wave 30).
   // Same mechanism the simulator's calm mode uses: data-calm="1" on <html>
   // + localStorage "cge.calm". The <head> inline script already applied the
   // attribute pre-paint; here we wire the header toggle and keep the
@@ -166,7 +150,7 @@
   }
 
   // Radar section map (wave 30): the dossier nav on long chapter/reference
-  // pages. Tracks reading position with aria-current (state, not motion —
+  // pages. Tracks reading position with aria-current (state, not motion,
   // it holds under reduced motion) and drives a thin read-progress rail
   // off the same scroll position ("one progress drives everything").
   // No-ops on pages without [data-radar].

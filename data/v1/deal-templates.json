@@ -1,24 +1,24 @@
 {
-  "disclaimer": "A negotiation aid, not financial, legal, or tax advice. Multipliers and scripts reflect reported 2026 third-party benchmarks and ranges — never quotes, promises, or platform rules.",
+  "disclaimer": "A negotiation aid, not financial, legal, or tax advice. Multipliers and scripts reflect reported 2026 third-party benchmarks and ranges, never quotes, promises, or platform rules.",
   "negotiation_scripts": [
     {
-      "body": "Hi {{brand}} team — thanks for the offer. Based on my last-10-video average of {{views_avg}} views, my {{deliverable}} slots benchmark at ${{range_lo}}–${{range_hi}} on the 2026 creator rate card for my tier. My counter is ${{counter}} for the post fee alone. I can flex on scope or timeline, but the rate is the rate — it's what the numbers support.",
-      "grounded_in": "Rate card: quote at the top of the range — creators list rates ~23% above what they accept.",
+      "body": "Hi {{brand}} team, thanks for the offer. Based on my last-10-video average of {{views_avg}} views, my {{deliverable}} slots benchmark at ${{range_lo}}–${{range_hi}} on the 2026 creator rate card for my tier. My counter is ${{counter}} for the post fee alone. I can flex on scope or timeline, but the rate is the rate, it's what the numbers support.",
+      "grounded_in": "Rate card: quote at the top of the range, creators list rates ~23% above what they accept.",
       "id": "lowball_counter",
       "tip": "Quote high and expect to be negotiated down ~23%. The counter names the benchmark, not your feelings.",
       "title": "Lowball counter",
       "when": "The offer came in under your tier range."
     },
     {
-      "body": "Quick flag on the usage terms, {{brand}}: the post fee covers organic placement only. Paid-ad usage is priced separately, per the 2026 benchmarks: {{usage_tier_label}}. That's a ${{usage_addon}} line item on top of the ${{post_fee}} post fee, with a hard end date in the contract. Running my content as your ads for a year captures thousands in value for you — it has to be its own line.",
-      "grounded_in": "Rate card: paid-ad usage is +50–100% as a separate line item — the single most-neglected line item in creator deals.",
+      "body": "Quick flag on the usage terms, {{brand}}: the post fee covers organic placement only. Paid-ad usage is priced separately, per the 2026 benchmarks: {{usage_tier_label}}. That's a ${{usage_addon}} line item on top of the ${{post_fee}} post fee, with a hard end date in the contract. Running my content as your ads for a year captures thousands in value for you, it has to be its own line.",
+      "grounded_in": "Rate card: paid-ad usage is +50–100% as a separate line item, the single most-neglected line item in creator deals.",
       "id": "usage_rights_upsell",
       "tip": "Never let paid-ad usage hide inside the post fee. Name the tier, name the multiplier, name the end date.",
       "title": "Usage-rights upsell",
       "when": "The contract asks for paid-ad usage priced inside the post fee."
     },
     {
-      "body": "On exclusivity, {{brand}} — a broad category lock for {{exclusivity_term}} would freeze out other sponsor revenue for me, so I can't sign it as written. I can do named competitors for 30 days at +25% (${{exclusivity_fee}}) or 60–90 days at +50%, with the competitor list written into the contract. If you need the full category for 6+ months, the premium has to actually cover the deals I'd lose.",
+      "body": "On exclusivity, {{brand}}, a broad category lock for {{exclusivity_term}} would freeze out other sponsor revenue for me, so I can't sign it as written. I can do named competitors for 30 days at +25% (${{exclusivity_fee}}) or 60–90 days at +50%, with the competitor list written into the contract. If you need the full category for 6+ months, the premium has to actually cover the deals I'd lose.",
       "grounded_in": "Rate card levers: 30-day exclusivity +25%, 60–90 days +50%; broad 6+ month category locks need a premium that covers lost deals.",
       "id": "exclusivity_pushback",
       "tip": "Narrow exclusivity to named competitors, put a number on it, or don't sign it.",
@@ -26,8 +26,8 @@
       "when": "The deal wants broad or long exclusivity without paying for it."
     },
     {
-      "body": "I can hit a {{turnaround}} turnaround, {{brand}} — but it means dropping scheduled work and reordering my content calendar, so rush delivery carries a {{rush_percent}}% rush fee on the post fee. If the timeline can move to {{standard_turnaround}}, the standard rate applies. Your call either way.",
-      "grounded_in": "No research benchmark exists for rush fees — this script carries a fill-in rate instead of a fake number.",
+      "body": "I can hit a {{turnaround}} turnaround, {{brand}}, but it means dropping scheduled work and reordering my content calendar, so rush delivery carries a {{rush_percent}}% rush fee on the post fee. If the timeline can move to {{standard_turnaround}}, the standard rate applies. Your call either way.",
+      "grounded_in": "No research benchmark exists for rush fees, this script carries a fill-in rate instead of a fake number.",
       "id": "rush_fee_ask",
       "tip": "Rush means dropping paid work and reordering your content calendar. Set the premium; don't apologize for it.",
       "title": "Rush-fee ask",
@@ -37,14 +37,14 @@
   "red_flags": [
     {
       "detail": "Unlimited, forever paid-ad rights bundled into the post fee. This turns your post into the brand's permanent ad creative for the price of one post.",
-      "fix": "Price perpetual usage as its own line item — or refuse outright. Never fold it into the post fee.",
+      "fix": "Price perpetual usage as its own line item, or refuse outright. Never fold it into the post fee.",
       "id": "perpetual_usage_organic_price",
       "severity": "walk_away",
       "title": "Perpetual usage for organic price"
     },
     {
       "detail": "Net-90 means you are financing the brand's marketing for a quarter. Without escrow, you have no leverage if they ghost.",
-      "fix": "Counter net-30 and 50% upfront — mandatory for any brand you haven't worked with.",
+      "fix": "Counter net-30 and 50% upfront, mandatory for any brand you haven't worked with.",
       "id": "net90_no_escrow",
       "severity": "walk_away",
       "title": "Net-90+ payment with no escrow"
@@ -79,18 +79,18 @@
     }
   ],
   "scoring": {
-    "note": "The checklist scores the deal's contract structure — not its pay, which the Deal Tracker benchmarks separately against the rate card.",
+    "note": "The checklist scores the deal's contract structure, not its pay, which the Deal Tracker benchmarks separately against the rate card.",
     "rules": [
       "Any 'walk_away' flag checked → verdict: walk away. The structure is hostile no matter the price.",
       "Otherwise score = 2 points per 'major' flag, 1 per 'minor'.",
       "Score 0 → clean: proceed, price the post. Score 1–2 → caution: fix the flagged terms before signing. Score 3+ → walk away."
     ]
   },
-  "source": "Wave 15 — The Deal Room. Usage-rights multipliers come from the wave-2 2026 sponsorship research pass (usage rights +50–100% band) and the 2026 rate card chapter; scripts are grounded in the rate-card negotiation rules. Wave 22 added 3 pitch email templates (from the sponsorship-pitch skill's outreach procedure) and 10 contract red-flag items (from the Deal Room negotiation content and the deal-negotiation skill) plus contract scoring rules.",
+  "source": "Wave 15, The Deal Room. Usage-rights multipliers come from the wave-2 2026 sponsorship research pass (usage rights +50–100% band) and the 2026 rate card chapter; scripts are grounded in the rate-card negotiation rules. Wave 22 added 3 pitch email templates (from the sponsorship-pitch skill's outreach procedure) and 10 contract red-flag items (from the Deal Room negotiation content and the deal-negotiation skill) plus contract scoring rules.",
   "updated": "2026-10-12",
   "usage_rights_tiers": [
     {
-      "basis": "Definitional: the base post fee covers organic placement only. Not a market rate — it's the absence of a line item.",
+      "basis": "Definitional: the base post fee covers organic placement only. Not a market rate, it's the absence of a line item.",
       "description": "Content lives on your channel. No paid amplification, no re-runs as ads.",
       "id": "organic",
       "label": "Organic only",
@@ -98,11 +98,11 @@
         1.0,
         1.0
       ],
-      "multiplier_label": "1.0× — no add-on",
+      "multiplier_label": "1.0×, no add-on",
       "reported": false
     },
     {
-      "basis": "Reported +50% — takes the bottom of the wave-2 2026 research band for paid-ad usage (+50–100% on top of the post fee).",
+      "basis": "Reported +50%, takes the bottom of the wave-2 2026 research band for paid-ad usage (+50–100% on top of the post fee).",
       "description": "Brand re-runs your content as paid ads for one month.",
       "id": "paid_30",
       "label": "Paid ads, 30 days",
@@ -114,7 +114,7 @@
       "reported": true
     },
     {
-      "basis": "Reported +75% — the midpoint of the wave-2 2026 research band for paid-ad usage (+50–100%).",
+      "basis": "Reported +75%, the midpoint of the wave-2 2026 research band for paid-ad usage (+50–100%).",
       "description": "Brand re-runs your content as paid ads for half a year.",
       "id": "paid_180",
       "label": "Paid ads, 6 months",
@@ -126,7 +126,7 @@
       "reported": true
     },
     {
-      "basis": "Reported +100% — the top of the wave-2 2026 research band for paid-ad usage (+50–100%). Cap the end date in writing.",
+      "basis": "Reported +100%, the top of the wave-2 2026 research band for paid-ad usage (+50–100%). Cap the end date in writing.",
       "description": "Brand re-runs your content as paid ads for a full year.",
       "id": "paid_365",
       "label": "Paid ads, 12 months",
@@ -141,21 +141,21 @@
       "basis": "Creator surveys report whitelisting as a premium on top of paid-ad usage, but no research-backed multiplier exists. Quote your own monthly rate, keep it a separate line item, and keep kill-switch access.",
       "description": "Brand runs paid ads through your handle. Always monthly, always revocable.",
       "id": "whitelisting",
-      "label": "Whitelisting — ads run from YOUR account",
+      "label": "Whitelisting, ads run from YOUR account",
       "multiplier": null,
-      "multiplier_label": "No benchmark — price monthly yourself",
+      "multiplier_label": "No benchmark, price monthly yourself",
       "reported": false
     },
     {
-      "basis": "No safe multiplier exists for a perpetual buyout. Price it as its own line item — never fold it into the post fee — or refuse outright. 2.0× is shown as a negotiation floor, never a rate.",
+      "basis": "No safe multiplier exists for a perpetual buyout. Price it as its own line item, never fold it into the post fee, or refuse outright. 2.0× is shown as a negotiation floor, never a rate.",
       "description": "Brand owns the content outright in perpetuity.",
       "id": "buyout",
-      "label": "Full buyout — all rights, all media, forever",
+      "label": "Full buyout, all rights, all media, forever",
       "multiplier": [
         2.0,
         null
       ],
-      "multiplier_label": "2.0× floor, no ceiling — or refuse",
+      "multiplier_label": "2.0× floor, no ceiling, or refuse",
       "reported": false
     }
   ],
@@ -164,9 +164,9 @@
     {
       "id": "cold_pitch",
       "title": "Cold pitch (first outreach)",
-      "when": "First email to a brand that has never heard of you. One targeted email per brand — never bulk blasts.",
-      "subject": "[Channel Name] x [Brand] — a 60-second integration idea",
-      "body": "Hi [Contact Name] —\n\nI'm [Your Name], I make [Niche] videos for [Audience Size] [Audience Descriptor]. My last 10 videos averaged [Avg Views] views ([Top Geography] audience).\n\nIdea for [Brand]: [One specific integration concept tied to THEIR product — the thing their ads can't show]. I'd do it as [Deliverable] at [Rate].\n\nWorth a 15-minute call this week? If it's not a fit, no reply needed.\n\n[Your Name]\n[Channel link]",
+      "when": "First email to a brand that has never heard of you. One targeted email per brand, never bulk blasts.",
+      "subject": "[Channel Name] x [Brand], a 60-second integration idea",
+      "body": "Hi [Contact Name],\n\nI'm [Your Name], I make [Niche] videos for [Audience Size] [Audience Descriptor]. My last 10 videos averaged [Avg Views] views ([Top Geography] audience).\n\nIdea for [Brand]: [One specific integration concept tied to THEIR product, the thing their ads can't show]. I'd do it as [Deliverable] at [Rate].\n\nWorth a 15-minute call this week? If it's not a fit, no reply needed.\n\n[Your Name]\n[Channel link]",
       "placeholders": [
         "Contact Name",
         "Your Name",
@@ -176,20 +176,20 @@
         "Avg Views",
         "Top Geography",
         "Brand",
-        "One specific integration concept tied to THEIR product — the thing their ads can't show",
+        "One specific integration concept tied to THEIR product, the thing their ads can't show",
         "Deliverable",
         "Rate",
         "Channel link"
       ],
-      "grounded_in": "sponsorship-pitch skill: under 120 words; subject '[Channel] x [Brand] — 60-second integration idea'; one line who you are, one line of numbers, one specific concept, your rate, one call to action. Never 'dear partnerships team' — address the human.",
-      "honesty_note": "Fill every [bracket] with YOUR real numbers — never invent or inflate stats. Sponsors verify; one caught lie ends the relationship."
+      "grounded_in": "sponsorship-pitch skill: under 120 words; subject '[Channel] x [Brand], 60-second integration idea'; one line who you are, one line of numbers, one specific concept, your rate, one call to action. Never 'dear partnerships team', address the human.",
+      "honesty_note": "Fill every [bracket] with YOUR real numbers, never invent or inflate stats. Sponsors verify; one caught lie ends the relationship."
     },
     {
       "id": "follow_up_nudge",
       "title": "The one follow-up (7 days later)",
-      "when": "Exactly one nudge, 7 days after the cold pitch got no reply. Then move on — a second nudge is spam.",
-      "subject": "Re: [Channel Name] x [Brand] — one line",
-      "body": "Hi [Contact Name] — one quick bump on my note from last week: [One-sentence reminder of the integration idea] for [Brand].\n\nIf the timing's off, no reply needed — I won't write again. If it's interesting, I'm holding [Deliverable] slots for [Month].\n\n[Your Name]",
+      "when": "Exactly one nudge, 7 days after the cold pitch got no reply. Then move on, a second nudge is spam.",
+      "subject": "Re: [Channel Name] x [Brand], one line",
+      "body": "Hi [Contact Name], one quick bump on my note from last week: [One-sentence reminder of the integration idea] for [Brand].\n\nIf the timing's off, no reply needed. I won't write again. If it's interesting, I'm holding [Deliverable] slots for [Month].\n\n[Your Name]",
       "placeholders": [
         "Contact Name",
         "Channel Name",
@@ -199,15 +199,15 @@
         "Month",
         "Your Name"
       ],
-      "grounded_in": "sponsorship-pitch skill: follow up exactly once — then move on. ~5% reply rate is normal; the system works on volume, not on chasing.",
-      "honesty_note": "Permission-based outreach only. 'No reply needed — I won't write again' is the line that keeps one nudge from becoming harassment."
+      "grounded_in": "sponsorship-pitch skill: follow up exactly once, then move on. ~5% reply rate is normal; the system works on volume, not on chasing.",
+      "honesty_note": "Permission-based outreach only. 'No reply needed, I won't write again' is the line that keeps one nudge from becoming harassment."
     },
     {
       "id": "warm_intro",
       "title": "Warm intro (referral or mutual connection)",
-      "when": "Someone they trust pointed you at each other — name the connection in the first line.",
-      "subject": "[Mutual Connection] suggested I reach out — [Channel Name] x [Brand]",
-      "body": "Hi [Contact Name] — [Mutual Connection] ([Their role / how you know them]) suggested we talk.\n\nI'm [Your Name], I make [Niche] videos for [Audience Size] [Audience Descriptor] ([Avg Views] average views on my last 10). [Mutual Connection] thought [Brand]'s [Their Product] would land with them because [One-line reason].\n\nIdea: [One specific integration concept]. [Deliverable] at [Rate].\n\nOpen to a quick intro call? [Mutual Connection] said you're the right person — happy to loop them in.\n\n[Your Name]",
+      "when": "Someone they trust pointed you at each other, name the connection in the first line.",
+      "subject": "[Mutual Connection] suggested I reach out, [Channel Name] x [Brand]",
+      "body": "Hi [Contact Name], [Mutual Connection] ([Their role / how you know them]) suggested we talk.\n\nI'm [Your Name], I make [Niche] videos for [Audience Size] [Audience Descriptor] ([Avg Views] average views on my last 10). [Mutual Connection] thought [Brand]'s [Their Product] would land with them because [One-line reason].\n\nIdea: [One specific integration concept]. [Deliverable] at [Rate].\n\nOpen to a quick intro call? [Mutual Connection] said you're the right person, happy to loop them in.\n\n[Your Name]",
       "placeholders": [
         "Mutual Connection",
         "Their role / how you know them",
@@ -233,42 +233,42 @@
       "id": "ip_assignment",
       "title": "Full copyright / IP assignment for a sponsored-post fee",
       "severity": "walk_away",
-      "detail": "The contract transfers OWNERSHIP of the content (a copyright assignment), not a license. For one post fee you lose the right to repost, repurpose, or ever use your own work again — and the brand can resell it.",
-      "fix": "License, never assign: name the exact usage window (e.g. paid ads, 12 months) with a hard end date, priced as its own line item. IP assignment is a buyout of your catalogue — it needs buyout money or a refusal."
+      "detail": "The contract transfers OWNERSHIP of the content (a copyright assignment), not a license. For one post fee you lose the right to repost, repurpose, or ever use your own work again, and the brand can resell it.",
+      "fix": "License, never assign: name the exact usage window (e.g. paid ads, 12 months) with a hard end date, priced as its own line item. IP assignment is a buyout of your catalogue, it needs buyout money or a refusal."
     },
     {
       "id": "termination_one_sided",
-      "title": "Brand can cancel anytime — you can't",
+      "title": "Brand can cancel anytime, you can't",
       "severity": "walk_away",
       "detail": "Termination-for-convenience belongs to the brand alone. They can kill the deal after you've filmed and owe you nothing, while you're locked in for the full term.",
       "fix": "Mutual termination rights, and a kill fee in writing: a fixed percentage of the fee if they cancel after filming starts. All production risk must not sit on you."
     },
     {
       "id": "usage_vague_all_media",
-      "title": "Vague usage grant — 'all media now known or hereafter devised'",
+      "title": "Vague usage grant, 'all media now known or hereafter devised'",
       "severity": "major",
-      "detail": "An open-ended usage clause lets the brand run your face on billboards, TV, and packaging years from now — media you never priced — because the grant was written to cover everything.",
-      "fix": "Name the media (organic post? paid social? which platforms?), the window (30 days / 6 months / 12 months), and any spend cap — in writing, with an end date."
+      "detail": "An open-ended usage clause lets the brand run your face on billboards, TV, and packaging years from now, media you never priced, because the grant was written to cover everything.",
+      "fix": "Name the media (organic post? paid social? which platforms?), the window (30 days / 6 months / 12 months), and any spend cap, in writing, with an end date."
     },
     {
       "id": "exclusivity_auto_renew",
       "title": "Exclusivity that auto-renews",
       "severity": "major",
       "detail": "A 60-day exclusivity that silently renews unless you opt out is a 6-month category lock wearing a 60-day costume. One clause quietly freezes out half a year of sponsor revenue.",
-      "fix": "Fixed term, written end date, no auto-renewal. Any extension is a new negotiation with new money — priced at the exclusivity premium (+25% for 30 days, +50% for 60–90)."
+      "fix": "Fixed term, written end date, no auto-renewal. Any extension is a new negotiation with new money, priced at the exclusivity premium (+25% for 30 days, +50% for 60–90)."
     },
     {
       "id": "payment_on_metrics",
       "title": "Pay tied to guaranteed views (clawback clauses)",
       "severity": "major",
-      "detail": "The fee shrinks — or must be repaid — if the video misses a view threshold. You don't control the algorithm, the feed, or the brand's own boosting, so a guarantee prices in risk you can't manage.",
+      "detail": "The fee shrinks, or must be repaid, if the video misses a view threshold. You don't control the algorithm, the feed, or the brand's own boosting, so a guarantee prices in risk you can't manage.",
       "fix": "Flat fee for the deliverable. Performance bonuses are fine as UPSIDE (extra pay if it pops), never as the base with a clawback."
     },
     {
       "id": "moral_clause_one_sided",
       "title": "One-sided morality clause",
       "severity": "major",
-      "detail": "The brand can terminate for anything it deems reputationally harmful — your old posts, your opinions, your other sponsors — while no equivalent standard binds them.",
+      "detail": "The brand can terminate for anything it deems reputationally harmful, your old posts, your opinions, your other sponsors, while no equivalent standard binds them.",
       "fix": "Mutual, narrowly defined (conviction-level conduct, not vibes), with a written cure period so one bad tweet doesn't vaporize the fee."
     },
     {
@@ -276,7 +276,7 @@
       "title": "No written payment schedule or invoicing terms",
       "severity": "major",
       "detail": "'We'll sort payment after launch' is how net-90-by-default happens. Without written terms you have no leverage when the invoice goes quiet.",
-      "fix": "50% upfront for any brand you haven't worked with, balance on delivery, net-30, and a late fee — all in the contract, not in the email thread."
+      "fix": "50% upfront for any brand you haven't worked with, balance on delivery, net-30, and a late fee, all in the contract, not in the email thread."
     },
     {
       "id": "approval_no_timeline",
@@ -289,80 +289,80 @@
       "id": "no_ftc_disclosure",
       "title": "No FTC disclosure language in the contract",
       "severity": "minor",
-      "detail": "If the contract never mentions disclosure, the compliance risk quietly sits on you — and FTC fines land on the creator, not the brand's legal team. In 2026 the FTC is targeting individual creators for disclosure violations at scale (fines cited up to ~$53K per violation — the exact figure is uncertain across sources).",
+      "detail": "If the contract never mentions disclosure, the compliance risk quietly sits on you, and FTC fines land on the creator, not the brand's legal team. In 2026 the FTC is targeting individual creators for disclosure violations at scale (fines cited up to ~$53K per violation, the exact figure is uncertain across sources).",
       "fix": "A disclosure clause both sides sign: clear #ad / 'paid partnership' labeling, and you keep final say on where the disclosure sits in the content. AI-generated content needs its own disclosure too in 2026."
     },
     {
       "id": "scope_creep_language",
       "title": "Deliverables described as 'and related content'",
       "severity": "minor",
-      "detail": "'One video and related content' quietly expands into a cutdown, a Story set, and a pinned comment campaign — three deliverables for the price of one.",
+      "detail": "'One video and related content' quietly expands into a cutdown, a Story set, and a pinned comment campaign, three deliverables for the price of one.",
       "fix": "Exact deliverable list: format, length, platform, posting date. Anything beyond the list is a new line item with a new price."
     }
   ],
   "contract_scoring": {
-    "note": "Scores the CONTRACT's structure — not the pay (the rate calculator benchmarks that) and not the offer terms (the Deal Room red-flag checklist covers those). A negotiation aid, NOT legal advice: contracts above $500 deserve a real lawyer's eyes.",
+    "note": "Scores the CONTRACT's structure, not the pay (the rate calculator benchmarks that) and not the offer terms (the Deal Room red-flag checklist covers those). A negotiation aid, NOT legal advice: contracts above $500 deserve a real lawyer's eyes.",
     "rules": [
       "Any 'walk_away' flag checked → verdict: don't sign as written. The structure is hostile no matter the price.",
       "Otherwise score = 2 points per 'major' flag, 1 per 'minor'.",
-      "Score 0 → clean: the contract structure reads fine — price the post next.",
+      "Score 0 → clean: the contract structure reads fine, price the post next.",
       "Score 1–2 → caution: fix the flagged terms in writing before you sign.",
       "Score 3+ → don't sign as written: the flagged terms stack up to a deal that costs you more than it pays."
     ]
   },
   "negotiation_kit_scripts": [
     {
-      "body": "Hi {{brand}} team — thanks for sending the terms over.\n\nI priced this against my recent work and the 2026 rate data for my tier. My {{deliverable}} rate sits in the ${{range_lo}}–${{range_hi}} range at my last-10-video average of {{views_avg}} views, and creators at my size typically quote ${{typical_quote}} for this format.\n\nMy counter is ${{counter_total}}: ${{counter_base}} for the post, with usage priced as its own line ({{usage_line}}). That number is the top of my range, and I hold it because the slot, the audience, and the usage are three separate things.\n\nIf the budget is fixed at your end, the honest lever is scope — fewer deliverables, a shorter usage window, or no exclusivity — not the same package for less. Happy to talk through which scope fits.\n\nThanks for thinking of me either way.",
+      "body": "Hi {{brand}} team, thanks for sending the terms over.\n\nI priced this against my recent work and the 2026 rate data for my tier. My {{deliverable}} rate sits in the ${{range_lo}}–${{range_hi}} range at my last-10-video average of {{views_avg}} views, and creators at my size typically quote ${{typical_quote}} for this format.\n\nMy counter is ${{counter_total}}: ${{counter_base}} for the post, with usage priced as its own line ({{usage_line}}). That number is the top of my range, and I hold it because the slot, the audience, and the usage are three separate things.\n\nIf the budget is fixed at your end, the honest lever is scope, fewer deliverables, a shorter usage window, or no exclusivity, not the same package for less. Happy to talk through which scope fits.\n\nThanks for thinking of me either way.",
       "grounded_in": "Counter builder: base = top of the niche-adjusted tier range; usage as a separate line item; the typical-quote figure is Cheerful's Sep-2026 reported data where the format maps, and is left out where it does not.",
       "id": "counter_offer",
-      "subject": "Re: {{brand}} — rate for the {{deliverable}}",
+      "subject": "Re: {{brand}}, rate for the {{deliverable}}",
       "tip": "Send the counter as a number with its workings, not as an apology. One counter, stated once, then let them respond.",
-      "title": "The counter — send your number with the evidence attached",
+      "title": "The counter, send your number with the evidence attached",
       "when": "You have run the offer through the counter builder and you are ready to name your price."
     },
     {
-      "body": "Hi {{brand}} team — thanks for the offer of ${{offer}}.\n\nI have to be straight with you: that is below the floor for my tier. My range for this {{deliverable}} is ${{range_lo}}–${{range_hi}}, based on {{views_avg}} average views on my last 10 videos. At ${{offer}}, the implied rate works out to ${{implied_cpm}} per 1,000 views, which is under what the slot itself is worth before usage or exclusivity enter it.\n\nI can do this at ${{counter_total}} with the terms as written. If that is outside the budget, I would rather pass cleanly than discount the rate — a smaller scope at my rate serves us both better than the same scope at a rate I cannot repeat.\n\nIf the budget moves, my door is open.",
+      "body": "Hi {{brand}} team, thanks for the offer of ${{offer}}.\n\nI have to be straight with you: that is below the floor for my tier. My range for this {{deliverable}} is ${{range_lo}}–${{range_hi}}, based on {{views_avg}} average views on my last 10 videos. At ${{offer}}, the implied rate works out to ${{implied_cpm}} per 1,000 views, which is under what the slot itself is worth before usage or exclusivity enter it.\n\nI can do this at ${{counter_total}} with the terms as written. If that is outside the budget, I would rather pass cleanly than discount the rate, a smaller scope at my rate serves us both better than the same scope at a rate I cannot repeat.\n\nIf the budget moves, my door is open.",
       "grounded_in": "Rate card: below the tier floor = underpaid. Implied CPM (offer divided by expected views, times 1,000) is the check that makes the gap concrete.",
       "id": "lowball_reply",
-      "subject": "Re: {{brand}} — rate for the {{deliverable}}",
+      "subject": "Re: {{brand}}, rate for the {{deliverable}}",
       "tip": "Name the floor, show the implied CPM, offer the counter once. Do not negotiate against yourself in the same email.",
-      "title": "The lowball — under the floor, stated plainly",
+      "title": "The lowball, under the floor, stated plainly",
       "when": "The offer lands below the bottom of your tier range."
     },
     {
-      "body": "Hi {{brand}} team — thanks for thinking of me for this.\n\nI do not take sponsored work for exposure, product, or future consideration. The {{deliverable}} on my channel is a paid slot: my rate is ${{counter_base}} for the post, with usage and whitelisting priced separately if you need them. That is the same rate I charge every sponsor, and it is how the channel stays in business.\n\nIf a paid slot is possible later in the year, I am glad to hold the conversation. If it is not, no hard feelings — I will pass on this one so you can find a creator whose model fits it.",
-      "grounded_in": "Phase 5 rule: sponsored slots are paid inventory. Exposure has no rate-card entry because it pays no bills — the reply prices the slot or passes.",
+      "body": "Hi {{brand}} team, thanks for thinking of me for this.\n\nI do not take sponsored work for exposure, product, or future consideration. The {{deliverable}} on my channel is a paid slot: my rate is ${{counter_base}} for the post, with usage and whitelisting priced separately if you need them. That is the same rate I charge every sponsor, and it is how the channel stays in business.\n\nIf a paid slot is possible later in the year, I am glad to hold the conversation. If it is not, no hard feelings. I will pass on this one so you can find a creator whose model fits it.",
+      "grounded_in": "Phase 5 rule: sponsored slots are paid inventory. Exposure has no rate-card entry because it pays no bills, the reply prices the slot or passes.",
       "id": "exposure_only_reply",
-      "subject": "Re: {{brand}} — the {{deliverable}}",
+      "subject": "Re: {{brand}}, the {{deliverable}}",
       "tip": "Decline the structure, not the people. A short, final no protects the relationship better than a resentful yes.",
-      "title": "Exposure only — no fee on the table",
+      "title": "Exposure only, no fee on the table",
       "when": "The offer is payment in visibility: a shout-out, a product, or a promise of future work."
     },
     {
-      "body": "Hi {{brand}} team — one term to settle before we sign: usage.\n\nThe post fee of ${{counter_base}} covers organic placement on my channel only. The draft asks for {{usage_ask}}, and paid usage is a separate line in every rate benchmark I work from: {{usage_line}}. That puts the total at ${{counter_total}}, with the usage window ending on a date we write into the contract.\n\nI am glad to license the usage — it is valuable, which is exactly why it is priced on its own line instead of bundled into the post. If the usage budget is not there, strike the paid-usage clause and the post fee stands as quoted.",
-      "grounded_in": "2026 usage-rights benchmarks (calculators.json v1.5.0): paid ads 3 months +25–50%, 3–6 months +50–75%, 6–12 months +75–100%, perpetual from 2x base — always separate line items.",
+      "body": "Hi {{brand}} team, one term to settle before we sign: usage.\n\nThe post fee of ${{counter_base}} covers organic placement on my channel only. The draft asks for {{usage_ask}}, and paid usage is a separate line in every rate benchmark I work from: {{usage_line}}. That puts the total at ${{counter_total}}, with the usage window ending on a date we write into the contract.\n\nI am glad to license the usage, it is valuable, which is exactly why it is priced on its own line instead of bundled into the post. If the usage budget is not there, strike the paid-usage clause and the post fee stands as quoted.",
+      "grounded_in": "2026 usage-rights benchmarks (calculators.json v1.5.0): paid ads 3 months +25–50%, 3–6 months +50–75%, 6–12 months +75–100%, perpetual from 2x base, always separate line items.",
       "id": "usage_rights_reply",
-      "subject": "Re: {{brand}} — usage terms on the {{deliverable}}",
+      "subject": "Re: {{brand}}, usage terms on the {{deliverable}}",
       "tip": "Offer the choice in the same email: pay for the usage line, or remove the usage clause. Never let them keep both the clause and the lower price.",
-      "title": "Usage rights — priced as their own line",
+      "title": "Usage rights, priced as their own line",
       "when": "The contract folds paid-ad usage into the post fee, or the usage window is open-ended."
     },
     {
-      "body": "Hi {{brand}} team — happy to discuss whitelisting, with the terms I use for every brand.\n\nWhitelisting runs at ${{whitelisting_monthly}} per month for {{whitelisting_months}} month(s), billed as its own line on top of the post fee. It is revocable by me with written notice, it does not renew automatically, and it covers the one {{deliverable}} we are contracting — not future content.\n\nAds from my account spend my audience's trust along with your budget, so the monthly rate and the end date are the terms, not a formality. If that works, I will add the line to the agreement and we can sign.",
+      "body": "Hi {{brand}} team, happy to discuss whitelisting, with the terms I use for every brand.\n\nWhitelisting runs at ${{whitelisting_monthly}} per month for {{whitelisting_months}} month(s), billed as its own line on top of the post fee. It is revocable by me with written notice, it does not renew automatically, and it covers the one {{deliverable}} we are contracting, not future content.\n\nAds from my account spend my audience's trust along with your budget, so the monthly rate and the end date are the terms, not a formality. If that works, I will add the line to the agreement and we can sign.",
       "grounded_in": "2026 benchmarks put whitelisting at 30–100% of the base fee per month. The kit prices it off your counter base and never as a perpetual grant.",
       "id": "whitelisting_reply",
-      "subject": "Re: {{brand}} — whitelisting terms",
+      "subject": "Re: {{brand}}, whitelisting terms",
       "tip": "Monthly, revocable, dated. If a brand wants whitelisting without an end date, that is a perpetual license request wearing a friendlier name.",
-      "title": "Whitelisting — ads from your account, monthly and revocable",
+      "title": "Whitelisting, ads from your account, monthly and revocable",
       "when": "The brand asks to run ads through your handle, with or without a fee attached."
     },
     {
-      "body": "Hi {{brand}} team — following up on the invoice of ${{invoice_amount}} for the {{deliverable}}, issued {{invoice_date}} on {{due_terms}} terms. It is now {{days_overdue}} days past due, and I have not had a payment date from your side.\n\nPlease confirm today when payment will land. If it has already been sent, a remittance reference is all I need. If it is stuck somewhere in approvals, tell me where, and who owns it — I would rather have an honest date than another week of silence.\n\nUntil this invoice clears I am pausing further deliverables and usage renewals with {{brand}}, which I would prefer not to do. This work was delivered and published on schedule; I am asking for the same on payment.",
+      "body": "Hi {{brand}} team, following up on the invoice of ${{invoice_amount}} for the {{deliverable}}, issued {{invoice_date}} on {{due_terms}} terms. It is now {{days_overdue}} days past due, and I have not had a payment date from your side.\n\nPlease confirm today when payment will land. If it has already been sent, a remittance reference is all I need. If it is stuck somewhere in approvals, tell me where, and who owns it. I would rather have an honest date than another week of silence.\n\nUntil this invoice clears I am pausing further deliverables and usage renewals with {{brand}}, which I would prefer not to do. This work was delivered and published on schedule; I am asking for the same on payment.",
       "grounded_in": "Deal Room contract standard: 50% upfront for new brands, net-30 in writing, late terms named in the contract. This script enforces the terms you already agreed.",
       "id": "late_payment_reply",
-      "subject": "{{brand}} — invoice of ${{invoice_amount}} now {{days_overdue}} days overdue",
-      "tip": "One written chase with the amount, the date, and the consequence. Keep it factual — the paper trail is the leverage.",
-      "title": "Late payment — the overdue invoice, chased once, in writing",
+      "subject": "{{brand}}, invoice of ${{invoice_amount}} now {{days_overdue}} days overdue",
+      "tip": "One written chase with the amount, the date, and the consequence. Keep it factual, the paper trail is the leverage.",
+      "title": "Late payment, the overdue invoice, chased once, in writing",
       "when": "An agreed invoice is past its terms and has gone quiet."
     }
   ]

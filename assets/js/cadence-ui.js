@@ -1,4 +1,4 @@
-/* Cadence Coach UI — pure-math-free DOM wiring.
+/* Cadence Coach UI, pure-math-free DOM wiring.
    The cadence arithmetic lives in assets/js/cadence.js (CadenceCoach). */
 (function () {
   "use strict";
@@ -25,7 +25,7 @@
     over: { badge: "bad", label: "OVER CAPACITY" }
   };
 
-  /* Same-document view transition (Baseline since Oct 2025 — research
+  /* Same-document view transition (Baseline since Oct 2025, research
      web-craft round 1 §2). Gated on no-preference: the site honors
      reduced-motion everywhere, and the fallback is a plain swap. */
   function swap(html) {
@@ -49,12 +49,12 @@
     var cls = "cc-day" + (d.rest ? " is-rest" : "");
     var inner = '<span class="cc-dayname">' + esc(d.name) + "</span>";
     if (d.rest) {
-      inner += '<span class="cc-rest">Rest — no posting, analytics review only.</span>';
+      inner += '<span class="cc-rest">Rest, no posting, analytics review only.</span>';
     } else {
       var bits = [];
       if (d.longs > 0) bits.push('<span class="cc-chip cc-long">🎬 ' + d.longs + " long-form</span>");
       if (d.shorts > 0) bits.push('<span class="cc-chip cc-short">⚡ ' + d.shorts + " short" + (d.shorts > 1 ? "s" : "") + "</span>");
-      inner += bits.length ? bits.join("") : '<span class="cc-empty">—</span>';
+      inner += bits.length ? bits.join("") : '<span class="cc-empty">·</span>';
     }
     return '<div class="' + cls + '" role="listitem">' + inner + "</div>";
   }
@@ -76,7 +76,7 @@
       '<div class="calc-out"><div class="lbl">Production hours / week</div><div class="big cc-stat-num">' + r.usedHours + "h</div></div>" +
       '<div class="calc-out"><div class="lbl">Of production time</div>' +
       '<svg class="cc-ring" viewBox="0 0 72 72" role="img" aria-label="' + pct +
-      '% of production time used — ' + v.label.toLowerCase() + '">' +
+      '% of production time used, ' + v.label.toLowerCase() + '">' +
       '<circle class="cc-ring-track" cx="36" cy="36" r="30"></circle>' +
       '<circle class="cc-ring-fill is-' + r.verdict + '" cx="36" cy="36" r="30" ' +
       'stroke-dasharray="' + CIRC.toFixed(1) + '" stroke-dashoffset="' + ringOff + '"></circle></svg>' +
@@ -85,13 +85,13 @@
       '<div class="callout mission" style="margin:0 0 1rem"><strong><span class="badge ' + v.badge + '">' + v.label + "</span></strong>" +
       "<p>" + esc(r.guidance) + "</p></div>" +
       '<div class="cc-ramp"><strong>First two weeks (the ramp):</strong> start at ' +
-      r.ramp.longs + " long-form + " + r.ramp.shorts + " shorts per week — raise to the full cadence only if every slot shipped on time. " +
+      r.ramp.longs + " long-form + " + r.ramp.shorts + " shorts per week, raise to the full cadence only if every slot shipped on time. " +
       "This is the tool's house method, not science: new cadences die in week one, not week nine.</div>" +
       "</div></div>" +
 
       '<section aria-labelledby="cc-week-title" class="cc-week"><h2 id="cc-week-title">Your week</h2>' +
       '<div class="cc-grid" role="list">' + r.schedule.map(dayCell).join("") + "</div>" +
-      '<p class="muted">Rest day is non-negotiable — no posting, analytics review only. Longs spread across work days; shorts round-robin the rest.</p></section>' +
+      '<p class="muted">Rest day is non-negotiable, no posting, analytics review only. Longs spread across work days; shorts round-robin the rest.</p></section>' +
 
       '<section aria-labelledby="cc-plat-title"><h2 id="cc-plat-title">What each platform actually pays (Oct 2026)</h2>' +
       r.platformNotes.map(function (p) {
@@ -114,14 +114,14 @@
         longform_per_week: r.longs,
         shorts_per_week: r.shorts,
         rest_day: n.restDay,
-        note: "from Cadence Coach — a model input, not a prediction"
+        note: "from Cadence Coach, a model input, not a prediction"
       });
       function done(msg) {
         copyBtn.textContent = msg;
         setTimeout(function () { copyBtn.textContent = "Copy my cadence →"; }, 2500);
       }
       if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(payload).then(function () { done("Copied ✓"); }, function () { done("Copy failed — select manually"); });
+        navigator.clipboard.writeText(payload).then(function () { done("Copied ✓"); }, function () { done("Copy failed, select manually"); });
       } else done("Clipboard unavailable");
     });
     out.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -152,7 +152,7 @@
         if (pr) pr.checked = true;
       }
     }
-  } catch (e) { /* storage unavailable — form still works */ }
+  } catch (e) { /* storage unavailable, form still works */ }
 
   form.addEventListener("submit", function (e) {
     e.preventDefault();
@@ -174,7 +174,7 @@
         "cc-shortmins": document.getElementById("cc-shortmins").value,
         restDay: raw.restDay, stage: raw.stage, priority: raw.priority
       }));
-    } catch (err) { /* private mode — results still render */ }
+    } catch (err) { /* private mode, results still render */ }
     render(r);
   });
 })();

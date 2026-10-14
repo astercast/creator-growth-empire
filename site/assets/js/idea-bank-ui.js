@@ -1,4 +1,4 @@
-/* Idea Bank — localStorage idea capture + scoring + promote-to-production.
+/* Idea Bank, localStorage idea capture + scoring + promote-to-production.
    Pure-math-free: sorting/dealing live in assets/js/content-engine.js.
    Storage: localStorage key "cge_idea_bank_v1" (array of idea records). */
 (function () {
@@ -34,7 +34,7 @@
     return "i" + Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
   }
 
-  /* niche tag datalist from the Niche Atlas — graceful fallback to free text */
+  /* niche tag datalist from the Niche Atlas, graceful fallback to free text */
   if (nicheInput) {
     fetch("data/v1/niches.json").then(function (r) { return r.json(); }).then(function (d) {
       var dl = document.getElementById("ib-niche-list");
@@ -114,7 +114,7 @@
       save(ideas);
       render();
       var live = document.getElementById("ib-live");
-      if (live) live.textContent = "Promoted to production — it now deals into your content calendar.";
+      if (live) live.textContent = "Promoted to production, it now deals into your content calendar.";
     } else if (deleteBtn) {
       var did = deleteBtn.getAttribute("data-id");
       save(ideas.filter(function (i) { return i.id !== did; }));

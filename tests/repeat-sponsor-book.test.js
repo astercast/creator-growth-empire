@@ -67,7 +67,7 @@ var demoB = RSB.buildBook(P.DEMO_DEALS, OPTS);
 ok(demoB.paidCount === 0 && demoB.demoOnly === true && demoB.emptyBoard === false && demoB.noPaidYet === false,
   "the demo board (no paid deals) is named demoOnly — not no-paid-yet");
 var demoPaid = RSB.buildBook(P.DEMO_DEALS.concat([
-  { id: "demo-9", demo: true, brand: "DEMO — Paid Demo", platform: "youtube", format: "dedicated",
+  { id: "demo-9", demo: true, brand: "DEMO · Paid Demo", platform: "youtube", format: "dedicated",
     followers: 50000, expectedViews: 60000, niche: "tech_software", usage: "organic_only", whitelistingMonths: 0,
     amount: 9999, stage: "paid", stageEnteredAt: "2026-09-01" }
 ]), OPTS);
@@ -77,7 +77,7 @@ ok(/DEMO paid deal/.test(RSB.exportBook(demoPaid)), "the export names the exclud
 
 console.log("repeat-sponsor-book — the export");
 var exp = RSB.exportBook(b);
-ok(/REPEAT SPONSOR BOOK — 2 paid brand\(s\), \$10,000 collected/.test(exp) &&
+ok(/REPEAT SPONSOR BOOK · 2 paid brand\(s\), \$10,000 collected/.test(exp) &&
    /Early Bird Media/.test(exp) && /Tool 23/.test(exp) && /Tool 25/.test(exp) &&
    /not a renewal-due date/.test(exp),
   "export carries the book, the collected total, the composition provenance, and the no-renewal-window note");

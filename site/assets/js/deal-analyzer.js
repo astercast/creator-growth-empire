@@ -1,4 +1,4 @@
-/* The Deal Analyzer 2.0 — pure deal math (no DOM).
+/* The Deal Analyzer 2.0, pure deal math (no DOM).
  * UMD: works in the browser (window.DealAnalyzer) and in node
  * (module.exports).
  *
@@ -6,7 +6,7 @@
  * card (data/v1/calculators.json: sponsorship_rate_card_2026 +
  * usage_rights_benchmarks_2026 (calculators v1.5.0)) or the site's chapters, never a quote.
  * The contract checklist is wave 22's data (data/v1/deal-templates.json
- * contract_flags) — a negotiation aid, NOT legal advice. RPM/CPM figures are
+ * contract_flags), a negotiation aid, NOT legal advice. RPM/CPM figures are
  * creator-reported ranges, not platform-published. Not financial, legal, or
  * tax advice.
  */
@@ -21,7 +21,7 @@
   "use strict";
 
   /* Creators list rates ~23% above what they accept (projectcasting 2026,
-   * 1,347 creator profiles; nano gap biggest at 28%) — carried in the rate
+   * 1,347 creator profiles; nano gap biggest at 28%), carried in the rate
    * card's disclaimer. */
   var LISTED_VS_ACCEPTED = 0.23;
 
@@ -49,7 +49,7 @@
     mega_1m_plus: "Mega (1M+)"
   };
 
-  /* Sponsor niche multiplier — the same table as the Empire Simulator's
+  /* Sponsor niche multiplier, the same table as the Empire Simulator's
    * DEFAULTS.sponsorNicheMult (engine assumption, sourced from the rate
    * card's rule of thumb: "finance/tech 2–3x, entertainment lower").
    * Wow wave 2: the 10 study niches share the table (ai_ml 2.5 sponsor-
@@ -77,17 +77,17 @@
   function nicheMult(niche) {
     if (!niche || NICHE_MULT[niche] == null) {
       return { mult: 1.0, label: null,
-               note: "No niche selected — finance/tech benchmarks run ~2.5× the base range; entertainment, gaming, and music run ~0.6×." };
+               note: "No niche selected, finance/tech benchmarks run ~2.5× the base range; entertainment, gaming, and music run ~0.6×." };
     }
     return { mult: NICHE_MULT[niche], label: NICHE_LABELS[niche],
              note: "Niche-adjusted ×" + NICHE_MULT[niche] + " (" + NICHE_LABELS[niche] +
-                   ") — the simulator's niche multiplier, from the rate-card rule of thumb (finance/tech 2–3×, entertainment lower)." };
+                   "), the simulator's niche multiplier, from the rate-card rule of thumb (finance/tech 2–3×, entertainment lower)." };
   }
 
-  /* Category sponsored CPMs — AIR Media-Tech's Oct-11-2026 compilation of 2026
+  /* Category sponsored CPMs, AIR Media-Tech's Oct-11-2026 compilation of 2026
    * agency benchmarks (Influencer Marketing Hub, Aspire, CreatorIQ).
    * Verified as a compilation; the underlying agency tables are single sources
-   * each. Only mapped where the AIR category clearly matches the niche —
+   * each. Only mapped where the AIR category clearly matches the niche,
    * education, lifestyle, and music have no direct AIR category and are
    * skipped rather than stretched. */
   var CATEGORY_CPM = {
@@ -128,15 +128,15 @@
   /* ---------- input ---------- */
   var CONTRACT_DEFAULTS = {
     ip: "mine",            /* mine | brand_full | unclear */
-    cancel: "no",          /* no | yes — brand can cancel anytime, you can't */
+    cancel: "no",          /* no | yes, brand can cancel anytime, you can't */
     usageWords: "specific",/* specific | all_media | unclear */
-    exclRenew: "no",       /* no | yes — exclusivity auto-renews */
-    payMetrics: "no",      /* no | yes — pay tied to guaranteed views */
+    exclRenew: "no",       /* no | yes, exclusivity auto-renews */
+    payMetrics: "no",      /* no | yes, pay tied to guaranteed views */
     morals: "none",        /* none | mutual | one_sided */
-    paySchedule: "yes",    /* yes | no — written payment schedule */
+    paySchedule: "yes",    /* yes | no, written payment schedule */
     approval: "defined",   /* defined | vague */
-    ftc: "yes",            /* yes | no — FTC disclosure language */
-    scope: "no"            /* no | yes — "and related content" scope creep */
+    ftc: "yes",            /* yes | no, FTC disclosure language */
+    scope: "no"            /* no | yes, "and related content" scope creep */
   };
 
   function validInput(raw) {
@@ -186,7 +186,7 @@
     return (r && r.length === 2) ? [r[0], r[1]] : null;
   }
 
-  /* Implied-CPM band for the deliverable — straight from the rate card's
+  /* Implied-CPM band for the deliverable, straight from the rate card's
    * sponsored_cpms, plus the labeled rule-of-thumb dedicated band. */
   function cpmBand(rateCard, platform, deliverable) {
     var cpms = rateCard.sponsored_cpms || {};
@@ -204,7 +204,7 @@
     }
     if (deliverable === "dedicated") {
       /* Fresh Oct-2026 research (AIR's agency-benchmark compilation) reports
-       * dedicated video at $50–$90 CPM — the wave-3 tool carried this number;
+       * dedicated video at $50–$90 CPM, the wave-3 tool carried this number;
        * the site's older $20–$50 rule of thumb stays in the revenue
        * calculator. The analyzer uses the reported benchmark here. */
       return { lo: 50, hi: 90,
@@ -225,23 +225,23 @@
     var verdict, verdictText;
     if (!adjRange) {
       verdict = "unknown";
-      verdictText = "No benchmark range for this tier/platform — the rate card doesn't cover it.";
+      verdictText = "No benchmark range for this tier/platform, the rate card doesn't cover it.";
     } else if (deal.offerUsd < adjRange[0]) {
       verdict = "UNDERPAID";
-      verdictText = "Underpaid — below the range floor. The 2026 benchmarks say " +
+      verdictText = "Underpaid, below the range floor. The 2026 benchmarks say " +
         TIER_LABELS[tier] + " " + PLATFORM_LABELS[deal.platform] + " " +
         DELIVERABLE_LABELS[deal.deliverable].toLowerCase() + "s" +
         (nm.label ? " in " + nm.label : "") + " typically land " +
         fmt(adjRange[0]) + "–" + fmt(adjRange[1]) + ".";
     } else if (deal.offerUsd > adjRange[1]) {
       verdict = "STRONG";
-      verdictText = "Strong — above the range ceiling. " + fmt(adjRange[0]) + "–" +
+      verdictText = "Strong, above the range ceiling. " + fmt(adjRange[0]) + "–" +
         fmt(adjRange[1]) + " is the " + TIER_LABELS[tier] + " " +
         PLATFORM_LABELS[deal.platform] + (nm.label ? " " + nm.label : "") +
         " benchmark band.";
     } else {
       verdict = "FAIR";
-      verdictText = "Fair — inside the benchmark range (" + fmt(adjRange[0]) + "–" +
+      verdictText = "Fair, inside the benchmark range (" + fmt(adjRange[0]) + "–" +
         fmt(adjRange[1]) + "). Benchmarks disagree 2–3x within tiers; niche and engagement move numbers as much as followers.";
     }
 
@@ -258,7 +258,7 @@
 
     /* Category cross-check (fresh Oct-2026 research): what sponsors pay per
      * 1K views in YOUR category, translated into dollars at the expected
-     * view count — a second lens beside the tier verdict. */
+     * view count, a second lens beside the tier verdict. */
     var categoryCheck = null;
     var cat = categoryCpm(deal.niche);
     if (cat && deal.expectedViews > 0) {
@@ -281,7 +281,7 @@
       });
     var multNote = "At equal followers the 2026 benchmarks price YouTube ≈" +
       (mults.youtube || 1.7) + "× Instagram and TikTok ≈" +
-      (mults.tiktok || 0.85) + "× (platform_multipliers_at_equal_followers — " +
+      (mults.tiktok || 0.85) + "× (platform_multipliers_at_equal_followers, " +
       "wave-1 research, kept labeled).";
 
     /* Expected landing zone: listed rates run ~23% above accepted rates, so
@@ -299,7 +299,7 @@
       impliedCpm: implied, categoryCheck: categoryCheck,
       crossPlatform: crossPlatform, multNote: multNote,
       expectedClose: expectedClose,
-      disclaimer: "Negotiation ranges, not quotes. Benchmarks compiled from 2026 third-party data — they disagree 2–3x within tiers. Not financial advice."
+      disclaimer: "Negotiation ranges, not quotes. Benchmarks compiled from 2026 third-party data, they disagree 2–3x within tiers. Not financial advice."
     };
   }
 
@@ -310,27 +310,27 @@
 
     if (deal.usage === "perpetual") {
       flag("bad", "Perpetual usage rights",
-        "The single most-neglected line item. A perpetual paid-ads license turns your post into the brand's permanent ad creative — price it as its OWN line item from 2x the base fee, or refuse it.");
+        "The single most-neglected line item. A perpetual paid-ads license turns your post into the brand's permanent ad creative, price it as its OWN line item from 2x the base fee, or refuse it.");
     } else if (deal.usage === "paid_12mo") {
       flag("warn", "6–12 month paid-ads window",
-        "2026 benchmarks: +75–100% on top of the post fee as a separate line item. Cap it in writing — don't let 'a year' drift into 'forever'.");
+        "2026 benchmarks: +75–100% on top of the post fee as a separate line item. Cap it in writing, don't let 'a year' drift into 'forever'.");
     } else if (deal.usage === "paid_6mo") {
       flag("warn", "3–6 month paid-ads window",
         "2026 benchmarks: +50–75% on top of the post fee, separate line item, hard end date in the contract.");
     } else if (deal.usage === "paid_3mo") {
       flag("ok", "3-month paid-ads window",
-        "A reasonable paid-ads ask — 2026 benchmarks: +25–50% on top of the post fee as a separate line item.");
+        "A reasonable paid-ads ask, 2026 benchmarks: +25–50% on top of the post fee as a separate line item.");
     }
 
     if (deal.whitelisting === "perpetual") {
       flag("bad", "Perpetual whitelisting",
-        "Indefinite ad spend off your account and face. Whitelisting is always a monthly premium, always revocable — perpetual is a red line.");
+        "Indefinite ad spend off your account and face. Whitelisting is always a monthly premium, always revocable, perpetual is a red line.");
     } else if (deal.whitelisting === "90") {
       flag("warn", "31–90 day whitelisting",
         "2026 benchmarks: 30–100% of the base fee PER MONTH, priced separately. Hard end date, keep kill-switch access.");
     } else if (deal.whitelisting === "30") {
       flag("ok", "Up to 30-day whitelisting",
-        "A normal premium ask — price it monthly, separately from the post fee, revocable.");
+        "A normal premium ask, price it monthly, separately from the post fee, revocable.");
     }
 
     if (deal.exclusivity === "broad") {
@@ -338,7 +338,7 @@
         "This kills other sponsor revenue for half a year. Narrow it to named competitors with a hard end date, or demand a premium that actually covers the lost deals.");
     } else if (deal.exclusivity === "90") {
       flag("warn", "60–90 day exclusivity",
-        "+25% is the floor for 30 days of exclusivity (Phase 5 pricing lever) — 60–90 days needs more; we model +50% as the working rule. Narrow the competitor list in writing.");
+        "+25% is the floor for 30 days of exclusivity (Phase 5 pricing lever), 60–90 days needs more; we model +50% as the working rule. Narrow the competitor list in writing.");
     } else if (deal.exclusivity === "30") {
       flag("warn", "30-day exclusivity",
         "+25% on the base fee is the floor (Phase 5 pricing lever). Name the competitors, set the end date.");
@@ -349,15 +349,15 @@
         "Net-90 means you are financing the brand's marketing for a quarter. Counter with net-30 and 50% upfront.");
     } else if (deal.paymentTerms === "60") {
       flag("warn", "Net 60 payment terms",
-        "Two months is standard for agencies, not for you. Ask net-30 — and 50% upfront from any brand you haven't worked with.");
+        "Two months is standard for agencies, not for you. Ask net-30, and 50% upfront from any brand you haven't worked with.");
     }
 
     if (deal.timeline === "rush") {
       flag("warn", "Rush timeline",
-        "Rush turnarounds are a pricing lever — decide the rush premium before the call, not during it, and get the delivery date in writing.");
+        "Rush turnarounds are a pricing lever, decide the rush premium before the call, not during it, and get the delivery date in writing.");
     } else if (deal.timeline === "unknown") {
       flag("warn", "No delivery date",
-        "Get the delivery date in writing. Vague timelines become rush timelines — and rush timelines without a premium become free work.");
+        "Get the delivery date in writing. Vague timelines become rush timelines, and rush timelines without a premium become free work.");
     }
 
     if (!flags.length) {
@@ -405,20 +405,20 @@
     var verdict, verdictText;
     if (walkAway.length) {
       verdict = "dont_sign";
-      verdictText = "Don't sign as written — a walk-away clause is in play (" +
+      verdictText = "Don't sign as written, a walk-away clause is in play (" +
         walkAway.map(function (f) { return f.title; }).join("; ") +
         "), and no price fixes a hostile structure. Send it back with the fixes below.";
     } else if (score >= 3) {
       verdict = "dont_sign";
-      verdictText = "Don't sign as written — the flagged terms stack up (" + score +
+      verdictText = "Don't sign as written, the flagged terms stack up (" + score +
         " points) to a contract that can cost you more than the deal pays. Renegotiate the fixes below first.";
     } else if (score >= 1) {
       verdict = "caution";
-      verdictText = "Caution — fix the flagged terms in writing before you sign (" + score +
+      verdictText = "Caution, fix the flagged terms in writing before you sign (" + score +
         " point" + (score === 1 ? "" : "s") + "). Nothing here is fatal, but unwritten terms always favor the brand.";
     } else {
       verdict = "clean";
-      verdictText = "Clean — no structural contract flags triggered. Price the post next, and keep usage rights as separate line items.";
+      verdictText = "Clean, no structural contract flags triggered. Price the post next, and keep usage rights as separate line items.";
     }
     return {
       score: score,
@@ -457,7 +457,7 @@
     line("Base post fee: " + fmt(base),
       "Top of your " + ev.tierLabel + " " + ev.platformLabel + " range (" +
       fmt(ev.range[0]) + "–" + fmt(ev.range[1]) + ", " + ev.deliverableLabel.toLowerCase() +
-      "). Quote high — benchmarks show creators list ~23% above what they accept.",
+      "). Quote high, benchmarks show creators list ~23% above what they accept.",
       base, base, "benchmark");
 
     /* usage-rights add-ons: the 2026 benchmark ranges, computed on the base */
@@ -465,11 +465,11 @@
     var chosen = null;
     addons.forEach(function (a) { if (a.id === deal.usage) chosen = a; });
     if (chosen && deal.usage !== "organic_only") {
-      line("Usage rights — " + chosen.label + ": " + fmtRange(chosen.lo, chosen.hi),
+      line("Usage rights, " + chosen.label + ": " + fmtRange(chosen.lo, chosen.hi),
         "2026 usage-rights benchmarks, on top of the base fee as a separate line item. " + chosen.note,
         chosen.lo, chosen.hi, "benchmark_2026");
     } else if (deal.usage === "perpetual" && chosen) {
-      line("Usage rights — " + chosen.label + ": " + fmtRange(chosen.lo, chosen.hi),
+      line("Usage rights, " + chosen.label + ": " + fmtRange(chosen.lo, chosen.hi),
         chosen.note + " Perpetual usage is priced as its OWN line item or refused outright.",
         chosen.lo, chosen.hi, "benchmark_2026");
     }
@@ -484,7 +484,7 @@
         "2026 benchmarks: 30–100% of the base fee per month, separate line item, revocable.",
         wlLo, wlHi, "benchmark_2026");
     } else if (deal.whitelisting === "perpetual") {
-      line("Whitelisting (perpetual) — no number: refuse or re-scope",
+      line("Whitelisting (perpetual), no number: refuse or re-scope",
         "Whitelisting is always a monthly premium, always revocable. Perpetual whitelisting is a red line, not a line item.",
         0, null, "rule");
     }
@@ -493,15 +493,15 @@
     if (deal.exclusivity === "30") {
       var ex30 = nice(base * 0.25);
       line("30-day exclusivity: " + fmt(ex30),
-        "+25% on the base fee — the Phase 5 pricing lever. Name the competitors, set the end date.",
+        "+25% on the base fee, the Phase 5 pricing lever. Name the competitors, set the end date.",
         ex30, ex30, "chapter");
     } else if (deal.exclusivity === "90") {
       var ex90 = nice(base * 0.50);
       line("60–90 day exclusivity: " + fmt(ex90),
-        "The working rule: 60–90 days needs more than the 30-day floor — modeled at +50% as a planning figure. Narrow the competitor list in writing.",
+        "The working rule: 60–90 days needs more than the 30-day floor, modeled at +50% as a planning figure. Narrow the competitor list in writing.",
         ex90, ex90, "rule_of_thumb");
     } else if (deal.exclusivity === "broad") {
-      line("Broad exclusivity — no number: narrow it or demand a premium",
+      line("Broad exclusivity, no number: narrow it or demand a premium",
         "A category lock kills other sponsor revenue for 6+ months. Narrow to named competitors with a hard end date, or demand a premium that actually covers the lost deals.",
         0, null, "rule");
     }
@@ -515,7 +515,7 @@
     var bundleNote = null;
     if (deal.postCount >= 3) {
       bundleNote = deal.postCount + "-post bundle: 3+ posts typically get 15–20% off " +
-        "(projectcasting 2026) and 41% of creators offer package discounts — price the bundle " +
+        "(projectcasting 2026) and 41% of creators offer package discounts, price the bundle " +
         "from the per-post counter above, then discount deliberately, not by accident.";
     }
 
@@ -536,11 +536,11 @@
 
   /* ---------- (e) export: the full evaluation as shareable plaintext ----------
    * analysis = { brand, deal, evaluation, termFlags, contractFlagIds,
-   *              contractRisk, counter } — everything the UI renders. */
+   *              contractRisk, counter }, everything the UI renders. */
   function exportReport(a) {
     var L = [];
     var ev = a.evaluation, co = a.counter, cr = a.contractRisk;
-    L.push("DEAL EVALUATION — " + (a.brand || "unsaved deal"));
+    L.push("DEAL EVALUATION · " + (a.brand || "unsaved deal"));
     L.push("Generated by The Deal Analyzer (Creator Growth Empire). " +
            "Benchmarks are 2026 reported ranges, not quotes.");
     L.push("");
@@ -576,7 +576,7 @@
     L.push("");
     L.push("OFFER-TERM FLAGS (" + a.termFlags.length + ")");
     a.termFlags.forEach(function (f) {
-      L.push("  [" + f.kind.toUpperCase() + "] " + f.title + " — " + f.detail);
+      L.push("  [" + f.kind.toUpperCase() + "] " + f.title + ", " + f.detail);
     });
     L.push("");
     L.push("CONTRACT CHECKLIST: " + cr.verdict.toUpperCase().replace(/_/g, " ") +
@@ -584,7 +584,7 @@
     L.push("  " + cr.verdictText);
     cr.items.forEach(function (it) {
       L.push("  [" + it.severity.toUpperCase().replace(/_/g, " ") + "] " +
-             it.title + " — Fix: " + it.fix);
+             it.title + ", Fix: " + it.fix);
     });
     L.push("  " + cr.disclaimer);
     L.push("");
@@ -663,6 +663,6 @@
     counterOffer: counterOffer,
     exportReport: exportReport,
     compareDeals: compareDeals,
-    DISCLAIMER: "A negotiation aid — not financial, legal, or tax advice."
+    DISCLAIMER: "A negotiation aid, not financial, legal, or tax advice."
   };
 });

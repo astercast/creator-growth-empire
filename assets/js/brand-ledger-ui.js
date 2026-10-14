@@ -1,7 +1,7 @@
-/* Brand Ledger — page wiring. Engine (assets/js/brand-ledger.js)
+/* Brand Ledger, page wiring. Engine (assets/js/brand-ledger.js)
  * composes the Deal Pipeline (Tool 25): the ledger reads the SAME
  * localStorage board the pipeline writes (key cge.deal-pipeline.deals.v1)
- * — deals are entered on the Deal Pipeline page, ledgered here by brand.
+ *, deals are entered on the Deal Pipeline page, ledgered here by brand.
  * No deals are created on this page; demo deals load only from the
  * labeled demo control and never enter the real ledger. */
 (function () {
@@ -23,7 +23,7 @@
     } catch (e) { return []; }
   }
   function save() {
-    try { window.localStorage.setItem(P.STORAGE_KEY, JSON.stringify(deals)); } catch (e) { /* storage blocked — ledger still renders in memory */ }
+    try { window.localStorage.setItem(P.STORAGE_KEY, JSON.stringify(deals)); } catch (e) { /* storage blocked, ledger still renders in memory */ }
   }
   function esc(s) {
     return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
@@ -36,18 +36,18 @@
       changesFeed: DATA.feed, now: new Date() });
     if (!l.ok) { ledgerEl.innerHTML = "<p class=\"muted\">" + esc(l.errors.join("; ")) + "</p>"; return; }
     statusEl.textContent = l.emptyBoard
-      ? "The board is empty — enter deals on the Deal Pipeline and each brand's relationship is ledgered here."
+      ? "The board is empty, enter deals on the Deal Pipeline and each brand's relationship is ledgered here."
       : l.demoOnly
-        ? "Demo board preview — demo deals are counted, none ledgered as real brand relationships."
+        ? "Demo board preview, demo deals are counted, none ledgered as real brand relationships."
         : l.brandCount + " brand(s) · " + BL.fmt(l.pipelineValue) + " across the board" +
           (l.topBrand ? " · top brand " + l.topBrand.brand + " at " + l.topBrand.share + "% of pipeline" : "") +
           (l.demoCount ? " · " + l.demoCount + " DEMO deal(s) excluded" : "");
     if (!l.brands.length) {
       ledgerEl.innerHTML = "<div class=\"bl-empty\"><p><strong>" +
-        (l.emptyBoard ? "No deals, no ledger." : "Demo board — no real ledger.") + "</strong> " +
+        (l.emptyBoard ? "No deals, no ledger." : "Demo board, no real ledger.") + "</strong> " +
         (l.emptyBoard
-          ? "This page ledgers the brands on the <a href=\"deal-pipeline.html\">Deal Pipeline</a> board, one relationship total per brand. The board is genuinely empty — the ledger is empty because nothing has been entered."
-          : "The demo board's deals are counted above and excluded here — demo data never ledgers as a real brand relationship, the same rule the Deal Pipeline applies to demo money. Enter a real deal on the board and its brand is ledgered here from that day.") +
+          ? "This page ledgers the brands on the <a href=\"deal-pipeline.html\">Deal Pipeline</a> board, one relationship total per brand. The board is genuinely empty, the ledger is empty because nothing has been entered."
+          : "The demo board's deals are counted above and excluded here, demo data never ledgers as a real brand relationship, the same rule the Deal Pipeline applies to demo money. Enter a real deal on the board and its brand is ledgered here from that day.") +
         "</p></div>";
     } else {
       ledgerEl.innerHTML = "<ol class=\"bl-list\">" + l.brands.map(function (b, i) {

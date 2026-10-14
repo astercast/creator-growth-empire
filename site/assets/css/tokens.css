@@ -1,11 +1,11 @@
-/* Design tokens — R21 field-manual system.
+/* Design tokens, R21 field-manual system.
    A working manual, not a costume: near-monochrome field neutrals, ONE
    accent (mustard), two type families (Barlow for reading and headings,
    JetBrains Mono for data and numbers), squared corners, no shadows.
    Numbered sections are content structure, not decoration.
    Legacy colour names (--cyan/--sage/--stamp) remain as aliases so older
    fragments resolve, but every one now resolves inside the mustard /
-   neutral family — there is no cyan, sage, or red in the rendered site. */
+   neutral family, there is no cyan, sage, or red in the rendered site. */
 :root {
   --bg: #0d120d;
   --bg-2: #12160f;
@@ -16,7 +16,7 @@
   --faint: #6a7261;
   --line: #242c23;
   --line-strong: #3a4539;
-  /* the one accent: mustard — actions, links, current state, key numbers */
+  /* the one accent: mustard, actions, links, current state, key numbers */
   --gold: #ffc42e;
   --gold-dim: #d9a21c;
   --gold-ink: #201400;
@@ -30,7 +30,7 @@
   --sage: #d6dbc9;
   --sage-dim: #8f9782;
   --sage-ink: #141a12;
-  /* type — two families only */
+  /* type, two families only */
   --font-display: "Barlow", "Barlow Fallback", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-cond: "Barlow", "Barlow Fallback", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-body: "Barlow", "Barlow Fallback", system-ui, -apple-system, "Segoe UI", sans-serif;

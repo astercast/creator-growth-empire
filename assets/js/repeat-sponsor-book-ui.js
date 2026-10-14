@@ -1,7 +1,7 @@
-/* Repeat Sponsor Book — page wiring. Engine (assets/js/repeat-sponsor-book.js)
+/* Repeat Sponsor Book, page wiring. Engine (assets/js/repeat-sponsor-book.js)
  * composes the Deal Pipeline (Tool 25): the book reads the SAME
  * localStorage board the pipeline writes (key cge.deal-pipeline.deals.v1)
- * — deals are entered on the Deal Pipeline page, re-approached here.
+ *, deals are entered on the Deal Pipeline page, re-approached here.
  * No deals are created on this page; demo deals load only from the
  * labeled demo control and never enter the real book. */
 (function () {
@@ -23,35 +23,35 @@
     } catch (e) { return []; }
   }
   function save() {
-    try { window.localStorage.setItem(P.STORAGE_KEY, JSON.stringify(deals)); } catch (e) { /* storage blocked — book still renders in memory */ }
+    try { window.localStorage.setItem(P.STORAGE_KEY, JSON.stringify(deals)); } catch (e) { /* storage blocked, book still renders in memory */ }
   }
   function esc(s) {
     return String(s == null ? "" : s).replace(/[&<>\"']/g, function (c) {
       return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
     });
   }
-  function fmtRange(r) { return RSB.fmt(r[0]) + "\u2013" + RSB.fmt(r[1]); }
+  function fmtRange(r) { return RSB.fmt(r[0]) + "–" + RSB.fmt(r[1]); }
 
   function render() {
     var b = RSB.buildBook(deals, { calculators: DATA.calculators, dealTemplates: DATA.templates,
       changesFeed: DATA.feed, now: new Date() });
     if (!b.ok) { bookEl.innerHTML = "<p class=\"muted\">" + esc(b.errors.join("; ")) + "</p>"; return; }
     statusEl.textContent = b.emptyBoard
-      ? "The board is empty — enter deals on the Deal Pipeline and the brands that pay land here."
+      ? "The board is empty, enter deals on the Deal Pipeline and the brands that pay land here."
       : b.demoOnly
-        ? "Demo board preview — demo deals are counted, none booked as real sponsors."
+        ? "Demo board preview, demo deals are counted, none booked as real sponsors."
         : b.noPaidYet
-          ? "No brand has paid yet — this book fills when a deal reaches the paid stage."
+          ? "No brand has paid yet, this book fills when a deal reaches the paid stage."
           : b.paidCount + " paid brand(s) · " + RSB.fmt(b.collected) + " collected" +
             (b.demoPaid ? " · " + b.demoPaid + " DEMO paid deal(s) excluded" : "");
     if (!b.items.length) {
       bookEl.innerHTML = "<div class=\"rsb-empty\"><p><strong>" +
-        (b.emptyBoard ? "No deals, no book." : b.demoOnly ? "Demo board — no real book." : "No paid deals yet.") + "</strong> " +
+        (b.emptyBoard ? "No deals, no book." : b.demoOnly ? "Demo board, no real book." : "No paid deals yet.") + "</strong> " +
         (b.emptyBoard
-          ? "This page holds the paid deals from the <a href=\"deal-pipeline.html\">Deal Pipeline</a> board. The board is genuinely empty — the book is empty because nothing has been entered."
+          ? "This page holds the paid deals from the <a href=\"deal-pipeline.html\">Deal Pipeline</a> board. The board is genuinely empty, the book is empty because nothing has been entered."
           : b.demoOnly
-            ? "The demo board carries no paid deals, and demo data would stay out of the real book even if it did — demo paid deals are counted above and excluded here, the same rule the Deal Pipeline applies to demo money. Enter a real deal on the board, move it to paid when the money lands, and the brand books here."
-            : "Every deal on the board is still short of the paid stage. When a brand pays, move the deal to Paid on the Deal Pipeline — it appears here with its current rate card, longest-paid first.") +
+            ? "The demo board carries no paid deals, and demo data would stay out of the real book even if it did, demo paid deals are counted above and excluded here, the same rule the Deal Pipeline applies to demo money. Enter a real deal on the board, move it to paid when the money lands, and the brand books here."
+            : "Every deal on the board is still short of the paid stage. When a brand pays, move the deal to Paid on the Deal Pipeline, it appears here with its current rate card, longest-paid first.") +
         "</p></div>";
     } else {
       bookEl.innerHTML = "<ol class=\"rsb-list\">" + b.items.map(function (it, i) {
@@ -60,8 +60,8 @@
           "<span class=\"rsb-fig\">" + RSB.fmt(it.amount) + " paid</span> " +
           "<span class=\"muted\">" + (it.paidAgeDays == null ? "?" : it.paidAgeDays) + "d since it entered the paid stage</span></p>" +
           (it.rateCard.ok
-            ? "<p class=\"rsb-card\">Current card: total <strong>" + esc(fmtRange(it.rateCard.total.range)) + "</strong> — the amount paid sits " + esc(it.relation) + " that range.<br><span class=\"muted\">" + esc(it.rateCard.provenance) + "</span></p>"
-            : "<p class=\"muted\">Current card: none — " + esc(it.rateCard.reason) + "</p>") +
+            ? "<p class=\"rsb-card\">Current card: total <strong>" + esc(fmtRange(it.rateCard.total.range)) + "</strong>, the amount paid sits " + esc(it.relation) + " that range.<br><span class=\"muted\">" + esc(it.rateCard.provenance) + "</span></p>"
+            : "<p class=\"muted\">Current card: none, " + esc(it.rateCard.reason) + "</p>") +
           "<p class=\"muted\">Pitch: " + esc(it.pitch.reason) + "</p>" +
           "</li>";
       }).join("") + "</ol>";

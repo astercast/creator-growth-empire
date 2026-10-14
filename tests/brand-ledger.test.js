@@ -83,7 +83,7 @@ ok(/DEMO deal/.test(BL.exportLedger(mixed)), "the export names the excluded demo
 
 console.log("brand-ledger — the export");
 var exp = BL.exportLedger(l);
-ok(/BRAND LEDGER — 7 brand\(s\), \$40,300 across the board/.test(exp) &&
+ok(/BRAND LEDGER · 7 brand\(s\), \$40,300 across the board/.test(exp) &&
    /Ridge Wallet · \$12,000 total · 29.8% of pipeline/.test(exp) &&
    /Collected \$2,000 · owed \$4,500/.test(exp) &&
    /not a relationship history or a lifetime value/.test(exp) && /current stages/.test(exp),

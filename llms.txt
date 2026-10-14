@@ -3,110 +3,110 @@
 From $0 to a multi-million-dollar creator company.
 
 ## Phases
-- [Phase 0: Start From Nothing](phase-0-start-from-nothing.html) — 10 min read
-- [Phase 1: The Content Engine](phase-1-content-engine.html) — 8 min read
-- [Phase 2: YouTube Mastery](phase-2-youtube-mastery.html) — 10 min read
-- [Phase 3: The Everywhere Engine](phase-3-everywhere-engine.html) — 11 min read
-- [Phase 4: Audience to Community](phase-4-audience-to-community.html) — 8 min read
-- [Phase 5: The Monetization Stack](phase-5-monetization-stack.html) — 19 min read
-- [Phase 6: Merch & Brand](phase-6-merch-and-brand.html) — 8 min read
-- [Phase 7: The Business](phase-7-the-business.html) — 9 min read
-- [Phase 8: Scale](phase-8-scale.html) — 8 min read
+- [Phase 0: Start From Nothing](phase-0-start-from-nothing.html), 10 min read
+- [Phase 1: The Content Engine](phase-1-content-engine.html), 8 min read
+- [Phase 2: YouTube Mastery](phase-2-youtube-mastery.html), 10 min read
+- [Phase 3: The Everywhere Engine](phase-3-everywhere-engine.html), 11 min read
+- [Phase 4: Audience to Community](phase-4-audience-to-community.html), 8 min read
+- [Phase 5: The Monetization Stack](phase-5-monetization-stack.html), 19 min read
+- [Phase 6: Merch & Brand](phase-6-merch-and-brand.html), 8 min read
+- [Phase 7: The Business](phase-7-the-business.html), 9 min read
+- [Phase 8: Scale](phase-8-scale.html), 8 min read
 
 ## Tools
-- [Niche Picker](quiz.html) — Answer 6 questions, get ranked niche suggestions with reasoning — or take the 4-question "Pick my 2027 niche" branch, scored against the Niche Atlas 2027 outlook layer.
-- [Revenue Calculator](calculator.html) — Project revenue from views, niche, sponsors, and affiliates — with honest ranges.
-- [90-Day Planner](planner.html) — Generate a posting schedule from your platforms and cadence. Printable.
-- [The Deal Analyzer](deal-analyzer.html) — Paste the brand's terms — rate-card verdict with platform multipliers + niche adjustment, the wave-22 contract checklist applied to the deal, counter-offer calculator, 2026 usage-rights add-on math, deal history + comparison mode.
-- [The Deal Room](deal-room.html) — Deal Room 2.0 — manage the whole deal: niche-adjusted rate-card scoring, pipeline totals, the full 2026 rate card with real quoted prices, the Algorithm Watch digest, usage pricing, scripts, export your memo.
-- [Hiring Cost Calculator](hiring-calculator.html) — Price your first hire: monthly/annual cost and the ad revenue needed to cover it — honest math, no promises.
-- [Repurposing Planner](repurpose.html) — Turn one idea into a 5-platform mission-card checklist from the Phase 3 repurposing SOP.
-- [Empire Simulator](simulator.html) — Simulate 12–36 months of channel growth + revenue — the 10 real 2026 study niches (TubeAI/AIR medians + labeled RPM bands), niche/cadence/quality sliders, platform mix (Shorts/TikTok/Reels under their real 2026 rules), 12-scenario library, A/B comparison, team hiring P&L, what-if event cards, Money Map stage transitions, the “what would it take?” goal solver, live re-run, the mission-control launch sequence, and the animated watch-the-empire-build chart with milestone celebrations + kind reality checks — a model, not a prediction.
-- [API Explorer](api-explorer.html) — Browse every api/v1 endpoint and preview JSON responses live in your browser — no key, no server.
-- [Hook Builder](hook-builder.html) — Type your video topic, get five filmed-ready hooks — one per Short-Form Playbook structure. Flip-through cards.
-- [Idea Bank](idea-bank.html) — Capture ideas with hook-strength scores (1–5, Playbook structures), niche tags, and effort estimates — promote the best to production.
-- [90-Day Content Calendar](content-calendar.html) — Deal your idea bank into a 90-day grid: week-planner dealing rules, drag/keyboard moves, sponsor slots, copy-my-calendar export.
-- [Batching Planner](batching.html) — Film-day math: does your shoot capacity actually cover your cadence? Honest surplus/shortfall, consistency-beats-volume framing.
-- [The Money Map](money-map.html) — Find your stage on the $0-to-company journey — now a playable climb: 7 questions, 5 stage playbooks, checkable missions that earn XP toward Field Manual ranks (Recruit → General). Ranks track work done, never income promises.
-- [Diagnose My Video](video-doctor.html) — Pick your symptom — low CTR, the 30-second cliff, great retention but no subs — and get ranked causes with the fix from the chapter that owns it.
-- [YPP 2027 Eligibility Checker](ypp-checker.html) — Enter your subs, watch hours, and Shorts views — get your verdict under the current YPP bar and the Feb-2027 bar, the gap math, and a chapter-grounded plan to close it.
-- [The Outreach Center](outreach.html) — Run your sponsor pipeline outbound: track pitches in a CRM-lite, generate honest pitch emails, quote from the 2026 rate card, and flag contract red flags before you sign.
-- [Cross-Post Optimizer](crosspost.html) — Move one clip to every platform without getting throttled: per-destination adaptation checklists (aspect, captions, hooks, CTAs, disclosure labels) under the Oct-1 originality rules.
-- [Cadence Coach](cadence.html) — How often should you actually post? Turn your honest weekly hours, formats, and platforms into a sustainable cadence — capacity math plus Oct-2026 platform realities. Consistency beats volume.
-- [Format Fit Finder](format-fit.html) — Answer six questions about your real situation — experience, hours, on-camera comfort, budget, timeline, risk — and get all 10 breakout formats ranked by fit, each with why it fits, the catch, creator-reported pay ranges, and your first 3 moves. Honest mismatch flags; never a promise.
-- [Deal Builder](deal-builder.html) — Turn deliverables into a line-item quote from the 2026 rate card — base fees, usage, whitelisting, and exclusivity stacked as separate lines — plus a ready-to-send proposal and a deal checklist built from your actual terms.
-- [The Negotiation Kit](negotiation-kit.html) — The words and the math for a live negotiation: a counter-offer builder grounded in the 2026 rate card with the typical-quote evidence shown (reported vs modeled, kept apart), six ready-to-send reply scripts — the counter, the lowball, exposure-only, usage rights, whitelisting, late payment — each editable in place, and a walk-away panel tied to your own Deal Room pipeline numbers.
-- [Rate Card Builder](rate-card-builder.html) — Your rate card, built in the open: pick your platform, follower band, and primary format — every format row prices itself from a named benchmark in the 2026 rate card with its reasoning printed beside the number, usage and whitelisting stacked as separate lines, the reported typical-quote evidence kept apart, and the newest Algorithm Watch changes for your platform printed under the card. Where the data carries no benchmark for a platform or format, the row says so instead of borrowing one.
-- [Negotiation Script Builder](negotiation-script-builder.html) — The whole reply, word for word: pick one scenario the Negotiation Kit and Deal Room scripts actually cover — brand lowball, unpaid usage grab, exclusivity lock-in, late payment — add your numbers from the rate-card data, and get an opener, an anchor, a three-step concession ladder, and a walk-away line, every line naming the repo script it was assembled from. Scenarios with no repo script behind them are excluded with the reason stated, never improvised.
-- [Deal Pipeline](deal-pipeline.html) — Your live sponsorship deals on one board — lead, negotiating, terms set, live, invoiced, paid. Every deal is priced by the Rate Card Builder on its named benchmarks with the provenance carried along, its current Negotiation Script Builder script sits one click away, follow-up nudges come from stage age alone, and the totals are arithmetic on the deals you actually enter: an empty board is empty, and demo deals stay labeled DEMO and out of the totals.
-- [Follow-Through Queue](follow-through.html) — The Deal Pipeline's follow-ups, assembled into today's send list: urgent first, then most overdue, each item carrying its stage-age nudge action and its Negotiation Script Builder script ready to copy, plus one copyable brief for the whole queue. It reads the same board the Deal Pipeline writes and adds no numbers, no wording, and no thresholds of its own — an empty board and a board with nothing due are different states, and the queue says which.
-- [Repeat Sponsor Book](repeat-sponsor-book.html) — The board's paid deals, held as the re-approach book every other money tool drops: longest since payment first, each brand's entered paid amount set against the current rate card the Rate Card Builder builds for the same deal through the Deal Pipeline, with its provenance printed, plus one copyable book for the whole list. It reads the same board the Deal Pipeline writes and adds no pricing, no thresholds, and no renewal-due date of its own — and it attaches no pitch wording, because no template in the repo describes a pitch to a brand that already paid. An empty board, a board with no paid deals yet, and a demo-only board are different states, and the book says which.
-- [Sponsor Income Ledger](sponsor-income-ledger.html) — The board's paid deals as a month-by-month ledger — the collected money broken open instead of left as one lump total: each paid deal grouped under the month it entered the paid stage, a running cumulative, per-brand totals with each brand's share of collected, and per-platform totals, plus one copyable ledger for the whole record. It reads the same board the Deal Pipeline writes and adds no pricing, no rate card, and no thresholds of its own — its only arithmetic is summing and grouping the entered amounts, and its months are stage-entry months, never claimed clearing or payout dates. An empty board, a board with no paid deals yet, and a demo-only board are different states, and the ledger says which.
-- [Receivables Register](receivables-register.html) — The board's invoiced deals as one register of money owed — the list behind the Deal Pipeline's invoiced-outstanding lump: every invoiced deal, fresh ones included, longest outstanding first, each with the amount owed, the date it entered the invoiced stage, its days outstanding, and its late-payment script from the Negotiation Script Builder through the board, plus one copyable register for the whole record. It reads the same board the Deal Pipeline writes and adds no pricing, no wording, and no thresholds of its own — it deliberately does not gate on the follow-up thresholds the Follow-Through Queue owns, because a register's job is completeness. An empty board, a board with nothing invoiced yet, and a demo-only board are different states, and the register says which.
-- [Brand Ledger](brand-ledger.html) — Every brand on the board as one relationship total — the question no stage-filtered tool answers: for each brand, how much business is there in total across the whole board, how much of it has been collected, how much is owed, and how much is still open, and which brands the whole pipeline rides on. Each brand carries its total, its collected (paid-stage) sum, its owed (invoiced-stage) sum, its still-open sum (lead, negotiating, terms set, live), its deal and stage counts, its platforms, and its share of the Deal Pipeline's pipeline value, largest relationship first, plus one copyable ledger for the whole record. It reads the same board the Deal Pipeline writes and adds no pricing, no wording, and no thresholds of its own — its only arithmetic is summing and grouping the entered amounts by brand and stage, and a brand total is a sum of current-stage amounts, never claimed as a relationship history or lifetime value. An empty board and a demo-only board are different states, and the ledger says which.
-- [Platform Ledger](platform-ledger.html) — Every platform on the board as one total — the question no whole-board tool answers: for each platform, how much business is there in total across every stage, how much of it has been collected, how much is owed, and how much is still open, and which platform the whole pipeline rides on. Each platform carries its total, its collected (paid-stage) sum, its owed (invoiced-stage) sum, its still-open sum (lead, negotiating, terms set, live), its deal and stage counts, its brands, and its share of the Deal Pipeline's pipeline value, largest total first, plus one copyable ledger for the whole record. It reads the same board the Deal Pipeline writes and adds no pricing, no wording, and no thresholds of its own — its only arithmetic is summing and grouping the entered amounts by platform and stage, and a platform total is a sum of current-stage amounts, never claimed as a platform history. An empty board and a demo-only board are different states, and the ledger says which.
-- [Saved Shelf](saved-shelf.html) — Your saved tools, held as one shelf — the favourites pattern the hub never had: save any tool from its own page and it waits here, in the order you saved it, one tap back and one tap to remove, plus one copyable list for the whole shelf. The catalogue is the hub's own committed tool records; the saved set is yours alone, stored only in this browser, never sent anywhere. There is deliberately no most-saved ranking — that signal needs usage collected across visitors, and this site collects none. A saved tool the catalogue no longer lists is counted apart as stale and never rendered as a tool; a shelf with nothing saved yet and a shelf whose saves are all stale are different states, and the shelf says which.
+- [Niche Picker](quiz.html), Answer 6 questions, get ranked niche suggestions with reasoning, or take the 4-question "Pick my 2027 niche" branch, scored against the Niche Atlas 2027 outlook layer.
+- [Revenue Calculator](calculator.html), Project revenue from views, niche, sponsors, and affiliates, with honest ranges.
+- [90-Day Planner](planner.html), Generate a posting schedule from your platforms and cadence. Printable.
+- [The Deal Analyzer](deal-analyzer.html), Paste the brand's terms, rate-card verdict with platform multipliers + niche adjustment, the wave-22 contract checklist applied to the deal, counter-offer calculator, 2026 usage-rights add-on math, deal history + comparison mode.
+- [The Deal Room](deal-room.html), Deal Room 2.0, manage the whole deal: niche-adjusted rate-card scoring, pipeline totals, the full 2026 rate card with real quoted prices, the Algorithm Watch digest, usage pricing, scripts, export your memo.
+- [Hiring Cost Calculator](hiring-calculator.html), Price your first hire: monthly/annual cost and the ad revenue needed to cover it, honest math, no promises.
+- [Repurposing Planner](repurpose.html), Turn one idea into a 5-platform mission-card checklist from the Phase 3 repurposing SOP.
+- [Empire Simulator](simulator.html), Simulate 12–36 months of channel growth + revenue, the 10 real 2026 study niches (TubeAI/AIR medians + labeled RPM bands), niche/cadence/quality sliders, platform mix (Shorts/TikTok/Reels under their real 2026 rules), 12-scenario library, A/B comparison, team hiring P&L, what-if event cards, Money Map stage transitions, the “what would it take?” goal solver, live re-run, the mission-control launch sequence, and the animated watch-the-empire-build chart with milestone celebrations + kind reality checks, a model, not a prediction.
+- [API Explorer](api-explorer.html), Browse every api/v1 endpoint and preview JSON responses live in your browser, no key, no server.
+- [Hook Builder](hook-builder.html), Type your video topic, get five filmed-ready hooks, one per Short-Form Playbook structure. Flip-through cards.
+- [Idea Bank](idea-bank.html), Capture ideas with hook-strength scores (1–5, Playbook structures), niche tags, and effort estimates, promote the best to production.
+- [90-Day Content Calendar](content-calendar.html), Deal your idea bank into a 90-day grid: week-planner dealing rules, drag/keyboard moves, sponsor slots, copy-my-calendar export.
+- [Batching Planner](batching.html), Film-day math: does your shoot capacity actually cover your cadence? Honest surplus/shortfall, consistency-beats-volume framing.
+- [The Money Map](money-map.html), Find your stage on the $0-to-company journey, now a playable climb: 7 questions, 5 stage playbooks, checkable missions that earn XP toward Field Manual ranks (Recruit → General). Ranks track work done, never income promises.
+- [Diagnose My Video](video-doctor.html), Pick your symptom, low CTR, the 30-second cliff, great retention but no subs, and get ranked causes with the fix from the chapter that owns it.
+- [YPP 2027 Eligibility Checker](ypp-checker.html), Enter your subs, watch hours, and Shorts views, get your verdict under the current YPP bar and the Feb-2027 bar, the gap math, and a chapter-grounded plan to close it.
+- [The Outreach Center](outreach.html), Run your sponsor pipeline outbound: track pitches in a CRM-lite, generate honest pitch emails, quote from the 2026 rate card, and flag contract red flags before you sign.
+- [Cross-Post Optimizer](crosspost.html), Move one clip to every platform without getting throttled: per-destination adaptation checklists (aspect, captions, hooks, CTAs, disclosure labels) under the Oct-1 originality rules.
+- [Cadence Coach](cadence.html), How often should you actually post? Turn your honest weekly hours, formats, and platforms into a sustainable cadence, capacity math plus Oct-2026 platform realities. Consistency beats volume.
+- [Format Fit Finder](format-fit.html), Answer six questions about your real situation, experience, hours, on-camera comfort, budget, timeline, risk, and get all 10 breakout formats ranked by fit, each with why it fits, the catch, creator-reported pay ranges, and your first 3 moves. Honest mismatch flags; never a promise.
+- [Deal Builder](deal-builder.html), Turn deliverables into a line-item quote from the 2026 rate card, base fees, usage, whitelisting, and exclusivity stacked as separate lines, plus a ready-to-send proposal and a deal checklist built from your actual terms.
+- [The Negotiation Kit](negotiation-kit.html), The words and the math for a live negotiation: a counter-offer builder grounded in the 2026 rate card with the typical-quote evidence shown (reported vs modeled, kept apart), six ready-to-send reply scripts, the counter, the lowball, exposure-only, usage rights, whitelisting, late payment, each editable in place, and a walk-away panel tied to your own Deal Room pipeline numbers.
+- [Rate Card Builder](rate-card-builder.html), Your rate card, built in the open: pick your platform, follower band, and primary format, every format row prices itself from a named benchmark in the 2026 rate card with its reasoning printed beside the number, usage and whitelisting stacked as separate lines, the reported typical-quote evidence kept apart, and the newest Algorithm Watch changes for your platform printed under the card. Where the data carries no benchmark for a platform or format, the row says so instead of borrowing one.
+- [Negotiation Script Builder](negotiation-script-builder.html), The whole reply, word for word: pick one scenario the Negotiation Kit and Deal Room scripts actually cover, brand lowball, unpaid usage grab, exclusivity lock-in, late payment, add your numbers from the rate-card data, and get an opener, an anchor, a three-step concession ladder, and a walk-away line, every line naming the repo script it was assembled from. Scenarios with no repo script behind them are excluded with the reason stated, never improvised.
+- [Deal Pipeline](deal-pipeline.html), Your live sponsorship deals on one board, lead, negotiating, terms set, live, invoiced, paid. Every deal is priced by the Rate Card Builder on its named benchmarks with the provenance carried along, its current Negotiation Script Builder script sits one click away, follow-up nudges come from stage age alone, and the totals are arithmetic on the deals you actually enter: an empty board is empty, and demo deals stay labeled DEMO and out of the totals.
+- [Follow-Through Queue](follow-through.html), The Deal Pipeline's follow-ups, assembled into today's send list: urgent first, then most overdue, each item carrying its stage-age nudge action and its Negotiation Script Builder script ready to copy, plus one copyable brief for the whole queue. It reads the same board the Deal Pipeline writes and adds no numbers, no wording, and no thresholds of its own, an empty board and a board with nothing due are different states, and the queue says which.
+- [Repeat Sponsor Book](repeat-sponsor-book.html), The board's paid deals, held as the re-approach book every other money tool drops: longest since payment first, each brand's entered paid amount set against the current rate card the Rate Card Builder builds for the same deal through the Deal Pipeline, with its provenance printed, plus one copyable book for the whole list. It reads the same board the Deal Pipeline writes and adds no pricing, no thresholds, and no renewal-due date of its own, and it attaches no pitch wording, because no template in the repo describes a pitch to a brand that already paid. An empty board, a board with no paid deals yet, and a demo-only board are different states, and the book says which.
+- [Sponsor Income Ledger](sponsor-income-ledger.html), The board's paid deals as a month-by-month ledger, the collected money broken open instead of left as one lump total: each paid deal grouped under the month it entered the paid stage, a running cumulative, per-brand totals with each brand's share of collected, and per-platform totals, plus one copyable ledger for the whole record. It reads the same board the Deal Pipeline writes and adds no pricing, no rate card, and no thresholds of its own, its only arithmetic is summing and grouping the entered amounts, and its months are stage-entry months, never claimed clearing or payout dates. An empty board, a board with no paid deals yet, and a demo-only board are different states, and the ledger says which.
+- [Receivables Register](receivables-register.html), The board's invoiced deals as one register of money owed, the list behind the Deal Pipeline's invoiced-outstanding lump: every invoiced deal, fresh ones included, longest outstanding first, each with the amount owed, the date it entered the invoiced stage, its days outstanding, and its late-payment script from the Negotiation Script Builder through the board, plus one copyable register for the whole record. It reads the same board the Deal Pipeline writes and adds no pricing, no wording, and no thresholds of its own, it deliberately does not gate on the follow-up thresholds the Follow-Through Queue owns, because a register's job is completeness. An empty board, a board with nothing invoiced yet, and a demo-only board are different states, and the register says which.
+- [Brand Ledger](brand-ledger.html), Every brand on the board as one relationship total, the question no stage-filtered tool answers: for each brand, how much business is there in total across the whole board, how much of it has been collected, how much is owed, and how much is still open, and which brands the whole pipeline rides on. Each brand carries its total, its collected (paid-stage) sum, its owed (invoiced-stage) sum, its still-open sum (lead, negotiating, terms set, live), its deal and stage counts, its platforms, and its share of the Deal Pipeline's pipeline value, largest relationship first, plus one copyable ledger for the whole record. It reads the same board the Deal Pipeline writes and adds no pricing, no wording, and no thresholds of its own, its only arithmetic is summing and grouping the entered amounts by brand and stage, and a brand total is a sum of current-stage amounts, never claimed as a relationship history or lifetime value. An empty board and a demo-only board are different states, and the ledger says which.
+- [Platform Ledger](platform-ledger.html), Every platform on the board as one total, the question no whole-board tool answers: for each platform, how much business is there in total across every stage, how much of it has been collected, how much is owed, and how much is still open, and which platform the whole pipeline rides on. Each platform carries its total, its collected (paid-stage) sum, its owed (invoiced-stage) sum, its still-open sum (lead, negotiating, terms set, live), its deal and stage counts, its brands, and its share of the Deal Pipeline's pipeline value, largest total first, plus one copyable ledger for the whole record. It reads the same board the Deal Pipeline writes and adds no pricing, no wording, and no thresholds of its own, its only arithmetic is summing and grouping the entered amounts by platform and stage, and a platform total is a sum of current-stage amounts, never claimed as a platform history. An empty board and a demo-only board are different states, and the ledger says which.
+- [Saved Shelf](saved-shelf.html), Your saved tools, held as one shelf, the favourites pattern the hub never had: save any tool from its own page and it waits here, in the order you saved it, one tap back and one tap to remove, plus one copyable list for the whole shelf. The catalogue is the hub's own committed tool records; the saved set is yours alone, stored only in this browser, never sent anywhere. There is deliberately no most-saved ranking, that signal needs usage collected across visitors, and this site collects none. A saved tool the catalogue no longer lists is counted apart as stale and never rendered as a tool; a shelf with nothing saved yet and a shelf whose saves are all stale are different states, and the shelf says which.
 - [Glossary](glossary.html)
 
 All thirty-two tools, grouped by job (Plan / Money / Content): [Tools hub](tools.html).
 
 ## Reference
-- [Reference: 2026 Rate Card](rate-card.html) — 5 min read
-- [Reference: The Niche Atlas](niche-atlas.html) — 14 min read
-- [Reference: The Metrics Glossary](metrics-glossary.html) — 9 min read
-- [Reference: The 2026 Platform Rules Bible](platform-rules-bible.html) — 43 min read
-- [Reference: The 2026 Breakout-Format Intel](breakout-format-intel.html) — 33 min read
-- [Reference: The 2026 Sponsor Playbook](sponsor-playbook.html) — 30 min read
+- [Reference: 2026 Rate Card](rate-card.html), 5 min read
+- [Reference: The Niche Atlas](niche-atlas.html), 14 min read
+- [Reference: The Metrics Glossary](metrics-glossary.html), 9 min read
+- [Reference: The 2026 Platform Rules Bible](platform-rules-bible.html), 43 min read
+- [Reference: The 2026 Breakout-Format Intel](breakout-format-intel.html), 33 min read
+- [Reference: The 2026 Sponsor Playbook](sponsor-playbook.html), 30 min read
 
-## Case Files — documented creator-business deconstructions
-- [Case File: The Budget-Grocery Newsletter](case-budget-grocery.html) — 3 min read
-- [Case File: Ben's Bites](case-bens-bites.html) — 4 min read
-- [Case File: The Sleep-Channel Network](case-sleep-channels.html) — 4 min read
-- [Case File: Mavwicks on TikTok Shop](case-mavwicks.html) — 4 min read
-- [Case File: The Cohort Course](case-ptya.html) — 4 min read
-- [Case File: The Poly Couple](case-poly-couple.html) — 6 min read
-- [Case File: Gibi ASMR](case-gibi-asmr.html) — 6 min read
-- [Case File: The Clipping Squeeze](case-clippers-squeeze.html) — 6 min read
-- [Case File: The Monthly Floor](case-shorts-floor.html) — 6 min read
-- [All case files — index + comparison table](case-files.html)
-- data/v1/case-files.json — machine-readable case-file index
+## Case Files, documented creator-business deconstructions
+- [Case File: The Budget-Grocery Newsletter](case-budget-grocery.html), 3 min read
+- [Case File: Ben's Bites](case-bens-bites.html), 4 min read
+- [Case File: The Sleep-Channel Network](case-sleep-channels.html), 4 min read
+- [Case File: Mavwicks on TikTok Shop](case-mavwicks.html), 4 min read
+- [Case File: The Cohort Course](case-ptya.html), 4 min read
+- [Case File: The Poly Couple](case-poly-couple.html), 6 min read
+- [Case File: Gibi ASMR](case-gibi-asmr.html), 6 min read
+- [Case File: The Clipping Squeeze](case-clippers-squeeze.html), 6 min read
+- [Case File: The Monthly Floor](case-shorts-floor.html), 6 min read
+- [All case files, index + comparison table](case-files.html)
+- data/v1/case-files.json, machine-readable case-file index
 
 ## Guides & Playbooks
-- [Guide: The First Hire](hiring.html) — 14 min read
-- [Playbook: The Short-Form Playbook](shortform-playbook.html) — 15 min read
+- [Guide: The First Hire](hiring.html), 14 min read
+- [Playbook: The Short-Form Playbook](shortform-playbook.html), 15 min read
 
 ## API
-- data/v1/index.json — self-describing manifest: every endpoint, schema URL, updated timestamp, record counts
+- data/v1/index.json, self-describing manifest: every endpoint, schema URL, updated timestamp, record counts
 - data/v1/chapters.json
-- data/v1/niches.json — the Niche Atlas dataset v2.1.0: 20 researched niches, 2027 outlook layer (trajectory badges, breakout spotlights, platform signals, stream-fit matrix), ten breakout-format dossiers, avoid list, sources, reality check
+- data/v1/niches.json, the Niche Atlas dataset v2.1.0: 20 researched niches, 2027 outlook layer (trajectory badges, breakout spotlights, platform signals, stream-fit matrix), ten breakout-format dossiers, avoid list, sources, reality check
 - data/v1/glossary.json
 - data/v1/calculators.json
 - data/v1/skills.json
 - data/v1/case-files.json
-- data/v1/tools.json — every tool's programmatic input schema
-- data/v1/deal-templates.json — Deal Room data: negotiation scripts, red-flag checklist, usage-rights tiers, pitch templates, contract red-flag checklist, negotiation-kit reply scripts
-- data/v1/content-engine.json — Content Engine data: idea formats, Playbook hook structures, dealing rules, Repurposing 2.0 map, originality guardrails, deal-slot guidance
-- data/v1/changes.json — Algorithm Watch feed: dated algorithm/policy/monetization changes with sources + confidence flags (verified/single-source); live at /api/changes
-- what-changed.html — Algorithm Watch 'what changed' feed page: pre-rendered from data/v1/changes.json, live-updated from /api/changes when reachable (status badge reports live/cached honestly)
-- data/v1/schema/ — JSON Schema (draft-07) for every endpoint
+- data/v1/tools.json, every tool's programmatic input schema
+- data/v1/deal-templates.json, Deal Room data: negotiation scripts, red-flag checklist, usage-rights tiers, pitch templates, contract red-flag checklist, negotiation-kit reply scripts
+- data/v1/content-engine.json, Content Engine data: idea formats, Playbook hook structures, dealing rules, Repurposing 2.0 map, originality guardrails, deal-slot guidance
+- data/v1/changes.json, Algorithm Watch feed: dated algorithm/policy/monetization changes with sources + confidence flags (verified/single-source); live at /api/changes
+- what-changed.html, Algorithm Watch 'what changed' feed page: pre-rendered from data/v1/changes.json, live-updated from /api/changes when reachable (status badge reports live/cached honestly)
+- data/v1/schema/, JSON Schema (draft-07) for every endpoint
 
 ## Agents
-- AGENT.md — how an agent uses this site: base URL pattern, example requests, 14 end-to-end workflows, tool input schemas
-- [Agents](agents.html) — the agent surface: endpoint table, all skills, data freshness policy, 7 worked agent workflows
-- [API Explorer](api-explorer.html) — browse api/v1 endpoints, preview JSON in-browser
-- llms.txt (this file) — quick agent orientation
-- llms-full.txt — complete guide text, all chapters + reference + guides + agents
+- AGENT.md, how an agent uses this site: base URL pattern, example requests, 14 end-to-end workflows, tool input schemas
+- [Agents](agents.html), the agent surface: endpoint table, all skills, data freshness policy, 7 worked agent workflows
+- [API Explorer](api-explorer.html), browse api/v1 endpoints, preview JSON in-browser
+- llms.txt (this file), quick agent orientation
+- llms-full.txt, complete guide text, all chapters + reference + guides + agents
 
 ## Skills
-- analytics-review: Run the monthly analytics ritual — find outliers, diagnose retention, and decide what to make more of.
+- analytics-review: Run the monthly analytics ritual, find outliers, diagnose retention, and decide what to make more of.
 - content-repurposing: Turn one long-form video into a five-platform distribution package with the pillar-to-everywhere SOP.
-- deal-negotiation: Evaluate a sponsorship offer against the 2026 rate card — benchmark the price, flag contract traps, and build a defensible counter-offer.
-- first-hire-planner: Plan a creator's first hire end to end — bottleneck test (editor vs VA vs designer vs ops), 2026 rate ranges, coverage math via the Hiring Cost Calculator logic, the 2-week paid trial, SOP templates, and contractor-vs-employee basics. Not legal or tax advice.
-- hook-writing: Write and stress-test video hooks — the first 30 seconds (long-form) or first 2 seconds (short-form) that decide everything.
-- live-shopping-playbook: Plan a TikTok live selling session from the Phase 6 POD research — format, timing, and the unit economics of selling live.
-- niche-validation: Validate a creator niche before committing — demand, competition, monetization, and winnability scored in one pass.
-- rate-card-reader: Look up fair 2026 sponsorship price ranges for any follower tier, platform, and deliverable — straight from the site's rate-card data.
-- repurposing-sprint: Execute the 5-platform pillar-to-everywhere SOP from the Phase 3 playbook — one pillar video becomes five native posts on a staggered schedule.
-- shortform-hook-craft: Craft and stress-test short-form hooks using the five Short-Form Playbook structures — open loop, cold start, contrarian take, numbered promise, question-as-hook — with retention editing rules and the anti-hook checklist.
-- sponsorship-pitch: Build a complete sponsor outreach system — targeting, email, pricing, and negotiation for creator brand deals.
+- deal-negotiation: Evaluate a sponsorship offer against the 2026 rate card, benchmark the price, flag contract traps, and build a defensible counter-offer.
+- first-hire-planner: Plan a creator's first hire end to end, bottleneck test (editor vs VA vs designer vs ops), 2026 rate ranges, coverage math via the Hiring Cost Calculator logic, the 2-week paid trial, SOP templates, and contractor-vs-employee basics. Not legal or tax advice.
+- hook-writing: Write and stress-test video hooks, the first 30 seconds (long-form) or first 2 seconds (short-form) that decide everything.
+- live-shopping-playbook: Plan a TikTok live selling session from the Phase 6 POD research, format, timing, and the unit economics of selling live.
+- niche-validation: Validate a creator niche before committing, demand, competition, monetization, and winnability scored in one pass.
+- rate-card-reader: Look up fair 2026 sponsorship price ranges for any follower tier, platform, and deliverable, straight from the site's rate-card data.
+- repurposing-sprint: Execute the 5-platform pillar-to-everywhere SOP from the Phase 3 playbook, one pillar video becomes five native posts on a staggered schedule.
+- shortform-hook-craft: Craft and stress-test short-form hooks using the five Short-Form Playbook structures, open loop, cold start, contrarian take, numbered promise, question-as-hook, with retention editing rules and the anti-hook checklist.
+- sponsorship-pitch: Build a complete sponsor outreach system, targeting, email, pricing, and negotiation for creator brand deals.
 - thumbnail-teardown: Systematically diagnose why a thumbnail underperforms and produce a concrete redesign brief.

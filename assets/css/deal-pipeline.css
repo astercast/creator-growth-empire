@@ -1,4 +1,4 @@
-/* Deal Pipeline — board, stage columns, deal cards, nudges.
+/* Deal Pipeline, board, stage columns, deal cards, nudges.
  * Scoped to .dp-* / #deal-pipeline. */
 .dp-stamp { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; margin-bottom: 0.5rem; }
 .dp-jump { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 1rem 0 0.5rem; }

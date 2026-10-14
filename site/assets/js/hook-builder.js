@@ -1,6 +1,6 @@
 /* Hook Builder: one topic -> five filmed-ready hook variants, one per structure.
    Flip-through card deck with full keyboard support and ARIA.
-   Craft templates from the Short-Form Playbook chapter — technique, not platform data. */
+   Craft templates from the Short-Form Playbook chapter, technique, not platform data. */
 (function () {
   "use strict";
 
@@ -16,7 +16,7 @@
 
   /* One short clause of the topic for templates (first clause, ~70 chars). */
   function stub(idea) {
-    var s = String(idea).split(/[.!?;:\u2014]/)[0].trim();
+    var s = String(idea).split(/[.!?;:,]/)[0].trim();
     if (s.length > 70) s = s.slice(0, 70).trim() + "\u2026";
     return s;
   }
@@ -29,23 +29,23 @@
     {
       id: "open-loop",
       name: "The Open Loop",
-      desc: "State a payoff, withhold the answer. The brain hates unfinished patterns — the loop closes only if they keep watching.",
-      formula: "I [did X] \u2014 and [surprising result] is at the end.",
+      desc: "State a payoff, withhold the answer. The brain hates unfinished patterns, the loop closes only if they keep watching.",
+      formula: "I [did X]: and [surprising result] is at the end.",
       variant: function (t, s) {
-        return "\u201CI tried " + lowerFirst(s) + " \u2014 and one result broke the experiment. Watch to the end.\u201D";
+        return "\u201CI tried " + lowerFirst(s) + ": and one result broke the experiment. Watch to the end.\u201D";
       },
-      example: "\u201CI posted at 3am for 30 days \u2014 one video broke the experiment.\u201D",
+      example: "\u201CI posted at 3am for 30 days. one video broke the experiment.\u201D",
       tip: "Be specific about the payoff and vague about the answer. \u201CSomething amazing happened\u201D is noise; \u201Cone thing changed my channel\u201D is a loop."
     },
     {
       id: "cold-start",
       name: "The Cold Start",
       desc: "Begin mid-action: hands already moving, the result already on screen, you mid-sentence. No logo, no \u201Chey guys welcome back.\u201D",
-      formula: "[Mid-action, already talking:] Forget the intro \u2014 [topic].",
+      formula: "[Mid-action, already talking:] Forget the intro, [topic].",
       variant: function (t, s) {
-        return "\u201CForget the intro \u2014 " + lowerFirst(s) + ". Watch this.\u201D";
+        return "\u201CForget the intro: " + lowerFirst(s) + ". Watch this.\u201D";
       },
-      example: "\u201CForget the intro \u2014 this $30 mic beat the $300 one. Listen.\u201D",
+      example: "\u201CForget the intro: this $30 mic beat the $300 one. Listen.\u201D",
       tip: "Film the hook last if you have to: shoot the most visual 3 seconds of the video, then put it first."
     },
     {
@@ -63,12 +63,12 @@
       id: "numbered",
       name: "The Numbered Promise",
       desc: "A numbered list is a micro-series inside one video: each item is a mini-payoff and the finale is a second hook. Strongest for how-to and educational content.",
-      formula: "3 [things/mistakes] about [X] \u2014 #2 is the one that matters.",
+      formula: "3 [things/mistakes] about [X], #2 is the one that matters.",
       variant: function (t, s) {
-        return "\u201C3 mistakes that are killing your " + lowerFirst(s) + " \u2014 #2 is why you're stuck.\u201D";
+        return "\u201C3 mistakes that are killing your " + lowerFirst(s) + ": #2 is why you're stuck.\u201D";
       },
-      example: "\u201C3 mistakes killing your retention \u2014 #2 is why you're stuck.\u201D",
-      tip: "Actually rank them. If #2 isn't the strongest item, the structure collapses \u2014 put your best payoff in the promised slot."
+      example: "\u201C3 mistakes killing your retention, #2 is why you're stuck.\u201D",
+      tip: "Actually rank them. If #2 isn't the strongest item, the structure collapses. put your best payoff in the promised slot."
     },
     {
       id: "question",
@@ -160,7 +160,7 @@
       card.setAttribute("aria-label", (idx + 1) + " of " + STRUCTURES.length);
       if (idx !== 0) card.hidden = true;
       card.innerHTML =
-        '<p class="hb-kicker">Structure ' + (idx + 1) + " of " + STRUCTURES.length + " \u2014 " + esc(st.name) + "</p>" +
+        '<p class="hb-kicker">Structure ' + (idx + 1) + " of " + STRUCTURES.length + ": " + esc(st.name) + "</p>" +
         "<h3>" + esc(st.name) + "</h3>" +
         '<p class="hb-desc">' + esc(st.desc) + "</p>" +
         '<blockquote class="hb-variant"><span class="hb-variant-label">Your hook:</span> ' + esc(st.variant(topic, s)) + "</blockquote>" +

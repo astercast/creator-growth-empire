@@ -1,4 +1,4 @@
-/* Components — the Field Manual kit (wave 29).
+/* Components, the Field Manual kit (wave 29).
    Chits, XP meters, HUD panels, stat callouts, briefing heroes, tags,
    checklists with CLEARED stamps, calculator readouts, mission cards. */
 
@@ -295,12 +295,12 @@ output { font-family: var(--font-mono); color: var(--cyan); font-weight: 700; fo
 #sim-output h3 { margin-top: 1.8rem; }
 
 /* form sections get a quiet accent when the user is working inside them.
- * :focus-visible, not bare :focus — keyboard users get the ring. */
+ * :focus-visible, not bare :focus, keyboard users get the ring. */
 fieldset.hud-panel:has(select:focus-visible, input:focus-visible, textarea:focus-visible) {
   border-color: var(--gold);
 }
 
-/* numbered section eyebrows — dashboard architecture for long reports */
+/* numbered section eyebrows, dashboard architecture for long reports */
 .eyebrow {
   font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.14em;
   text-transform: uppercase; color: var(--gold); margin: 2rem 0 -0.4rem;
@@ -316,7 +316,7 @@ fieldset.hud-panel:has(select:focus-visible, input:focus-visible, textarea:focus
 .goal-out { margin-top: 1rem; }
 
 /* ---- view transitions (wave 26, tokens re-mapped; rotation 14:
-   aligned to Fleet Commons canonical v1.0.0 — the guard is the
+   aligned to Fleet Commons canonical v1.0.0, the guard is the
    pattern, so the root shaping moved inside the no-preference
    guard with the @view-transition rule; reduced-motion visitors
    get no transition at all. Shape stays this site's own tokens.
@@ -673,3 +673,16 @@ input[type="range"] { min-height: 2.75rem; }
   .hud-body { padding: 1.2rem 1rem 1.4rem; }
   .chapter-hero { margin: 0 -1rem 2rem; padding: 2.6rem 1rem 2rem; }
 }
+
+/* ---- rotation 22: the lesson spec block (before the prose) ---- */
+.lesson-spec { border: 1px solid var(--line); border-left: 3px solid var(--gold, #c9a227);
+  padding: .9rem 1rem; margin: 1.2rem 0 1.6rem; background: var(--bg-2); }
+.lesson-spec h2 { font-size: 1.05rem; margin: 0 0 .6rem; }
+.ls-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr)); gap: .5rem 1.2rem; margin: 0; }
+.ls-grid dt { font-size: .78rem; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+.ls-grid dd { margin: .1rem 0 0; font-weight: 600; }
+.ls-block { margin-top: .8rem; }
+.ls-block h3 { font-size: .95rem; margin: 0 0 .3rem; }
+.ls-block ul, .ls-block ol { margin: 0; padding-left: 1.2rem; }
+.lesson-conclusion { border-top: 1px solid var(--line); padding-top: .8rem; margin-top: 2rem; }
+@media (max-width: 560px) { .ls-grid { grid-template-columns: 1fr 1fr; } }

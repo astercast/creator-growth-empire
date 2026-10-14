@@ -1,4 +1,4 @@
-/* The Empire Simulator — mission-control launch sequence (wow wave 1).
+/* The Empire Simulator, mission-control launch sequence (wow wave 1).
  * UMD: the pure helpers (preflight, countdown, telemetry, debrief) are
  * node-testable; the DOM sequence auto-inits in the browser.
  *
@@ -43,8 +43,8 @@
         label: "2026 rate data link",
         ok: !!cfgState.loaded,
         detail: cfgState.loaded
-          ? "calculators.json live \u2014 RPM bands, rate card, thresholds"
-          : "Rate data still loading \u2014 hold and retry in a few seconds" },
+          ? "calculators.json live: RPM bands, rate card, thresholds"
+          : "Rate data still loading, hold and retry in a few seconds" },
       { id: "inputs",
         label: "Starting position sane",
         ok: !!inputsOk,
@@ -52,19 +52,19 @@
           ? Math.round(inputs.growthRate * 100) + "% base growth \u00b7 " +
             inputs.horizon + "-month horizon \u00b7 " +
             inputs.longformPerWeek + " long + " + inputs.shortsPerWeek + " shorts/wk"
-          : "An input is outside the model's bounds \u2014 check growth (1\u201340%), horizon, and cadence" },
+          : "An input is outside the model's bounds: check growth (1–40%), horizon, and cadence" },
       { id: "streams",
         label: "Revenue streams armed",
         ok: streamsOn.length > 0,
         detail: streamsOn.length > 0
           ? streamsOn.length + " of 4 streams armed (" + streamsOn.join(", ") + ")"
-          : "No revenue stream is armed \u2014 the model would project zeros" },
+          : "No revenue stream is armed, the model would project zeros" },
       { id: "engine",
         label: "Model engine ready",
         ok: !!cfgState.engineReady,
         detail: cfgState.engineReady
-          ? "EmpireSim engine loaded \u2014 deterministic, no viral lottery"
-          : "Engine not loaded \u2014 reload the page" }
+          ? "EmpireSim engine loaded: deterministic, no viral lottery"
+          : "Engine not loaded, reload the page" }
     ];
   }
 
@@ -110,15 +110,15 @@
     var endStageName = stageNames ? stageNames[res.endStage] : ("Stage " + res.endStage);
     return {
       kicker: "FIELD MANUAL // AFTER-ACTION",
-      title: "MISSION LOGGED \u2014 " + N + "-month projection complete",
+      title: "MISSION LOGGED: " + N + "-month projection complete",
       scenario: scenarioName || "Custom settings",
       stats: [
         { label: "End-of-run subs", value: fmtCompact(res.endSubs) },
         { label: "Net revenue", value: fmtMoney(res.totals.net) },
         { label: "Best month", value: fmtMoney(best.total) + " (M" + best.month + ")" },
-        { label: "End stage", value: "Stage " + res.endStage + " \u2014 " + endStageName }
+        { label: "End stage", value: "Stage " + res.endStage + " · " + endStageName }
       ],
-      xpLine: "+" + MISSION_XP + " XP \u2014 MISSION LOGGED \u00b7 recorded in your Empire Climb journal",
+      xpLine: "+" + MISSION_XP + " XP: MISSION LOGGED \u00b7 recorded in your Empire Climb journal",
       honesty: "A model, not a prediction. Revenue is pre-tax and pre-reality. " +
         "Not financial, legal, or tax advice. Verify every platform number live " +
         "before making decisions."
@@ -175,7 +175,7 @@
       '<ol class="lc-checks" id="lc-checks" aria-label="Pre-flight checks"></ol>' +
       '<div class="lc-count" id="lc-count" hidden>' +
       '<div class="lc-count-num" id="lc-count-num" aria-hidden="true">T-5</div>' +
-      '<p class="muted">Countdown running \u2014 ABORT scrubs the launch before anything is computed.</p>' +
+      '<p class="muted">Countdown running: ABORT scrubs the launch before anything is computed.</p>' +
       "</div>" +
       '<div class="lc-tele" id="lc-tele" hidden>' +
       '<div class="lc-tele-grid">' +
@@ -190,7 +190,7 @@
       '<p class="muted" id="lc-t-note" role="status"></p>' +
       "</div>" +
       '<div class="lc-actions"><button type="button" class="btn btn-ghost" id="lc-abort">ABORT</button> ' +
-      '<span class="muted" style="font-size:.85rem">or press Esc \u2014 nothing is computed until liftoff.</span></div>' +
+      '<span class="muted" style="font-size:.85rem">or press Esc: nothing is computed until liftoff.</span></div>' +
       '<div id="lc-live" class="sr-only" aria-live="polite"></div>' +
       "</div>";
     out.parentNode.insertBefore(sec, out);
@@ -208,7 +208,7 @@
 
   function abort() {
     clearTimers();
-    announce("Launch scrubbed \u2014 nothing was computed.");
+    announce("Launch scrubbed: nothing was computed.");
     var sec = $("launch-console");
     if (sec && sec.parentNode) sec.parentNode.removeChild(sec);
     /* #lc-live dies with the console above, so the scrub notice would
@@ -219,7 +219,7 @@
       var note = document.createElement("p");
       note.className = "sr-only";
       note.setAttribute("role", "status");
-      note.textContent = "Launch scrubbed \u2014 nothing was computed.";
+      note.textContent = "Launch scrubbed: nothing was computed.";
       out.insertAdjacentElement("afterbegin", note);
     }
     var btn = document.querySelector('#sim-form button[type="submit"]');
@@ -232,7 +232,7 @@
     ol.innerHTML = checks.map(function (c) {
       return '<li class="lc-check ' + (c.ok ? "lc-ok" : "lc-bad") + '">' +
         '<span class="lc-check-mark" aria-hidden="true">' + (c.ok ? "\u2713" : "\u2717") + "</span>" +
-        "<span><strong>" + esc(c.label) + "</strong> \u2014 " +
+        "<span><strong>" + esc(c.label) + "</strong>: " +
         '<span class="sr-only">' + (c.ok ? "pass" : "fail") + ": </span>" +
         esc(c.detail) + "</span></li>";
     }).join("");
@@ -282,7 +282,7 @@
       fill.style.transform = "scaleX(" + ((i + 1) / N) + ")";
       bar.setAttribute("aria-valuenow", String(pct));
       if (f.stageChanged) {
-        var note = "STAGE " + f.stage + " \u2014 " +
+        var note = "STAGE " + f.stage + ": " +
           (f.stageName || "").toUpperCase();
         $("lc-t-note").textContent = note + " (month " + f.month + ")";
         announce(note);
@@ -290,7 +290,7 @@
       i++;
       if (i < N) later(frame, 90);
       else {
-        announce("Mission complete \u2014 rendering the debrief.");
+        announce("Mission complete: rendering the debrief.");
         later(done, 350);
       }
     }
@@ -303,7 +303,7 @@
       var store = window.MoneyMap.loadClimb();
       var ts = new Date().toISOString();
       var r = window.MoneyMap.awardXP(store, missionKey(ts), MISSION_XP,
-        "Mission logged \u2014 " + scenario);
+        "Mission logged: " + scenario);
       window.MoneyMap.saveClimb(store);
       return r;
     } catch (e) { return null; }
@@ -358,9 +358,9 @@
     renderChecks(checks);
     var failed = checks.filter(function (c) { return !c.ok; });
     if (failed.length) {
-      setStatus("HOLD \u2014 SCRUBBED");
+      setStatus("HOLD: SCRUBBED");
       announce("Launch scrubbed: " + failed.map(function (f) {
-        return f.label + " \u2014 " + f.detail;
+        return f.label + ": " + f.detail;
       }).join(" "));
       return true;
     }
@@ -368,9 +368,9 @@
     if (motionReduced()) {
       /* still the sequence, minus the motion: compute, render, debrief */
       var pair = ui.computeRun();
-      if (!pair) { setStatus("HOLD \u2014 SCRUBBED"); return true; }
+      if (!pair) { setStatus("HOLD: SCRUBBED"); return true; }
       /* wave-2: the launch hands off to the animated "watch the empire
-       * build" chart — the telemetry already played, this is the payoff. */
+       * build" chart, the telemetry already played, this is the payoff. */
       ui.renderRun(pair, { scroll: false, transition: false, animate: true });
       renderDebrief(pair, creditMission(ui.scenarioName()));
       var tele = $("lc-tele");
@@ -381,7 +381,7 @@
     }
     later(function () { runCountdown(function () {
       var p = ui.computeRun();
-      if (!p) { setStatus("HOLD \u2014 SCRUBBED"); return; }
+      if (!p) { setStatus("HOLD: SCRUBBED"); return; }
       runTelemetry(p, function () {
         /* transition:false: render()'s startViewTransition defers its DOM
          * swap to the next frame, which would wipe the debrief inserted
@@ -409,7 +409,7 @@
 
   /* No auto-init needed: simulator.js delegates its submit to
    * SimLaunch.interceptSubmit at event time, by which point every deferred
-   * script (sim-engine, money-map, simulator, this file — in that order)
+   * script (sim-engine, money-map, simulator, this file, in that order)
    * has executed. */
 
   return {

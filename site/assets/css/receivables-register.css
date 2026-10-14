@@ -1,4 +1,4 @@
-/* Receivables Register — register entries + export.
+/* Receivables Register, register entries + export.
  * Scoped to .rr-* / #receivables-register. */
 .rr-stamp { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; margin-bottom: 0.5rem; }
 .rr-jump { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 1rem 0 0.5rem; }

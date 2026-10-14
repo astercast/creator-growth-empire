@@ -1,18 +1,18 @@
-/* Repeat Sponsor Book — engine (UMD, importable in node for tests).
+/* Repeat Sponsor Book, engine (UMD, importable in node for tests).
  *
  * Tool 27. Every tool in the money chain drops a deal when it is
  * paid: the Deal Pipeline (Tool 25) gives the paid stage no nudge,
  * the Negotiation Script Builder (Tool 24) attaches no script to a
  * paid deal, and the Follow-Through Queue (Tool 26) never queues
- * one. This tool holds the paid deals as a group — the brands that
+ * one. This tool holds the paid deals as a group, the brands that
  * already paid are the re-approach list.
  *
  * It COMPOSES and adds nothing of its own: the board, the stage
  * ages, and the totals are the Deal Pipeline's (buildBoard); each
  * deal's current pricing is Tool 25's priceDeal output, which is
  * the Rate Card Builder's (Tool 23) card with its provenance
- * intact. The only logic here is the ordering — longest since
- * payment first — and setting the entered paid amount beside the
+ * intact. The only logic here is the ordering, longest since
+ * payment first, and setting the entered paid amount beside the
  * current card total Tool 23 builds. That ordering is NOT a
  * renewal-due claim: this repo carries no renewal-timing data, so
  * the book names no due date and invents no window.
@@ -30,7 +30,7 @@
  * An empty board, a board with no paid deals yet, and a demo-only
  * board are different states and this engine says which one it is.
  *
- * A planning aid — not financial, legal, or tax advice. */
+ * A planning aid, not financial, legal, or tax advice. */
 (function (root, factory) {
   var api = factory(root);
   if (typeof module !== "undefined" && module.exports) module.exports = api;
@@ -39,7 +39,7 @@
   "use strict";
 
   var ADVICE = "Planning aid, not financial, legal, or tax advice.";
-  var PITCH_EXCLUSION = "No repeat-sponsor pitch is attached: the repo's templates are a cold pitch (a brand that has never heard of you), a one-time follow-up nudge, and a warm intro (only when a mutual connection is real and has agreed to be named) — none describes a pitch to a brand that already paid, so none is mislabeled as one here.";
+  var PITCH_EXCLUSION = "No repeat-sponsor pitch is attached: the repo's templates are a cold pitch (a brand that has never heard of you), a one-time follow-up nudge, and a warm intro (only when a mutual connection is real and has agreed to be named), none describes a pitch to a brand that already paid, so none is mislabeled as one here.";
 
   function dep(name, file) {
     if (root && root[name]) return root[name];
@@ -51,11 +51,11 @@
   function fmt(n) { return "$" + Math.round(Number(n) || 0).toLocaleString("en-US"); }
   function fmtRange(r) {
     if (!r) return "no range";
-    return fmt(r[0]) + "\u2013" + fmt(r[1]);
+    return fmt(r[0]) + "–" + fmt(r[1]);
   }
 
   /* Where the entered paid amount sits against the current card
-   * total range Tool 23 built — a comparison of two composed
+   * total range Tool 23 built, a comparison of two composed
    * figures, not new pricing. */
   function relation(amount, totalRange) {
     if (!totalRange) return "unknown";
@@ -109,7 +109,7 @@
     };
   }
 
-  /* Build the book straight from entered deals — the board is
+  /* Build the book straight from entered deals, the board is
    * Tool 25's buildBoard with the caller's own data and clock. */
   function buildBook(deals, opts) {
     opts = opts || {};
@@ -123,18 +123,18 @@
     if (!book || !book.ok) return "";
     var out = [];
     var date = String(book.generatedFor || "").slice(0, 10);
-    out.push("REPEAT SPONSOR BOOK — " + book.paidCount + " paid brand(s), " +
+    out.push("REPEAT SPONSOR BOOK · " + book.paidCount + " paid brand(s), " +
       fmt(book.collected) + " collected" + (date ? " · " + date : ""));
     if (book.emptyBoard) {
-      out.push("No deals on the board — this book is empty because the Deal Pipeline is empty, not because no brand has paid yet.");
+      out.push("No deals on the board, this book is empty because the Deal Pipeline is empty, not because no brand has paid yet.");
     } else if (book.demoOnly) {
-      out.push("Only demo deals are on the board — demo data stays out of the real book.");
+      out.push("Only demo deals are on the board, demo data stays out of the real book.");
     } else if (book.noPaidYet) {
-      out.push("No brand has paid yet. Deals reach this book when they reach the paid stage on the Deal Pipeline — a deal still in negotiation belongs on the board and in the Follow-Through Queue, not here.");
+      out.push("No brand has paid yet. Deals reach this book when they reach the paid stage on the Deal Pipeline, a deal still in negotiation belongs on the board and in the Follow-Through Queue, not here.");
     }
     if (book.demoPaid) {
       out.push("Plus " + book.demoPaid + " DEMO paid deal(s) worth " + fmt(book.demoPaidValue) +
-        " — demo data, excluded from this book.");
+        ", demo data, excluded from this book.");
     }
     book.items.forEach(function (it, i) {
       out.push("");
@@ -142,15 +142,15 @@
         " · " + (it.paidAgeDays == null ? "?" : it.paidAgeDays) + "d since the deal entered the paid stage");
       if (it.rateCard.ok) {
         out.push("   Current card (Tool 23, from this deal's entered figures): total " +
-          fmtRange(it.rateCard.total.range) + " — the amount paid sits " + it.relation + " that range.");
+          fmtRange(it.rateCard.total.range) + ", the amount paid sits " + it.relation + " that range.");
         out.push("   " + it.rateCard.provenance);
       } else {
-        out.push("   Current card: none — " + it.rateCard.reason);
+        out.push("   Current card: none, " + it.rateCard.reason);
       }
       out.push("   Pitch: " + it.pitch.reason);
     });
     out.push("");
-    out.push(book.advice + " Order is longest since payment first — an ordering, not a renewal-due date; this book claims no renewal window. Paid deals and totals from the Deal Pipeline (Tool 25); current pricing from the Rate Card Builder (Tool 23). Amounts are the figures entered on the board.");
+    out.push(book.advice + " Order is longest since payment first, an ordering, not a renewal-due date; this book claims no renewal window. Paid deals and totals from the Deal Pipeline (Tool 25); current pricing from the Rate Card Builder (Tool 23). Amounts are the figures entered on the board.");
     return out.join("\n");
   }
 

@@ -1,6 +1,6 @@
 <div id="deal-pipeline">
-<p class="lede">Six stages — lead, negotiating, terms set, live, invoiced, paid. Every deal carries its rate-card numbers with their provenance, its current negotiation script one click away, and a follow-up nudge when it has sat in a stage too long.</p>
-<p class="muted">Pricing a card before a deal exists? The <a href="rate-card-builder.html">Rate Card Builder</a>. Working one thread's words? The <a href="negotiation-script-builder.html">Negotiation Script Builder</a>. This page is the board those two tools feed. The board's follow-ups, assembled into one send list: the <a href="follow-through.html">Follow-Through Queue</a>. The board's paid deals, held as the re-approach book: the <a href="repeat-sponsor-book.html">Repeat Sponsor Book</a>. The board's paid deals as a month-by-month ledger: the <a href="sponsor-income-ledger.html">Sponsor Income Ledger</a>. The board's invoiced deals as the register of money owed: the <a href="receivables-register.html">Receivables Register</a>. Every brand on the board as one relationship total — collected, owed, and still open per brand: the <a href="brand-ledger.html">Brand Ledger</a>. Every platform on the board as one total across every stage — collected, owed, and still open per platform: the <a href="platform-ledger.html">Platform Ledger</a>.</p>
+<p class="lede">Six stages, lead, negotiating, terms set, live, invoiced, paid. Every deal carries its rate-card numbers with their provenance, its current negotiation script one click away, and a follow-up nudge when it has sat in a stage too long.</p>
+<p class="muted">Pricing a card before a deal exists? The <a href="rate-card-builder.html">Rate Card Builder</a>. Working one thread's words? The <a href="negotiation-script-builder.html">Negotiation Script Builder</a>. This page is the board those two tools feed. The board's follow-ups, assembled into one send list: the <a href="follow-through.html">Follow-Through Queue</a>. The board's paid deals, held as the re-approach book: the <a href="repeat-sponsor-book.html">Repeat Sponsor Book</a>. The board's paid deals as a month-by-month ledger: the <a href="sponsor-income-ledger.html">Sponsor Income Ledger</a>. The board's invoiced deals as the register of money owed: the <a href="receivables-register.html">Receivables Register</a>. Every brand on the board as one relationship total, collected, owed, and still open per brand: the <a href="brand-ledger.html">Brand Ledger</a>. Every platform on the board as one total across every stage, collected, owed, and still open per platform: the <a href="platform-ledger.html">Platform Ledger</a>.</p>
 <nav class="dp-jump" aria-label="Deal Pipeline sections">
   <a href="#dp-sec-add">Add a deal</a>
   <a href="#dp-sec-board">Board</a>
@@ -9,7 +9,7 @@
 </nav>
 
 <h2 id="dp-sec-add">1 · Add a deal</h2>
-<p class="muted">Stored in this browser only (localStorage). The amount is the deal's current agreed or offered figure — totals are arithmetic on what you enter here, nothing else.</p>
+<p class="muted">Stored in this browser only (localStorage). The amount is the deal's current agreed or offered figure, totals are arithmetic on what you enter here, nothing else.</p>
 <form id="dp-form" aria-label="Add a deal to the pipeline" novalidate>
   <div class="calc-grid">
     <label>Brand <input type="text" id="dp-brand" maxlength="120" placeholder="e.g. Ridge Wallet"></label>
@@ -22,7 +22,7 @@
         <option value="invoiced">Invoiced</option>
         <option value="paid">Paid</option>
       </select></label>
-    <label>Amount ($) — agreed or offered <input type="number" id="dp-amount" min="0" step="50" value="0"></label>
+    <label>Amount ($), agreed or offered <input type="number" id="dp-amount" min="0" step="50" value="0"></label>
     <label>Entered this stage on <input type="date" id="dp-entered"></label>
     <label>Platform
       <select id="dp-platform">
@@ -65,14 +65,14 @@
       </select></label>
     <label>Paid-ad usage
       <select id="dp-usage">
-        <option value="organic_only" selected>Organic only — stays on my channel</option>
+        <option value="organic_only" selected>Organic only, stays on my channel</option>
         <option value="paid_3mo">Paid ads, 3 months</option>
         <option value="paid_6mo">Paid ads, 3–6 months</option>
         <option value="paid_12mo">Paid ads, 6–12 months</option>
         <option value="perpetual">Perpetual / unlimited</option>
       </select></label>
     <label>Whitelisting months <input type="number" id="dp-wl-months" min="0" max="24" step="1" value="0"></label>
-    <label>Negotiation scenario (optional — stage picks one otherwise)
+    <label>Negotiation scenario (optional, stage picks one otherwise)
       <select id="dp-scenario">
         <option value="" selected>Stage default</option>
         <option value="lowball">Brand lowball</option>
@@ -93,11 +93,11 @@
 <div id="dp-script" aria-live="polite"></div>
 
 <h2 id="dp-sec-nudges">3 · Follow-ups due</h2>
-<p class="muted">Derived from stage age alone — no scores, no invented close probabilities.</p>
+<p class="muted">Derived from stage age alone, no scores, no invented close probabilities.</p>
 <div id="dp-nudges" aria-live="polite"></div>
 
-<h2 id="dp-sec-export">4 · Export — the board as plaintext</h2>
+<h2 id="dp-sec-export">4 · Export: the board as plaintext</h2>
 <textarea id="dp-export" rows="14" readonly aria-label="Your deal pipeline as plaintext"></textarea>
 <p><button type="button" id="dp-copy" class="btn">Copy the board</button></p>
-<p class="muted">A planning aid, not financial, legal, or tax advice. Rates are reported 2026 ranges from the Rate Card Builder's named benchmarks — a model, not a prediction.</p>
+<p class="muted">A planning aid, not financial, legal, or tax advice. Rates are reported 2026 ranges from the Rate Card Builder's named benchmarks, a model, not a prediction.</p>
 </div>

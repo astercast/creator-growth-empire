@@ -1,4 +1,4 @@
-/* Negotiation Script Builder — page wiring. Engine does the
+/* Negotiation Script Builder, page wiring. Engine does the
  * assembly; benchmarks via window.NegotiationKit on
  * data/v1/calculators.json, scripts from data/v1/deal-templates.json.
  * Starts EMPTY: no script exists until the creator picks a scenario
@@ -38,10 +38,10 @@
       creatorFloor: Number(document.getElementById("nsb-floor").value) || 0
     };
   }
-  var STAGE = { opener: "1 · OPENER", anchor: "2 · ANCHOR — your number, with its evidence",
+  var STAGE = { opener: "1 · OPENER", anchor: "2 · ANCHOR, your number, with its evidence",
     concession: "CONCESSION LADDER", "walk-away": "FINAL · WALK-AWAY LINE" };
   function render(res) {
-    var html = "<div class=\"nsb-script-head\"><h3>Your script — " + esc(res.scenario.label) + "</h3>" +
+    var html = "<div class=\"nsb-script-head\"><h3>Your script: " + esc(res.scenario.label) + "</h3>" +
       "<p class=\"muted\">Counter " + esc(B.rangeText(res.counter.total)) + " · landing zone " +
       esc(B.rangeText(res.counter.expectedClose)) + " · walk-away " + B.fmt(res.walkAway) + " · verdict " + esc(res.counter.badge) + "</p></div>";
     var lastStage = "";
@@ -50,10 +50,10 @@
         html += "<h4 class=\"nsb-stage\">" + STAGE[l.stage] + "</h4>"; lastStage = l.stage;
       }
       html += "<blockquote class=\"nsb-line\">" + esc(l.text) + "</blockquote>" +
-        "<p class=\"muted nsb-src\">Source: " + esc(l.sources.join(" + ")) + " — " + esc(l.grounded_in) + "</p>";
+        "<p class=\"muted nsb-src\">Source: " + esc(l.sources.join(" + ")) + ", " + esc(l.grounded_in) + "</p>";
     });
     out.innerHTML = html;
-    var p = "<h4 class=\"nsb-stage\">Excluded scenarios — no repo script, no script built</h4><ul class=\"nsb-excluded\">";
+    var p = "<h4 class=\"nsb-stage\">Excluded scenarios, no repo script, no script built</h4><ul class=\"nsb-excluded\">";
     res.excluded.forEach(function (e) { p += "<li><strong>" + esc(e.label) + ".</strong> " + esc(e.reason) + "</li>"; });
     p += "</ul><p class=\"muted\">" + esc(res.disclaimer) + "</p>";
     prov.innerHTML = p;
@@ -67,7 +67,7 @@
   form.addEventListener("submit", function (ev) {
     ev.preventDefault();
     if (!DATA.calculators || !DATA.templates) {
-      errorsBox.textContent = "Data is still loading — the benchmark and script files have not arrived yet.";
+      errorsBox.textContent = "Data is still loading, the benchmark and script files have not arrived yet.";
       return;
     }
     var input = readForm();

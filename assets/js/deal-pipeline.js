@@ -1,4 +1,4 @@
-/* Deal Pipeline — engine (UMD, importable in node for tests).
+/* Deal Pipeline, engine (UMD, importable in node for tests).
  *
  * Tool 25. A working board for a creator's LIVE sponsorship deals:
  * lead -> negotiating -> terms set -> live -> invoiced -> paid.
@@ -12,12 +12,12 @@
  * assets/js/negotiation-script-builder.js) one call away, chosen by
  * stage when the creator has not picked a scenario themselves.
  *
- * Totals are arithmetic on the deals actually entered — nothing
+ * Totals are arithmetic on the deals actually entered, nothing
  * else. An empty board totals to zero and says so. Demo deals are
  * data with demo:true and a DEMO brand prefix, never mixed into a
  * real board silently: pipelineTotals counts them apart.
  *
- * A planning aid — ranges, not quotes. Not financial, legal, or
+ * A planning aid, ranges, not quotes. Not financial, legal, or
  * tax advice. */
 (function (root, factory) {
   var api = factory(root);
@@ -32,14 +32,14 @@
     live: "Live", invoiced: "Invoiced", paid: "Paid"
   };
   /* Follow-up thresholds in days-in-stage. Derived from stage age
-   * only — no invented close probabilities, no engagement scores. */
+   * only, no invented close probabilities, no engagement scores. */
   var NUDGE_DAYS = { lead: 3, negotiating: 7, terms: 5, live: 14, invoiced: 14, paid: null };
   var NUDGE_ACTIONS = {
-    lead: "Send the first follow-up — a lead this old has gone quiet.",
-    negotiating: "Nudge the thread — send your current script and name a reply date.",
-    terms: "Chase the signature — terms were set days ago and the deal is not live yet.",
-    live: "Check delivery and the invoice date — a live deal this old should be invoiced.",
-    invoiced: "Chase payment — send the late-payment script if the terms have passed.",
+    lead: "Send the first follow-up, a lead this old has gone quiet.",
+    negotiating: "Nudge the thread, send your current script and name a reply date.",
+    terms: "Chase the signature, terms were set days ago and the deal is not live yet.",
+    live: "Check delivery and the invoice date, a live deal this old should be invoiced.",
+    invoiced: "Chase payment, send the late-payment script if the terms have passed.",
     paid: ""
   };
   /* Default Tool 24 scenario per stage, used only when the deal
@@ -77,19 +77,19 @@
     if (!String(deal.brand || "").trim()) errors.push("brand is required");
     if (STAGES.indexOf(deal.stage) < 0) errors.push("stage must be one of: " + STAGES.join(", "));
     if (!(Number(deal.amount) >= 0)) errors.push("amount must be 0 or more");
-    if (deal.amount == null || deal.amount === "") errors.push("amount is required (0 is a real value — an unpaid lead)");
+    if (deal.amount == null || deal.amount === "") errors.push("amount is required (0 is a real value, an unpaid lead)");
     if (!deal.stageEnteredAt || parseDay(deal.stageEnteredAt) == null) {
       errors.push("stageEnteredAt (ISO date the deal entered its stage) is required");
     }
     if (deal.scenario && ["lowball", "usage_grab", "exclusivity_lockin", "late_payment"].indexOf(deal.scenario) < 0) {
-      errors.push("unknown scenario — pick one Tool 24 covers");
+      errors.push("unknown scenario, pick one Tool 24 covers");
     }
     return { ok: errors.length === 0, errors: errors };
   }
 
   /* Price one deal through Tool 23. Returns the primary row, the
    * card total, and the provenance exactly as the Rate Card
-   * Builder reports it — this tool adds no pricing math of its own. */
+   * Builder reports it, this tool adds no pricing math of its own. */
   function priceDeal(deal, calculators, changesFeed, rcbOpt) {
     var RCB = rcbOpt || dep("RateCardBuilder", "./rate-card-builder.js");
     if (!RCB) return { ok: false, errors: ["Rate Card Builder engine is required (assets/js/rate-card-builder.js)"] };
@@ -108,7 +108,7 @@
                  reasoning: card.primary.reasoning },
       total: card.total, addons: card.addons,
       provenance: "Priced by the Rate Card Builder (Tool 23) from " + card.primary.source +
-        " [" + card.primary.basis + "] — " + card.primary.reasoning
+        " [" + card.primary.basis + "], " + card.primary.reasoning
     };
   }
 
@@ -210,21 +210,21 @@
   function exportBoard(board) {
     if (!board || !board.ok) return "";
     var out = [];
-    out.push("DEAL PIPELINE — " + board.totals.totalDeals + " deal(s), pipeline value " +
+    out.push("DEAL PIPELINE, " + board.totals.totalDeals + " deal(s), pipeline value " +
       fmt(board.totals.pipelineValue) + " (open " + fmt(board.totals.openValue) +
       " · invoiced outstanding " + fmt(board.totals.invoicedOutstanding) +
       " · paid " + fmt(board.totals.paidTotal) + ")");
     if (board.totals.demoCount) {
       out.push("Plus " + board.totals.demoCount + " DEMO deal(s) worth " + fmt(board.totals.demoValue) +
-        " — demo data, excluded from every total above.");
+        ", demo data, excluded from every total above.");
     }
-    if (board.totals.empty) out.push("No real deals entered — this board is empty. Totals are zero because nothing has been entered, not because deals are worth zero.");
+    if (board.totals.empty) out.push("No real deals entered, this board is empty. Totals are zero because nothing has been entered, not because deals are worth zero.");
     board.stages.forEach(function (s) {
       out.push("");
       out.push(board.stageLabels[s].toUpperCase() + " (" + board.byStage[s].length + ")");
       board.byStage[s].forEach(function (e) {
         var d = e.deal;
-        out.push("- " + (d.demo ? "DEMO — " : "") + d.brand + " · " + fmt(d.amount) +
+        out.push("- " + (d.demo ? "DEMO · " : "") + d.brand + " · " + fmt(d.amount) +
           " · in stage " + (e.ageDays == null ? "?" : e.ageDays) + "d" +
           (e.rateCard && e.rateCard.ok ? " · rate card: " + e.rateCard.provenance : "") +
           (e.script && e.script.ok ? " · script: " + e.script.label : "") +
@@ -236,17 +236,17 @@
     return out.join("\n");
   }
 
-  /* Demo board — offered only behind an explicit control in the UI,
+  /* Demo board, offered only behind an explicit control in the UI,
    * every record flagged demo:true with a DEMO brand prefix, and
    * pipelineTotals keeps demo money out of the real totals. */
   var DEMO_DEALS = [
-    { id: "demo-1", demo: true, brand: "DEMO — Ridge Wallet", platform: "youtube", format: "dedicated",
+    { id: "demo-1", demo: true, brand: "DEMO · Ridge Wallet", platform: "youtube", format: "dedicated",
       followers: 50000, expectedViews: 60000, niche: "tech_software", usage: "paid_6mo", whitelistingMonths: 1,
       amount: 12000, stage: "negotiating", stageEnteredAt: "2026-10-05", scenario: "lowball" },
-    { id: "demo-2", demo: true, brand: "DEMO — Trail Snacks Co", platform: "tiktok", format: "short",
+    { id: "demo-2", demo: true, brand: "DEMO · Trail Snacks Co", platform: "tiktok", format: "short",
       followers: 50000, expectedViews: 60000, niche: "lifestyle", usage: "organic_only", whitelistingMonths: 0,
       amount: 1800, stage: "lead", stageEnteredAt: "2026-10-08" },
-    { id: "demo-3", demo: true, brand: "DEMO — Northwind VPN", platform: "youtube", format: "integrated",
+    { id: "demo-3", demo: true, brand: "DEMO · Northwind VPN", platform: "youtube", format: "integrated",
       followers: 50000, expectedViews: 60000, niche: "tech_software", usage: "paid_3mo", whitelistingMonths: 0,
       amount: 4500, stage: "invoiced", stageEnteredAt: "2026-09-20", scenario: "late_payment" }
   ];

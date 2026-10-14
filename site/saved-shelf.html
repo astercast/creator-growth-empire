@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <script>try{if(localStorage.getItem("cge.calm")==="1")document.documentElement.setAttribute("data-calm","1");}catch(e){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Saved Shelf — Creator Growth Empire</title>
+<title>Saved Shelf: Creator Growth Empire</title>
 <meta name="description" content="From $0 to a multi-million-dollar creator company.">
 <meta name="theme-color" content="#0d120d">
 <link rel="icon" href="/favicon.ico" sizes="48x48">
@@ -13,13 +13,13 @@
 <link rel="canonical" href="/saved-shelf.html">
 <!-- RELATIVE until deploy: absolutize og:image + twitter:image against the live domain at GO_LIVE (mandatory step, GO_LIVE.md) -->
 <meta property="og:type" content="website">
-<meta property="og:title" content="Saved Shelf — Creator Growth Empire">
+<meta property="og:title" content="Saved Shelf: Creator Growth Empire">
 <meta property="og:description" content="From $0 to a multi-million-dollar creator company.">
 <meta property="og:image" content="assets/og-card.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Saved Shelf — Creator Growth Empire">
+<meta name="twitter:title" content="Saved Shelf, Creator Growth Empire">
 <meta name="twitter:description" content="From $0 to a multi-million-dollar creator company.">
 <meta name="twitter:image" content="assets/og-card.png">
 <link rel="preload" href="assets/fonts/barlow-latin-700.woff2" as="font" type="font/woff2" crossorigin>
@@ -37,24 +37,24 @@
 <header class="site-header">
   <a class="brand" href="index.html">Creator Growth Empire</a>
   <nav class="site-nav" aria-label="Primary"><a href="career-path.html" class="nav-link">Career Path</a><a href="tools.html" class="nav-link active" aria-current="page">Tools</a><a href="case-files.html" class="nav-link">Case Files</a><a href="what-changed.html" class="nav-link">Algorithm Watch</a><a href="glossary.html" class="nav-link">Glossary</a></nav>
-  <button class="calm-toggle" id="calmToggle" aria-pressed="false" title="Calm mode — stop ambient motion"><span class="calm-glyph" aria-hidden="true">◍</span><span>CALM</span></button>
+  <button class="calm-toggle" id="calmToggle" aria-pressed="false" title="Calm mode, stop ambient motion"><span class="calm-glyph" aria-hidden="true">◍</span><span>CALM</span></button>
   <button class="nav-toggle" aria-expanded="false" aria-controls="mobileNav" aria-label="Menu">☰</button>
 </header>
 <nav id="mobileNav" class="mobile-nav" aria-label="Mobile"><a href="career-path.html" class="nav-link">Career Path</a><a href="tools.html" class="nav-link active" aria-current="page">Tools</a><a href="case-files.html" class="nav-link">Case Files</a><a href="what-changed.html" class="nav-link">Algorithm Watch</a><a href="glossary.html" class="nav-link">Glossary</a></nav>
-<main id="main"><div class="tool-page"><header class="tool-head"><p class="tool-group">Content tools</p><h1>Saved Shelf</h1></header><div id="saved-shelf">
-<p class="lede">The hub holds every tool in the manual, and a working creator uses a handful of them over and over. This page is the shelf for that handful: open any tool, tap “Save to your shelf” at the top of its page, and it waits for you here — one tap back to each tool, one tap to remove it, and one copyable list for the whole shelf.</p>
-<p class="muted">The catalogue behind this page is the hub's own tool list (<a href="tools.html">All Tools</a>). Your saves live only in this browser's local storage — there is no account, nothing is sent anywhere, and clearing this browser's site data clears the shelf. There is deliberately no most-saved ranking here: that signal needs usage collected across visitors, and this site collects none, so no popularity order is invented in its place.</p>
+<main id="main"><div class="tool-page"><header class="tool-head"><p class="tool-group">Content tools</p><h1>Saved Shelf</h1><p class="tool-formula">Tool 32 · Saved Shelf · Content · current</p><p class="tool-spec-line">Stage 1 · Foundation · Pricing: Free · Added 2026-10-13 · Updated 2026-10-14</p></header><div id="saved-shelf">
+<p class="lede">The hub holds every tool in the manual, and a working creator uses a handful of them over and over. This page is the shelf for that handful: open any tool, tap “Save to your shelf” at the top of its page, and it waits for you here, one tap back to each tool, one tap to remove it, and one copyable list for the whole shelf.</p>
+<p class="muted">The catalogue behind this page is the hub's own tool list (<a href="tools.html">All Tools</a>). Your saves live only in this browser's local storage, there is no account, nothing is sent anywhere, and clearing this browser's site data clears the shelf. There is deliberately no most-saved ranking here: that signal needs usage collected across visitors, and this site collects none, so no popularity order is invented in its place.</p>
 <nav class="svs-jump" aria-label="Saved Shelf sections">
   <a href="#svs-sec-shelf">The shelf</a>
   <a href="#svs-sec-export">The export</a>
 </nav>
 
-<h2 id="svs-sec-shelf">1 · The shelf — your saved tools, in save order</h2>
+<h2 id="svs-sec-shelf">1 · The shelf: your saved tools, in save order</h2>
 <p id="svs-status" class="svs-status" aria-live="polite"></p>
 <div id="svs-shelf" aria-live="polite"></div>
 <p><button type="button" id="svs-hub" class="btn">Re-read the shelf</button>
 <a class="btn" href="tools.html">Browse the hub</a></p>
-<p class="muted">A saved tool that the catalogue no longer lists — renamed or retired after you saved it — is counted as stale in the status line and the export, and never rendered as a tool. Removing a tool here and unsaving it on its own page write the same record; both stay in step because both read the same key.</p>
+<p class="muted">A saved tool that the catalogue no longer lists, renamed or retired after you saved it, is counted as stale in the status line and the export, and never rendered as a tool. Removing a tool here and unsaving it on its own page write the same record; both stay in step because both read the same key.</p>
 
 <h2 id="svs-sec-export">2 · The shelf as plaintext</h2>
 <textarea id="svs-export" rows="14" readonly aria-label="Your saved tools shelf as plaintext"></textarea>
@@ -70,10 +70,10 @@
     </div>
     <nav aria-label="Phases">
       <strong class="muted" style="font-size:.78rem;letter-spacing:.12em">PHASES</strong>
-      <a href="phase-0-start-from-nothing.html">Phase 0 — Start From Nothing</a>
-      <a href="phase-2-youtube-mastery.html">Phase 2 — YouTube Mastery</a>
-      <a href="phase-5-monetization-stack.html">Phase 5 — Monetization Stack</a>
-      <a href="phase-7-the-business.html">Phase 7 — The Business</a>
+      <a href="phase-0-start-from-nothing.html">Phase 0, Start From Nothing</a>
+      <a href="phase-2-youtube-mastery.html">Phase 2, YouTube Mastery</a>
+      <a href="phase-5-monetization-stack.html">Phase 5, Monetization Stack</a>
+      <a href="phase-7-the-business.html">Phase 7, The Business</a>
     </nav>
     <nav aria-label="Tools">
       <strong class="muted" style="font-size:.78rem;letter-spacing:.12em">TOOLS</strong>
@@ -103,7 +103,7 @@
       <a href="case-gibi-asmr.html">Gibi ASMR</a>
     </nav>
   </div>
-  <div class="footer-fine"><span>PRIVATE RESEARCH ARCHIVE · PLATFORM FACTS VERIFIED OCT 2026 — VERIFY LIVE BEFORE ACTING · NOT FINANCIAL, LEGAL, OR TAX ADVICE · SET IN THE FIELD, PRINTED ON RECYCLED PIXELS</span></div>
+  <div class="footer-fine"><span>PRIVATE RESEARCH ARCHIVE · PLATFORM FACTS VERIFIED OCT 2026. VERIFY LIVE BEFORE ACTING · NOT FINANCIAL, LEGAL, OR TAX ADVICE · SET IN THE FIELD, PRINTED ON RECYCLED PIXELS</span></div>
 </footer>
 <script src="assets/js/site.js"></script>
 </body>

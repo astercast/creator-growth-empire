@@ -58,7 +58,7 @@ module.exports = (req, res) => {
     console.log('[ratelimit] ip=' + ipHash(ip) + ' bucket=public path=/api/changes');
     res.setHeader('Retry-After', String(lim.retryAfter));
     return env.err(res, SERVICE, VERSION, 429, 'RATE_LIMITED',
-      'Too many requests — slow down and try again in ' + lim.retryAfter + 's.', { retry_after_s: lim.retryAfter });
+      'Too many requests, slow down and try again in ' + lim.retryAfter + 's.', { retry_after_s: lim.retryAfter });
   }
 
   const q = query(req);

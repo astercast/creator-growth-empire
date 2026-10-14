@@ -1,4 +1,4 @@
-/* Sponsor Income Ledger — monthly ledger + groupings + export.
+/* Sponsor Income Ledger, monthly ledger + groupings + export.
  * Scoped to .sil-* / #sponsor-income-ledger. */
 .sil-stamp { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; margin-bottom: 0.5rem; }
 .sil-jump { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 1rem 0 0.5rem; }

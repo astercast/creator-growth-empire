@@ -77,7 +77,7 @@ ok(/DEMO follow-up/.test(FT.exportBrief(demoQ)) && /Only demo deals are on the b
 
 console.log("follow-through — the brief");
 var brief = FT.exportBrief(q);
-ok(/FOLLOW-THROUGH QUEUE — 3 due/.test(brief) && /Northwind VPN/.test(brief) &&
+ok(/FOLLOW-THROUGH QUEUE · 3 due/.test(brief) && /Northwind VPN/.test(brief) &&
    /Do: Chase payment/.test(brief) && /Tool 25/.test(brief) && /Tool 24/.test(brief),
   "brief carries the queue, the actions, and the composition provenance");
 ok(brief.indexOf("Northwind VPN") < brief.indexOf("Ridge Wallet"), "brief order matches queue order");

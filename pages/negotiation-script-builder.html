@@ -8,15 +8,15 @@
 </nav>
 
 <h2 id="nsb-sec-build">1 · Pick the scenario, add your numbers</h2>
-<p class="muted">Four scenarios — the ones the Kit and Deal Room scripts actually cover. A scenario with no repo script behind it is excluded below the script, with the reason, instead of being improvised.</p>
+<p class="muted">Four scenarios, the ones the Kit and Deal Room scripts actually cover. A scenario with no repo script behind it is excluded below the script, with the reason, instead of being improvised.</p>
 <form id="nsb-form" aria-label="Build a negotiation script" novalidate>
   <div class="calc-grid">
     <label>Scenario
       <select id="nsb-scenario">
-        <option value="lowball" selected>Brand lowball — offer under your floor</option>
-        <option value="usage_grab">Unpaid usage grab — paid ads folded into the post fee</option>
-        <option value="exclusivity_lockin">Exclusivity lock-in — broad or long lock, unpaid</option>
-        <option value="late_payment">Late payment — agreed invoice past its terms</option>
+        <option value="lowball" selected>Brand lowball, offer under your floor</option>
+        <option value="usage_grab">Unpaid usage grab, paid ads folded into the post fee</option>
+        <option value="exclusivity_lockin">Exclusivity lock-in, broad or long lock, unpaid</option>
+        <option value="late_payment">Late payment, agreed invoice past its terms</option>
       </select></label>
     <label>Brand <input type="text" id="nsb-brand" maxlength="120" placeholder="e.g. Ridge Wallet"></label>
     <label>Platform
@@ -34,7 +34,7 @@
       </select></label>
     <label>Follower count <input type="number" id="nsb-followers" min="1000" step="1000" value="50000"></label>
     <label>Avg. views per video (last 10) <input type="number" id="nsb-views" min="0" step="1000" value="60000"></label>
-    <label>Brand's offer ($) — 0 for exposure-only <input type="number" id="nsb-offer" min="0" step="50" value="500"></label>
+    <label>Brand's offer ($), 0 for exposure-only <input type="number" id="nsb-offer" min="0" step="50" value="500"></label>
     <label>Niche (adjusts the benchmark)
       <select id="nsb-niche">
         <option value="" selected>No niche adjustment</option>
@@ -57,7 +57,7 @@
       </select></label>
     <label>Paid-ad usage in the offer
       <select id="nsb-usage">
-        <option value="organic_only" selected>Organic only — stays on my channel</option>
+        <option value="organic_only" selected>Organic only, stays on my channel</option>
         <option value="paid_3mo">Paid ads, 3 months</option>
         <option value="paid_6mo">Paid ads, 3–6 months</option>
         <option value="paid_12mo">Paid ads, 6–12 months</option>
@@ -70,23 +70,23 @@
         <option value="category">Broad category</option>
       </select></label>
     <label>Exclusivity window (months) <input type="number" id="nsb-ex-months" min="0" max="24" step="1" value="0"></label>
-    <label>Your own floor ($) — optional <input type="number" id="nsb-floor" min="0" step="50" value="0"></label>
-    <label>Invoice amount ($) — late payment only <input type="number" id="nsb-inv-amount" min="0" step="50" value="2500"></label>
-    <label>Invoice issued — late payment only <input type="text" id="nsb-inv-date" value="September 3"></label>
-    <label>Days overdue — late payment only <input type="number" id="nsb-inv-days" min="0" step="1" value="14"></label>
+    <label>Your own floor ($), optional <input type="number" id="nsb-floor" min="0" step="50" value="0"></label>
+    <label>Invoice amount ($), late payment only <input type="number" id="nsb-inv-amount" min="0" step="50" value="2500"></label>
+    <label>Invoice issued, late payment only <input type="text" id="nsb-inv-date" value="September 3"></label>
+    <label>Days overdue, late payment only <input type="number" id="nsb-inv-days" min="0" step="1" value="14"></label>
   </div>
   <p id="nsb-errors" role="alert" class="muted" aria-live="assertive"></p>
   <button type="submit" class="btn btn-primary">Build my script →</button>
 </form>
 
-<h2 id="nsb-sec-script">2 · Your script — word for word</h2>
-<p class="muted">Opener, anchor, a concession ladder that trades scope and windows before it ever trades price, and the walk-away line. The source script for every line prints under it — if a line cannot name its source, it does not ship.</p>
+<h2 id="nsb-sec-script">2 · Your script: word for word</h2>
+<p class="muted">Opener, anchor, a concession ladder that trades scope and windows before it ever trades price, and the walk-away line. The source script for every line prints under it, if a line cannot name its source, it does not ship.</p>
 <div id="nsb-out" aria-live="polite"></div>
 <div id="nsb-prov" aria-live="polite"></div>
 
-<h2 id="nsb-sec-export">3 · Export — the script as plaintext</h2>
+<h2 id="nsb-sec-export">3 · Export: the script as plaintext</h2>
 <p class="muted">The script with its provenance attached, ready to paste into the thread or your notes.</p>
 <textarea id="nsb-export" rows="16" readonly aria-label="Your negotiation script as plaintext"></textarea>
 <p><button type="button" id="nsb-copy" class="btn">Copy the script</button></p>
-<p class="muted">A negotiation aid, not financial, legal, or tax advice. Benchmarks are reported 2026 ranges that disagree 2–3× within tiers — a model, not a prediction.</p>
+<p class="muted">A negotiation aid, not financial, legal, or tax advice. Benchmarks are reported 2026 ranges that disagree 2–3× within tiers, a model, not a prediction.</p>
 </div>

@@ -136,7 +136,7 @@ for ep in idx["endpoints"]:
             failures.append(f"index.json: schema '{ep['schema']}' missing on disk")
     if ep.get("id") == "schemas":
         for f in ep.get("files", []):
-            manifest_schemas.add(f.split(" — ")[0])
+            manifest_schemas.add(f.split(", ")[0])
 on_disk = {p.name for p in SCH.glob("*.json")}
 if on_disk != manifest_schemas:
     failures.append(f"index.json: schema set mismatch: on disk {sorted(on_disk)} vs manifest {sorted(manifest_schemas)}")
@@ -234,7 +234,7 @@ for ep in idx["endpoints"]:
     elif kind == "directory":
         d = ROOT / ep["path"]
         for f in ep.get("files", []):
-            check_link(d, f.split(" — ")[0], "data/v1/index.json")
+            check_link(d, f.split(", ")[0], "data/v1/index.json")
 
 print(f"  checked {total} links")
 if broken:
@@ -266,7 +266,7 @@ fi
 # ---------------------------------------------------------------- stage 6 ---
 stage 6 "engine test suites (sim + deal room + content engine + outreach)"
 TEST_FAIL=0
-for T in tests/sim-engine.test.js tests/deal-room.test.js tests/content-engine.test.js tests/money-map.test.js tests/video-doctor.test.js tests/niche-atlas.test.js tests/ypp-checker.test.js tests/outreach.test.js tests/deal-analyzer.test.js tests/cadence.test.js tests/platform-rules-bible.test.js tests/identity-w30.test.js tests/breakout-format-intel.test.js tests/format-fit.test.js tests/deal-builder.test.js tests/sim-launch.test.js tests/negotiation-kit.test.js tests/rate-card-builder.test.js tests/negotiation-script-builder.test.js tests/deal-pipeline.test.js tests/follow-through.test.js tests/repeat-sponsor-book.test.js tests/sponsor-income-ledger.test.js tests/receivables-register.test.js tests/brand-ledger.test.js tests/platform-ledger.test.js tests/saved-shelf.test.js tests/career-path.test.js tests/view-transitions.test.js tests/placement.test.js tests/algorithm-watch.test.js tests/algorithm-watch-cron.test.js; do
+for T in tests/sim-engine.test.js tests/deal-room.test.js tests/content-engine.test.js tests/money-map.test.js tests/video-doctor.test.js tests/niche-atlas.test.js tests/ypp-checker.test.js tests/outreach.test.js tests/deal-analyzer.test.js tests/cadence.test.js tests/platform-rules-bible.test.js tests/identity-w30.test.js tests/breakout-format-intel.test.js tests/format-fit.test.js tests/deal-builder.test.js tests/sim-launch.test.js tests/negotiation-kit.test.js tests/rate-card-builder.test.js tests/negotiation-script-builder.test.js tests/deal-pipeline.test.js tests/follow-through.test.js tests/repeat-sponsor-book.test.js tests/sponsor-income-ledger.test.js tests/receivables-register.test.js tests/brand-ledger.test.js tests/platform-ledger.test.js tests/saved-shelf.test.js tests/career-path.test.js tests/creator-r22.test.js tests/view-transitions.test.js tests/placement.test.js tests/algorithm-watch.test.js tests/algorithm-watch-cron.test.js; do
   node "$T" >/tmp/cge_validate_tests.log 2>&1
   if [ $? -eq 0 ]; then
     N=$(grep -c "PASS" /tmp/cge_validate_tests.log)
@@ -312,7 +312,7 @@ ref = section_bullets(llms, "Reference")
 if ref is None or len(ref) != len(build.REFERENCE_PAGES):
     errors.append(f"Reference: {len(ref) if ref is not None else 'MISSING'} bullets != REFERENCE_PAGES {len(build.REFERENCE_PAGES)}")
 
-cases = section_bullets(llms, "Case Files — documented creator-business deconstructions")
+cases = section_bullets(llms, "Case Files, documented creator-business deconstructions")
 exp_cases = sum(1 for e in build.MARKDOWN_PAGES if e[3] == "Case File")
 case_links = [l for l in (cases or []) if re.match(r"- \[Case File:", l)]
 if cases is None or len(case_links) != exp_cases:

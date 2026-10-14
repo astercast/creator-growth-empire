@@ -1,12 +1,12 @@
 {
-  "version": "1.0.0",
-  "updated": "2026-10-11",
-  "note": "Programmatic input schemas for the thirty-two interactive tools. Agents replicate each tool's logic by feeding these inputs to the documented formulas / shipped JS (assets/js/<id>.js); the UI pages are the human front-end for the same logic.",
+  "version": "1.1.0",
+  "updated": "2026-10-14",
+  "note": "Programmatic input schemas for the thirty-two interactive tools. Agents replicate each tool's logic by feeding these inputs to the documented formulas / shipped JS (assets/js/<id>.js); the UI pages are the human front-end for the same logic. Freshness (rotation 22): each record carries added (the date the tool entered this manual) and updated (the date the tool itself last changed), both read from the manual's own build record; pricing_model states what the tool costs to use; job is the tool's one grouping, and its stage mapping lives in the Career Path, stated once there.",
   "tools": [
     {
       "id": "quiz",
       "title": "Niche Picker",
-      "description": "Answer 6 questions, get ranked niche suggestions with reasoning \u2014 or take the 4-question \"Pick my 2027 niche\" branch.",
+      "description": "Answer 6 questions, get ranked niche suggestions with reasoning, or take the 4-question \"Pick my 2027 niche\" branch.",
       "page": "quiz.html",
       "input_schema": {
         "$schema": "http://json-schema.org/draft-07/schema#",
@@ -121,12 +121,16 @@
         }
       },
       "output": "Ranked niche list (top 3+) with per-niche reasoning and fit tags. The 2027 branch returns top-3 niches with trajectory badges, basis sentences, and risk notes.",
-      "drive_notes": "Scoring logic lives in assets/js/quiz.js: option tags are matched against each niche's fit[] tags, q3 sets an RPM preference filter, q6 sets the competition ceiling. The niche catalogue (9 niches, fit tags, rpm/competition levels) is embedded in quiz.js. The 2027 branch scores the 20 atlas niches against data/niches.json outlook_2027 trajectories (heating +3 / stable +1 / cooling -2), growth-signal matches, format fit, risk alignment, and atlas skill_fit \u2014 OUTLOOK_2027 in quiz.js mirrors the JSON and tests/niche-atlas.test.js checks sync."
+      "drive_notes": "Scoring logic lives in assets/js/quiz.js: option tags are matched against each niche's fit[] tags, q3 sets an RPM preference filter, q6 sets the competition ceiling. The niche catalogue (9 niches, fit tags, rpm/competition levels) is embedded in quiz.js. The 2027 branch scores the 20 atlas niches against data/niches.json outlook_2027 trajectories (heating +3 / stable +1 / cooling -2), growth-signal matches, format fit, risk alignment, and atlas skill_fit. OUTLOOK_2027 in quiz.js mirrors the JSON and tests/niche-atlas.test.js checks sync.",
+      "job": "Planning",
+      "pricing_model": "Free",
+      "added": "2026-10-11",
+      "updated": "2026-10-12"
     },
     {
       "id": "calculator",
       "title": "Revenue Calculator",
-      "description": "Project revenue from views, niche, sponsors, and affiliates \u2014 with honest ranges.",
+      "description": "Project revenue from views, niche, sponsors, and affiliates, with honest ranges.",
       "page": "calculator.html",
       "input_schema": {
         "$schema": "http://json-schema.org/draft-07/schema#",
@@ -180,7 +184,11 @@
         }
       },
       "output": "Monthly revenue range [lo, hi] split into long-form ads, Shorts ads, sponsorships, affiliate/products, plus annualized totals. Ranges, never promises.",
-      "drive_notes": "Math (assets/js/calculator.js): long-form ads = views/1000 \u00d7 RPM band from calculators.json; Shorts ads = shorts/1000 \u00d7 shorts_rpm_per_1000; sponsorships = deals \u00d7 (sponsor views/1000) \u00d7 sponsorship_rule_of_thumb.dedicated_cpm_range; affiliate = input \u00d7 0.7\u20131.3."
+      "drive_notes": "Math (assets/js/calculator.js): long-form ads = views/1000 \u00d7 RPM band from calculators.json; Shorts ads = shorts/1000 \u00d7 shorts_rpm_per_1000; sponsorships = deals \u00d7 (sponsor views/1000) \u00d7 sponsorship_rule_of_thumb.dedicated_cpm_range; affiliate = input \u00d7 0.7\u20131.3.",
+      "job": "Money",
+      "pricing_model": "Free",
+      "added": "2026-10-11",
+      "updated": "2026-10-12"
     },
     {
       "id": "planner",
@@ -226,12 +234,16 @@
         }
       },
       "output": "13-week posting schedule (91 days): per-day long-form and short-form assignments, totals, a day-45 checkpoint review note.",
-      "drive_notes": "Layout logic (assets/js/planner.js): long-form spread across non-rest days, shorts spread 2 days apart, week 7 flagged as the midpoint review. Rest day is non-negotiable \u2014 no posting, analytics review only."
+      "drive_notes": "Layout logic (assets/js/planner.js): long-form spread across non-rest days, shorts spread 2 days apart, week 7 flagged as the midpoint review. Rest day is non-negotiable, no posting, analytics review only.",
+      "job": "Planning",
+      "pricing_model": "Free",
+      "added": "2026-10-11",
+      "updated": "2026-10-12"
     },
     {
       "id": "deal-analyzer",
       "title": "The Deal Analyzer",
-      "description": "Paste the brand's terms \u2014 rate-card verdict with platform multipliers + niche adjustment, the wave-22 contract checklist applied to the deal, counter-offer calculator, 2026 usage-rights add-on math, deal history + comparison mode.",
+      "description": "Paste the brand's terms, rate-card verdict with platform multipliers + niche adjustment, the wave-22 contract checklist applied to the deal, counter-offer calculator, 2026 usage-rights add-on math, deal history + comparison mode.",
       "page": "deal-analyzer.html",
       "input_schema": {
         "$schema": "http://json-schema.org/draft-07/schema#",
@@ -273,7 +285,7 @@
               "comedy_entertainment",
               "music"
             ],
-            "description": "Optional \u2014 adjusts the verdict range by the niche multiplier (finance/tech x2.5, entertainment/gaming/music x0.6) and enables the AIR category-CPM cross-check where mapped."
+            "description": "Optional, adjusts the verdict range by the niche multiplier (finance/tech x2.5, entertainment/gaming/music x0.6) and enables the AIR category-CPM cross-check where mapped."
           },
           "followers": {
             "type": "number",
@@ -293,7 +305,7 @@
             "type": "integer",
             "minimum": 1,
             "default": 1,
-            "description": "Posts in the bundle \u2014 3+ triggers the 15-20% bundle-discount guidance."
+            "description": "Posts in the bundle, 3+ triggers the 15-20% bundle-discount guidance."
           },
           "usage": {
             "type": "string",
@@ -429,7 +441,11 @@
         }
       },
       "output": "Verdict (UNDERPAID / FAIR / STRONG) against the niche-adjusted benchmark range, implied CPM vs rate-card CPMs, AIR category-CPM cross-check (where mapped), offer-term flags, wave-22 contract checklist verdict (clean / caution / dont_sign) with per-flag fixes, counter-offer with line-item ranges + open-ended totals, usage-rights add-on table, plaintext export.",
-      "drive_notes": "Engine (assets/js/deal-analyzer.js, UMD \u2014 require() it in node): DealAnalyzer.validInput() normalizes; .evaluate(deal, rateCard) returns the tier range x niche multiplier (parity-pinned with the simulator's sponsorNicheMult), verdict, implied CPM, categoryCheck (AIR Oct-2026 category CPMs: finance/real-estate $58, B2B SaaS/AI $46.50, health $28, gaming/tech $18.50, entertainment $14), cross-platform ranges + the 1.7x/0.85x note, and the 23%-benchmark expected close; .offerTermFlags() scans usage/whitelisting/exclusivity/payment/timeline; .mapTermsToFlags() + .contractRisk(flagIds, deal-templates.json contract_flags) apply the wave-22 checklist (walk_away = dont_sign, major 2pts, minor 1pt, 3+ = dont_sign \u2014 same scoring as Outreach.contractRisk); .usageAddons() prices the 2026 benchmark ranges (3mo +25-50%, 3-6mo +50-75%, 6-12mo +75-100%, perpetual from 2x; whitelisting 30-100%/mo) from calculators.json usage_rights_benchmarks_2026 (calculators v1.5.0); .counterOffer() builds base + line items + open-ended totals + the 15-20% bundle guidance; .exportReport() renders the plaintext evaluation; .compareDeals() diffs two saved deals. Browser history/compare/print live in assets/js/deal-analyzer-ui.js (localStorage only). Negotiation aid \u2014 not financial, legal, or tax advice; the checklist is not legal advice. See AGENT.md Workflow 12."
+      "drive_notes": "Engine (assets/js/deal-analyzer.js, UMD, require() it in node): DealAnalyzer.validInput() normalizes; .evaluate(deal, rateCard) returns the tier range x niche multiplier (parity-pinned with the simulator's sponsorNicheMult), verdict, implied CPM, categoryCheck (AIR Oct-2026 category CPMs: finance/real-estate $58, B2B SaaS/AI $46.50, health $28, gaming/tech $18.50, entertainment $14), cross-platform ranges + the 1.7x/0.85x note, and the 23%-benchmark expected close; .offerTermFlags() scans usage/whitelisting/exclusivity/payment/timeline; .mapTermsToFlags() + .contractRisk(flagIds, deal-templates.json contract_flags) apply the wave-22 checklist (walk_away = dont_sign, major 2pts, minor 1pt, 3+ = dont_sign, same scoring as Outreach.contractRisk); .usageAddons() prices the 2026 benchmark ranges (3mo +25-50%, 3-6mo +50-75%, 6-12mo +75-100%, perpetual from 2x; whitelisting 30-100%/mo) from calculators.json usage_rights_benchmarks_2026 (calculators v1.5.0); .counterOffer() builds base + line items + open-ended totals + the 15-20% bundle guidance; .exportReport() renders the plaintext evaluation; .compareDeals() diffs two saved deals. Browser history/compare/print live in assets/js/deal-analyzer-ui.js (localStorage only). Negotiation aid, not financial, legal, or tax advice; the checklist is not legal advice. See AGENT.md Workflow 12.",
+      "job": "Money",
+      "pricing_model": "Free",
+      "added": "2026-10-11",
+      "updated": "2026-10-12"
     },
     {
       "id": "deal-room",
@@ -465,7 +481,7 @@
           },
           "niche": {
             "type": "string",
-            "description": "Optional sponsor niche key (same table as the Deal Analyzer / simulator sponsorNicheMult) \u2014 adjusts the benchmark range the offer is scored against.",
+            "description": "Optional sponsor niche key (same table as the Deal Analyzer / simulator sponsorNicheMult), adjusts the benchmark range the offer is scored against.",
             "enum": [
               "finance_investing",
               "tech_software",
@@ -555,12 +571,16 @@
         }
       },
       "output": "Tracked deal records with niche-adjusted rate-card verdicts (UNDERPAID / FAIR / STRONG + the ~23% listed-vs-accepted note), a pipeline summary over the creator's own logged deals (stage totals, committed vs paid, underpaid deals still in play), the full 2026 rate-card table with reported vs modeled bases kept separate, a quoted-price check against real negotiation data, usage-rights line-item pricing (reported +50/+75/+100% band; no invented whitelisting/buyout multipliers), per-situation negotiation scripts, interactive red-flag checklist scoring, the Algorithm Watch digest (dated, sourced, confidence-flagged, with per-entry deal notes), and a one-page deal memo.",
-      "drive_notes": "Logic (assets/js/deal-room.js, UMD \u2014 importable in node): scoreOffer(offer, lo, hi) benchmarks against sponsorship_rate_card_2026; scoreDeal(deal, rateCard) adds the niche multiplier (parity-pinned with DealAnalyzer.nicheMult) + implied CPM; rateCardTable(rateCard, quoted) returns the full tier table + multipliers + CPMs + the quoted-prices block; quotedPriceCheck(deal, quoted) reads sponsorship_quoted_prices_2026 (calculators.json v1.5.0 \u2014 Cheerful Sep-2026 reported asks/quotes; Click Analytic 2026 Instagram model, labeled modeled) and returns null where no format is honestly mapped; pipelineSummary(deals, rateCard) totals the creator's own pipeline with no invented close probabilities; watchDigest(feed, {days, limit, now}) + digestText(digest) build the Algorithm Watch digest from data/v1/changes.json with curated per-entry deal notes (editorial, labeled); priceUsage(baseFee, tierId, usage_rights_tiers) applies the reported multipliers, returning guidance instead of numbers for whitelisting/buyout; redFlagScore(checkedIds, red_flags) scores contract structure (any walk_away flag or 3+ points -> walk away); renderScript(script, vars) fills {{placeholders}}; dealMemo(deal, scored, flags) builds the one-page record. Scripts + checklist + tiers live in data/v1/deal-templates.json. Negotiation aid, not financial/legal/tax advice."
+      "drive_notes": "Logic (assets/js/deal-room.js, UMD, importable in node): scoreOffer(offer, lo, hi) benchmarks against sponsorship_rate_card_2026; scoreDeal(deal, rateCard) adds the niche multiplier (parity-pinned with DealAnalyzer.nicheMult) + implied CPM; rateCardTable(rateCard, quoted) returns the full tier table + multipliers + CPMs + the quoted-prices block; quotedPriceCheck(deal, quoted) reads sponsorship_quoted_prices_2026 (calculators.json v1.5.0, Cheerful Sep-2026 reported asks/quotes; Click Analytic 2026 Instagram model, labeled modeled) and returns null where no format is honestly mapped; pipelineSummary(deals, rateCard) totals the creator's own pipeline with no invented close probabilities; watchDigest(feed, {days, limit, now}) + digestText(digest) build the Algorithm Watch digest from data/v1/changes.json with curated per-entry deal notes (editorial, labeled); priceUsage(baseFee, tierId, usage_rights_tiers) applies the reported multipliers, returning guidance instead of numbers for whitelisting/buyout; redFlagScore(checkedIds, red_flags) scores contract structure (any walk_away flag or 3+ points -> walk away); renderScript(script, vars) fills {{placeholders}}; dealMemo(deal, scored, flags) builds the one-page record. Scripts + checklist + tiers live in data/v1/deal-templates.json. Negotiation aid, not financial/legal/tax advice.",
+      "job": "Money",
+      "pricing_model": "Free",
+      "added": "2026-10-12",
+      "updated": "2026-10-14"
     },
     {
       "id": "hiring-calculator",
       "title": "Hiring Cost Calculator",
-      "description": "Price your first hire: monthly/annual cost and the ad revenue needed to cover it \u2014 honest math, no promises.",
+      "description": "Price your first hire: monthly/annual cost and the ad revenue needed to cover it, honest math, no promises.",
       "page": "hiring-calculator.html",
       "input_schema": {
         "$schema": "http://json-schema.org/draft-07/schema#",
@@ -629,7 +649,11 @@
         }
       },
       "output": "Monthly/annual cost (sticker vs +15% loaded), share of ad revenue, monthly views needed to cover the loaded cost, 3-month coverage reserve.",
-      "drive_notes": "Math (assets/js/hiring-calculator.js): hourly \u2192 rate \u00d7 hrs \u00d7 52/12; per_video \u2192 rate \u00d7 units; monthly \u2192 retainer. Loaded cost = sticker \u00d7 1.15 (management, revisions, fees). Coverage views = loaded \u00f7 RPM band \u00d7 1000 (both band ends). The hiring rule: cover 3 months from revenue before signing."
+      "drive_notes": "Math (assets/js/hiring-calculator.js): hourly \u2192 rate \u00d7 hrs \u00d7 52/12; per_video \u2192 rate \u00d7 units; monthly \u2192 retainer. Loaded cost = sticker \u00d7 1.15 (management, revisions, fees). Coverage views = loaded \u00f7 RPM band \u00d7 1000 (both band ends). The hiring rule: cover 3 months from revenue before signing.",
+      "job": "Money",
+      "pricing_model": "Free",
+      "added": "2026-10-12",
+      "updated": "2026-10-12"
     },
     {
       "id": "repurpose",
@@ -663,12 +687,16 @@
         }
       },
       "output": "Five mission cards (YouTube Day 0, Short Day +1, TikTok Day +2, Reel Day +3, Facebook Day +4) each with a hook rewrite, atom test, and native-grammar checklist.",
-      "drive_notes": "Logic (assets/js/repurpose.js + assets/js/content-engine.js): atom test (does the insight survive standalone?), pillar prep (hook in first 15s), then the five staggered mission cards. Enforce native grammar \u2014 no watermarks, no copy-paste. 2.0 adds the full derivative map via ContentEngine.repurposeMap (7 derivatives: short clip, community reaction, TikTok cut, Reel cut, newsletter issue, X thread, Facebook post) \u2014 every derivative carries a required original element (repurposing is not re-uploading) plus the Oct-1 originality guardrails (ContentEngine.originalityGuardrails). Machine-readable map + guardrails: data/v1/content-engine.json repurposing_2_0 / originality_guardrails."
+      "drive_notes": "Logic (assets/js/repurpose.js + assets/js/content-engine.js): atom test (does the insight survive standalone?), pillar prep (hook in first 15s), then the five staggered mission cards. Enforce native grammar, no watermarks, no copy-paste. 2.0 adds the full derivative map via ContentEngine.repurposeMap (7 derivatives: short clip, community reaction, TikTok cut, Reel cut, newsletter issue, X thread, Facebook post), every derivative carries a required original element (repurposing is not re-uploading) plus the Oct-1 originality guardrails (ContentEngine.originalityGuardrails). Machine-readable map + guardrails: data/v1/content-engine.json repurposing_2_0 / originality_guardrails.",
+      "job": "Content",
+      "pricing_model": "Free",
+      "added": "2026-10-11",
+      "updated": "2026-10-12"
     },
     {
       "id": "simulator",
       "title": "Empire Simulator",
-      "description": "Simulate 12\u201336 months of channel growth + revenue \u2014 the 10 real 2026 study niches (TubeAI/AIR medians + labeled RPM bands), niche/cadence/quality sliders, platform mix (Shorts/TikTok/Reels under their real 2026 rules), 12-scenario library, A/B comparison, team hiring P&L, what-if event cards, Money Map stage transitions, the \u201cwhat would it take?\u201d goal solver, live re-run, the mission-control launch sequence, and the animated watch-the-empire-build chart with milestone celebrations + kind reality checks \u2014 a model, not a prediction.",
+      "description": "Simulate 12\u201336 months of channel growth + revenue, the 10 real 2026 study niches (TubeAI/AIR medians + labeled RPM bands), niche/cadence/quality sliders, platform mix (Shorts/TikTok/Reels under their real 2026 rules), 12-scenario library, A/B comparison, team hiring P&L, what-if event cards, Money Map stage transitions, the \u201cwhat would it take?\u201d goal solver, live re-run, the mission-control launch sequence, and the animated watch-the-empire-build chart with milestone celebrations + kind reality checks, a model, not a prediction.",
       "page": "simulator.html",
       "input_schema": {
         "$schema": "http://json-schema.org/draft-07/schema#",
@@ -694,7 +722,7 @@
               "science",
               "gaming"
             ],
-            "description": "The 10 real 2026 study niches (TubeAI/AIR Sep 2026). Each sets the niche_rpm_2026 RPM band (labeled reported/proxy/CPM-reported) and shows the study median as context for monthly_growth_rate \u2014 the median is never a multiplier."
+            "description": "The 10 real 2026 study niches (TubeAI/AIR Sep 2026). Each sets the niche_rpm_2026 RPM band (labeled reported/proxy/CPM-reported) and shows the study median as context for monthly_growth_rate, the median is never a multiplier."
           },
           "start_subs": {
             "type": "number",
@@ -717,7 +745,7 @@
           "publish_reels": {
             "type": "boolean",
             "default": false,
-            "description": "Arm Instagram Reels: takes a real share of the short-form output and pays $0/view (2026) \u2014 the honest number, modeled explicitly. Reels build audience monetized elsewhere."
+            "description": "Arm Instagram Reels: takes a real share of the short-form output and pays $0/view (2026), the honest number, modeled explicitly. Reels build audience monetized elsewhere."
           },
           "short_mix": {
             "type": "object",
@@ -813,7 +841,7 @@
               36
             ],
             "default": 12,
-            "description": "12, 24, or 36 months. 24 adds year-2 diminishing returns (monthly growth decays x0.94/mo after month 12); 36 adds year-3 (x0.97/mo after month 24) plus Money Map stage transitions \u2014 the engine's labeled curves."
+            "description": "12, 24, or 36 months. 24 adds year-2 diminishing returns (monthly growth decays x0.94/mo after month 12); 36 adds year-3 (x0.97/mo after month 24) plus Money Map stage transitions, the engine's labeled curves."
           },
           "hires": {
             "type": "array",
@@ -877,11 +905,11 @@
                 }
               }
             },
-            "description": "What-if event cards: random-but-transparent scenario events with chapter-cited assumed effects. algorithm-change: Shorts views x0.6 from the card month (Oct-1-2026 originality update). viral-hit: event month long views x10, one-time +8% subs, next month x1.5 tail (reality check built in: virality spikes views, not loyalty). burnout-break: 2 months of zero growth, -0.5%/mo subs drift, views x0.3. policy-change: the Feb-2027 10M-qualified-Shorts-views/90d revenue floor \u2014 Shorts ads pay $0 in months under it. holiday-shopping-surge: the event month + the next month, affiliate revenue x1.8 (the two-month holiday buying window \u2014 TikTok Shop BFCM 2025 $500M/4 days, Adobe 2026 holiday forecast). Multipliers are the engine's labeled assumptions, never platform data."
+            "description": "What-if event cards: random-but-transparent scenario events with chapter-cited assumed effects. algorithm-change: Shorts views x0.6 from the card month (Oct-1-2026 originality update). viral-hit: event month long views x10, one-time +8% subs, next month x1.5 tail (reality check built in: virality spikes views, not loyalty). burnout-break: 2 months of zero growth, -0.5%/mo subs drift, views x0.3. policy-change: the Feb-2027 10M-qualified-Shorts-views/90d revenue floor, Shorts ads pay $0 in months under it. holiday-shopping-surge: the event month + the next month, affiliate revenue x1.8 (the two-month holiday buying window, TikTok Shop BFCM 2025 $500M/4 days, Adobe 2026 holiday forecast). Multipliers are the engine's labeled assumptions, never platform data."
           },
           "compare_with": {
             "type": "object",
-            "description": "A/B mode: {name_b, inputs_b} \u2014 compare(nameA, inputsA, nameB, inputsB, cfg) runs both over the same horizon and returns B-minus-A deltas plus a plain-language verdict.",
+            "description": "A/B mode: {name_b, inputs_b}, compare(nameA, inputsA, nameB, inputsB, cfg) runs both over the same horizon and returns B-minus-A deltas plus a plain-language verdict.",
             "properties": {
               "name_b": {
                 "type": "string",
@@ -896,27 +924,35 @@
         }
       },
       "output": "12-, 24-, or 36-month projection: subs, views, and revenue per month per stream (ads, sponsors, affiliates, digital), month-by-month team P&L (gross, team cost, net), per-month Money Map stage (0-4 from monthly net + team) with the stage-transition timeline, active what-if event cards per month, totals, milestones, and the full named-assumptions list. compare() adds side-by-side deltas (B minus A) and a verdict. exportPlan() renders the copy-my-empire-plan text incl. the stage journey. A model, not a prediction.",
-      "drive_notes": "Engine (assets/js/sim-engine.js, UMD \u2014 importable in node): simulate(inputs, cfg) with cfg = calculators.json. scenarioInputs(id) loads a named preset from the SCENARIOS library (12 presets, research-sourced assumptions); compare(nameA, inputsA, nameB, inputsB, cfg) runs two configs over the same clock (deltas are B minus A); assumptionLines(inputs, res) is the always-visible assumptions panel; exportPlan(scenarioName, inputs, res) renders the share text; normalizeEvents() validates the 5 what-if cards; stageForNet(net, teamActive) is the single source of the 0-4 stage rule; solveForGoal(inputs, cfg, {target: \"subs\"|\"net\"|\"stage\", value, month, variable: \"growth\"|\"cadence\"}) binary-searches base growth (whole %) or long-form cadence (half videos) until the target lands by the month \u2014 pure inversion of simulate(), no new claims (see AGENT.md Workflow 13). The 4.0 UI adds live re-run (debounced), stage-banded subscriber charts with milestone/event markers, year cards, and an always-visible assumptions block. Wow wave 2 flagship: the 10 study niches carry real TubeAI/AIR medians as CONTEXT (never multipliers) + labeled RPM bands from calculators.json niche_rpm_2026 (reported/proxy/CPM-reported). Growth compounds monthly x cadence x quality (diminishing, capped 2.5x). Hires add output/quality and subtract cost monthly (first active month at 50% ramp). Year-2 decays growth x0.94/mo after month 12; year-3 x0.97/mo after month 24 (growth stays positive \u2014 plateau, not collapse). RPMs come from calculators.json niche_rpm_2026 (the 10 study niches; legacy scenario keys still read youtube_longform_rpm_bands). Platform mix: publish_tiktok/publish_reels split the short-form output across Shorts/TikTok/Reels (normalized); TikTok pays Creator Rewards on ~50% of raw views at $0.40-$2.00/1k past the 10K gate; Reels pay $0/view. realityChecks(inputs, res) returns the kind hard truths (<1% to 100K, hyper-growth, kids-trap, reels-zero, tiktok-gate, ads-vs-sponsors). moneyMapToInputs(answers) feeds the Money Map quiz into starting stats. Every assumption is named in DEFAULTS and listed on-page. Wow wave 1 adds the mission-control launch sequence (assets/js/simulator-launch.js, UMD pure helpers + DOM): explicit runs fly pre-flight checks (four real gates), a T-minus countdown, mission elapsed-time telemetry streamed month-by-month, then the full results plus a stamped MISSION DEBRIEF that credits +25 XP to the Empire Climb journal (shared localStorage store with the Money Map). Live-update re-runs bypass the sequence; reduced-motion/calm users get checks + debrief + XP without the motion; ABORT/Esc scrubs before anything is computed."
+      "drive_notes": "Engine (assets/js/sim-engine.js, UMD, importable in node): simulate(inputs, cfg) with cfg = calculators.json. scenarioInputs(id) loads a named preset from the SCENARIOS library (12 presets, research-sourced assumptions); compare(nameA, inputsA, nameB, inputsB, cfg) runs two configs over the same clock (deltas are B minus A); assumptionLines(inputs, res) is the always-visible assumptions panel; exportPlan(scenarioName, inputs, res) renders the share text; normalizeEvents() validates the 5 what-if cards; stageForNet(net, teamActive) is the single source of the 0-4 stage rule; solveForGoal(inputs, cfg, {target: \"subs\"|\"net\"|\"stage\", value, month, variable: \"growth\"|\"cadence\"}) binary-searches base growth (whole %) or long-form cadence (half videos) until the target lands by the month, pure inversion of simulate(), no new claims (see AGENT.md Workflow 13). The 4.0 UI adds live re-run (debounced), stage-banded subscriber charts with milestone/event markers, year cards, and an always-visible assumptions block. Wow wave 2 flagship: the 10 study niches carry real TubeAI/AIR medians as CONTEXT (never multipliers) + labeled RPM bands from calculators.json niche_rpm_2026 (reported/proxy/CPM-reported). Growth compounds monthly x cadence x quality (diminishing, capped 2.5x). Hires add output/quality and subtract cost monthly (first active month at 50% ramp). Year-2 decays growth x0.94/mo after month 12; year-3 x0.97/mo after month 24 (growth stays positive, plateau, not collapse). RPMs come from calculators.json niche_rpm_2026 (the 10 study niches; legacy scenario keys still read youtube_longform_rpm_bands). Platform mix: publish_tiktok/publish_reels split the short-form output across Shorts/TikTok/Reels (normalized); TikTok pays Creator Rewards on ~50% of raw views at $0.40-$2.00/1k past the 10K gate; Reels pay $0/view. realityChecks(inputs, res) returns the kind hard truths (<1% to 100K, hyper-growth, kids-trap, reels-zero, tiktok-gate, ads-vs-sponsors). moneyMapToInputs(answers) feeds the Money Map quiz into starting stats. Every assumption is named in DEFAULTS and listed on-page. Wow wave 1 adds the mission-control launch sequence (assets/js/simulator-launch.js, UMD pure helpers + DOM): explicit runs fly pre-flight checks (four real gates), a T-minus countdown, mission elapsed-time telemetry streamed month-by-month, then the full results plus a stamped MISSION DEBRIEF that credits +25 XP to the Empire Climb journal (shared localStorage store with the Money Map). Live-update re-runs bypass the sequence; reduced-motion/calm users get checks + debrief + XP without the motion; ABORT/Esc scrubs before anything is computed.",
+      "job": "Planning",
+      "pricing_model": "Free",
+      "added": "2026-10-12",
+      "updated": "2026-10-12"
     },
     {
       "id": "api-explorer",
       "title": "API Explorer",
-      "description": "Browse every api/v1 endpoint and preview JSON responses live in your browser \u2014 no key, no server.",
+      "description": "Browse every api/v1 endpoint and preview JSON responses live in your browser, no key, no server.",
       "page": "api-explorer.html",
       "input_schema": {
         "$schema": "http://json-schema.org/draft-07/schema#",
         "title": "ApiExplorerInput",
         "type": "object",
         "properties": {},
-        "description": "No inputs \u2014 this tool is a read-only browser over the API itself."
+        "description": "No inputs, this tool is a read-only browser over the API itself."
       },
       "output": "Live in-browser JSON previews of every endpoint, discovered from data/v1/index.json with a static fallback list.",
-      "drive_notes": "Discovery (assets/js/api-explorer.js): fetches data/v1/index.json, renders one GET button per endpoint record, pretty-prints responses. Agents can skip the UI and fetch the endpoints directly."
+      "drive_notes": "Discovery (assets/js/api-explorer.js): fetches data/v1/index.json, renders one GET button per endpoint record, pretty-prints responses. Agents can skip the UI and fetch the endpoints directly.",
+      "job": "Content",
+      "pricing_model": "Free",
+      "added": "2026-10-11",
+      "updated": "2026-10-12"
     },
     {
       "id": "hook-builder",
       "title": "Hook Builder",
-      "description": "Type your video topic, get five filmed-ready hooks \u2014 one per Short-Form Playbook structure. Flip-through cards.",
+      "description": "Type your video topic, get five filmed-ready hooks, one per Short-Form Playbook structure. Flip-through cards.",
       "page": "hook-builder.html",
       "input_schema": {
         "$schema": "http://json-schema.org/draft-07/schema#",
@@ -934,12 +970,16 @@
         }
       },
       "output": "Five filmed-ready hooks, one per Short-Form Playbook structure: open loop, cold start, contrarian take, numbered promise, question-as-hook.",
-      "drive_notes": "Logic (assets/js/hook-builder.js): topic \u2192 template fills per structure + the anti-hook checklist (no 'wait for it', no follow-begging, no channel-name cold open). The structures are craft formulas, not platform documentation."
+      "drive_notes": "Logic (assets/js/hook-builder.js): topic \u2192 template fills per structure + the anti-hook checklist (no 'wait for it', no follow-begging, no channel-name cold open). The structures are craft formulas, not platform documentation.",
+      "job": "Content",
+      "pricing_model": "Free",
+      "added": "2026-10-12",
+      "updated": "2026-10-12"
     },
     {
       "id": "idea-bank",
       "title": "Idea Bank",
-      "description": "Capture ideas with hook-strength scores (1\u20135, Playbook structures), niche tags, and effort estimates \u2014 promote the best to production.",
+      "description": "Capture ideas with hook-strength scores (1\u20135, Playbook structures), niche tags, and effort estimates, promote the best to production.",
       "page": "idea-bank.html",
       "input_schema": {
         "$schema": "http://json-schema.org/draft-07/schema#",
@@ -953,7 +993,7 @@
             "type": "string",
             "minLength": 1,
             "maxLength": 120,
-            "description": "The idea in one line \u2014 the core of the video."
+            "description": "The idea in one line, the core of the video."
           },
           "format": {
             "type": "string",
@@ -967,7 +1007,7 @@
           },
           "niche": {
             "type": "string",
-            "description": "Niche tag \u2014 a Niche Atlas niche id from data/v1/niches.json (free text accepted)."
+            "description": "Niche tag, a Niche Atlas niche id from data/v1/niches.json (free text accepted)."
           },
           "effort": {
             "type": "string",
@@ -989,7 +1029,11 @@
         }
       },
       "output": "Banked ideas sorted by hook score (ties by FIFO), filterable by format, promotable to production (they deal into the content calendar). localStorage only.",
-      "drive_notes": "Logic (assets/js/content-engine.js, UMD \u2014 importable in node): hookScore(n) clamps 1\u20135; sortIdeas(ideas) sorts by hook score desc, ties by created asc, no mutation; filterIdeas(ideas, format) filters. Storage is the browser's localStorage (key cge_idea_bank_v1) \u2014 agents feed idea records directly to the engine functions."
+      "drive_notes": "Logic (assets/js/content-engine.js, UMD, importable in node): hookScore(n) clamps 1\u20135; sortIdeas(ideas) sorts by hook score desc, ties by created asc, no mutation; filterIdeas(ideas, format) filters. Storage is the browser's localStorage (key cge_idea_bank_v1), agents feed idea records directly to the engine functions.",
+      "job": "Content",
+      "pricing_model": "Free",
+      "added": "2026-10-12",
+      "updated": "2026-10-12"
     },
     {
       "id": "content-calendar",
@@ -1020,7 +1064,7 @@
             "minimum": 0,
             "maximum": 6,
             "default": 6,
-            "description": "0=Mon \u2026 6=Sun; non-negotiable rest \u2014 no placement, analytics review only."
+            "description": "0=Mon \u2026 6=Sun; non-negotiable rest, no placement, analytics review only."
           },
           "weeks": {
             "type": "integer",
@@ -1069,7 +1113,11 @@
         }
       },
       "output": "13-week grid: per-day long/short placements, open slots (never filler), backlog, midpoint-review flag on week 7. Export text + simulator input bridge + sponsor-slot marks.",
-      "drive_notes": "Logic (assets/js/content-engine.js, UMD \u2014 importable in node): dealIdeas(ideas, {longsPerWeek, shortsPerWeek, restDay, weeks}) \u2014 same dealing arithmetic as the 90-Day Planner: longs sort by hook score desc then round-robin across weeks onto non-rest work days; shorts deal every other work day; empty slots stay OPEN (never padded); surplus ideas return in unplaced; week 7 flagged midpointReview. exportCalendarText(deal) renders the copy-my-calendar text; simInputFromCadence(longs, shorts) returns {longform_per_week, shorts_per_week} for the Simulator; sponsored slots are calendar commitments only \u2014 price them in the Deal Room."
+      "drive_notes": "Logic (assets/js/content-engine.js, UMD, importable in node): dealIdeas(ideas, {longsPerWeek, shortsPerWeek, restDay, weeks}), same dealing arithmetic as the 90-Day Planner: longs sort by hook score desc then round-robin across weeks onto non-rest work days; shorts deal every other work day; empty slots stay OPEN (never padded); surplus ideas return in unplaced; week 7 flagged midpointReview. exportCalendarText(deal) renders the copy-my-calendar text; simInputFromCadence(longs, shorts) returns {longform_per_week, shorts_per_week} for the Simulator; sponsored slots are calendar commitments only, price them in the Deal Room.",
+      "job": "Content",
+      "pricing_model": "Free",
+      "added": "2026-10-12",
+      "updated": "2026-10-12"
     },
     {
       "id": "batching",
@@ -1094,7 +1142,7 @@
           "shoot_days_per_month": {
             "type": "number",
             "minimum": 0,
-            "description": "Scheduled, repeatable shoot days \u2014 'I'll find the time' doesn't count."
+            "description": "Scheduled, repeatable shoot days, 'I'll find the time' doesn't count."
           },
           "shorts_per_shoot_day": {
             "type": "number",
@@ -1118,7 +1166,7 @@
           "publish_reels": {
             "type": "boolean",
             "default": false,
-            "description": "Arm Instagram Reels: takes a real share of the short-form output and pays $0/view (2026) \u2014 the honest number, modeled explicitly. Reels build audience monetized elsewhere."
+            "description": "Arm Instagram Reels: takes a real share of the short-form output and pays $0/view (2026), the honest number, modeled explicitly. Reels build audience monetized elsewhere."
           },
           "short_mix": {
             "type": "object",
@@ -1152,12 +1200,16 @@
           },
           "task_minutes": {
             "type": "object",
-            "description": "Scheduler: per-task minutes {long:{film,edit,publish}, short:{film,edit,publish}} \u2014 your own timings; blanks fall back to starting estimates."
+            "description": "Scheduler: per-task minutes {long:{film,edit,publish}, short:{film,edit,publish}}, your own timings; blanks fall back to starting estimates."
           }
         }
       },
       "output": "Required vs capacity per month (long + short), deltas, and a verdict: surplus (bank it), balanced (no slack), or shortfall (add a shoot day / drop a slot / merge formats).",
-      "drive_notes": "Logic (assets/js/content-engine.js, UMD \u2014 importable in node): batchingMath(opts) \u2014 capacity = shoot_days_per_month \u00d7 videos_per_shoot_day; required = cadence \u00d7 52/12 (the honest month); verdict surplus/balanced/shortfall with guidance text. 2.0 adds planBatchWeek({weeklyHours, longsPerWeek, shortsPerWeek, restDay, taskMinutes}) \u2014 weekly hours blocked into film/edit/publish day-blocks (8h/day cap, rest day untouched); verdict holds/tight/over with lever guidance. Defaults for task minutes are adjustable starting estimates, not benchmarks. Pure arithmetic on the creator's own inputs \u2014 never a promise. Planning aid, not financial/legal/tax advice."
+      "drive_notes": "Logic (assets/js/content-engine.js, UMD, importable in node): batchingMath(opts), capacity = shoot_days_per_month \u00d7 videos_per_shoot_day; required = cadence \u00d7 52/12 (the honest month); verdict surplus/balanced/shortfall with guidance text. 2.0 adds planBatchWeek({weeklyHours, longsPerWeek, shortsPerWeek, restDay, taskMinutes}), weekly hours blocked into film/edit/publish day-blocks (8h/day cap, rest day untouched); verdict holds/tight/over with lever guidance. Defaults for task minutes are adjustable starting estimates, not benchmarks. Pure arithmetic on the creator's own inputs, never a promise. Planning aid, not financial/legal/tax advice.",
+      "job": "Content",
+      "pricing_model": "Free",
+      "added": "2026-10-12",
+      "updated": "2026-10-12"
     },
     {
       "id": "money-map",
@@ -1241,7 +1293,7 @@
               "monetization",
               "operations"
             ],
-            "description": "Biggest bottleneck right now \u2014 selects the bottleneck-driven roadmap moves."
+            "description": "Biggest bottleneck right now, selects the bottleneck-driven roadmap moves."
           },
           "streams": {
             "type": "string",
@@ -1256,12 +1308,16 @@
         }
       },
       "output": "Stage placement (0\u20134: The Start Line / First $100 / The Engine Runs / The Business / The Company), sanity notes (audience-ahead, team-ahead), and a 3-move roadmap (stage signature move + 2 bottleneck-driven moves), the stage trap, and the graduate-when criteria. Placement anchored on the creator's own reported revenue band; stages are focus guides, never income promises.",
-      "drive_notes": "Logic (assets/js/money-map.js, UMD \u2014 importable in node): placeStage(a) \u2014 revenue band maps 0\u21920, 1-99\u21921, 100-999\u21922, 1k-9999\u21923, 10k-plus\u21924; if audience is 100k+ and base stage \u2264 2, stage+1 with an 'audience-ahead' note; employees with stage \u2264 2 adds a 'team-ahead' note. roadmap(a) \u2014 stage signature move (the stage's #1 tool) + two bottleneck-driven moves, deduped. STAGES carries the full playbook data (goal, 3 moves, trap, graduate). Wow wave 1 adds the Empire Climb: RANKS (RECRUIT/CADET/OPERATIVE/COMMANDER/GENERAL, chevron insignias), RANK_THRESHOLDS [0,100,275,500,775], XP_AWARDS {survey:50, move:25, stage:100, mission:25}; awardXP(store,key,amount,label) is idempotent per key, revokeKey undoes; rankFor/nextRankInfo map totals to ranks; loadClimb/saveClimb persist the cge.empireclimb.v1 journal (one-time migration from the pre-climb store). XP is a work journal \u2014 missions cleared, stages closed \u2014 never money earned; no rank promises revenue. Planning aid, not financial/legal/tax advice."
+      "drive_notes": "Logic (assets/js/money-map.js, UMD, importable in node): placeStage(a), revenue band maps 0\u21920, 1-99\u21921, 100-999\u21922, 1k-9999\u21923, 10k-plus\u21924; if audience is 100k+ and base stage \u2264 2, stage+1 with an 'audience-ahead' note; employees with stage \u2264 2 adds a 'team-ahead' note. roadmap(a), stage signature move (the stage's #1 tool) + two bottleneck-driven moves, deduped. STAGES carries the full playbook data (goal, 3 moves, trap, graduate). Wow wave 1 adds the Empire Climb: RANKS (RECRUIT/CADET/OPERATIVE/COMMANDER/GENERAL, chevron insignias), RANK_THRESHOLDS [0,100,275,500,775], XP_AWARDS {survey:50, move:25, stage:100, mission:25}; awardXP(store,key,amount,label) is idempotent per key, revokeKey undoes; rankFor/nextRankInfo map totals to ranks; loadClimb/saveClimb persist the cge.empireclimb.v1 journal (one-time migration from the pre-climb store). XP is a work journal, missions cleared, stages closed, never money earned; no rank promises revenue. Planning aid, not financial/legal/tax advice.",
+      "job": "Planning",
+      "pricing_model": "Free",
+      "added": "2026-10-12",
+      "updated": "2026-10-12"
     },
     {
       "id": "video-doctor",
       "title": "Diagnose My Video",
-      "description": "Pick your symptom \u2014 low CTR, the 30-second cliff, great retention but no subs \u2014 and get ranked causes with the fix from the chapter that owns it.",
+      "description": "Pick your symptom, low CTR, the 30-second cliff, great retention but no subs, and get ranked causes with the fix from the chapter that owns it.",
       "page": "video-doctor.html",
       "input_schema": {
         "$schema": "http://json-schema.org/draft-07/schema#",
@@ -1308,12 +1364,16 @@
         }
       },
       "output": "Ranked likely causes drawn from the site's chapters (Phase 1, Phase 2, Short-Form Playbook), each with chapter-grounded fixes and read-next links; the metric to watch next; context notes (tuition-phase caveat under 50 videos, swipe-feed completion-rate note for CTR on short-form). Thresholds labeled as creator-reported rules of thumb, never platform-published benchmarks.",
-      "drive_notes": "Engine (assets/js/video-doctor.js, UMD \u2014 importable in node): validInput(i) validates the three enums; diagnose(i) returns the symptom record with causes ranked 1..N (cause/why/fixes/links) plus notes. SYMPTOMS carries the full 8-symptom dataset. Diagnostic aid, not financial/legal/tax advice; never an income promise."
+      "drive_notes": "Engine (assets/js/video-doctor.js, UMD, importable in node): validInput(i) validates the three enums; diagnose(i) returns the symptom record with causes ranked 1..N (cause/why/fixes/links) plus notes. SYMPTOMS carries the full 8-symptom dataset. Diagnostic aid, not financial/legal/tax advice; never an income promise.",
+      "job": "Content",
+      "pricing_model": "Free",
+      "added": "2026-10-12",
+      "updated": "2026-10-12"
     },
     {
       "id": "ypp-checker",
       "title": "YPP 2027 Eligibility Checker",
-      "description": "Enter your subs, watch hours, and Shorts views \u2014 get your verdict under the current YPP bar and the Feb-2027 bar, the gap math, and a chapter-grounded plan to close it.",
+      "description": "Enter your subs, watch hours, and Shorts views, get your verdict under the current YPP bar and the Feb-2027 bar, the gap math, and a chapter-grounded plan to close it.",
       "page": "ypp-checker.html",
       "input_schema": {
         "$schema": "http://json-schema.org/draft-07/schema#",
@@ -1369,7 +1429,11 @@
         }
       },
       "output": "Two verdicts: current YPP rules (through Jan 31, 2027: 1K subs + 4K watch hours/12mo OR 10M Shorts views/90d) vs 2027 rules (from Feb 1, 2027: 1K subs + 8K hours/365d OR 20M Shorts views/90d), each with per-check pass/fail; the 2027 Shorts revenue floor check (10M qualified Shorts views/90d, monthly); the 2027 activity test for partners; the unchanged fan-funding tier; the gap math per rule; the shorter-walk note; the Oct-2026 Shorts-originality warning when relevant; a chapter-grounded close-the-gap plan. Thresholds labeled with sources and observation dates; every verdict carries the verify-live-with-YouTube disclaimer.",
-      "drive_notes": "Engine (assets/js/ypp-checker.js, UMD \u2014 importable in node): RULES carries both rule sets with source strings; validInput(i) validates the numbers and two enums; check(i) returns {input, now, y2027, originalityWarning, plan2027, shorterWalk, disclaimer}; fullVerdict/fanVerdict/shortsFloorVerdict/activityVerdict return per-check pass/fail + gap math; plan() returns chapter-grounded steps with read-next links to real site pages. Educational aid, not financial/legal/tax advice; never an income promise."
+      "drive_notes": "Engine (assets/js/ypp-checker.js, UMD, importable in node): RULES carries both rule sets with source strings; validInput(i) validates the numbers and two enums; check(i) returns {input, now, y2027, originalityWarning, plan2027, shorterWalk, disclaimer}; fullVerdict/fanVerdict/shortsFloorVerdict/activityVerdict return per-check pass/fail + gap math; plan() returns chapter-grounded steps with read-next links to real site pages. Educational aid, not financial/legal/tax advice; never an income promise.",
+      "job": "Money",
+      "pricing_model": "Free",
+      "added": "2026-10-12",
+      "updated": "2026-10-12"
     },
     {
       "id": "outreach",
@@ -1388,7 +1452,7 @@
           },
           "contactName": {
             "type": "string",
-            "description": "The human being emailed \u2014 never 'dear partnerships team'."
+            "description": "The human being emailed, never 'dear partnerships team'."
           },
           "email": {
             "type": "string",
@@ -1450,7 +1514,7 @@
           },
           "pitchVars": {
             "type": "object",
-            "description": "Values for the template's [bracketed] placeholders (your_name, channel_name, avg_views, \u2026). Unfilled placeholders stay visible \u2014 never invent stats."
+            "description": "Values for the template's [bracketed] placeholders (your_name, channel_name, avg_views, \u2026). Unfilled placeholders stay visible, never invent stats."
           },
           "contractFlags": {
             "type": "array",
@@ -1462,7 +1526,11 @@
         }
       },
       "output": "Pipeline stats (contacted, response rate, active deals, close rate) + follow-up buckets (overdue / due today / upcoming); rendered pitch email from the 3 templates with unfilled [brackets] left visible; rate-card quote (tier range, top-of-range quote point, 23% expected-close math, CPM cross-check vs the deliverable band); contract risk summary (per-item plain-language fix + clean / caution / don't-sign verdict). All ranges and guidance, never promises.",
-      "drive_notes": "Engine (assets/js/outreach.js, UMD \u2014 importable in node): validDeal(d) validates pipeline records; pipelineStats(deals) computes response/close rates; dueFollowUps(deals, nowIso) buckets follow-ups; quoteCalc(input, rateCard, ruleOfThumb) reads sponsorship_rate_card_2026 (tier ranges, platform multipliers, sponsored_cpms) and sponsorship_rule_of_thumb.dedicated_cpm_range \u2014 output carries the ~23% listed-vs-accepted note, the 41% package-discount figure, and the never-a-quote disclaimer; renderPitch(template, vars) fills placeholders and leaves unknown ones visible; contractRisk(ids, contract_flags) scores contract structure (any walk_away flag or 3+ points -> don't sign) with a NOT-legal-advice disclaimer. Templates + contract flags from data/v1/deal-templates.json. Negotiation aid, not financial/legal/tax advice."
+      "drive_notes": "Engine (assets/js/outreach.js, UMD, importable in node): validDeal(d) validates pipeline records; pipelineStats(deals) computes response/close rates; dueFollowUps(deals, nowIso) buckets follow-ups; quoteCalc(input, rateCard, ruleOfThumb) reads sponsorship_rate_card_2026 (tier ranges, platform multipliers, sponsored_cpms) and sponsorship_rule_of_thumb.dedicated_cpm_range, output carries the ~23% listed-vs-accepted note, the 41% package-discount figure, and the never-a-quote disclaimer; renderPitch(template, vars) fills placeholders and leaves unknown ones visible; contractRisk(ids, contract_flags) scores contract structure (any walk_away flag or 3+ points -> don't sign) with a NOT-legal-advice disclaimer. Templates + contract flags from data/v1/deal-templates.json. Negotiation aid, not financial/legal/tax advice.",
+      "job": "Money",
+      "pricing_model": "Free",
+      "added": "2026-10-12",
+      "updated": "2026-10-12"
     },
     {
       "id": "crosspost",
@@ -1505,17 +1573,21 @@
           "photorealistic_ai": {
             "type": "boolean",
             "default": false,
-            "description": "The clip uses photorealistic AI visuals \u2014 triggers the YouTube disclosure-label reminder (labeled = normal distribution; undisclosed = reduced recommendations or removal)."
+            "description": "The clip uses photorealistic AI visuals, triggers the YouTube disclosure-label reminder (labeled = normal distribution; undisclosed = reduced recommendations or removal)."
           }
         }
       },
-      "output": "Per-destination adaptation cards (aspect, captions, hook rework, CTA, audio, disclosure label, one-original-element changes) + the universal checks + the Oct-1 gate reminder. Adaptation guidance under the platforms' stated 2026 rules \u2014 never a promise of reach, views, or revenue.",
-      "drive_notes": "Engine (assets/js/content-engine.js, UMD \u2014 importable in node): adaptChecklist(source_platform, destinations) reads the adaptation matrix (12 source\u2192destination rule sets + 6 universal checks); unknown platforms and the source itself are filtered out. Matrix + grammars + gate: data/v1/content-engine.json -> adaptation_matrix. Pairs with the content-repurposing skill. Planning aid, not financial/legal/tax advice."
+      "output": "Per-destination adaptation cards (aspect, captions, hook rework, CTA, audio, disclosure label, one-original-element changes) + the universal checks + the Oct-1 gate reminder. Adaptation guidance under the platforms' stated 2026 rules, never a promise of reach, views, or revenue.",
+      "drive_notes": "Engine (assets/js/content-engine.js, UMD, importable in node): adaptChecklist(source_platform, destinations) reads the adaptation matrix (12 source\u2192destination rule sets + 6 universal checks); unknown platforms and the source itself are filtered out. Matrix + grammars + gate: data/v1/content-engine.json -> adaptation_matrix. Pairs with the content-repurposing skill. Planning aid, not financial/legal/tax advice.",
+      "job": "Content",
+      "pricing_model": "Free",
+      "added": "2026-10-12",
+      "updated": "2026-10-12"
     },
     {
       "id": "cadence",
       "title": "Cadence Coach",
-      "description": "How often should you actually post? Turn your honest weekly hours, formats, and platforms into a sustainable cadence \u2014 capacity math plus Oct-2026 platform realities. Consistency beats volume.",
+      "description": "How often should you actually post? Turn your honest weekly hours, formats, and platforms into a sustainable cadence, capacity math plus Oct-2026 platform realities. Consistency beats volume.",
       "page": "cadence.html",
       "input_schema": {
         "$schema": "http://json-schema.org/draft-07/schema#",
@@ -1593,13 +1665,17 @@
           }
         }
       },
-      "output": "Recommended longs/week + shorts/week, utilization vs production time (holds/tight/over), a 7-day schedule grid (rest day empty), per-platform Oct-2026 revenue realities, the 2-week ramp suggestion, method notes. Capacity arithmetic only \u2014 never a promise of views, revenue, or growth.",
-      "drive_notes": "Logic (assets/js/cadence.js, UMD): production minutes = weeklyHours*60*(1-overheadPct); longs-first/shorts-first/balanced-50-50 allocation by per-piece minutes; utilization = used/production minutes (holds \u22640.7, tight \u22640.95, over above); dealWeek() spreads longs evenly over non-rest days and round-robins shorts; platform notes are the Oct-11-2026 research facts (TikTok Rewards 1-min+ qualifier $0.40\u2013$1.00/1K, Reels $0, Shorts $0.02\u2013$0.20/1K + Feb-2027 10M floor + Oct-1 originality rule, 20M+ uploads/day). Planning aid, not financial/legal/tax advice."
+      "output": "Recommended longs/week + shorts/week, utilization vs production time (holds/tight/over), a 7-day schedule grid (rest day empty), per-platform Oct-2026 revenue realities, the 2-week ramp suggestion, method notes. Capacity arithmetic only, never a promise of views, revenue, or growth.",
+      "drive_notes": "Logic (assets/js/cadence.js, UMD): production minutes = weeklyHours*60*(1-overheadPct); longs-first/shorts-first/balanced-50-50 allocation by per-piece minutes; utilization = used/production minutes (holds \u22640.7, tight \u22640.95, over above); dealWeek() spreads longs evenly over non-rest days and round-robins shorts; platform notes are the Oct-11-2026 research facts (TikTok Rewards 1-min+ qualifier $0.40\u2013$1.00/1K, Reels $0, Shorts $0.02\u2013$0.20/1K + Feb-2027 10M floor + Oct-1 originality rule, 20M+ uploads/day). Planning aid, not financial/legal/tax advice.",
+      "job": "Planning",
+      "pricing_model": "Free",
+      "added": "2026-10-12",
+      "updated": "2026-10-12"
     },
     {
       "id": "format-fit",
       "title": "Format Fit Finder",
-      "description": "Six questions about the creator's real situation \u2014 experience, weekly hours, on-camera comfort, budget, monetization goal, risk tolerance \u2014 scored against the 10 breakout-format dossiers; ranked matches with why-it-fits reasoning, the catch, creator-reported pay ranges, and first 3 moves.",
+      "description": "Six questions about the creator's real situation, experience, weekly hours, on-camera comfort, budget, monetization goal, risk tolerance, scored against the 10 breakout-format dossiers; ranked matches with why-it-fits reasoning, the catch, creator-reported pay ranges, and first 3 moves.",
       "page": "format-fit.html",
       "input_schema": {
         "$schema": "http://json-schema.org/draft-07/schema#",
@@ -1674,13 +1750,17 @@
           }
         }
       },
-      "output": "Ranked matches (score of 13, strong/workable/weak bands) with per-match why-it-fits reasoning, the honest catch from the dossier's risks, creator-reported pay ranges, competition, first 3 moves, per-match mismatch flags, global honesty flags, and the rate-card context. Matching arithmetic only \u2014 never a promise of views, revenue, or growth.",
-      "drive_notes": "Logic (assets/js/format-fit.js, UMD): FORMATS mirrors data/niches.json v2.1.0 breakout_format_dossiers (id, dossier_no order, pay + competition labels \u2014 tests pin the sync); axis scores experience(3)/camera(2)/hours(2)/budget(2)/goal(2)/risk(2) = 13 max; camera-clash and hours-mismatch hard penalties; bands strong >=9, workable 6\u20138, weak <6; ties break by dossier order; global flags for none-yet, <3h/week, and fast-money-plus-play-it-safe. Planning aid, not financial/legal/tax advice."
+      "output": "Ranked matches (score of 13, strong/workable/weak bands) with per-match why-it-fits reasoning, the honest catch from the dossier's risks, creator-reported pay ranges, competition, first 3 moves, per-match mismatch flags, global honesty flags, and the rate-card context. Matching arithmetic only, never a promise of views, revenue, or growth.",
+      "drive_notes": "Logic (assets/js/format-fit.js, UMD): FORMATS mirrors data/niches.json v2.1.0 breakout_format_dossiers (id, dossier_no order, pay + competition labels, tests pin the sync); axis scores experience(3)/camera(2)/hours(2)/budget(2)/goal(2)/risk(2) = 13 max; camera-clash and hours-mismatch hard penalties; bands strong >=9, workable 6\u20138, weak <6; ties break by dossier order; global flags for none-yet, <3h/week, and fast-money-plus-play-it-safe. Planning aid, not financial/legal/tax advice.",
+      "job": "Planning",
+      "pricing_model": "Free",
+      "added": "2026-10-12",
+      "updated": "2026-10-12"
     },
     {
       "id": "deal-builder",
       "title": "Deal Builder",
-      "description": "Turn deliverables into a line-item quote from the 2026 rate card: base fees per deliverable, usage rights, whitelisting, and exclusivity as stacked line items \u2014 plus a ready-to-send proposal built from the quote and a deal checklist built from the terms.",
+      "description": "Turn deliverables into a line-item quote from the 2026 rate card: base fees per deliverable, usage rights, whitelisting, and exclusivity as stacked line items, plus a ready-to-send proposal built from the quote and a deal checklist built from the terms.",
       "page": "deal-builder.html",
       "input_schema": {
         "$schema": "http://json-schema.org/draft-07/schema#",
@@ -1793,14 +1873,18 @@
                 "minimum": 0,
                 "maximum": 90,
                 "default": 0,
-                "description": "Affiliate commission % on top of the flat fee \u2014 the bonus, not the deal."
+                "description": "Affiliate commission % on top of the flat fee, the bonus, not the deal."
               }
             }
           }
         }
       },
       "output": "Line-item quote: per-deliverable lines (per-unit + line ranges with the data basis named), post-fee base, usage add-on (+25\u201350% / +50\u201375% / +75\u2013100% / perpetual from 2x), whitelisting add-on (30\u2013100%/mo), exclusivity add-on or broad-lock flag, package total, expected landing zone (~23% below the ask), bundle + multi-platform + honesty notes; exclusivity/usage-window conflict flags (walk_away/flag/note levels, incl. the can't-see-other-contracts honesty note); proposal email with unsupplied stats as [brackets] (never invented); 7-group deal checklist (usage, payment, revisions, exclusivity, FTC disclosure, deliverables, walk-away) customized to the quote's terms. All ranges and guidance, never promises.",
-      "drive_notes": "Engine (assets/js/deal-builder.js, UMD \u2014 importable in node): validInput() validates (followers \u22651,000, \u22648 deliverable lines, count 1\u201312, exclusivity consistency); tierOf() parity-pinned with Outreach.tierOf; deliverableBase() reads sponsorship_rate_card_2026 (dedicated = tier band, integrated/short = sponsored-CPM \u00d7 viewsAvg with a labeled half-band fallback, ugc = Storika $150\u2013$1,000 single-source); buildQuote() stacks base + usage (usage_rights_benchmarks_2026 tiers) + whitelisting (monthly) + exclusivity (named +25%/+50%, category flagged not invented) \u2014 2-sig-fig rounding, expectedClose \u00d7(1\u22120.23); exclusivityConflicts() checks window mismatches, perpetual+exclusivity, whitelisting-outliving-lock, UGC+affiliate edges; buildChecklist() generates the 7-group checklist from the quote; renderPitch() writes the proposal with [bracket] placeholders. Negotiation aid \u2014 not financial, legal, or tax advice; the checklist is not legal advice. See AGENT.md Workflow 14."
+      "drive_notes": "Engine (assets/js/deal-builder.js, UMD, importable in node): validInput() validates (followers \u22651,000, \u22648 deliverable lines, count 1\u201312, exclusivity consistency); tierOf() parity-pinned with Outreach.tierOf; deliverableBase() reads sponsorship_rate_card_2026 (dedicated = tier band, integrated/short = sponsored-CPM \u00d7 viewsAvg with a labeled half-band fallback, ugc = Storika $150\u2013$1,000 single-source); buildQuote() stacks base + usage (usage_rights_benchmarks_2026 tiers) + whitelisting (monthly) + exclusivity (named +25%/+50%, category flagged not invented), 2-sig-fig rounding, expectedClose \u00d7(1\u22120.23); exclusivityConflicts() checks window mismatches, perpetual+exclusivity, whitelisting-outliving-lock, UGC+affiliate edges; buildChecklist() generates the 7-group checklist from the quote; renderPitch() writes the proposal with [bracket] placeholders. Negotiation aid, not financial, legal, or tax advice; the checklist is not legal advice. See AGENT.md Workflow 14.",
+      "job": "Money",
+      "pricing_model": "Free",
+      "added": "2026-10-12",
+      "updated": "2026-10-12"
     },
     {
       "id": "negotiation-kit",
@@ -1876,7 +1960,7 @@
               "entertainment",
               "science"
             ],
-            "description": "Optional sponsor niche key \u2014 adjusts the benchmark range by the shared niche multiplier table."
+            "description": "Optional sponsor niche key, adjusts the benchmark range by the shared niche multiplier table."
           },
           "usage": {
             "type": "string",
@@ -1922,7 +2006,7 @@
             "minimum": 1,
             "maximum": 12,
             "default": 1,
-            "description": "Posts in the deal \u2014 3+ triggers the bundle-discount note."
+            "description": "Posts in the deal, 3+ triggers the bundle-discount note."
           },
           "creatorFloor": {
             "type": "number",
@@ -1932,8 +2016,12 @@
           }
         }
       },
-      "output": "Counter-offer: niche-adjusted tier range and verdict on the offer, implied-CPM position against the deliverable's reported band, the typical-quote / typical-ask evidence (Cheerful Sep-2026, reported) and the modeled Instagram feed-post cross-check (Click Analytic 2026, labeled modeled) \u2014 null where no format maps honestly; line items (post fee at the top of the range + usage + whitelisting + named exclusivity, each with its basis), counter total, expected landing zone (~23% below the ask), and the broad-exclusivity flag. Walk-away panel: your floor (higher of rate-card floor and your own floor), your Deal Room pipeline totals (committed / paid / average paid / still open \u2014 your numbers only), and a stance on this offer. Six editable reply scripts (counter, lowball, exposure-only, usage rights, whitelisting, late payment) filled from the counter's numbers, plus a one-page negotiation brief. A model, not a prediction; never a guarantee.",
-      "drive_notes": "Engine (assets/js/negotiation-kit.js, UMD \u2014 importable in node): validInput() validates; buildCounter(input, calculatorsJson) reads sponsorship_rate_card_2026 + sponsorship_quoted_prices_2026 + usage_rights_benchmarks_2026 (calculators v1.5.0) \u2014 niche multiplier parity-pinned with DealRoom/DealAnalyzer, quoted-price format map shared with the Deal Room, unmapped formats return null evidence; walkAwayPanel(input, dealRoomDeals, calculatorsJson) totals the creator's own pipeline with no invented close probabilities; renderReply(script, vars) fills {{placeholders}} from deal-templates.json negotiation_kit_scripts (v1.2.0) and leaves unknown ones visible; replyVars(counter, extra) carries the counter's numbers into the scripts; exportBrief(counter, walk) renders the plaintext brief. Negotiation aid \u2014 not financial, legal, or tax advice. See AGENT.md Workflow 15."
+      "output": "Counter-offer: niche-adjusted tier range and verdict on the offer, implied-CPM position against the deliverable's reported band, the typical-quote / typical-ask evidence (Cheerful Sep-2026, reported) and the modeled Instagram feed-post cross-check (Click Analytic 2026, labeled modeled), null where no format maps honestly; line items (post fee at the top of the range + usage + whitelisting + named exclusivity, each with its basis), counter total, expected landing zone (~23% below the ask), and the broad-exclusivity flag. Walk-away panel: your floor (higher of rate-card floor and your own floor), your Deal Room pipeline totals (committed / paid / average paid / still open, your numbers only), and a stance on this offer. Six editable reply scripts (counter, lowball, exposure-only, usage rights, whitelisting, late payment) filled from the counter's numbers, plus a one-page negotiation brief. A model, not a prediction; never a guarantee.",
+      "drive_notes": "Engine (assets/js/negotiation-kit.js, UMD, importable in node): validInput() validates; buildCounter(input, calculatorsJson) reads sponsorship_rate_card_2026 + sponsorship_quoted_prices_2026 + usage_rights_benchmarks_2026 (calculators v1.5.0), niche multiplier parity-pinned with DealRoom/DealAnalyzer, quoted-price format map shared with the Deal Room, unmapped formats return null evidence; walkAwayPanel(input, dealRoomDeals, calculatorsJson) totals the creator's own pipeline with no invented close probabilities; renderReply(script, vars) fills {{placeholders}} from deal-templates.json negotiation_kit_scripts (v1.2.0) and leaves unknown ones visible; replyVars(counter, extra) carries the counter's numbers into the scripts; exportBrief(counter, walk) renders the plaintext brief. Negotiation aid, not financial, legal, or tax advice. See AGENT.md Workflow 15.",
+      "job": "Money",
+      "pricing_model": "Free",
+      "added": "2026-10-12",
+      "updated": "2026-10-14"
     },
     {
       "id": "rate-card-builder",
@@ -1971,7 +2059,7 @@
               "short",
               "ugc"
             ],
-            "description": "The primary format the creator sells \u2014 usage/whitelisting add-ons and the card total ride on this row."
+            "description": "The primary format the creator sells, usage/whitelisting add-ons and the card total ride on this row."
           },
           "followers": {
             "type": "number",
@@ -1986,7 +2074,7 @@
           },
           "niche": {
             "type": "string",
-            "description": "Optional niche key \u2014 the site-wide sponsor niche multiplier (parity-pinned across Deal Room / Deal Analyzer / Negotiation Kit / Rate Card Builder)."
+            "description": "Optional niche key, the site-wide sponsor niche multiplier (parity-pinned across Deal Room / Deal Analyzer / Negotiation Kit / Rate Card Builder)."
           },
           "usage": {
             "type": "string",
@@ -2009,13 +2097,17 @@
           }
         }
       },
-      "output": "Rate card: four format rows (dedicated from the tier table \u00d7 niche; integrated from the reported YouTube CPM band \u00d7 views; short from the general CPM band \u00d7 views or the reported typical quote; UGC from the Storika single-source band, never tier/niche-scaled), each with basis + source + reasoning \u2014 null with a stated reason where the data has no benchmark, and a labeled unadjusted YouTube-band proxy for platforms with no tier table of their own. Usage and whitelisting add-on lines on the primary row, card total, expected landing zone (~23% below list), reported typical-quote/ask evidence kept apart from the benchmark rows (modeled Instagram cross-check named, never mixed in), and the newest Algorithm Watch entries for the platform. Ranges, not quotes.",
-      "drive_notes": "Engine (assets/js/rate-card-builder.js, UMD \u2014 importable in node): validInput() validates; buildCard(input, calculatorsJson, changesFeed) reads sponsorship_rate_card_2026 + sponsorship_quoted_prices_2026 + usage_rights_benchmarks_2026 (calculators v1.5.0) and the Algorithm Watch feed \u2014 niche multiplier parity-pinned with DealRoom/DealAnalyzer/NegotiationKit, 2-significant-figure rounding shared with DealBuilder, quoted-price format map returns null where unmapped; exportCard(card) renders the plaintext card with reasoning, evidence, and watch items. Planning aid \u2014 not financial, legal, or tax advice. See AGENT.md Workflow 16."
+      "output": "Rate card: four format rows (dedicated from the tier table \u00d7 niche; integrated from the reported YouTube CPM band \u00d7 views; short from the general CPM band \u00d7 views or the reported typical quote; UGC from the Storika single-source band, never tier/niche-scaled), each with basis + source + reasoning, null with a stated reason where the data has no benchmark, and a labeled unadjusted YouTube-band proxy for platforms with no tier table of their own. Usage and whitelisting add-on lines on the primary row, card total, expected landing zone (~23% below list), reported typical-quote/ask evidence kept apart from the benchmark rows (modeled Instagram cross-check named, never mixed in), and the newest Algorithm Watch entries for the platform. Ranges, not quotes.",
+      "drive_notes": "Engine (assets/js/rate-card-builder.js, UMD, importable in node): validInput() validates; buildCard(input, calculatorsJson, changesFeed) reads sponsorship_rate_card_2026 + sponsorship_quoted_prices_2026 + usage_rights_benchmarks_2026 (calculators v1.5.0) and the Algorithm Watch feed, niche multiplier parity-pinned with DealRoom/DealAnalyzer/NegotiationKit, 2-significant-figure rounding shared with DealBuilder, quoted-price format map returns null where unmapped; exportCard(card) renders the plaintext card with reasoning, evidence, and watch items. Planning aid, not financial, legal, or tax advice. See AGENT.md Workflow 16.",
+      "job": "Money",
+      "pricing_model": "Free",
+      "added": "2026-10-13",
+      "updated": "2026-10-14"
     },
     {
       "id": "negotiation-script-builder",
       "title": "Negotiation Script Builder",
-      "description": "Assemble a word-for-word negotiation script \u2014 opener, anchor, concession ladder, walk-away line \u2014 for one covered scenario, priced by the Negotiation Kit counter on the rate-card data, every line traced to a Kit / Deal Room script.",
+      "description": "Assemble a word-for-word negotiation script, opener, anchor, concession ladder, walk-away line, for one covered scenario, priced by the Negotiation Kit counter on the rate-card data, every line traced to a Kit / Deal Room script.",
       "page": "negotiation-script-builder.html",
       "input_schema": {
         "$schema": "http://json-schema.org/draft-07/schema#",
@@ -2037,7 +2129,7 @@
               "exclusivity_lockin",
               "late_payment"
             ],
-            "description": "Only scenarios a repo script covers. Contract-flag-only scenarios (ip_assignment, view_guarantee_clawback, morality_clause) and perpetual_buyout are excluded with reasons \u2014 never improvised."
+            "description": "Only scenarios a repo script covers. Contract-flag-only scenarios (ip_assignment, view_guarantee_clawback, morality_clause) and perpetual_buyout are excluded with reasons, never improvised."
           },
           "brand": {
             "type": "string"
@@ -2074,7 +2166,7 @@
           },
           "niche": {
             "type": "string",
-            "description": "Optional sponsor niche key \u2014 shared multiplier table."
+            "description": "Optional sponsor niche key, shared multiplier table."
           },
           "usage": {
             "type": "string",
@@ -2117,7 +2209,7 @@
           },
           "invoiceDate": {
             "type": "string",
-            "description": "Late payment only \u2014 as written on the invoice."
+            "description": "Late payment only, as written on the invoice."
           },
           "daysOverdue": {
             "type": "number",
@@ -2127,7 +2219,11 @@
         }
       },
       "output": "Script lines in stage order (opener, anchor, concession steps 1-3, walk-away), each with sources[] (repo script ids) and grounded_in provenance; the counter total, expected landing zone, and walk-away number the lines carry; and the excluded-scenario list with reasons. exportScript() renders the plaintext script with provenance.",
-      "drive_notes": "Engine (assets/js/negotiation-script-builder.js, UMD \u2014 importable in node): validInput() validates and returns excluded:true for excluded scenarios; buildScript(input, calculatorsJson, dealTemplatesJson, negotiationKit) fails if any named source script is missing from deal-templates.json, prices via NegotiationKit.buildCounter + walkAwayPanel on calculators v1.5.0, and assembles lines only from negotiation_scripts + negotiation_kit_scripts frameworks. Negotiation aid \u2014 not financial, legal, or tax advice. See AGENT.md Workflow 17."
+      "drive_notes": "Engine (assets/js/negotiation-script-builder.js, UMD, importable in node): validInput() validates and returns excluded:true for excluded scenarios; buildScript(input, calculatorsJson, dealTemplatesJson, negotiationKit) fails if any named source script is missing from deal-templates.json, prices via NegotiationKit.buildCounter + walkAwayPanel on calculators v1.5.0, and assembles lines only from negotiation_scripts + negotiation_kit_scripts frameworks. Negotiation aid, not financial, legal, or tax advice. See AGENT.md Workflow 17.",
+      "job": "Money",
+      "pricing_model": "Free",
+      "added": "2026-10-13",
+      "updated": "2026-10-14"
     },
     {
       "id": "deal-pipeline",
@@ -2164,7 +2260,7 @@
           "amount": {
             "type": "number",
             "minimum": 0,
-            "description": "Current agreed or offered figure in USD (0 is a real value \u2014 an unpaid lead)."
+            "description": "Current agreed or offered figure in USD (0 is a real value, an unpaid lead)."
           },
           "stageEnteredAt": {
             "type": "string",
@@ -2202,7 +2298,7 @@
           },
           "niche": {
             "type": "string",
-            "description": "Optional sponsor niche key \u2014 shared multiplier table."
+            "description": "Optional sponsor niche key, shared multiplier table."
           },
           "usage": {
             "type": "string",
@@ -2238,8 +2334,12 @@
           }
         }
       },
-      "output": "Board grouped by the six stages; each deal enriched with its Rate Card Builder pricing (primary range, basis, source, reasoning, card total) and its current Negotiation Script Builder script; follow-up nudges from stage age (lead 3d, negotiating 7d, terms 5d, live 14d, invoiced 14d, paid none); pipeline totals (counts and sums per stage, pipeline value, open value, invoiced outstanding, paid total) computed from real entered deals only \u2014 demo deals counted apart, an empty board totals to zero. exportBoard() renders the plaintext board.",
-      "drive_notes": "Engine (assets/js/deal-pipeline.js, UMD \u2014 importable in node): validDeal() validates; priceDeal(deal, calculatorsJson, changesFeed, rateCardBuilder) delegates ALL pricing to Tool 23 (no pricing math of its own); scriptFor(deal, calculatorsJson, dealTemplatesJson, {nsb, nk}) delegates ALL wording to Tool 24; buildBoard(deals, opts) groups, prices, scripts, and nudges; pipelineTotals(deals) sums entered deals only. Browser persistence is localStorage (key cge.deal-pipeline.deals.v1). Planning aid \u2014 not financial, legal, or tax advice. See AGENT.md Workflow 18."
+      "output": "Board grouped by the six stages; each deal enriched with its Rate Card Builder pricing (primary range, basis, source, reasoning, card total) and its current Negotiation Script Builder script; follow-up nudges from stage age (lead 3d, negotiating 7d, terms 5d, live 14d, invoiced 14d, paid none); pipeline totals (counts and sums per stage, pipeline value, open value, invoiced outstanding, paid total) computed from real entered deals only, demo deals counted apart, an empty board totals to zero. exportBoard() renders the plaintext board.",
+      "drive_notes": "Engine (assets/js/deal-pipeline.js, UMD, importable in node): validDeal() validates; priceDeal(deal, calculatorsJson, changesFeed, rateCardBuilder) delegates ALL pricing to Tool 23 (no pricing math of its own); scriptFor(deal, calculatorsJson, dealTemplatesJson, {nsb, nk}) delegates ALL wording to Tool 24; buildBoard(deals, opts) groups, prices, scripts, and nudges; pipelineTotals(deals) sums entered deals only. Browser persistence is localStorage (key cge.deal-pipeline.deals.v1). Planning aid, not financial, legal, or tax advice. See AGENT.md Workflow 18.",
+      "job": "Money",
+      "pricing_model": "Free",
+      "added": "2026-10-13",
+      "updated": "2026-10-14"
     },
     {
       "id": "follow-through",
@@ -2256,7 +2356,7 @@
         "properties": {
           "deals": {
             "type": "array",
-            "description": "The Deal Pipeline's deal records (Tool 25 input shape \u2014 brand, stage, amount, stageEnteredAt, plus the pricing/script fields). The queue reads the same records the board holds."
+            "description": "The Deal Pipeline's deal records (Tool 25 input shape, brand, stage, amount, stageEnteredAt, plus the pricing/script fields). The queue reads the same records the board holds."
           },
           "now": {
             "type": "string",
@@ -2265,7 +2365,11 @@
         }
       },
       "output": "The queue in send order (urgent invoiced first, then most overdue against Tool 25's stage thresholds, then longest in stage): each item carries the deal's brand, stage, stage age, days overdue, Tool 25's nudge action, the entered amount, and its Tool 24 script (label + full export text) or the reason none is attached. Demo-deal follow-ups are counted apart and never queued; an empty board and a nothing-due board are reported as different states. exportBrief() renders the plaintext brief.",
-      "drive_notes": "Engine (assets/js/follow-through.js, UMD \u2014 importable in node): buildQueue(deals, opts) runs Tool 25's buildBoard and queueFromBoard(board) joins its nudges to the enriched deals, orders them, and attaches each deal's Tool 24 script \u2014 no pricing math, wording, or thresholds of its own. Browser persistence is the Deal Pipeline's localStorage key (cge.deal-pipeline.deals.v1), shared with Tool 25. Planning aid \u2014 not financial, legal, or tax advice. See AGENT.md Workflow 19."
+      "drive_notes": "Engine (assets/js/follow-through.js, UMD, importable in node): buildQueue(deals, opts) runs Tool 25's buildBoard and queueFromBoard(board) joins its nudges to the enriched deals, orders them, and attaches each deal's Tool 24 script, no pricing math, wording, or thresholds of its own. Browser persistence is the Deal Pipeline's localStorage key (cge.deal-pipeline.deals.v1), shared with Tool 25. Planning aid, not financial, legal, or tax advice. See AGENT.md Workflow 19.",
+      "job": "Money",
+      "pricing_model": "Free",
+      "added": "2026-10-13",
+      "updated": "2026-10-14"
     },
     {
       "id": "repeat-sponsor-book",
@@ -2282,7 +2386,7 @@
         "properties": {
           "deals": {
             "type": "array",
-            "description": "The Deal Pipeline's deal records (Tool 25 input shape \u2014 brand, stage, amount, stageEnteredAt, plus the pricing fields). The book reads the same records the board holds and keeps only the paid ones."
+            "description": "The Deal Pipeline's deal records (Tool 25 input shape, brand, stage, amount, stageEnteredAt, plus the pricing fields). The book reads the same records the board holds and keeps only the paid ones."
           },
           "now": {
             "type": "string",
@@ -2291,7 +2395,11 @@
         }
       },
       "output": "The book in re-approach order (longest since the deal entered the paid stage first, then largest amount, then brand): each item carries the brand, the entered paid amount, days since payment stage entry, Tool 23's current card for the deal (total range + provenance, via Tool 25's priceDeal), where the paid amount sits against that range (below / inside / above), and the stated reason no pitch wording is attached. Demo paid deals are counted apart and never booked; an empty board, a no-paid-yet board, and a demo-only board are reported as different states. exportBook() renders the plaintext book.",
-      "drive_notes": "Engine (assets/js/repeat-sponsor-book.js, UMD \u2014 importable in node): buildBook(deals, opts) runs Tool 25's buildBoard and bookFromBoard(board) keeps the enriched paid deals, orders them, and sets each entered amount against Tool 23's card total \u2014 no pricing math, thresholds, or renewal-due dates of its own; the ordering claims no renewal window. Browser persistence is the Deal Pipeline's localStorage key (cge.deal-pipeline.deals.v1), shared with Tools 25/26. Planning aid \u2014 not financial, legal, or tax advice. See AGENT.md Workflow 20."
+      "drive_notes": "Engine (assets/js/repeat-sponsor-book.js, UMD, importable in node): buildBook(deals, opts) runs Tool 25's buildBoard and bookFromBoard(board) keeps the enriched paid deals, orders them, and sets each entered amount against Tool 23's card total, no pricing math, thresholds, or renewal-due dates of its own; the ordering claims no renewal window. Browser persistence is the Deal Pipeline's localStorage key (cge.deal-pipeline.deals.v1), shared with Tools 25/26. Planning aid, not financial, legal, or tax advice. See AGENT.md Workflow 20.",
+      "job": "Money",
+      "pricing_model": "Free",
+      "added": "2026-10-13",
+      "updated": "2026-10-14"
     },
     {
       "id": "sponsor-income-ledger",
@@ -2308,7 +2416,7 @@
         "properties": {
           "deals": {
             "type": "array",
-            "description": "The Deal Pipeline's deal records (Tool 25 input shape \u2014 brand, stage, amount, stageEnteredAt, plus the pricing fields). The ledger reads the same records the board holds and keeps only the paid ones."
+            "description": "The Deal Pipeline's deal records (Tool 25 input shape, brand, stage, amount, stageEnteredAt, plus the pricing fields). The ledger reads the same records the board holds and keeps only the paid ones."
           },
           "now": {
             "type": "string",
@@ -2316,8 +2424,12 @@
           }
         }
       },
-      "output": "The ledger: months in chronological order (each with its paid deals, month total, and running cumulative), per-brand totals with each brand's share of the collected total, per-platform totals with shares, and the top brand. Months are the month each deal entered the paid stage \u2014 the only payment timing the board carries; a paid deal whose stage entry date cannot be read is ledgered under Undated, flagged, and still counted. Demo paid deals are counted apart and never ledgered; an empty board, a no-paid-yet board, and a demo-only board are reported as different states. exportLedger() renders the plaintext ledger.",
-      "drive_notes": "Engine (assets/js/sponsor-income-ledger.js, UMD \u2014 importable in node): buildLedger(deals, opts) runs Tool 25's buildBoard and ledgerFromBoard(board) groups its paid deals by stage-entry month, brand, and platform \u2014 no pricing, no rate card, and no thresholds of its own; collected stays Tool 25's paid total. Browser persistence is the Deal Pipeline's localStorage key (cge.deal-pipeline.deals.v1), shared with Tools 25/26/27. Planning aid \u2014 not financial, legal, or tax advice. See AGENT.md Workflow 21."
+      "output": "The ledger: months in chronological order (each with its paid deals, month total, and running cumulative), per-brand totals with each brand's share of the collected total, per-platform totals with shares, and the top brand. Months are the month each deal entered the paid stage, the only payment timing the board carries; a paid deal whose stage entry date cannot be read is ledgered under Undated, flagged, and still counted. Demo paid deals are counted apart and never ledgered; an empty board, a no-paid-yet board, and a demo-only board are reported as different states. exportLedger() renders the plaintext ledger.",
+      "drive_notes": "Engine (assets/js/sponsor-income-ledger.js, UMD, importable in node): buildLedger(deals, opts) runs Tool 25's buildBoard and ledgerFromBoard(board) groups its paid deals by stage-entry month, brand, and platform, no pricing, no rate card, and no thresholds of its own; collected stays Tool 25's paid total. Browser persistence is the Deal Pipeline's localStorage key (cge.deal-pipeline.deals.v1), shared with Tools 25/26/27. Planning aid, not financial, legal, or tax advice. See AGENT.md Workflow 21.",
+      "job": "Money",
+      "pricing_model": "Free",
+      "added": "2026-10-13",
+      "updated": "2026-10-14"
     },
     {
       "id": "receivables-register",
@@ -2334,7 +2446,7 @@
         "properties": {
           "deals": {
             "type": "array",
-            "description": "The Deal Pipeline's deal records (Tool 25 input shape \u2014 brand, stage, amount, stageEnteredAt, plus the pricing/script fields). The register reads the same records the board holds and keeps only the invoiced ones."
+            "description": "The Deal Pipeline's deal records (Tool 25 input shape, brand, stage, amount, stageEnteredAt, plus the pricing/script fields). The register reads the same records the board holds and keeps only the invoiced ones."
           },
           "now": {
             "type": "string",
@@ -2342,8 +2454,12 @@
           }
         }
       },
-      "output": "The register in outstanding order (longest in the invoiced stage first, then largest amount, then brand): each entry carries the brand, the entered amount owed, the platform, the date the deal entered the invoiced stage, its days outstanding, and its Tool 24 late-payment script (label + full export text, via the board) or the reason none is attached. Every invoiced deal is registered regardless of age \u2014 the register does not gate on Tool 25's follow-up thresholds; that gating is the Follow-Through Queue's job. Demo invoiced deals are counted apart and never registered; an empty board, a nothing-owed board, and a demo-only board are reported as different states. exportRegister() renders the plaintext register.",
-      "drive_notes": "Engine (assets/js/receivables-register.js, UMD \u2014 importable in node): buildRegister(deals, opts) runs Tool 25's buildBoard and registerFromBoard(board) keeps its invoiced deals, orders them, and attaches each deal's board-composed script \u2014 no pricing, no wording, and no thresholds of its own; the total owed stays Tool 25's invoiced outstanding figure. Browser persistence is the Deal Pipeline's localStorage key (cge.deal-pipeline.deals.v1), shared with Tools 25/26/27/28. Planning aid \u2014 not financial, legal, or tax advice. See AGENT.md Workflow 22."
+      "output": "The register in outstanding order (longest in the invoiced stage first, then largest amount, then brand): each entry carries the brand, the entered amount owed, the platform, the date the deal entered the invoiced stage, its days outstanding, and its Tool 24 late-payment script (label + full export text, via the board) or the reason none is attached. Every invoiced deal is registered regardless of age, the register does not gate on Tool 25's follow-up thresholds; that gating is the Follow-Through Queue's job. Demo invoiced deals are counted apart and never registered; an empty board, a nothing-owed board, and a demo-only board are reported as different states. exportRegister() renders the plaintext register.",
+      "drive_notes": "Engine (assets/js/receivables-register.js, UMD, importable in node): buildRegister(deals, opts) runs Tool 25's buildBoard and registerFromBoard(board) keeps its invoiced deals, orders them, and attaches each deal's board-composed script, no pricing, no wording, and no thresholds of its own; the total owed stays Tool 25's invoiced outstanding figure. Browser persistence is the Deal Pipeline's localStorage key (cge.deal-pipeline.deals.v1), shared with Tools 25/26/27/28. Planning aid, not financial, legal, or tax advice. See AGENT.md Workflow 22.",
+      "job": "Money",
+      "pricing_model": "Free",
+      "added": "2026-10-13",
+      "updated": "2026-10-14"
     },
     {
       "id": "brand-ledger",
@@ -2360,7 +2476,7 @@
         "properties": {
           "deals": {
             "type": "array",
-            "description": "The Deal Pipeline's deal records (Tool 25 input shape \u2014 brand, stage, amount, stageEnteredAt, plus the pricing fields). The ledger reads the same records the board holds and groups all of them by brand."
+            "description": "The Deal Pipeline's deal records (Tool 25 input shape, brand, stage, amount, stageEnteredAt, plus the pricing fields). The ledger reads the same records the board holds and groups all of them by brand."
           },
           "now": {
             "type": "string",
@@ -2368,8 +2484,12 @@
           }
         }
       },
-      "output": "The ledger in relationship order (largest brand total first, then most collected, then brand): each entry carries the brand, its total across all stages, its collected / owed / still-open sums, its share of Tool 25's pipeline value, its deal count and per-stage counts, and its platforms. A brand total is a sum of current-stage amounts \u2014 not a relationship history or lifetime value, and no timing is claimed beyond the board's stage-entry dates. Demo deals are counted apart and never ledgered; an empty board and a demo-only board are reported as different states. exportLedger() renders the plaintext ledger.",
-      "drive_notes": "Engine (assets/js/brand-ledger.js, UMD \u2014 importable in node): buildLedger(deals, opts) runs Tool 25's buildBoard and ledgerFromBoard(board) groups its deals by brand and stage class \u2014 no pricing, no wording, and no thresholds of its own; the pipeline total stays Tool 25's pipeline value. Browser persistence is the Deal Pipeline's localStorage key (cge.deal-pipeline.deals.v1), shared with Tools 25/26/27/28/29. Planning aid \u2014 not financial, legal, or tax advice. See AGENT.md Workflow 23."
+      "output": "The ledger in relationship order (largest brand total first, then most collected, then brand): each entry carries the brand, its total across all stages, its collected / owed / still-open sums, its share of Tool 25's pipeline value, its deal count and per-stage counts, and its platforms. A brand total is a sum of current-stage amounts, not a relationship history or lifetime value, and no timing is claimed beyond the board's stage-entry dates. Demo deals are counted apart and never ledgered; an empty board and a demo-only board are reported as different states. exportLedger() renders the plaintext ledger.",
+      "drive_notes": "Engine (assets/js/brand-ledger.js, UMD, importable in node): buildLedger(deals, opts) runs Tool 25's buildBoard and ledgerFromBoard(board) groups its deals by brand and stage class, no pricing, no wording, and no thresholds of its own; the pipeline total stays Tool 25's pipeline value. Browser persistence is the Deal Pipeline's localStorage key (cge.deal-pipeline.deals.v1), shared with Tools 25/26/27/28/29. Planning aid, not financial, legal, or tax advice. See AGENT.md Workflow 23.",
+      "job": "Money",
+      "pricing_model": "Free",
+      "added": "2026-10-13",
+      "updated": "2026-10-14"
     },
     {
       "id": "platform-ledger",
@@ -2386,7 +2506,7 @@
         "properties": {
           "deals": {
             "type": "array",
-            "description": "The Deal Pipeline's deal records (Tool 25 input shape \u2014 platform, stage, amount, stageEnteredAt, plus the pricing fields). The ledger reads the same records the board holds and groups all of them by platform."
+            "description": "The Deal Pipeline's deal records (Tool 25 input shape, platform, stage, amount, stageEnteredAt, plus the pricing fields). The ledger reads the same records the board holds and groups all of them by platform."
           },
           "now": {
             "type": "string",
@@ -2394,8 +2514,12 @@
           }
         }
       },
-      "output": "The ledger in platform order (largest platform total first, then most collected, then platform): each entry carries the platform, its total across all stages, its collected / owed / still-open sums, its share of Tool 25's pipeline value, its deal count and per-stage counts, and its brands. A platform total is a sum of current-stage amounts \u2014 not a platform history, and no timing is claimed beyond the board's stage-entry dates. Demo deals are counted apart and never ledgered; an empty board and a demo-only board are reported as different states. exportLedger() renders the plaintext ledger.",
-      "drive_notes": "Engine (assets/js/platform-ledger.js, UMD \u2014 importable in node): buildLedger(deals, opts) runs Tool 25's buildBoard and ledgerFromBoard(board) groups its deals by platform and stage class \u2014 no pricing, no wording, and no thresholds of its own; the pipeline total stays Tool 25's pipeline value. Browser persistence is the Deal Pipeline's localStorage key (cge.deal-pipeline.deals.v1), shared with Tools 25/26/27/28/29/30. Planning aid \u2014 not financial, legal, or tax advice. See AGENT.md Workflow 24."
+      "output": "The ledger in platform order (largest platform total first, then most collected, then platform): each entry carries the platform, its total across all stages, its collected / owed / still-open sums, its share of Tool 25's pipeline value, its deal count and per-stage counts, and its brands. A platform total is a sum of current-stage amounts, not a platform history, and no timing is claimed beyond the board's stage-entry dates. Demo deals are counted apart and never ledgered; an empty board and a demo-only board are reported as different states. exportLedger() renders the plaintext ledger.",
+      "drive_notes": "Engine (assets/js/platform-ledger.js, UMD, importable in node): buildLedger(deals, opts) runs Tool 25's buildBoard and ledgerFromBoard(board) groups its deals by platform and stage class, no pricing, no wording, and no thresholds of its own; the pipeline total stays Tool 25's pipeline value. Browser persistence is the Deal Pipeline's localStorage key (cge.deal-pipeline.deals.v1), shared with Tools 25/26/27/28/29/30. Planning aid, not financial, legal, or tax advice. See AGENT.md Workflow 24.",
+      "job": "Money",
+      "pricing_model": "Free",
+      "added": "2026-10-13",
+      "updated": "2026-10-14"
     },
     {
       "id": "saved-shelf",
@@ -2413,16 +2537,20 @@
         "properties": {
           "catalog": {
             "type": "array",
-            "description": "The hub's tool records (this tools.json payload's own tools array \u2014 id, title, description, page). The shelf joins the saved set against these records and no others."
+            "description": "The hub's tool records (this tools.json payload's own tools array, id, title, description, page). The shelf joins the saved set against these records and no others."
           },
           "saved": {
             "type": "array",
-            "description": "The saved tool slugs, in save order \u2014 the visitor's own localStorage record (key cge.saved-tools.v1), written by the save toggle on each tool page."
+            "description": "The saved tool slugs, in save order, the visitor's own localStorage record (key cge.saved-tools.v1), written by the save toggle on each tool page."
           }
         }
       },
-      "output": "The shelf in save order: each entry carries the catalogue's own id, title, description, and page for one saved slug. Saved slugs with no catalogue record are counted apart as stale (staleIds), never rendered as tools. emptyShelf (nothing saved) and staleOnly (saves exist, all stale) are reported as different states. No ranking or most-saved order is produced \u2014 that signal needs usage collected across visitors, which this site does not collect. exportShelf() renders the plaintext shelf.",
-      "drive_notes": "Engine (assets/js/saved-shelf.js, UMD \u2014 importable in node): buildShelf(catalog, saved) joins the saved set against the catalogue; shelfFromToolsJson(doc, saved) reads the tools array off a tools.json payload; toggleSaved / normalizeSaved / isSaved manage the saved set. Browser persistence is the shelf's own localStorage key (cge.saved-tools.v1), written by assets/js/save-toggle-ui.js on every tool page and by the shelf page itself. Planning aid \u2014 not financial, legal, or tax advice. See AGENT.md Workflow 25."
+      "output": "The shelf in save order: each entry carries the catalogue's own id, title, description, and page for one saved slug. Saved slugs with no catalogue record are counted apart as stale (staleIds), never rendered as tools. emptyShelf (nothing saved) and staleOnly (saves exist, all stale) are reported as different states. No ranking or most-saved order is produced, that signal needs usage collected across visitors, which this site does not collect. exportShelf() renders the plaintext shelf.",
+      "drive_notes": "Engine (assets/js/saved-shelf.js, UMD, importable in node): buildShelf(catalog, saved) joins the saved set against the catalogue; shelfFromToolsJson(doc, saved) reads the tools array off a tools.json payload; toggleSaved / normalizeSaved / isSaved manage the saved set. Browser persistence is the shelf's own localStorage key (cge.saved-tools.v1), written by assets/js/save-toggle-ui.js on every tool page and by the shelf page itself. Planning aid, not financial, legal, or tax advice. See AGENT.md Workflow 25.",
+      "job": "Content",
+      "pricing_model": "Free",
+      "added": "2026-10-13",
+      "updated": "2026-10-14"
     }
   ]
 }

@@ -163,7 +163,7 @@ module.exports = async (req, res) => {
   }
   if (!assertCron(req)) {
     return env.err(res, SERVICE, VERSION, 401, 'UNAUTHORIZED',
-      'This endpoint requires the cron secret. Set CRON_SECRET in the Vercel dashboard (Production scope) — see GO_LIVE.md.', {});
+      'This endpoint requires the cron secret. Set CRON_SECRET in the Vercel dashboard (Production scope), see GO_LIVE.md.', {});
   }
   const now = Date.now();
   if (now - lastRunAt < 60 * 1000) {

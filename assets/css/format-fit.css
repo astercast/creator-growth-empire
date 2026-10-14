@@ -1,7 +1,7 @@
-/* Format Fit Finder — match cards + fit craft.
+/* Format Fit Finder, match cards + fit craft.
    Mobile-first; everything is scoped to .ff-* / #ff-results so the site's
    identity and other lanes' scopes are untouched. No animation: results
-   render statically — reduced-motion safety by never moving at all. */
+   render statically, reduced-motion safety by never moving at all. */
 
 .ff-cards {
   display: grid;
@@ -31,7 +31,7 @@
   color: var(--cyan, #ffc42e);
 }
 
-/* Score: segmented bar + tabular numeral. The number is the encoding —
+/* Score: segmented bar + tabular numeral. The number is the encoding,
    the fill color is redundant, so nothing is lost to color alone. */
 .ff-score {
   display: flex;
@@ -135,7 +135,7 @@
 
 /* Typography micro-craft (web-craft §4, verified): balance on result
    headings, tabular numerals on score stats, 65ch measure on prose.
-   pretty is @supports-gated — Firefox support disputed, no version cited. */
+   pretty is @supports-gated, Firefox support disputed, no version cited. */
 #ff-results h2 {
   text-wrap: balance;
 }
@@ -151,7 +151,7 @@
   }
 }
 
-/* Keyboard: radios are native fieldsets — no tabindex choreography needed.
+/* Keyboard: radios are native fieldsets, no tabindex choreography needed.
    Focus perimeters are the site's gold wave-29 ring; this rule keeps them
    visible on the custom summary toggles too. */
 .ff-all summary:focus-visible,

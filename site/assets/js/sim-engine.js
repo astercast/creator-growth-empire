@@ -1,4 +1,4 @@
-/* Empire Simulator — pure simulation engine (no DOM).
+/* Empire Simulator, pure simulation engine (no DOM).
  * UMD: works in the browser (window.EmpireSim) and in node (module.exports).
  *
  * HONESTY CONTRACT: this is a model, not a prediction. Every assumption is
@@ -22,10 +22,10 @@
     // Assumption: user-adjustable on the page (slider). Labeled as such.
     baseGrowthRate: 0.12,
 
-    // Niche monthly growth medians — REAL 2026 DATA, not a multiplier.
+    // Niche monthly growth medians, REAL 2026 DATA, not a multiplier.
     // TubeAI study of 144,370 YouTube channels (10K-100K subs), Sep 7-27 2026,
     // via AIR Media-Tech. The all-channel median was 0.97%/mo. These medians
-    // describe the middle of each niche's cohort, NOT your outcome — the sim
+    // describe the middle of each niche's cohort, NOT your outcome, the sim
     // does not apply them as multipliers. The picker shows them as context
     // and offers a "use study median" anchor for the growth slider, which
     // stays the user's own assumption. Legacy (non-study) niche keys are
@@ -43,23 +43,23 @@
       gaming: 0.0120
     },
     nicheMedianGrowthNote:
-      "Medians hide huge variance — they describe the middle of a cohort, not your outcome.",
+      "Medians hide huge variance, they describe the middle of a cohort, not your outcome.",
 
-    // Quality/effort level multiplier. ASSUMPTION — labeled "our guess" on-page.
+    // Quality/effort level multiplier. ASSUMPTION, labeled "our guess" on-page.
     qualityMult: { low: 0.7, solid: 1.0, excellent: 1.35 },
 
     // Cadence: weekly long-form (weight 0.12 each) + shorts (weight 0.03 each),
-    // capped at 2.5x. ASSUMPTION — posting more helps, with diminishing logic.
+    // capped at 2.5x. ASSUMPTION, posting more helps, with diminishing logic.
     cadencePerLongform: 0.12,
     cadencePerShort: 0.03,
     cadenceCap: 2.5,
 
-    // Views per subscriber per month, per format. ASSUMPTIONS — visible on page.
+    // Views per subscriber per month, per format. ASSUMPTIONS, visible on page.
     viewsPerSubLong: 0.35,
     viewsPerSubShort: 2.0,
 
     // Monetization floor: simplified YPP gate (1,000 subs = ad revenue unlock).
-    // Assumption: ignores the watch-hours gate — stated on the page.
+    // Assumption: ignores the watch-hours gate, stated on the page.
     monetizedAtSubs: 1000,
 
     // Shorts RPM: midpoint of the calculators.json Shorts band [0.04, 0.50].
@@ -73,21 +73,21 @@
     // goes. Shares normalize across the enabled platforms; Shorts takes the
     // whole output when TikTok/Reels are off (byte-identical to pre-wave-2).
     // Shorts: the Oct-1-2026 originality rule is a what-if card, not a
-    // multiplier — the engine never invents a reach penalty.
+    // multiplier, the engine never invents a reach penalty.
     shortMixShares: { shorts: 0.6, tiktok: 0.25, reels: 0.15 },
 
     // TikTok Creator Rewards. SOURCED mechanics (calculators.json
     // platform_thresholds.tiktok_creator_rewards): only videos over 1 minute
     // with original content qualify; qualifying views run ~half of raw views
     // (creator-reported); band $0.40-$2.00/1k qualified views. Gate: 10K
-    // followers + 100K views/30d — the engine checks the follower leg only
+    // followers + 100K views/30d, the engine checks the follower leg only
     // (subs) and says so.
     tiktokQualifyingRatio: 0.5,
     tiktokGateSubs: 10000,
 
     // Instagram Reels: direct payout per view is $0 in 2026 (AIR Media-Tech:
     // Reels Play Bonus ended 2023, nothing comparable replaced it). The sim
-    // models Reels views at $0 ad revenue — the honest number — and the
+    // models Reels views at $0 ad revenue, the honest number, and the
     // platform card says where Reels money actually comes from
     // (sponsors, gifts, subscriptions). Reels >3min rule: Reels past 3 minutes
     // get diminished non-follower distribution (reported 2026; the sim does
@@ -95,7 +95,7 @@
     reelsDirectRpm: 0,
 
     // Sponsors: tiers from sponsorship_rate_card_2026, YouTube per-video ranges.
-    // Deals/month are OUR conservative assumptions — labeled on page.
+    // Deals/month are OUR conservative assumptions, labeled on page.
     sponsorTiers: [
       { id: "mega",  minSubs: 1000000, dealsPerMonth: 3,   perDealRange: [50000, 300000] },
       { id: "macro", minSubs: 100000,  dealsPerMonth: 2,   perDealRange: [10000, 50000] },
@@ -104,10 +104,10 @@
     ],
 
     // Sponsor rate niche multiplier. SOURCED: calculators.json
-    // sponsorship_rule_of_thumb.note — "finance/tech 2–3x, entertainment lower."
+    // sponsorship_rule_of_thumb.note, "finance/tech 2–3x, entertainment lower."
     // Legacy keys kept for the scenario library; the 10 study niches map to
     // the same rule of thumb (tech-adjacent 2.5x, entertainment-adjacent 0.6x,
-    // education-adjacent 1.0x, creator_economy 1.5x as business-adjacent —
+    // education-adjacent 1.0x, creator_economy 1.5x as business-adjacent,
     // labeled in the assumptions drawer).
     sponsorNicheMult: {
       finance_investing: 2.5,
@@ -132,7 +132,7 @@
     affiliatePer1kViews: 1.0,
 
     // Digital product: 0.1% of subs buy per month at $49, from launch month.
-    // Conservative conversion ASSUMPTION — displayed and tweakable.
+    // Conservative conversion ASSUMPTION, displayed and tweakable.
     digitalPrice: 49,
     digitalConvPerMonth: 0.001,
 
@@ -158,9 +158,9 @@
     rampFactor: 0.5,
 
     // Year-2 scaling (wave 13): after month 12, monthly growth decays by
-    // this factor per month (compounding) — the "why most channels plateau"
-    // curve. ASSUMPTION — labeled as ours, displayed on-page.
-    // Wave 24: year-3 scaling — after month 24 the decay softens (×0.97/mo):
+    // this factor per month (compounding), the "why most channels plateau"
+    // curve. ASSUMPTION, labeled as ours, displayed on-page.
+    // Wave 24: year-3 scaling, after month 24 the decay softens (×0.97/mo):
     // big channels keep growing, just slowly. Also an assumption.
     year2Decay: 0.94,
     year3Decay: 0.97,
@@ -169,7 +169,7 @@
 
     // Money Map stages (wave 24): the five stages from money-map.js, placed
     // per-month from that month's NET revenue + whether a team is active.
-    // ASSUMPTION — the stage ladder is ours (the Money Map names it); the
+    // ASSUMPTION, the stage ladder is ours (the Money Map names it); the
     // numbers below are the Map's published bands ($100 / $1K / $10K).
     stageThresholds: { stage1Net: 100, stage2Net: 1000, stage3Net: 10000 },
 
@@ -177,28 +177,28 @@
     // Wave 25 added the fifth card, holiday-shopping-surge (Q4 affiliate windfall).
     // Each event is fully labeled: its assumed effect + its chapter basis.
     // Applied via inputs.events = [{ id, startMonth }]. All multipliers are
-    // OUR assumptions — the card says so, every one of them.
+    // OUR assumptions, the card says so, every one of them.
     eventCards: [
       { id: "algorithm-change",
-        name: "Algorithm change — Shorts reach cut",
+        name: "Algorithm change, Shorts reach cut",
         assumedEffect: "From the event month: Shorts views ×0.6 every month (a channel-level reach cut). Long-form untouched. The 0.6 is our labeled assumption, not a published figure.",
-        basis: "The Oct-1-2026 Shorts originality update (platform-published: Rene Ritchie/Creator Insider): recommendations deprioritize re-uploaded/aggregator content, originals prioritized — see the algorithm signal map (Content Engine 2.0) and Phase 3. Ten days on, no creator-reported before/after view data exists yet (Oct 11, 2026) — the ×0.6 is the engine's planning assumption, flagged as a gap to revisit." },
+        basis: "The Oct-1-2026 Shorts originality update (platform-published: Rene Ritchie/Creator Insider): recommendations deprioritize re-uploaded/aggregator content, originals prioritized, see the algorithm signal map (Content Engine 2.0) and Phase 3. Ten days on, no creator-reported before/after view data exists yet (Oct 11, 2026), the ×0.6 is the engine's planning assumption, flagged as a gap to revisit." },
       { id: "viral-hit",
-        name: "Viral hit — one video 10x's",
+        name: "Viral hit, one video 10x's",
         assumedEffect: "Event month: long-form views ×10 (one breakout video); subs get a one-time +8% lift ONLY. Next month: views ×1.5 (the tail). Then back to normal. Reality check, built in: virality spikes views, not loyalty.",
-        basis: "Phase 3 retention guidance + the Money Map lesson that one lucky month doesn't graduate anyone — repeatability does. The 10x / +8% / ×1.5 are our labeled assumptions." },
+        basis: "Phase 3 retention guidance + the Money Map lesson that one lucky month doesn't graduate anyone, repeatability does. The 10x / +8% / ×1.5 are our labeled assumptions." },
       { id: "burnout-break",
-        name: "Burnout break — 2 months off",
+        name: "Burnout break, 2 months off",
         assumedEffect: "Two full months of no posting: growth 0%, subs drift −0.5%/mo (audience drift), views ×0.3 (back-catalog only), revenue from the remaining views only. Posting resumes after.",
         basis: "The Batching Planner + Phase 1 output guidance: consistency compounds, absence doesn't. The drift numbers are our labeled assumptions." },
       { id: "policy-change",
-        name: "Platform policy change — Feb-2027 YPP rules",
-        assumedEffect: "From the event month: the Feb-2027 Shorts revenue floor applies — any month whose rolling 90-day Shorts views fall under 10M pays $0 Shorts ad revenue (long-form pays as usual). Stay in YPP; long-form keeps paying; Shorts pay stops.",
+        name: "Platform policy change, Feb-2027 YPP rules",
+        assumedEffect: "From the event month: the Feb-2027 Shorts revenue floor applies, any month whose rolling 90-day Shorts views fall under 10M pays $0 Shorts ad revenue (long-form pays as usual). Stay in YPP; long-form keeps paying; Shorts pay stops.",
         basis: "The YPP 2027 Eligibility Checker rules (announced by YouTube Aug 10, 2026): new applicants 8,000 hours or 20M Shorts/90d; the 10M qualified-Shorts-views/90d floor, checked monthly. The monthly application is our model." },
       { id: "holiday-shopping-surge",
-        name: "Holiday shopping surge — Q4 affiliate windfall",
+        name: "Holiday shopping surge, Q4 affiliate windfall",
         assumedEffect: "The event month and the month after: affiliate revenue ×1.8 (the two-month holiday buying window). Ads, sponsors, subs, and growth untouched. The 1.8 is our labeled assumption, not platform data.",
-        basis: "TikTok Shop's BFCM 2025: $500M over four days (+50% shoppers) and +84% sales growth for brands that livestreamed (TikTok Newsroom); Adobe's 2026 holiday forecast: affiliate/partner share of retail revenue +12%, social media share +17%, creators = 22% of affiliate traffic — see Phase 5 Layer 2 + the Q4 playbook." }
+        basis: "TikTok Shop's BFCM 2025: $500M over four days (+50% shoppers) and +84% sales growth for brands that livestreamed (TikTok Newsroom); Adobe's 2026 holiday forecast: affiliate/partner share of retail revenue +12%, social media share +17%, creators = 22% of affiliate traffic, see Phase 5 Layer 2 + the Q4 playbook." }
     ],
     eventAssumptions: {
       algoReachMult: 0.6,
@@ -215,9 +215,9 @@
   };
 
   /* RPM band for a niche, wave-2 flagship. Lookup order:
-   *  1. cfg.niche_rpm_2026.niches[niche] — the 10 real study niches, each
+   *  1. cfg.niche_rpm_2026.niches[niche], the 10 real study niches, each
    *     carrying its own band + basis ("reported" | "proxy" | "cpm-reported")
-   *     + source. 2. cfg.youtube_longform_rpm_bands[niche] — the legacy
+   *     + source. 2. cfg.youtube_longform_rpm_bands[niche], the legacy
    *     calculator bands (scenario-library keys). 3. The [2,10] fallback,
    *     labeled as having no reported band. Never invents a band. */
   function rpmBandForNiche(niche, cfg) {
@@ -232,12 +232,12 @@
                source: "calculators.json youtube_longform_rpm_bands (2026 research)" };
     }
     return { band: [2, 10], basis: "fallback",
-             source: "no reported RPM band for this niche — wide default, labeled" };
+             source: "no reported RPM band for this niche, wide default, labeled" };
   }
 
   /* Niche growth-median info for the picker/debrief. Returns { median (as a
    * fraction) or null, note }. The median is context for the growth slider,
-   * never a multiplier — medians describe the middle of a cohort, not the
+   * never a multiplier, medians describe the middle of a cohort, not the
    * creator's outcome. */
   function nicheMedianInfo(niche) {
     var m = DEFAULTS.nicheMedianGrowth[niche];
@@ -288,7 +288,7 @@
    * Named, loadable starting configs built from the site's real research
    * data: 2026 RPM bands (calculators.json), the case files, and the
    * sponsored-stream rules. Every number here is an assumption or a sourced
-   * band — labeled per scenario. scenarioInputs(id) returns a full,
+   * band, labeled per scenario. scenarioInputs(id) returns a full,
    * ready-to-run inputs object (deep copy). */
   var SCENARIOS = [
     {
@@ -304,7 +304,7 @@
     {
       id: "tech-reviewer",
       name: "Tech Reviewer",
-      tagline: "High RPM, sponsor-friendly — the money-per-view play.",
+      tagline: "High RPM, sponsor-friendly, the money-per-view play.",
       source: "calculators.json: tech RPM band $8–$20 + the finance/tech 2–3x sponsor rule + OutlierKit 2026 integrated-sponsor CPMs (tech/reviews $25–$45)",
       inputs: { niche: "tech_software", startSubs: 1500, longformPerWeek: 1, shortsPerWeek: 3,
         quality: "solid", growthRate: 0.10, rpmLevel: "mid", q4Uplift: 0.6,
@@ -312,7 +312,7 @@
         digital: false, digitalStartMonth: 6, digitalPrice: 49, digitalConvPerMonth: 0.001 }
     },
     {
-      /* Wave 20: new — the 2027 outlook's fastest-rising search niche. Uses the
+      /* Wave 20: new, the 2027 outlook's fastest-rising search niche. Uses the
          real ai_ml study niche (TubeAI 1.44%/mo median as context; RPM uses
          the CPM-reported $8–$20 band). Growth assumption reflects the 18x
          breakout reading (planning input, not a prediction). */
@@ -366,26 +366,26 @@
         digital: true, digitalStartMonth: 9, digitalPrice: 49, digitalConvPerMonth: 0.001 }
     },
     {
-      /* Wave 17: modeled on a public case — inputs are planning assumptions,
+      /* Wave 17: modeled on a public case, inputs are planning assumptions,
          not a replay of the creator's historical trajectory. Uses the real
          entertainment study niche (AIR $2.43 reported median). */
       id: "serialized-mini-drama",
       name: "Serialized Mini-Drama",
       tagline: "Multi-part story arcs with cliffhangers; the backlog binges.",
-      source: "Case File: The Poly Couple (Dana and the Wolf) — hundreds of episodes, TikTok/Instagram-first, picked up by Electric Now + niche_rpm_2026 entertainment $2.43 (AIR reported)",
+      source: "Case File: The Poly Couple (Dana and the Wolf), hundreds of episodes, TikTok/Instagram-first, picked up by Electric Now + niche_rpm_2026 entertainment $2.43 (AIR reported)",
       inputs: { niche: "entertainment", startSubs: 100, longformPerWeek: 1, shortsPerWeek: 4,
         quality: "solid", growthRate: 0.15, rpmLevel: "low", q4Uplift: 0.6,
         ads: true, sponsors: false, affiliates: false,
         digital: false, digitalStartMonth: 6, digitalPrice: 49, digitalConvPerMonth: 0.001 }
     },
     {
-      /* Wave 17: modeled on a public case — inputs are planning assumptions,
+      /* Wave 17: modeled on a public case, inputs are planning assumptions,
          not a replay of the creator's historical trajectory. Uses the real
          asmr study niche (TubeAI 1.56%/mo median as context). */
       id: "asmr-roleplay",
       name: "ASMR Roleplay Channel",
       tagline: "Character-driven roleplays, longform volume, loyal binge audiences.",
-      source: "Case File: Gibi ASMR — 0 to 5M subscribers over 8 years, ~2,000 videos + niche_rpm_2026 ASMR band $4–$10 (site lifestyle-band proxy)",
+      source: "Case File: Gibi ASMR, 0 to 5M subscribers over 8 years, ~2,000 videos + niche_rpm_2026 ASMR band $4–$10 (site lifestyle-band proxy)",
       inputs: { niche: "asmr", startSubs: 300, longformPerWeek: 2, shortsPerWeek: 3,
         quality: "solid", growthRate: 0.13, rpmLevel: "mid", q4Uplift: 0.6,
         ads: true, sponsors: true, affiliates: false,
@@ -393,7 +393,7 @@
     },
     {
       /* Wave 24: new from the Niche Atlas 2027 outlook. Ambient watch-time
-         harvest — the sleep-channel case file documents the archetype, with
+         harvest, the sleep-channel case file documents the archetype, with
          the what-NOT-to-copy caveats (Jan-2026 enforcement: only
          original-production channels keep monetizing). Uses the real asmr
          study niche. Planning assumptions for a from-scratch channel, never
@@ -409,13 +409,13 @@
     },
     {
       /* Wave 24: new from the Niche Atlas 2027 outlook (heating). Uses the
-         real education study niche — AIR reported $10.22 (Education & Science
+         real education study niche, AIR reported $10.22 (Education & Science
          median), which sits above the OutlierKit $18–22 CPM reading's honest
          band position: rpmLevel "high" on a point band is the reported figure. */
       id: "english-learning",
       name: "English Learning Channel",
       tagline: "21x breakout niche at $18–22 CPM: evergreen demand, low competition.",
-      source: "OutlierKit trending guide (Sep 2026): English learning 21x breakout, $18–22 CPM + Niche Atlas 2027 outlook (heating — evergreen demand; AI dubbing expands global reach in 2027) + niche_rpm_2026 education $10.22 (AIR reported median)",
+      source: "OutlierKit trending guide (Sep 2026): English learning 21x breakout, $18–22 CPM + Niche Atlas 2027 outlook (heating, evergreen demand; AI dubbing expands global reach in 2027) + niche_rpm_2026 education $10.22 (AIR reported median)",
       inputs: { niche: "education", startSubs: 600, longformPerWeek: 2, shortsPerWeek: 5,
         quality: "solid", growthRate: 0.13, rpmLevel: "high", q4Uplift: 0.6,
         ads: true, sponsors: false, affiliates: true,
@@ -429,7 +429,7 @@
       id: "senior-health",
       name: "Senior Health Channel",
       tagline: "19x breakout, ultra-low competition: the underserved older audience.",
-      source: "OutlierKit trending guide (Sep 2026): senior health 19x breakout, $14–18 ultra-low-competition CPM + Niche Atlas 2027 outlook (heating; mini-dramas already skew older — 31% of viewers 45–64, Ampere) + calculators.json health/fitness band $4–$10",
+      source: "OutlierKit trending guide (Sep 2026): senior health 19x breakout, $14–18 ultra-low-competition CPM + Niche Atlas 2027 outlook (heating; mini-dramas already skew older, 31% of viewers 45–64, Ampere) + calculators.json health/fitness band $4–$10",
       inputs: { niche: "health_fitness", startSubs: 400, longformPerWeek: 1, shortsPerWeek: 3,
         quality: "solid", growthRate: 0.13, rpmLevel: "mid", q4Uplift: 0.6,
         ads: true, sponsors: false, affiliates: true,
@@ -488,7 +488,7 @@
 
   /* Money Map stage placement, wave 24: the five stage names from
    * money-map.js, placed by monthly NET revenue + team-active. Exported so
-   * the UI and tests use the same rule — no drift possible.
+   * the UI and tests use the same rule, no drift possible.
    *   net < $100 -> 0 · < $1K -> 1 · < $10K -> 2 · >= $10K -> 3 ·
    *   team active AND net >= $10K -> 4 ("runs without your daily input") */
   var STAGES = [
@@ -528,7 +528,7 @@
        digitalPrice, digitalConvPerMonth, affiliatePer1kViews,
        viewsPerSubLong, viewsPerSubShort,
        horizon (12|24|36, default 12), hires ([...] as above),
-       events ([...] as above — wave 24 what-if cards)
+       events ([...] as above, wave 24 what-if cards)
      }
      cfg: parsed calculators.json                                       */
   function simulate(inputs, cfg) {
@@ -546,11 +546,11 @@
     // Wave-2 flagship: the niche's study median is CONTEXT for the growth
     // slider, never a multiplier. g = the creator's own growth assumption x
     // cadence x quality. Medians describe the middle of a cohort, not the
-    // outcome — the picker says exactly that.
+    // outcome, the picker says exactly that.
     var baseRate = (inputs.growthRate != null ? inputs.growthRate : d.baseGrowthRate);
     var g = baseRate * cad * qMult;
     // No hires, no year-2: g is exactly the pre-wave-13 formula minus the
-    // wave-2 niche-median change (medians became context, not multipliers —
+    // wave-2 niche-median change (medians became context, not multipliers,
     // see the wave-2 note at g's definition).
 
     var horizon = Math.max(1, Math.min(36, Math.round(inputs.horizon || d.months)));
@@ -600,13 +600,13 @@
           gm = baseRate * cadH * qMultH;
         }
         // wave 24: year-2 decays x0.94/mo after month 12; year-3 softens to
-        // x0.97/mo after month 24. Growth stays positive — plateau, not collapse.
+        // x0.97/mo after month 24. Growth stays positive, plateau, not collapse.
         if (m > 24) gm = gm * Math.pow(d.year2Decay, 12) * Math.pow(d.year3Decay, m - 24);
         else if (m > 12) gm = gm * Math.pow(d.year2Decay, m - 12);
       }
 
       // wave 24: what-if event cards. All effects are the card's labeled
-      // assumptions — the card names them and cites the chapter basis.
+      // assumptions, the card names them and cites the chapter basis.
       var reachMult = 1, viralMult = 1, subsBoost = 1, affMult = 1;
       var burnout = false, policyOn = false;
       var evActive = [];
@@ -638,7 +638,7 @@
       var q4 = (d.q4Months.indexOf(m) !== -1 || d.q4MonthsYear2.indexOf(m) !== -1 ||
                 d.q4MonthsYear3.indexOf(m) !== -1) ? (1 + uplift) : 1;
 
-      // wave 24: the Feb-2027 policy event's Shorts revenue floor — rolling
+      // wave 24: the Feb-2027 policy event's Shorts revenue floor, rolling
       // 90-day Shorts views under 10M => Shorts ads pay $0 that month.
       var shortsBlocked = false;
       if (policyOn) {
@@ -655,7 +655,7 @@
       // the enabled platforms, each monetizing under its real rules.
       // Shorts pays the Shorts RPM; TikTok pays Creator Rewards on ~half the
       // raw views (qualifying ratio) past the 10K-follower gate; Reels pays
-      // $0 per view (AIR 2026) — the honest number, modeled explicitly.
+      // $0 per view (AIR 2026), the honest number, modeled explicitly.
       var shortsViews = shortViews * mix.shorts;
       var tiktokViews = shortViews * mix.tiktok;
       var reelsViews = shortViews * mix.reels;
@@ -748,7 +748,7 @@
   }
 
   /* compare(): run two configs over the same clock, return deltas + a
-   * plain-language verdict. Deltas are ALWAYS "B minus A" — documented and
+   * plain-language verdict. Deltas are ALWAYS "B minus A", documented and
    * asserted in tests. The verdict names the net-revenue winner, explains
    * the drivers from the two runs' meta, and carries the honesty caveat. */
   function compare(nameA, inputsA, nameB, inputsB, cfg) {
@@ -781,16 +781,16 @@
         " vs $" + Math.round(b.totals.teamCost).toLocaleString("en-US"));
     }
     if (Math.abs(deltas.endSubs) > 1 && ((bWins && deltas.endSubs < 0) || (!bWins && deltas.endSubs > 0))) {
-      drivers.push("note: the net-revenue winner is NOT the subscriber winner — subscribers are not income");
+      drivers.push("note: the net-revenue winner is NOT the subscriber winner, subscribers are not income");
     }
     var verdict = "Path " + winner + " leads on net revenue over " + a.meta.horizon + " months by " +
       (margin * 100).toFixed(0) + "% vs " + loser + ". " +
       (drivers.length ? "Why: " + drivers.join("; ") + ". " : "") +
-      "Both are scenario models with stated assumptions — not predictions, not promises, not financial advice.";
+      "Both are scenario models with stated assumptions, not predictions, not promises, not financial advice.";
     return { a: a, b: b, nameA: nameA, nameB: nameB, deltas: deltas, verdict: verdict };
   }
 
-  /* assumptionLines(): the honest-assumptions panel as plain text —
+  /* assumptionLines(): the honest-assumptions panel as plain text,
    * shared by the UI compare view and the copy-my-empire-plan export so
    * the two can never drift apart. */
   function assumptionLines(inputs, res) {
@@ -802,11 +802,11 @@
         "%/mo compounding (deterministic; no viral lottery)",
       (res.meta.nicheMedianGrowth != null
         ? "Niche study median: " + (res.meta.nicheMedianGrowth * 100).toFixed(2) +
-          "%/mo (TubeAI Sep 2026, 10K-100K cohort) — context for the growth slider, NOT a multiplier. " +
+          "%/mo (TubeAI Sep 2026, 10K-100K cohort), context for the growth slider, NOT a multiplier. " +
           res.meta.nicheMedianNote
-        : "No study growth median for this niche — the growth slider is your assumption alone."),
+        : "No study growth median for this niche, the growth slider is your assumption alone."),
       "RPM $" + res.meta.rpm.toFixed(2) + " (" + (inputs.rpmLevel || "mid") + " of the $" +
-        res.meta.rpmBand[0] + "-$" + res.meta.rpmBand[1] + " " + inputs.niche + " band — " +
+        res.meta.rpmBand[0] + "-$" + res.meta.rpmBand[1] + " " + inputs.niche + " band, " +
         res.meta.rpmBandBasis + ": " + res.meta.rpmBandSource + ")",
       "Q4 ad-rate uplift " + ((inputs.q4Uplift != null ? inputs.q4Uplift : d.q4Uplift) * 100).toFixed(0) +
         "% in months 10-12" + (res.meta.horizon > 12 ? " and 22-24" : ""),
@@ -821,7 +821,7 @@
       lines.push("Year 2: monthly growth decays x" + d.year2Decay + "/mo after month 12 (our diminishing-returns curve)");
     }
     if (res.meta.horizon > 24) {
-      lines.push("Year 3: decay softens to x" + d.year3Decay + "/mo after month 24 — big channels keep growing, slowly (our assumption)");
+      lines.push("Year 3: decay softens to x" + d.year3Decay + "/mo after month 24, big channels keep growing, slowly (our assumption)");
     }
     var events = normalizeEvents(inputs.events);
     events.forEach(function (e) {
@@ -829,7 +829,7 @@
       for (var i = 0; i < d.eventCards.length; i++) {
         if (d.eventCards[i].id === e.id) card = d.eventCards[i];
       }
-      if (card) lines.push("What-if event: " + card.name + " (from month " + e.startMonth + ") — " + card.assumedEffect);
+      if (card) lines.push("What-if event: " + card.name + " (from month " + e.startMonth + "), " + card.assumedEffect);
     });
     lines.push("Money Map stages placed per month by net revenue: <$100 = stage 0, <$1K = 1, <$10K = 2, >=$10K = 3, team active + >=$10K = 4");
     var hires = normalizeHires(inputs.hires);
@@ -842,7 +842,7 @@
           Math.round(t.qualityDelta * 100) + "% (ramp month at 50%)");
       });
     } else {
-      lines.push("No team hires — solo run (gross = net)");
+      lines.push("No team hires, solo run (gross = net)");
     }
     return lines;
   }
@@ -854,7 +854,7 @@
     return Math.round(n).toString();
   }
 
-  /* exportPlan(): the "Copy my empire plan" text export — scenario, hires,
+  /* exportPlan(): the "Copy my empire plan" text export, scenario, hires,
    * end-of-run numbers, every assumption, and the disclaimers. */
   function exportPlan(scenarioName, inputs, res) {
     var N = res.meta.horizon;
@@ -866,7 +866,7 @@
     if (inputs.affiliates) streams.push("affiliates");
     if (inputs.digital) streams.push("digital product");
     var lines = [
-      "MY EMPIRE PLAN — Creator Growth Empire (a model, not a prediction)",
+      "MY EMPIRE PLAN, Creator Growth Empire (a model, not a prediction)",
       "Scenario: " + scenarioName,
       "Setup: " + inputs.niche + " | " + Math.round(inputs.startSubs || 0) + " subs start | " +
         inputs.longformPerWeek + " long + " + inputs.shortsPerWeek + " shorts/wk | quality " +
@@ -883,7 +883,7 @@
         " | Money Map stage " + res.endStage + " (" + STAGES[res.endStage].name + ")",
       res.milestones.length
         ? "Milestones: " + res.milestones.map(function (m) { return m.label + " (M" + m.month + ")"; }).join("; ")
-        : "Milestones: none hit — raise cadence, quality, or the growth assumption.",
+        : "Milestones: none hit, raise cadence, quality, or the growth assumption.",
       res.stages.length > 1
         ? "Stage journey: " + res.stages.map(function (s) { return "stage " + s.stage + " (" + s.name + ") from M" + s.month; }).join(" -> ")
         : "Stage journey: stayed at stage " + res.endStage + " (" + STAGES[res.endStage].name + ")",
@@ -904,10 +904,10 @@
       if (mo.total >= 100) hit("m100", mo.month, "First $100 month");
       if (mo.total >= 1000) hit("m1k", mo.month, "First $1K month");
       if (mo.total >= 10000) hit("m10k", mo.month, "First $10K month");
-      if (mo.subs >= 1000) hit("s1k", mo.month, "1K subs — ad revenue unlocks (YPP gate)");
-      if (mo.subs >= 10000) hit("s10k", mo.month, "10K subs — micro-influencer tier");
-      if (mo.subs >= 100000) hit("s100k", mo.month, "100K subs — macro tier");
-      if (mo.subs >= 1000000) hit("s1m", mo.month, "1M subs — mega tier");
+      if (mo.subs >= 1000) hit("s1k", mo.month, "1K subs, ad revenue unlocks (YPP gate)");
+      if (mo.subs >= 10000) hit("s10k", mo.month, "10K subs, micro-influencer tier");
+      if (mo.subs >= 100000) hit("s100k", mo.month, "100K subs, macro tier");
+      if (mo.subs >= 1000000) hit("s1m", mo.month, "1M subs, mega tier");
       if (mo.sponsorTier === "micro") hit("spMicro", mo.month, "First micro-tier sponsor deals");
       if (mo.sponsorTier === "macro") hit("spMacro", mo.month, "Macro-tier sponsor deals");
     });
@@ -915,10 +915,10 @@
     return ms;
   }
 
-  /* solveForGoal(): "what would it take?" — inverts the model by
+  /* solveForGoal(): "what would it take?", inverts the model by
    * binary-searching ONE input variable (base growth rate or long-form
    * cadence) until the simulation hits a target (subs, net revenue, or Money
-   * Map stage) by a given month. Pure math on simulate() — no new claims,
+   * Map stage) by a given month. Pure math on simulate(), no new claims,
    * no new data; the answer is the model's, labeled as such. Integer search
    * space (whole % / half videos) so the reported value is directly usable. */
   var STAGE_NET = [0, 100, 1000, 10000, 10000];
@@ -951,7 +951,7 @@
       if (stage < 1 || stage > 4) return { ok: false, reason: "bad_value" };
       if (stage === 4 && !teamActive) {
         return { ok: false, reason: "stage4_needs_team",
-                 note: "Stage 4 (The Company) needs an active team hire plus \u2265$10K net — add a hire in the Team section first." };
+                 note: "Stage 4 (The Company) needs an active team hire plus \u2265$10K net, add a hire in the Team section first." };
       }
       targetValue = STAGE_NET[stage];
       targetLabel = "Stage " + stage + " (" + STAGE_NAMES[stage] + ")";
@@ -990,7 +990,7 @@
                achievedLabel: fmtMetric(metricAt(lo)),
                target: target, targetLabel: targetLabel, month: month,
                alreadyThere: true,
-               note: "Your current settings already clear it — the model has you at " +
+               note: "Your current settings already clear it, the model has you at " +
                      fmtMetric(metricAt(lo)) + " by month " + month + "." };
     }
     if (metricAt(hi) < targetValue) {
@@ -999,7 +999,7 @@
                maxLabel: varLabel(hi),
                achievedAtMax: metricAt(hi),
                achievedAtMaxLabel: fmtMetric(metricAt(hi)),
-               note: "Not reachable in this model — even at " + varLabel(hi) +
+               note: "Not reachable in this model, even at " + varLabel(hi) +
                      " you would reach " + fmtMetric(metricAt(hi)) + " by month " + month +
                      ". Extend the horizon, stack another lever (cadence x quality x niche), or shrink the target." };
     }
@@ -1017,10 +1017,10 @@
              iterations: iterations,
              note: "The model's answer, not a promise: hold every other input fixed and " +
                    targetLabel + " lands by month " + month + " at " + varLabel(hi) +
-                   " (model says " + fmtMetric(achieved) + "). Reality has variance — treat it as a planning input." };
+                   " (model says " + fmtMetric(achieved) + "). Reality has variance, treat it as a planning input." };
   }
   /* realityChecks(): the sim's kind hard truths. Each check fires on a
-   * named condition and returns a plainly-worded, sourced note — never a
+   * named condition and returns a plainly-worded, sourced note, never a
    * scolding. These are the "reality check moments": the model shows the
    * math AND the base rates. Checks are data, not predictions. */
   function realityChecks(inputs, res) {
@@ -1039,9 +1039,9 @@
     }
     if (hit100k) {
       push("hundred-k",
-        "This run crosses 100K subs in month " + hit100k + " — and fewer than 1% of YouTube channels ever get there.",
-        "That's the model math on your inputs, not a prophecy. The honest plan the site teaches: build the business model around 10K-30K loyal subscribers — sponsorships, affiliates, products — not a million. Pick a niche where a small audience pays (high RPM), not one where you need millions of views to matter.",
-        "Lilach Bullock, Oct 2026 (single-source, editorial) — the site's reality_check record.");
+        "This run crosses 100K subs in month " + hit100k + ", and fewer than 1% of YouTube channels ever get there.",
+        "That's the model math on your inputs, not a prophecy. The honest plan the site teaches: build the business model around 10K-30K loyal subscribers, sponsorships, affiliates, products, not a million. Pick a niche where a small audience pays (high RPM), not one where you need millions of views to matter.",
+        "Lilach Bullock, Oct 2026 (single-source, editorial), the site's reality_check record.");
     }
 
     // Hyper-growth: the monthly rate beats the study's fastest cohort median.
@@ -1049,7 +1049,7 @@
     if (mg >= 0.20) {
       push("hyper-growth",
         "Your monthly growth (" + (mg * 100).toFixed(1) + "%) runs far above the fastest niche median in the 2026 study (1.59% for kids).",
-        "Compounding is honest math, but sustaining 20%+ monthly for a year is vanishingly rare — it means roughly doubling every 4 months. The study's medians describe the middle of each cohort; the top of the cohort is a different universe. Ask the goal solver what a 5-10% world looks like and compare.",
+        "Compounding is honest math, but sustaining 20%+ monthly for a year is vanishingly rare, it means roughly doubling every 4 months. The study's medians describe the middle of each cohort; the top of the cohort is a different universe. Ask the goal solver what a 5-10% world looks like and compare.",
         "TubeAI study via AIR Media-Tech, Sep 2026 (10K-100K subs, median 0.97%/mo).");
     }
 
@@ -1057,16 +1057,16 @@
     var tier = tierForSubs(endSubs);
     if (tier && !inputs.sponsors) {
       push("ads-vs-sponsors",
-        "At " + fmtCompact(endSubs) + " subs you'd hold a " + tier.id + "-tier sponsor seat — but sponsors are off in this run.",
-        "An integrated sponsor slot pays $20-$35 per 1,000 views vs ~$2.30 median ad RPM (9-15x) — sponsors pay for audience value, platform ads pay for reach. Toggle sponsors on and re-run: watch the empire change shape.",
+        "At " + fmtCompact(endSubs) + " subs you'd hold a " + tier.id + "-tier sponsor seat, but sponsors are off in this run.",
+        "An integrated sponsor slot pays $20-$35 per 1,000 views vs ~$2.30 median ad RPM (9-15x), sponsors pay for audience value, platform ads pay for reach. Toggle sponsors on and re-run: watch the empire change shape.",
         "air.io, Oct 2026 (creator-reported ranges); the Money Map's Phase 5 stack puts sponsors above ads.");
     }
 
     // The kids trap: fastest growth, worst pay.
     if (inputs.niche === "kids") {
       push("kids-trap",
-        "Kids grew fastest in the 2026 study (1.59%/mo) — and pays worst ($0.33 RPM, ~3M views to earn $1,000).",
-        "Growth is not revenue. A kids channel needs roughly 30x the views of an education channel to earn the same ad dollar. If you love the niche, the honest model is products and brand deals for parents — not ad math.",
+        "Kids grew fastest in the 2026 study (1.59%/mo), and pays worst ($0.33 RPM, ~3M views to earn $1,000).",
+        "Growth is not revenue. A kids channel needs roughly 30x the views of an education channel to earn the same ad dollar. If you love the niche, the honest model is products and brand deals for parents, not ad math.",
         "AIR Media-Tech, May 2025-May 2026 (Kids & Teens median).");
     }
 
@@ -1074,7 +1074,7 @@
     if (inputs.reels && res.meta.shortMix.reels > 0) {
       push("reels-zero",
         Math.round(res.meta.shortMix.reels * 100) + "% of your short-form output earns $0 per view on Reels (2026).",
-        "That's not a bug in the model — it's the platform. Reels build audience you monetize elsewhere: sponsors, gifts, subscriptions, the list. If the mix feels wrong, slide the output back toward Shorts and TikTok and compare.",
+        "That's not a bug in the model, it's the platform. Reels build audience you monetize elsewhere: sponsors, gifts, subscriptions, the list. If the mix feels wrong, slide the output back toward Shorts and TikTok and compare.",
         "AIR Media-Tech, 2026 (Reels Play Bonus ended 2023; nothing comparable replaced it).");
     }
 
@@ -1086,7 +1086,7 @@
       }
       if (gated) {
         push("tiktok-gate",
-          "Your TikTok share earns $0 this run — the run never crosses the 10K-follower Creator Rewards gate.",
+          "Your TikTok share earns $0 this run, the run never crosses the 10K-follower Creator Rewards gate.",
           "TikTok pays $0.40-$1.00 per 1,000 qualified views (US top-tier, creator-reported), but only for 1-minute-plus original videos past the 10K-follower + 100K-views/30d gate. Under the gate, TikTok is pure audience-building. The model counts the views; it just doesn't pay them.",
           "calculators.json platform_thresholds.tiktok_creator_rewards.");
       }
@@ -1096,10 +1096,10 @@
   }
 
   /* moneyMapToInputs(): feed the Money Map's stored quiz answers into the
-   * simulator as starting stats. Pure function of the answers object —
+   * simulator as starting stats. Pure function of the answers object,
    * unknown/missing answers fall back to the current defaults and are
    * reported in .mapped so the UI can say what it carried over. The map's
-   * answers are self-reported bands, never precise stats — the mapping says
+   * answers are self-reported bands, never precise stats, the mapping says
    * so, and the sim stays a model. */
   var MONEY_MAP_AUDIENCE_SUBS = {
     "zero": 0, "under-1k": 500, "1k-10k": 3000,
@@ -1122,7 +1122,7 @@
     }
     if (answers.platform === "tiktok") { out.tiktok = true; mapped.push("platform → TikTok share on"); }
     else if (answers.platform === "instagram") { out.reels = true; mapped.push("platform → Reels share on"); }
-    else if (answers.platform === "youtube") { mapped.push("platform → YouTube (base) — Shorts on"); }
+    else if (answers.platform === "youtube") { mapped.push("platform → YouTube (base), Shorts on"); }
     var cad = MONEY_MAP_CADENCE[answers.cadence];
     if (cad) {
       out.longformPerWeek = cad.longformPerWeek;

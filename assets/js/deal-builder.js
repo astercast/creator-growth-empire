@@ -1,21 +1,21 @@
-/* The Deal Builder — package a sponsor deal from deliverables into a
+/* The Deal Builder, package a sponsor deal from deliverables into a
  * line-item quote, a ready-to-send proposal, and a deal checklist.
  * UMD: works in the browser (window.DealBuilder) and in node
  * (module.exports).
  *
  * HONESTY CONTRACT: every rate is a reported range read from the real
  * 2026 rate card (data/v1/calculators.json sponsorship_rate_card_2026)
- * and the 2026 usage-rights benchmarks (usage_rights_benchmarks_2026) —
+ * and the 2026 usage-rights benchmarks (usage_rights_benchmarks_2026),
  * never a quote, never a promise. The quote is the TOP of the range
  * (creators list ~23% above what they accept; the expected close lands
- * ~23% lower) and the output says so. Pitch text never invents stats —
+ * ~23% lower) and the output says so. Pitch text never invents stats,
  * every number the creator hasn't supplied stays a [bracket]. The
  * checklist is a negotiation aid, NOT legal advice. Not financial,
  * legal, or tax advice.
  *
  * Differentiation: the Outreach Center quotes a single deliverable and
  * the Deal Analyzer evaluates an inbound offer. The Deal Builder is the
- * package layer — multiple deliverables, usage + whitelisting + 
+ * package layer, multiple deliverables, usage + whitelisting + 
  * exclusivity as stacked line items, exclusivity-window conflict checks,
  * a proposal email built from the actual quote, and a checklist built
  * from the actual terms. Same data, new job.
@@ -33,7 +33,7 @@
   /* Creators list rates ~23% above what they accept (projectcasting /
    * InfluenceFlow 2026, 1,347 creator profiles; re-verified Oct 2026).
    * Parity pin: Outreach.LISTED_VS_ACCEPTED and DealAnalyzer use the
-   * same constant — the site's quote math is one number everywhere. */
+   * same constant, the site's quote math is one number everywhere. */
   var LISTED_VS_ACCEPTED = 0.23;
 
   var PLATFORMS = ["youtube", "tiktok", "instagram"];
@@ -56,12 +56,12 @@
   var EXCL_SCOPES = ["none", "named", "category"];
 
   /* Storika Oct 2026 (single-source): UGC per-30s rates, creator-reported.
-   * Kept as a constant range rather than a per-level input — the tool
+   * Kept as a constant range rather than a per-level input, the tool
    * quotes the honest band and says which end is which. */
   var UGC_RANGE = [150, 1000];
 
   /* Honest rounding for quote numbers: 2 significant figures. Same as
-   * Outreach.nice / DealAnalyzer — the site's quote math rounds the same. */
+   * Outreach.nice / DealAnalyzer, the site's quote math rounds the same. */
   function nice(n) {
     if (n <= 0) return 0;
     var mag = Math.pow(10, Math.floor(Math.log10(n)) - 1);
@@ -81,8 +81,8 @@
   }
 
   function tierLabel(t) {
-    return { nano_1k_10k: "Nano (1K\u201310K)", micro_10k_100k: "Micro (10K\u2013100K)",
-             macro_100k_1m: "Macro (100K\u20131M)", mega_1m_plus: "Mega (1M+)" }[t];
+    return { nano_1k_10k: "Nano (1K–10K)", micro_10k_100k: "Micro (10K–100K)",
+             macro_100k_1m: "Macro (100K–1M)", mega_1m_plus: "Mega (1M+)" }[t];
   }
 
   function validInput(input) {
@@ -94,7 +94,7 @@
     bad(inp.followers >= 100000000, "followers above 100M is outside the benchmark universe");
     var dels = inp.deliverables;
     bad(!Array.isArray(dels) || dels.length === 0, "add at least one deliverable");
-    bad(Array.isArray(dels) && dels.length > 8, "more than 8 deliverable lines — split into two deals");
+    bad(Array.isArray(dels) && dels.length > 8, "more than 8 deliverable lines, split into two deals");
     (Array.isArray(dels) ? dels : []).forEach(function (d, i) {
       var at = "deliverable " + (i + 1);
       bad(PLATFORMS.indexOf(d.platform) < 0, at + ": unknown platform");
@@ -140,7 +140,7 @@
   }
 
   /* Per-unit base range for one deliverable, from the real rate card.
-   * Returns {range:[lo,hi], basis, note} — basis names the data used so
+   * Returns {range:[lo,hi], basis, note}, basis names the data used so
    * the UI can cite it; note carries the honest fallback when views are
    * missing for CPM-anchored kinds. */
   function deliverableBase(kind, platform, tier, viewsAvg, rateCard) {
@@ -156,7 +156,7 @@
                note: "UGC without posting: beginner $150–$400 / intermediate $400–$1,000 per 30s (Storika, Oct 2026, single-source)" };
     }
     /* integrated + short anchor to sponsored CPM bands when the creator
-     * supplied a real views average — sponsors buy views, not subs.
+     * supplied a real views average, sponsors buy views, not subs.
      * Without views, the honest fallback is half the tier band, labeled. */
     var cpmBand = (kind === "integrated" && platform === "youtube")
       ? cpms.youtube_integrated_slot
@@ -171,7 +171,7 @@
                        ? "YouTube integrated slot" : "short-form general") + " band)" };
     }
     return { range: [tierBand[0] * 0.5, tierBand[1] * 0.5], basis: "tier range × 0.5 (no views supplied)",
-             note: "No views average supplied — priced at half the tier band. Supply your last-10-video average for the CPM-anchored math." };
+             note: "No views average supplied, priced at half the tier band. Supply your last-10-video average for the CPM-anchored math." };
   }
 
   /* Look up the usage tier record from calculators.json
@@ -218,7 +218,7 @@
     var licensable = sumRange(lines.filter(function (l) { return l.kind !== "ugc"; })
       .map(function (l) { return l.line; }));
     var usage = usageTier(inp.usage, usageRights);
-    var usageAddon = [0, 0], usageNote = "Organic only — no paid-ad usage priced.";
+    var usageAddon = [0, 0], usageNote = "Organic only, no paid-ad usage priced.";
     if (usage && inp.usage !== "organic_only") {
       var pct = usage.addon_pct;
       var hiPct = pct[1] === null ? null : pct[1];
@@ -227,7 +227,7 @@
       usageNote = usage.label + ": +" + pct[0] + (hiPct === null ? "% or more" : "–" + hiPct + "%") +
                   " of the post-fee base, as its own line item.";
       if (inp.usage === "perpetual") {
-        notes.push("Perpetual usage is open-ended — the high end has no ceiling. " +
+        notes.push("Perpetual usage is open-ended, the high end has no ceiling. " +
                    "Price it from 2× base as its own line item, or refuse.");
       }
     }
@@ -239,7 +239,7 @@
       wlAddon = [nice(licensable[0] * wlPct[0] / 100 * inp.whitelistingMonths),
                  nice(licensable[1] * wlPct[1] / 100 * inp.whitelistingMonths)];
       wlNote = "Whitelisting " + inp.whitelistingMonths + " mo × " + wlPct[0] + "–" + wlPct[1] +
-               "% of post-fee base per month — monthly, revocable, never perpetual.";
+               "% of post-fee base per month, monthly, revocable, never perpetual.";
     }
 
     /* Exclusivity premium: named-competitor windows have benchmark
@@ -253,7 +253,7 @@
       exNote = "Named-competitor exclusivity, " + ex.months + " mo: +" + exPct +
                "% of post-fee base (benchmark: +25% for 30d, +50% for 60–90d).";
     } else if (ex.scope === "category") {
-      exNote = "Broad category exclusivity, " + ex.months + " mo: no benchmark multiplier — " +
+      exNote = "Broad category exclusivity, " + ex.months + " mo: no benchmark multiplier, " +
                "the premium must cover the deals you'd lose. Narrow to named competitors or price the lost pipeline.";
       if (ex.months >= 6) {
         exFlag = { level: "walk_away",
@@ -276,25 +276,25 @@
 
     var totalUnits = inp.deliverables.reduce(function (a, d) { return a + d.count; }, 0);
     if (totalUnits >= 3) {
-      notes.push("41% of creators offer package discounts on 3+ posts (InfluenceFlow 2026) — " +
+      notes.push("41% of creators offer package discounts on 3+ posts (InfluenceFlow 2026), " +
                  "build a 10–15% bundle line into the proposal rather than conceding it under pressure.");
     }
     var platforms = {};
     inp.deliverables.forEach(function (d) { platforms[d.platform] = 1; });
     if (Object.keys(platforms).length > 1) {
-      notes.push("Multi-platform bundles add 30–50% over single-platform pricing (rate-card negotiation data) — " +
+      notes.push("Multi-platform bundles add 30–50% over single-platform pricing (rate-card negotiation data), " +
                  "the same concept across platforms is more than the sum of the parts.");
     }
     if (inp.followers >= 10000000) {
-      notes.push("Above 10M followers the public benchmarks thin out — verify against current creator rate reports before quoting.");
+      notes.push("Above 10M followers the public benchmarks thin out, verify against current creator rate reports before quoting.");
     }
     if (inp.usage === "organic_only" && inp.whitelistingMonths > 0) {
-      notes.push("Whitelisting implies paid usage — with organic-only usage selected, add an explicit paid-ad usage line or the brand gets ads for free.");
+      notes.push("Whitelisting implies paid usage, with organic-only usage selected, add an explicit paid-ad usage line or the brand gets ads for free.");
     }
     notes.push("Quote at the top of the range: creators list ~23% above what they accept, " +
                "so the expected landing zone is " + fmtRange(expectedClose) +
                (expectedClose[1] === Infinity ? " (open-ended on the high side)" : "") + ".");
-    notes.push("Ranges, not quotes — niche, engagement, and geography move the real number. " +
+    notes.push("Ranges, not quotes, niche, engagement, and geography move the real number. " +
                "Verify against current creator rate reports before you send.");
 
     return {
@@ -310,7 +310,7 @@
   }
 
   /* Exclusivity / usage-window conflict checks. Returns flags with
-   * level (note|flag|walk_away) and text. These are structural checks —
+   * level (note|flag|walk_away) and text. These are structural checks,
    * the tool can't see your other contracts, and it says so. */
   function exclusivityConflicts(input) {
     var v = validInput(input);
@@ -323,7 +323,7 @@
     if (ex.scope !== "none" && usageMonths > 0 && usageMonths !== Infinity && ex.months < usageMonths) {
       flags.push({ level: "flag",
         text: "Your exclusivity ends at " + mo(ex.months) + " but the brand's paid-ad usage runs " +
-              mo(usageMonths) + " — your face advertises them while you're free to promote a competitor. " +
+              mo(usageMonths) + ", your face advertises them while you're free to promote a competitor. " +
               "Align the windows in writing." });
     }
     if (ex.scope === "category" && ex.months >= 6) {
@@ -333,22 +333,22 @@
     }
     if (ex.scope === "category" && ex.months >= 3 && ex.months < 6) {
       flags.push({ level: "flag",
-        text: "Category exclusivity without named competitors — 'competing' is whatever their lawyer says. " +
+        text: "Category exclusivity without named competitors, 'competing' is whatever their lawyer says. " +
               "Name the competitors in the contract." });
     }
     if (inp.usage === "perpetual" && ex.scope !== "none") {
       flags.push({ level: "flag",
         text: "Perpetual paid-ad usage plus exclusivity: the creative runs forever while the lock expires. " +
-              "If the usage is forever, the exclusivity math needs to match — or the usage needs a term." });
+              "If the usage is forever, the exclusivity math needs to match, or the usage needs a term." });
     }
     if (inp.whitelistingMonths > 0 && ex.scope !== "none" && inp.whitelistingMonths > ex.months) {
       flags.push({ level: "flag",
         text: "Whitelisting runs " + mo(inp.whitelistingMonths) + " but exclusivity ends at " + mo(ex.months) +
-              " — ads from your account outlive the lock. Align the terms." });
+              ", ads from your account outlive the lock. Align the terms." });
     }
     if (inp.whitelistingMonths > 12) {
       flags.push({ level: "flag",
-        text: mo(inp.whitelistingMonths) + " of whitelisting is a long rental of your credibility — " +
+        text: mo(inp.whitelistingMonths) + " of whitelisting is a long rental of your credibility, " +
               "keep it revocable in writing and set a re-negotiation point, never an auto-renew." });
     }
     var onlyUgc = inp.deliverables.every(function (d) { return d.kind === "ugc"; });
@@ -360,7 +360,7 @@
     }
     if (inp.affiliate.include && inp.affiliate.commissionPct >= 30) {
       flags.push({ level: "note",
-        text: "A " + inp.affiliate.commissionPct + "% commission is generous — brands sometimes " +
+        text: "A " + inp.affiliate.commissionPct + "% commission is generous, brands sometimes " +
               "use big affiliate rates to justify dropping the flat fee. Keep the fee; " +
               "the affiliate is the bonus, not the deal." });
     }
@@ -368,69 +368,69 @@
                   inp.usage !== "organic_only";
     if (ugcPaid) {
       flags.push({ level: "note",
-        text: "UGC with paid-ad usage selected: the usage IS the product here — price it as the main line, " +
+        text: "UGC with paid-ad usage selected: the usage IS the product here, price it as the main line, " +
               "not an add-on to a post fee that doesn't exist." });
     }
     flags.push({ level: "note",
-      text: "This check can't see your other contracts — if you're under an existing exclusivity, " +
+      text: "This check can't see your other contracts, if you're under an existing exclusivity, " +
              "the overlap is yours to verify before you sign." });
     return { ok: true, flags: flags };
   }
 
   /* The deal checklist, generated from the quote's actual terms.
-   * Groups of {id, title, items[]} — items are {id, text, detail}. */
+   * Groups of {id, title, items[]}, items are {id, text, detail}. */
   function buildChecklist(quote) {
     if (!quote || !quote.ok) return { ok: false, errors: ["build the quote first"] };
     function item(id, text, detail) { return { id: id, text: text, detail: detail || "" }; }
     var groups = [
       { id: "usage", title: "Usage rights",
         items: [
-          item("usage-line", "Paid-ad usage is its own line item — never folded into the post fee",
+          item("usage-line", "Paid-ad usage is its own line item, never folded into the post fee",
             quote.usage.label + (quote.usage.addon[0] > 0 ? ", priced at " + fmtRange(quote.usage.addon) : "") + "."),
           item("usage-term", "The usage term has a hard end date in the contract",
             quote.usage.label === "Organic only"
-              ? "Organic only selected — if the brand runs a single paid impression, that's a new line item."
+              ? "Organic only selected, if the brand runs a single paid impression, that's a new line item."
               : "End date written in: no auto-renew, no 'all media hereafter devised' without a term."),
           item("usage-perpetual", "Perpetual usage is priced from 2× base or refused",
             quote.usage.label.indexOf("Perpetual") === 0
-              ? "Perpetual selected — the open-ended high end is the point. Refuse or price it like forever."
-              : "Not selected — keep it that way unless the line item reflects it.")
+              ? "Perpetual selected, the open-ended high end is the point. Refuse or price it like forever."
+              : "Not selected, keep it that way unless the line item reflects it.")
         ] },
       { id: "payment", title: "Payment terms",
         items: [
-          item("pay-upfront", "50% upfront from any brand you haven't worked with", "New-brand rule — no exceptions."),
+          item("pay-upfront", "50% upfront from any brand you haven't worked with", "New-brand rule, no exceptions."),
           item("pay-net", "Net-30 in the contract, with late-payment terms", "Net-60 is a negotiation; net-90 without escrow is a walk-away flag."),
           item("pay-kill", "Kill fee if they cancel after you've filmed", "Standard shape: 50% of the fee once production starts.")
         ] },
       { id: "revisions", title: "Revisions & approvals",
         items: [
           item("rev-rounds", "Two revision rounds included; additional rounds at a named rate", "An open revision clause is a blank check on your time."),
-          item("rev-approval", "Approvals are talking points, not scripts", "The brand approves factual accuracy and brand safety — not your personality."),
+          item("rev-approval", "Approvals are talking points, not scripts", "The brand approves factual accuracy and brand safety, not your personality."),
           item("rev-window", "Approval window with silence = approval", "48–72 hours keeps one slow legal department from holding your calendar hostage.")
         ] },
       { id: "exclusivity", title: "Exclusivity",
         items: [
-          item("ex-named", "Competitors named in the contract — never a bare category",
+          item("ex-named", "Competitors named in the contract, never a bare category",
             quote.exclusivity.scope === "category"
-              ? "Category scope selected — narrow it to named competitors before signing."
+              ? "Category scope selected, narrow it to named competitors before signing."
               : quote.exclusivity.scope === "named"
-                ? "Named scope selected for " + quote.exclusivity.months + " months — write the names in."
-                : "No exclusivity selected — the cleanest term there is."),
+                ? "Named scope selected for " + quote.exclusivity.months + " months, write the names in."
+                : "No exclusivity selected, the cleanest term there is."),
           item("ex-premium", "The exclusivity premium is priced, not implied",
             quote.exclusivity.addon[0] > 0
               ? "Priced at " + fmtRange(quote.exclusivity.addon) + " on the quote."
-              : "No premium priced — broad locks without one are the most expensive signature in the file."),
+              : "No premium priced, broad locks without one are the most expensive signature in the file."),
           item("ex-windows", "Exclusivity window aligns with the usage window",
             "If the windows disagree, fix the mismatch in writing before you sign.")
         ] },
       { id: "ftc", title: "FTC disclosure",
         items: [
-          item("ftc-require", "The contract REQUIRES disclosure — never implies hiding it",
+          item("ftc-require", "The contract REQUIRES disclosure, never implies hiding it",
             "A contract that hides disclosure asks you to break the law for them. 2026 fines: $53,088/violation under the FTC Act; $51,744 under the reviews rule."),
-          item("ftc-how", "#ad early and verbal + on-screen — the platform tag alone isn't enough",
-            "Clear and conspicuous: first lines of the description, spoken in the video, on screen. Disclosure doesn't cost engagement — disclosed posts hold 10.4% TikTok / 3.9% IG median engagement."),
+          item("ftc-how", "#ad early and verbal + on-screen, the platform tag alone isn't enough",
+            "Clear and conspicuous: first lines of the description, spoken in the video, on screen. Disclosure doesn't cost engagement, disclosed posts hold 10.4% TikTok / 3.9% IG median engagement."),
           item("ftc-ai", "AI-generated endorsement? It needs its own disclosure too",
-            "2026 enforcement priority: AI endorsements and deepfakes. Double disclosure — paid AND AI.")
+            "2026 enforcement priority: AI endorsements and deepfakes. Double disclosure, paid AND AI.")
         ] },
       { id: "deliverables", title: "Deliverables & timeline",
         items: [
@@ -438,18 +438,18 @@
             quote.lines.map(function (l) { return l.label; }).join("; ") + ". 'Other promotional activities as reasonably requested' is a second deal you haven't priced."),
           item("del-wl", "Whitelisting is monthly, revocable, and dated",
             quote.whitelisting.months > 0
-              ? quote.whitelisting.months + " months priced at " + fmtRange(quote.whitelisting.addon) + " — revocation clause in writing."
-              : "No whitelisting selected — if they ask later, it's a new line item."),
+              ? quote.whitelisting.months + " months priced at " + fmtRange(quote.whitelisting.addon) + ", revocation clause in writing."
+              : "No whitelisting selected, if they ask later, it's a new line item."),
           item("del-affiliate", "Affiliate terms written: rate, cookie window, payout schedule",
             quote.affiliate.include
-              ? quote.affiliate.commissionPct + "% commission selected — get the cookie window and payout timing in writing."
-              : "No affiliate selected — if they add one later, it's a bonus on the flat fee, not a replacement.")
+              ? quote.affiliate.commissionPct + "% commission selected, get the cookie window and payout timing in writing."
+              : "No affiliate selected, if they add one later, it's a bonus on the flat fee, not a replacement.")
         ] },
       { id: "walkaway", title: "Your walk-away line",
         items: [
           item("wa-number", "Walk-away number decided BEFORE the call, written down",
             "Below " + fmt(quote.expectedClose[0]) + " (the low end of the expected landing zone) you keep the slot for your own affiliate push. Decided calm, held firm."),
-          item("wa-lawyer", "Above $500 — or with indemnification, IP assignment, or jurisdiction clauses — a real lawyer reads it",
+          item("wa-lawyer", "Above $500, or with indemnification, IP assignment, or jurisdiction clauses, a real lawyer reads it",
             "This checklist scores structure. A lawyer judges enforceability. Not legal advice.")
         ] }
     ];
@@ -457,7 +457,7 @@
   }
 
   /* The proposal email, built from the actual quote. Every stat the
-   * creator hasn't supplied stays a [bracket] — the generator never
+   * creator hasn't supplied stays a [bracket], the generator never
    * invents a number. Returns {subject, body}. */
   function renderPitch(input, quote) {
     var v = validInput(input);
@@ -465,7 +465,7 @@
     if (!quote || !quote.ok) return { ok: false, errors: ["build the quote first"] };
     var inp = norm(input);
     var lines = quote.lines.map(function (l) {
-      return "- " + l.label + " — " + fmtRange(l.line) + " (" + l.basis + ")";
+      return "- " + l.label + ", " + fmtRange(l.line) + " (" + l.basis + ")";
     }).join("\n");
     var totalLine = quote.total[1] === Infinity
       ? fmt(quote.total[0]) + "+ (open-ended: perpetual usage has no ceiling)"
@@ -476,11 +476,11 @@
     if (quote.exclusivity.addon[0] > 0) extras.push("Exclusivity: " + quote.exclusivity.note);
     if (inp.affiliate.include) extras.push("Affiliate: " + inp.affiliate.commissionPct + "% commission on top of the flat fee");
 
-    var subject = "[Channel] x [Brand] — sponsorship package proposal";
+    var subject = "[Channel] x [Brand], sponsorship package proposal";
     var body =
       "Hi [Contact name],\n" +
       "\n" +
-      "I'm [Your name] — I make [niche in one line] for [audience size + descriptor]. " +
+      "I'm [Your name], I make [niche in one line] for [audience size + descriptor]. " +
       "My last 10 videos averaged [X] views, [Y%] in [their market].\n" +
       "\n" +
       "Here's the package I'd build for [Brand]:\n" +
@@ -490,24 +490,24 @@
       "Package total: " + totalLine + "\n" +
       (extras.length ? extras.join("\n") + "\n" : "") +
       "\n" +
-      "Usage rights are priced as their own line item above — the post fee covers organic placement only. " +
+      "Usage rights are priced as their own line item above, the post fee covers organic placement only. " +
       "Payment: 50% upfront, net-30 on delivery. Two revision rounds included; approvals on talking points.\n" +
       "\n" +
       "Timeline: I can deliver the first piece [date, ~2 weeks out]. " +
       (quote.exclusivity.scope !== "none"
-        ? "Exclusivity as priced above (" + quote.exclusivity.scope + ", " + quote.exclusivity.months + " mo) — competitors named in the contract.\n" : "") +
+        ? "Exclusivity as priced above (" + quote.exclusivity.scope + ", " + quote.exclusivity.months + " mo), competitors named in the contract.\n" : "") +
       "\n" +
       "Open to a 15-minute call this week to lock the scope?\n" +
       "\n" +
       "[Your name] · [channel link] · [media kit link]\n" +
       "\n" +
-      "—\n" +
+      "·\n" +
       "Ranges from the 2026 creator rate card (benchmarks, not quotes). Not financial, legal, or tax advice.";
     return { ok: true, subject: subject, body: body,
              bracketCount: (body.match(/\[/g) || []).length, disclaimer: DISCLAIMER };
   }
 
-  var DISCLAIMER = "Negotiation aid — not financial, legal, or tax advice. " +
+  var DISCLAIMER = "Negotiation aid, not financial, legal, or tax advice. " +
     "Rates are reported 2026 benchmarks (ranges, never quotes). The contract " +
     "checklist is not legal advice; contracts above $500 deserve a real lawyer's eyes.";
 

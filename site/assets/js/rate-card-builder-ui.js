@@ -1,4 +1,4 @@
-/* Rate Card Builder — page wiring. The engine
+/* Rate Card Builder, page wiring. The engine
  * (assets/js/rate-card-builder.js) does the math; benchmarks come
  * from data/v1/calculators.json, the watch panel from
  * data/v1/changes.json. Nothing is stored; the card is rebuilt from
@@ -41,10 +41,10 @@
 
   function render(card) {
     var html = "";
-    html += "<div class=\"rcb-card-head\"><h3>Your rate card — " + esc(card.platformLabel) +
+    html += "<div class=\"rcb-card-head\"><h3>Your rate card: " + esc(card.platformLabel) +
       " · " + esc(card.tierLabel) + " followers" +
       (card.niche.label ? " · " + esc(card.niche.label) + " ×" + card.niche.mult : "") +
-      "</h3><p class=\"muted\">Primary format marked ▸. Usage and whitelisting ride on it as separate lines — never folded into the post fee.</p></div>";
+      "</h3><p class=\"muted\">Primary format marked ▸. Usage and whitelisting ride on it as separate lines, never folded into the post fee.</p></div>";
     html += "<div class=\"rcb-table-wrap\"><table class=\"rcb-table\"><thead><tr>" +
       "<th scope=\"col\">Format</th><th scope=\"col\">Your range</th><th scope=\"col\">Basis</th>" +
       "<th scope=\"col\">Why this number</th></tr></thead><tbody>";
@@ -61,12 +61,12 @@
         "<td class=\"rcb-fig\">" + esc(rangeText(card.total.range, card.total.openEnded)) + "</td>" +
         "<td colspan=\"2\" class=\"rcb-why\">Expected landing zone " +
         esc(rangeText(card.total.expectedClose)) +
-        " — creators list ~23% above what they accept, so the gap is priced in here, not discovered mid-thread.</td></tr>";
+        ", creators list ~23% above what they accept, so the gap is priced in here, not discovered mid-thread.</td></tr>";
     }
     html += "</tbody></table></div>";
 
     if (card.evidence.length) {
-      html += "<h4 class=\"rcb-sub\">Evidence — what creators actually quote (kept apart from the benchmark rows)</h4><div class=\"rcb-evidence\">";
+      html += "<h4 class=\"rcb-sub\">Evidence, what creators actually quote (kept apart from the benchmark rows)</h4><div class=\"rcb-evidence\">";
       card.evidence.forEach(function (e) {
         html += "<div class=\"rcb-ev-card\"><div class=\"lbl\">" + esc(e.label) + " · " + esc(e.basis) + "</div>" +
           (e.value != null ? "<div class=\"big\">" + R.fmt(e.value) + "</div>" : "") +
@@ -76,12 +76,12 @@
     }
     if (card.watch.length) {
       html += "<h4 class=\"rcb-sub\">On the watch for " + esc(card.platformLabel) +
-        " — the newest logged rule changes behind this card</h4><ul class=\"rcb-watch\">";
+        ", the newest logged rule changes behind this card</h4><ul class=\"rcb-watch\">";
       card.watch.forEach(function (w) {
         html += "<li><strong>" + esc(w.title) + "</strong> <span class=\"muted\">[" +
           esc(w.category) + " · " + esc(w.confidence) +
           (w.announced_at ? " · announced " + esc(w.announced_at.slice(0, 10)) : "") +
-          "]</span> — <a href=\"what-changed.html\">What Changed</a></li>";
+          "]</span>, <a href=\"what-changed.html\">What Changed</a></li>";
       });
       html += "</ul>";
     }

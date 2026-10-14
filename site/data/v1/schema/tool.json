@@ -9,7 +9,11 @@
     "page",
     "input_schema",
     "output",
-    "drive_notes"
+    "drive_notes",
+    "job",
+    "pricing_model",
+    "added",
+    "updated"
   ],
   "properties": {
     "id": {
@@ -32,6 +36,25 @@
     },
     "drive_notes": {
       "type": "string"
+    },
+    "job": {
+      "type": "string",
+      "enum": [
+        "Planning",
+        "Money",
+        "Content"
+      ]
+    },
+    "pricing_model": {
+      "type": "string"
+    },
+    "added": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
+    "updated": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
     }
   }
 }

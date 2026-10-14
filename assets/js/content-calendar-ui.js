@@ -1,4 +1,4 @@
-/* Content Calendar — 90-day grid dealt from the idea bank.
+/* Content Calendar, 90-day grid dealt from the idea bank.
    Pure-math-free: dealing/export live in assets/js/content-engine.js.
    Reads the idea bank from localStorage "cge_idea_bank_v1"; stores moves and
    sponsor marks in "cge_calendar_v1" (per config fingerprint). */
@@ -158,7 +158,7 @@
       '<button type="button" class="btn btn-ghost" id="cc-sim">Send cadence to Simulator</button>' +
       "</div>" +
       '<p class="muted">Drag items between days, or use the \u2039 \u203a buttons (keyboard-friendly). ' +
-      "Star \u2605 marks a sponsored slot — price it in the <a href=\"deal-room.html\">Deal Room</a> before you promise it. " +
+      "Star \u2605 marks a sponsored slot, price it in the <a href=\"deal-room.html\">Deal Room</a> before you promise it. " +
       "Open slots are honest gaps: the idea bank needs ideas, not filler.</p>" +
       "</div></div>";
     grid.forEach(function (days, wi) {
@@ -170,15 +170,15 @@
         var d = wk.days[di];
         html += '<div class="cc-day' + (d.rest ? " cc-rest" : "") + '" data-week="' + wi + '" data-day="' + di + '">' +
           "<strong>" + esc(d.day) + "</strong>";
-        if (d.rest) html += '<p class="muted"><em>Rest — analytics review.</em></p>';
+        if (d.rest) html += '<p class="muted"><em>Rest, analytics review.</em></p>';
         recs.forEach(function (rec) { html += itemHtml(rec); });
-        if (!recs.length && !d.rest) html += '<p class="muted">\u2014</p>';
+        if (!recs.length && !d.rest) html += '<p class="muted">·</p>';
         html += "</div>";
       });
       html += "</div></section>";
     });
     if (deal.unplaced.length) {
-      html += '<section class="cc-week"><h3>Backlog — in the bank, not on the calendar</h3><div class="cc-backlog">' +
+      html += '<section class="cc-week"><h3>Backlog: in the bank, not on the calendar</h3><div class="cc-backlog">' +
         deal.unplaced.map(function (i) {
           return '<span class="sticker sticker-ghost">' + esc(i.title) + "</span>";
         }).join("") + "</div></section>";
@@ -196,7 +196,7 @@
     if (simBtn) simBtn.addEventListener("click", function () {
       var cfg = CE.simInputFromCadence(deal.config.longsPerWeek, deal.config.shortsPerWeek);
       copy(JSON.stringify(cfg, null, 2), simBtn);
-      simBtn.textContent = "Copied \u2713 \u2014 paste into Simulator";
+      simBtn.textContent = "Copied \u2713: paste into Simulator";
       setTimeout(function () { simBtn.textContent = "Send cadence to Simulator"; }, 2500);
     });
 
@@ -282,11 +282,11 @@
     var warn = "";
     if (!bank.length) {
       warn = '<div class="error-state" role="alert"><strong>THE BANK IS EMPTY</strong>' +
-        '<p>No ideas to deal. Capture some in the <a href="idea-bank.html">Idea Bank</a> first — ' +
+        '<p>No ideas to deal. Capture some in the <a href="idea-bank.html">Idea Bank</a> first, ' +
         "the calendar deals real ideas, never filler.</p></div>";
     } else if (deal.openSlots > 0) {
       warn = '<div class="callout" style="margin-bottom:1rem"><strong>' + deal.openSlots +
-        " OPEN SLOTS</strong><p>Your bank doesn't cover this cadence yet — that's feedback, not " +
+        " OPEN SLOTS</strong><p>Your bank doesn't cover this cadence yet, that's feedback, not " +
         'failure. Either bank more ideas or shrink the cadence. <a href="batching.html">Check your film-day math</a>.</p></div>';
     }
     renderGrid();

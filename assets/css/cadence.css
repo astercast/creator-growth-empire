@@ -1,4 +1,4 @@
-/* Cadence Coach — week grid + result craft.
+/* Cadence Coach, week grid + result craft.
    Mobile-first; container query upgrades the 7-day strip to columns on
    wider containers (with @supports fallback). No animation: results render
    statically, honoring prefers-reduced-motion by never moving at all. */
@@ -81,7 +81,7 @@
 
 /* Typography micro-craft (§4, verified): balance on headings (Baseline
    2024), tabular numerals on stats, 65ch measure on prose. pretty is
-   @supports-gated — Firefox support is disputed (round-2 report), so no
+   @supports-gated, Firefox support is disputed (round-2 report), so no
    version is cited and the fallback is simply no pretty. */
 #cc-results h2,
 .cc-week h2 {
@@ -99,7 +99,7 @@
   }
 }
 
-/* Utilization ring: hand-rolled SVG (research angle 6 — hand-built SVG
+/* Utilization ring: hand-rolled SVG (research angle 6, hand-built SVG
    beats a chart library on weight). Static, no animation: the number is
    the encoding, color is redundant, so nothing is lost to color alone. */
 .cc-ring {
@@ -124,7 +124,7 @@
 .cc-ring-fill.is-over { stroke: var(--stamp, #ff6a55); }
 
 /* Scroll-driven reveal for the week strip (§2/angle 1, progressive
-   enhancement only — ~83% support, Firefox behind a flag).
+   enhancement only, ~83% support, Firefox behind a flag).
    Failure-mode rule: the finished (visible) state is the CSS default;
    motion is layered on inside @supports, and only when the user has no
    reduced-motion preference. Transform + opacity only (compositor). */

@@ -1,15 +1,15 @@
 {
   "terms": [
     {
-      "definition": "Revenue per mille — dollars earned per 1,000 monetized views after the platform's cut. The number that actually lands in your account. Always ask for RPM, never CPM, when someone quotes earnings.",
+      "definition": "Revenue per mille, dollars earned per 1,000 monetized views after the platform's cut. The number that actually lands in your account. Always ask for RPM, never CPM, when someone quotes earnings.",
       "term": "RPM"
     },
     {
-      "definition": "Cost per mille — what advertisers pay per 1,000 ad impressions. Higher than RPM because the platform takes its cut and not every view shows an ad.",
+      "definition": "Cost per mille, what advertisers pay per 1,000 ad impressions. Higher than RPM because the platform takes its cut and not every view shows an ad.",
       "term": "CPM"
     },
     {
-      "definition": "YouTube Partner Program. Tier 1 (500 subs): fan funding. Tier 2 (1,000 subs): full ad revenue. Verify current thresholds live — they changed in 2026 and rise again in 2027 for new applicants.",
+      "definition": "YouTube Partner Program. Tier 1 (500 subs): fan funding. Tier 2 (1,000 subs): full ad revenue. Verify current thresholds live, they changed in 2026 and rise again in 2027 for new applicants.",
       "term": "YPP"
     },
     {
@@ -17,7 +17,7 @@
       "term": "Creator Pool"
     },
     {
-      "definition": "Views that actually count toward monetization thresholds and payouts — public, eligible-country, policy-compliant, not from bots or ad campaigns. Your Analytics total is always higher than your qualified count.",
+      "definition": "Views that actually count toward monetization thresholds and payouts, public, eligible-country, policy-compliant, not from bots or ad campaigns. Your Analytics total is always higher than your qualified count.",
       "term": "Qualified views"
     },
     {
@@ -25,11 +25,11 @@
       "term": "Packaging"
     },
     {
-      "definition": "Click-through rate — impressions that became views. On YouTube, 2–10% is the normal band; the right number depends on how broadly YouTube is testing your video.",
+      "definition": "Click-through rate, impressions that became views. On YouTube, 2–10% is the normal band; the right number depends on how broadly YouTube is testing your video.",
       "term": "CTR"
     },
     {
-      "definition": "Average view duration — how long people actually watch. Retention graphs matter more than the average: find the exact moment viewers leave and fix that moment.",
+      "definition": "Average view duration, how long people actually watch. Retention graphs matter more than the average: find the exact moment viewers leave and fix that moment.",
       "term": "AVD"
     },
     {
@@ -41,7 +41,7 @@
       "term": "Hook"
     },
     {
-      "definition": "A video that dramatically over-performs your channel average — 10x your typical views. Your channel's growth plan is mostly 'make more videos like your outliers, but better packaged.'",
+      "definition": "A video that dramatically over-performs your channel average, 10x your typical views. Your channel's growth plan is mostly 'make more videos like your outliers, but better packaged.'",
       "term": "Outlier"
     },
     {
@@ -61,11 +61,11 @@
       "term": "Lead magnet"
     },
     {
-      "definition": "People you can reach without an algorithm's permission — email list, Discord, SMS. Platforms rent you attention; owned channels are the only equity.",
+      "definition": "People you can reach without an algorithm's permission, email list, Discord, SMS. Platforms rent you attention; owned channels are the only equity.",
       "term": "Owned audience"
     },
     {
-      "definition": "A brand pays you to feature their product. Priced on audience trust and niche value, not just view counts. Always disclose — it's the law in most countries.",
+      "definition": "A brand pays you to feature their product. Priced on audience trust and niche value, not just view counts. Always disclose, it's the law in most countries.",
       "term": "Sponsorship"
     },
     {
@@ -73,15 +73,15 @@
       "term": "Affiliate"
     },
     {
-      "definition": "Something you make once and sell forever — presets, templates, courses, guides. The highest-margin revenue a creator can own.",
+      "definition": "Something you make once and sell forever, presets, templates, courses, guides. The highest-margin revenue a creator can own.",
       "term": "Digital product"
     },
     {
-      "definition": "Merch with zero inventory: a third party prints and ships when fans order. Low margin, zero risk — the right first step before your own product line.",
+      "definition": "Merch with zero inventory: a third party prints and ships when fans order. Low margin, zero risk, the right first step before your own product line.",
       "term": "Print on demand"
     },
     {
-      "definition": "Limited Liability Company — separates your personal assets from your business. Educational info only, not legal advice; rules and costs vary by state/country.",
+      "definition": "Limited Liability Company, separates your personal assets from your business. Educational info only, not legal advice; rules and costs vary by state/country.",
       "term": "LLC"
     },
     {
@@ -89,7 +89,7 @@
       "term": "Bookkeeping"
     },
     {
-      "definition": "Standard operating procedure — the documented 'how we do this' for every repeatable task. SOPs are what let you hire without chaos.",
+      "definition": "Standard operating procedure, the documented 'how we do this' for every repeatable task. SOPs are what let you hire without chaos.",
       "term": "SOP"
     },
     {
@@ -114,11 +114,11 @@
     },
     {
       "term": "Shorts feed",
-      "definition": "The swipe-driven discovery surface for YouTube Shorts. Completion and watch time dominate; the metric that matters is completion rate, not CTR — nobody clicks, they just don't swipe."
+      "definition": "The swipe-driven discovery surface for YouTube Shorts. Completion and watch time dominate; the metric that matters is completion rate, not CTR, nobody clicks, they just don't swipe."
     },
     {
       "term": "Browse traffic",
-      "definition": "Views from YouTube's Home and Suggested surfaces. Curiosity-driven, won on packaging and broad appeal: volatile, with huge upside — this is where outliers are born."
+      "definition": "Views from YouTube's Home and Suggested surfaces. Curiosity-driven, won on packaging and broad appeal: volatile, with huge upside, this is where outliers are born."
     }
   ]
 }

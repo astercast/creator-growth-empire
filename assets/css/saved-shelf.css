@@ -1,4 +1,4 @@
-/* Saved Shelf — per-entry rows + export.
+/* Saved Shelf, per-entry rows + export.
  * Scoped to .svs-* / #saved-shelf. */
 .svs-stamp { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; margin-bottom: 0.5rem; }
 .svs-jump { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 1rem 0 0.5rem; }

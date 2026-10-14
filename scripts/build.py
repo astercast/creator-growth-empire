@@ -25,7 +25,7 @@ TAGLINE = "From $0 to a multi-million-dollar creator company."
 
 PHASE_ACCENTS = ["gold"] * 9  # R21: one accent only (mustard); per-phase colour coding removed
 
-# Phase rank ladder — the field-manual tier each phase earns (wave 29).
+# Phase rank ladder: the field-manual tier each phase earns (wave 29).
 PHASE_RANKS = ["RECRUIT", "PRIVATE", "CORPORAL", "SERGEANT", "STAFF SERGEANT",
                "GUNNERY SERGEANT", "MASTER SERGEANT", "LIEUTENANT", "COMMANDER"]
 
@@ -109,15 +109,15 @@ NICHE_EXPLORER_MOUNT = (
     '<section class="niche-explorer" aria-labelledby="ne-mount-title">'
     '<h2 id="ne-mount-title" class="visually-hidden">Niche explorer</h2>'
     '<div id="niche-explorer"></div>'
-    "<noscript><p>The niche explorer needs JavaScript. The full niche tables — "
+    "<noscript><p>The niche explorer needs JavaScript. The full niche tables, "
     "growth rates, search demand, breakout formats, revenue bands, and the avoid "
-    "list — are in the article above, and the dataset is "
+    "list, are in the article above, and the dataset is "
     '<a href="data/v1/niches.json">data/v1/niches.json</a>.</p></noscript>'
     "</section>"
 )
 
 # Retention-curve sketches mount (wave 19): hand-drawn SVG illustrations for the
-# Metrics Glossary's curve reader. Static sketches — read the shape, never the
+# Metrics Glossary's curve reader. Static sketches: read the shape, never the
 # numbers. No data behind them; each carries an aria-label + figcaption so the
 # read works without the image.
 def _curve_sketch(num, title, aria, points, marker=None, ok=False):
@@ -144,34 +144,34 @@ def _curve_sketch(num, title, aria, points, marker=None, ok=False):
 
 METRICS_CURVE_MOUNT = (
     '<section class="curve-sketches" aria-labelledby="curve-sketches-title">'
-    '<h2 id="curve-sketches-title">The five curve shapes — sketches</h2>'
-    "<p class=\"muted\">Illustrative sketches drawn for this page — read the <em>shape</em>, "
+    '<h2 id="curve-sketches-title">The five curve shapes: sketches</h2>'
+    "<p class=\"muted\">Illustrative sketches drawn for this page, read the <em>shape</em>, "
     "never the numbers. Your graph's timestamps are the diagnosis; these are the patterns to recognize.</p>"
     '<div class="curve-sketch-grid">'
     + _curve_sketch("1", "The cliff at the start",
         "Retention curve sketch: the line drops steeply in the first moments, then coasts gently downward.",
         "8,16 26,22 38,92 60,102 150,112 292,124", marker=(38, "\u22480:30"))
-    + "Hook/packaging failure — the opening didn't deliver the promise instantly. "
+    + "Hook/packaging failure, the opening didn't deliver the promise instantly. "
       "Fix: move the payoff moment to second 5. (Phase 2)</figcaption></figure>"
     + _curve_sketch("2", "The sawtooth",
-        "Retention curve sketch: the line zigzags downward — small recoveries, then more slide.",
+        "Retention curve sketch: the line zigzags downward, small recoveries, then more slide.",
         "8,30 50,86 68,52 110,90 128,56 170,94 188,62 230,98 248,68 292,104")
     + "Teeth bouncing back up = re-hooks working; the whole saw grinding down = pacing problem. "
       "Fix: a pattern interrupt every 30–60 seconds. (Phase 2)</figcaption></figure>"
     + _curve_sketch("3", "The single cliff",
         "Retention curve sketch: gentle decline, one vertical drop in the middle, then gentle decline again.",
         "8,28 120,48 150,54 156,108 172,112 292,122", marker=(156, "watch here"))
-    + "One bad section — a tangent, a slow demo, an off-topic rant. "
+    + "One bad section, a tangent, a slow demo, an off-topic rant. "
       "Fix: watch that timestamp; cut it or compress to 20%. (Phase 2)</figcaption></figure>"
     + _curve_sketch("4", "The end collapse",
         "Retention curve sketch: flat and healthy most of the way, then a steep drop near the end.",
         "8,24 170,38 225,46 258,58 292,118", ok=True)
-    + "Normal — unless the collapse starts before 50%. Viewers leaving after the payoff is healthy. "
+    + "Normal, unless the collapse starts before 50%. Viewers leaving after the payoff is healthy. "
       "Fix: move anything that matters before the natural end. (Phase 2)</figcaption></figure>"
     + _curve_sketch("5", "The flat low line",
-        "Retention curve sketch: a low, nearly flat line from start to finish — no recovery, no teeth.",
+        "Retention curve sketch: a low, nearly flat line from start to finish, no recovery, no teeth.",
         "8,108 120,112 200,116 292,120")
-    + "Topic mismatch — the promise didn't match what the audience wanted. Under 50 videos this is the "
+    + "Topic mismatch, the promise didn't match what the audience wanted. Under 50 videos this is the "
       "tuition phase, not a verdict. Fix: repackage the same topic three ways first. (Phase 2)</figcaption></figure>"
     + "</div>"
     '<p class="muted" style="margin-top:1rem">Shapes 1–5 are the chapter reads from '
@@ -193,38 +193,38 @@ CHAPTERS = [
 ]
 
 TOOLS = [
-    ("quiz", "Niche Picker", "Answer 6 questions, get ranked niche suggestions with reasoning — or take the 4-question \"Pick my 2027 niche\" branch, scored against the Niche Atlas 2027 outlook layer."),
-    ("calculator", "Revenue Calculator", "Project revenue from views, niche, sponsors, and affiliates — with honest ranges."),
+    ("quiz", "Niche Picker", "Answer 6 questions, get ranked niche suggestions with reasoning, or take the 4-question \"Pick my 2027 niche\" branch, scored against the Niche Atlas 2027 outlook layer."),
+    ("calculator", "Revenue Calculator", "Project revenue from views, niche, sponsors, and affiliates, with honest ranges."),
     ("planner", "90-Day Planner", "Generate a posting schedule from your platforms and cadence. Printable."),
-    ("deal-analyzer", "The Deal Analyzer", "Paste the brand's terms — rate-card verdict with platform multipliers + niche adjustment, the wave-22 contract checklist applied to the deal, counter-offer calculator, 2026 usage-rights add-on math, deal history + comparison mode."),
-    ("deal-room", "The Deal Room", "Deal Room 2.0 — manage the whole deal: niche-adjusted rate-card scoring, pipeline totals, the full 2026 rate card with real quoted prices, the Algorithm Watch digest, usage pricing, scripts, export your memo."),
-    ("hiring-calculator", "Hiring Cost Calculator", "Price your first hire: monthly/annual cost and the ad revenue needed to cover it — honest math, no promises."),
+    ("deal-analyzer", "The Deal Analyzer", "Paste the brand's terms, rate-card verdict with platform multipliers + niche adjustment, the wave-22 contract checklist applied to the deal, counter-offer calculator, 2026 usage-rights add-on math, deal history + comparison mode."),
+    ("deal-room", "The Deal Room", "Deal Room 2.0, manage the whole deal: niche-adjusted rate-card scoring, pipeline totals, the full 2026 rate card with real quoted prices, the Algorithm Watch digest, usage pricing, scripts, export your memo."),
+    ("hiring-calculator", "Hiring Cost Calculator", "Price your first hire: monthly/annual cost and the ad revenue needed to cover it, honest math, no promises."),
     ("repurpose", "Repurposing Planner", "Turn one idea into a 5-platform mission-card checklist from the Phase 3 repurposing SOP."),
-    ("simulator", "Empire Simulator", "Simulate 12–36 months of channel growth + revenue — the 10 real 2026 study niches (TubeAI/AIR medians + labeled RPM bands), niche/cadence/quality sliders, platform mix (Shorts/TikTok/Reels under their real 2026 rules), 12-scenario library, A/B comparison, team hiring P&L, what-if event cards, Money Map stage transitions, the \u201cwhat would it take?\u201d goal solver, live re-run, the mission-control launch sequence, and the animated watch-the-empire-build chart with milestone celebrations + kind reality checks — a model, not a prediction."),
-    ("api-explorer", "API Explorer", "Browse every api/v1 endpoint and preview JSON responses live in your browser — no key, no server."),
-    ("hook-builder", "Hook Builder", "Type your video topic, get five filmed-ready hooks — one per Short-Form Playbook structure. Flip-through cards."),
-    ("idea-bank", "Idea Bank", "Capture ideas with hook-strength scores (1–5, Playbook structures), niche tags, and effort estimates — promote the best to production."),
+    ("simulator", "Empire Simulator", "Simulate 12–36 months of channel growth + revenue, the 10 real 2026 study niches (TubeAI/AIR medians + labeled RPM bands), niche/cadence/quality sliders, platform mix (Shorts/TikTok/Reels under their real 2026 rules), 12-scenario library, A/B comparison, team hiring P&L, what-if event cards, Money Map stage transitions, the \u201cwhat would it take?\u201d goal solver, live re-run, the mission-control launch sequence, and the animated watch-the-empire-build chart with milestone celebrations + kind reality checks, a model, not a prediction."),
+    ("api-explorer", "API Explorer", "Browse every api/v1 endpoint and preview JSON responses live in your browser, no key, no server."),
+    ("hook-builder", "Hook Builder", "Type your video topic, get five filmed-ready hooks, one per Short-Form Playbook structure. Flip-through cards."),
+    ("idea-bank", "Idea Bank", "Capture ideas with hook-strength scores (1–5, Playbook structures), niche tags, and effort estimates, promote the best to production."),
     ("content-calendar", "90-Day Content Calendar", "Deal your idea bank into a 90-day grid: week-planner dealing rules, drag/keyboard moves, sponsor slots, copy-my-calendar export."),
     ("batching", "Batching Planner", "Film-day math: does your shoot capacity actually cover your cadence? Honest surplus/shortfall, consistency-beats-volume framing."),
-    ("money-map", "The Money Map", "Find your stage on the $0-to-company journey — now a playable climb: 7 questions, 5 stage playbooks, checkable missions that earn XP toward Field Manual ranks (Recruit → General). Ranks track work done, never income promises."),
-    ("video-doctor", "Diagnose My Video", "Pick your symptom \u2014 low CTR, the 30-second cliff, great retention but no subs \u2014 and get ranked causes with the fix from the chapter that owns it."),
-    ("ypp-checker", "YPP 2027 Eligibility Checker", "Enter your subs, watch hours, and Shorts views — get your verdict under the current YPP bar and the Feb-2027 bar, the gap math, and a chapter-grounded plan to close it."),
+    ("money-map", "The Money Map", "Find your stage on the $0-to-company journey, now a playable climb: 7 questions, 5 stage playbooks, checkable missions that earn XP toward Field Manual ranks (Recruit → General). Ranks track work done, never income promises."),
+    ("video-doctor", "Diagnose My Video", "Pick your symptom, low CTR, the 30-second cliff, great retention but no subs, and get ranked causes with the fix from the chapter that owns it."),
+    ("ypp-checker", "YPP 2027 Eligibility Checker", "Enter your subs, watch hours, and Shorts views, get your verdict under the current YPP bar and the Feb-2027 bar, the gap math, and a chapter-grounded plan to close it."),
     ("outreach", "The Outreach Center", "Run your sponsor pipeline outbound: track pitches in a CRM-lite, generate honest pitch emails, quote from the 2026 rate card, and flag contract red flags before you sign."),
     ("crosspost", "Cross-Post Optimizer", "Move one clip to every platform without getting throttled: per-destination adaptation checklists (aspect, captions, hooks, CTAs, disclosure labels) under the Oct-1 originality rules."),
-    ("cadence", "Cadence Coach", "How often should you actually post? Turn your honest weekly hours, formats, and platforms into a sustainable cadence — capacity math plus Oct-2026 platform realities. Consistency beats volume."),
-    ("format-fit", "Format Fit Finder", "Answer six questions about your real situation — experience, hours, on-camera comfort, budget, timeline, risk — and get all 10 breakout formats ranked by fit, each with why it fits, the catch, creator-reported pay ranges, and your first 3 moves. Honest mismatch flags; never a promise."),
-    ("deal-builder", "Deal Builder", "Turn deliverables into a line-item quote from the 2026 rate card — base fees, usage, whitelisting, and exclusivity stacked as separate lines — plus a ready-to-send proposal and a deal checklist built from your actual terms."),
-    ("negotiation-kit", "The Negotiation Kit", "The words and the math for a live negotiation: a counter-offer builder grounded in the 2026 rate card with the typical-quote evidence shown (reported vs modeled, kept apart), six ready-to-send reply scripts — the counter, the lowball, exposure-only, usage rights, whitelisting, late payment — each editable in place, and a walk-away panel tied to your own Deal Room pipeline numbers."),
-    ("rate-card-builder", "Rate Card Builder", "Your rate card, built in the open: pick your platform, follower band, and primary format — every format row prices itself from a named benchmark in the 2026 rate card with its reasoning printed beside the number, usage and whitelisting stacked as separate lines, the reported typical-quote evidence kept apart, and the newest Algorithm Watch changes for your platform printed under the card. Where the data carries no benchmark for a platform or format, the row says so instead of borrowing one."),
-    ("negotiation-script-builder", "Negotiation Script Builder", "The whole reply, word for word: pick one scenario the Negotiation Kit and Deal Room scripts actually cover — brand lowball, unpaid usage grab, exclusivity lock-in, late payment — add your numbers from the rate-card data, and get an opener, an anchor, a three-step concession ladder, and a walk-away line, every line naming the repo script it was assembled from. Scenarios with no repo script behind them are excluded with the reason stated, never improvised."),
-    ("deal-pipeline", "Deal Pipeline", "Your live sponsorship deals on one board — lead, negotiating, terms set, live, invoiced, paid. Every deal is priced by the Rate Card Builder on its named benchmarks with the provenance carried along, its current Negotiation Script Builder script sits one click away, follow-up nudges come from stage age alone, and the totals are arithmetic on the deals you actually enter: an empty board is empty, and demo deals stay labeled DEMO and out of the totals."),
-    ("follow-through", "Follow-Through Queue", "The Deal Pipeline's follow-ups, assembled into today's send list: urgent first, then most overdue, each item carrying its stage-age nudge action and its Negotiation Script Builder script ready to copy, plus one copyable brief for the whole queue. It reads the same board the Deal Pipeline writes and adds no numbers, no wording, and no thresholds of its own — an empty board and a board with nothing due are different states, and the queue says which."),
-    ("repeat-sponsor-book", "Repeat Sponsor Book", "The board's paid deals, held as the re-approach book every other money tool drops: longest since payment first, each brand's entered paid amount set against the current rate card the Rate Card Builder builds for the same deal through the Deal Pipeline, with its provenance printed, plus one copyable book for the whole list. It reads the same board the Deal Pipeline writes and adds no pricing, no thresholds, and no renewal-due date of its own — and it attaches no pitch wording, because no template in the repo describes a pitch to a brand that already paid. An empty board, a board with no paid deals yet, and a demo-only board are different states, and the book says which."),
-    ("sponsor-income-ledger", "Sponsor Income Ledger", "The board's paid deals as a month-by-month ledger — the collected money broken open instead of left as one lump total: each paid deal grouped under the month it entered the paid stage, a running cumulative, per-brand totals with each brand's share of collected, and per-platform totals, plus one copyable ledger for the whole record. It reads the same board the Deal Pipeline writes and adds no pricing, no rate card, and no thresholds of its own — its only arithmetic is summing and grouping the entered amounts, and its months are stage-entry months, never claimed clearing or payout dates. An empty board, a board with no paid deals yet, and a demo-only board are different states, and the ledger says which."),
-    ("receivables-register", "Receivables Register", "The board's invoiced deals as one register of money owed — the list behind the Deal Pipeline's invoiced-outstanding lump: every invoiced deal, fresh ones included, longest outstanding first, each with the amount owed, the date it entered the invoiced stage, its days outstanding, and its late-payment script from the Negotiation Script Builder through the board, plus one copyable register for the whole record. It reads the same board the Deal Pipeline writes and adds no pricing, no wording, and no thresholds of its own — it deliberately does not gate on the follow-up thresholds the Follow-Through Queue owns, because a register's job is completeness. An empty board, a board with nothing invoiced yet, and a demo-only board are different states, and the register says which."),
-    ("brand-ledger", "Brand Ledger", "Every brand on the board as one relationship total — the question no stage-filtered tool answers: for each brand, how much business is there in total across the whole board, how much of it has been collected, how much is owed, and how much is still open, and which brands the whole pipeline rides on. Each brand carries its total, its collected (paid-stage) sum, its owed (invoiced-stage) sum, its still-open sum (lead, negotiating, terms set, live), its deal and stage counts, its platforms, and its share of the Deal Pipeline's pipeline value, largest relationship first, plus one copyable ledger for the whole record. It reads the same board the Deal Pipeline writes and adds no pricing, no wording, and no thresholds of its own — its only arithmetic is summing and grouping the entered amounts by brand and stage, and a brand total is a sum of current-stage amounts, never claimed as a relationship history or lifetime value. An empty board and a demo-only board are different states, and the ledger says which."),
-    ("platform-ledger", "Platform Ledger", "Every platform on the board as one total — the question no whole-board tool answers: for each platform, how much business is there in total across every stage, how much of it has been collected, how much is owed, and how much is still open, and which platform the whole pipeline rides on. Each platform carries its total, its collected (paid-stage) sum, its owed (invoiced-stage) sum, its still-open sum (lead, negotiating, terms set, live), its deal and stage counts, its brands, and its share of the Deal Pipeline's pipeline value, largest total first, plus one copyable ledger for the whole record. It reads the same board the Deal Pipeline writes and adds no pricing, no wording, and no thresholds of its own — its only arithmetic is summing and grouping the entered amounts by platform and stage, and a platform total is a sum of current-stage amounts, never claimed as a platform history. An empty board and a demo-only board are different states, and the ledger says which."),
-    ("saved-shelf", "Saved Shelf", "Your saved tools, held as one shelf — the favourites pattern the hub never had: save any tool from its own page and it waits here, in the order you saved it, one tap back and one tap to remove, plus one copyable list for the whole shelf. The catalogue is the hub's own committed tool records; the saved set is yours alone, stored only in this browser, never sent anywhere. There is deliberately no most-saved ranking — that signal needs usage collected across visitors, and this site collects none. A saved tool the catalogue no longer lists is counted apart as stale and never rendered as a tool; a shelf with nothing saved yet and a shelf whose saves are all stale are different states, and the shelf says which."),
+    ("cadence", "Cadence Coach", "How often should you actually post? Turn your honest weekly hours, formats, and platforms into a sustainable cadence, capacity math plus Oct-2026 platform realities. Consistency beats volume."),
+    ("format-fit", "Format Fit Finder", "Answer six questions about your real situation, experience, hours, on-camera comfort, budget, timeline, risk, and get all 10 breakout formats ranked by fit, each with why it fits, the catch, creator-reported pay ranges, and your first 3 moves. Honest mismatch flags; never a promise."),
+    ("deal-builder", "Deal Builder", "Turn deliverables into a line-item quote from the 2026 rate card, base fees, usage, whitelisting, and exclusivity stacked as separate lines, plus a ready-to-send proposal and a deal checklist built from your actual terms."),
+    ("negotiation-kit", "The Negotiation Kit", "The words and the math for a live negotiation: a counter-offer builder grounded in the 2026 rate card with the typical-quote evidence shown (reported vs modeled, kept apart), six ready-to-send reply scripts, the counter, the lowball, exposure-only, usage rights, whitelisting, late payment, each editable in place, and a walk-away panel tied to your own Deal Room pipeline numbers."),
+    ("rate-card-builder", "Rate Card Builder", "Your rate card, built in the open: pick your platform, follower band, and primary format, every format row prices itself from a named benchmark in the 2026 rate card with its reasoning printed beside the number, usage and whitelisting stacked as separate lines, the reported typical-quote evidence kept apart, and the newest Algorithm Watch changes for your platform printed under the card. Where the data carries no benchmark for a platform or format, the row says so instead of borrowing one."),
+    ("negotiation-script-builder", "Negotiation Script Builder", "The whole reply, word for word: pick one scenario the Negotiation Kit and Deal Room scripts actually cover, brand lowball, unpaid usage grab, exclusivity lock-in, late payment, add your numbers from the rate-card data, and get an opener, an anchor, a three-step concession ladder, and a walk-away line, every line naming the repo script it was assembled from. Scenarios with no repo script behind them are excluded with the reason stated, never improvised."),
+    ("deal-pipeline", "Deal Pipeline", "Your live sponsorship deals on one board, lead, negotiating, terms set, live, invoiced, paid. Every deal is priced by the Rate Card Builder on its named benchmarks with the provenance carried along, its current Negotiation Script Builder script sits one click away, follow-up nudges come from stage age alone, and the totals are arithmetic on the deals you actually enter: an empty board is empty, and demo deals stay labeled DEMO and out of the totals."),
+    ("follow-through", "Follow-Through Queue", "The Deal Pipeline's follow-ups, assembled into today's send list: urgent first, then most overdue, each item carrying its stage-age nudge action and its Negotiation Script Builder script ready to copy, plus one copyable brief for the whole queue. It reads the same board the Deal Pipeline writes and adds no numbers, no wording, and no thresholds of its own, an empty board and a board with nothing due are different states, and the queue says which."),
+    ("repeat-sponsor-book", "Repeat Sponsor Book", "The board's paid deals, held as the re-approach book every other money tool drops: longest since payment first, each brand's entered paid amount set against the current rate card the Rate Card Builder builds for the same deal through the Deal Pipeline, with its provenance printed, plus one copyable book for the whole list. It reads the same board the Deal Pipeline writes and adds no pricing, no thresholds, and no renewal-due date of its own, and it attaches no pitch wording, because no template in the repo describes a pitch to a brand that already paid. An empty board, a board with no paid deals yet, and a demo-only board are different states, and the book says which."),
+    ("sponsor-income-ledger", "Sponsor Income Ledger", "The board's paid deals as a month-by-month ledger, the collected money broken open instead of left as one lump total: each paid deal grouped under the month it entered the paid stage, a running cumulative, per-brand totals with each brand's share of collected, and per-platform totals, plus one copyable ledger for the whole record. It reads the same board the Deal Pipeline writes and adds no pricing, no rate card, and no thresholds of its own, its only arithmetic is summing and grouping the entered amounts, and its months are stage-entry months, never claimed clearing or payout dates. An empty board, a board with no paid deals yet, and a demo-only board are different states, and the ledger says which."),
+    ("receivables-register", "Receivables Register", "The board's invoiced deals as one register of money owed, the list behind the Deal Pipeline's invoiced-outstanding lump: every invoiced deal, fresh ones included, longest outstanding first, each with the amount owed, the date it entered the invoiced stage, its days outstanding, and its late-payment script from the Negotiation Script Builder through the board, plus one copyable register for the whole record. It reads the same board the Deal Pipeline writes and adds no pricing, no wording, and no thresholds of its own, it deliberately does not gate on the follow-up thresholds the Follow-Through Queue owns, because a register's job is completeness. An empty board, a board with nothing invoiced yet, and a demo-only board are different states, and the register says which."),
+    ("brand-ledger", "Brand Ledger", "Every brand on the board as one relationship total, the question no stage-filtered tool answers: for each brand, how much business is there in total across the whole board, how much of it has been collected, how much is owed, and how much is still open, and which brands the whole pipeline rides on. Each brand carries its total, its collected (paid-stage) sum, its owed (invoiced-stage) sum, its still-open sum (lead, negotiating, terms set, live), its deal and stage counts, its platforms, and its share of the Deal Pipeline's pipeline value, largest relationship first, plus one copyable ledger for the whole record. It reads the same board the Deal Pipeline writes and adds no pricing, no wording, and no thresholds of its own, its only arithmetic is summing and grouping the entered amounts by brand and stage, and a brand total is a sum of current-stage amounts, never claimed as a relationship history or lifetime value. An empty board and a demo-only board are different states, and the ledger says which."),
+    ("platform-ledger", "Platform Ledger", "Every platform on the board as one total, the question no whole-board tool answers: for each platform, how much business is there in total across every stage, how much of it has been collected, how much is owed, and how much is still open, and which platform the whole pipeline rides on. Each platform carries its total, its collected (paid-stage) sum, its owed (invoiced-stage) sum, its still-open sum (lead, negotiating, terms set, live), its deal and stage counts, its brands, and its share of the Deal Pipeline's pipeline value, largest total first, plus one copyable ledger for the whole record. It reads the same board the Deal Pipeline writes and adds no pricing, no wording, and no thresholds of its own, its only arithmetic is summing and grouping the entered amounts by platform and stage, and a platform total is a sum of current-stage amounts, never claimed as a platform history. An empty board and a demo-only board are different states, and the ledger says which."),
+    ("saved-shelf", "Saved Shelf", "Your saved tools, held as one shelf, the favourites pattern the hub never had: save any tool from its own page and it waits here, in the order you saved it, one tap back and one tap to remove, plus one copyable list for the whole shelf. The catalogue is the hub's own committed tool records; the saved set is yours alone, stored only in this browser, never sent anywhere. There is deliberately no most-saved ranking, that signal needs usage collected across visitors, and this site collects none. A saved tool the catalogue no longer lists is counted apart as stale and never rendered as a tool; a shelf with nothing saved yet and a shelf whose saves are all stale are different states, and the shelf says which."),
 ]
 
 
@@ -236,7 +236,7 @@ TOOLS = [
 #              output_description, drive_notes).
 TOOLS_API = [
     ("quiz", "Niche Picker",
-     "Answer 6 questions, get ranked niche suggestions with reasoning — or take the 4-question \"Pick my 2027 niche\" branch.",
+     "Answer 6 questions, get ranked niche suggestions with reasoning, or take the 4-question \"Pick my 2027 niche\" branch.",
      "quiz.html",
      {"$schema": "http://json-schema.org/draft-07/schema#", "title": "QuizInput",
       "type": "object", "required": ["q1", "q2", "q3", "q4", "q5", "q6"],
@@ -263,9 +263,9 @@ TOOLS_API = [
                  "description": "2027 branch: skill fit."},
       }},
      "Ranked niche list (top 3+) with per-niche reasoning and fit tags. The 2027 branch returns top-3 niches with trajectory badges, basis sentences, and risk notes.",
-     "Scoring logic lives in assets/js/quiz.js: option tags are matched against each niche's fit[] tags, q3 sets an RPM preference filter, q6 sets the competition ceiling. The niche catalogue (9 niches, fit tags, rpm/competition levels) is embedded in quiz.js. The 2027 branch scores the 20 atlas niches against data/niches.json outlook_2027 trajectories (heating +3 / stable +1 / cooling -2), growth-signal matches, format fit, risk alignment, and atlas skill_fit — OUTLOOK_2027 in quiz.js mirrors the JSON and tests/niche-atlas.test.js checks sync."),
+     "Scoring logic lives in assets/js/quiz.js: option tags are matched against each niche's fit[] tags, q3 sets an RPM preference filter, q6 sets the competition ceiling. The niche catalogue (9 niches, fit tags, rpm/competition levels) is embedded in quiz.js. The 2027 branch scores the 20 atlas niches against data/niches.json outlook_2027 trajectories (heating +3 / stable +1 / cooling -2), growth-signal matches, format fit, risk alignment, and atlas skill_fit. OUTLOOK_2027 in quiz.js mirrors the JSON and tests/niche-atlas.test.js checks sync."),
     ("calculator", "Revenue Calculator",
-     "Project revenue from views, niche, sponsors, and affiliates — with honest ranges.",
+     "Project revenue from views, niche, sponsors, and affiliates, with honest ranges.",
      "calculator.html",
      {"$schema": "http://json-schema.org/draft-07/schema#", "title": "CalculatorInput",
       "type": "object", "required": ["niche", "monthly_longform_views"],
@@ -299,9 +299,9 @@ TOOLS_API = [
                        "description": "0=Mon … 6=Sun; that day is rest + analytics review."},
       }},
      "13-week posting schedule (91 days): per-day long-form and short-form assignments, totals, a day-45 checkpoint review note.",
-     "Layout logic (assets/js/planner.js): long-form spread across non-rest days, shorts spread 2 days apart, week 7 flagged as the midpoint review. Rest day is non-negotiable — no posting, analytics review only."),
+     "Layout logic (assets/js/planner.js): long-form spread across non-rest days, shorts spread 2 days apart, week 7 flagged as the midpoint review. Rest day is non-negotiable, no posting, analytics review only."),
     ("deal-analyzer", "The Deal Analyzer",
-     "Paste the brand's terms — rate-card verdict with platform multipliers + niche adjustment, the wave-22 contract checklist applied to the deal, counter-offer calculator, 2026 usage-rights add-on math, deal history + comparison mode.",
+     "Paste the brand's terms, rate-card verdict with platform multipliers + niche adjustment, the wave-22 contract checklist applied to the deal, counter-offer calculator, 2026 usage-rights add-on math, deal history + comparison mode.",
      "deal-analyzer.html",
      {"$schema": "http://json-schema.org/draft-07/schema#", "title": "DealAnalyzerInput",
       "type": "object", "required": ["platform", "deliverable", "followers", "offer_usd"],
@@ -314,13 +314,13 @@ TOOLS_API = [
                     "enum": ["finance_investing", "tech_software", "education",
                              "health_fitness", "lifestyle", "gaming",
                              "comedy_entertainment", "music"],
-                    "description": "Optional — adjusts the verdict range by the niche multiplier (finance/tech x2.5, entertainment/gaming/music x0.6) and enables the AIR category-CPM cross-check where mapped."},
+                    "description": "Optional, adjusts the verdict range by the niche multiplier (finance/tech x2.5, entertainment/gaming/music x0.6) and enables the AIR category-CPM cross-check where mapped."},
           "followers": {"type": "number", "minimum": 0},
           "offer_usd": {"type": "number", "minimum": 0},
           "expected_views": {"type": "number", "minimum": 0, "default": 0,
                              "description": "If known, enables the implied-CPM check and the category-CPM cross-check."},
           "post_count": {"type": "integer", "minimum": 1, "default": 1,
-                         "description": "Posts in the bundle — 3+ triggers the 15-20% bundle-discount guidance."},
+                         "description": "Posts in the bundle, 3+ triggers the 15-20% bundle-discount guidance."},
           "usage": {"type": "string",
                     "enum": ["organic_only", "paid_3mo", "paid_6mo", "paid_12mo", "perpetual"],
                     "default": "organic_only"},
@@ -349,7 +349,7 @@ TOOLS_API = [
                        }},
       }},
      "Verdict (UNDERPAID / FAIR / STRONG) against the niche-adjusted benchmark range, implied CPM vs rate-card CPMs, AIR category-CPM cross-check (where mapped), offer-term flags, wave-22 contract checklist verdict (clean / caution / dont_sign) with per-flag fixes, counter-offer with line-item ranges + open-ended totals, usage-rights add-on table, plaintext export.",
-     "Engine (assets/js/deal-analyzer.js, UMD — require() it in node): DealAnalyzer.validInput() normalizes; .evaluate(deal, rateCard) returns the tier range x niche multiplier (parity-pinned with the simulator's sponsorNicheMult), verdict, implied CPM, categoryCheck (AIR Oct-2026 category CPMs: finance/real-estate $58, B2B SaaS/AI $46.50, health $28, gaming/tech $18.50, entertainment $14), cross-platform ranges + the 1.7x/0.85x note, and the 23%-benchmark expected close; .offerTermFlags() scans usage/whitelisting/exclusivity/payment/timeline; .mapTermsToFlags() + .contractRisk(flagIds, deal-templates.json contract_flags) apply the wave-22 checklist (walk_away = dont_sign, major 2pts, minor 1pt, 3+ = dont_sign — same scoring as Outreach.contractRisk); .usageAddons() prices the 2026 benchmark ranges (3mo +25-50%, 3-6mo +50-75%, 6-12mo +75-100%, perpetual from 2x; whitelisting 30-100%/mo) from calculators.json usage_rights_benchmarks_2026 (calculators v1.5.0); .counterOffer() builds base + line items + open-ended totals + the 15-20% bundle guidance; .exportReport() renders the plaintext evaluation; .compareDeals() diffs two saved deals. Browser history/compare/print live in assets/js/deal-analyzer-ui.js (localStorage only). Negotiation aid — not financial, legal, or tax advice; the checklist is not legal advice. See AGENT.md Workflow 12."),
+     "Engine (assets/js/deal-analyzer.js, UMD, require() it in node): DealAnalyzer.validInput() normalizes; .evaluate(deal, rateCard) returns the tier range x niche multiplier (parity-pinned with the simulator's sponsorNicheMult), verdict, implied CPM, categoryCheck (AIR Oct-2026 category CPMs: finance/real-estate $58, B2B SaaS/AI $46.50, health $28, gaming/tech $18.50, entertainment $14), cross-platform ranges + the 1.7x/0.85x note, and the 23%-benchmark expected close; .offerTermFlags() scans usage/whitelisting/exclusivity/payment/timeline; .mapTermsToFlags() + .contractRisk(flagIds, deal-templates.json contract_flags) apply the wave-22 checklist (walk_away = dont_sign, major 2pts, minor 1pt, 3+ = dont_sign, same scoring as Outreach.contractRisk); .usageAddons() prices the 2026 benchmark ranges (3mo +25-50%, 3-6mo +50-75%, 6-12mo +75-100%, perpetual from 2x; whitelisting 30-100%/mo) from calculators.json usage_rights_benchmarks_2026 (calculators v1.5.0); .counterOffer() builds base + line items + open-ended totals + the 15-20% bundle guidance; .exportReport() renders the plaintext evaluation; .compareDeals() diffs two saved deals. Browser history/compare/print live in assets/js/deal-analyzer-ui.js (localStorage only). Negotiation aid, not financial, legal, or tax advice; the checklist is not legal advice. See AGENT.md Workflow 12."),
     ("deal-room", "The Deal Room",
      "Deal Room 2.0: track offers through signing against the niche-adjusted 2026 rate card, read the pipeline totals, price usage rights, check real quoted prices, read the Algorithm Watch digest, export your memo.",
      "deal-room.html",
@@ -360,7 +360,7 @@ TOOLS_API = [
           "platform": {"type": "string", "enum": ["youtube", "tiktok", "instagram"]},
           "followers": {"type": "number", "minimum": 0},
           "niche": {"type": "string",
-                    "description": "Optional sponsor niche key (same table as the Deal Analyzer / simulator sponsorNicheMult) — adjusts the benchmark range the offer is scored against.",
+                    "description": "Optional sponsor niche key (same table as the Deal Analyzer / simulator sponsorNicheMult), adjusts the benchmark range the offer is scored against.",
                     "enum": ["finance_investing", "tech_software", "education", "health_fitness",
                              "lifestyle", "gaming", "comedy_entertainment", "music", "kids",
                              "asmr", "creator_economy", "challenges_stunts", "ai_ml",
@@ -385,9 +385,9 @@ TOOLS_API = [
                      "description": "Where the deal sits in the offer → paid pipeline."},
       }},
      "Tracked deal records with niche-adjusted rate-card verdicts (UNDERPAID / FAIR / STRONG + the ~23% listed-vs-accepted note), a pipeline summary over the creator's own logged deals (stage totals, committed vs paid, underpaid deals still in play), the full 2026 rate-card table with reported vs modeled bases kept separate, a quoted-price check against real negotiation data, usage-rights line-item pricing (reported +50/+75/+100% band; no invented whitelisting/buyout multipliers), per-situation negotiation scripts, interactive red-flag checklist scoring, the Algorithm Watch digest (dated, sourced, confidence-flagged, with per-entry deal notes), and a one-page deal memo.",
-     "Logic (assets/js/deal-room.js, UMD — importable in node): scoreOffer(offer, lo, hi) benchmarks against sponsorship_rate_card_2026; scoreDeal(deal, rateCard) adds the niche multiplier (parity-pinned with DealAnalyzer.nicheMult) + implied CPM; rateCardTable(rateCard, quoted) returns the full tier table + multipliers + CPMs + the quoted-prices block; quotedPriceCheck(deal, quoted) reads sponsorship_quoted_prices_2026 (calculators.json v1.5.0 — Cheerful Sep-2026 reported asks/quotes; Click Analytic 2026 Instagram model, labeled modeled) and returns null where no format is honestly mapped; pipelineSummary(deals, rateCard) totals the creator's own pipeline with no invented close probabilities; watchDigest(feed, {days, limit, now}) + digestText(digest) build the Algorithm Watch digest from data/v1/changes.json with curated per-entry deal notes (editorial, labeled); priceUsage(baseFee, tierId, usage_rights_tiers) applies the reported multipliers, returning guidance instead of numbers for whitelisting/buyout; redFlagScore(checkedIds, red_flags) scores contract structure (any walk_away flag or 3+ points -> walk away); renderScript(script, vars) fills {{placeholders}}; dealMemo(deal, scored, flags) builds the one-page record. Scripts + checklist + tiers live in data/v1/deal-templates.json. Negotiation aid, not financial/legal/tax advice."),
+     "Logic (assets/js/deal-room.js, UMD, importable in node): scoreOffer(offer, lo, hi) benchmarks against sponsorship_rate_card_2026; scoreDeal(deal, rateCard) adds the niche multiplier (parity-pinned with DealAnalyzer.nicheMult) + implied CPM; rateCardTable(rateCard, quoted) returns the full tier table + multipliers + CPMs + the quoted-prices block; quotedPriceCheck(deal, quoted) reads sponsorship_quoted_prices_2026 (calculators.json v1.5.0, Cheerful Sep-2026 reported asks/quotes; Click Analytic 2026 Instagram model, labeled modeled) and returns null where no format is honestly mapped; pipelineSummary(deals, rateCard) totals the creator's own pipeline with no invented close probabilities; watchDigest(feed, {days, limit, now}) + digestText(digest) build the Algorithm Watch digest from data/v1/changes.json with curated per-entry deal notes (editorial, labeled); priceUsage(baseFee, tierId, usage_rights_tiers) applies the reported multipliers, returning guidance instead of numbers for whitelisting/buyout; redFlagScore(checkedIds, red_flags) scores contract structure (any walk_away flag or 3+ points -> walk away); renderScript(script, vars) fills {{placeholders}}; dealMemo(deal, scored, flags) builds the one-page record. Scripts + checklist + tiers live in data/v1/deal-templates.json. Negotiation aid, not financial/legal/tax advice."),
     ("hiring-calculator", "Hiring Cost Calculator",
-     "Price your first hire: monthly/annual cost and the ad revenue needed to cover it — honest math, no promises.",
+     "Price your first hire: monthly/annual cost and the ad revenue needed to cover it, honest math, no promises.",
      "hiring-calculator.html",
      {"$schema": "http://json-schema.org/draft-07/schema#", "title": "HiringCalculatorInput",
       "type": "object", "required": ["role", "billing_model", "rate_usd"],
@@ -423,9 +423,9 @@ TOOLS_API = [
                             "default": "longform"},
       }},
      "Five mission cards (YouTube Day 0, Short Day +1, TikTok Day +2, Reel Day +3, Facebook Day +4) each with a hook rewrite, atom test, and native-grammar checklist.",
-     "Logic (assets/js/repurpose.js + assets/js/content-engine.js): atom test (does the insight survive standalone?), pillar prep (hook in first 15s), then the five staggered mission cards. Enforce native grammar — no watermarks, no copy-paste. 2.0 adds the full derivative map via ContentEngine.repurposeMap (7 derivatives: short clip, community reaction, TikTok cut, Reel cut, newsletter issue, X thread, Facebook post) — every derivative carries a required original element (repurposing is not re-uploading) plus the Oct-1 originality guardrails (ContentEngine.originalityGuardrails). Machine-readable map + guardrails: data/v1/content-engine.json repurposing_2_0 / originality_guardrails."),
+     "Logic (assets/js/repurpose.js + assets/js/content-engine.js): atom test (does the insight survive standalone?), pillar prep (hook in first 15s), then the five staggered mission cards. Enforce native grammar, no watermarks, no copy-paste. 2.0 adds the full derivative map via ContentEngine.repurposeMap (7 derivatives: short clip, community reaction, TikTok cut, Reel cut, newsletter issue, X thread, Facebook post), every derivative carries a required original element (repurposing is not re-uploading) plus the Oct-1 originality guardrails (ContentEngine.originalityGuardrails). Machine-readable map + guardrails: data/v1/content-engine.json repurposing_2_0 / originality_guardrails."),
     ("simulator", "Empire Simulator",
-     "Simulate 12–36 months of channel growth + revenue — the 10 real 2026 study niches (TubeAI/AIR medians + labeled RPM bands), niche/cadence/quality sliders, platform mix (Shorts/TikTok/Reels under their real 2026 rules), 12-scenario library, A/B comparison, team hiring P&L, what-if event cards, Money Map stage transitions, the \u201cwhat would it take?\u201d goal solver, live re-run, the mission-control launch sequence, and the animated watch-the-empire-build chart with milestone celebrations + kind reality checks — a model, not a prediction.",
+     "Simulate 12–36 months of channel growth + revenue, the 10 real 2026 study niches (TubeAI/AIR medians + labeled RPM bands), niche/cadence/quality sliders, platform mix (Shorts/TikTok/Reels under their real 2026 rules), 12-scenario library, A/B comparison, team hiring P&L, what-if event cards, Money Map stage transitions, the \u201cwhat would it take?\u201d goal solver, live re-run, the mission-control launch sequence, and the animated watch-the-empire-build chart with milestone celebrations + kind reality checks, a model, not a prediction.",
      "simulator.html",
      {"$schema": "http://json-schema.org/draft-07/schema#", "title": "SimulatorInput",
       "type": "object", "required": ["niche", "start_subs", "longform_per_week"],
@@ -434,14 +434,14 @@ TOOLS_API = [
                     "enum": ["kids", "asmr", "creator_economy", "challenges_stunts",
                              "ai_ml", "true_crime", "education", "entertainment",
                              "science", "gaming"],
-                    "description": "The 10 real 2026 study niches (TubeAI/AIR Sep 2026). Each sets the niche_rpm_2026 RPM band (labeled reported/proxy/CPM-reported) and shows the study median as context for monthly_growth_rate — the median is never a multiplier."},
+                    "description": "The 10 real 2026 study niches (TubeAI/AIR Sep 2026). Each sets the niche_rpm_2026 RPM band (labeled reported/proxy/CPM-reported) and shows the study median as context for monthly_growth_rate, the median is never a multiplier."},
           "start_subs": {"type": "number", "minimum": 0},
           "longform_per_week": {"type": "number", "minimum": 0},
           "shorts_per_week": {"type": "number", "minimum": 0, "default": 0},
           "publish_tiktok": {"type": "boolean", "default": False,
                     "description": "Arm TikTok: the short-form output is split across Shorts/TikTok/Reels (normalized shares). TikTok pays Creator Rewards on ~50% of raw views (qualifying views) at $0.40-$2.00/1k past the 10K-follower gate; under the gate it pays $0."},
           "publish_reels": {"type": "boolean", "default": False,
-                    "description": "Arm Instagram Reels: takes a real share of the short-form output and pays $0/view (2026) — the honest number, modeled explicitly. Reels build audience monetized elsewhere."},
+                    "description": "Arm Instagram Reels: takes a real share of the short-form output and pays $0/view (2026), the honest number, modeled explicitly. Reels build audience monetized elsewhere."},
           "short_mix": {"type": "object",
                     "description": "Raw platform weights {shorts, tiktok, reels}; normalized across armed platforms. Defaults 60/25/15.",
                     "properties": {
@@ -466,7 +466,7 @@ TOOLS_API = [
                              "sleep-ambient", "english-learning", "senior-health"],
                     "description": "One-click preset: loads a full named starting config from the engine's SCENARIOS library (research-sourced assumptions)."},
           "horizon": {"type": "integer", "enum": [12, 24, 36], "default": 12,
-                      "description": "12, 24, or 36 months. 24 adds year-2 diminishing returns (monthly growth decays x0.94/mo after month 12); 36 adds year-3 (x0.97/mo after month 24) plus Money Map stage transitions — the engine's labeled curves."},
+                      "description": "12, 24, or 36 months. 24 adds year-2 diminishing returns (monthly growth decays x0.94/mo after month 12); 36 adds year-3 (x0.97/mo after month 24) plus Money Map stage transitions, the engine's labeled curves."},
           "hires": {"type": "array", "default": [],
                     "items": {"type": "object", "required": ["type"],
                               "properties": {
@@ -486,26 +486,26 @@ TOOLS_API = [
                                   "start_month": {"type": "integer", "minimum": 1, "maximum": 36, "default": 1,
                                            "description": "The month the card lands on the timeline."},
                               }},
-                    "description": "What-if event cards: random-but-transparent scenario events with chapter-cited assumed effects. algorithm-change: Shorts views x0.6 from the card month (Oct-1-2026 originality update). viral-hit: event month long views x10, one-time +8% subs, next month x1.5 tail (reality check built in: virality spikes views, not loyalty). burnout-break: 2 months of zero growth, -0.5%/mo subs drift, views x0.3. policy-change: the Feb-2027 10M-qualified-Shorts-views/90d revenue floor — Shorts ads pay $0 in months under it. holiday-shopping-surge: the event month + the next month, affiliate revenue x1.8 (the two-month holiday buying window — TikTok Shop BFCM 2025 $500M/4 days, Adobe 2026 holiday forecast). Multipliers are the engine's labeled assumptions, never platform data."},
+                    "description": "What-if event cards: random-but-transparent scenario events with chapter-cited assumed effects. algorithm-change: Shorts views x0.6 from the card month (Oct-1-2026 originality update). viral-hit: event month long views x10, one-time +8% subs, next month x1.5 tail (reality check built in: virality spikes views, not loyalty). burnout-break: 2 months of zero growth, -0.5%/mo subs drift, views x0.3. policy-change: the Feb-2027 10M-qualified-Shorts-views/90d revenue floor, Shorts ads pay $0 in months under it. holiday-shopping-surge: the event month + the next month, affiliate revenue x1.8 (the two-month holiday buying window, TikTok Shop BFCM 2025 $500M/4 days, Adobe 2026 holiday forecast). Multipliers are the engine's labeled assumptions, never platform data."},
           "compare_with": {"type": "object",
-                    "description": "A/B mode: {name_b, inputs_b} — compare(nameA, inputsA, nameB, inputsB, cfg) runs both over the same horizon and returns B-minus-A deltas plus a plain-language verdict.",
+                    "description": "A/B mode: {name_b, inputs_b}, compare(nameA, inputsA, nameB, inputsB, cfg) runs both over the same horizon and returns B-minus-A deltas plus a plain-language verdict.",
                     "properties": {
                         "name_b": {"type": "string", "description": "Label for the B path (e.g. 'Tech reviewer')."},
                         "inputs_b": {"type": "object", "description": "Full SimulatorInput for the B path (or a scenario_id)."},
                     }},
       }},
      "12-, 24-, or 36-month projection: subs, views, and revenue per month per stream (ads, sponsors, affiliates, digital), month-by-month team P&L (gross, team cost, net), per-month Money Map stage (0-4 from monthly net + team) with the stage-transition timeline, active what-if event cards per month, totals, milestones, and the full named-assumptions list. compare() adds side-by-side deltas (B minus A) and a verdict. exportPlan() renders the copy-my-empire-plan text incl. the stage journey. A model, not a prediction.",
-     "Engine (assets/js/sim-engine.js, UMD — importable in node): simulate(inputs, cfg) with cfg = calculators.json. scenarioInputs(id) loads a named preset from the SCENARIOS library (12 presets, research-sourced assumptions); compare(nameA, inputsA, nameB, inputsB, cfg) runs two configs over the same clock (deltas are B minus A); assumptionLines(inputs, res) is the always-visible assumptions panel; exportPlan(scenarioName, inputs, res) renders the share text; normalizeEvents() validates the 5 what-if cards; stageForNet(net, teamActive) is the single source of the 0-4 stage rule; solveForGoal(inputs, cfg, {target: \"subs\"|\"net\"|\"stage\", value, month, variable: \"growth\"|\"cadence\"}) binary-searches base growth (whole %) or long-form cadence (half videos) until the target lands by the month — pure inversion of simulate(), no new claims (see AGENT.md Workflow 13). The 4.0 UI adds live re-run (debounced), stage-banded subscriber charts with milestone/event markers, year cards, and an always-visible assumptions block. Wow wave 2 flagship: the 10 study niches carry real TubeAI/AIR medians as CONTEXT (never multipliers) + labeled RPM bands from calculators.json niche_rpm_2026 (reported/proxy/CPM-reported). Growth compounds monthly x cadence x quality (diminishing, capped 2.5x). Hires add output/quality and subtract cost monthly (first active month at 50% ramp). Year-2 decays growth x0.94/mo after month 12; year-3 x0.97/mo after month 24 (growth stays positive — plateau, not collapse). RPMs come from calculators.json niche_rpm_2026 (the 10 study niches; legacy scenario keys still read youtube_longform_rpm_bands). Platform mix: publish_tiktok/publish_reels split the short-form output across Shorts/TikTok/Reels (normalized); TikTok pays Creator Rewards on ~50% of raw views at $0.40-$2.00/1k past the 10K gate; Reels pay $0/view. realityChecks(inputs, res) returns the kind hard truths (<1% to 100K, hyper-growth, kids-trap, reels-zero, tiktok-gate, ads-vs-sponsors). moneyMapToInputs(answers) feeds the Money Map quiz into starting stats. Every assumption is named in DEFAULTS and listed on-page. Wow wave 1 adds the mission-control launch sequence (assets/js/simulator-launch.js, UMD pure helpers + DOM): explicit runs fly pre-flight checks (four real gates), a T-minus countdown, mission elapsed-time telemetry streamed month-by-month, then the full results plus a stamped MISSION DEBRIEF that credits +25 XP to the Empire Climb journal (shared localStorage store with the Money Map). Live-update re-runs bypass the sequence; reduced-motion/calm users get checks + debrief + XP without the motion; ABORT/Esc scrubs before anything is computed."),
+     "Engine (assets/js/sim-engine.js, UMD, importable in node): simulate(inputs, cfg) with cfg = calculators.json. scenarioInputs(id) loads a named preset from the SCENARIOS library (12 presets, research-sourced assumptions); compare(nameA, inputsA, nameB, inputsB, cfg) runs two configs over the same clock (deltas are B minus A); assumptionLines(inputs, res) is the always-visible assumptions panel; exportPlan(scenarioName, inputs, res) renders the share text; normalizeEvents() validates the 5 what-if cards; stageForNet(net, teamActive) is the single source of the 0-4 stage rule; solveForGoal(inputs, cfg, {target: \"subs\"|\"net\"|\"stage\", value, month, variable: \"growth\"|\"cadence\"}) binary-searches base growth (whole %) or long-form cadence (half videos) until the target lands by the month, pure inversion of simulate(), no new claims (see AGENT.md Workflow 13). The 4.0 UI adds live re-run (debounced), stage-banded subscriber charts with milestone/event markers, year cards, and an always-visible assumptions block. Wow wave 2 flagship: the 10 study niches carry real TubeAI/AIR medians as CONTEXT (never multipliers) + labeled RPM bands from calculators.json niche_rpm_2026 (reported/proxy/CPM-reported). Growth compounds monthly x cadence x quality (diminishing, capped 2.5x). Hires add output/quality and subtract cost monthly (first active month at 50% ramp). Year-2 decays growth x0.94/mo after month 12; year-3 x0.97/mo after month 24 (growth stays positive, plateau, not collapse). RPMs come from calculators.json niche_rpm_2026 (the 10 study niches; legacy scenario keys still read youtube_longform_rpm_bands). Platform mix: publish_tiktok/publish_reels split the short-form output across Shorts/TikTok/Reels (normalized); TikTok pays Creator Rewards on ~50% of raw views at $0.40-$2.00/1k past the 10K gate; Reels pay $0/view. realityChecks(inputs, res) returns the kind hard truths (<1% to 100K, hyper-growth, kids-trap, reels-zero, tiktok-gate, ads-vs-sponsors). moneyMapToInputs(answers) feeds the Money Map quiz into starting stats. Every assumption is named in DEFAULTS and listed on-page. Wow wave 1 adds the mission-control launch sequence (assets/js/simulator-launch.js, UMD pure helpers + DOM): explicit runs fly pre-flight checks (four real gates), a T-minus countdown, mission elapsed-time telemetry streamed month-by-month, then the full results plus a stamped MISSION DEBRIEF that credits +25 XP to the Empire Climb journal (shared localStorage store with the Money Map). Live-update re-runs bypass the sequence; reduced-motion/calm users get checks + debrief + XP without the motion; ABORT/Esc scrubs before anything is computed."),
     ("api-explorer", "API Explorer",
-     "Browse every api/v1 endpoint and preview JSON responses live in your browser — no key, no server.",
+     "Browse every api/v1 endpoint and preview JSON responses live in your browser, no key, no server.",
      "api-explorer.html",
      {"$schema": "http://json-schema.org/draft-07/schema#", "title": "ApiExplorerInput",
       "type": "object", "properties": {},
-      "description": "No inputs — this tool is a read-only browser over the API itself."},
+      "description": "No inputs, this tool is a read-only browser over the API itself."},
      "Live in-browser JSON previews of every endpoint, discovered from data/v1/index.json with a static fallback list.",
      "Discovery (assets/js/api-explorer.js): fetches data/v1/index.json, renders one GET button per endpoint record, pretty-prints responses. Agents can skip the UI and fetch the endpoints directly."),
     ("hook-builder", "Hook Builder",
-     "Type your video topic, get five filmed-ready hooks — one per Short-Form Playbook structure. Flip-through cards.",
+     "Type your video topic, get five filmed-ready hooks, one per Short-Form Playbook structure. Flip-through cards.",
      "hook-builder.html",
      {"$schema": "http://json-schema.org/draft-07/schema#", "title": "HookBuilderInput",
       "type": "object", "required": ["topic"],
@@ -516,18 +516,18 @@ TOOLS_API = [
      "Five filmed-ready hooks, one per Short-Form Playbook structure: open loop, cold start, contrarian take, numbered promise, question-as-hook.",
      "Logic (assets/js/hook-builder.js): topic → template fills per structure + the anti-hook checklist (no 'wait for it', no follow-begging, no channel-name cold open). The structures are craft formulas, not platform documentation."),
     ("idea-bank", "Idea Bank",
-     "Capture ideas with hook-strength scores (1–5, Playbook structures), niche tags, and effort estimates — promote the best to production.",
+     "Capture ideas with hook-strength scores (1–5, Playbook structures), niche tags, and effort estimates, promote the best to production.",
      "idea-bank.html",
      {"$schema": "http://json-schema.org/draft-07/schema#", "title": "IdeaBankInput",
       "type": "object", "required": ["title"],
       "properties": {
           "title": {"type": "string", "minLength": 1, "maxLength": 120,
-                  "description": "The idea in one line — the core of the video."},
+                  "description": "The idea in one line, the core of the video."},
           "format": {"type": "string", "enum": ["long", "short", "community"],
                    "default": "long",
                    "description": "Long-form pillar, short-form post, or community text post."},
           "niche": {"type": "string",
-                  "description": "Niche tag — a Niche Atlas niche id from data/v1/niches.json (free text accepted)."},
+                  "description": "Niche tag, a Niche Atlas niche id from data/v1/niches.json (free text accepted)."},
           "effort": {"type": "string", "enum": ["quick", "afternoon", "week"],
                    "default": "afternoon",
                    "description": "quick < 2h, afternoon = half day, week = full week build."},
@@ -535,7 +535,7 @@ TOOLS_API = [
                        "description": "Hook strength self-score against the five Short-Form Playbook structures (see data/v1/content-engine.json hook_structures)."},
       }},
      "Banked ideas sorted by hook score (ties by FIFO), filterable by format, promotable to production (they deal into the content calendar). localStorage only.",
-     "Logic (assets/js/content-engine.js, UMD — importable in node): hookScore(n) clamps 1–5; sortIdeas(ideas) sorts by hook score desc, ties by created asc, no mutation; filterIdeas(ideas, format) filters. Storage is the browser's localStorage (key cge_idea_bank_v1) — agents feed idea records directly to the engine functions."),
+     "Logic (assets/js/content-engine.js, UMD, importable in node): hookScore(n) clamps 1–5; sortIdeas(ideas) sorts by hook score desc, ties by created asc, no mutation; filterIdeas(ideas, format) filters. Storage is the browser's localStorage (key cge_idea_bank_v1), agents feed idea records directly to the engine functions."),
     ("content-calendar", "90-Day Content Calendar",
      "Deal your idea bank into a 90-day grid: week-planner dealing rules, drag/keyboard moves, sponsor slots, copy-my-calendar export.",
      "content-calendar.html",
@@ -545,7 +545,7 @@ TOOLS_API = [
           "longform_per_week": {"type": "integer", "minimum": 0, "maximum": 7},
           "shorts_per_week": {"type": "integer", "minimum": 0, "maximum": 21, "default": 0},
           "rest_day": {"type": "integer", "minimum": 0, "maximum": 6, "default": 6,
-                     "description": "0=Mon … 6=Sun; non-negotiable rest — no placement, analytics review only."},
+                     "description": "0=Mon … 6=Sun; non-negotiable rest, no placement, analytics review only."},
           "weeks": {"type": "integer", "minimum": 1, "maximum": 52, "default": 13},
           "ideas": {"type": "array", "default": [],
                   "items": {"type": "object", "required": ["id", "title", "format"],
@@ -558,7 +558,7 @@ TOOLS_API = [
                   "description": "Idea records (e.g. from the Idea Bank). Community ideas deal on the short cadence."},
       }},
      "13-week grid: per-day long/short placements, open slots (never filler), backlog, midpoint-review flag on week 7. Export text + simulator input bridge + sponsor-slot marks.",
-     "Logic (assets/js/content-engine.js, UMD — importable in node): dealIdeas(ideas, {longsPerWeek, shortsPerWeek, restDay, weeks}) — same dealing arithmetic as the 90-Day Planner: longs sort by hook score desc then round-robin across weeks onto non-rest work days; shorts deal every other work day; empty slots stay OPEN (never padded); surplus ideas return in unplaced; week 7 flagged midpointReview. exportCalendarText(deal) renders the copy-my-calendar text; simInputFromCadence(longs, shorts) returns {longform_per_week, shorts_per_week} for the Simulator; sponsored slots are calendar commitments only — price them in the Deal Room."),
+     "Logic (assets/js/content-engine.js, UMD, importable in node): dealIdeas(ideas, {longsPerWeek, shortsPerWeek, restDay, weeks}), same dealing arithmetic as the 90-Day Planner: longs sort by hook score desc then round-robin across weeks onto non-rest work days; shorts deal every other work day; empty slots stay OPEN (never padded); surplus ideas return in unplaced; week 7 flagged midpointReview. exportCalendarText(deal) renders the copy-my-calendar text; simInputFromCadence(longs, shorts) returns {longform_per_week, shorts_per_week} for the Simulator; sponsored slots are calendar commitments only, price them in the Deal Room."),
     ("batching", "Batching Planner",
      "Film-day math: does your shoot capacity actually cover your cadence? Honest surplus/shortfall, consistency-beats-volume framing.",
      "batching.html",
@@ -568,7 +568,7 @@ TOOLS_API = [
           "videos_per_shoot_day": {"type": "number", "minimum": 0,
                                  "description": "Long-form videos filmed per shoot day (honest average)."},
           "shoot_days_per_month": {"type": "number", "minimum": 0,
-                                 "description": "Scheduled, repeatable shoot days — 'I'll find the time' doesn't count."},
+                                 "description": "Scheduled, repeatable shoot days, 'I'll find the time' doesn't count."},
           "shorts_per_shoot_day": {"type": "number", "minimum": 0,
                                  "description": "Defaults to 2x videos_per_shoot_day."},
           "longform_per_week": {"type": "number", "minimum": 0},
@@ -576,7 +576,7 @@ TOOLS_API = [
           "publish_tiktok": {"type": "boolean", "default": False,
                     "description": "Arm TikTok: the short-form output is split across Shorts/TikTok/Reels (normalized shares). TikTok pays Creator Rewards on ~50% of raw views (qualifying views) at $0.40-$2.00/1k past the 10K-follower gate; under the gate it pays $0."},
           "publish_reels": {"type": "boolean", "default": False,
-                    "description": "Arm Instagram Reels: takes a real share of the short-form output and pays $0/view (2026) — the honest number, modeled explicitly. Reels build audience monetized elsewhere."},
+                    "description": "Arm Instagram Reels: takes a real share of the short-form output and pays $0/view (2026), the honest number, modeled explicitly. Reels build audience monetized elsewhere."},
           "short_mix": {"type": "object",
                     "description": "Raw platform weights {shorts, tiktok, reels}; normalized across armed platforms. Defaults 60/25/15.",
                     "properties": {
@@ -588,10 +588,10 @@ TOOLS_API = [
           "rest_day": {"type": "integer", "minimum": 0, "maximum": 6, "default": 6,
                       "description": "Scheduler: rest day, Mon=0..Sun=6 (non-negotiable)."},
           "task_minutes": {"type": "object",
-                         "description": "Scheduler: per-task minutes {long:{film,edit,publish}, short:{film,edit,publish}} — your own timings; blanks fall back to starting estimates."},
+                         "description": "Scheduler: per-task minutes {long:{film,edit,publish}, short:{film,edit,publish}}, your own timings; blanks fall back to starting estimates."},
       }},
      "Required vs capacity per month (long + short), deltas, and a verdict: surplus (bank it), balanced (no slack), or shortfall (add a shoot day / drop a slot / merge formats).",
-     "Logic (assets/js/content-engine.js, UMD — importable in node): batchingMath(opts) — capacity = shoot_days_per_month × videos_per_shoot_day; required = cadence × 52/12 (the honest month); verdict surplus/balanced/shortfall with guidance text. 2.0 adds planBatchWeek({weeklyHours, longsPerWeek, shortsPerWeek, restDay, taskMinutes}) — weekly hours blocked into film/edit/publish day-blocks (8h/day cap, rest day untouched); verdict holds/tight/over with lever guidance. Defaults for task minutes are adjustable starting estimates, not benchmarks. Pure arithmetic on the creator's own inputs — never a promise. Planning aid, not financial/legal/tax advice."),
+     "Logic (assets/js/content-engine.js, UMD, importable in node): batchingMath(opts), capacity = shoot_days_per_month × videos_per_shoot_day; required = cadence × 52/12 (the honest month); verdict surplus/balanced/shortfall with guidance text. 2.0 adds planBatchWeek({weeklyHours, longsPerWeek, shortsPerWeek, restDay, taskMinutes}), weekly hours blocked into film/edit/publish day-blocks (8h/day cap, rest day untouched); verdict holds/tight/over with lever guidance. Defaults for task minutes are adjustable starting estimates, not benchmarks. Pure arithmetic on the creator's own inputs, never a promise. Planning aid, not financial/legal/tax advice."),
     ("money-map", "The Money Map",
      "Find your stage on the $0-to-company journey: 7 questions, 5 stage playbooks, your next 3 moves. Stages are focus guides, never income promises.",
      "money-map.html",
@@ -616,15 +616,15 @@ TOOLS_API = [
                    "description": "Who makes the content."},
           "bottleneck": {"type": "string",
                          "enum": ["ideas", "consistency", "growth", "monetization", "operations"],
-                         "description": "Biggest bottleneck right now — selects the bottleneck-driven roadmap moves."},
+                         "description": "Biggest bottleneck right now, selects the bottleneck-driven roadmap moves."},
           "streams": {"type": "string",
                       "enum": ["0", "1", "2-3", "4-plus"],
                       "description": "Revenue streams actually paying right now."},
       }},
      "Stage placement (0–4: The Start Line / First $100 / The Engine Runs / The Business / The Company), sanity notes (audience-ahead, team-ahead), and a 3-move roadmap (stage signature move + 2 bottleneck-driven moves), the stage trap, and the graduate-when criteria. Placement anchored on the creator's own reported revenue band; stages are focus guides, never income promises.",
-     "Logic (assets/js/money-map.js, UMD — importable in node): placeStage(a) — revenue band maps 0→0, 1-99→1, 100-999→2, 1k-9999→3, 10k-plus→4; if audience is 100k+ and base stage ≤ 2, stage+1 with an 'audience-ahead' note; employees with stage ≤ 2 adds a 'team-ahead' note. roadmap(a) — stage signature move (the stage's #1 tool) + two bottleneck-driven moves, deduped. STAGES carries the full playbook data (goal, 3 moves, trap, graduate). Wow wave 1 adds the Empire Climb: RANKS (RECRUIT/CADET/OPERATIVE/COMMANDER/GENERAL, chevron insignias), RANK_THRESHOLDS [0,100,275,500,775], XP_AWARDS {survey:50, move:25, stage:100, mission:25}; awardXP(store,key,amount,label) is idempotent per key, revokeKey undoes; rankFor/nextRankInfo map totals to ranks; loadClimb/saveClimb persist the cge.empireclimb.v1 journal (one-time migration from the pre-climb store). XP is a work journal \u2014 missions cleared, stages closed \u2014 never money earned; no rank promises revenue. Planning aid, not financial/legal/tax advice."),
+     "Logic (assets/js/money-map.js, UMD, importable in node): placeStage(a), revenue band maps 0→0, 1-99→1, 100-999→2, 1k-9999→3, 10k-plus→4; if audience is 100k+ and base stage ≤ 2, stage+1 with an 'audience-ahead' note; employees with stage ≤ 2 adds a 'team-ahead' note. roadmap(a), stage signature move (the stage's #1 tool) + two bottleneck-driven moves, deduped. STAGES carries the full playbook data (goal, 3 moves, trap, graduate). Wow wave 1 adds the Empire Climb: RANKS (RECRUIT/CADET/OPERATIVE/COMMANDER/GENERAL, chevron insignias), RANK_THRESHOLDS [0,100,275,500,775], XP_AWARDS {survey:50, move:25, stage:100, mission:25}; awardXP(store,key,amount,label) is idempotent per key, revokeKey undoes; rankFor/nextRankInfo map totals to ranks; loadClimb/saveClimb persist the cge.empireclimb.v1 journal (one-time migration from the pre-climb store). XP is a work journal, missions cleared, stages closed, never money earned; no rank promises revenue. Planning aid, not financial/legal/tax advice."),
     ("video-doctor", "Diagnose My Video",
-     "Pick your symptom \u2014 low CTR, the 30-second cliff, great retention but no subs \u2014 and get ranked causes with the fix from the chapter that owns it.",
+     "Pick your symptom, low CTR, the 30-second cliff, great retention but no subs, and get ranked causes with the fix from the chapter that owns it.",
      "video-doctor.html",
      {"$schema": "http://json-schema.org/draft-07/schema#", "title": "VideoDoctorInput",
       "type": "object", "required": ["symptom", "platform", "experience"],
@@ -641,9 +641,9 @@ TOOLS_API = [
                          "description": "Videos shipped. Under 50 = tuition phase: the data is thin, diagnose lightly."},
       }},
      "Ranked likely causes drawn from the site's chapters (Phase 1, Phase 2, Short-Form Playbook), each with chapter-grounded fixes and read-next links; the metric to watch next; context notes (tuition-phase caveat under 50 videos, swipe-feed completion-rate note for CTR on short-form). Thresholds labeled as creator-reported rules of thumb, never platform-published benchmarks.",
-     "Engine (assets/js/video-doctor.js, UMD \u2014 importable in node): validInput(i) validates the three enums; diagnose(i) returns the symptom record with causes ranked 1..N (cause/why/fixes/links) plus notes. SYMPTOMS carries the full 8-symptom dataset. Diagnostic aid, not financial/legal/tax advice; never an income promise."),
+     "Engine (assets/js/video-doctor.js, UMD, importable in node): validInput(i) validates the three enums; diagnose(i) returns the symptom record with causes ranked 1..N (cause/why/fixes/links) plus notes. SYMPTOMS carries the full 8-symptom dataset. Diagnostic aid, not financial/legal/tax advice; never an income promise."),
     ("ypp-checker", "YPP 2027 Eligibility Checker",
-     "Enter your subs, watch hours, and Shorts views \u2014 get your verdict under the current YPP bar and the Feb-2027 bar, the gap math, and a chapter-grounded plan to close it.",
+     "Enter your subs, watch hours, and Shorts views, get your verdict under the current YPP bar and the Feb-2027 bar, the gap math, and a chapter-grounded plan to close it.",
      "ypp-checker.html",
      {"$schema": "http://json-schema.org/draft-07/schema#", "title": "YPPCheckerInput",
       "type": "object", "required": ["subs", "watchHours", "shortsViews", "uploads90d", "originality", "formatMix"],
@@ -662,7 +662,7 @@ TOOLS_API = [
                       "description": "Where the channel's volume mostly lives."},
       }},
      "Two verdicts: current YPP rules (through Jan 31, 2027: 1K subs + 4K watch hours/12mo OR 10M Shorts views/90d) vs 2027 rules (from Feb 1, 2027: 1K subs + 8K hours/365d OR 20M Shorts views/90d), each with per-check pass/fail; the 2027 Shorts revenue floor check (10M qualified Shorts views/90d, monthly); the 2027 activity test for partners; the unchanged fan-funding tier; the gap math per rule; the shorter-walk note; the Oct-2026 Shorts-originality warning when relevant; a chapter-grounded close-the-gap plan. Thresholds labeled with sources and observation dates; every verdict carries the verify-live-with-YouTube disclaimer.",
-     "Engine (assets/js/ypp-checker.js, UMD \u2014 importable in node): RULES carries both rule sets with source strings; validInput(i) validates the numbers and two enums; check(i) returns {input, now, y2027, originalityWarning, plan2027, shorterWalk, disclaimer}; fullVerdict/fanVerdict/shortsFloorVerdict/activityVerdict return per-check pass/fail + gap math; plan() returns chapter-grounded steps with read-next links to real site pages. Educational aid, not financial/legal/tax advice; never an income promise."),
+     "Engine (assets/js/ypp-checker.js, UMD, importable in node): RULES carries both rule sets with source strings; validInput(i) validates the numbers and two enums; check(i) returns {input, now, y2027, originalityWarning, plan2027, shorterWalk, disclaimer}; fullVerdict/fanVerdict/shortsFloorVerdict/activityVerdict return per-check pass/fail + gap math; plan() returns chapter-grounded steps with read-next links to real site pages. Educational aid, not financial/legal/tax advice; never an income promise."),
     ("outreach", "The Outreach Center",
      "Run your sponsor pipeline outbound: track pitches in a CRM-lite, generate honest pitch emails, quote from the 2026 rate card, and flag contract red flags before you sign.",
      "outreach.html",
@@ -670,7 +670,7 @@ TOOLS_API = [
       "type": "object", "required": [],
       "properties": {
           "brand": {"type": "string", "description": "Brand being pitched (pipeline + pitch)."},
-          "contactName": {"type": "string", "description": "The human being emailed — never 'dear partnerships team'."},
+          "contactName": {"type": "string", "description": "The human being emailed, never 'dear partnerships team'."},
           "email": {"type": "string", "format": "email"},
           "status": {"type": "string", "enum": ["pitched", "replied", "negotiating", "signed", "passed"],
                      "default": "pitched",
@@ -685,12 +685,12 @@ TOOLS_API = [
                            "description": "Last-10-video average; sponsors buy views, not subs."},
           "pitchTemplate": {"type": "string", "enum": ["cold_pitch", "follow_up_nudge", "warm_intro"]},
           "pitchVars": {"type": "object",
-                       "description": "Values for the template's [bracketed] placeholders (your_name, channel_name, avg_views, …). Unfilled placeholders stay visible — never invent stats."},
+                       "description": "Values for the template's [bracketed] placeholders (your_name, channel_name, avg_views, …). Unfilled placeholders stay visible, never invent stats."},
           "contractFlags": {"type": "array", "items": {"type": "string"},
                            "description": "Checked contract_flags[].id values from data/v1/deal-templates.json."},
       }},
      "Pipeline stats (contacted, response rate, active deals, close rate) + follow-up buckets (overdue / due today / upcoming); rendered pitch email from the 3 templates with unfilled [brackets] left visible; rate-card quote (tier range, top-of-range quote point, 23% expected-close math, CPM cross-check vs the deliverable band); contract risk summary (per-item plain-language fix + clean / caution / don't-sign verdict). All ranges and guidance, never promises.",
-     "Engine (assets/js/outreach.js, UMD — importable in node): validDeal(d) validates pipeline records; pipelineStats(deals) computes response/close rates; dueFollowUps(deals, nowIso) buckets follow-ups; quoteCalc(input, rateCard, ruleOfThumb) reads sponsorship_rate_card_2026 (tier ranges, platform multipliers, sponsored_cpms) and sponsorship_rule_of_thumb.dedicated_cpm_range — output carries the ~23% listed-vs-accepted note, the 41% package-discount figure, and the never-a-quote disclaimer; renderPitch(template, vars) fills placeholders and leaves unknown ones visible; contractRisk(ids, contract_flags) scores contract structure (any walk_away flag or 3+ points -> don't sign) with a NOT-legal-advice disclaimer. Templates + contract flags from data/v1/deal-templates.json. Negotiation aid, not financial/legal/tax advice."),
+     "Engine (assets/js/outreach.js, UMD, importable in node): validDeal(d) validates pipeline records; pipelineStats(deals) computes response/close rates; dueFollowUps(deals, nowIso) buckets follow-ups; quoteCalc(input, rateCard, ruleOfThumb) reads sponsorship_rate_card_2026 (tier ranges, platform multipliers, sponsored_cpms) and sponsorship_rule_of_thumb.dedicated_cpm_range, output carries the ~23% listed-vs-accepted note, the 41% package-discount figure, and the never-a-quote disclaimer; renderPitch(template, vars) fills placeholders and leaves unknown ones visible; contractRisk(ids, contract_flags) scores contract structure (any walk_away flag or 3+ points -> don't sign) with a NOT-legal-advice disclaimer. Templates + contract flags from data/v1/deal-templates.json. Negotiation aid, not financial/legal/tax advice."),
     ("crosspost", "Cross-Post Optimizer",
      "Take one clip to every platform without getting throttled: per-destination adaptation checklists (aspect, captions, hooks, CTAs, disclosure labels) under the Oct-1 originality rules.",
      "crosspost.html",
@@ -703,12 +703,12 @@ TOOLS_API = [
                          "items": {"type": "string", "enum": ["tiktok", "shorts", "reels", "facebook"]},
                          "description": "Where it should go (the source is ignored if included)."},
           "photorealistic_ai": {"type": "boolean", "default": False,
-                              "description": "The clip uses photorealistic AI visuals — triggers the YouTube disclosure-label reminder (labeled = normal distribution; undisclosed = reduced recommendations or removal)."},
+                              "description": "The clip uses photorealistic AI visuals, triggers the YouTube disclosure-label reminder (labeled = normal distribution; undisclosed = reduced recommendations or removal)."},
       }},
-     "Per-destination adaptation cards (aspect, captions, hook rework, CTA, audio, disclosure label, one-original-element changes) + the universal checks + the Oct-1 gate reminder. Adaptation guidance under the platforms' stated 2026 rules — never a promise of reach, views, or revenue.",
-     "Engine (assets/js/content-engine.js, UMD — importable in node): adaptChecklist(source_platform, destinations) reads the adaptation matrix (12 source→destination rule sets + 6 universal checks); unknown platforms and the source itself are filtered out. Matrix + grammars + gate: data/v1/content-engine.json -> adaptation_matrix. Pairs with the content-repurposing skill. Planning aid, not financial/legal/tax advice."),
+     "Per-destination adaptation cards (aspect, captions, hook rework, CTA, audio, disclosure label, one-original-element changes) + the universal checks + the Oct-1 gate reminder. Adaptation guidance under the platforms' stated 2026 rules, never a promise of reach, views, or revenue.",
+     "Engine (assets/js/content-engine.js, UMD, importable in node): adaptChecklist(source_platform, destinations) reads the adaptation matrix (12 source→destination rule sets + 6 universal checks); unknown platforms and the source itself are filtered out. Matrix + grammars + gate: data/v1/content-engine.json -> adaptation_matrix. Pairs with the content-repurposing skill. Planning aid, not financial/legal/tax advice."),
     ("cadence", "Cadence Coach",
-     "How often should you actually post? Turn your honest weekly hours, formats, and platforms into a sustainable cadence — capacity math plus Oct-2026 platform realities. Consistency beats volume.",
+     "How often should you actually post? Turn your honest weekly hours, formats, and platforms into a sustainable cadence, capacity math plus Oct-2026 platform realities. Consistency beats volume.",
      "cadence.html",
      {"$schema": "http://json-schema.org/draft-07/schema#", "title": "CadenceInput",
       "type": "object", "required": ["platforms", "weeklyHours", "longMins", "shortMins"],
@@ -731,10 +731,10 @@ TOOLS_API = [
           "overheadPct": {"type": "number", "minimum": 0, "maximum": 0.9, "default": 0.2,
                         "description": "Share of hours reserved for comments/admin/analytics."},
       }},
-     "Recommended longs/week + shorts/week, utilization vs production time (holds/tight/over), a 7-day schedule grid (rest day empty), per-platform Oct-2026 revenue realities, the 2-week ramp suggestion, method notes. Capacity arithmetic only — never a promise of views, revenue, or growth.",
+     "Recommended longs/week + shorts/week, utilization vs production time (holds/tight/over), a 7-day schedule grid (rest day empty), per-platform Oct-2026 revenue realities, the 2-week ramp suggestion, method notes. Capacity arithmetic only, never a promise of views, revenue, or growth.",
      "Logic (assets/js/cadence.js, UMD): production minutes = weeklyHours*60*(1-overheadPct); longs-first/shorts-first/balanced-50-50 allocation by per-piece minutes; utilization = used/production minutes (holds ≤0.7, tight ≤0.95, over above); dealWeek() spreads longs evenly over non-rest days and round-robins shorts; platform notes are the Oct-11-2026 research facts (TikTok Rewards 1-min+ qualifier $0.40–$1.00/1K, Reels $0, Shorts $0.02–$0.20/1K + Feb-2027 10M floor + Oct-1 originality rule, 20M+ uploads/day). Planning aid, not financial/legal/tax advice."),
     ("format-fit", "Format Fit Finder",
-     "Six questions about the creator's real situation — experience, weekly hours, on-camera comfort, budget, monetization goal, risk tolerance — scored against the 10 breakout-format dossiers; ranked matches with why-it-fits reasoning, the catch, creator-reported pay ranges, and first 3 moves.",
+     "Six questions about the creator's real situation, experience, weekly hours, on-camera comfort, budget, monetization goal, risk tolerance, scored against the 10 breakout-format dossiers; ranked matches with why-it-fits reasoning, the catch, creator-reported pay ranges, and first 3 moves.",
      "format-fit.html",
      {"$schema": "http://json-schema.org/draft-07/schema#", "title": "FormatFitInput",
       "type": "object", "required": ["experience", "weeklyHours", "camera", "budget", "goal", "risk"],
@@ -752,10 +752,10 @@ TOOLS_API = [
           "risk": {"type": "string", "enum": ["safe", "balanced", "bold"],
                     "description": "Risk tolerance."},
       }},
-     "Ranked matches (score of 13, strong/workable/weak bands) with per-match why-it-fits reasoning, the honest catch from the dossier's risks, creator-reported pay ranges, competition, first 3 moves, per-match mismatch flags, global honesty flags, and the rate-card context. Matching arithmetic only — never a promise of views, revenue, or growth.",
-     "Logic (assets/js/format-fit.js, UMD): FORMATS mirrors data/niches.json v2.1.0 breakout_format_dossiers (id, dossier_no order, pay + competition labels — tests pin the sync); axis scores experience(3)/camera(2)/hours(2)/budget(2)/goal(2)/risk(2) = 13 max; camera-clash and hours-mismatch hard penalties; bands strong >=9, workable 6–8, weak <6; ties break by dossier order; global flags for none-yet, <3h/week, and fast-money-plus-play-it-safe. Planning aid, not financial/legal/tax advice."),
+     "Ranked matches (score of 13, strong/workable/weak bands) with per-match why-it-fits reasoning, the honest catch from the dossier's risks, creator-reported pay ranges, competition, first 3 moves, per-match mismatch flags, global honesty flags, and the rate-card context. Matching arithmetic only, never a promise of views, revenue, or growth.",
+     "Logic (assets/js/format-fit.js, UMD): FORMATS mirrors data/niches.json v2.1.0 breakout_format_dossiers (id, dossier_no order, pay + competition labels, tests pin the sync); axis scores experience(3)/camera(2)/hours(2)/budget(2)/goal(2)/risk(2) = 13 max; camera-clash and hours-mismatch hard penalties; bands strong >=9, workable 6–8, weak <6; ties break by dossier order; global flags for none-yet, <3h/week, and fast-money-plus-play-it-safe. Planning aid, not financial/legal/tax advice."),
     ("deal-builder", "Deal Builder",
-     "Turn deliverables into a line-item quote from the 2026 rate card: base fees per deliverable, usage rights, whitelisting, and exclusivity as stacked line items — plus a ready-to-send proposal built from the quote and a deal checklist built from the terms.",
+     "Turn deliverables into a line-item quote from the 2026 rate card: base fees per deliverable, usage rights, whitelisting, and exclusivity as stacked line items, plus a ready-to-send proposal built from the quote and a deal checklist built from the terms.",
      "deal-builder.html",
      {"$schema": "http://json-schema.org/draft-07/schema#", "title": "DealBuilderInput",
       "type": "object", "required": ["followers", "deliverables", "usage"],
@@ -785,10 +785,10 @@ TOOLS_API = [
                      "properties": {
                          "include": {"type": "boolean", "default": False},
                          "commissionPct": {"type": "number", "minimum": 0, "maximum": 90, "default": 0,
-                                        "description": "Affiliate commission % on top of the flat fee — the bonus, not the deal."}}},
+                                        "description": "Affiliate commission % on top of the flat fee, the bonus, not the deal."}}},
       }},
      "Line-item quote: per-deliverable lines (per-unit + line ranges with the data basis named), post-fee base, usage add-on (+25–50% / +50–75% / +75–100% / perpetual from 2x), whitelisting add-on (30–100%/mo), exclusivity add-on or broad-lock flag, package total, expected landing zone (~23% below the ask), bundle + multi-platform + honesty notes; exclusivity/usage-window conflict flags (walk_away/flag/note levels, incl. the can't-see-other-contracts honesty note); proposal email with unsupplied stats as [brackets] (never invented); 7-group deal checklist (usage, payment, revisions, exclusivity, FTC disclosure, deliverables, walk-away) customized to the quote's terms. All ranges and guidance, never promises.",
-     "Engine (assets/js/deal-builder.js, UMD — importable in node): validInput() validates (followers ≥1,000, ≤8 deliverable lines, count 1–12, exclusivity consistency); tierOf() parity-pinned with Outreach.tierOf; deliverableBase() reads sponsorship_rate_card_2026 (dedicated = tier band, integrated/short = sponsored-CPM × viewsAvg with a labeled half-band fallback, ugc = Storika $150–$1,000 single-source); buildQuote() stacks base + usage (usage_rights_benchmarks_2026 tiers) + whitelisting (monthly) + exclusivity (named +25%/+50%, category flagged not invented) — 2-sig-fig rounding, expectedClose ×(1−0.23); exclusivityConflicts() checks window mismatches, perpetual+exclusivity, whitelisting-outliving-lock, UGC+affiliate edges; buildChecklist() generates the 7-group checklist from the quote; renderPitch() writes the proposal with [bracket] placeholders. Negotiation aid — not financial, legal, or tax advice; the checklist is not legal advice. See AGENT.md Workflow 14."),
+     "Engine (assets/js/deal-builder.js, UMD, importable in node): validInput() validates (followers ≥1,000, ≤8 deliverable lines, count 1–12, exclusivity consistency); tierOf() parity-pinned with Outreach.tierOf; deliverableBase() reads sponsorship_rate_card_2026 (dedicated = tier band, integrated/short = sponsored-CPM × viewsAvg with a labeled half-band fallback, ugc = Storika $150–$1,000 single-source); buildQuote() stacks base + usage (usage_rights_benchmarks_2026 tiers) + whitelisting (monthly) + exclusivity (named +25%/+50%, category flagged not invented), 2-sig-fig rounding, expectedClose ×(1−0.23); exclusivityConflicts() checks window mismatches, perpetual+exclusivity, whitelisting-outliving-lock, UGC+affiliate edges; buildChecklist() generates the 7-group checklist from the quote; renderPitch() writes the proposal with [bracket] placeholders. Negotiation aid, not financial, legal, or tax advice; the checklist is not legal advice. See AGENT.md Workflow 14."),
     ("negotiation-kit", "The Negotiation Kit",
      "The words and the math for a live negotiation: a counter-offer builder grounded in the 2026 rate card with the typical-quote evidence shown (reported vs modeled, kept apart), six ready-to-send reply scripts, and a walk-away panel tied to your own Deal Room pipeline numbers.",
      "negotiation-kit.html",
@@ -810,7 +810,7 @@ TOOLS_API = [
                              "lifestyle", "gaming", "comedy_entertainment", "music", "kids",
                              "asmr", "creator_economy", "challenges_stunts", "ai_ml",
                              "true_crime", "entertainment", "science"],
-                    "description": "Optional sponsor niche key — adjusts the benchmark range by the shared niche multiplier table."},
+                    "description": "Optional sponsor niche key, adjusts the benchmark range by the shared niche multiplier table."},
           "usage": {"type": "string", "enum": ["organic_only", "paid_3mo", "paid_6mo", "paid_12mo", "perpetual"],
                     "default": "organic_only",
                     "description": "Paid-ad usage in the offer, from calculators.json usage_rights_benchmarks_2026."},
@@ -821,12 +821,12 @@ TOOLS_API = [
                               "scope": {"type": "string", "enum": ["none", "named", "category"], "default": "none"},
                               "months": {"type": "integer", "minimum": 0, "maximum": 24, "default": 0}}},
           "postCount": {"type": "integer", "minimum": 1, "maximum": 12, "default": 1,
-                        "description": "Posts in the deal — 3+ triggers the bundle-discount note."},
+                        "description": "Posts in the deal, 3+ triggers the bundle-discount note."},
           "creatorFloor": {"type": "number", "minimum": 0, "default": 0,
                            "description": "Your own walk-away floor in USD; the panel takes the higher of this and the rate-card floor."},
       }},
-     "Counter-offer: niche-adjusted tier range and verdict on the offer, implied-CPM position against the deliverable's reported band, the typical-quote / typical-ask evidence (Cheerful Sep-2026, reported) and the modeled Instagram feed-post cross-check (Click Analytic 2026, labeled modeled) — null where no format maps honestly; line items (post fee at the top of the range + usage + whitelisting + named exclusivity, each with its basis), counter total, expected landing zone (~23% below the ask), and the broad-exclusivity flag. Walk-away panel: your floor (higher of rate-card floor and your own floor), your Deal Room pipeline totals (committed / paid / average paid / still open — your numbers only), and a stance on this offer. Six editable reply scripts (counter, lowball, exposure-only, usage rights, whitelisting, late payment) filled from the counter's numbers, plus a one-page negotiation brief. A model, not a prediction; never a guarantee.",
-     "Engine (assets/js/negotiation-kit.js, UMD — importable in node): validInput() validates; buildCounter(input, calculatorsJson) reads sponsorship_rate_card_2026 + sponsorship_quoted_prices_2026 + usage_rights_benchmarks_2026 (calculators v1.5.0) — niche multiplier parity-pinned with DealRoom/DealAnalyzer, quoted-price format map shared with the Deal Room, unmapped formats return null evidence; walkAwayPanel(input, dealRoomDeals, calculatorsJson) totals the creator's own pipeline with no invented close probabilities; renderReply(script, vars) fills {{placeholders}} from deal-templates.json negotiation_kit_scripts (v1.2.0) and leaves unknown ones visible; replyVars(counter, extra) carries the counter's numbers into the scripts; exportBrief(counter, walk) renders the plaintext brief. Negotiation aid — not financial, legal, or tax advice. See AGENT.md Workflow 15."),
+     "Counter-offer: niche-adjusted tier range and verdict on the offer, implied-CPM position against the deliverable's reported band, the typical-quote / typical-ask evidence (Cheerful Sep-2026, reported) and the modeled Instagram feed-post cross-check (Click Analytic 2026, labeled modeled), null where no format maps honestly; line items (post fee at the top of the range + usage + whitelisting + named exclusivity, each with its basis), counter total, expected landing zone (~23% below the ask), and the broad-exclusivity flag. Walk-away panel: your floor (higher of rate-card floor and your own floor), your Deal Room pipeline totals (committed / paid / average paid / still open, your numbers only), and a stance on this offer. Six editable reply scripts (counter, lowball, exposure-only, usage rights, whitelisting, late payment) filled from the counter's numbers, plus a one-page negotiation brief. A model, not a prediction; never a guarantee.",
+     "Engine (assets/js/negotiation-kit.js, UMD, importable in node): validInput() validates; buildCounter(input, calculatorsJson) reads sponsorship_rate_card_2026 + sponsorship_quoted_prices_2026 + usage_rights_benchmarks_2026 (calculators v1.5.0), niche multiplier parity-pinned with DealRoom/DealAnalyzer, quoted-price format map shared with the Deal Room, unmapped formats return null evidence; walkAwayPanel(input, dealRoomDeals, calculatorsJson) totals the creator's own pipeline with no invented close probabilities; renderReply(script, vars) fills {{placeholders}} from deal-templates.json negotiation_kit_scripts (v1.2.0) and leaves unknown ones visible; replyVars(counter, extra) carries the counter's numbers into the scripts; exportBrief(counter, walk) renders the plaintext brief. Negotiation aid, not financial, legal, or tax advice. See AGENT.md Workflow 15."),
     ("rate-card-builder", "Rate Card Builder",
      "Build a creator's publishable rate card from the site's own benchmark data: one row per format with the reasoning and source printed beside the number.",
      "rate-card-builder.html",
@@ -836,42 +836,42 @@ TOOLS_API = [
           "platform": {"type": "string", "enum": ["youtube", "tiktok", "instagram", "twitch", "kick", "facebook", "x"],
                        "description": "The platform the card is for. YouTube/TikTok/Instagram price from the tier table; the other four get the labeled YouTube-band proxy for dedicated and honest blanks elsewhere."},
           "format": {"type": "string", "enum": ["dedicated", "integrated", "short", "ugc"],
-                     "description": "The primary format the creator sells — usage/whitelisting add-ons and the card total ride on this row."},
+                     "description": "The primary format the creator sells, usage/whitelisting add-ons and the card total ride on this row."},
           "followers": {"type": "number", "minimum": 1000,
                         "description": "Follower/subscriber count (nano floor 1,000 = the rate card's lowest tier)."},
           "expectedViews": {"type": "number", "minimum": 0, "default": 0,
                             "description": "Last-10 average views; prices the CPM rows (integrated, short). Without it those rows fall back to the reported typical quote where one maps, or stay blank."},
           "niche": {"type": "string",
-                    "description": "Optional niche key — the site-wide sponsor niche multiplier (parity-pinned across Deal Room / Deal Analyzer / Negotiation Kit / Rate Card Builder)."},
+                    "description": "Optional niche key, the site-wide sponsor niche multiplier (parity-pinned across Deal Room / Deal Analyzer / Negotiation Kit / Rate Card Builder)."},
           "usage": {"type": "string", "enum": ["organic_only", "paid_3mo", "paid_6mo", "paid_12mo", "perpetual"], "default": "organic_only",
                     "description": "Paid-ad usage window priced as its own line from usage_rights_benchmarks_2026."},
           "whitelistingMonths": {"type": "integer", "minimum": 0, "maximum": 24, "default": 0,
                                  "description": "Whitelisting months priced at the benchmark 30–100% of the post fee per month."}}},
-     "Rate card: four format rows (dedicated from the tier table × niche; integrated from the reported YouTube CPM band × views; short from the general CPM band × views or the reported typical quote; UGC from the Storika single-source band, never tier/niche-scaled), each with basis + source + reasoning — null with a stated reason where the data has no benchmark, and a labeled unadjusted YouTube-band proxy for platforms with no tier table of their own. Usage and whitelisting add-on lines on the primary row, card total, expected landing zone (~23% below list), reported typical-quote/ask evidence kept apart from the benchmark rows (modeled Instagram cross-check named, never mixed in), and the newest Algorithm Watch entries for the platform. Ranges, not quotes.",
-     "Engine (assets/js/rate-card-builder.js, UMD — importable in node): validInput() validates; buildCard(input, calculatorsJson, changesFeed) reads sponsorship_rate_card_2026 + sponsorship_quoted_prices_2026 + usage_rights_benchmarks_2026 (calculators v1.5.0) and the Algorithm Watch feed — niche multiplier parity-pinned with DealRoom/DealAnalyzer/NegotiationKit, 2-significant-figure rounding shared with DealBuilder, quoted-price format map returns null where unmapped; exportCard(card) renders the plaintext card with reasoning, evidence, and watch items. Planning aid — not financial, legal, or tax advice. See AGENT.md Workflow 16."),
+     "Rate card: four format rows (dedicated from the tier table × niche; integrated from the reported YouTube CPM band × views; short from the general CPM band × views or the reported typical quote; UGC from the Storika single-source band, never tier/niche-scaled), each with basis + source + reasoning, null with a stated reason where the data has no benchmark, and a labeled unadjusted YouTube-band proxy for platforms with no tier table of their own. Usage and whitelisting add-on lines on the primary row, card total, expected landing zone (~23% below list), reported typical-quote/ask evidence kept apart from the benchmark rows (modeled Instagram cross-check named, never mixed in), and the newest Algorithm Watch entries for the platform. Ranges, not quotes.",
+     "Engine (assets/js/rate-card-builder.js, UMD, importable in node): validInput() validates; buildCard(input, calculatorsJson, changesFeed) reads sponsorship_rate_card_2026 + sponsorship_quoted_prices_2026 + usage_rights_benchmarks_2026 (calculators v1.5.0) and the Algorithm Watch feed, niche multiplier parity-pinned with DealRoom/DealAnalyzer/NegotiationKit, 2-significant-figure rounding shared with DealBuilder, quoted-price format map returns null where unmapped; exportCard(card) renders the plaintext card with reasoning, evidence, and watch items. Planning aid, not financial, legal, or tax advice. See AGENT.md Workflow 16."),
     ("negotiation-script-builder", "Negotiation Script Builder",
-     "Assemble a word-for-word negotiation script — opener, anchor, concession ladder, walk-away line — for one covered scenario, priced by the Negotiation Kit counter on the rate-card data, every line traced to a Kit / Deal Room script.",
+     "Assemble a word-for-word negotiation script, opener, anchor, concession ladder, walk-away line, for one covered scenario, priced by the Negotiation Kit counter on the rate-card data, every line traced to a Kit / Deal Room script.",
      "negotiation-script-builder.html",
      {"$schema": "http://json-schema.org/draft-07/schema#", "title": "NegotiationScriptBuilderInput",
       "type": "object", "required": ["scenario", "platform", "deliverable", "followers", "offer"],
       "properties": {
           "scenario": {"type": "string", "enum": ["lowball", "usage_grab", "exclusivity_lockin", "late_payment"],
-                       "description": "Only scenarios a repo script covers. Contract-flag-only scenarios (ip_assignment, view_guarantee_clawback, morality_clause) and perpetual_buyout are excluded with reasons — never improvised."},
+                       "description": "Only scenarios a repo script covers. Contract-flag-only scenarios (ip_assignment, view_guarantee_clawback, morality_clause) and perpetual_buyout are excluded with reasons, never improvised."},
           "brand": {"type": "string"},
           "platform": {"type": "string", "enum": ["youtube", "tiktok", "instagram"]},
           "deliverable": {"type": "string", "enum": ["integrated", "dedicated", "short", "ugc"]},
           "followers": {"type": "number", "minimum": 1000},
           "expectedViews": {"type": "number", "minimum": 0, "default": 0},
           "offer": {"type": "number", "minimum": 0},
-          "niche": {"type": "string", "description": "Optional sponsor niche key — shared multiplier table."},
+          "niche": {"type": "string", "description": "Optional sponsor niche key, shared multiplier table."},
           "usage": {"type": "string", "enum": ["organic_only", "paid_3mo", "paid_6mo", "paid_12mo", "perpetual"], "default": "organic_only"},
           "exclusivity": {"type": "object", "properties": {"scope": {"type": "string", "enum": ["none", "named", "category"]}, "months": {"type": "integer", "minimum": 0, "maximum": 24}}},
           "creatorFloor": {"type": "number", "minimum": 0, "default": 0},
           "invoiceAmount": {"type": "number", "minimum": 0, "description": "Late payment only."},
-          "invoiceDate": {"type": "string", "description": "Late payment only — as written on the invoice."},
+          "invoiceDate": {"type": "string", "description": "Late payment only, as written on the invoice."},
           "daysOverdue": {"type": "number", "minimum": 0, "description": "Late payment only."}}},
      "Script lines in stage order (opener, anchor, concession steps 1-3, walk-away), each with sources[] (repo script ids) and grounded_in provenance; the counter total, expected landing zone, and walk-away number the lines carry; and the excluded-scenario list with reasons. exportScript() renders the plaintext script with provenance.",
-     "Engine (assets/js/negotiation-script-builder.js, UMD — importable in node): validInput() validates and returns excluded:true for excluded scenarios; buildScript(input, calculatorsJson, dealTemplatesJson, negotiationKit) fails if any named source script is missing from deal-templates.json, prices via NegotiationKit.buildCounter + walkAwayPanel on calculators v1.5.0, and assembles lines only from negotiation_scripts + negotiation_kit_scripts frameworks. Negotiation aid — not financial, legal, or tax advice. See AGENT.md Workflow 17."),
+     "Engine (assets/js/negotiation-script-builder.js, UMD, importable in node): validInput() validates and returns excluded:true for excluded scenarios; buildScript(input, calculatorsJson, dealTemplatesJson, negotiationKit) fails if any named source script is missing from deal-templates.json, prices via NegotiationKit.buildCounter + walkAwayPanel on calculators v1.5.0, and assembles lines only from negotiation_scripts + negotiation_kit_scripts frameworks. Negotiation aid, not financial, legal, or tax advice. See AGENT.md Workflow 17."),
     ("deal-pipeline", "Deal Pipeline",
      "Run a creator's live sponsorship deals on one board: six stages, each deal priced by the Rate Card Builder and scripted by the Negotiation Script Builder, with stage-age follow-up nudges and totals from entered deals only.",
      "deal-pipeline.html",
@@ -881,90 +881,90 @@ TOOLS_API = [
           "brand": {"type": "string", "description": "Brand on the deal."},
           "stage": {"type": "string", "enum": ["lead", "negotiating", "terms", "live", "invoiced", "paid"],
                     "description": "Where the deal sits on the board."},
-          "amount": {"type": "number", "minimum": 0, "description": "Current agreed or offered figure in USD (0 is a real value — an unpaid lead)."},
+          "amount": {"type": "number", "minimum": 0, "description": "Current agreed or offered figure in USD (0 is a real value, an unpaid lead)."},
           "stageEnteredAt": {"type": "string", "description": "ISO date the deal entered its current stage; stage age and nudges derive from it."},
           "platform": {"type": "string", "enum": ["youtube", "tiktok", "instagram", "twitch", "kick", "facebook", "x"]},
           "format": {"type": "string", "enum": ["dedicated", "integrated", "short", "ugc"]},
           "followers": {"type": "number", "minimum": 1000},
           "expectedViews": {"type": "number", "minimum": 0, "default": 0},
-          "niche": {"type": "string", "description": "Optional sponsor niche key — shared multiplier table."},
+          "niche": {"type": "string", "description": "Optional sponsor niche key, shared multiplier table."},
           "usage": {"type": "string", "enum": ["organic_only", "paid_3mo", "paid_6mo", "paid_12mo", "perpetual"], "default": "organic_only"},
           "whitelistingMonths": {"type": "integer", "minimum": 0, "maximum": 24, "default": 0},
           "scenario": {"type": "string", "enum": ["lowball", "usage_grab", "exclusivity_lockin", "late_payment"],
                        "description": "Optional Tool 24 scenario; otherwise the stage default applies (lead/negotiating lowball, terms/live usage grab, invoiced late payment, paid none)."},
           "demo": {"type": "boolean", "default": False, "description": "Demo records are labeled DEMO and excluded from every total."}}},
-     "Board grouped by the six stages; each deal enriched with its Rate Card Builder pricing (primary range, basis, source, reasoning, card total) and its current Negotiation Script Builder script; follow-up nudges from stage age (lead 3d, negotiating 7d, terms 5d, live 14d, invoiced 14d, paid none); pipeline totals (counts and sums per stage, pipeline value, open value, invoiced outstanding, paid total) computed from real entered deals only — demo deals counted apart, an empty board totals to zero. exportBoard() renders the plaintext board.",
-     "Engine (assets/js/deal-pipeline.js, UMD — importable in node): validDeal() validates; priceDeal(deal, calculatorsJson, changesFeed, rateCardBuilder) delegates ALL pricing to Tool 23 (no pricing math of its own); scriptFor(deal, calculatorsJson, dealTemplatesJson, {nsb, nk}) delegates ALL wording to Tool 24; buildBoard(deals, opts) groups, prices, scripts, and nudges; pipelineTotals(deals) sums entered deals only. Browser persistence is localStorage (key cge.deal-pipeline.deals.v1). Planning aid — not financial, legal, or tax advice. See AGENT.md Workflow 18."),
+     "Board grouped by the six stages; each deal enriched with its Rate Card Builder pricing (primary range, basis, source, reasoning, card total) and its current Negotiation Script Builder script; follow-up nudges from stage age (lead 3d, negotiating 7d, terms 5d, live 14d, invoiced 14d, paid none); pipeline totals (counts and sums per stage, pipeline value, open value, invoiced outstanding, paid total) computed from real entered deals only, demo deals counted apart, an empty board totals to zero. exportBoard() renders the plaintext board.",
+     "Engine (assets/js/deal-pipeline.js, UMD, importable in node): validDeal() validates; priceDeal(deal, calculatorsJson, changesFeed, rateCardBuilder) delegates ALL pricing to Tool 23 (no pricing math of its own); scriptFor(deal, calculatorsJson, dealTemplatesJson, {nsb, nk}) delegates ALL wording to Tool 24; buildBoard(deals, opts) groups, prices, scripts, and nudges; pipelineTotals(deals) sums entered deals only. Browser persistence is localStorage (key cge.deal-pipeline.deals.v1). Planning aid, not financial, legal, or tax advice. See AGENT.md Workflow 18."),
     ("follow-through", "Follow-Through Queue",
      "Turn the Deal Pipeline board into today's prioritized follow-up send list: every due nudge in send order with its Tool 24 script attached, and a copyable brief for the whole queue.",
      "follow-through.html",
      {"$schema": "http://json-schema.org/draft-07/schema#", "title": "FollowThroughInput",
       "type": "object", "required": ["deals"],
       "properties": {
-          "deals": {"type": "array", "description": "The Deal Pipeline's deal records (Tool 25 input shape — brand, stage, amount, stageEnteredAt, plus the pricing/script fields). The queue reads the same records the board holds."},
+          "deals": {"type": "array", "description": "The Deal Pipeline's deal records (Tool 25 input shape, brand, stage, amount, stageEnteredAt, plus the pricing/script fields). The queue reads the same records the board holds."},
           "now": {"type": "string", "description": "Optional ISO date/time the queue is built for; stage ages derive from it."}}},
      "The queue in send order (urgent invoiced first, then most overdue against Tool 25's stage thresholds, then longest in stage): each item carries the deal's brand, stage, stage age, days overdue, Tool 25's nudge action, the entered amount, and its Tool 24 script (label + full export text) or the reason none is attached. Demo-deal follow-ups are counted apart and never queued; an empty board and a nothing-due board are reported as different states. exportBrief() renders the plaintext brief.",
-     "Engine (assets/js/follow-through.js, UMD — importable in node): buildQueue(deals, opts) runs Tool 25's buildBoard and queueFromBoard(board) joins its nudges to the enriched deals, orders them, and attaches each deal's Tool 24 script — no pricing math, wording, or thresholds of its own. Browser persistence is the Deal Pipeline's localStorage key (cge.deal-pipeline.deals.v1), shared with Tool 25. Planning aid — not financial, legal, or tax advice. See AGENT.md Workflow 19."),
+     "Engine (assets/js/follow-through.js, UMD, importable in node): buildQueue(deals, opts) runs Tool 25's buildBoard and queueFromBoard(board) joins its nudges to the enriched deals, orders them, and attaches each deal's Tool 24 script, no pricing math, wording, or thresholds of its own. Browser persistence is the Deal Pipeline's localStorage key (cge.deal-pipeline.deals.v1), shared with Tool 25. Planning aid, not financial, legal, or tax advice. See AGENT.md Workflow 19."),
     ("repeat-sponsor-book", "Repeat Sponsor Book",
      "The Deal Pipeline's paid deals as one re-approach book: longest since payment first, each re-priced by the Rate Card Builder through the pipeline, the entered paid amount set against the current card total, no pitch wording attached (no repo template covers a repeat pitch), demo paid deals counted apart.",
      "repeat-sponsor-book.html",
      {"$schema": "http://json-schema.org/draft-07/schema#", "title": "RepeatSponsorBookInput",
       "type": "object", "required": ["deals"],
       "properties": {
-          "deals": {"type": "array", "description": "The Deal Pipeline's deal records (Tool 25 input shape — brand, stage, amount, stageEnteredAt, plus the pricing fields). The book reads the same records the board holds and keeps only the paid ones."},
+          "deals": {"type": "array", "description": "The Deal Pipeline's deal records (Tool 25 input shape, brand, stage, amount, stageEnteredAt, plus the pricing fields). The book reads the same records the board holds and keeps only the paid ones."},
           "now": {"type": "string", "description": "Optional ISO date/time the book is built for; paid ages derive from it."}}},
      "The book in re-approach order (longest since the deal entered the paid stage first, then largest amount, then brand): each item carries the brand, the entered paid amount, days since payment stage entry, Tool 23's current card for the deal (total range + provenance, via Tool 25's priceDeal), where the paid amount sits against that range (below / inside / above), and the stated reason no pitch wording is attached. Demo paid deals are counted apart and never booked; an empty board, a no-paid-yet board, and a demo-only board are reported as different states. exportBook() renders the plaintext book.",
-     "Engine (assets/js/repeat-sponsor-book.js, UMD — importable in node): buildBook(deals, opts) runs Tool 25's buildBoard and bookFromBoard(board) keeps the enriched paid deals, orders them, and sets each entered amount against Tool 23's card total — no pricing math, thresholds, or renewal-due dates of its own; the ordering claims no renewal window. Browser persistence is the Deal Pipeline's localStorage key (cge.deal-pipeline.deals.v1), shared with Tools 25/26. Planning aid — not financial, legal, or tax advice. See AGENT.md Workflow 20."),
+     "Engine (assets/js/repeat-sponsor-book.js, UMD, importable in node): buildBook(deals, opts) runs Tool 25's buildBoard and bookFromBoard(board) keeps the enriched paid deals, orders them, and sets each entered amount against Tool 23's card total, no pricing math, thresholds, or renewal-due dates of its own; the ordering claims no renewal window. Browser persistence is the Deal Pipeline's localStorage key (cge.deal-pipeline.deals.v1), shared with Tools 25/26. Planning aid, not financial, legal, or tax advice. See AGENT.md Workflow 20."),
     ("sponsor-income-ledger", "Sponsor Income Ledger",
      "The Deal Pipeline's paid deals as a month-by-month income ledger: grouped by the month each deal entered the paid stage, with a running cumulative, per-brand totals and shares of collected, and per-platform totals; demo paid deals counted apart.",
      "sponsor-income-ledger.html",
      {"$schema": "http://json-schema.org/draft-07/schema#", "title": "SponsorIncomeLedgerInput",
       "type": "object", "required": ["deals"],
       "properties": {
-          "deals": {"type": "array", "description": "The Deal Pipeline's deal records (Tool 25 input shape — brand, stage, amount, stageEnteredAt, plus the pricing fields). The ledger reads the same records the board holds and keeps only the paid ones."},
+          "deals": {"type": "array", "description": "The Deal Pipeline's deal records (Tool 25 input shape, brand, stage, amount, stageEnteredAt, plus the pricing fields). The ledger reads the same records the board holds and keeps only the paid ones."},
           "now": {"type": "string", "description": "Optional ISO date/time the ledger is built for."}}},
-     "The ledger: months in chronological order (each with its paid deals, month total, and running cumulative), per-brand totals with each brand's share of the collected total, per-platform totals with shares, and the top brand. Months are the month each deal entered the paid stage — the only payment timing the board carries; a paid deal whose stage entry date cannot be read is ledgered under Undated, flagged, and still counted. Demo paid deals are counted apart and never ledgered; an empty board, a no-paid-yet board, and a demo-only board are reported as different states. exportLedger() renders the plaintext ledger.",
-     "Engine (assets/js/sponsor-income-ledger.js, UMD — importable in node): buildLedger(deals, opts) runs Tool 25's buildBoard and ledgerFromBoard(board) groups its paid deals by stage-entry month, brand, and platform — no pricing, no rate card, and no thresholds of its own; collected stays Tool 25's paid total. Browser persistence is the Deal Pipeline's localStorage key (cge.deal-pipeline.deals.v1), shared with Tools 25/26/27. Planning aid — not financial, legal, or tax advice. See AGENT.md Workflow 21."),
+     "The ledger: months in chronological order (each with its paid deals, month total, and running cumulative), per-brand totals with each brand's share of the collected total, per-platform totals with shares, and the top brand. Months are the month each deal entered the paid stage, the only payment timing the board carries; a paid deal whose stage entry date cannot be read is ledgered under Undated, flagged, and still counted. Demo paid deals are counted apart and never ledgered; an empty board, a no-paid-yet board, and a demo-only board are reported as different states. exportLedger() renders the plaintext ledger.",
+     "Engine (assets/js/sponsor-income-ledger.js, UMD, importable in node): buildLedger(deals, opts) runs Tool 25's buildBoard and ledgerFromBoard(board) groups its paid deals by stage-entry month, brand, and platform, no pricing, no rate card, and no thresholds of its own; collected stays Tool 25's paid total. Browser persistence is the Deal Pipeline's localStorage key (cge.deal-pipeline.deals.v1), shared with Tools 25/26/27. Planning aid, not financial, legal, or tax advice. See AGENT.md Workflow 21."),
     ("receivables-register", "Receivables Register",
      "The Deal Pipeline's invoiced deals as one register of money owed: every invoiced deal (fresh ones included), longest outstanding first, the total staying Tool 25's invoiced outstanding figure, each entry carrying its Tool 24 late-payment script through the board; demo invoiced deals counted apart.",
      "receivables-register.html",
      {"$schema": "http://json-schema.org/draft-07/schema#", "title": "ReceivablesRegisterInput",
       "type": "object", "required": ["deals"],
       "properties": {
-          "deals": {"type": "array", "description": "The Deal Pipeline's deal records (Tool 25 input shape — brand, stage, amount, stageEnteredAt, plus the pricing/script fields). The register reads the same records the board holds and keeps only the invoiced ones."},
+          "deals": {"type": "array", "description": "The Deal Pipeline's deal records (Tool 25 input shape, brand, stage, amount, stageEnteredAt, plus the pricing/script fields). The register reads the same records the board holds and keeps only the invoiced ones."},
           "now": {"type": "string", "description": "Optional ISO date/time the register is built for; days outstanding derive from it."}}},
-     "The register in outstanding order (longest in the invoiced stage first, then largest amount, then brand): each entry carries the brand, the entered amount owed, the platform, the date the deal entered the invoiced stage, its days outstanding, and its Tool 24 late-payment script (label + full export text, via the board) or the reason none is attached. Every invoiced deal is registered regardless of age — the register does not gate on Tool 25's follow-up thresholds; that gating is the Follow-Through Queue's job. Demo invoiced deals are counted apart and never registered; an empty board, a nothing-owed board, and a demo-only board are reported as different states. exportRegister() renders the plaintext register.",
-     "Engine (assets/js/receivables-register.js, UMD — importable in node): buildRegister(deals, opts) runs Tool 25's buildBoard and registerFromBoard(board) keeps its invoiced deals, orders them, and attaches each deal's board-composed script — no pricing, no wording, and no thresholds of its own; the total owed stays Tool 25's invoiced outstanding figure. Browser persistence is the Deal Pipeline's localStorage key (cge.deal-pipeline.deals.v1), shared with Tools 25/26/27/28. Planning aid — not financial, legal, or tax advice. See AGENT.md Workflow 22."),
+     "The register in outstanding order (longest in the invoiced stage first, then largest amount, then brand): each entry carries the brand, the entered amount owed, the platform, the date the deal entered the invoiced stage, its days outstanding, and its Tool 24 late-payment script (label + full export text, via the board) or the reason none is attached. Every invoiced deal is registered regardless of age, the register does not gate on Tool 25's follow-up thresholds; that gating is the Follow-Through Queue's job. Demo invoiced deals are counted apart and never registered; an empty board, a nothing-owed board, and a demo-only board are reported as different states. exportRegister() renders the plaintext register.",
+     "Engine (assets/js/receivables-register.js, UMD, importable in node): buildRegister(deals, opts) runs Tool 25's buildBoard and registerFromBoard(board) keeps its invoiced deals, orders them, and attaches each deal's board-composed script, no pricing, no wording, and no thresholds of its own; the total owed stays Tool 25's invoiced outstanding figure. Browser persistence is the Deal Pipeline's localStorage key (cge.deal-pipeline.deals.v1), shared with Tools 25/26/27/28. Planning aid, not financial, legal, or tax advice. See AGENT.md Workflow 22."),
     ("brand-ledger", "Brand Ledger",
      "The Deal Pipeline's deals as one ledger per brand: each brand's total across every stage, split into collected (paid), owed (invoiced), and still open (lead / negotiating / terms set / live), with deal and stage counts, platforms, and each brand's share of the pipeline value; demo deals counted apart.",
      "brand-ledger.html",
      {"$schema": "http://json-schema.org/draft-07/schema#", "title": "BrandLedgerInput",
       "type": "object", "required": ["deals"],
       "properties": {
-          "deals": {"type": "array", "description": "The Deal Pipeline's deal records (Tool 25 input shape — brand, stage, amount, stageEnteredAt, plus the pricing fields). The ledger reads the same records the board holds and groups all of them by brand."},
+          "deals": {"type": "array", "description": "The Deal Pipeline's deal records (Tool 25 input shape, brand, stage, amount, stageEnteredAt, plus the pricing fields). The ledger reads the same records the board holds and groups all of them by brand."},
           "now": {"type": "string", "description": "Optional ISO date/time the ledger is built for."}}},
-     "The ledger in relationship order (largest brand total first, then most collected, then brand): each entry carries the brand, its total across all stages, its collected / owed / still-open sums, its share of Tool 25's pipeline value, its deal count and per-stage counts, and its platforms. A brand total is a sum of current-stage amounts — not a relationship history or lifetime value, and no timing is claimed beyond the board's stage-entry dates. Demo deals are counted apart and never ledgered; an empty board and a demo-only board are reported as different states. exportLedger() renders the plaintext ledger.",
-     "Engine (assets/js/brand-ledger.js, UMD — importable in node): buildLedger(deals, opts) runs Tool 25's buildBoard and ledgerFromBoard(board) groups its deals by brand and stage class — no pricing, no wording, and no thresholds of its own; the pipeline total stays Tool 25's pipeline value. Browser persistence is the Deal Pipeline's localStorage key (cge.deal-pipeline.deals.v1), shared with Tools 25/26/27/28/29. Planning aid — not financial, legal, or tax advice. See AGENT.md Workflow 23."),
+     "The ledger in relationship order (largest brand total first, then most collected, then brand): each entry carries the brand, its total across all stages, its collected / owed / still-open sums, its share of Tool 25's pipeline value, its deal count and per-stage counts, and its platforms. A brand total is a sum of current-stage amounts, not a relationship history or lifetime value, and no timing is claimed beyond the board's stage-entry dates. Demo deals are counted apart and never ledgered; an empty board and a demo-only board are reported as different states. exportLedger() renders the plaintext ledger.",
+     "Engine (assets/js/brand-ledger.js, UMD, importable in node): buildLedger(deals, opts) runs Tool 25's buildBoard and ledgerFromBoard(board) groups its deals by brand and stage class, no pricing, no wording, and no thresholds of its own; the pipeline total stays Tool 25's pipeline value. Browser persistence is the Deal Pipeline's localStorage key (cge.deal-pipeline.deals.v1), shared with Tools 25/26/27/28/29. Planning aid, not financial, legal, or tax advice. See AGENT.md Workflow 23."),
     ("platform-ledger", "Platform Ledger",
      "The Deal Pipeline's deals as one ledger per platform: each platform's total across every stage, split into collected (paid), owed (invoiced), and still open (lead / negotiating / terms set / live), with deal and stage counts, brands, and each platform's share of the pipeline value; demo deals counted apart.",
      "platform-ledger.html",
      {"$schema": "http://json-schema.org/draft-07/schema#", "title": "PlatformLedgerInput",
       "type": "object", "required": ["deals"],
       "properties": {
-          "deals": {"type": "array", "description": "The Deal Pipeline's deal records (Tool 25 input shape — platform, stage, amount, stageEnteredAt, plus the pricing fields). The ledger reads the same records the board holds and groups all of them by platform."},
+          "deals": {"type": "array", "description": "The Deal Pipeline's deal records (Tool 25 input shape, platform, stage, amount, stageEnteredAt, plus the pricing fields). The ledger reads the same records the board holds and groups all of them by platform."},
           "now": {"type": "string", "description": "Optional ISO date/time the ledger is built for."}}},
-     "The ledger in platform order (largest platform total first, then most collected, then platform): each entry carries the platform, its total across all stages, its collected / owed / still-open sums, its share of Tool 25's pipeline value, its deal count and per-stage counts, and its brands. A platform total is a sum of current-stage amounts — not a platform history, and no timing is claimed beyond the board's stage-entry dates. Demo deals are counted apart and never ledgered; an empty board and a demo-only board are reported as different states. exportLedger() renders the plaintext ledger.",
-     "Engine (assets/js/platform-ledger.js, UMD — importable in node): buildLedger(deals, opts) runs Tool 25's buildBoard and ledgerFromBoard(board) groups its deals by platform and stage class — no pricing, no wording, and no thresholds of its own; the pipeline total stays Tool 25's pipeline value. Browser persistence is the Deal Pipeline's localStorage key (cge.deal-pipeline.deals.v1), shared with Tools 25/26/27/28/29/30. Planning aid — not financial, legal, or tax advice. See AGENT.md Workflow 24."),
+     "The ledger in platform order (largest platform total first, then most collected, then platform): each entry carries the platform, its total across all stages, its collected / owed / still-open sums, its share of Tool 25's pipeline value, its deal count and per-stage counts, and its brands. A platform total is a sum of current-stage amounts, not a platform history, and no timing is claimed beyond the board's stage-entry dates. Demo deals are counted apart and never ledgered; an empty board and a demo-only board are reported as different states. exportLedger() renders the plaintext ledger.",
+     "Engine (assets/js/platform-ledger.js, UMD, importable in node): buildLedger(deals, opts) runs Tool 25's buildBoard and ledgerFromBoard(board) groups its deals by platform and stage class, no pricing, no wording, and no thresholds of its own; the pipeline total stays Tool 25's pipeline value. Browser persistence is the Deal Pipeline's localStorage key (cge.deal-pipeline.deals.v1), shared with Tools 25/26/27/28/29/30. Planning aid, not financial, legal, or tax advice. See AGENT.md Workflow 24."),
     ("saved-shelf", "Saved Shelf",
      "The visitor's saved tools as one shelf: the catalogue's own records for the saved slugs, in save order, with stale saves counted apart.",
      "saved-shelf.html",
      {"$schema": "http://json-schema.org/draft-07/schema#", "title": "SavedShelfInput",
       "type": "object", "required": ["catalog", "saved"],
       "properties": {
-          "catalog": {"type": "array", "description": "The hub's tool records (this tools.json payload's own tools array — id, title, description, page). The shelf joins the saved set against these records and no others."},
-          "saved": {"type": "array", "description": "The saved tool slugs, in save order — the visitor's own localStorage record (key cge.saved-tools.v1), written by the save toggle on each tool page."}}},
-     "The shelf in save order: each entry carries the catalogue's own id, title, description, and page for one saved slug. Saved slugs with no catalogue record are counted apart as stale (staleIds), never rendered as tools. emptyShelf (nothing saved) and staleOnly (saves exist, all stale) are reported as different states. No ranking or most-saved order is produced — that signal needs usage collected across visitors, which this site does not collect. exportShelf() renders the plaintext shelf.",
-     "Engine (assets/js/saved-shelf.js, UMD — importable in node): buildShelf(catalog, saved) joins the saved set against the catalogue; shelfFromToolsJson(doc, saved) reads the tools array off a tools.json payload; toggleSaved / normalizeSaved / isSaved manage the saved set. Browser persistence is the shelf's own localStorage key (cge.saved-tools.v1), written by assets/js/save-toggle-ui.js on every tool page and by the shelf page itself. Planning aid — not financial, legal, or tax advice. See AGENT.md Workflow 25."),
+          "catalog": {"type": "array", "description": "The hub's tool records (this tools.json payload's own tools array, id, title, description, page). The shelf joins the saved set against these records and no others."},
+          "saved": {"type": "array", "description": "The saved tool slugs, in save order, the visitor's own localStorage record (key cge.saved-tools.v1), written by the save toggle on each tool page."}}},
+     "The shelf in save order: each entry carries the catalogue's own id, title, description, and page for one saved slug. Saved slugs with no catalogue record are counted apart as stale (staleIds), never rendered as tools. emptyShelf (nothing saved) and staleOnly (saves exist, all stale) are reported as different states. No ranking or most-saved order is produced, that signal needs usage collected across visitors, which this site does not collect. exportShelf() renders the plaintext shelf.",
+     "Engine (assets/js/saved-shelf.js, UMD, importable in node): buildShelf(catalog, saved) joins the saved set against the catalogue; shelfFromToolsJson(doc, saved) reads the tools array off a tools.json payload; toggleSaved / normalizeSaved / isSaved manage the saved set. Browser persistence is the shelf's own localStorage key (cge.saved-tools.v1), written by assets/js/save-toggle-ui.js on every tool page and by the shelf page itself. Planning aid, not financial, legal, or tax advice. See AGENT.md Workflow 25."),
 ]
 
 # Tools hub (wave 9): grouped card index. Per tool: icon, "use when" one-liner,
@@ -974,7 +974,7 @@ TOOL_HUB_META = {
                       ["starting out", "undecided", "Phase 0"]),
     "planner":       ("▦", "PLAN",    "cyan", "you need a posting schedule you can actually keep.",
                       ["consistency", "cadence", "Phase 1"]),
-    "simulator":     ("◬", "PLAN",    "cyan", "you want to see 12–36 months of growth and revenue — scenarios, A/B, team costs, what-if events — before you live them.",
+    "simulator":     ("◬", "PLAN",    "cyan", "you want to see 12–36 months of growth and revenue, scenarios, A/B, team costs, what-if events, before you live them.",
                       ["what-if", "projections", "Phases 2 · 5 · 8"]),
     "calculator":    ("∑", "MONEY",   "gold", "you want honest revenue ranges from your current views.",
                       ["ads", "sponsors", "ranges"]),
@@ -1000,7 +1000,7 @@ TOOL_HUB_META = {
                       ["roadmap", "stages", "Phases 0 · 8"]),
     "video-doctor":    ("\u271a", "CONTENT", "stamp", "your numbers are telling you something but you can't read them yet.",
                       ["diagnosis", "retention", "Phases 1 · 2"]),
-    "ypp-checker":     ("◈", "MONEY", "gold", "YPP changes on Feb 1, 2027 — see where you stand under both rule sets.",
+    "ypp-checker":     ("◈", "MONEY", "gold", "YPP changes on Feb 1, 2027, see where you stand under both rule sets.",
                       ["monetization", "YPP", "Phase 5"]),
     "outreach":        ("\u2709", "MONEY",   "gold", "you're pitching brands outbound and need the whole command center.",
                       ["outreach", "pitch pipeline", "Phase 5"]),
@@ -1014,35 +1014,105 @@ TOOL_HUB_META = {
                       ["quote", "sponsorship package", "Phase 5"]),
     "negotiation-kit": ("✎", "MONEY",   "gold", "a brand replied and you need the counter, the exact words, and your walk-away number before you answer.",
                       ["counter-offer", "reply scripts", "Phase 5"]),
-    "rate-card-builder": ("▩", "MONEY",   "gold", "you need a rate card you can publish — every number on it traceable to a benchmark, with the reasoning shown.",
+    "rate-card-builder": ("▩", "MONEY",   "gold", "you need a rate card you can publish, every number on it traceable to a benchmark, with the reasoning shown.",
                       ["rate card", "benchmarks", "Phase 5"]),
-    "negotiation-script-builder": ("✐", "MONEY",   "gold", "a thread is live and you need the exact words — opener, anchor, concessions, walk-away — not just the number.",
+    "negotiation-script-builder": ("✐", "MONEY",   "gold", "a thread is live and you need the exact words, opener, anchor, concessions, walk-away, not just the number.",
                       ["negotiation script", "concessions", "Phase 5"]),
-    "deal-pipeline": ("▤", "MONEY",   "gold", "you have live deals at different stages and need one board — rate card, script, and follow-up state for each.",
+    "deal-pipeline": ("▤", "MONEY",   "gold", "you have live deals at different stages and need one board, rate card, script, and follow-up state for each.",
                       ["deal pipeline", "pipeline board", "Phase 5"]),
-    "follow-through": ("▸", "MONEY",   "gold", "deals are on the board and some have sat too long — you need today's follow-ups in send order, each with its words ready.",
+    "follow-through": ("▸", "MONEY",   "gold", "deals are on the board and some have sat too long, you need today's follow-ups in send order, each with its words ready.",
                       ["follow-ups", "send list", "Phase 5"]),
-    "repeat-sponsor-book": ("↻", "MONEY",   "gold", "a brand already paid you once — you need the paid deals held as one re-approach book, re-priced at today's card.",
+    "repeat-sponsor-book": ("↻", "MONEY",   "gold", "a brand already paid you once, you need the paid deals held as one re-approach book, re-priced at today's card.",
                       ["repeat sponsors", "paid deals", "Phase 5"]),
-    "sponsor-income-ledger": ("▦", "MONEY",   "gold", "brands have paid you — you need the collected money as a ledger by month, brand, and platform, not one lump total.",
+    "sponsor-income-ledger": ("▦", "MONEY",   "gold", "brands have paid you, you need the collected money as a ledger by month, brand, and platform, not one lump total.",
                       ["income ledger", "paid deals", "Phase 5"]),
-    "receivables-register": ("▤", "MONEY",   "gold", "brands owe you money — you need every invoiced deal as one register, longest outstanding first, not one lump total.",
+    "receivables-register": ("▤", "MONEY",   "gold", "brands owe you money, you need every invoiced deal as one register, longest outstanding first, not one lump total.",
                       ["receivables", "invoiced deals", "Phase 5"]),
-    "brand-ledger": ("▦", "MONEY",   "gold", "you work the same brands across stages — you need each brand as one relationship total: collected, owed, and still open, not slices in three tools.",
+    "brand-ledger": ("▦", "MONEY",   "gold", "you work the same brands across stages, you need each brand as one relationship total: collected, owed, and still open, not slices in three tools.",
                       ["brand ledger", "brand relationships", "Phase 5"]),
-    "platform-ledger": ("▦", "MONEY",   "gold", "your deals sit on more than one platform — you need each platform as one total across every stage: collected, owed, and still open, not a collected-only split.",
+    "platform-ledger": ("▦", "MONEY",   "gold", "your deals sit on more than one platform, you need each platform as one total across every stage: collected, owed, and still open, not a collected-only split.",
                       ["platform ledger", "platform totals", "Phase 5"]),
-    "saved-shelf": ("▤", "CONTENT",   "gold", "you keep coming back to the same few tools — you need your own shelf, saved in this browser, instead of the whole hub every time.",
+    "saved-shelf": ("▤", "CONTENT",   "gold", "you keep coming back to the same few tools, you need your own shelf, saved in this browser, instead of the whole hub every time.",
                       ["saved tools", "your shelf", "favourites"]),
 }
 TOOL_HUB_GROUPS = [
     ("PLAN", "Pick the battlefield",
-     "Figure out what to make, when to post, and what it could become — before you burn a year on the wrong niche."),
+     "Figure out what to make, when to post, and what it could become, before you burn a year on the wrong niche."),
     ("MONEY", "Know what it's worth",
      "Ranges, benchmarks, and verdicts before you quote a rate or sign an offer."),
     ("CONTENT", "Multiply one win",
-     "Systems that turn one idea into a week of output — and the API that powers it all."),
+     "Systems that turn one idea into a week of output, and the API that powers it all."),
 ]
+
+# Rotation 22 (T-CREATOR-5): per-tool freshness, read from the
+# manual's own build record (git history of each tool's engine and
+# page sources): added = the date the tool entered the manual,
+# updated = the date the tool itself last changed. Stated per tool
+# in the record, the hub spec line, and the tool page's spec line.
+TOOL_FRESH = {
+    "quiz": ("2026-10-11", "2026-10-12"), "calculator": ("2026-10-11", "2026-10-12"),
+    "planner": ("2026-10-11", "2026-10-12"), "deal-analyzer": ("2026-10-11", "2026-10-12"),
+    "deal-room": ("2026-10-12", "2026-10-14"), "hiring-calculator": ("2026-10-12", "2026-10-12"),
+    "repurpose": ("2026-10-11", "2026-10-12"), "simulator": ("2026-10-12", "2026-10-12"),
+    "api-explorer": ("2026-10-11", "2026-10-12"), "hook-builder": ("2026-10-12", "2026-10-12"),
+    "idea-bank": ("2026-10-12", "2026-10-12"), "content-calendar": ("2026-10-12", "2026-10-12"),
+    "batching": ("2026-10-12", "2026-10-12"), "money-map": ("2026-10-12", "2026-10-12"),
+    "video-doctor": ("2026-10-12", "2026-10-12"), "ypp-checker": ("2026-10-12", "2026-10-12"),
+    "outreach": ("2026-10-12", "2026-10-12"), "crosspost": ("2026-10-12", "2026-10-12"),
+    "cadence": ("2026-10-12", "2026-10-12"), "format-fit": ("2026-10-12", "2026-10-12"),
+    "deal-builder": ("2026-10-12", "2026-10-12"), "negotiation-kit": ("2026-10-12", "2026-10-14"),
+    "rate-card-builder": ("2026-10-13", "2026-10-14"), "negotiation-script-builder": ("2026-10-13", "2026-10-14"),
+    "deal-pipeline": ("2026-10-13", "2026-10-14"), "follow-through": ("2026-10-13", "2026-10-14"),
+    "repeat-sponsor-book": ("2026-10-13", "2026-10-14"), "sponsor-income-ledger": ("2026-10-13", "2026-10-14"),
+    "receivables-register": ("2026-10-13", "2026-10-14"), "brand-ledger": ("2026-10-13", "2026-10-14"),
+    "platform-ledger": ("2026-10-13", "2026-10-14"), "saved-shelf": ("2026-10-13", "2026-10-14"),
+}
+
+
+TOOL_JOB_WORD = {"PLAN": "Planning", "MONEY": "Money", "CONTENT": "Content"}
+
+
+# Rotation 22: each tool's stage, stated once. Mirrors the STAGES
+# toolkit lists in assets/js/career-path.js; parity is pinned by
+# tests/creator-r22.test.js (build.py map == engine toolStageMap()).
+TOOL_STAGE = {
+    "quiz": (1, "Foundation"), "calculator": (1, "Foundation"), "planner": (1, "Foundation"),
+    "money-map": (1, "Foundation"), "format-fit": (1, "Foundation"), "saved-shelf": (1, "Foundation"),
+    "idea-bank": (2, "Build"), "hook-builder": (2, "Build"), "batching": (2, "Build"),
+    "content-calendar": (2, "Build"), "repurpose": (2, "Build"),
+    "cadence": (3, "Publish Rhythm"), "crosspost": (3, "Publish Rhythm"),
+    "video-doctor": (3, "Publish Rhythm"), "ypp-checker": (3, "Publish Rhythm"),
+    "outreach": (4, "Growth"), "api-explorer": (4, "Growth"),
+    "rate-card-builder": (5, "Monetization & Career"), "deal-analyzer": (5, "Monetization & Career"),
+    "deal-room": (5, "Monetization & Career"), "deal-builder": (5, "Monetization & Career"),
+    "negotiation-kit": (5, "Monetization & Career"), "negotiation-script-builder": (5, "Monetization & Career"),
+    "deal-pipeline": (5, "Monetization & Career"), "follow-through": (5, "Monetization & Career"),
+    "repeat-sponsor-book": (5, "Monetization & Career"), "sponsor-income-ledger": (5, "Monetization & Career"),
+    "receivables-register": (5, "Monetization & Career"), "brand-ledger": (5, "Monetization & Career"),
+    "platform-ledger": (5, "Monetization & Career"), "hiring-calculator": (5, "Monetization & Career"),
+    "simulator": (5, "Monetization & Career"),
+}
+# The tool's number in the manual's formula: its position in the tools
+# listing, by job group (TOOL_HUB_GROUPS order), then catalogue order.
+HUB_NUM = {}
+_hn = 0
+for _g, _sub, _desc in TOOL_HUB_GROUPS:
+    for _slug, _title, _d in TOOLS:
+        if TOOL_HUB_META[_slug][1] == _g:
+            _hn += 1
+            HUB_NUM[_slug] = _hn
+
+
+def _tool_formula(slug, title):
+    return f"Tool {HUB_NUM[slug]:02d} \u00b7 {title} \u00b7 {TOOL_JOB_WORD[TOOL_HUB_META[slug][1]]} \u00b7 current"
+
+
+def _tool_spec_line(slug):
+    sn, sname = TOOL_STAGE[slug]
+    added, updated = TOOL_FRESH[slug]
+    return (f"Stage {sn} \u00b7 {sname} \u00b7 Pricing: Free \u00b7 "
+            f"Added {added} \u00b7 Updated {updated}")
+
 
 # Case-files hub (wave 9): headline numbers are sourced from the case pages
 # themselves (see pages/case-*.md Sources sections); every figure is reported,
@@ -1105,7 +1175,7 @@ CASE_HUB = [
      "team": "Solo → agency (Human Media Group / Mana Talent)",
      "timeline": "Jun 2016 channel → 1M (2018) → 5M (2024)"},
     {"id": "case-clippers-squeeze",
-     "headline": "KSh 130–520 per 1,000 views — then the originality update",
+     "headline": "KSh 130–520 per 1,000 views, then the originality update",
      "stat": "Clipping industry · Oct-2026 reach cut + Feb-2027 Shorts floor",
      "source": "Kenyan Mirror; TechJuice; Digital Trends (industry reports)",
      "niche": "Clip redistribution / Shorts",
@@ -1228,7 +1298,7 @@ def word_count(md):
 
 # ---------- page template ----------
 
-# Desktop nav stays tight: hub-first discovery (wave 9 — the site grew too
+# Desktop nav stays tight: hub-first discovery (wave 9: the site grew too
 # large for per-tool nav links). The full per-tool list lives in the mobile
 # nav and the footer.
 DESKTOP_NAV_LINKS = [
@@ -1268,7 +1338,7 @@ def _aw_date_label(iso):
     return f"{_AW_MONTHS[mo - 1]} {d}, {y}"
 
 def _aw_dates_html(c):
-    """Announced / effective / logged line — only the dates the entry
+    """Announced / effective / logged line, only the dates the entry
     actually carries. Must match datesHtml() in changes-feed.js."""
     parts = []
     ann = _aw_date_label(c.get("announced_at"))
@@ -1333,9 +1403,9 @@ def _build_what_changed():
             f'<button type="button" class="aw-filter" data-aw-platform="{esc(p)}" '
             f'aria-pressed="false">{esc(label)} · {counts[p]}</button>')
     entries_html = "".join(_aw_entry_html(c) for c in rows) or \
-        '<li class="aw-empty" role="status">No changes in the feed yet — the watch is running, the log is just quiet.</li>'
+        '<li class="aw-empty" role="status">No changes in the feed yet, the watch is running, the log is just quiet.</li>'
     # Coverage panel: every platform slot the watch claims to cover, with
-    # its entry count and newest logged date — or an honest "no entry"
+    # its entry count and newest logged date: or an honest "no entry"
     # line. A platform with zero entries must look uncovered, not hidden.
     newest = {}
     for c in rows:
@@ -1351,7 +1421,7 @@ def _build_what_changed():
             cov_rows += (
                 f'<li class="aw-cov-row"><span class="aw-cov-plat">{esc(label)}</span>'
                 f'<span class="aw-cov-n">{n} {"entry" if n == 1 else "entries"}</span>'
-                f'<span class="aw-cov-date">newest {esc(_aw_date_label(newest.get(p, "")) or "—")}</span></li>')
+                f'<span class="aw-cov-date">newest {esc(_aw_date_label(newest.get(p, "")) or "·")}</span></li>')
         else:
             cov_rows += (
                 f'<li class="aw-cov-row aw-cov-empty"><span class="aw-cov-plat">{esc(label)}</span>'
@@ -1359,17 +1429,53 @@ def _build_what_changed():
                 '<span class="aw-cov-date">standing rules: Platform Rules Bible §13</span></li>')
     coverage_html = (
         '<section class="aw-coverage" aria-labelledby="aw-cov-h">'
-        '<h2 id="aw-cov-h" class="aw-sec-h">Coverage — what this watch actually covers</h2>'
+        '<h2 id="aw-cov-h" class="aw-sec-h">Coverage: what this watch actually covers</h2>'
         f'<ul class="aw-cov" data-aw-coverage>{cov_rows}</ul>'
         '<p class="aw-cov-note">Spotify and industry-wide changes have no slot of their '
-        'own — they are logged under <strong>Other</strong>, and their standing rules live in the '
+        'own, they are logged under <strong>Other</strong>, and their standing rules live in the '
         'Platform Rules Bible §13. A slot with no entry is shown as no entry; the watch does not '
         'pad a quiet platform with old news.</p></section>')
+    # Rotation 22 (T-CREATOR-5): the corrections ledger. The manual
+    # corrects itself in the open: accepted corrections print here,
+    # dated, with what changed, and the drafter below composes a
+    # finished correction note a reader can copy and send. The manual
+    # has no inbox; the route is stated in plain words on the page.
+    corr_doc = json.loads((DATA / "corrections.json").read_text(encoding="utf-8"))
+    corr_rows = ""
+    for e in sorted(corr_doc.get("entries", []), key=lambda x: str(x.get("date", "")), reverse=True):
+        corr_rows += (
+            f'<li class="corr-row"><span class="corr-date">{esc(e.get("date", ""))}</span>'
+            f'<span class="corr-page">{esc(e.get("page", ""))}</span>'
+            f'<p class="corr-what">{esc(e.get("what", ""))}</p></li>')
+    corrections_html = (
+        '<section class="corrections" aria-labelledby="corr-h">'
+        '<h2 id="corr-h">Corrections</h2>'
+        '<p>This manual corrects itself in the open. When a page is wrong, the fix prints '
+        'here, dated, with what changed. Every tool also carries its own dates: added to the '
+        'manual, and last changed, in its spec line on the <a href="tools.html">tools page</a>.</p>'
+        f'<ul class="corr-list">{corr_rows}</ul>'
+        '<h3>File a correction</h3>'
+        '<p>The manual has no inbox. A correction travels as a finished note you can copy: '
+        'fill in the three lines and the drafter writes it, ready to send wherever you reach '
+        'the editor. Accepted corrections print in this ledger.</p>'
+        '<form class="corr-form" data-corr-form>'
+        '<label>Page<input type="text" name="page" required maxlength="80" '
+        'placeholder="e.g. Phase 5, Monetization, or the Deal Calculator"></label>'
+        '<label>What the page says<textarea name="says" required rows="2" maxlength="400"></textarea></label>'
+        '<label>What it should say, and your source<textarea name="should" required rows="2" maxlength="400"></textarea></label>'
+        '<button type="submit" class="btn btn-primary">Draft the correction</button>'
+        '<label class="corr-out-label" data-corr-out-wrap hidden>Your correction note'
+        '<textarea data-corr-out rows="6" readonly></textarea></label>'
+        '<p class="corr-actions" data-corr-actions hidden>'
+        '<button type="button" class="btn btn-ghost" data-corr-copy>Copy the note</button> '
+        '<span class="corr-status" data-corr-status role="status"></span></p>'
+        '</form></section>')
     extra = (
         '<link rel="stylesheet" href="assets/css/api-badge.css">'
         '<link rel="stylesheet" href="assets/css/what-changed.css">'
         '<script defer src="assets/js/api-client.js"></script>'
         '<script defer src="assets/js/changes-feed.js"></script>'
+        '<script defer src="assets/js/corrections.js"></script>'
     )
     body = (
         '<div class="aw-wrap" data-changes-feed>'
@@ -1378,8 +1484,8 @@ def _build_what_changed():
         '<span class="api-badge" id="aw-badge" role="status" aria-live="polite" tabindex="0" '
         'title="Feed status. Without JavaScript this shows the last published static feed.">static feed</span></div>'
         '<p class="lede">Platforms move the rules that decide what you earn. <strong>This page logs '
-        'every algorithm, policy, and monetization change that matters — dated, sourced, and labeled '
-        'with its confidence</strong> — so a rule change never reaches you through a rumor.</p>'
+        'every algorithm, policy, and monetization change that matters, dated, sourced, and labeled '
+        'with its confidence</strong>, so a rule change never reaches you through a rumor.</p>'
         '<p class="aw-actions"><a class="btn btn-primary" href="#aw-feed-list">Read the newest change ↓</a> '
         '<a class="btn btn-ghost" href="deal-room.html#dr-sec-watch">Price a deal against it →</a></p>'
         f'<p class="aw-updated" data-aw-updated>Feed data last published · generated {esc(gen)} UTC</p>'
@@ -1391,10 +1497,11 @@ def _build_what_changed():
         f'<ul class="aw-feed" id="aw-feed-list" data-aw-list>{entries_html}</ul>'
         '<div class="aw-note" role="note"><p class="muted"><strong>How to read this feed.</strong> '
         f'{esc(doc.get("disclaimer", ""))} '
-        "Entries older than 90 days roll off — this is a watch log, not an archive. "
+        "Entries older than 90 days roll off, this is a watch log, not an archive. "
         "Verify platform figures live before acting on them.</p></div>"
         '<p class="aw-window">Kept for 90 days. Refreshed daily. Live data at /api/changes</p>'
         "</div>"
+        + corrections_html
     )
     (SITE / "what-changed.html").write_text(
         page_template("What Changed", body, active="what-changed.html", extra_head=extra, path="what-changed.html"), encoding="utf-8")
@@ -1404,7 +1511,7 @@ def _build_what_changed():
 
 def _website_json_ld():
     """Honest JSON-LD for the homepage: the site's own name + tagline only.
-    No url (no live domain yet — absolutized at GO_LIVE with the OG sweep),
+    No url (no live domain yet, absolutized at GO_LIVE with the OG sweep),
     no ratings, no invented dates."""
     data = {"@context": "https://schema.org", "@type": "WebSite",
             "name": SITE_NAME, "description": TAGLINE}
@@ -1418,7 +1525,7 @@ def _tools_json_ld():
     items = [{"@type": "ListItem", "position": i + 1, "name": t[1],
               "url": t[0] + ".html"} for i, t in enumerate(TOOLS)]
     data = {"@context": "https://schema.org", "@type": "ItemList",
-            "name": "Creator Growth Empire — field tools",
+            "name": "Creator Growth Empire, field tools",
             "numberOfItems": len(items), "itemListElement": items}
     return ('<script type="application/ld+json">'
             + json.dumps(data, ensure_ascii=False) + "</script>")
@@ -1438,7 +1545,7 @@ def page_template(title, body, active="", extra_head="", path=""):
 <meta charset="utf-8">
 <script>try{{if(localStorage.getItem("cge.calm")==="1")document.documentElement.setAttribute("data-calm","1");}}catch(e){{}}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{esc(title)} — {SITE_NAME}</title>
+<title>{esc(title)}: {SITE_NAME}</title>
 <meta name="description" content="{esc(TAGLINE)}">
 <meta name="theme-color" content="#0d120d">
 <link rel="icon" href="/favicon.ico" sizes="48x48">
@@ -1447,13 +1554,13 @@ def page_template(title, body, active="", extra_head="", path=""):
 {('<link rel="canonical" href="/' + path + '">') if path else ''}
 <!-- RELATIVE until deploy: absolutize og:image + twitter:image against the live domain at GO_LIVE (mandatory step, GO_LIVE.md) -->
 <meta property="og:type" content="website">
-<meta property="og:title" content="{esc(title)} — {SITE_NAME}">
+<meta property="og:title" content="{esc(title)}: {SITE_NAME}">
 <meta property="og:description" content="{esc(TAGLINE)}">
 <meta property="og:image" content="assets/og-card.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="{esc(title)} — {SITE_NAME}">
+<meta name="twitter:title" content="{esc(title)}, {SITE_NAME}">
 <meta name="twitter:description" content="{esc(TAGLINE)}">
 <meta name="twitter:image" content="assets/og-card.png">
 <link rel="preload" href="assets/fonts/barlow-latin-700.woff2" as="font" type="font/woff2" crossorigin>
@@ -1471,7 +1578,7 @@ def page_template(title, body, active="", extra_head="", path=""):
 <header class="site-header">
   <a class="brand" href="index.html">{SITE_NAME}</a>
   <nav class="site-nav" aria-label="Primary">{desktop_nav}</nav>
-  <button class="calm-toggle" id="calmToggle" aria-pressed="false" title="Calm mode — stop ambient motion"><span class="calm-glyph" aria-hidden="true">◍</span><span>CALM</span></button>
+  <button class="calm-toggle" id="calmToggle" aria-pressed="false" title="Calm mode, stop ambient motion"><span class="calm-glyph" aria-hidden="true">◍</span><span>CALM</span></button>
   <button class="nav-toggle" aria-expanded="false" aria-controls="mobileNav" aria-label="Menu">☰</button>
 </header>
 <nav id="mobileNav" class="mobile-nav" aria-label="Mobile">{mobile_nav}</nav>
@@ -1484,10 +1591,10 @@ def page_template(title, body, active="", extra_head="", path=""):
     </div>
     <nav aria-label="Phases">
       <strong class="muted" style="font-size:.78rem;letter-spacing:.12em">PHASES</strong>
-      <a href="phase-0-start-from-nothing.html">Phase 0 — Start From Nothing</a>
-      <a href="phase-2-youtube-mastery.html">Phase 2 — YouTube Mastery</a>
-      <a href="phase-5-monetization-stack.html">Phase 5 — Monetization Stack</a>
-      <a href="phase-7-the-business.html">Phase 7 — The Business</a>
+      <a href="phase-0-start-from-nothing.html">Phase 0, Start From Nothing</a>
+      <a href="phase-2-youtube-mastery.html">Phase 2, YouTube Mastery</a>
+      <a href="phase-5-monetization-stack.html">Phase 5, Monetization Stack</a>
+      <a href="phase-7-the-business.html">Phase 7, The Business</a>
     </nav>
     <nav aria-label="Tools">
       <strong class="muted" style="font-size:.78rem;letter-spacing:.12em">TOOLS</strong>
@@ -1517,13 +1624,85 @@ def page_template(title, body, active="", extra_head="", path=""):
       <a href="case-gibi-asmr.html">Gibi ASMR</a>
     </nav>
   </div>
-  <div class="footer-fine"><span>PRIVATE RESEARCH ARCHIVE · PLATFORM FACTS VERIFIED OCT 2026 — VERIFY LIVE BEFORE ACTING · NOT FINANCIAL, LEGAL, OR TAX ADVICE · SET IN THE FIELD, PRINTED ON RECYCLED PIXELS</span></div>
+  <div class="footer-fine"><span>PRIVATE RESEARCH ARCHIVE · PLATFORM FACTS VERIFIED OCT 2026. VERIFY LIVE BEFORE ACTING · NOT FINANCIAL, LEGAL, OR TAX ADVICE · SET IN THE FIELD, PRINTED ON RECYCLED PIXELS</span></div>
 </footer>
 <script src="assets/js/site.js"></script>
 </body>
 </html>"""
 
 # ---------- build ----------
+
+# ---------- rotation 22: the lesson spec table ----------
+# data/v1/lessons.json is the manual's spec table: one record per
+# Career Path lesson (name formula, time, difficulty, needs, steps,
+# conclusion). scripts/build.py reads it for the home contents and the
+# lesson spec blocks on chapter/reference pages; the Path's trail UI
+# fetches the same file. Parity with assets/js/career-path.js is
+# pinned by tests/creator-r22.test.js.
+LESSON_STAGE_NAMES = {
+    "foundation": "Foundation", "build": "Build", "publish": "Publish Rhythm",
+    "growth": "Growth", "career": "Monetization & Career",
+}
+LESSON_PAGE_MAP = {
+    "phase-0-start-from-nothing": "f-read-phase0",
+    "phase-1-content-engine": "b-read-phase1",
+    "phase-2-youtube-mastery": "p-read-phase2",
+    "phase-3-everywhere-engine": "p-read-phase3",
+    "phase-4-audience-to-community": "g-read-phase4",
+    "breakout-format-intel": "g-read-breakout",
+    "phase-5-monetization-stack": "c-read-phase5",
+    "phase-6-merch-and-brand": "c-read-phase6",
+    "phase-7-the-business": "c-read-phase7",
+    "phase-8-scale": "c-read-phase8",
+    "rate-card": "c-read-ratecard",
+    "sponsor-playbook": "c-read-sponsor",
+    "platform-rules-bible": "c-read-rules",
+}
+try:
+    _LESSONS_DOC = json.loads((DATA_V1 / "lessons.json").read_text(encoding="utf-8"))
+    LESSONS_BY_ID = {l["id"]: l for l in _LESSONS_DOC["lessons"]}
+except Exception:
+    LESSONS_BY_ID = {}
+
+
+def _lesson_for_page(slug):
+    lid = LESSON_PAGE_MAP.get(slug)
+    return LESSONS_BY_ID.get(lid) if lid else None
+
+
+def _lesson_spec_html(slug):
+    """The iFixit order on the lesson's own page: formula line, spec
+    block, what you need, the steps, all before the prose. Empty string
+    for pages that are not Path lessons."""
+    les = _lesson_for_page(slug)
+    if not les:
+        return ""
+    stage_name = LESSON_STAGE_NAMES.get(les["stage"], les["stage"])
+    stage_num = les["number"].split(".")[0]
+    needs = "".join(f"<li>{esc(n)}</li>" for n in les.get("needs", []))
+    steps = "".join(f"<li>{esc(n)}</li>" for n in les.get("steps", []))
+    kind_word = "Read" if les["kind"] == "read" else "Drill"
+    return (
+        '<section class="lesson-spec" aria-label="Lesson spec">'
+        f'<p class="ls-formula">{esc(les["number"])} \u00b7 {esc(les["title"])} \u00b7 {esc(les["kind"])} \u00b7 {esc(les["state"])}</p>'
+        '<dl class="ls-grid">'
+        f'<div><dt>Stage</dt><dd>{stage_num} \u00b7 {esc(stage_name)}</dd></div>'
+        f'<div><dt>Kind</dt><dd>{kind_word}</dd></div>'
+        f'<div><dt>Time</dt><dd>{esc(les["time"])}</dd></div>'
+        f'<div><dt>Difficulty</dt><dd>{esc(les["difficulty"])}</dd></div>'
+        f'<div><dt>State</dt><dd>{esc(les["state"])}</dd></div></dl>'
+        f'<h3 class="ls-h">What you need</h3><ul class="ls-list">{needs}</ul>'
+        f'<h3 class="ls-h">{"The read" if les["kind"] == "read" else "The drill"}</h3><ol class="ls-list">{steps}</ol>'
+        '</section>')
+
+
+def _lesson_conclusion_html(slug):
+    les = _lesson_for_page(slug)
+    if not les:
+        return ""
+    return (f'<p class="lesson-conclusion"><strong>Conclusion:</strong> '
+            f'{esc(les["artifact"])}</p>')
+
 
 def build():
     if SITE.exists():
@@ -1601,15 +1780,15 @@ def build():
         # money-map ribbon (wave 18): every pillar chapter links to the capstone map
         cnav += ('<div class="map-ribbon" role="note">'
                  '<strong>⌖ Lost in the climb?</strong>'
-                 '<span>See where this phase fits on <a href="money-map.html">The Money Map</a> — 7 questions, your stage, your next 3 moves.</span>'
+                 '<span>See where this phase fits on <a href="money-map.html">The Money Map</a>, 7 questions, your stage, your next 3 moves.</span>'
                  '<a class="btn btn-ghost" href="money-map.html">Open the map →</a></div>')
-        # wave 30: radar section map — anchor ids on every h2 + a dossier nav
+        # wave 30: radar section map: anchor ids on every h2 + a dossier nav
         # that tracks reading position (sidebar on desktop, disclosure on mobile)
         body_html, map_items = _add_h2_ids(body_html)
         raside, rdetails = _radar_map(map_items)
         page = page_template(f"{phase}: {short}",
                              f'<div class="chapter-with-map">{raside}'
-                             f'<article class="chapter">{hero}{rdetails}{body_html}{cnav}</article></div>',
+                             f'<article class="chapter">{hero}{_lesson_spec_html(slug)}{rdetails}{body_html}{_lesson_conclusion_html(slug)}{cnav}</article></div>',
                              active="", path=f"{slug}.html")
         (SITE / f"{slug}.html").write_text(page, encoding="utf-8")
         chapters_meta.append({
@@ -1651,7 +1830,7 @@ def build():
         mount = NICHE_EXPLORER_MOUNT if slug == "niche-atlas" else ""
         if slug == "metrics-glossary":
             mount = METRICS_CURVE_MOUNT
-        # wave 14/28: page scripts load deferred — they ran dead in <head>
+        # wave 14/28: page scripts load deferred: they ran dead in <head>
         # before the DOM existed (audit fix, wave 30)
         extra_head = "".join(f'<script defer src="{s}"></script>' for s in scripts)
         # wave 30: radar section map, same as chapters (the bible keeps its own
@@ -1660,7 +1839,7 @@ def build():
         raside, rdetails = _radar_map(map_items)
         page = page_template(f"{short}",
                              f'<div class="chapter-with-map">{raside}'
-                             f'<article class="chapter">{hero}{rdetails}{body_html}{mount}{cnav}</article></div>',
+                             f'<article class="chapter">{hero}{_lesson_spec_html(slug)}{rdetails}{body_html}{mount}{_lesson_conclusion_html(slug)}{cnav}</article></div>',
                              active="", extra_head=extra_head, path=f"{slug}.html")
         (SITE / f"{slug}.html").write_text(page, encoding="utf-8")
         reference_meta.append({"id": slug, "badge": badge, "title": short,
@@ -1768,7 +1947,7 @@ def build():
         if slug in TOOL_SCRIPTS:
             # deferred: these scripts query the DOM at load; in <head> without
             # defer they ran before the body existed and silently no-op'd
-            # (audit fix, wave 30 — execution order is preserved by defer)
+            # (audit fix, wave 30: execution order is preserved by defer)
             extra = "".join(f'<script defer src="{src}"></script>' for src in TOOL_SCRIPTS[slug])
         if slug in TOOL_CSS:
             extra += "".join(f'<link rel="stylesheet" href="{href}">' for href in TOOL_CSS[slug])
@@ -1776,7 +1955,7 @@ def build():
         tier = {"PLAN": 1, "MONEY": 2, "CONTENT": 3}[TOOL_HUB_META[slug][1]]
         tier_name = TOOL_HUB_META[slug][1]
         # T-CREATOR-4: every tool page except the shelf itself carries the
-        # save toggle (generator level — one button, one shared script pair)
+        # save toggle (generator level: one button, one shared script pair)
         save_btn = ""
         if slug != "saved-shelf":
             extra += ('<script defer src="assets/js/saved-shelf.js"></script>'
@@ -1788,6 +1967,8 @@ def build():
         hud_open = (f'<div class="tool-page"><header class="tool-head">'
                     f'<p class="tool-group">{group_word} tools</p>'
                     f"<h1>{esc(title)}</h1>"
+                    f'<p class="tool-formula">{_tool_formula(slug, title)}</p>'
+                    f'<p class="tool-spec-line">{_tool_spec_line(slug)}</p>'
                     f"{save_btn}</header>")
         page = page_template(title, f'{hud_open}{tool_body}</div>',
                              active="tools.html", extra_head=extra, path=f"{slug}.html")
@@ -1811,52 +1992,47 @@ def build():
                 f"<h1>{esc(title_words)}</h1>"
                 f'<p class="lede">{lede}</p></header>')
 
-    # tools hub: brief cards grouped Plan / Money / Content
+    # tools hub (rotation 22): the catalogue as contents rows, grouped
+    # by job. Every row carries the name formula, the contract sentence
+    # (the tool record's own description), and the spec line: its stage
+    # stated once, its pricing model, and its Added/Updated dates.
     tool_titles = {slug: title for slug, title, _ in TOOLS}
-    n = 0
+    tool_desc = {tid: desc for tid, _t, desc, _p, _s, _o, _d in TOOLS_API}
     hub_sections = ""
     for group, group_sub, group_desc in TOOL_HUB_GROUPS:
         members = [slug for slug, _, _ in TOOLS if TOOL_HUB_META[slug][1] == group]
-        g_accent = TOOL_HUB_META[members[0]][2]
-        cards = ""
+        rows = ""
         for slug in members:
-            icon, _, accent, use_when, tags = TOOL_HUB_META[slug]
-            n += 1
-            tier = {"PLAN": 1, "MONEY": 2, "CONTENT": 3}[group]
-            tag_html = "".join(f"<li>{esc(t)}</li>" for t in tags)
-            cards += (
-                f'<a class="brief-card" href="{slug}.html">'
-                f'<div class="brief-body">'
-                f'<p class="brief-num">{n:02d}</p>'
-                f"<h3>{esc(tool_titles[slug])}</h3>"
-                f'<p class="brief-usage"><strong>Use when</strong> {esc(use_when)}</p></div>'
-                f'<ul class="brief-tags" aria-label="Best for">{tag_html}</ul>'
-                f'<div class="brief-foot"><span class="brief-go">Open →</span></div></a>')
-        group_word = {"PLAN": "Plan", "MONEY": "Money", "CONTENT": "Content"}[group]
+            rows += (
+                f'<li class="spec-row"><a class="spec-main" href="{slug}.html">'
+                f'<span class="spec-formula">{_tool_formula(slug, tool_titles[slug])}</span>'
+                f'<span class="spec-contract">{esc(tool_desc[slug])}</span>'
+                f'<span class="spec-line">{_tool_spec_line(slug)}</span></a></li>')
+        group_word = {"PLAN": "Planning", "MONEY": "Money", "CONTENT": "Content"}[group]
         hub_sections += (
             f'<section class="hub-group" aria-label="{group} tools">'
             f'<div class="hub-group-head">'
             f"<h2>{group_word}</h2>"
             f'<span class="hub-kicker">{esc(group_sub)}</span>'
             f"<p>{esc(group_desc)}</p></div>"
-            f'<div class="brief-grid">{cards}</div></section>')
+            f'<ul class="spec-rows">{rows}</ul></section>')
     tools_body = (
         hub_hero("", "Tools",
                  f"{len(TOOLS)} tools, grouped by the job they do. Pick the one that matches where you are.",
                  "gold")
         + '<section class="section"><h2>Tools live inside the Path</h2>'
-        "<p>Every tool below sits at the stage of <a href=\"career-path.html\">The Zero-to-Career Path</a> where a creator actually needs it — "
+        "<p>Every tool below sits at the stage of <a href=\"career-path.html\">The Zero-to-Career Path</a> where a creator actually needs it, "
         "Foundation, Build, Publish Rhythm, Growth, Monetization &amp; Career. If you are not sure which tool is yours yet, "
         "don't browse the shelf: start the Path and it will hand you each tool in order.</p></section>"
         + hub_sections
         + '<section class="section"><h2>Your shelf</h2>'
         "<p>Working the same few tools every day? Save any of them from its own page and they wait for you on the "
-        "<a href=\"saved-shelf.html\">Saved Shelf</a> — in this browser only, nothing sent anywhere, no most-saved ranking invented.</p></section>"
+        "<a href=\"saved-shelf.html\">Saved Shelf</a>, in this browser only, nothing sent anywhere, no most-saved ranking invented.</p></section>"
         + '<section class="section honesty"><h2>Pick by job, not by shine</h2>'
         "<p>Every tool on this page reads the same 2026 research the rest of the site is built on. "
         "Start with the Niche Picker if you're undecided, the Revenue Calculator if you have views, "
         "and The Deal Analyzer the moment a brand emails you. "
-        "Not sure where you stand at all? Take <a href=\"money-map.html\">The Money Map</a> — "
+        "Not sure where you stand at all? Take <a href=\"money-map.html\">The Money Map</a>, "
         "7 questions, your stage, your next 3 moves.</p></section>")
     (SITE / "tools.html").write_text(page_template("All Tools", tools_body, active="tools.html", path="tools.html", extra_head=_tools_json_ld()), encoding="utf-8")
 
@@ -1892,7 +2068,7 @@ def build():
         for c in CASE_HUB)
     case_body = (
         hub_hero("", "Case Files",
-                 "Seven real creator businesses, taken apart: the stack, the decisions, the numbers — reported, not audited.",
+                 "Seven real creator businesses, taken apart: the stack, the decisions, the numbers, reported, not audited.",
                  "gold")
         + '<section class="hub-group" aria-label="Case files">'
         f'<div class="brief-grid">{case_cards}</div></section>'
@@ -1900,7 +2076,7 @@ def build():
         + '<div class="hub-group-head">'
         "<h2>Side by side</h2>" 
         "<p>Niche, primary revenue, team, and timeline at a glance. Headline figures are the numbers "
-        "each case is best known for — always reported, never audited.</p></div>"
+        "each case is best known for, always reported, never audited.</p></div>"
         + '<div class="table-wrap"><table class="compare-table">'
         "<caption>Case file comparison: niche, primary revenue, team size, timeline</caption>"
         "<thead><tr><th scope=\"col\">Case</th><th scope=\"col\">Niche</th>"
@@ -1908,8 +2084,8 @@ def build():
         "<th scope=\"col\">Timeline</th></tr></thead><tbody>"
         + case_rows + "</tbody></table></div></section>"
         + '<section class="section honesty"><h2>The honesty policy</h2>'
-        "<p>Every figure on these cards is reported by the cited source — interviews, company pages, "
-        "or (in one case) verified AdSense records — not audited financials. Treat the structures as "
+        "<p>Every figure on these cards is reported by the cited source, interviews, company pages, "
+        "or (in one case) verified AdSense records, not audited financials. Treat the structures as "
         "proven and the figures as directional. Read the full file before you copy a play.</p></section>")
     (SITE / "case-files.html").write_text(page_template("Case Files", case_body, active="case-files.html", path="case-files.html"), encoding="utf-8")
 
@@ -1919,13 +2095,13 @@ def build():
     # exclusive via name= (plain-HTML-first, no JS, keyboard-native).
     PHASE_LEDES = [
         "Zero audience, zero budget, zero excuses. Pick the niche, set up the accounts, ship the first ten.",
-        "The system that turns one idea into a week of output. Batch it, template it, repeat it \u2014 this is where consistency gets manufactured.",
-        "Click and stay. Packaging, retention, the algorithm's two questions \u2014 the highest-leverage skill on the internet.",
+        "The system that turns one idea into a week of output. Batch it, template it, repeat it, this is where consistency gets manufactured.",
+        "Click and stay. Packaging, retention, the algorithm's two questions, the highest-leverage skill on the internet.",
         "One pillar, five platforms. Repurpose without re-uploading, and survive the originality era the platforms all converged on.",
         "Viewers watch. Communities stay, pay, and recruit. The unsexy work that makes everything else compound.",
-        "Ads, sponsors, affiliates, products \u2014 layered in the right order. Read it twice; everyone reads it once and skips ahead.",
+        "Ads, sponsors, affiliates, products, layered in the right order. Read it twice; everyone reads it once and skips ahead.",
         "Your name as an asset. When merch makes sense, when it doesn't, and the margins nobody posts about.",
-        "LLC, taxes, separate the money. The boring paperwork that keeps the exciting part legal. Educational \u2014 not legal or tax advice.",
+        "LLC, taxes, separate the money. The boring paperwork that keeps the exciting part legal. Educational, not legal or tax advice.",
         "Team, systems, stepping back. How empires stop depending on the founder's calendar.",
     ]
     trail_stops = ""
@@ -1972,7 +2148,7 @@ def build():
         f'<span class="phase-meta">{m["read_minutes"]} min · {m["words"]:,} words</span></a>'
         for i, m in enumerate(m for m in mdpage_meta if m["badge"] == "Case File"))
     case_files = [m for m in mdpage_meta if m["badge"] == "Case File"]
-    # wave 30: signal log — the kill-feed of field wins. Every transmission is
+    # wave 30: signal log: the kill-feed of field wins. Every transmission is
     # an existing case file, one line each, styled as tactical comms. Numbered
     # MSG ids, never fake timestamps; the lede is the file's own, truncated.
     kf_items = "".join(
@@ -1986,40 +2162,98 @@ def build():
         f'<section class="section"><div class="section-head"><h2>Signal Log</h2>'
         f'<span class="section-tag">SIGNAL LOG · {len(case_files)} case files, one line each</span></div>'
         f'<div class="killfeed" role="list">{kf_items}</div>'
-        f'<p class="killfeed-foot muted">Every entry is a documented case file — '
+        f'<p class="killfeed-foot muted">Every entry is a documented case file, '
         f'structures proven, figures directional. No wins invented, no timestamps faked.</p>'
         f'</section>')
     n_tools = len(TOOLS)
+    # ---- rotation 22: the home is the manual's cover + front matter +
+    # complete contents (CREATOR-STUDY Section 5.1, Shape Up's form).
+    # Nothing on the home is a teaser: the contents prints every lesson
+    # and drill by number and name inside its stage part, every tool by
+    # number and name with its contract sentence and spec line, and the
+    # case files as a third list in the same setting.
+    _stage_order = ["foundation", "build", "publish", "growth", "career"]
+    _lessons_by_stage = {s: [] for s in _stage_order}
+    for _les in LESSONS_BY_ID.values():
+        _lessons_by_stage[_les["stage"]].append(_les)
+    for _s in _stage_order:
+        _lessons_by_stage[_s].sort(key=lambda l: float(l["number"]))
+    _contents_parts = ""
+    for _si, _sid in enumerate(_stage_order):
+        _rows = ""
+        for _les in _lessons_by_stage[_sid]:
+            _href = _les.get("href") or "career-path.html"
+            _rows += (
+                f'<li><a class="ci-row" href="{_href}">'
+                f'<span class="ci-num">{esc(_les["number"])}</span>'
+                f'<span class="ci-name">{esc(_les["title"])}</span>'
+                f'<span class="ci-kind">{esc(_les["kind"])}</span>'
+                f'<span class="ci-state">{esc(_les["state"])}</span></a></li>')
+        _contents_parts += (
+            f'<h3 class="ci-part">Part {_si + 1} \u00b7 {esc(LESSON_STAGE_NAMES[_sid])}</h3>'
+            f'<ul class="ci-list">{_rows}</ul>')
+    _tool_desc = {tid: desc for tid, _t2, desc, _p2, _s2, _o2, _d2 in TOOLS_API}
+    _tool_titles = {slug: title for slug, title, _ in TOOLS}
+    _contents_tools = ""
+    for _group, _gsub, _gdesc in TOOL_HUB_GROUPS:
+        _rows = ""
+        for _slug in [s for s, _, _ in TOOLS if TOOL_HUB_META[s][1] == _group]:
+            _rows += (
+                f'<li><a class="ci-row" href="{_slug}.html">'
+                f'<span class="ci-num">{HUB_NUM[_slug]:02d}</span>'
+                f'<span class="ci-name">{esc(_tool_titles[_slug])}</span>'
+                f'<span class="ci-kind">{TOOL_JOB_WORD[_group]}</span>'
+                f'<span class="ci-state">current</span></a>'
+                f'<p class="ci-contract">{esc(_tool_desc[_slug])}</p>'
+                f'<p class="ci-spec">{_tool_spec_line(_slug)}</p></li>')
+        _contents_tools += (
+            f'<h3 class="ci-part">{TOOL_JOB_WORD[_group]}</h3>'
+            f'<p class="ci-part-sub">{esc(_gsub)}: {esc(_gdesc)}</p>'
+            f'<ul class="ci-list">{_rows}</ul>')
+    _contents_cases = ""
+    for _i, _m in enumerate(case_files):
+        _contents_cases += (
+            f'<li><a class="ci-row" href="{_m["path"]}">'
+            f'<span class="ci-num">Case {_i + 1:02d}</span>'
+            f'<span class="ci-name">{esc(_m["title"])}</span>'
+            f'<span class="ci-kind">{_m["read_minutes"]} min \u00b7 {_m["words"]:,} words</span></a>'
+            f'<p class="ci-contract">{esc(_m["lede"])}</p></li>')
     index_body = f"""
 <section class="hero">
   <h1>From $0 to a working creator business.</h1>
-  <p class="lede">Nine phases in order — niche, content, YouTube, every platform, community, money, brand, the business, scale. <strong>No guru hype. Just the playbook, with the numbers shown.</strong></p>
+  <p class="lede">Nine phases in order, niche, content, YouTube, every platform, community, money, brand, the business, scale. <strong>No guru hype. Just the playbook, with the numbers shown.</strong></p>
   <div class="hero-cta"><a class="btn btn-primary" href="career-path.html">Start the Career Path \u2192</a></div>
   <p class="hero-meta"><span>9 phases</span><span>{n_tools} tools</span><span>9 case files</span><span>32 lessons on the Path: 13 reads, 19 drills</span></p>
 </section>
-<section class="section"><div class="section-head"><h2>1. The phases</h2><a href="career-path.html" class="section-more">The Career Path \u2192</a></div>
-<p class="section-lede">Work them in order. The Path starts at Stage 1, Lesson 1, teaches first, and hands you each tool where you need it — progress saved on this device. Not sure where you stand? The 2-minute <a href="money-map.html">Money Map</a> finds your stage.</p>
-<div class="trail reveal">{trail_stops}</div></section>
-<section class="section"><div class="section-head"><h2>2. Tools, by job</h2><a href="tools.html" class="section-more">All {n_tools} tools \u2192</a></div>
-{tiers_html}</section>
-<section class="section"><div class="section-head"><h2>3. Case files</h2><a href="case-files.html" class="section-more">All 9 case files \u2192</a></div>
-<div class="rail reveal" role="list">{case_cards}</div></section>
-<section class="section"><div class="curator-note reveal">
-<h2>Read Phase 5 twice</h2>
-<blockquote>If you only read one phase, read Phase 5 \u2014 twice. Everyone skips to the money chapter and wonders why the math doesn't work. It doesn't work because phases 1 through 4 <em>are</em> the product. The stack is just the cash register on top of an audience that trusts you. I put monetization fifth on purpose.</blockquote>
-<cite>\u2014 the editor of this manual</cite></div></section>
+<section class="section front-matter"><h2>How this manual names things</h2>
+<p>Every lesson and tool is named by one formula, in every place it appears: <strong>number, name, kind word, state word</strong>. A lesson's number is its stage and its position in the stage. A tool's number is its position in the tools listing. The kind word for a lesson is <em>read</em> or <em>drill</em>; for a tool it is its job.</p>
+<p>The state vocabulary is closed: a lesson or tool is <strong>current</strong>, or it has been replaced and is marked <strong>superseded</strong>, with its replacement named. Difficulty uses five grades only: Very easy, Easy, Moderate, Difficult, Very difficult. Every lesson opens with its spec block before any prose and closes with a conclusion line naming the artifact it produces.</p>
+<p>Every tool carries the date it was added to this manual and the date it last changed, in its spec line below. Spot an error? The manual keeps a corrections ledger on the <a href="what-changed.html">Algorithm Watch</a> page: file a correction there and accepted corrections print in the ledger, dated, with what changed.</p>
+</section>
+<section class="section contents"><div class="section-head"><h2>The contents</h2><a href="career-path.html" class="section-more">The Career Path \u2192</a></div>
+<p class="section-lede">The whole manual on one page. Work it in order: the Path starts at Part 1, Lesson 1.1, teaches first, and hands you each tool where you need it, progress saved on this device. Not sure where you stand? The 2-minute <a href="money-map.html">Money Map</a> finds your stage.</p>
+{_contents_parts}
+<h3 class="ci-part ci-part-tools">The tools, by job</h3>
+{_contents_tools}
+<h3 class="ci-part ci-part-cases">The case files</h3>
+<ul class="ci-list">{_contents_cases}</ul>
+</section>
 {signal_log}
+<section class="section"><div class="curator-note">
+<h2>Read Phase 5 twice</h2>
+<blockquote>If you only read one phase, read Phase 5, twice. Everyone skips to the money chapter and wonders why the math doesn't work. It doesn't work because phases 1 through 4 <em>are</em> the product. The stack is just the cash register on top of an audience that trusts you. I put monetization fifth on purpose.</blockquote>
+<cite>The editor of this manual</cite></div></section>
 <section class="section"><div class="section-head"><h2>What to cover today</h2><a href="what-changed.html" class="section-more">Algorithm Watch \u2192</a></div>
     <div data-trends-widget data-trends-limit="6"></div>
     <script src="assets/js/trends-widget.js"></script>
     <noscript><p class="muted">The live trend feed needs JavaScript. The trend playbooks are in Phase 3.</p></noscript>
 </section>
-<section class="section honesty reveal"><h2>The honesty policy</h2>
-<p>Every platform number on this site was verified against 2026 sources or is flagged <strong>verify live</strong>. Income ranges are illustrative, never promises. The LLC/tax phase is educational \u2014 <strong>not legal or tax advice</strong>. Platforms change rules constantly; the most dangerous number on the internet is a stale one.</p></section>
+<section class="section honesty"><h2>The honesty policy</h2>
+<p>Every platform number on this site was verified against 2026 sources or is flagged <strong>verify live</strong>. Income ranges are illustrative, never promises. The LLC/tax phase is educational, <strong>not legal or tax advice</strong>. Platforms change rules constantly; the most dangerous number on the internet is a stale one.</p></section>
 """
     (SITE / "index.html").write_text(page_template(SITE_NAME, index_body, active="index.html", path="index.html", extra_head=_website_json_ld()), encoding="utf-8")
 
-    # wave 30: dossier-styled 404 — the file that never filed its paperwork.
+    # wave 30: dossier-styled 404: the file that never filed its paperwork.
     # noindex: a 404 must never be indexed. All links resolve (stage 4 checks).
     notfound_body = (
         '<div class="lost brk brk-stamp"><b class="brk-x" aria-hidden="true"></b>'
@@ -2027,7 +2261,7 @@ def build():
         '<h1>FILE<br>NOT FOUND</h1>'
         '<p><span class="stamp stamp-slam" data-slam="1">MIA</span></p>'
         '<p class="lede">This page never filed its paperwork. It may have been moved, '
-        'renamed, or decommissioned — or the coordinates were wrong from the start. '
+        'renamed, or decommissioned, or the coordinates were wrong from the start. '
         'Fall back to a known position:</p>'
         '<div class="lost-nav">'
         '<a class="btn btn-primary" href="index.html">Back to home →</a>'
@@ -2036,7 +2270,7 @@ def build():
         '<a class="btn btn-ghost" href="glossary.html">Glossary</a>'
         '</div>'
         '<p class="fm-readout">Error 404</p>'
-        '<p class="muted" style="margin-top:1.2rem;font-size:.85rem">P.S. If you got here from a link on this site, that’s our fault — the Quartermaster has been notified and is pretending it was always part of the plan.</p></div>')
+        '<p class="muted" style="margin-top:1.2rem;font-size:.85rem">P.S. If you got here from a link on this site, that’s our fault, the Quartermaster has been notified and is pretending it was always part of the plan.</p></div>')
     (SITE / "404.html").write_text(
         page_template("File not found", notfound_body,
                       extra_head='<meta name="robots" content="noindex">'),
@@ -2068,7 +2302,7 @@ def build():
             "id": "index",
             "kind": "json",
             "path": "data/v1/index.json",
-            "description": "This manifest — self-describing list of every endpoint with schema URLs, updated timestamps, record counts, and deprecation notes. Start here.",
+            "description": "This manifest, self-describing list of every endpoint with schema URLs, updated timestamps, record counts, and deprecation notes. Start here.",
             "schema": "data/v1/schema/index.json",
             "updated": BUILD_TS,
             "records": None,
@@ -2090,15 +2324,15 @@ def build():
             "id": "niches",
             "kind": "json",
             "path": "data/v1/niches.json",
-            "description": ("The Niche Atlas dataset v2.1.0: 20 October-2026-researched niches — "
+            "description": ("The Niche Atlas dataset v2.1.0: 20 October-2026-researched niches, "
                             "channel growth, search growth, breakout formats, creator-reported "
                             "revenue ranges (CPM/RPM), competition, startup cost, skill fit, "
                             "chapter/simulator/case-file links, the avoid list (red-flag niches, "
-                            "2027-updated), sources, and the <1%-reach-100K reality check — "
+                            "2027-updated), sources, and the <1%-reach-100K reality check, "
                             "plus the 2027 outlook layer: per-niche trajectory badges "
                             "(heating/stable/cooling with basis + signals), breakout-format "
                             "spotlights, platform signals, and the niche-to-revenue-stream fit "
-                            "matrix — plus the ten breakout-format dossiers (signal, reported "
+                            "matrix, plus the ten breakout-format dossiers (signal, reported "
                             "ranges, competition, entry requirements, who-it-suits, risks, "
                             "2027 read, source weights) backing the Breakout-Format Intel "
                             "reference page. Ranges, never promises."),
@@ -2107,7 +2341,7 @@ def build():
             "records": len(niches_cfg["niches"]),
             "deprecated": False,
             "deprecation_note": None,
-            "freshness_note": "Research observed 2026-10-11; 2027 outlook layer added 2026-10-11 (trajectory badges are directional reads, not forecasts). Verify platform figures live before acting — every record carries its sources and observation date.",
+            "freshness_note": "Research observed 2026-10-11; 2027 outlook layer added 2026-10-11 (trajectory badges are directional reads, not forecasts). Verify platform figures live before acting, every record carries its sources and observation date.",
         },
         {
             "id": "glossary",
@@ -2124,7 +2358,7 @@ def build():
             "id": "calculators",
             "kind": "json",
             "path": "data/v1/calculators.json",
-            "description": "Calculator config: per-niche long-form RPM bands, Shorts RPM, platform thresholds (YPP tiers, TikTok Rewards, Facebook CMP — with sources and dates), revenue splits, the 2026 sponsorship rate card, the 2026 quoted-prices block (Cheerful reported asks/quotes + Click Analytic modeled Instagram cross-check, bases labeled), and 2026 niche/platform research snapshots. The data contract the sim engine, revenue calculator, deal analyzer, deal room, negotiation kit, and hiring calculator read.",
+            "description": "Calculator config: per-niche long-form RPM bands, Shorts RPM, platform thresholds (YPP tiers, TikTok Rewards, Facebook CMP, with sources and dates), revenue splits, the 2026 sponsorship rate card, the 2026 quoted-prices block (Cheerful reported asks/quotes + Click Analytic modeled Instagram cross-check, bases labeled), and 2026 niche/platform research snapshots. The data contract the sim engine, revenue calculator, deal analyzer, deal room, negotiation kit, and hiring calculator read.",
             "schema": "data/v1/schema/calculators.json",
             "updated": BUILD_TS,
             "records": None,
@@ -2133,13 +2367,13 @@ def build():
                             "2026 rate card, platform thresholds, revenue splits, research snapshots.",
             "deprecated": False,
             "deprecation_note": None,
-            "freshness_note": "Verify platform figures live before acting on them — see the payload's own updated/version fields. Treat undated numbers as stale.",
+            "freshness_note": "Verify platform figures live before acting on them, see the payload's own updated/version fields. Treat undated numbers as stale.",
         },
         {
             "id": "deal-templates",
             "kind": "json",
             "path": "data/v1/deal-templates.json",
-            "description": "The Deal Room data contract: negotiation scripts (lowball counter, usage-rights upsell, exclusivity pushback, rush-fee ask — with {{placeholders}}), the red-flag checklist with severity levels and scoring rules, and usage-rights pricing tiers with reported vs. definitional multiplier basis, 3 honest pitch email templates (cold pitch, one follow-up nudge, warm intro — [bracketed] placeholders, never invented stats), the 10-item contract red-flag checklist with scoring rules, and the Negotiation Kit reply scripts (6 situations — counter, lowball, exposure-only, usage rights, whitelisting, late payment — with {{placeholders}}, v1.2.0). A negotiation aid, not financial/legal/tax advice.",
+            "description": "The Deal Room data contract: negotiation scripts (lowball counter, usage-rights upsell, exclusivity pushback, rush-fee ask, with {{placeholders}}), the red-flag checklist with severity levels and scoring rules, and usage-rights pricing tiers with reported vs. definitional multiplier basis, 3 honest pitch email templates (cold pitch, one follow-up nudge, warm intro, [bracketed] placeholders, never invented stats), the 10-item contract red-flag checklist with scoring rules, and the Negotiation Kit reply scripts (6 situations, counter, lowball, exposure-only, usage rights, whitelisting, late payment, with {{placeholders}}, v1.2.0). A negotiation aid, not financial/legal/tax advice.",
             "schema": "data/v1/schema/deal-templates.json",
             "updated": BUILD_TS,
             "records": None,
@@ -2152,7 +2386,7 @@ def build():
             "id": "content-engine",
             "kind": "json",
             "path": "data/v1/content-engine.json",
-            "description": "The Content Engine data contract v1.1.0: idea formats, the five Short-Form Playbook hook structures, calendar dealing rules, batching guidance (consistency-beats-volume), the Repurposing 2.0 derivative map (each derivative's required original element), the Oct-1 originality guardrails, deal-slot guidance, the simulator bridge — plus the 2.0 additions: the Oct-2026 algorithm signal map (TikTok/Shorts/Reels, every claim source-labeled), 6 trend-derived hook patterns, the cross-post adaptation matrix (12 source→destination rule sets + universal checks), and the weekly batch scheduler defaults. A planning aid, not financial/legal/tax advice.",
+            "description": "The Content Engine data contract v1.1.0: idea formats, the five Short-Form Playbook hook structures, calendar dealing rules, batching guidance (consistency-beats-volume), the Repurposing 2.0 derivative map (each derivative's required original element), the Oct-1 originality guardrails, deal-slot guidance, the simulator bridge, plus the 2.0 additions: the Oct-2026 algorithm signal map (TikTok/Shorts/Reels, every claim source-labeled), 6 trend-derived hook patterns, the cross-post adaptation matrix (12 source→destination rule sets + universal checks), and the weekly batch scheduler defaults. A planning aid, not financial/legal/tax advice.",
             "schema": "data/v1/schema/content-engine.json",
             "updated": BUILD_TS,
             "records": None,
@@ -2165,7 +2399,7 @@ def build():
             "id": "changes",
             "kind": "json",
             "path": "data/v1/changes.json",
-            "description": ("Algorithm Watch feed: dated platform algorithm, policy, and monetization changes — "
+            "description": ("Algorithm Watch feed: dated platform algorithm, policy, and monetization changes, "
                             "id, platform, title, summary, detected_at, announced_at, effective_at, source_url(s), "
                             "category (algorithm/policy/monetization/legal), confidence (verified/single-source). "
                             "Every entry carries its source and confidence flag; no change is ever stated as fact without one. "
@@ -2176,7 +2410,7 @@ def build():
             "records": len(json.loads((DATA / "changes.json").read_text(encoding="utf-8"))["changes"]),
             "deprecated": False,
             "deprecation_note": None,
-            "freshness_note": "Verify platform figures live before acting on them — every entry carries its sources and confidence flag.",
+            "freshness_note": "Verify platform figures live before acting on them, every entry carries its sources and confidence flag.",
         },
         {
             "id": "skills",
@@ -2193,7 +2427,7 @@ def build():
             "id": "case-files",
             "kind": "json",
             "path": "data/v1/case-files.json",
-            "description": "Index of the documented creator-business deconstructions: id, badge, title, path, words, read_minutes. Full text on the case-*.html pages. Figures are source-reported, not audited — never present as promises.",
+            "description": "Index of the documented creator-business deconstructions: id, badge, title, path, words, read_minutes. Full text on the case-*.html pages. Figures are source-reported, not audited, never present as promises.",
             "schema": "data/v1/schema/case-files.json",
             "updated": BUILD_TS,
             "records": sum(1 for m in mdpage_meta if m["badge"] == "Case File"),
@@ -2204,7 +2438,7 @@ def build():
             "id": "tools",
             "kind": "json",
             "path": "data/v1/tools.json",
-            "description": "All thirty-two interactive tools with programmatic input schemas (JSON Schema draft-07), output descriptions, and drive notes — replicate the tools' logic without the UI.",
+            "description": "All thirty-two interactive tools with programmatic input schemas (JSON Schema draft-07), output descriptions, and drive notes, replicate the tools' logic without the UI.",
             "schema": "data/v1/schema/tools.json",
             "updated": BUILD_TS,
             "records": len(TOOLS_API),
@@ -2246,7 +2480,7 @@ def build():
             "id": "algorithm-watch",
             "kind": "html",
             "paths": ["what-changed.html"],
-            "description": ("Algorithm Watch — the 'what changed' feed's human front-end: dated platform "
+            "description": ("Algorithm Watch, the 'what changed' feed's human front-end: dated platform "
                             "algorithm, policy, and monetization changes, pre-rendered from data/v1/changes.json "
                             "and live-updated from /api/changes when the server is reachable. Fully readable with "
                             "JavaScript disabled; the status badge reports live / cached state honestly. "
@@ -2263,23 +2497,23 @@ def build():
             "path": "data/v1/schema/",
             "description": "JSON Schema (draft-07) for every JSON endpoint, per-endpoint and per-record.",
             "files": [
-                "index.json — the manifest itself",
-                "chapters.json — chapters doc",
-                "chapter.json — chapter record",
-                "niches.json — niches doc",
-                "niche.json — niche record",
-                "glossary.json — glossary doc (term records inline)",
-                "calculators.json — the calculators data contract",
-                "skills.json — skills doc",
-                "skill.json — skill record",
-                "case-files.json — case-files doc",
-                "case-file.json — case-file record",
-                "tools.json — tools doc",
-                "tool.json — tool record",
-                "deal-templates.json — deal-room data contract",
-                "content-engine.json — content-engine data contract",
-                "changes.json — algorithm-watch changes feed doc",
-                "envelope.json — server function response envelope (§1.1)",
+                "index.json, the manifest itself",
+                "chapters.json, chapters doc",
+                "chapter.json, chapter record",
+                "niches.json, niches doc",
+                "niche.json, niche record",
+                "glossary.json, glossary doc (term records inline)",
+                "calculators.json, the calculators data contract",
+                "skills.json, skills doc",
+                "skill.json, skill record",
+                "case-files.json, case-files doc",
+                "case-file.json, case-file record",
+                "tools.json, tools doc",
+                "tool.json, tool record",
+                "deal-templates.json, deal-room data contract",
+                "content-engine.json, content-engine data contract",
+                "changes.json, algorithm-watch changes feed doc",
+                "envelope.json, server function response envelope (§1.1)",
             ],
             "schema": None,
             "updated": BUILD_TS,
@@ -2294,7 +2528,7 @@ def build():
         "version": "1.0.0",
         "updated": BUILD_TS,
         "base": "data/v1/",
-        "notes": ("Self-describing manifest. Base is data/v1/ relative to the site root — "
+        "notes": ("Self-describing manifest. Base is data/v1/ relative to the site root, "
                   "works on any static host; no auth, no keys, no rate limits. "
                   "Timestamps are ISO-8601 UTC. The deployed site ships its own api/ mirror, "
                   "so the explorer works live too."),
@@ -2304,7 +2538,7 @@ def build():
     (DATA_V1 / "chapters.json").write_text(json.dumps({"chapters": chapters_meta}, indent=2), encoding="utf-8")
     (DATA_V1 / "case-files.json").write_text(json.dumps({
         "version": "1.0.0", "updated": "2026-10-11",
-        "note": "Documented creator-business deconstructions. Figures are reported by the cited sources, not audited — never present as promises.",
+        "note": "Documented creator-business deconstructions. Figures are reported by the cited sources, not audited, never present as promises.",
         "case_files": [
             {"id": m["id"], "badge": m["badge"], "title": m["title"],
              "path": m["path"], "words": m["words"], "read_minutes": m["read_minutes"]}
@@ -2318,16 +2552,24 @@ def build():
     shutil.copy(DATA / "content-engine.json", DATA_V1 / "content-engine.json")
     shutil.copy(DATA / "changes.json", DATA_V1 / "changes.json")
 
+
     # ---- tools.json: every tool with its programmatic input schema ----
     (DATA_V1 / "tools.json").write_text(json.dumps({
-        "version": "1.0.0", "updated": "2026-10-11",
+        "version": "1.1.0", "updated": "2026-10-14",
         "note": ("Programmatic input schemas for the thirty-two interactive tools. "
                  "Agents replicate each tool's logic by feeding these inputs to the "
                  "documented formulas / shipped JS (assets/js/<id>.js); the UI pages "
-                 "are the human front-end for the same logic."),
+                 "are the human front-end for the same logic. "
+                 "Freshness (rotation 22): each record carries added (the date the tool "
+                 "entered this manual) and updated (the date the tool itself last "
+                 "changed), both read from the manual's own build record; pricing_model "
+                 "states what the tool costs to use; job is the tool's one grouping, "
+                 "and its stage mapping lives in the Career Path, stated once there."),
         "tools": [
             {"id": tid, "title": title, "description": desc, "page": page,
-             "input_schema": schema, "output": output, "drive_notes": drive}
+             "input_schema": schema, "output": output, "drive_notes": drive,
+             "job": TOOL_JOB_WORD[TOOL_HUB_META[tid][1]], "pricing_model": "Free",
+             "added": TOOL_FRESH[tid][0], "updated": TOOL_FRESH[tid][1]}
             for tid, title, desc, page, schema, output, drive in TOOLS_API
         ],
     }, indent=2), encoding="utf-8")
@@ -2590,7 +2832,7 @@ def build():
     }
     (DATA_V1 / "schema" / "niches.json").write_text(json.dumps(niches_schema, indent=2), encoding="utf-8")
 
-    # Wave 12: schema for EVERY endpoint — doc-level + per-record where it
+    # Wave 12: schema for EVERY endpoint: doc-level + per-record where it
     # applies. All draft-07, all checked by scripts/validate.sh.
     index_schema = {
         "$schema": "http://json-schema.org/draft-07/schema#",
@@ -2669,12 +2911,17 @@ def build():
         "$schema": "http://json-schema.org/draft-07/schema#",
         "title": "Tool",
         "type": "object",
-        "required": ["id", "title", "description", "page", "input_schema", "output", "drive_notes"],
+        "required": ["id", "title", "description", "page", "input_schema", "output", "drive_notes",
+                      "job", "pricing_model", "added", "updated"],
         "properties": {
             "id": {"type": "string"}, "title": {"type": "string"},
             "description": {"type": "string"}, "page": {"type": "string"},
             "input_schema": {"type": "object"},
             "output": {"type": "string"}, "drive_notes": {"type": "string"},
+            "job": {"type": "string", "enum": ["Planning", "Money", "Content"]},
+            "pricing_model": {"type": "string"},
+            "added": {"type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$"},
+            "updated": {"type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$"},
         },
     }
     (DATA_V1 / "schema" / "tool.json").write_text(json.dumps(tool_schema, indent=2), encoding="utf-8")
@@ -2898,7 +3145,7 @@ def build():
     # detects them as functions because outputDirectory=site. The shared
     # lib must NEVER live under api/ in the source tree: Vercel deploys
     # every .js under api/ as a function, so api/lib/*.js would ship as
-    # unintended public endpoints — Release Engineer round-1 audit
+    # unintended public endpoints: Release Engineer round-1 audit
     # blocker, fixed 2026-10-13 by moving api/lib -> lib/.)
     # Depth note: in the source tree a function at api/functions[/cron]
     # reaches the lib via ../../lib (../../../lib for cron); in the served
@@ -2929,42 +3176,42 @@ def build():
     llms = [f"# {SITE_NAME}", "", TAGLINE, "",
             "## Phases"]
     for m in chapters_meta:
-        llms.append(f"- [{m['phase']}: {m['title']}]({m['path']}) — {m['read_minutes']} min read")
+        llms.append(f"- [{m['phase']}: {m['title']}]({m['path']}), {m['read_minutes']} min read")
     llms += ["", "## Tools"]
     for slug, title, desc in TOOLS:
-        llms.append(f"- [{title}]({slug}.html) — {desc}")
+        llms.append(f"- [{title}]({slug}.html), {desc}")
     llms += ["- [Glossary](glossary.html)", "",
              "All thirty-two tools, grouped by job (Plan / Money / Content): [Tools hub](tools.html).",
              "", "## Reference"]
     for m in reference_meta:
-        llms.append(f"- [{m['badge']}: {m['title']}]({m['path']}) — {m['read_minutes']} min read")
-    llms += ["", "## Case Files — documented creator-business deconstructions"]
+        llms.append(f"- [{m['badge']}: {m['title']}]({m['path']}), {m['read_minutes']} min read")
+    llms += ["", "## Case Files, documented creator-business deconstructions"]
     for m in (m for m in mdpage_meta if m["badge"] == "Case File"):
-        llms.append(f"- [Case File: {m['title']}]({m['path']}) — {m['read_minutes']} min read")
-    llms += ["- [All case files — index + comparison table](case-files.html)",
-             "- data/v1/case-files.json — machine-readable case-file index", "",
+        llms.append(f"- [Case File: {m['title']}]({m['path']}), {m['read_minutes']} min read")
+    llms += ["- [All case files, index + comparison table](case-files.html)",
+             "- data/v1/case-files.json, machine-readable case-file index", "",
              "## Guides & Playbooks"]
     for m in (m for m in mdpage_meta if m["badge"] in ("Guide", "Playbook")):
-        llms.append(f"- [{m['badge']}: {m['title']}]({m['path']}) — {m['read_minutes']} min read")
-    llms += ["", "## API", "- data/v1/index.json — self-describing manifest: every endpoint, schema URL, updated timestamp, record counts",
+        llms.append(f"- [{m['badge']}: {m['title']}]({m['path']}), {m['read_minutes']} min read")
+    llms += ["", "## API", "- data/v1/index.json, self-describing manifest: every endpoint, schema URL, updated timestamp, record counts",
              "- data/v1/chapters.json",
-             "- data/v1/niches.json — the Niche Atlas dataset v2.1.0: 20 researched niches, 2027 outlook layer (trajectory badges, breakout spotlights, platform signals, stream-fit matrix), ten breakout-format dossiers, avoid list, sources, reality check",
+             "- data/v1/niches.json, the Niche Atlas dataset v2.1.0: 20 researched niches, 2027 outlook layer (trajectory badges, breakout spotlights, platform signals, stream-fit matrix), ten breakout-format dossiers, avoid list, sources, reality check",
              "- data/v1/glossary.json",
              "- data/v1/calculators.json",
              "- data/v1/skills.json",
              "- data/v1/case-files.json",
-             "- data/v1/tools.json — every tool's programmatic input schema",
-             "- data/v1/deal-templates.json — Deal Room data: negotiation scripts, red-flag checklist, usage-rights tiers, pitch templates, contract red-flag checklist, negotiation-kit reply scripts",
-             "- data/v1/content-engine.json — Content Engine data: idea formats, Playbook hook structures, dealing rules, Repurposing 2.0 map, originality guardrails, deal-slot guidance",
-             "- data/v1/changes.json — Algorithm Watch feed: dated algorithm/policy/monetization changes with sources + confidence flags (verified/single-source); live at /api/changes",
-             "- what-changed.html — Algorithm Watch 'what changed' feed page: pre-rendered from data/v1/changes.json, live-updated from /api/changes when reachable (status badge reports live/cached honestly)",
-             "- data/v1/schema/ — JSON Schema (draft-07) for every endpoint",
+             "- data/v1/tools.json, every tool's programmatic input schema",
+             "- data/v1/deal-templates.json, Deal Room data: negotiation scripts, red-flag checklist, usage-rights tiers, pitch templates, contract red-flag checklist, negotiation-kit reply scripts",
+             "- data/v1/content-engine.json, Content Engine data: idea formats, Playbook hook structures, dealing rules, Repurposing 2.0 map, originality guardrails, deal-slot guidance",
+             "- data/v1/changes.json, Algorithm Watch feed: dated algorithm/policy/monetization changes with sources + confidence flags (verified/single-source); live at /api/changes",
+             "- what-changed.html, Algorithm Watch 'what changed' feed page: pre-rendered from data/v1/changes.json, live-updated from /api/changes when reachable (status badge reports live/cached honestly)",
+             "- data/v1/schema/, JSON Schema (draft-07) for every endpoint",
              "", "## Agents",
-             "- AGENT.md — how an agent uses this site: base URL pattern, example requests, 14 end-to-end workflows, tool input schemas",
-             "- [Agents](agents.html) — the agent surface: endpoint table, all skills, data freshness policy, 7 worked agent workflows",
-             "- [API Explorer](api-explorer.html) — browse api/v1 endpoints, preview JSON in-browser",
-             "- llms.txt (this file) — quick agent orientation",
-             "- llms-full.txt — complete guide text, all chapters + reference + guides + agents",
+             "- AGENT.md, how an agent uses this site: base URL pattern, example requests, 14 end-to-end workflows, tool input schemas",
+             "- [Agents](agents.html), the agent surface: endpoint table, all skills, data freshness policy, 7 worked agent workflows",
+             "- [API Explorer](api-explorer.html), browse api/v1 endpoints, preview JSON in-browser",
+             "- llms.txt (this file), quick agent orientation",
+             "- llms-full.txt, complete guide text, all chapters + reference + guides + agents",
              "", "## Skills"]
     for s in skills_idx:
         llms.append(f"- {s['name']}: {s['description']}")

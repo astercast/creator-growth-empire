@@ -1,4 +1,4 @@
-/* Career Path — stage blocks + lesson check-offs.
+/* Career Path, stage blocks + lesson check-offs.
  * Scoped to .cp-* / #career-path. */
 #career-path p, #career-path li { max-inline-size: 68ch; }
 #career-path :focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
@@ -22,3 +22,30 @@
 .cp-tools { display: flex; flex-wrap: wrap; gap: 0.4rem; list-style: none; margin: 0.4rem 0; padding: 0; }
 .cp-tools a { font-family: var(--font-cond); font-weight: 600; font-size: 0.82rem; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; color: var(--muted); border: 1px solid var(--line-strong); border-radius: var(--radius-sm); padding: 0.3rem 0.65rem; }
 .cp-tools a:hover, .cp-tools a:focus-visible { color: var(--gold); border-color: var(--gold); }
+
+/* Rotation 22: the lesson anatomy. Formula head, spec block, needs,
+ * steps, conclusion, in the fixed order, all in residence. */
+.cp-lesson-head { display: flex; gap: 0.6rem; align-items: baseline; justify-content: space-between; }
+.cp-lesson-head label { flex: 1 1 auto; }
+.cp-num { font-family: var(--font-cond); font-weight: 600; font-size: 0.82rem; letter-spacing: 0.06em; color: var(--muted); }
+.cp-state { font-family: var(--font-cond); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.cp-stamp, .cp-stage-stamp { flex: none; transform: rotate(-4deg); }
+.cp-stamp-slot { flex: none; inline-size: 4.2rem; }
+.cp-spec { display: grid; grid-template-columns: repeat(auto-fit, minmax(7.5rem, 1fr)); gap: 0.45rem 1rem; margin: 0.55rem 0 0.3rem 1.6rem; padding: 0.6rem 0.8rem; border: 1px solid var(--line-strong); border-radius: var(--radius-sm); background: var(--bg); max-width: 72ch; }
+.cp-spec div { margin: 0; }
+.cp-spec dt { font-family: var(--font-cond); font-size: 0.68rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.cp-spec dd { margin: 0.1rem 0 0; font-size: 0.92rem; }
+.cp-prov { font-size: 0.82rem; color: var(--muted); }
+.cp-block { margin: 0.4rem 0 0 1.6rem; }
+.cp-block h4 { font-family: var(--font-cond); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: 0.5rem 0 0.25rem; }
+.cp-block ul, .cp-block ol { margin: 0; padding-left: 1.25rem; }
+.cp-block li { margin: 0.15rem 0; }
+.cp-action { margin-left: 1.6rem; }
+.cp-donewhen { margin-left: 1.6rem; }
+.cp-conclusion { margin: 0.5rem 0 0.2rem 1.6rem; border-left: 3px solid var(--gold); padding-left: 0.8rem; max-width: 68ch; }
+
+/* Rotation 22, mobile: the lesson's action link and done toggle are the
+   page's main job on a phone; both get full-size targets. */
+.cp-action a { display: inline-flex; align-items: center; min-height: 44px; padding: 0.4rem 0.15rem; }
+.cp-lesson-head input[type="checkbox"] { width: 1.3rem; height: 1.3rem; flex: none; }
+.cp-tool-chip { display: inline-flex; align-items: center; min-height: 40px; }

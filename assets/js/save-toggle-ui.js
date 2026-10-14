@@ -1,4 +1,4 @@
-/* Save toggle — page wiring for every tool page except the shelf
+/* Save toggle, page wiring for every tool page except the shelf
  * itself. The generator puts one [data-save-tool] button in each
  * tool page's briefing panel; this script reflects the saved
  * state from the Saved Shelf engine's localStorage key and
@@ -18,14 +18,14 @@
     } catch (e) { return []; }
   }
   function save(list) {
-    try { window.localStorage.setItem(SS.STORAGE_KEY, JSON.stringify(list)); } catch (e) { /* storage blocked — the toggle still reflects for this page view */ }
+    try { window.localStorage.setItem(SS.STORAGE_KEY, JSON.stringify(list)); } catch (e) { /* storage blocked, the toggle still reflects for this page view */ }
   }
   function render() {
     var list = load();
     btns.forEach(function (b) {
       var on = list.indexOf(b.getAttribute("data-save-tool")) >= 0;
       b.setAttribute("aria-pressed", on ? "true" : "false");
-      b.textContent = on ? "Saved to your shelf ✓ — tap to remove" : "Save to your shelf";
+      b.textContent = on ? "Saved to your shelf ✓, tap to remove" : "Save to your shelf";
     });
   }
   btns.forEach(function (b) {

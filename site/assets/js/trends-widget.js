@@ -1,10 +1,10 @@
-/* trends-widget.js — "Hottest topics to cover" widget for Creator Growth Empire.
+/* trends-widget.js, "Hottest topics to cover" widget for Creator Growth Empire.
  *
  * Live trend feed from the trend-machine sibling site. Fetches
  * ${TRENDS_API_BASE}/data/v1/trends.json and renders the top-N trends.
  *
  * Graceful degradation: on ANY failure (no config, network error, timeout,
- * non-JSON, unrecognized schema) the widget hides itself silently — no
+ * non-JSON, unrecognized schema) the widget hides itself silently, no
  * console errors, no layout breakage, no half-rendered state.
  *
  * Config (first non-empty wins):
@@ -105,7 +105,7 @@
     var wrap = el("div", "tw-meter");
     var top = el("div", "tw-meter-top");
     top.appendChild(el("span", "tw-meter-label", label));
-    top.appendChild(el("span", "tw-meter-value", value == null ? "—" : String(Math.round(value))));
+    top.appendChild(el("span", "tw-meter-value", value == null ? "·" : String(Math.round(value))));
     wrap.appendChild(top);
     var bar = el("div", "tw-meter-bar");
     bar.setAttribute("role", "progressbar");

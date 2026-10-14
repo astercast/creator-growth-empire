@@ -1,6 +1,6 @@
-/* what-changed.css — Algorithm Watch "what changed" feed page (Wave B).
+/* what-changed.css, Algorithm Watch "what changed" feed page (Wave B).
    Field Manual dossier style: corner-bracket entry plates, mono readouts,
-   chip labels. All classes scoped .aw- — no cross-lane collisions. */
+   chip labels. All classes scoped .aw-, no cross-lane collisions. */
 .aw-wrap { max-width: 860px; margin: 0 auto; padding: 2rem 1rem 4rem; }
 
 .aw-head-row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.9rem; }
@@ -76,3 +76,21 @@
   .aw-wrap { padding: 1.4rem 0.8rem 3rem; }
   .aw-entry { padding: 0.95rem 0.95rem 0.9rem; }
 }
+
+/* ---- rotation 22: corrections ledger + drafter (T-CREATOR-5) ---- */
+.corrections { max-width: 68ch; margin: 2.5rem auto 0; padding: 0 1rem 2rem; }
+.corr-list { list-style: none; margin: 1rem 0; padding: 0; }
+.corr-row { border-top: 1px solid var(--line); padding: .7rem 0; }
+.corr-row:last-child { border-bottom: 1px solid var(--line); }
+.corr-date { font-family: var(--font-display); font-weight: 700; margin-right: .8rem; }
+.corr-page { color: var(--muted); }
+.corr-what { margin: .3rem 0 0; }
+.corr-form { display: grid; gap: .8rem; margin-top: 1rem; }
+.corr-form label { display: grid; gap: .3rem; font-weight: 600; }
+.corr-form input, .corr-form textarea { font: inherit; padding: .6rem; min-height: 44px;
+  border: 1px solid var(--line); border-radius: 6px; background: var(--bg-2); color: var(--ink); width: 100%; }
+.corr-form .btn { justify-self: start; min-height: 44px; }
+.corr-status { color: var(--muted); }
+
+/* Rotation 22, mobile: filter chips get full-size tap targets. */
+.aw-filter { min-height: 44px; padding: 0.55rem 0.9rem; }

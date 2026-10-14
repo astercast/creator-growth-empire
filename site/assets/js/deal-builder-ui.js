@@ -1,4 +1,4 @@
-/* Deal Builder UI — pure DOM wiring (no math lives here; all math is in
+/* Deal Builder UI, pure DOM wiring (no math lives here; all math is in
  * assets/js/deal-builder.js). Renders the deliverable-line repeater,
  * the quote, term checks, proposal, and checklist; persists last input +
  * checklist ticks to localStorage. */
@@ -120,7 +120,7 @@
   var lastQuote = null;
 
   function fmtR(r) {
-    if (!r) return "—";
+    if (!r) return "·";
     if (r[1] === Infinity) return DB.fmt(r[0]) + "+";
     return DB.fmtRange(r);
   }
@@ -138,7 +138,7 @@
     html += "</tbody></table></div>";
     html += '<div class="table-wrap"><table class="db-table"><tbody>';
     html += "<tr><td>Post-fee base</td><td>" + fmtR(q.baseTotal) + "</td></tr>";
-    html += "<tr><td>Usage — " + esc(q.usage.label) + "<br><span class='muted'>" + esc(q.usage.note) + "</span></td><td>" + fmtR(q.usage.addon) + "</td></tr>";
+    html += "<tr><td>Usage, " + esc(q.usage.label) + "<br><span class='muted'>" + esc(q.usage.note) + "</span></td><td>" + fmtR(q.usage.addon) + "</td></tr>";
     html += "<tr><td>Whitelisting<br><span class='muted'>" + esc(q.whitelisting.note) + "</span></td><td>" + fmtR(q.whitelisting.addon) + "</td></tr>";
     html += "<tr><td>Exclusivity<br><span class='muted'>" + esc(q.exclusivity.note) + "</span></td><td>" + fmtR(q.exclusivity.addon) + "</td></tr>";
     html += '<tr class="db-total"><td><strong>Package total (ask)</strong></td><td><strong>' + fmtR(q.total) + "</strong></td></tr>";
@@ -238,7 +238,7 @@
 
   function onPitch() {
     if (!lastQuote) {
-      $("db-pitch-out").innerHTML = '<p class="muted">Build the quote first — the proposal is written from its numbers.</p>';
+      $("db-pitch-out").innerHTML = '<p class="muted">Build the quote first, the proposal is written from its numbers.</p>';
       return;
     }
     var p = DB.renderPitch(lastQuote.input, lastQuote.quote);

@@ -123,7 +123,7 @@ var memo = DealRoom.dealMemo(
     payTerms: "Net 30", timeline: "Draft by Nov 1", createdAt: "2026-10-11" },
   spot,
   { verdictText: "Clean", checkedTitles: [] });
-ok(memo.indexOf("DEAL MEMO — Acme") === 0, "memo opens with the brand header");
+ok(memo.indexOf("DEAL MEMO · Acme") === 0, "memo opens with the brand header");
 ok(memo.indexOf("FAIR") !== -1 && /23%/.test(memo),
   "memo carries the FAIR verdict and the ~23% honesty note");
 ok(/not financial, legal, or tax advice/i.test(memo),

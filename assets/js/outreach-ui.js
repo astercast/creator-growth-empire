@@ -1,8 +1,8 @@
-/* The Outreach Center — browser UI wiring (no pure math here).
+/* The Outreach Center, browser UI wiring (no pure math here).
  * Storage: localStorage only (keys cge.outreach.*), no accounts, no network
  * writes. Math lives in window.Outreach (assets/js/outreach.js, UMD);
  * benchmarks come from data/v1/calculators.json, templates + contract flags
- * from data/v1/deal-templates.json. Negotiation aid — not financial, legal,
+ * from data/v1/deal-templates.json. Negotiation aid, not financial, legal,
  * or tax advice. */
 (function () {
   "use strict";
@@ -100,7 +100,7 @@
       return '<li class="deal-card"><div><strong>' + esc(d.brand) + "</strong> " +
         '<span class="deal-status">' + esc(O.STATUS_LABELS[d.status] || d.status) + "</span>" +
         (d.contactName ? "<br>" + esc(d.contactName) + (d.email ? " · " + esc(d.email) : "") : "") +
-        "<br><span class='muted'>Pitched " + esc(d.dateSent || "—") +
+        "<br><span class='muted'>Pitched " + esc(d.dateSent || "·") +
         (d.followUpDate ? " · nudge " + esc(d.followUpDate) : "") +
         (d.notes ? " · " + esc(d.notes) : "") + "</span></div>" +
         '<div class="deal-actions">' +
@@ -150,7 +150,7 @@
       deals.unshift(d);
       save(); renderAll();
       form.reset();
-      announce(d.brand + " added to the pipeline. One 7-day nudge is scheduled — then move on.");
+      announce(d.brand + " added to the pipeline. One 7-day nudge is scheduled, then move on.");
     });
   }
 
@@ -184,7 +184,7 @@
     document.getElementById("oc-pitch-out").innerHTML =
       "<pre>" + esc(out) + "</pre>" +
       (unfilled ? '<p class="pitch-warn">⚠ ' + unfilled +
-        " placeholder(s) still empty — fill every [bracket] with your real numbers before sending. Never invent stats.</p>" : "") +
+        " placeholder(s) still empty, fill every [bracket] with your real numbers before sending. Never invent stats.</p>" : "") +
       '<p class="muted">' + esc(t.honesty_note) + "</p>";
     document.getElementById("oc-pitch-actions").style.display = "block";
   }
@@ -199,7 +199,7 @@
       document.body.appendChild(ta);
       ta.select();
       try { document.execCommand("copy"); done(); }
-      catch (e) { announce("Copy failed — select the text manually."); }
+      catch (e) { announce("Copy failed, select the text manually."); }
       document.body.removeChild(ta);
     }
   }
@@ -217,7 +217,7 @@
   if (pitchCopy) {
     pitchCopy.addEventListener("click", function () {
       var pre = document.querySelector("#oc-pitch-out pre");
-      if (pre) copyText(pre.textContent, "Pitch copied — fill any empty [brackets] before sending.");
+      if (pre) copyText(pre.textContent, "Pitch copied, fill any empty [brackets] before sending.");
     });
   }
 
@@ -236,7 +236,7 @@
         "<h3>" + esc(q.tierLabel) + " · " + esc(PLATFORM_LABELS[q.platform]) + " · " +
         esc(DELIV_LABELS[q.deliverable]) + "</h3>" +
         '<p class="rate-range">Negotiation range: <strong>' + esc(q.rangeLabel) + "</strong></p>" +
-        "<p>Quote at the top: <strong>" + esc(O.fmt(q.quotePoint)) + "</strong> — " + esc(q.guidance) + "</p>" +
+        "<p>Quote at the top: <strong>" + esc(O.fmt(q.quotePoint)) + "</strong>, " + esc(q.guidance) + "</p>" +
         "<h4>CPM cross-check (" + esc(q.cpm.deliverableLabel) + ")</h4>" +
         "<p>" + esc(q.cpm.note) + "</p>" +
         '<p class="muted">' + esc(q.crossPlatform) + "</p>" +

@@ -50,8 +50,8 @@ ok(SS.buildShelf("nope", []).ok === false && SS.shelfFromToolsJson({ tools: CATA
 
 console.log("saved-shelf — the export");
 var exp = SS.exportShelf(s);
-ok(/SAVED TOOLS SHELF — 2 tool\(s\) saved of 4 in the catalogue/.test(exp) &&
-   /Platform Ledger — platform-ledger\.html/.test(exp),
+ok(/SAVED TOOLS SHELF · 2 tool\(s\) saved of 4 in the catalogue/.test(exp) &&
+   /Platform Ledger · platform-ledger\.html/.test(exp),
   "export carries the counts and each saved tool with its page");
 ok(/no most-saved ranking/.test(exp) && /never sent anywhere/.test(exp) && /cge\.saved-tools\.v1/.test(exp),
   "export prints the honesty notes: local-only storage, no most-saved ranking (no cross-visitor usage is collected)");

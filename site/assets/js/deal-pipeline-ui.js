@@ -1,4 +1,4 @@
-/* Deal Pipeline — page wiring. Engine (assets/js/deal-pipeline.js)
+/* Deal Pipeline, page wiring. Engine (assets/js/deal-pipeline.js)
  * composes Tool 23 (pricing) and Tool 24 (scripts). Storage:
  * localStorage only (key cge.deal-pipeline.deals.v1), no accounts,
  * no network writes. Starts EMPTY: no deals exist until the creator
@@ -26,7 +26,7 @@
     } catch (e) { return []; }
   }
   function save() {
-    try { window.localStorage.setItem(P.STORAGE_KEY, JSON.stringify(deals)); } catch (e) { /* storage full/blocked — board still works in memory */ }
+    try { window.localStorage.setItem(P.STORAGE_KEY, JSON.stringify(deals)); } catch (e) { /* storage full/blocked, board still works in memory */ }
   }
   function esc(s) {
     return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
@@ -46,7 +46,7 @@
       changesFeed: DATA.feed, now: new Date() });
     var t = board.totals;
     totalsEl.innerHTML = t.empty && !t.demoCount
-      ? "<div class=\"dp-empty\"><p><strong>No deals yet.</strong> This board is genuinely empty — totals are zero because nothing has been entered. Add your first deal above, or load the labeled demo board to see the layout.</p></div>"
+      ? "<div class=\"dp-empty\"><p><strong>No deals yet.</strong> This board is genuinely empty, totals are zero because nothing has been entered. Add your first deal above, or load the labeled demo board to see the layout.</p></div>"
       : "<p class=\"dp-totals-line\"><strong>" + t.totalDeals + " deal(s)</strong> · pipeline " + P.fmt(t.pipelineValue) +
         " · open " + P.fmt(t.openValue) + " · invoiced outstanding " + P.fmt(t.invoicedOutstanding) +
         " · paid " + P.fmt(t.paidTotal) +
@@ -68,11 +68,11 @@
               esc(rangeText(e.rateCard.primary.range)) +
               (e.rateCard.total ? " · card total " + esc(rangeText(e.rateCard.total.range, e.rateCard.total.openEnded)) : "") +
               "<br>" + esc(e.rateCard.provenance) + "</p>"
-            : "<p class=\"muted dp-prov\">Rate card: not priced — " +
+            : "<p class=\"muted dp-prov\">Rate card: not priced, " +
               esc(e.rateCard && e.rateCard.errors ? e.rateCard.errors.join("; ") : "benchmark data not loaded") + "</p>") +
           "<p class=\"dp-actions\">" +
           (e.script && e.script.ok
-            ? "<button type=\"button\" class=\"btn dp-script-btn\" data-script=\"" + esc(d.id) + "\">Open negotiation script — " + esc(e.script.label) + "</button> "
+            ? "<button type=\"button\" class=\"btn dp-script-btn\" data-script=\"" + esc(d.id) + "\">Open negotiation script, " + esc(e.script.label) + "</button> "
             : "<span class=\"muted\">" + esc(e.script && e.script.reason ? e.script.reason : "No script for this stage.") + "</span> ") +
           "<label class=\"dp-move\">Move to <select data-move=\"" + esc(d.id) + "\">" +
           P.STAGES.map(function (st) {
@@ -87,10 +87,10 @@
     boardEl.innerHTML = html;
     nudgesEl.innerHTML = board.nudges.length
       ? "<ul class=\"dp-nudge-list\">" + board.nudges.map(function (n) {
-          return "<li><strong>" + esc(n.brand) + "</strong> — " + esc(n.stageLabel) + ", " + n.ageDays +
+          return "<li><strong>" + esc(n.brand) + "</strong>, " + esc(n.stageLabel) + ", " + n.ageDays +
             " days in stage (nudge at " + n.thresholdDays + "d): " + esc(n.action) + "</li>";
         }).join("") + "</ul>"
-      : "<p class=\"muted\">No follow-ups due. Nudges appear from stage age alone — lead 3d, negotiating 7d, terms set 5d, live 14d, invoiced 14d.</p>";
+      : "<p class=\"muted\">No follow-ups due. Nudges appear from stage age alone, lead 3d, negotiating 7d, terms set 5d, live 14d, invoiced 14d.</p>";
     exportBox.value = P.exportBoard(board);
     wireBoard(board);
   }
@@ -100,12 +100,12 @@
       btn.addEventListener("click", function () {
         var hit = board.deals.filter(function (e) { return e.deal.id === btn.getAttribute("data-script"); })[0];
         if (!hit || !hit.script || !hit.script.ok) return;
-        scriptEl.innerHTML = "<h3>Negotiation script — " + esc(hit.deal.brand) + "</h3>" +
+        scriptEl.innerHTML = "<h3>Negotiation script: " + esc(hit.deal.brand) + "</h3>" +
           hit.script.lines.map(function (l) {
             return "<blockquote class=\"dp-line\">" + esc(l.text) + "</blockquote>" +
-              "<p class=\"muted\">Source: " + esc(l.sources.join(" + ")) + " — " + esc(l.grounded_in) + "</p>";
+              "<p class=\"muted\">Source: " + esc(l.sources.join(" + ")) + ", " + esc(l.grounded_in) + "</p>";
           }).join("") +
-          "<p class=\"muted\">Assembled by the Negotiation Script Builder (Tool 24) — edit it in that tool for the full export.</p>";
+          "<p class=\"muted\">Assembled by the Negotiation Script Builder (Tool 24), edit it in that tool for the full export.</p>";
         scriptEl.scrollIntoView({ block: "start" });
       });
     });

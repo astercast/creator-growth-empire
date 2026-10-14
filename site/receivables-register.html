@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <script>try{if(localStorage.getItem("cge.calm")==="1")document.documentElement.setAttribute("data-calm","1");}catch(e){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Receivables Register — Creator Growth Empire</title>
+<title>Receivables Register: Creator Growth Empire</title>
 <meta name="description" content="From $0 to a multi-million-dollar creator company.">
 <meta name="theme-color" content="#0d120d">
 <link rel="icon" href="/favicon.ico" sizes="48x48">
@@ -13,13 +13,13 @@
 <link rel="canonical" href="/receivables-register.html">
 <!-- RELATIVE until deploy: absolutize og:image + twitter:image against the live domain at GO_LIVE (mandatory step, GO_LIVE.md) -->
 <meta property="og:type" content="website">
-<meta property="og:title" content="Receivables Register — Creator Growth Empire">
+<meta property="og:title" content="Receivables Register: Creator Growth Empire">
 <meta property="og:description" content="From $0 to a multi-million-dollar creator company.">
 <meta property="og:image" content="assets/og-card.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Receivables Register — Creator Growth Empire">
+<meta name="twitter:title" content="Receivables Register, Creator Growth Empire">
 <meta name="twitter:description" content="From $0 to a multi-million-dollar creator company.">
 <meta name="twitter:image" content="assets/og-card.png">
 <link rel="preload" href="assets/fonts/barlow-latin-700.woff2" as="font" type="font/woff2" crossorigin>
@@ -37,29 +37,29 @@
 <header class="site-header">
   <a class="brand" href="index.html">Creator Growth Empire</a>
   <nav class="site-nav" aria-label="Primary"><a href="career-path.html" class="nav-link">Career Path</a><a href="tools.html" class="nav-link active" aria-current="page">Tools</a><a href="case-files.html" class="nav-link">Case Files</a><a href="what-changed.html" class="nav-link">Algorithm Watch</a><a href="glossary.html" class="nav-link">Glossary</a></nav>
-  <button class="calm-toggle" id="calmToggle" aria-pressed="false" title="Calm mode — stop ambient motion"><span class="calm-glyph" aria-hidden="true">◍</span><span>CALM</span></button>
+  <button class="calm-toggle" id="calmToggle" aria-pressed="false" title="Calm mode, stop ambient motion"><span class="calm-glyph" aria-hidden="true">◍</span><span>CALM</span></button>
   <button class="nav-toggle" aria-expanded="false" aria-controls="mobileNav" aria-label="Menu">☰</button>
 </header>
 <nav id="mobileNav" class="mobile-nav" aria-label="Mobile"><a href="career-path.html" class="nav-link">Career Path</a><a href="tools.html" class="nav-link active" aria-current="page">Tools</a><a href="case-files.html" class="nav-link">Case Files</a><a href="what-changed.html" class="nav-link">Algorithm Watch</a><a href="glossary.html" class="nav-link">Glossary</a></nav>
-<main id="main"><div class="tool-page"><header class="tool-head"><p class="tool-group">Money tools</p><h1>Receivables Register</h1><p class="save-row"><button type="button" class="btn" data-save-tool="receivables-register" aria-pressed="false">Save to your shelf</button> <a href="saved-shelf.html">Your saved shelf</a></p></header><div id="receivables-register">
-<p class="lede">The Deal Pipeline totals what brands owe you into one number, and the Follow-Through Queue only surfaces an invoice once it is old enough to chase. This page registers all of it: every invoiced deal on the board — fresh ones included — with the amount, the date it entered the invoiced stage, how long it has been outstanding, and its late-payment script ready to open, plus one copyable register for the whole record.</p>
-<p class="muted">Deals are entered on the <a href="deal-pipeline.html">Deal Pipeline</a> — this register reads the same board (same browser, same localStorage). The money that has landed lives in the <a href="sponsor-income-ledger.html">Sponsor Income Ledger</a>. This page adds no pricing, no wording, and no thresholds of its own; the day's sends stay with the <a href="follow-through.html">Follow-Through Queue</a>.</p>
+<main id="main"><div class="tool-page"><header class="tool-head"><p class="tool-group">Money tools</p><h1>Receivables Register</h1><p class="tool-formula">Tool 21 · Receivables Register · Money · current</p><p class="tool-spec-line">Stage 5 · Monetization & Career · Pricing: Free · Added 2026-10-13 · Updated 2026-10-14</p><p class="save-row"><button type="button" class="btn" data-save-tool="receivables-register" aria-pressed="false">Save to your shelf</button> <a href="saved-shelf.html">Your saved shelf</a></p></header><div id="receivables-register">
+<p class="lede">The Deal Pipeline totals what brands owe you into one number, and the Follow-Through Queue only surfaces an invoice once it is old enough to chase. This page registers all of it: every invoiced deal on the board, fresh ones included, with the amount, the date it entered the invoiced stage, how long it has been outstanding, and its late-payment script ready to open, plus one copyable register for the whole record.</p>
+<p class="muted">Deals are entered on the <a href="deal-pipeline.html">Deal Pipeline</a>, this register reads the same board (same browser, same localStorage). The money that has landed lives in the <a href="sponsor-income-ledger.html">Sponsor Income Ledger</a>. This page adds no pricing, no wording, and no thresholds of its own; the day's sends stay with the <a href="follow-through.html">Follow-Through Queue</a>.</p>
 <nav class="rr-jump" aria-label="Receivables Register sections">
   <a href="#rr-sec-register">The register</a>
   <a href="#rr-sec-export">The export</a>
 </nav>
 
-<h2 id="rr-sec-register">1 · The register — invoiced deals, longest outstanding first</h2>
+<h2 id="rr-sec-register">1 · The register: invoiced deals, longest outstanding first</h2>
 <p id="rr-status" class="rr-status" aria-live="polite"></p>
 <div id="rr-register" aria-live="polite"></div>
 <p><button type="button" id="rr-board" class="btn">Re-read the board</button>
 <button type="button" id="rr-demo" class="btn">Preview with the demo board (labeled DEMO)</button></p>
-<p class="muted">A deal is registered from the day it enters the invoiced stage — completeness is the register's job, so no follow-up threshold decides what appears here. The invoiced date is the stage entry date, the only invoice timing the board carries. Demo invoiced deals are counted and excluded, never registered as real money owed.</p>
+<p class="muted">A deal is registered from the day it enters the invoiced stage, completeness is the register's job, so no follow-up threshold decides what appears here. The invoiced date is the stage entry date, the only invoice timing the board carries. Demo invoiced deals are counted and excluded, never registered as real money owed.</p>
 
 <h2 id="rr-sec-export">2 · The register as plaintext</h2>
 <textarea id="rr-export" rows="14" readonly aria-label="Your receivables register as plaintext"></textarea>
 <p><button type="button" id="rr-copy" class="btn btn-primary">Copy the register</button></p>
-<p class="muted">A planning aid, not financial, legal, or tax advice. Amounts are the figures you entered on the board; the total owed is the Deal Pipeline's invoiced outstanding figure, listed — never re-derived from any rate card.</p>
+<p class="muted">A planning aid, not financial, legal, or tax advice. Amounts are the figures you entered on the board; the total owed is the Deal Pipeline's invoiced outstanding figure, listed, never re-derived from any rate card.</p>
 </div>
 </div></main>
 <footer class="site-footer">
@@ -70,10 +70,10 @@
     </div>
     <nav aria-label="Phases">
       <strong class="muted" style="font-size:.78rem;letter-spacing:.12em">PHASES</strong>
-      <a href="phase-0-start-from-nothing.html">Phase 0 — Start From Nothing</a>
-      <a href="phase-2-youtube-mastery.html">Phase 2 — YouTube Mastery</a>
-      <a href="phase-5-monetization-stack.html">Phase 5 — Monetization Stack</a>
-      <a href="phase-7-the-business.html">Phase 7 — The Business</a>
+      <a href="phase-0-start-from-nothing.html">Phase 0, Start From Nothing</a>
+      <a href="phase-2-youtube-mastery.html">Phase 2, YouTube Mastery</a>
+      <a href="phase-5-monetization-stack.html">Phase 5, Monetization Stack</a>
+      <a href="phase-7-the-business.html">Phase 7, The Business</a>
     </nav>
     <nav aria-label="Tools">
       <strong class="muted" style="font-size:.78rem;letter-spacing:.12em">TOOLS</strong>
@@ -103,7 +103,7 @@
       <a href="case-gibi-asmr.html">Gibi ASMR</a>
     </nav>
   </div>
-  <div class="footer-fine"><span>PRIVATE RESEARCH ARCHIVE · PLATFORM FACTS VERIFIED OCT 2026 — VERIFY LIVE BEFORE ACTING · NOT FINANCIAL, LEGAL, OR TAX ADVICE · SET IN THE FIELD, PRINTED ON RECYCLED PIXELS</span></div>
+  <div class="footer-fine"><span>PRIVATE RESEARCH ARCHIVE · PLATFORM FACTS VERIFIED OCT 2026. VERIFY LIVE BEFORE ACTING · NOT FINANCIAL, LEGAL, OR TAX ADVICE · SET IN THE FIELD, PRINTED ON RECYCLED PIXELS</span></div>
 </footer>
 <script src="assets/js/site.js"></script>
 </body>

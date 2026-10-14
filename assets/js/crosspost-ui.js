@@ -1,4 +1,4 @@
-/* Cross-Post Optimizer — per-destination adaptation checklists.
+/* Cross-Post Optimizer, per-destination adaptation checklists.
    Pure-math-free: the adaptation matrix lives in assets/js/content-engine.js
    (ContentEngine.adaptChecklist). This file is DOM/localStorage wiring only. */
 (function () {
@@ -15,7 +15,7 @@
       .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
   }
 
-  /* Keep the source out of the destinations — the engine ignores it anyway,
+  /* Keep the source out of the destinations, the engine ignores it anyway,
    * but disabling it in the UI says it plainly. */
   function syncDests() {
     var boxes = form.querySelectorAll('input[name="cp-dest"]');
@@ -73,13 +73,13 @@
     var html = "";
     if (aiBox && aiBox.checked) {
       html += '<div class="callout warn"><strong>Photorealistic AI flagged.</strong>' +
-        "<p>YouTube requires the AI-content label before upload — labeled gets normal distribution; " +
+        "<p>YouTube requires the AI-content label before upload, labeled gets normal distribution; " +
         "undisclosed photorealistic AI faces reduced recommendations or removal (Ritchie, May 2026). " +
-        "Other platforms: check the current disclosure rules — they move.</p></div>";
+        "Other platforms: check the current disclosure rules, they move.</p></div>";
     }
     html += '<div class="callout danger"><strong>The Oct-1 gate.</strong><p>' + esc(r.gate) + "</p></div>";
     html += r.cards.map(checklistCard).join("");
-    html += '<div class="hud-panel"><div class="hud-head"><span>UNIVERSAL CHECKS — EVERY DESTINATION</span>' +
+    html += '<div class="hud-panel"><div class="hud-head"><span>UNIVERSAL CHECKS, EVERY DESTINATION</span>' +
       '<span class="hud-status">NON-NEGOTIABLE</span></div><div class="hud-body"><ul style="margin:0;' +
       'padding-left:1.25rem;display:grid;gap:.6rem">' +
       r.universal.map(function (u) { return "<li>" + esc(u) + "</li>"; }).join("") +

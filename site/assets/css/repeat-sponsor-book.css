@@ -1,4 +1,4 @@
-/* Repeat Sponsor Book — paid-deal book + export.
+/* Repeat Sponsor Book, paid-deal book + export.
  * Scoped to .rsb-* / #repeat-sponsor-book. */
 .rsb-stamp { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; margin-bottom: 0.5rem; }
 .rsb-jump { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 1rem 0 0.5rem; }

@@ -1,32 +1,32 @@
-/* Platform Ledger — engine (UMD, importable in node for tests).
+/* Platform Ledger, engine (UMD, importable in node for tests).
  *
  * Tool 31. The money chain prices deals (Tool 23), scripts them
  * (Tool 24), boards them (Tool 25), queues their follow-ups
  * (Tool 26), re-approaches the paid ones (Tool 27), ledgers what
  * landed by month (Tool 28), registers what is owed (Tool 29),
- * and totals each brand as one relationship (Tool 30) — but no
+ * and totals each brand as one relationship (Tool 30), but no
  * tool totals the board by the platform the deals were entered
  * under, across every stage at once. Tool 28 splits only the
  * collected money by platform; Tool 30 lists a brand's platforms
  * without totalling them. A creator running a business asks:
  * for each platform, how much business is there in total across
- * the whole board — how much of it has been collected, how much
- * is owed, and how much is still open — and which platform does
+ * the whole board, how much of it has been collected, how much
+ * is owed, and how much is still open, and which platform does
  * the whole pipeline ride on? This tool is that ledger.
  *
  * It COMPOSES Tool 25's buildBoard and adds no pricing, no
  * wording, and no thresholds of its own. Its only arithmetic is
- * summing and grouping the entered amounts — by platform, and
+ * summing and grouping the entered amounts, by platform, and
  * within a platform by stage class: collected (paid), owed
  * (invoiced), and still open (lead / negotiating / terms set /
- * live) — plus each platform's share of Tool 25's pipeline
+ * live), plus each platform's share of Tool 25's pipeline
  * value, the same discipline the Brand Ledger applies to brands.
  * The pipeline total stays Tool 25's figure, grouped, never
  * re-derived.
  *
  * No timing is claimed. The board records only each deal's
  * current stage and the date it entered that stage, so a
- * platform total is a sum of current-stage amounts — not a
+ * platform total is a sum of current-stage amounts, not a
  * platform history, and no stage-entry date is presented as
  * anything else.
  *
@@ -34,11 +34,11 @@
  * apart. An empty board and a demo-only board are different
  * states and this engine says which one it is. There is
  * deliberately no "none-yet" state: every real deal belongs to
- * a platform, so a non-empty real board always has a ledger —
+ * a platform, so a non-empty real board always has a ledger,
  * the stage-filtered tools' none-yet states belong to their
  * filters, not to platforms.
  *
- * A planning aid — not financial, legal, or tax advice. */
+ * A planning aid, not financial, legal, or tax advice. */
 (function (root, factory) {
   var api = factory(root);
   if (typeof module !== "undefined" && module.exports) module.exports = api;
@@ -119,7 +119,7 @@
     };
   }
 
-  /* Build the ledger straight from entered deals — the board is
+  /* Build the ledger straight from entered deals, the board is
    * Tool 25's buildBoard with the caller's own data and clock. */
   function buildLedger(deals, opts) {
     opts = opts || {};
@@ -133,16 +133,16 @@
     if (!ledger || !ledger.ok) return "";
     var out = [];
     var date = String(ledger.generatedFor || "").slice(0, 10);
-    out.push("PLATFORM LEDGER — " + ledger.platformCount + " platform(s), " +
+    out.push("PLATFORM LEDGER · " + ledger.platformCount + " platform(s), " +
       fmt(ledger.pipelineValue) + " across the board" + (date ? " · " + date : ""));
     if (ledger.emptyBoard) {
-      out.push("No deals on the board — this ledger is empty because the Deal Pipeline is empty, not because no platform business exists off the board.");
+      out.push("No deals on the board, this ledger is empty because the Deal Pipeline is empty, not because no platform business exists off the board.");
     } else if (ledger.demoOnly) {
-      out.push("Only demo deals are on the board — demo data stays out of the real ledger.");
+      out.push("Only demo deals are on the board, demo data stays out of the real ledger.");
     }
     if (ledger.demoCount) {
       out.push("Plus " + ledger.demoCount + " DEMO deal(s) worth " + fmt(ledger.demoValue) +
-        " — demo data, excluded from this ledger.");
+        ", demo data, excluded from this ledger.");
     }
     ledger.platforms.forEach(function (p, i) {
       out.push("");
@@ -156,7 +156,7 @@
       out.push("   Stages: " + stages);
     });
     out.push("");
-    out.push(ledger.advice + " A platform total is a sum of the entered amounts of that platform's deals at their current stages on the Deal Pipeline (Tool 25) — collected is the paid stage, owed is the invoiced stage, still open is lead / negotiating / terms set / live. It is not a platform history: the board carries no record of stages a deal has already left. The pipeline total is Tool 25's pipeline value, grouped by platform — never re-derived from any rate card.");
+    out.push(ledger.advice + " A platform total is a sum of the entered amounts of that platform's deals at their current stages on the Deal Pipeline (Tool 25), collected is the paid stage, owed is the invoiced stage, still open is lead / negotiating / terms set / live. It is not a platform history: the board carries no record of stages a deal has already left. The pipeline total is Tool 25's pipeline value, grouped by platform, never re-derived from any rate card.");
     return out.join("\n");
   }
 

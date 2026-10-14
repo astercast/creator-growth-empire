@@ -1,5 +1,5 @@
 /* Niche Atlas explorer: filter, sort, and compare the 20 researched niches.
-   Wave 20 (Niche Atlas 2.0): 2027 outlook layer — trajectory badges + filter +
+   Wave 20 (Niche Atlas 2.0): 2027 outlook layer, trajectory badges + filter +
    sort, a competition-vs-reward scatter view, breakout-format spotlights,
    a red-flag niches panel, and the niche-to-revenue-stream fit matrix.
    Data contract: data/v1/niches.json (data/niches.json is the source of truth,
@@ -30,7 +30,7 @@
   }
 
   // Sorting key: midpoint of the first reported revenue figure. Sorting
-  // convenience only — never presented as a rate.
+  // convenience only, never presented as a rate.
   function revenueMid(niche) {
     var f = niche.revenue_figures && niche.revenue_figures[0];
     if (!f) return null;
@@ -71,7 +71,7 @@
     if (!o) return "";
     return '<p class="ne-outlook">2027 outlook: <strong class="ne-traj ne-traj-' +
       esc(o.trajectory) + '">' + esc(TRAJ_LABELS[o.trajectory] || o.trajectory) +
-      '</strong><span class="ne-outlook-basis"> — ' + esc(o.basis) + "</span></p>";
+      '</strong><span class="ne-outlook-basis">, ' + esc(o.basis) + "</span></p>";
   }
 
   function skeleton() {
@@ -83,7 +83,7 @@
       '<h2 id="ne-title">The Niche Explorer</h2>' +
       '<p class="lede">Filter the twenty researched niches by what matters to you, then compare any two head to head. ' +
       "Trajectory badges are directional reads of October-2026 signals, not predictions. " +
-      "All revenue figures are creator-reported ranges — sorting uses a range midpoint as a sorting convenience, never as a rate.</p>" +
+      "All revenue figures are creator-reported ranges, sorting uses a range midpoint as a sorting convenience, never as a rate.</p>" +
       '<form id="ne-form" aria-label="Filter and sort niches">' +
       chipGroup("2027 outlook", "traj", TRAJ_LABELS, ["heating", "stable", "cooling"]) +
       chipGroup("Revenue tier", "tiers", TIER_LABELS, ["high", "mid", "low", "unknown"]) +
@@ -110,7 +110,7 @@
       "</div>" +
       '<div id="ne-compare-out" aria-live="polite"></div>' +
       '<h3 id="ne-scatter-title">Competition vs reward</h3>' +
-      '<p class="muted">Reported revenue range midpoint (vertical, a sorting convenience — never a rate) against competition. ' +
+      '<p class="muted">Reported revenue range midpoint (vertical, a sorting convenience, never a rate) against competition. ' +
       "Niches with no reported range sit off the plot; their revenue is sponsorships and products, not ads.</p>" +
       '<div id="ne-scatter"></div>' +
       '<h3 id="ne-spotlights-title">Breakout-format spotlights</h3>' +
@@ -121,11 +121,11 @@
       "<caption>How well each niche fits four revenue streams (editorial ratings, not reported figures)</caption>" +
       "</table></div>" +
       '<h3 id="ne-redflags-title">Red-flag niches</h3>' +
-      '<p class="muted">Not saturated — structurally bad ideas in late 2026, updated for 2027.</p>' +
+      '<p class="muted">Not saturated, structurally bad ideas in late 2026, updated for 2027.</p>' +
       '<div id="ne-redflags"></div>' +
-      '<p class="ne-foot muted">Revenue tier legend — high: reported ranges reaching about $8+/1K views · mid: about $3–8 · ' +
+      '<p class="ne-foot muted">Revenue tier legend, high: reported ranges reaching about $8+/1K views · mid: about $3–8 · ' +
       "low: below about $3 · unknown: no reported range in the October 2026 research. " +
-      "Every record links its sources. This is educational — not financial, legal, or tax advice. Subscribers are not income.</p>" +
+      "Every record links its sources. This is educational, not financial, legal, or tax advice. Subscribers are not income.</p>" +
       "</div></div>";
   }
 
@@ -157,7 +157,7 @@
   function fitRow(niche) {
     if (!niche.stream_fit) return "";
     var cells = STREAM_COLS.map(function (c) {
-      return esc(c[1]) + ": " + esc(FIT_LABELS[niche.stream_fit[c[0]]] || "—");
+      return esc(c[1]) + ": " + esc(FIT_LABELS[niche.stream_fit[c[0]]] || "·");
     }).join(" · ");
     return '<p class="ne-fit"><strong>Stream fit:</strong> ' + cells + "</p>";
   }
@@ -180,7 +180,7 @@
     var srcNames = (niche.sources || []).map(sourceName);
     return '<article class="niche-card" aria-label="' + esc(niche.name) + '">' +
       '<h3>' + esc(niche.name) + "</h3>" +
-      (niche.single_source ? '<p class="ne-flag">⚑ single-source — lighter evidence</p>' : "") +
+      (niche.single_source ? '<p class="ne-flag">⚑ single-source, lighter evidence</p>' : "") +
       trajBadge(niche) +
       '<p class="ne-summary">' + esc(niche.summary) + "</p>" +
       '<ul class="ne-badges" aria-label="Niche attributes">' +
@@ -238,7 +238,7 @@
     count.textContent = "Showing " + list.length + " of " + total + " niches.";
     results.innerHTML = list.length
       ? list.map(card).join("")
-      : '<p class="muted">No niches match those filters — loosen one and try again.</p>';
+      : '<p class="muted">No niches match those filters, loosen one and try again.</p>';
     var status = document.getElementById("ne-status");
     if (status) status.textContent = "DATA LIVE";
   }
@@ -254,10 +254,10 @@
 
   function growthCell(n) {
     return n.channel_growth_monthly_pct != null
-      ? "<strong>" + n.channel_growth_monthly_pct.toFixed(2) + "%/mo</strong>" : "—";
+      ? "<strong>" + n.channel_growth_monthly_pct.toFixed(2) + "%/mo</strong>" : "·";
   }
   function searchCell(n) {
-    return n.search_growth_pct != null ? "<strong>+" + n.search_growth_pct + "%</strong>" : "—";
+    return n.search_growth_pct != null ? "<strong>+" + n.search_growth_pct + "%</strong>" : "·";
   }
   function revenueCell(n) {
     return (n.revenue_figures || []).map(revenueLabel).join("<br>") || "No reported range";
@@ -265,7 +265,7 @@
   function outlookCell(n) {
     var o = n.outlook_2027;
     return o ? '<strong class="ne-traj ne-traj-' + esc(o.trajectory) + '">' +
-      esc(TRAJ_LABELS[o.trajectory] || o.trajectory) + "</strong>" : "—";
+      esc(TRAJ_LABELS[o.trajectory] || o.trajectory) + "</strong>" : "·";
   }
   function plainCell(fn) {
     return function (n) { return esc(fn(n)); };
@@ -281,15 +281,15 @@
     }
     if (rA != null && rB != null && rA !== rB) {
       bits.push((rB > rA ? b.name : a.name) +
-        " leads on reported revenue range — and the subscriber winner is not always the revenue winner.");
+        " leads on reported revenue range, and the subscriber winner is not always the revenue winner.");
     }
     if (a.outlook_2027 && b.outlook_2027 &&
         TRAJ_ORDER[a.outlook_2027.trajectory] !== TRAJ_ORDER[b.outlook_2027.trajectory]) {
       var hotter = TRAJ_ORDER[a.outlook_2027.trajectory] < TRAJ_ORDER[b.outlook_2027.trajectory] ? a : b;
       bits.push(hotter.name + " has the hotter 2027 trajectory (" +
-        TRAJ_LABELS[hotter.outlook_2027.trajectory] + ") — a directional read of October-2026 signals, not a prediction.");
+        TRAJ_LABELS[hotter.outlook_2027.trajectory] + "), a directional read of October-2026 signals, not a prediction.");
     }
-    if (!bits.length) bits.push("These two trade blows on different strengths — check competition and startup cost below.");
+    if (!bits.length) bits.push("These two trade blows on different strengths, check competition and startup cost below.");
     return bits.join(" ");
   }
 
@@ -310,7 +310,7 @@
       compareRow("2027 outlook", outlookCell) +
       compareRow("Channel growth (median, TubeAI Sep 2026)", growthCell) +
       compareRow("Search growth (OutlierKit)", searchCell) +
-      compareRow("Breakout", plainCell(function (n) { return n.breakout_rate || "—"; })) +
+      compareRow("Breakout", plainCell(function (n) { return n.breakout_rate || "·"; })) +
       compareRow("Reported revenue range", revenueCell) +
       compareRow("Competition", plainCell(function (n) { return COMP_LABELS[n.competition] || n.competition; })) +
       compareRow("Startup cost", plainCell(function (n) { return COST_LABELS[n.startup_cost] || n.startup_cost; })) +
@@ -342,7 +342,7 @@
       var cx = x(n.competition, i).toFixed(1), cy = y(revenueMid(n)).toFixed(1);
       var cls = n.outlook_2027 ? "ne-traj-" + n.outlook_2027.trajectory : "";
       return '<g class="scatter-pt ' + cls + '"><title>' + esc(n.name) +
-        " — competition " + esc(COMP_LABELS[n.competition] || n.competition) +
+        ", competition " + esc(COMP_LABELS[n.competition] || n.competition) +
         ", revenue midpoint $" + revenueMid(n).toFixed(2) +
         (n.outlook_2027 ? ", 2027 " + esc(n.outlook_2027.trajectory) : "") + "</title>" +
         '<circle cx="' + cx + '" cy="' + cy + '" r="8" />' +
@@ -380,12 +380,12 @@
         return "<tr><th scope=\"row\">" + esc(n.name) + "</th><td>" +
           esc(COMP_LABELS[n.competition] || n.competition) + "</td><td>" +
           (revenueMid(n) != null ? "$" + revenueMid(n).toFixed(2) : "no reported range") + "</td><td>" +
-          esc(n.outlook_2027 ? TRAJ_LABELS[n.outlook_2027.trajectory] : "—") + "</td></tr>";
+          esc(n.outlook_2027 ? TRAJ_LABELS[n.outlook_2027.trajectory] : "·") + "</td></tr>";
       }).join("") +
       "</tbody></table></div></details>" +
       '<p class="muted">' + withRev.length + " niches plotted. " +
       esc(offPlot.map(function (n) { return n.name; }).join(", ")) +
-      " have no reported revenue range — their revenue is sponsorships and products, not ads. " +
+      " have no reported revenue range, their revenue is sponsorships and products, not ads. " +
       "Quadrant read: top-left (low competition, high reported range) is where the heating niches cluster; " +
       "bottom-right (high competition, low range) is where most people start.</p>";
     el.innerHTML = svg;
@@ -403,7 +403,7 @@
       var srcNames = (s.sources || []).map(sourceName);
       return '<article class="niche-card" aria-label="' + esc(s.name) + '">' +
         '<h3>' + esc(s.name) + "</h3>" +
-        (s.single_source ? '<p class="ne-flag">⚑ single-source — lighter evidence</p>' : "") +
+        (s.single_source ? '<p class="ne-flag">⚑ single-source, lighter evidence</p>' : "") +
         '<p class="ne-summary">' + esc(s.why) + "</p>" +
         '<dl class="ne-metrics"><dt>Growth</dt><dd><strong>' + esc(s.growth) + "</strong></dd>" +
         "<dt>Rates</dt><dd><strong>" + esc(s.revenue) + "</strong></dd>" +
@@ -421,7 +421,7 @@
     if (legend.strong) {
       legEl.innerHTML = "<strong>Strong:</strong> " + esc(legend.strong) + " · " +
         "<strong>Moderate:</strong> " + esc(legend.moderate) + " · " +
-        "<strong>Weak:</strong> " + esc(legend.weak) + " — " + esc(legend.evidence_note || "");
+        "<strong>Weak:</strong> " + esc(legend.weak) + ", " + esc(legend.evidence_note || "");
     }
     var tbl = document.getElementById("ne-matrix-table");
     var head = "<thead><tr><th scope=\"col\">Niche</th>" +
@@ -430,7 +430,7 @@
     var body = "<tbody>" + state.data.niches.map(function (n) {
       var tds = STREAM_COLS.map(function (c) {
         var v = n.stream_fit && n.stream_fit[c[0]];
-        return '<td class="fit-' + esc(v || "na") + '">' + esc(FIT_LABELS[v] || "—") + "</td>";
+        return '<td class="fit-' + esc(v || "na") + '">' + esc(FIT_LABELS[v] || "·") + "</td>";
       }).join("");
       return "<tr><th scope=\"row\">" + esc(n.name) + "</th>" + tds + "</tr>";
     }).join("") + "</tbody>";
@@ -444,7 +444,7 @@
     el.innerHTML = '<ul class="ne-redflags">' + items.map(function (it) {
       var srcNames = (it.sources || []).map(sourceName);
       return '<li class="niche-card ne-redflag"><h3>⚠ ' + esc(it.name) + "</h3>" +
-        (it.flag_2027 ? '<p class="ne-flag">🚩 2027 red flag — updated for the 2027 outlook</p>' : "") +
+        (it.flag_2027 ? '<p class="ne-flag">🚩 2027 red flag, updated for the 2027 outlook</p>' : "") +
         '<p class="ne-summary">' + esc(it.detail) + "</p>" +
         '<p class="ne-src"><strong>Sources:</strong> ' + srcNames.map(esc).join(", ") + "</p></li>";
     }).join("") + "</ul>";

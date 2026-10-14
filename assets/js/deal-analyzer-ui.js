@@ -1,10 +1,10 @@
-/* The Deal Analyzer 2.0 — browser UI wiring (no pure math here).
+/* The Deal Analyzer 2.0, browser UI wiring (no pure math here).
  * Storage: localStorage only (keys cge.dealanalyzer.*), no accounts, no
  * network writes. Math lives in window.DealAnalyzer
  * (assets/js/deal-analyzer.js, UMD); benchmarks come from
  * data/v1/calculators.json (sponsorship_rate_card_2026 +
  * usage_rights_benchmarks_2026 (calculators v1.5.0)), the contract checklist from
- * data/v1/deal-templates.json contract_flags. A negotiation aid — not
+ * data/v1/deal-templates.json contract_flags. A negotiation aid, not
  * financial, legal, or tax advice; the contract checklist is not legal
  * advice. */
 (function () {
@@ -115,7 +115,7 @@
       cpmHtml = "<p class='muted'>Implied CPM: <strong>$" +
         ev.impliedCpm.value.toFixed(2) + "</strong> (" + DA.fmt(a.deal.offerUsd) +
         " ÷ " + Math.round(a.deal.expectedViews).toLocaleString("en-US") +
-        " views) — " + ev.impliedCpm.position + " the " +
+        " views), " + ev.impliedCpm.position + " the " +
         esc(ev.impliedCpm.band.label) + ".</p>";
     }
 
@@ -124,7 +124,7 @@
       var cc = ev.categoryCheck;
       catHtml = "<p class='muted'>Category check (" + esc(cc.source) + "): " +
         esc(cc.category) + " sponsors pay ~<strong>$" + cc.cpm +
-        "/1K views</strong> — at " +
+        "/1K views</strong>, at " +
         Math.round(a.deal.expectedViews).toLocaleString("en-US") +
         " expected views that's ~" + DA.fmt(cc.impliedValue) +
         " of category-rate value, " + cc.position + " your " +
@@ -167,19 +167,19 @@
     var usageRows = DA.usageAddons(co.base,
       cfg.usage_rights_benchmarks_2026).map(function (u) {
       return "<tr><th scope='row'>" + esc(u.label) + "</th><td>" +
-        (u.lo === 0 && u.hi === 0 ? "—" : esc(DA.fmtRange(u.lo, u.hi))) +
+        (u.lo === 0 && u.hi === 0 ? "·" : esc(DA.fmtRange(u.lo, u.hi))) +
         '</td><td class="muted" style="font-size:.85rem">' + esc(u.note) + "</td></tr>";
     }).join("");
-    var usageHtml = '<p class="muted">Usage rights are where creators leave money on the table — ' +
+    var usageHtml = '<p class="muted">Usage rights are where creators leave money on the table, ' +
       "a brand paying $300 for a video and running it as a paid ad for a year without usage fees " +
       "is getting a multi-thousand-dollar asset for $300 (projectcasting, 2026). Price it separately. Always.</p>" +
       '<div class="table-wrap"><table><caption>Usage-rights add-ons on a ' +
-      DA.fmt(co.base) + " base fee — 2026 benchmarks, separate line items.</caption>" +
+      DA.fmt(co.base) + " base fee, 2026 benchmarks, separate line items.</caption>" +
       "<thead><tr><th scope='col'>License</th><th scope='col'>Add-on</th><th scope='col'>Note</th></tr></thead>" +
       "<tbody>" + usageRows + "</tbody></table></div>";
 
     function eyebrow(n, title) {
-      return '<p class="eyebrow" aria-hidden="true">' + n + " — " + title + "</p>";
+      return '<p class="eyebrow" aria-hidden="true">' + n + ", " + title + "</p>";
     }
 
     var html =
@@ -200,7 +200,7 @@
         DA.fmt(ev.range[0]) + "–" + DA.fmt(ev.range[1]) + "." : "") + "</p>" +
       cpmHtml + catHtml + crossHtml +
       '<p class="muted">Expected landing zone: <strong>' + DA.fmt(ev.expectedClose) +
-      "</strong> — the 23% listed-above-accepted benchmark's math (" +
+      "</strong>, the 23% listed-above-accepted benchmark's math (" +
       "quote ÷ 1.23), not a promise.</p>" +
       eyebrow("02", "Offer-term flags") +
       "<h3>Offer-term flags</h3><ul class='checklist'>" + termHtml + "</ul>" +
@@ -258,7 +258,7 @@
         flagCount: a.contractRisk.items.length
       });
       storeSet(LS_DEALS, deals.slice(0, 24));
-      status("Saved — it lives only in this browser.");
+      status("Saved, it lives only in this browser.");
       renderHistory();
     });
     var copyBtn = document.getElementById("da-copy");
@@ -267,9 +267,9 @@
       function done(m) { status(m); }
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(text).then(function () {
-          done("Copied — paste it anywhere.");
-        }, function () { done("Copy blocked by the browser — select and copy manually."); });
-      } else { done("Clipboard unavailable — use Print / save PDF instead."); }
+          done("Copied, paste it anywhere.");
+        }, function () { done("Copy blocked by the browser, select and copy manually."); });
+      } else { done("Clipboard unavailable, use Print / save PDF instead."); }
     });
     var printBtn = document.getElementById("da-print");
     if (printBtn) printBtn.addEventListener("click", function () { window.print(); });
@@ -281,7 +281,7 @@
     if (!host) return;
     var deals = storeGet(LS_DEALS, []);
     if (!deals.length) {
-      host.innerHTML = '<p class="muted">No saved deals yet. Analyze an offer, hit "Save this deal", and your negotiation history builds here — in this browser only, never transmitted.</p>';
+      host.innerHTML = '<p class="muted">No saved deals yet. Analyze an offer, hit "Save this deal", and your negotiation history builds here, in this browser only, never transmitted.</p>';
       return;
     }
     host.innerHTML =
@@ -351,7 +351,7 @@
           return "<li><strong>" + esc(d.term) + ":</strong> " + esc(d.a) +
             " vs " + esc(d.b) + "</li>";
         }).join("") + "</ul>"
-      : "<p class='muted'>Same terms — only the evaluations differ.</p>";
+      : "<p class='muted'>Same terms, only the evaluations differ.</p>";
     host.innerHTML =
       '<div class="table-wrap"><table><caption>Side-by-side: ' + esc(A.brand) +
       " vs " + esc(B.brand) + ". Highlighted rows differ.</caption>" +
@@ -375,7 +375,7 @@
       return;
     }
     if (!cfg || !dealData) {
-      out.innerHTML = '<p class="muted">Still loading the 2026 rate data — try again in a second.</p>';
+      out.innerHTML = '<p class="muted">Still loading the 2026 rate data, try again in a second.</p>';
       return;
     }
     var deal = v.deal;

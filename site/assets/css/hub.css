@@ -1,5 +1,5 @@
-/* Hub pages (wave 29) — tools.html + case-files.html.
-   Brief card: a dossier folder — folder tab, corner brackets, briefing head,
+/* Hub pages (wave 29), tools.html + case-files.html.
+   Brief card: a dossier folder, folder tab, corner brackets, briefing head,
    insignia glyph tile, name, "use when", best-for tags, rank chevrons, launch link.
    Empty/error states speak the manual's language. */
 
@@ -157,3 +157,38 @@ a.brief-card:hover, a.brief-card:focus-visible {
 
 /* ---------- hero meta line: stamp + contents ---------- */
 .hero-meta { display: flex; align-items: center; gap: 1.4rem; margin: 2rem 0 0; font-family: var(--font-mono); font-size: 0.82rem; color: var(--muted); flex-wrap: wrap; }
+
+/* ---- rotation 22: contents + spec rows (CREATOR-STUDY Section 5) ---- */
+.front-matter p { max-width: 68ch; }
+.contents .section-lede { max-width: 68ch; }
+.ci-part { font-family: var(--font-display); font-size: 1.15rem; margin: 1.6rem 0 .4rem; }
+.ci-part-sub { color: var(--muted); margin: 0 0 .4rem; max-width: 68ch; }
+.ci-list { list-style: none; margin: 0; padding: 0; }
+.ci-list > li { border-top: 1px solid var(--line); }
+.ci-list > li:last-child { border-bottom: 1px solid var(--line); }
+.ci-row { display: flex; flex-wrap: wrap; align-items: baseline; gap: .15rem .7rem;
+  padding: .65rem .25rem; min-height: 44px; text-decoration: none; color: var(--ink); }
+.ci-row:hover .ci-name, .ci-row:focus-visible .ci-name { text-decoration: underline; }
+.ci-num { font-family: var(--font-display); font-weight: 700; min-width: 3.4rem; color: var(--gold); }
+.ci-list .ci-num { min-width: 3.4rem; }
+.ci-name { font-weight: 600; flex: 1 1 12rem; }
+.ci-kind { color: var(--muted); font-size: .92rem; }
+.ci-state { color: var(--muted); font-size: .92rem; font-style: italic; }
+.ci-contract { margin: 0; padding: 0 .25rem .2rem 4.1rem; color: var(--muted); max-width: 68ch; }
+.ci-spec { margin: 0; padding: 0 .25rem .7rem 4.1rem; color: var(--muted); font-size: .9rem; }
+.spec-rows { list-style: none; margin: 0; padding: 0; }
+.spec-row { border-top: 1px solid var(--line); }
+.spec-row:last-child { border-bottom: 1px solid var(--line); }
+.spec-main { display: block; padding: .8rem .25rem; min-height: 44px; text-decoration: none; color: var(--ink); }
+.spec-main:hover .spec-formula, .spec-main:focus-visible .spec-formula { text-decoration: underline; }
+.spec-formula { display: block; font-family: var(--font-display); font-weight: 700; font-size: 1.02rem; }
+.spec-contract { display: block; margin-top: .15rem; color: var(--muted); max-width: 68ch; }
+.spec-line { display: block; margin-top: .3rem; color: var(--muted); font-size: .9rem; }
+.tool-formula { font-family: var(--font-display); font-weight: 700; margin: .2rem 0 0; }
+.tool-spec-line { color: var(--muted); margin: .25rem 0 0; font-size: .95rem; }
+@media (max-width: 560px) {
+  .ci-contract, .ci-spec { padding-left: .25rem; }
+  .ci-num { min-width: 2.9rem; }
+  .ci-name { flex-basis: 100%; order: 2; }
+  .ci-num { order: 1; } .ci-kind { order: 3; } .ci-state { order: 4; }
+}

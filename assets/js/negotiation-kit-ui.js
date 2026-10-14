@@ -1,9 +1,9 @@
-/* The Negotiation Kit — browser UI wiring (no pure math here).
+/* The Negotiation Kit, browser UI wiring (no pure math here).
  * Math lives in window.NegotiationKit (assets/js/negotiation-kit.js, UMD);
  * benchmarks come from data/v1/calculators.json, reply scripts from
  * data/v1/deal-templates.json (negotiation_kit_scripts). The walk-away
  * panel reads the Deal Room's tracker records from this browser's
- * localStorage (read-only, key cge.deal-room.deals.v1) — nothing is
+ * localStorage (read-only, key cge.deal-room.deals.v1), nothing is
  * uploaded, no accounts. Negotiation aid, not financial/legal advice. */
 (function () {
   "use strict";
@@ -34,7 +34,7 @@
       ta.style.position = "fixed"; ta.style.opacity = "0";
       document.body.appendChild(ta);
       ta.select();
-      try { document.execCommand("copy"); done(); } catch (e) { announce("Copy failed — select the text manually."); }
+      try { document.execCommand("copy"); done(); } catch (e) { announce("Copy failed, select the text manually."); }
       document.body.removeChild(ta);
     }
   }
@@ -90,17 +90,17 @@
     errBox.textContent = "";
     var c = res;
     var ev = c.evidence;
-    var html = '<div class="calc-out nk-counter-card"><div class="lbl">Your counter — ' +
+    var html = '<div class="calc-out nk-counter-card"><div class="lbl">Your counter, ' +
       esc(c.tierLabel) + " · " + esc(K.PLATFORM_LABELS[c.input.platform]) + "</div>" +
       '<div class="big">' + esc(K.fmtRange(c.total)) + "</div>" +
       '<div class="range">The offer of ' + K.fmt(c.input.offer) + " reads " + badgeFor(c.verdict) +
       " against your benchmark range of " + esc(K.fmtRange(c.range)) +
       (c.nicheLabel ? " (" + esc(c.nicheLabel) + " ×" + c.nicheMult + ")" : "") +
       ". Expected landing zone: " + esc(K.fmtRange(c.expectedClose)) +
-      " — creators list ~23% above what they accept.</div></div>";
+      ", creators list ~23% above what they accept.</div></div>";
 
     html += '<div class="nk-table-wrap"><table class="nk-table"><caption class="muted" style="text-align:left;padding:0.6rem 0.8rem">' +
-      "How the counter is built — every line with its basis. Usage, whitelisting, and exclusivity are separate lines, never folded into the post fee.</caption>" +
+      "How the counter is built, every line with its basis. Usage, whitelisting, and exclusivity are separate lines, never folded into the post fee.</caption>" +
       "<thead><tr><th scope=\"col\">Line</th><th scope=\"col\">Amount</th><th scope=\"col\">Basis</th></tr></thead><tbody>";
     c.lines.forEach(function (l) {
       html += '<tr><th scope="row">' + esc(l.label) + '<br><span class="muted">' + esc(l.source) +
@@ -112,7 +112,7 @@
     if (c.cpmCheck) {
       html += '<p class="muted">Implied CPM check: ' + K.fmt(c.input.offer) + " at " +
         Number(c.input.expectedViews).toLocaleString("en-US") + " expected views = <strong>$" +
-        c.cpmCheck.implied.toFixed(2) + "</strong> per 1,000 views — " + esc(c.cpmCheck.position) +
+        c.cpmCheck.implied.toFixed(2) + "</strong> per 1,000 views, " + esc(c.cpmCheck.position) +
         " the $" + c.cpmCheck.range[0] + "–$" + c.cpmCheck.range[1] + " band (" +
         esc(c.cpmCheck.source) + " · " + esc(c.cpmCheck.basis) + ").</p>";
     }
@@ -122,26 +122,26 @@
 
     html += '<h3>The evidence behind the range</h3><div class="nk-evidence">';
     if (ev.formatQuote) {
-      html += '<div class="nk-ev-card"><div class="lbl">Typical quote — ' + esc(ev.formatQuote.label) +
+      html += '<div class="nk-ev-card"><div class="lbl">Typical quote, ' + esc(ev.formatQuote.label) +
         '</div><div class="big">' + K.fmt(ev.formatQuote.quoted) + '</div><p>' +
         esc(ev.formatQuote.source) + " · " + esc(ev.formatQuote.basis) +
-        ". What creators quote for this format — an ask, not a close.</p></div>";
+        ". What creators quote for this format, an ask, not a close.</p></div>";
     }
     if (ev.typicalAsk) {
-      html += '<div class="nk-ev-card"><div class="lbl">Typical ask — ' + esc(ev.typicalAsk.band) +
+      html += '<div class="nk-ev-card"><div class="lbl">Typical ask, ' + esc(ev.typicalAsk.band) +
         '</div><div class="big">' + K.fmt(ev.typicalAsk.ask) + '</div><p>' +
         esc(ev.typicalAsk.source) + " · " + esc(ev.typicalAsk.basis) +
         ". What creators at this size typically ask.</p></div>";
     }
     if (ev.modeledFeedPost) {
-      html += '<div class="nk-ev-card nk-ev-modeled"><div class="lbl">Modeled cross-check — ' +
+      html += '<div class="nk-ev-card nk-ev-modeled"><div class="lbl">Modeled cross-check, ' +
         esc(ev.modeledFeedPost.label) + ' feed post</div><div class="big">' +
         esc(K.fmtRange(ev.modeledFeedPost.range)) + '</div><p>' +
         esc(ev.modeledFeedPost.source) + " · " + esc(ev.modeledFeedPost.basis) +
-        ". A source's planning model for one Instagram feed post — shown separately, never blended into the reported figures.</p></div>";
+        ". A source's planning model for one Instagram feed post, shown separately, never blended into the reported figures.</p></div>";
     }
     if (!ev.formatQuote && !ev.typicalAsk && !ev.modeledFeedPost) {
-      html += '<p class="muted">No quoted-price evidence maps honestly to this format and size — ' +
+      html += '<p class="muted">No quoted-price evidence maps honestly to this format and size, ' +
         "the kit shows none rather than stretch a benchmark. The tier range above is the evidence.</p>";
     }
     html += "</div>";
@@ -176,10 +176,10 @@
       var subject = edited && edited.subject !== undefined ? edited.subject : rendered.subject;
       var body = edited && edited.body !== undefined ? edited.body : rendered.body;
       return '<details class="nk-script"><summary><strong>' + esc(s.title) + '</strong> ' +
-        '<span class="muted">— ' + esc(s.when) + "</span></summary>" +
+        '<span class="muted">· ' + esc(s.when) + "</span></summary>" +
         '<div class="nk-script-body"><label>Subject <input type="text" data-nk-subject="' + esc(s.id) +
         '" value="' + esc(subject) + '"></label>' +
-        '<label>Reply — edit freely, it sends as written<textarea rows="12" data-nk-body="' +
+        '<label>Reply, edit freely, it sends as written<textarea rows="12" data-nk-body="' +
         esc(s.id) + '">' + esc(body) + "</textarea></label>" +
         '<p class="muted"><strong>Why this works:</strong> ' + esc(s.tip) + "<br><strong>Grounded in:</strong> " +
         esc(s.grounded_in) + "</p>" +
@@ -203,7 +203,7 @@
       var subj = scriptsOut.querySelector('[data-nk-subject="' + copyId + '"]');
       var bod = scriptsOut.querySelector('[data-nk-body="' + copyId + '"]');
       copyText("Subject: " + (subj ? subj.value : "") + "\n\n" + (bod ? bod.value : ""),
-        "Reply copied — paste it into your email thread.");
+        "Reply copied, paste it into your email thread.");
     }
     if (resetId) {
       delete scriptState[resetId];
@@ -258,11 +258,11 @@
     briefOut._text = b.text;
   }
   document.getElementById("nk-copy-brief").addEventListener("click", function () {
-    if (briefOut._text) copyText(briefOut._text, "Negotiation brief copied — paste it into your records.");
-    else announce("Build the counter first — the brief follows your numbers.");
+    if (briefOut._text) copyText(briefOut._text, "Negotiation brief copied, paste it into your records.");
+    else announce("Build the counter first, the brief follows your numbers.");
   });
   document.getElementById("nk-download-brief").addEventListener("click", function () {
-    if (!briefOut._text) { announce("Build the counter first — the brief follows your numbers."); return; }
+    if (!briefOut._text) { announce("Build the counter first, the brief follows your numbers."); return; }
     var blob = new Blob([briefOut._text], { type: "text/plain;charset=utf-8" });
     var a = document.createElement("a");
     a.href = URL.createObjectURL(blob);

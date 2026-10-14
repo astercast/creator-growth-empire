@@ -1,20 +1,20 @@
-/* Saved Shelf — engine (UMD, importable in node for tests).
+/* Saved Shelf, engine (UMD, importable in node for tests).
  *
- * Tool 32 — gap closure T-CREATOR-4 (the saved-tools shelf, the
+ * Tool 32, gap closure T-CREATOR-4 (the saved-tools shelf, the
  * favourites pattern): a creator who works this manual daily
  * uses a handful of its tools over and over, and until now the
  * only way back to them was the full 31-tool hub every time.
  * This tool is the shelf: any tool can be saved from its own
- * page, and this page holds the saved set — in the order it was
- * saved — with a way back to each tool and a way to remove it.
+ * page, and this page holds the saved set, in the order it was
+ * saved, with a way back to each tool and a way to remove it.
  *
  * The catalogue is committed data: data/v1/tools.json, the
  * hub's own tool records, generated from build.py's TOOLS_API.
  * The saved set is the visitor's own: it lives only in this
  * browser's localStorage (key cge.saved-tools.v1), is never
  * sent anywhere, and no account exists to sync it with. The
- * engine's only work is set arithmetic on those two lists —
- * normalize, toggle, join — no ranking, no scoring, no counts
+ * engine's only work is set arithmetic on those two lists,
+ * normalize, toggle, join, no ranking, no scoring, no counts
  * of anyone else's saves.
  *
  * The "most-saved" half of the favourites pattern is honestly
@@ -22,14 +22,14 @@
  * visitors, this site collects none, and the shelf says so
  * instead of inventing a popularity order. A saved slug the
  * catalogue no longer lists (a tool renamed or retired since
- * it was saved) is counted apart as stale — named, never
+ * it was saved) is counted apart as stale, named, never
  * silently dropped and never rendered as a tool.
  *
  * States stay distinct: nothing saved yet (emptyShelf) and
  * saves that are all stale (staleOnly) are different states,
  * and this engine says which one it is.
  *
- * A planning aid — not financial, legal, or tax advice. */
+ * A planning aid, not financial, legal, or tax advice. */
 (function (root, factory) {
   var api = factory(root);
   if (typeof module !== "undefined" && module.exports) module.exports = api;
@@ -43,7 +43,7 @@
   /* The saved set as a clean list: strings only, no duplicates,
    * first-save order kept. Anything else in storage (an older
    * shape, a hand-edited value) normalizes to what it honestly
-   * is — never guessed at. Pure: no mutation. */
+   * is, never guessed at. Pure: no mutation. */
   function normalizeSaved(raw) {
     if (!Array.isArray(raw)) return [];
     var out = [], seen = {};
@@ -57,7 +57,7 @@
   function isSaved(saved, id) { return normalizeSaved(saved).indexOf(id) >= 0; }
 
   /* Save appends (the shelf keeps save order); unsave removes.
-   * Returns a new list — the caller's array is never mutated. */
+   * Returns a new list, the caller's array is never mutated. */
   function toggleSaved(saved, id) {
     var list = normalizeSaved(saved);
     if (!id) return list;
@@ -100,25 +100,25 @@
   function exportShelf(shelf) {
     if (!shelf || !shelf.ok) return "";
     var out = [];
-    out.push("SAVED TOOLS SHELF — " + shelf.savedCount + " tool(s) saved of " +
+    out.push("SAVED TOOLS SHELF · " + shelf.savedCount + " tool(s) saved of " +
       shelf.catalogCount + " in the catalogue");
     if (shelf.emptyShelf) {
-      out.push("Nothing is saved yet — this shelf is empty because no tool has been saved from its page, not because the catalogue is empty.");
+      out.push("Nothing is saved yet, this shelf is empty because no tool has been saved from its page, not because the catalogue is empty.");
     } else if (shelf.staleOnly) {
-      out.push("Every saved slug is stale — the catalogue no longer lists any of them, so the shelf renders no tools.");
+      out.push("Every saved slug is stale, the catalogue no longer lists any of them, so the shelf renders no tools.");
     }
     shelf.entries.forEach(function (e, i) {
       out.push("");
-      out.push((i + 1) + ". " + e.title + " — " + e.page);
+      out.push((i + 1) + ". " + e.title + " · " + e.page);
       out.push("   " + e.description);
     });
     if (shelf.staleCount) {
       out.push("");
       out.push("Plus " + shelf.staleCount + " stale save(s) (" + shelf.staleIds.join(", ") +
-        ") — slugs the catalogue no longer lists, counted apart and never rendered as tools.");
+        "), slugs the catalogue no longer lists, counted apart and never rendered as tools.");
     }
     out.push("");
-    out.push(shelf.advice + " The shelf is stored only in this browser (localStorage " + STORAGE_KEY + ") and is never sent anywhere. There is no most-saved ranking: that signal needs usage collected across visitors, and this site collects none — the shelf is your own set, in the order you saved it.");
+    out.push(shelf.advice + " The shelf is stored only in this browser (localStorage " + STORAGE_KEY + ") and is never sent anywhere. There is no most-saved ranking: that signal needs usage collected across visitors, and this site collects none, the shelf is your own set, in the order you saved it.");
     return out.join("\n");
   }
 

@@ -1,7 +1,7 @@
-/* Follow-Through Queue — page wiring. Engine (assets/js/follow-through.js)
+/* Follow-Through Queue, page wiring. Engine (assets/js/follow-through.js)
  * composes the Deal Pipeline (Tool 25): the queue reads the SAME
  * localStorage board the pipeline writes (key cge.deal-pipeline.deals.v1)
- * — deals are entered on the Deal Pipeline page, followed up here.
+ *, deals are entered on the Deal Pipeline page, followed up here.
  * No deals are created on this page; demo deals load only from the
  * labeled demo control and never enter the real queue. */
 (function () {
@@ -24,7 +24,7 @@
     } catch (e) { return []; }
   }
   function save() {
-    try { window.localStorage.setItem(P.STORAGE_KEY, JSON.stringify(deals)); } catch (e) { /* storage blocked — queue still renders in memory */ }
+    try { window.localStorage.setItem(P.STORAGE_KEY, JSON.stringify(deals)); } catch (e) { /* storage blocked, queue still renders in memory */ }
   }
   function esc(s) {
     return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
@@ -37,20 +37,20 @@
       changesFeed: DATA.feed, now: new Date() });
     if (!q.ok) { queueEl.innerHTML = "<p class=\"muted\">" + esc(q.errors.join("; ")) + "</p>"; return; }
     statusEl.textContent = q.emptyBoard
-      ? "The board is empty — enter deals on the Deal Pipeline and their follow-ups land here."
+      ? "The board is empty, enter deals on the Deal Pipeline and their follow-ups land here."
       : q.demoOnly
-        ? "Demo board preview — " + q.demoDue + " demo follow-up(s) counted, none queued as real work."
+        ? "Demo board preview, " + q.demoDue + " demo follow-up(s) counted, none queued as real work."
         : q.nothingDue
-          ? "Nothing is due — every deal is inside its follow-up window."
+          ? "Nothing is due, every deal is inside its follow-up window."
           : q.due + " follow-up(s) due" + (q.urgentCount ? " · " + q.urgentCount + " urgent" : "") +
             (q.demoDue ? " · " + q.demoDue + " DEMO follow-up(s) excluded" : "");
     if (!q.items.length) {
       queueEl.innerHTML = "<div class=\"ft-empty\"><p><strong>" +
-        (q.emptyBoard ? "No deals, no queue." : q.demoOnly ? "Demo board — no real queue." : "Nothing due today.") + "</strong> " +
+        (q.emptyBoard ? "No deals, no queue." : q.demoOnly ? "Demo board, no real queue." : "Nothing due today.") + "</strong> " +
         (q.emptyBoard
-          ? "This page sends the follow-ups for deals on the <a href=\"deal-pipeline.html\">Deal Pipeline</a> board. The board is genuinely empty — the queue is empty because nothing has been entered."
+          ? "This page sends the follow-ups for deals on the <a href=\"deal-pipeline.html\">Deal Pipeline</a> board. The board is genuinely empty, the queue is empty because nothing has been entered."
           : q.demoOnly
-            ? "The demo board's deals have " + q.demoDue + " follow-up(s) due, but demo data never enters the real queue — they are counted above and excluded here, the same rule the Deal Pipeline applies to demo money. Enter a real deal on the board and its follow-ups queue here."
+            ? "The demo board's deals have " + q.demoDue + " follow-up(s) due, but demo data never enters the real queue, they are counted above and excluded here, the same rule the Deal Pipeline applies to demo money. Enter a real deal on the board and its follow-ups queue here."
             : "Every deal is still inside its follow-up window (lead 3d, negotiating 7d, terms set 5d, live 14d, invoiced 14d). When a stage ages past its threshold, its follow-up appears here with its script attached.") +
         "</p></div>";
     } else {
@@ -63,17 +63,17 @@
           it.overdueBy + "d past the " + it.thresholdDays + "d follow-up mark</span></p>" +
           "<p class=\"ft-action\"><strong>Do:</strong> " + esc(it.action) + "</p>" +
           (it.script.ok
-            ? "<p><button type=\"button\" class=\"btn ft-script-btn\" data-script=\"" + esc(it.dealId) + "\">Open the words — " + esc(it.script.label) + "</button></p>"
-            : "<p class=\"muted\">Script: none attached — " + esc(it.script.reason) + "</p>") +
+            ? "<p><button type=\"button\" class=\"btn ft-script-btn\" data-script=\"" + esc(it.dealId) + "\">Open the words, " + esc(it.script.label) + "</button></p>"
+            : "<p class=\"muted\">Script: none attached, " + esc(it.script.reason) + "</p>") +
           "</li>";
       }).join("") + "</ol>";
       queueEl.querySelectorAll("[data-script]").forEach(function (btn) {
         btn.addEventListener("click", function () {
           var hit = q.items.filter(function (x) { return x.dealId === btn.getAttribute("data-script"); })[0];
           if (!hit || !hit.script.ok) return;
-          scriptEl.innerHTML = "<h3>Send to " + esc(hit.brand) + " — " + esc(hit.script.label) + "</h3>" +
+          scriptEl.innerHTML = "<h3>Send to " + esc(hit.brand) + ": " + esc(hit.script.label) + "</h3>" +
             "<textarea rows=\"12\" readonly aria-label=\"Script for " + esc(hit.brand) + "\">" + esc(hit.script.exportText) + "</textarea>" +
-            "<p class=\"muted\">Assembled by the Negotiation Script Builder (Tool 24) from this deal's board entry — edit the deal on the Deal Pipeline to change it.</p>";
+            "<p class=\"muted\">Assembled by the Negotiation Script Builder (Tool 24) from this deal's board entry, edit the deal on the Deal Pipeline to change it.</p>";
           scriptEl.scrollIntoView({ block: "start" });
         });
       });

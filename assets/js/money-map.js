@@ -1,8 +1,8 @@
-/* The Money Map — stage placement + roadmap engine (no DOM).
+/* The Money Map, stage placement + roadmap engine (no DOM).
  * UMD: works in the browser (window.MoneyMap) and in node (module.exports).
  *
  * HONESTY CONTRACT: stages describe where creators typically focus their
- * effort at a given revenue level — never income promises. Placement is
+ * effort at a given revenue level, never income promises. Placement is
  * anchored on the creator's own reported monthly revenue band (their words,
  * not our model), with audience/team sanity notes. A planning aid,
  * not financial, legal, or tax advice.
@@ -21,7 +21,7 @@
   var STAGES = [
     {
       id: 0, name: "The Start Line", band: "$0",
-      goal: "Prove you can ship. Creators at this stage typically focus on output volume and finding a format that fits — not on money, which hasn't arrived yet.",
+      goal: "Prove you can ship. Creators at this stage typically focus on output volume and finding a format that fits, not on money, which hasn't arrived yet.",
       moves: [
         { tool: "The Niche Atlas", page: "niche-atlas.html",
           why: "Pick one lane you could fill for 100 videos. The Atlas shows real demand, competition, and revenue bands per niche." },
@@ -30,22 +30,22 @@
         { tool: "90-Day Planner", page: "planner.html",
           why: "Turn intention into a cadence you can keep. Consistency is the whole game before you have an audience." }
       ],
-      trap: "Tool-collecting instead of posting. New gear, new logos, new software — none of it is the work. Thirty rough videos beat one perfect channel trailer.",
+      trap: "Tool-collecting instead of posting. New gear, new logos, new software, none of it is the work. Thirty rough videos beat one perfect channel trailer.",
       graduate: "30 pieces posted AND (first 1,000 subs OR first $1 earned). Output first, numbers second."
     },
     {
       id: 1, name: "First $100", band: "first $100",
-      goal: "Turn attention into your first real revenue. Creators here typically focus on learning what their audience is worth — usually via ads or affiliates — before chasing sponsors.",
+      goal: "Turn attention into your first real revenue. Creators here typically focus on learning what their audience is worth, usually via ads or affiliates, before chasing sponsors.",
       moves: [
         { tool: "Revenue Calculator", page: "calculator.html",
           why: "See honest revenue ranges for your current views. Knowing the math stops you from underpricing yourself later." },
         { tool: "Hook Builder", page: "hook-builder.html",
           why: "The fastest lever at this stage is retention in the first 3 seconds. Five hooks per topic, one per Playbook structure." },
         { tool: "The Short-Form Playbook", page: "shortform-playbook.html",
-          why: "The serialized formats that convert casual viewers into subscribers — subscribers are what sponsors eventually pay for." }
+          why: "The serialized formats that convert casual viewers into subscribers, subscribers are what sponsors eventually pay for." }
       ],
       trap: "Sponsor-chasing before you have leverage. Saying yes to a $50 brand deal teaches the market you're cheap. Build the audience; the leverage follows.",
-      graduate: "$100 in cumulative content revenue — earned, not promised. One lucky month doesn't count; repeatability does."
+      graduate: "$100 in cumulative content revenue, earned, not promised. One lucky month doesn't count; repeatability does."
     },
     {
       id: 2, name: "The Engine Runs", band: "$1K/mo",
@@ -56,9 +56,9 @@
         { tool: "Batching Planner", page: "batching.html",
           why: "Does your shoot capacity actually cover your cadence? The honest surplus/shortfall math before you promise a sponsor a schedule." },
         { tool: "Empire Simulator", page: "simulator.html",
-          why: "Model 12–36 months of growth and revenue before you live them. A model, not a prediction — it shows what has to be true." }
+          why: "Model 12–36 months of growth and revenue before you live them. A model, not a prediction, it shows what has to be true." }
       ],
-      trap: "One revenue stream. Ads-only is a single point of failure — one algorithm change, one demonetization wave. Stack a second stream before you need it.",
+      trap: "One revenue stream. Ads-only is a single point of failure, one algorithm change, one demonetization wave. Stack a second stream before you need it.",
       graduate: "Three consecutive $1K+ months from at least two revenue streams. Consistency, then diversification."
     },
     {
@@ -68,9 +68,9 @@
         { tool: "The First Hire", page: "hiring.html",
           why: "What to hire for first (almost always editing or admin), how to scope the role, and the mistakes that cost creators their momentum." },
         { tool: "Hiring Cost Calculator", page: "hiring-calculator.html",
-          why: "The real monthly and annual cost of a hire — and the revenue needed to cover it. Honest math, no promises." },
-        { tool: "Phase 7 — The Business", page: "phase-7-the-business.html",
-          why: "LLC, taxes, separating accounts. Educational, not legal or tax advice — but the structure that keeps a $10K/mo operation from eating you." }
+          why: "The real monthly and annual cost of a hire, and the revenue needed to cover it. Honest math, no promises." },
+        { tool: "Phase 7, The Business", page: "phase-7-the-business.html",
+          why: "LLC, taxes, separating accounts. Educational, not legal or tax advice, but the structure that keeps a $10K/mo operation from eating you." }
       ],
       trap: "Hiring before the math works. A full-time salary on shaky revenue turns a good channel into a stressed company. Contractors first, employees when the calculator says so.",
       graduate: "Three consecutive $10K+ months with at least two revenue streams AND your first hire made. Revenue plus leverage."
@@ -79,15 +79,15 @@
       id: 4, name: "The Company", band: "company",
       goal: "Build something that runs without your daily input. Creators at this stage typically focus on team P&L, new product lines, and protecting the thing the audience actually loved.",
       moves: [
-        { tool: "Empire Simulator — team P&L", page: "simulator.html",
+        { tool: "Empire Simulator, team P&L", page: "simulator.html",
           why: "Model the full team cost against projected revenue. At company scale the question flips: what can we afford to try?" },
         { tool: "Case Files", page: "case-files.html",
-          why: "Documented deconstructions — how PTYA scaled a cohort course, how the sleep channels became a network. Proven structures, reported figures." },
-        { tool: "Phase 8 — Scale", page: "phase-8-scale.html",
+          why: "Documented deconstructions, how PTYA scaled a cohort course, how the sleep channels became a network. Proven structures, reported figures." },
+        { tool: "Phase 8, Scale", page: "phase-8-scale.html",
           why: "New formats, new platforms, new products. Scale is a portfolio problem now, not a posting problem." }
       ],
       trap: "Scaling what broke you. Growth at all costs dilutes the voice that got you here. The audience loved a person, not a content factory.",
-      graduate: "The operation runs a full month without your daily input — and revenue doesn't dip. That's the company. This is the capstone, not a finish line."
+      graduate: "The operation runs a full month without your daily input, and revenue doesn't dip. That's the company. This is the capstone, not a finish line."
     }
   ];
 
@@ -121,7 +121,7 @@
       ] },
     { id: "cadence", text: "How often do you actually publish?",
       options: [
-        { value: "irregular", label: "Irregular — when I feel like it" },
+        { value: "irregular", label: "Irregular, when I feel like it" },
         { value: "weekly", label: "About weekly" },
         { value: "multi-weekly", label: "Multiple times a week" },
         { value: "daily-or-team", label: "Daily, or a team publishes for me" }
@@ -134,11 +134,11 @@
       ] },
     { id: "bottleneck", text: "What's your biggest bottleneck right now?",
       options: [
-        { value: "ideas", label: "Ideas — what to make" },
-        { value: "consistency", label: "Consistency — actually shipping" },
-        { value: "growth", label: "Growth — views and subscribers" },
-        { value: "monetization", label: "Monetization — turning attention into money" },
-        { value: "operations", label: "Operations — too much on my plate" }
+        { value: "ideas", label: "Ideas, what to make" },
+        { value: "consistency", label: "Consistency, actually shipping" },
+        { value: "growth", label: "Growth, views and subscribers" },
+        { value: "monetization", label: "Monetization, turning attention into money" },
+        { value: "operations", label: "Operations, too much on my plate" }
       ] },
     { id: "streams", text: "How many revenue streams are actually paying you right now?",
       options: [
@@ -180,12 +180,12 @@
    * bottleneck-driven moves, deduped). */
   var BOTTLENECK_MOVES = {
     ideas: [
-      { tool: "Idea Bank", page: "idea-bank.html", why: "Score ideas before you film — your bottleneck is deciding, not doing." },
+      { tool: "Idea Bank", page: "idea-bank.html", why: "Score ideas before you film, your bottleneck is deciding, not doing." },
       { tool: "Hook Builder", page: "hook-builder.html", why: "One topic, five filmed-ready hooks. Turns a vague idea into a shootable one." }
     ],
     consistency: [
       { tool: "90-Day Content Calendar", page: "content-calendar.html", why: "Deal ideas into a grid you can actually keep. Systems beat motivation." },
-      { tool: "Batching Planner", page: "batching.html", why: "Check whether your shoot days cover your cadence — the honest capacity math." }
+      { tool: "Batching Planner", page: "batching.html", why: "Check whether your shoot days cover your cadence, the honest capacity math." }
     ],
     growth: [
       { tool: "Hook Builder", page: "hook-builder.html", why: "Growth at this stage is usually a packaging problem, not a quality problem." },
@@ -196,7 +196,7 @@
       { tool: "Sponsor Deal Analyzer", page: "deal-analyzer.html", why: "Benchmark any offer against the 2026 rate card before you say yes." }
     ],
     operations: [
-      { tool: "The First Hire", page: "hiring.html", why: "Scope the role that's eating your week — it's almost always editing or admin." },
+      { tool: "The First Hire", page: "hiring.html", why: "Scope the role that's eating your week, it's almost always editing or admin." },
       { tool: "Repurposing Planner", page: "repurpose.html", why: "One idea, five platforms. Multiplication without more filming." }
     ]
   };
@@ -219,9 +219,9 @@
 
   /* ---------- the climb: XP + Field Manual ranks (wow wave 1) ----------
    * HONESTY: XP is a work journal. Surveys placed, missions cleared, stages
-   * closed — never money earned. A rank records work done; it is not income,
+   * closed, never money earned. A rank records work done; it is not income,
    * not a promise, not a timeline. Stages describe where creators typically
-   * focus — never income promises. */
+   * focus, never income promises. */
   var RANKS = [
     { stage: 0, title: "RECRUIT",   tagline: "Fresh boots. The climb starts with shipping." },
     { stage: 1, title: "CADET",     tagline: "First revenue on the board. Learn what your audience is worth." },
@@ -231,8 +231,8 @@
   ];
   var RANK_THRESHOLDS = [0, 100, 275, 500, 775];
   var XP_AWARDS = { survey: 50, move: 25, stage: 100, mission: 25 };
-  var CLIMB_HONESTY = "Ranks track work completed \u2014 surveys placed, missions cleared, " +
-    "stages closed \u2014 never money earned. XP is a work journal, not income, " +
+  var CLIMB_HONESTY = "Ranks track work completed, surveys placed, missions cleared, " +
+    "stages closed: never money earned. XP is a work journal, not income, " +
     "and no rank promises revenue. Your answers stay in this browser's localStorage; " +
     "nothing leaves your device.";
   var CLIMB_STORE_KEY = "cge.empireclimb.v1";
@@ -314,12 +314,12 @@
             var n = Number(k);
             s.stages[k] = true;
             awardXP(s, "stage:" + k, XP_AWARDS.stage,
-              "Stage " + n + " cleared \u2014 " + STAGES[n].name);
+              "Stage " + n + " cleared: " + STAGES[n].name);
           }
         });
         if (o && o.answers && validAnswers(o.answers)) {
           s.survey = true;
-          awardXP(s, "survey:placed", XP_AWARDS.survey, "Field survey placed \u2014 stage " +
+          awardXP(s, "survey:placed", XP_AWARDS.survey, "Field survey placed: stage " +
             placeStage(o.answers).stage);
         }
       }
@@ -362,9 +362,9 @@
     if (!note) return null;
     var parts = [];
     if (note.indexOf("audience-ahead") !== -1)
-      parts.push("Your audience is ahead of your revenue — creators at your audience size typically focus on monetization first (the Deal Room, the rate card).");
+      parts.push("Your audience is ahead of your revenue, creators at your audience size typically focus on monetization first (the Deal Room, the rate card).");
     if (note.indexOf("team-ahead") !== -1)
-      parts.push("You have employees but early-stage revenue — run the Hiring Cost Calculator to check the team math against your actual income.");
+      parts.push("You have employees but early-stage revenue, run the Hiring Cost Calculator to check the team math against your actual income.");
     return parts.join(" ");
   }
 
@@ -373,7 +373,7 @@
     var stage = STAGES[r.stage];
     host.innerHTML = "";
     var card = el("div", "map-result");
-    var kicker = el("p", "map-result-kicker", "YOU ARE HERE — STAGE " + r.stage);
+    var kicker = el("p", "map-result-kicker", "YOU ARE HERE. STAGE " + r.stage);
     var h = el("h3", null, stage.name + " · " + stage.band);
     card.appendChild(kicker); card.appendChild(h);
     card.appendChild(el("p", null, stage.goal));
@@ -396,7 +396,7 @@
     });
     card.appendChild(ol);
     var climbNote = el("p", "muted",
-      "Each stage playbook below carries checkable missions \u2014 clear them to earn " +
+      "Each stage playbook below carries checkable missions. clear them to earn " +
       "XP and climb Field Manual ranks. Ranks track work done, never money earned.");
     card.appendChild(climbNote);
     var grad = el("p", null);
@@ -461,7 +461,7 @@
       var label = document.getElementById("map-quiz-meter-label");
       if (fill) fill.style.width = (n / QUIZ.length * 100) + "%";
       if (meter) meter.setAttribute("aria-valuenow", String(n));
-      if (label) label.innerHTML = "<strong>" + n + "/" + QUIZ.length + "</strong> answered — keep going";
+      if (label) label.innerHTML = "<strong>" + n + "/" + QUIZ.length + "</strong> answered, keep going";
       submit.disabled = (n !== QUIZ.length);
     }
     submit.addEventListener("click", function () {
@@ -545,7 +545,7 @@
       rank.title.slice(1).toLowerCase();
     var tagline = document.getElementById("climb-tagline");
     if (tagline) tagline.textContent = rank.tagline + " (Stage " + rank.stage +
-      " \u2014 " + STAGES[rank.stage].name + ")";
+      ": " + STAGES[rank.stage].name + ")";
     var status = document.getElementById("climb-status");
     if (status) status.textContent = total > 0 ? "CLIMBING" : "AWAITING ORDERS";
 
@@ -555,12 +555,12 @@
     var pct, label;
     if (info.next === null) {
       pct = 100;
-      label = total + " XP \u2014 MAX RANK";
+      label = total + " XP: MAX RANK";
     } else {
       var span = RANK_THRESHOLDS[info.next] - RANK_THRESHOLDS[info.rank];
       pct = Math.min(100, Math.round(
         (total - RANK_THRESHOLDS[info.rank]) / span * 100));
-      label = total + " XP \u2014 " + info.xpToGo + " to " +
+      label = total + " XP: " + info.xpToGo + " to " +
         RANKS[info.next].title.charAt(0) +
         RANKS[info.next].title.slice(1).toLowerCase();
     }
@@ -578,7 +578,7 @@
     var next = document.getElementById("climb-next");
     if (next) {
       next.textContent = info.next === null
-        ? "General — the summit. Every further mission goes in the ledger."
+        ? "General, the summit. Every further mission goes in the ledger."
         : "Next rank: " + RANKS[info.next].title.charAt(0) +
           RANKS[info.next].title.slice(1).toLowerCase() +
           " at " + RANK_THRESHOLDS[info.next] + " XP.";
@@ -594,7 +594,7 @@
       entries.forEach(function (e) {
         var li = el("li", null);
         var when = "";
-        try { when = e.ts ? " \u2014 " + e.ts.slice(0, 10) : ""; } catch (x) { /* no date */ }
+        try { when = e.ts ? ": " + e.ts.slice(0, 10) : ""; } catch (x) { /* no date */ }
         li.appendChild(el("strong", null, "+" + e.amount + " XP"));
         li.appendChild(document.createTextNode(" " + e.label + when));
         log.appendChild(li);
@@ -612,8 +612,8 @@
       var stampHost = document.getElementById("climb-stamp");
       var announce = document.getElementById("climb-announce");
       var msg = transition.rankedUp
-        ? "RANK UP \u2014 " + RANKS[transition.rankAfter].title
-        : "RANK ADJUSTED \u2014 " + RANKS[transition.rankAfter].title;
+        ? "RANK UP: " + RANKS[transition.rankAfter].title
+        : "RANK ADJUSTED: " + RANKS[transition.rankAfter].title;
       if (stampHost) {
         stampHost.innerHTML = "";
         var stamp = el("span",
@@ -686,7 +686,7 @@
         if (box.checked) {
           s.moves[key] = true;
           var tool = li.querySelector("a") ? li.querySelector("a").textContent : key;
-          r = awardXP(s, key, XP_AWARDS.move, "Mission cleared \u2014 " + tool);
+          r = awardXP(s, key, XP_AWARDS.move, "Mission cleared: " + tool);
         } else {
           delete s.moves[key];
           r = revokeKey(s, key);
@@ -706,7 +706,7 @@
         var r;
         if (box.checked) {
           s.stages[sid] = true;
-          r = awardXP(s, key, XP_AWARDS.stage, "Stage " + sid + " cleared \u2014 " +
+          r = awardXP(s, key, XP_AWARDS.stage, "Stage " + sid + " cleared: " +
             STAGES[Number(sid)].name);
         } else {
           delete s.stages[sid];
@@ -720,12 +720,12 @@
     hud._climbStore = store;
   }
 
-  /* survey placement awards XP once — wired into the quiz submit/reset */
+  /* survey placement awards XP once, wired into the quiz submit/reset */
   function awardSurvey(store, answers) {
     if (store.survey) return null;
     store.survey = true;
     var r = awardXP(store, "survey:placed", XP_AWARDS.survey,
-      "Field survey placed \u2014 stage " + placeStage(answers).stage);
+      "Field survey placed: stage " + placeStage(answers).stage);
     saveClimb(store);
     return r;
   }

@@ -18,7 +18,7 @@
     var html = "";
     var totalLong = 0, totalShort = 0;
     for (var w = 1; w <= 13; w++) {
-      html += '<div class="plan-week"><h3>Week ' + w + (w === 7 ? " — midpoint review" : "") + "</h3>";
+      html += '<div class="plan-week"><h3>Week ' + w + (w === 7 ? ": midpoint review" : "") + "</h3>";
       html += '<div class="plan-days">';
       // spread long-form across non-rest days
       var workDays = [0, 1, 2, 3, 4, 5, 6].filter(function (d) { return d !== rest; });
@@ -30,14 +30,14 @@
         var items = [];
         var nl = longDays.filter(function (x) { return x === d; }).length;
         var ns = shortDays.filter(function (x) { return x === d; }).length;
-        if (d === rest) { items.push("<em>Rest — no posting. Review analytics.</em>"); }
+        if (d === rest) { items.push("<em>Rest, no posting. Review analytics.</em>"); }
         if (nl) { items.push("🎬 " + nl + " long-form video" + (nl > 1 ? "s" : "")); totalLong += nl; }
         if (ns) {
           var per = Math.ceil(ns / platforms.length);
           items.push("⚡ " + ns + " short" + (ns > 1 ? "s" : "") + " → " + platforms.join(", "));
           totalShort += ns;
         }
-        if (!items.length) items.push("<span class='muted'>—</span>");
+        if (!items.length) items.push("<span class='muted'>·</span>");
         html += '<div class="plan-day"><strong>' + DAYS[d] + "</strong>" + items.join("<br>") + "</div>";
       }
       html += "</div>";

@@ -1,11 +1,11 @@
-/* The 2026 Platform Rules Bible — wayfinding layer (wave 28).
+/* The 2026 Platform Rules Bible, wayfinding layer (wave 28).
    Progressive enhancement only: the page reads fully without this file
    (the "What's inside" list is static markup). With it: heading anchors,
    a linkified table of contents with active-section highlighting, and a
-   scroll-progress indicator (CSS scroll-driven animation where supported —
-   see research_notes/web-craft-20261011-2014 — with a rAF fallback here).
+   scroll-progress indicator (CSS scroll-driven animation where supported,
+   see research_notes/web-craft-20261011-2014, with a rAF fallback here).
    All motion is reduced-motion-safe; the TOC is plain anchor links, fully
-   keyboard/screen-reader navigable. Pure DOM wiring — no data, no network,
+   keyboard/screen-reader navigable. Pure DOM wiring, no data, no network,
    no storage. */
 (function () {
   "use strict";
@@ -40,7 +40,7 @@
 
   /* 2. Linkify the static "What's inside" list. The list items are in the
      same order as the content h2s that follow it (Sources excluded), so we
-     pair by index — and bail out entirely if the counts don't match, rather
+     pair by index, and bail out entirely if the counts don't match, rather
      than link to the wrong section. */
   var tocHead = null, tocList = null;
   heads.forEach(function (h) {
@@ -71,7 +71,7 @@
   }
 
   /* 3. Active-section highlighting via IntersectionObserver. aria-current is
-     state, not motion — it stays on under prefers-reduced-motion. */
+     state, not motion, it stays on under prefers-reduced-motion. */
   if (tocLinks.length && "IntersectionObserver" in window) {
     var current = null;
     var io = new IntersectionObserver(function (entries) {
@@ -89,11 +89,11 @@
   }
 
   /* 4. Scroll-progress indicator. Primary mechanism is CSS scroll-driven
-     animation (animation-timeline: scroll() — compositor-thread, zero jank;
+     animation (animation-timeline: scroll(), compositor-thread, zero jank;
      see the staged CSS, gated behind prefers-reduced-motion). This JS is the
      fallback for engines without it: feature-detect, and if the CSS timeline
      is supported, install no scroll listener at all (near-zero-JS is an INP
-     feature, not a limitation). The bar is a state indicator, not motion —
+     feature, not a limitation). The bar is a state indicator, not motion,
      it updates under prefers-reduced-motion too. */
   var cssTimeline = (typeof CSS !== "undefined" && CSS.supports &&
     CSS.supports("animation-timeline: scroll()"));
