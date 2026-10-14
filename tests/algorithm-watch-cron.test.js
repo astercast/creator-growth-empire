@@ -130,6 +130,7 @@ async function main() {
     [TF_TWITCH]: { xml: rss([]) }
   });
   res = mockRes();
+  var cycleAStartedAt = Date.now();
   await freshHandler()(mockReq("GET", SECRET), res);
   var body = res.json();
   ok(res.statusCode === 200 && body.ok === true, "cycle A: handler returns a 200 ok envelope");
@@ -144,12 +145,58 @@ async function main() {
   ok(/^tw-twitch-expands-sponsorship-deals-/.test(nc.id || ""),
     "cycle A: the new entry id carries the tw- prefix: " + (nc.id || "(none)"));
   ok(nc.title === TWITCH_STORY.title, "cycle A: the surviving change is the Twitch story itself");
-  var cronFeedCount = JSON.parse(fs.readFileSync(path.join(ROOT, "data", "v1", "changes.json"), "utf8")).changes.length;
+  var cronFeed = JSON.parse(fs.readFileSync(path.join(ROOT, "data", "v1", "changes.json"), "utf8"));
+  var cronFeedCount = cronFeed.changes.length;
   var srcFeedCount = JSON.parse(fs.readFileSync(path.join(ROOT, "data", "changes.json"), "utf8")).changes.length;
   ok(cronFeedCount === srcFeedCount,
     "cycle A: the file the cron reads (data/v1/changes.json) matches the source feed (" + srcFeedCount + " entries)");
-  ok(body.data.retained === cronFeedCount + 1,
-    "cycle A: retained = the shipped " + cronFeedCount + " entries + 1 fresh (nothing pruned, nothing lost)");
+  /* DATE-ROT REPAIR (rotation 29, S5) — read before touching these three checks.
+   * The original assertion here was `retained === shippedCount + 1`
+   * ("nothing pruned, nothing lost"). That was true only on the day the
+   * feed was generated: the handler's step 4 prunes by WALL CLOCK
+   * (detected_at >= Date.now() - 90 days, RETENTION_DAYS in
+   * api/functions/cron/algorithm-watch.js, the intended §5.1 retention),
+   * while the shipped feed is a fixed historical record (v1.7.0,
+   * generated_at 2026-10-13T04:46:00Z, 25 entries, earliest detected_at
+   * 2026-07-16T00:00:00Z). On 2026-10-14 the wall-clock cutoff passed
+   * that oldest entry, so a correct handler on a correct feed retained
+   * 24 + 1 and the assertion failed forever after, worsening as more
+   * entries crossed the line. The rot was in the test's static
+   * expectation, not in the feed and not in the handler.
+   * The repair does NOT widen the window (still 90 days everywhere),
+   * does NOT edit the feed, and does NOT touch the handler. It splits
+   * the old assertion into the two guarantees it was conflating:
+   *  (1) RUN-TIME RETENTION: a run retains exactly the shipped entries
+   *      inside the 90-day window AT RUN TIME, plus the 1 fresh entry.
+   *      The expectation is recomputed from the feed's own detected_at
+   *      values against the cycle's start time, so a handler that
+   *      prunes too much, too little, or loses an in-window entry
+   *      still fails this check at any calendar date.
+   *  (2) AS-OF FRESHNESS (the feed's internal consistency against its
+   *      own declared generated_at): at the moment the feed declares
+   *      it was generated, no entry in it was already outside the
+   *      90-day window, and no entry is dated after that moment. A
+   *      genuinely stale-at-generation or internally inconsistent
+   *      feed still fails this check at any calendar date.
+   * What these checks do NOT claim: that the static shipped feed is
+   * fresh TODAY. Live freshness is the production cron's and the
+   * health endpoint's job, not a property a committed historical
+   * feed can keep as the calendar moves. */
+  var RETENTION_MS = 90 * 24 * 3600 * 1000;
+  var runWindowSurvivors = cronFeed.changes.filter(function (e) {
+    var t = Date.parse(e.detected_at);
+    return Number.isFinite(t) && t >= cycleAStartedAt - RETENTION_MS;
+  }).length;
+  ok(body.data.retained === runWindowSurvivors + 1,
+    "cycle A: retained = the " + runWindowSurvivors + " shipped entries inside the 90-day window at run time + 1 fresh (in-window entries are never lost; out-of-window entries are pruned by design)");
+  var genMs = Date.parse(cronFeed.generated_at);
+  ok(Number.isFinite(genMs) && cronFeed.changes.every(function (e) {
+      var t = Date.parse(e.detected_at);
+      return Number.isFinite(t) && t <= genMs && t >= genMs - RETENTION_MS;
+    }),
+    "cycle A: feed as-of freshness: every shipped entry was detected inside the 90-day window ending at the feed's own generated_at (" + cronFeed.generated_at + "), and none after it");
+  ok(typeof cronFeed.updated === "string" && cronFeed.updated === String(cronFeed.generated_at || "").slice(0, 10),
+    "cycle A: feed internal consistency: the feed's updated date matches its generated_at date");
   ok(body.data.committed === false && /read-only|no-token/.test(body.data.commit_reason || ""),
     "cycle A: no token in tests -> read-only, the would-be change is reported, never committed");
 
