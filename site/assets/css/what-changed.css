@@ -41,7 +41,9 @@
 .aw-summary { margin: 0 0 0.8rem; color: var(--ink); line-height: 1.6; max-width: 65ch; }
 .aw-sources { margin: 0; padding: 0; list-style: none; font-size: 0.84rem; }
 .aw-sources li + li { margin-top: 0.25rem; }
-.aw-sources a { color: var(--cyan-dim); }
+/* rotation 23 fitting (r22 remainder, trivial half): watch source links
+   were 39px inline rows; same elements, padded inline-block touch rows. */
+.aw-sources a { color: var(--cyan-dim); display: inline-block; min-height: 44px; padding: 0.55rem 0; }
 .aw-sources a:hover { color: var(--cyan); }
 .aw-src-tag { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.1em; color: var(--faint); margin-right: 0.5rem; }
 

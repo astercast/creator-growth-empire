@@ -20,7 +20,10 @@
 .cp-done strong { text-decoration: line-through; }
 .cp-kind { font-family: var(--font-cond); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; color: var(--gold); }
 .cp-tools { display: flex; flex-wrap: wrap; gap: 0.4rem; list-style: none; margin: 0.4rem 0; padding: 0; }
-.cp-tools a { font-family: var(--font-cond); font-weight: 600; font-size: 0.82rem; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; color: var(--muted); border: 1px solid var(--line-strong); border-radius: var(--radius-sm); padding: 0.3rem 0.65rem; }
+/* rotation 23 fitting: the Path's per-lesson tool rows were 28px text
+   chips; same chips, padded to real touch rows. */
+.cp-tools a { font-family: var(--font-cond); font-weight: 600; font-size: 0.82rem; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; color: var(--muted); border: 1px solid var(--line-strong); border-radius: var(--radius-sm); padding: 0.65rem 0.8rem; display: inline-flex; align-items: center; min-height: 44px; }
+.cp-next a { display: inline-flex; align-items: center; min-height: 44px; padding: 0.35rem 0; }
 .cp-tools a:hover, .cp-tools a:focus-visible { color: var(--gold); border-color: var(--gold); }
 
 /* Rotation 22: the lesson anatomy. Formula head, spec block, needs,

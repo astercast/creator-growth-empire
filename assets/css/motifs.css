@@ -260,6 +260,7 @@ html[data-calm="1"] .hud-head .hud-status-live::before { animation: none; }
 .radar li { margin: 0; }
 .radar a {
   display: flex; gap: 0.65rem; align-items: baseline;
+  min-height: 44px; /* rotation 23 fitting: chapter contents nav rows (were 42px) */
   padding: 0.42rem 0.55rem; border-left: 2px solid var(--line-strong);
   color: var(--muted); text-decoration: none;
   font-family: var(--font-cond); font-weight: 600; font-size: 0.95rem;
@@ -286,6 +287,7 @@ html[data-calm="1"] .hud-head .hud-status-live::before { animation: none; }
 .radar-mobile li { margin: 0; }
 .radar-mobile a {
   display: flex; gap: 0.65rem; align-items: baseline;
+  min-height: 44px; /* rotation 23 fitting: same touch-row rule as .radar a */
   padding: 0.5rem 0.2rem; border-bottom: 1px dashed var(--line);
   color: var(--muted); text-decoration: none;
   font-family: var(--font-cond); font-weight: 600; font-size: 0.95rem;

@@ -16,6 +16,7 @@
   letter-spacing: 0;
   color: var(--ink); text-decoration: none; white-space: nowrap;
   display: inline-flex; align-items: center; gap: 0.7rem;
+  min-height: 44px; /* rotation 23 fitting: header brand is a touch row */
 }
 .brand-plate {
   display: none; place-items: center;
@@ -32,7 +33,8 @@
   letter-spacing: 0;
   padding: 0.55rem 0.85rem; border-radius: var(--radius-sm);
   transition: color var(--dur-fast), background var(--dur-fast);
-  display: inline-flex; gap: 0.45rem; align-items: baseline;
+  display: inline-flex; gap: 0.45rem; align-items: center;
+  min-height: 44px; /* rotation 23 fitting: nav rows are real touch rows */
 }
 .nav-link .nav-n { font-family: var(--font-mono); font-size: 0.68rem; color: var(--faint); }
 .nav-link:hover { color: var(--ink); background: var(--bg-3); }
@@ -51,7 +53,9 @@ main { max-width: var(--max-w); margin: 0 auto; padding: 0 1.5rem 4rem; }
 .footer-grid { max-width: var(--max-w); margin: 0 auto; display: grid; gap: 1.5rem; grid-template-columns: 1.2fr 1fr 1fr; font-size: 0.92rem; }
 .footer-grid .foot-brand { font-family: var(--font-body); font-weight: 700; font-size: 1.05rem; display: flex; align-items: center; gap: 0.6rem; }
 .footer-grid nav { display: grid; gap: 0.35rem; align-content: start; }
-.footer-grid nav a { color: var(--muted); text-decoration: none; font-size: 0.9rem; }
+/* rotation 23 fitting (the r22 honest remainder, trivial half): footer
+   nav links were 24px text rows; same elements, padded to touch rows. */
+.footer-grid nav a { color: var(--muted); text-decoration: none; font-size: 0.9rem; display: flex; align-items: center; min-height: 44px; padding: 0.35rem 0; }
 .footer-grid nav a:hover { color: var(--cyan); }
 .footer-fine {
   max-width: var(--max-w); margin: 2rem auto 0; padding-top: 1.2rem;
@@ -116,6 +120,7 @@ main { max-width: var(--max-w); margin: 0 auto; padding: 0 1.5rem 4rem; }
 .section-more {
   font-family: var(--font-body); font-weight: 700; letter-spacing: 0;
   color: var(--cyan); text-decoration: none; white-space: nowrap; margin-left: auto;
+  display: inline-flex; align-items: center; min-height: 44px; padding: 0.35rem 0; /* rotation 23 fitting: 29px text row -> touch row */
 }
 .section-more:hover { text-decoration: underline; color: var(--ink); }
 
