@@ -2,11 +2,9 @@
   "note": "Illustrative ranges compiled from 2026 third-party data (AIR Media-Tech, vidIQ, creatorblade, shorts/saturaai, flowshorts, projectcasting, creatorsjet, elev8or). Platform rates change constantly, verify live before making decisions. These are ranges, not promises.",
   "platform_thresholds": {
     "facebook_content_monetization": {
+      "access": "Invite-only. Meta publishes no follower count and no minutes-viewed threshold; creators register interest in the Professional Dashboard and Meta invites pages. The 10,000 followers / 600,000 minutes in 60 days / 5 videos figures repeated by guides are the retired In-Stream Ads bar (Meta, Facebook for Creators, Oct 2026).",
       "fast_track_mar2026": "$1,000/mo at 100K+ followers or $3,000/mo at 1M+ followers (IG/TikTok/YT count), US/Canada, 3-month cap, 15 original Reels/month across 10+ days (TechCrunch/PetaPixel Mar 2026)",
-      "followers": 10000,
       "min_age": 18,
-      "min_videos": 5,
-      "minutes_viewed_60d": 600000,
       "note_2025": "Meta paid ~$3B to creators in 2025 (+35% YoY, ~60% on Reels); Reels generated ~60% of payouts (socialbee Sep 2026)",
       "rpm_note": "Wide range; Reels often $0.02–$0.20. Instagram has NO standing Reels bonus (Reels Play ended 2023). IG stack is brand deals, affiliates, subscriptions, invite-only bonuses (timetopost.co)",
       "rpm_per_1000_views": [

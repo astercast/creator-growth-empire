@@ -6,7 +6,7 @@ Start with nothing. Build a career, one small step at a time.
 - [Phase 0: Start From Nothing](phase-0-start-from-nothing.html), 12 min read
 - [Phase 1: The Content Engine](phase-1-content-engine.html), 9 min read
 - [Phase 2: YouTube Mastery](phase-2-youtube-mastery.html), 10 min read
-- [Phase 3: The Everywhere Engine](phase-3-everywhere-engine.html), 13 min read
+- [Phase 3: The Everywhere Engine](phase-3-everywhere-engine.html), 14 min read
 - [Phase 4: Audience to Community](phase-4-audience-to-community.html), 9 min read
 - [Phase 5: The Monetization Stack](phase-5-monetization-stack.html), 22 min read
 - [Phase 6: Merch & Brand](phase-6-merch-and-brand.html), 8 min read

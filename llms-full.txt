@@ -534,7 +534,7 @@ Instagram doesn't share ad revenue on Reels the way YouTube does, income here is
 
 ## Facebook: the underestimated giant
 
-Everyone under 25 ignores Facebook. That's the opportunity. Facebook's **Content Monetization Program** (2026) unified Reels bonuses, in-stream ads, and performance bonuses into one program: 10,000 followers, 600,000 minutes viewed in 60 days, 5+ videos. Payouts run roughly $1–$10 per 1,000 views, and the audience skews older with real purchasing power.
+Everyone under 25 ignores Facebook. That's the opportunity. Facebook's **Content Monetization Program** (2026) unified Reels bonuses, in-stream ads, and performance bonuses into one program, and the program is invite-only: Meta publishes no follower or minutes bar, and the numbers guides repeat (10,000 followers, 600,000 minutes viewed in 60 days, 5+ videos) were the old In-Stream Ads bar. You register interest in the Professional Dashboard and Meta invites you. Payouts run roughly $1–$10 per 1,000 views, and the audience skews older with real purchasing power.
 
 **What wins:** Facebook rewards *native* long-ish video and community discussion. Cross-post your YouTube videos natively (not YouTube links, native uploads), run a Facebook Page as your broadcast channel, and take comments seriously: Facebook's algorithm heavily weights meaningful discussion.
 
@@ -2258,7 +2258,7 @@ Meta killed the old Reels Play Bonus, In-Stream Ads, and Performance Bonus on **
 1. **Eligible plays ≠ views.** Facebook only counts the subset of views where ads could actually serve, 30–50% of total views typically don't qualify (scrolled past in under a second, uncleared music, non-monetized country, no ad inventory). Your dashboard RPM is quoted on eligible plays; do the math on total views before you plan.
 2. **March 2026 originality policy.** Reposting other people's videos, including low-effort changes like borders, captions, or speed shifts, gets flagged, then non-recommendable, then demonetized. Cross-posting your *own* Reels via Business Suite is fine and is the obvious move.
 
-**Eligibility:** 10,000 followers, 600,000 eligible minutes viewed in 60 days, 5+ published videos, 18+, eligible country, clean compliance record (platform-stated via creator guides).
+**Eligibility:** the program is **invite-only**. Meta publishes no follower count and no minutes bar; you register interest in the Professional Dashboard (Monetization, then Content Monetization) and Meta invites pages. The numbers that circulate in creator guides, 10,000 followers, 600,000 minutes viewed in 60 days, 5+ published videos, were the retired In-Stream Ads bar, not this program's gate. What Meta does require: 18+, an eligible country, and a clean compliance record. (Verified: Meta, Facebook for Creators, October 2026.)
 
 **The honest take:** treat Facebook Reels ad revenue as a tip jar, not a salary. Facebook's real value for creators is the Groups + cross-posting loop, the cheapest community infrastructure in the business, with Stars and Subscriptions (direct audience money, more predictable than ad shares) as the layer worth building.
 
@@ -2272,7 +2272,7 @@ Twitch is the only major platform where the audience pays *you* directly as the 
 | Plus Level 1 | **60/40** | ≥100 Plus Points, 3 consecutive months |
 | Plus Level 2 | **70/30** | ≥300 Plus Points, 3 consecutive months |
 
-Plus Points come from paid subs (higher tiers weighted more). The 70/30 rate caps at $100k of subscription revenue per 12 months, then returns to 50/50. Verify your exact terms in the Creator Dashboard, legacy 70/30 contracts were migrated into this program in early 2026.
+Plus Points come from paid subs (higher tiers weighted more). The 70/30 rate has no revenue cap: Twitch lifted the old $100k ceiling in January 2024, and the Plus Program has been open to Affiliates, not just Partners, since May 2024. Verify your exact terms in the Creator Dashboard; legacy 70/30 contracts were migrated into this program in early 2026.
 
 **The unit economics (single-source, consistent):** Tier 1 subs at $4.99/month → ~$2.50 to you at 50/50, ~$3.50 at 70/30. Bits pay a flat **$0.01 per bit** cheered. Ad CPMs run **$2–$5** (mid-rolls earn 15–20% more than pre-rolls); the optional Ads Incentive Program lifts your ad share to 55% in exchange for 3 minutes of ads per hour. Donations via third-party tools are 100% yours minus processing.
 
