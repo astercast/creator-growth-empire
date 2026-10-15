@@ -59,3 +59,79 @@
 .cp-action a { display: inline-flex; align-items: center; min-height: 44px; padding: 0.4rem 0.15rem; }
 .cp-lesson-head input[type="checkbox"] { width: 1.3rem; height: 1.3rem; flex: none; }
 .cp-tool-chip { display: inline-flex; align-items: center; min-height: 40px; }
+
+/* ---------- Professional rework 2026-10-15: the Path as a route ----
+   Stages open as territories (ghost numeral, name, promise, what you
+   can do after). Lessons are stations on one track per stage: a node
+   on a line, the walked segments gold, the station you are on lit.
+   The spec plate is now one quiet meta line (see career-path-ui.js). */
+#career-path .cp-stage {
+  position: relative; overflow: hidden;
+  padding: 2.2rem 1.8rem 1.8rem; margin-bottom: 3rem;
+}
+.cp-ghost {
+  /* Refinement (capture pass 1): the numeral sat in the head row and
+     collided with the stage status line. It now hangs below the head,
+     in the territory's open right field, behind the content. */
+  position: absolute; right: 1.1rem; top: 5.6rem; z-index: 0;
+  font-family: var(--font-display); font-weight: 800;
+  font-size: var(--fs-ghost); line-height: 1;
+  color: var(--ghost); pointer-events: none;
+}
+#career-path .cp-stage-head { position: relative; z-index: 1; }
+#career-path .cp-stage-head h2 { font-size: var(--fs-h2); margin: 0; }
+#career-path .cp-bar {
+  height: 0.65rem; border: none; background: var(--track);
+  max-width: 72ch; margin: 1rem 0;
+}
+#career-path .cp-bar span { background: var(--gold); }
+@media (prefers-reduced-motion: no-preference) {
+  #career-path .cp-bar span { transition: width 0.6s var(--ease-decelerate); }
+}
+#career-path .cp-next {
+  border: 1px solid var(--line-strong); border-left: 5px solid var(--gold);
+  background: var(--bg-2); padding: 1.05rem 1.25rem;
+  font-size: 1.06rem; max-width: 72ch;
+}
+#career-path .cp-lessons { margin: 1.4rem 0 0.4rem; }
+#career-path .cp-lesson {
+  position: relative; border: none; background: transparent;
+  margin: 0; padding: 1.3rem 0.2rem 1.3rem 42px;
+}
+#career-path .cp-lesson::before {
+  content: ""; position: absolute; left: 7px; top: 1.3rem; z-index: 1;
+  width: 14px; height: 14px; background: var(--bg-2);
+  border: 2px solid var(--track);
+}
+#career-path .cp-lesson::after {
+  content: ""; position: absolute; left: 13px;
+  top: calc(1.3rem + 7px); bottom: calc(-1 * (1.3rem + 7px));
+  width: 2px; background: var(--track);
+}
+#career-path .cp-lesson:last-child::after { display: none; }
+#career-path .cp-lesson.cp-done::before { background: var(--gold); border-color: var(--gold); }
+#career-path .cp-lesson.cp-done::after { background: var(--gold); }
+#career-path .cp-lesson.cp-current::before { border-color: var(--gold); }
+@media (prefers-reduced-motion: no-preference) {
+  #career-path .cp-lesson.cp-current::before { animation: cge-node-pulse 2.4s var(--ease-out) infinite; }
+}
+.cp-here {
+  font-family: var(--font-mono); font-size: 0.68rem; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold);
+  border: 1px solid var(--gold); padding: 0.12rem 0.45rem;
+  vertical-align: 0.12em; white-space: nowrap;
+}
+.cp-meta {
+  font-family: var(--font-mono); font-size: var(--fs-micro);
+  letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted);
+  margin: 0.4rem 0 0.2rem 1.6rem;
+}
+#career-path .cp-lesson:target { background: rgba(255, 196, 46, 0.07); }
+@media (max-width: 560px) {
+  #career-path .cp-stage { padding: 1.5rem 1rem 1.2rem; }
+  #career-path .cp-lesson { padding-left: 34px; }
+  #career-path .cp-lesson::before { left: 5px; width: 12px; height: 12px; }
+  #career-path .cp-lesson::after { left: 11px; }
+  .cp-meta, #career-path .cp-block, #career-path .cp-action,
+  #career-path .cp-donewhen, #career-path .cp-conclusion { margin-left: 1.35rem; }
+}

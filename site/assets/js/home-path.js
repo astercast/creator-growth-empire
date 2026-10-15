@@ -31,18 +31,52 @@
   var boxes = Array.prototype.slice.call(document.querySelectorAll("[data-lesson-toggle]"));
   var fill = document.getElementById("home-spine-fill");
   var progress = document.getElementById("home-progress");
+  var routePlace = document.getElementById("route-place");
+  var stageOrder = ["foundation", "build", "publish", "growth", "career"];
+  var stageNames = {
+    foundation: "Start From Nothing", build: "Make Your Videos",
+    publish: "Post and Keep Posting", growth: "Grow Your People",
+    career: "Turn It Into a Career"
+  };
 
   function render() {
     var done = load();
     var set = {};
     done.forEach(function (id) { set[id] = true; });
-    boxes.forEach(function (b) { b.checked = !!set[b.getAttribute("data-lesson-toggle")]; });
+    boxes.forEach(function (b) {
+      b.checked = !!set[b.getAttribute("data-lesson-toggle")];
+      var block = b.closest ? b.closest(".step-block") : null;
+      if (block) block.classList.toggle("is-done", b.checked);
+    });
+    var currentSid = null;
     Object.keys(data.stages).forEach(function (sid) {
       var ids = data.stages[sid];
       var n = ids.filter(function (id) { return set[id]; }).length;
-      var el = document.querySelector('[data-stage-count="' + sid + '"]');
-      if (el) el.textContent = n + " of " + ids.length + " steps done";
+      Array.prototype.forEach.call(
+        document.querySelectorAll('[data-stage-count="' + sid + '"]'),
+        function (el) { el.textContent = n + " of " + ids.length + " steps done"; });
+      Array.prototype.forEach.call(
+        document.querySelectorAll('[data-stage-fill="' + sid + '"]'),
+        function (el) { el.style.width = (ids.length ? Math.round((n / ids.length) * 100) : 0) + "%"; });
+      var stop = document.querySelector('[data-route-stage="' + sid + '"]');
+      if (stop) {
+        stop.classList.toggle("is-done", n === ids.length);
+        stop.classList.remove("is-current");
+      }
+      if (currentSid === null && n < ids.length) currentSid = sid;
     });
+    if (currentSid) {
+      var cur = document.querySelector('[data-route-stage="' + currentSid + '"]');
+      if (cur) cur.classList.add("is-current");
+    }
+    if (routePlace) {
+      if (done.length >= data.order.length) {
+        routePlace.textContent = "You have walked the whole road.";
+      } else if (currentSid) {
+        routePlace.textContent = "You are at Stage " + (stageOrder.indexOf(currentSid) + 1) +
+          ", " + stageNames[currentSid] + ".";
+      }
+    }
     var total = data.order.length;
     if (fill) fill.style.width = (total ? Math.round((done.length / total) * 100) : 0) + "%";
     if (progress) {

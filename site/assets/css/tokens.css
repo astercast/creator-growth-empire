@@ -59,4 +59,27 @@
   --dur-med: 320ms;
   --ease-snap: cubic-bezier(0.2, 0.9, 0.25, 1.15);
   --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+  /* Professional rework 2026-10-15: one written type + space scale,
+     used by every layer so 76 pages compose as one product.
+     Type voices unchanged (Archivo display, Barlow body, JetBrains
+     Mono for coordinates only). Gold keeps exactly three jobs: the
+     route's filled length, the current station, the primary action. */
+  --fs-display: clamp(2.6rem, 7vw, 4.2rem);
+  --fs-ghost: clamp(4.5rem, 10vw, 7.5rem);
+  --fs-h2: clamp(1.9rem, 4vw, 2.6rem);
+  --fs-h3: 1.3rem;
+  --fs-body: 1.05rem;
+  --fs-small: 0.92rem;
+  --fs-micro: 0.75rem;
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2.5rem;
+  --space-5: 4rem;
+  --space-6: 6.5rem;
+  --measure: 68ch;
+  /* the stage ghost numeral is a tint of the ground, never a new color */
+  --ghost: var(--bg-4);
+  /* the route: track (unwalked) and fill (walked) */
+  --track: var(--line-strong);
 }

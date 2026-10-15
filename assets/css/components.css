@@ -708,3 +708,34 @@ input[type="range"] { min-height: 2.75rem; }
   .ne-sort select, .ne-compare-controls select { min-height: 44px; }
   .ne-chip, .ne-check, label.check, .radio-group label { min-height: 44px; }
 }
+
+/* ---------- Professional rework 2026-10-15: chapter doors ----------
+   A chapter that is a step on the Path says so at its door (the
+   coordinate line), the easy-words box now lands before the spec
+   plate (build.py), and the spec plate itself quiets down: same
+   facts, ruled lines instead of a form box. */
+.chapter-hero h1 { font-size: var(--fs-display); }
+.chapter-path-line {
+  margin: 1.1rem 0 0; padding-top: 0.9rem;
+  border-top: 1px solid var(--line);
+  font-size: 1rem; color: var(--muted); max-width: 42rem;
+}
+.chapter-path-line a { color: var(--gold); font-weight: 600; white-space: nowrap; }
+.lesson-spec {
+  border: none; border-top: 1px solid var(--line-strong);
+  background: transparent; padding: 1.2rem 0 0.4rem; margin: 1.6rem 0;
+}
+.ls-formula {
+  font-family: var(--font-mono); font-size: 0.85rem; font-weight: 600;
+  letter-spacing: 0.05em; color: var(--ink); margin: 0 0 0.9rem;
+}
+.ls-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
+  gap: 0.5rem 1.4rem; margin: 0 0 1.2rem; max-width: 44rem;
+}
+.ls-grid dt {
+  font-family: var(--font-cond); font-size: 0.68rem; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted);
+}
+.ls-grid dd { margin: 0.15rem 0 0; font-size: 0.98rem; }
+.lesson-spec .ls-h { font-size: 1.12rem; margin: 1.1rem 0 0.5rem; }

@@ -1535,6 +1535,34 @@ def _tools_json_ld():
             + json.dumps(data, ensure_ascii=False) + "</script>")
 
 
+def _journey_island():
+    """The Path's shape as one small JSON island, emitted on every page
+    (professional rework 2026-10-15): the journey strip under the header
+    reads it with the shared progress store, so a visitor can always
+    see where they stand. Data only; the strip's words live in the
+    template and in journey.js, both under the easy-words law."""
+    try:
+        order_stage = ["foundation", "build", "publish", "growth", "career"]
+        by_stage = {s: [] for s in order_stage}
+        for les in LESSONS_BY_ID.values():
+            by_stage[les["stage"]].append(les)
+        for s in order_stage:
+            by_stage[s].sort(key=lambda l: float(l["number"]))
+        data = {
+            "order": [l["id"] for s in order_stage for l in by_stage[s]],
+            "stages": {s: [l["id"] for l in by_stage[s]] for s in order_stage},
+            "names": {s: LESSON_STAGE_NAMES[s] for s in order_stage},
+            "steps": {l["id"]: {
+                "n": l["number"], "t": l["title"], "s": l["stage"],
+                "h": l.get("href") or f"career-path.html#lesson-{l['id']}",
+                "a": f"#lesson-{l['id']}",
+            } for s in order_stage for l in by_stage[s]},
+        }
+        return json.dumps(data)
+    except Exception:
+        return "{}"
+
+
 def page_template(title, body, active="", extra_head="", path=""):
     def _nav_link(href, label):
         cls = "nav-link active" if href == active else "nav-link"
@@ -1599,6 +1627,12 @@ def page_template(title, body, active="", extra_head="", path=""):
   <button class="nav-toggle" aria-expanded="false" aria-controls="mobileNav" aria-label="Menu">☰</button>
 </header>
 <nav id="mobileNav" class="mobile-nav" aria-label="Mobile">{mobile_nav}</nav>
+<div class="journey-strip" role="region" aria-label="Your place on the Path">
+  <span class="js-label">Your journey</span>
+  <span class="js-place" id="js-place">32 steps. 5 stages. From nothing to a career.</span>
+  <span class="js-track" aria-hidden="true"><span class="js-fill" id="js-fill"></span></span>
+  <a class="js-next" id="js-next" href="career-path.html">Start the Path <span aria-hidden="true">→</span></a>
+</div>
 <main id="main">{body}</main>
 <footer class="site-footer">
   <div class="footer-grid">
@@ -1627,7 +1661,9 @@ def page_template(title, body, active="", extra_head="", path=""):
   </div>
   <div class="footer-fine"><span>Built from research checked in Oct 2026. Prices and rules change, so check live numbers before you act. This site teaches. It is not money, legal, or tax advice.</span></div>
 </footer>
+<script type="application/json" id="cge-path-data">{_journey_island()}</script>
 <script src="assets/js/site.js"></script>
+<script defer src="assets/js/journey.js"></script>
 </body>
 </html>"""
 
@@ -1670,6 +1706,24 @@ except Exception:
 def _lesson_for_page(slug):
     lid = LESSON_PAGE_MAP.get(slug)
     return LESSONS_BY_ID.get(lid) if lid else None
+
+
+def _path_coordinate(slug):
+    """Professional rework 2026-10-15: a chapter that is a step on the
+    Path says so at its door, in one line: which step, which stage,
+    and the way back to the Path. Pages that are not steps print
+    nothing."""
+    les = _lesson_for_page(slug)
+    if not les:
+        return ""
+    stage_order = ["foundation", "build", "publish", "growth", "career"]
+    try:
+        snum = stage_order.index(les["stage"]) + 1
+    except ValueError:
+        return ""
+    return (f'<p class="chapter-path-line">Step {esc(les["number"])} on the Path'
+            f' · Stage {snum} of 5, {esc(LESSON_STAGE_NAMES[les["stage"]])}'
+            f' · <a href="career-path.html#lesson-{les["id"]}">See it on the Path</a></p>')
 
 
 def _lesson_spec_html(slug):
@@ -1835,7 +1889,9 @@ def build():
                 f"<h1>{hero_title}</h1>"
                 + (f'<p class="lede">{briefing}</p>' if briefing else "")
                 + f'<p class="chapter-meta-strip"><span>{read_min} min read</span><span class="sep">·</span>'
-                f'<span>{wc:,} words</span></p></header>')
+                f'<span>{wc:,} words</span></p>'
+                + _path_coordinate(slug)
+                + '</header>')
         # chapter end-nav: next-phase mission cards
         cnav = '<nav class="chapter-nav" aria-label="Phases">'
         if idx > 0:
@@ -1862,7 +1918,7 @@ def build():
         raside, rdetails = _radar_map(map_items)
         page = page_template(f"{phase}: {short}",
                              f'<div class="chapter-with-map">{raside}'
-                             f'<article class="chapter">{hero}{_lesson_spec_html(slug)}{_plain_box(slug)}{rdetails}{body_html}{_lesson_conclusion_html(slug)}{cnav}</article></div>',
+                             f'<article class="chapter">{hero}{_plain_box(slug)}{_lesson_spec_html(slug)}{rdetails}{body_html}{_lesson_conclusion_html(slug)}{cnav}</article></div>',
                              active="career-path.html", path=f"{slug}.html")
         (SITE / f"{slug}.html").write_text(page, encoding="utf-8")
         chapters_meta.append({
@@ -1895,7 +1951,9 @@ def build():
                 f"<h1>{hero_title}</h1>"
                 + (f'<p class="lede">{briefing}</p>' if briefing else "")
                 + f'<p class="chapter-meta-strip"><span>{read_min} min read</span><span class="sep">·</span>'
-                f'<span>{wc:,} words</span></p></header>')
+                f'<span>{wc:,} words</span></p>'
+                + _path_coordinate(slug)
+                + '</header>')
         cnav = ('<nav class="chapter-nav" aria-label="Phases">'
                 '<a href="index.html"><span class="nav-dir">← Back</span><span class="nav-title">Home</span></a>'
                 '<a class="nav-next" href="phase-5-monetization-stack.html"><span class="nav-dir">Next →</span>'
@@ -1913,7 +1971,7 @@ def build():
         raside, rdetails = _radar_map(map_items)
         page = page_template(f"{short}",
                              f'<div class="chapter-with-map">{raside}'
-                             f'<article class="chapter">{hero}{_lesson_spec_html(slug)}{_plain_box(slug)}{rdetails}{body_html}{mount}{_lesson_conclusion_html(slug)}{cnav}</article></div>',
+                             f'<article class="chapter">{hero}{_plain_box(slug)}{_lesson_spec_html(slug)}{rdetails}{body_html}{mount}{_lesson_conclusion_html(slug)}{cnav}</article></div>',
                              active="glossary.html" if slug == "metrics-glossary" else "career-path.html", extra_head=extra_head, path=f"{slug}.html")
         (SITE / f"{slug}.html").write_text(page, encoding="utf-8")
         reference_meta.append({"id": slug, "badge": badge, "title": short,
@@ -2349,16 +2407,27 @@ def build():
 
     _first_three = "".join(_step_block(l) for l in _lessons_by_stage["foundation"][:3])
     _stage_blocks = ""
+    _route_stops = ""
     for _si, _sid in enumerate(_stage_order):
         _first_id = _lessons_by_stage[_sid][0]["id"]
+        _nstage = len(_lessons_by_stage[_sid])
         _stage_blocks += (
             f'<div class="stage-block" data-stage="{_sid}">'
+            f'<span class="stage-ghost" aria-hidden="true">{_si + 1:02d}</span>'
             f'<p class="stage-num">Stage {_si + 1} of 5</p>'
             f'<h3 class="stage-name">{esc(LESSON_STAGE_NAMES[_sid])}</h3>'
             f'<p class="stage-what">{esc(STAGE_BLURBS[_sid])}</p>'
-            f'<p class="stage-count"><span data-stage-count="{_sid}">0 of {len(_lessons_by_stage[_sid])} steps done</span></p>'
+            f'<p class="stage-count"><span data-stage-count="{_sid}">0 of {_nstage} steps done</span></p>'
             f'<p class="stage-act"><a href="career-path.html#lesson-{_first_id}">Open stage {_si + 1} →</a></p>'
+            f'<span class="stage-meter" aria-hidden="true"><span data-stage-fill="{_sid}"></span></span>'
             f'</div>')
+        _route_stops += (
+            f'<li class="route-stop" data-route-stage="{_sid}">'
+            f'<span class="route-node" aria-hidden="true"></span>'
+            f'<span class="route-main">'
+            f'<span class="route-name">Stage {_si + 1} · {esc(LESSON_STAGE_NAMES[_sid])}</span>'
+            f'<span class="route-count" data-stage-count="{_sid}">0 of {_nstage} steps done</span>'
+            f'</span></li>')
     _path_data = json.dumps({
         "order": [l["id"] for _s in _stage_order for l in _lessons_by_stage[_s]],
         "stages": {s: [l["id"] for l in _lessons_by_stage[s]] for s in _stage_order},
@@ -2366,17 +2435,23 @@ def build():
     index_body = f"""
 <div class="scroll-progress" aria-hidden="true"></div>
 <section class="guide-hero">
+  <div class="guide-hero-main">
   <p class="guide-kicker">A guide for people starting with nothing</p>
   <h1>Build a career from nothing.</h1>
   <p class="guide-lede">You make videos. People watch them. In time, it turns into a job, then a career. This guide walks you there, one small step at a time.</p>
   <p class="guide-sub">{_total_steps} steps. 5 stages. In order. You always know where you are, and what to do next.</p>
   <p class="guide-progress" id="home-progress">Your first step is below. Tick each step off as you finish it. The path fills in as you go.</p>
-  <div class="path-spine" aria-hidden="true"><span class="spine-fill" id="home-spine-fill"></span></div>
+  </div>
+  <aside class="route-map" aria-label="The road in five stages">
+    <p class="route-map-h">The road</p>
+    <ol class="route-list">{_route_stops}</ol>
+    <p class="route-place" id="route-place">You start at Stage 1.</p>
+  </aside>
 </section>
 <section class="section guide-moves">
   <div class="section-head"><h2>Your first three moves</h2></div>
   <p class="section-lede">Do these three, in this order. Nothing else matters yet.</p>
-  {_first_three}
+  <div class="station-list">{_first_three}</div>
   <p class="guide-next"><a class="btn" href="career-path.html">See all {_total_steps} steps on the Path →</a></p>
 </section>
 <section class="section guide-stages">

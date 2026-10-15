@@ -322,3 +322,44 @@ legend { font-family: var(--font-cond); font-weight: 700; letter-spacing: 0.08em
   .save-row a { display: inline-flex; align-items: center; min-height: 44px; }
   th a { display: inline-flex; align-items: center; min-height: 44px; }
 }
+
+/* ---------- Professional rework 2026-10-15: the journey strip ----
+   One slim strip under the header on every page: your place on the
+   Path, the walked share of the route, and the one next step. Gold
+   does two of its three jobs here (the fill, the next step); the
+   strip itself is quiet tonal furniture on the ground tints. */
+.journey-strip {
+  position: relative;
+  display: flex; align-items: center; flex-wrap: wrap;
+  gap: 0.35rem 1.1rem;
+  padding: 0.6rem 1.5rem 0.75rem;
+  background: var(--bg-2);
+  border-bottom: 1px solid var(--line);
+  font-size: var(--fs-small);
+}
+.journey-strip .js-label {
+  font-family: var(--font-mono); font-size: var(--fs-micro); font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--faint);
+}
+.journey-strip .js-place { color: var(--ink); }
+.journey-strip .js-next {
+  margin-left: auto; color: var(--gold); font-weight: 600;
+  text-decoration: none; display: inline-flex; align-items: center;
+  min-height: 44px; padding: 0.2rem 0;
+}
+.journey-strip .js-next:hover { text-decoration: underline; }
+.journey-strip .js-track {
+  position: absolute; left: 0; right: 0; bottom: -1px; height: 3px;
+  background: var(--track); overflow: hidden;
+}
+.journey-strip .js-fill { display: block; height: 100%; width: 0; background: var(--gold); }
+@media (prefers-reduced-motion: no-preference) {
+  .journey-strip .js-fill { transition: width 0.6s var(--ease-decelerate); }
+}
+@media (max-width: 720px) {
+  .journey-strip { padding: 0.55rem 1rem 0.7rem; gap: 0.25rem 0.8rem; }
+  .journey-strip .js-next { margin-left: 0; }
+}
+
+/* the written type scale, applied to the shared voices */
+.section-head h2 { font-size: var(--fs-h2); }
