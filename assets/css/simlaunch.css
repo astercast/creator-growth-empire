@@ -84,21 +84,21 @@
 
 /* ---------- motion: transform/opacity only ---------- */
 @media (prefers-reduced-motion: no-preference) {
-  html:not([data-calm="1"]) .lc-debrief {
+  .lc-debrief {
     animation: lc-debrief-in var(--dur-slow) var(--ease-decelerate);
   }
   @keyframes lc-debrief-in {
     0% { transform: translateY(14px); opacity: 0; }
     100% { transform: translateY(0); opacity: 1; }
   }
-  html:not([data-calm="1"]) .lc-pulse {
+  .lc-pulse {
     animation: lc-pulse var(--dur-moderate) var(--ease-decelerate);
   }
   @keyframes lc-pulse {
     0% { transform: scale(1.35); opacity: 0.35; }
     100% { transform: scale(1); opacity: 1; }
   }
-  html:not([data-calm="1"]) .lc-tele-fill {
+  .lc-tele-fill {
     transition: transform 90ms linear;
   }
 }
@@ -160,7 +160,7 @@ input[type="range"] { width: 100%; accent-color: var(--gold); }
 
 /* Motion: transform/opacity only, gated like the rest of the launch choreography. */
 @media (prefers-reduced-motion: no-preference) {
-  html:not([data-calm="1"]) .toast-slam {
+  .toast-slam {
     animation: toast-slam var(--dur-moderate) var(--ease-emphasized);
   }
   @keyframes toast-slam {
@@ -168,7 +168,7 @@ input[type="range"] { width: 100%; accent-color: var(--gold); }
     60% { transform: scale(0.96) rotate(1deg); opacity: 1; }
     100% { transform: scale(1) rotate(0); opacity: 1; }
   }
-  html:not([data-calm="1"]) .chart-dot-pop circle {
+  .chart-dot-pop circle {
     transform-box: fill-box; transform-origin: center;
     animation: dot-pop var(--dur-moderate) var(--ease-emphasized);
   }

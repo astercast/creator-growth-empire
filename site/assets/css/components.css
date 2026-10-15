@@ -334,13 +334,6 @@ fieldset.hud-panel:has(select:focus-visible, input:focus-visible, textarea:focus
 @supports (text-wrap: pretty) {
   .deal-report p, .da-explain { text-wrap: pretty; }
 }
-html[data-calm] { scroll-behavior: auto; }
-html[data-calm] *,
-html[data-calm] *::before,
-html[data-calm] *::after {
-  animation: none !important;
-  transition: none !important;
-}
 #s-out .calc-grid, #da-history .table-wrap {
   content-visibility: auto;
   contain-intrinsic-size: auto 320px;

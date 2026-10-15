@@ -60,23 +60,20 @@ longPages.forEach(function (f) {
   ok(new Set(ids).size === ids.length, f + ": section ids unique");
 });
 
-/* ---------- 2. kill-feed ---------- */
+/* ---------- 2. case files live on their hub (revision 2026-10-15) ----
+ * Was: the kill-feed "signal log" on the home, one transmission per case
+ * file. The user's confusion verdict removed it: the home is the start
+ * of the path now, and the cases are reached from it as stories, in
+ * their own place. The case files themselves are untouched and still
+ * carry their pages; the hub still lists them. */
 var index = site("index.html");
-var kf = index.match(/class="kf-msg"/g) || [];
 var caseCount = fs.readdirSync(path.join(ROOT, "pages"))
   .filter(function (f) { return /^case-.*\.md$/.test(f); }).length;
-ok(kf.length === caseCount && kf.length > 0,
-  "signal log: one transmission per case file (" + kf.length + ")");
-ok(/SIGNAL LOG/.test(index), "signal log HUD panel present");
-var kfHrefs = (index.match(/<a class="kf-msg"[^>]*href="([^"]+)"/g) || []).map(function (m) {
-  return m.match(/href="([^"]+)"/)[1];
-});
-ok(kfHrefs.every(function (h) { return /^case-.*\.html$/.test(h); }) &&
-   kfHrefs.every(function (h) { return fs.existsSync(path.join(SITE, h)); }),
-  "kill-feed entries link to real case-file pages");
-ok(!/\d{1,2}:\d{2}\s*(AM|PM)|minutes? ago|hours? ago/i.test(
-    (index.match(/<div class="killfeed"[\s\S]*?<\/div><\/div><\/section>/) || [""])[0]),
-  "kill-feed carries no fake timestamps");
+ok(caseCount > 0, "case files still exist as pages (" + caseCount + ")");
+ok(!/kf-msg|SIGNAL LOG|killfeed/.test(index),
+  "no kill-feed signal log on the home (removed, revision 2026-10-15)");
+ok(index.includes('href="case-files.html"'), "home links the case files as stories");
+ok(fs.existsSync(path.join(SITE, "case-files.html")), "case-files hub still built");
 
 /* ---------- 3. dossier 404 ---------- */
 ok(fs.existsSync(path.join(SITE, "404.html")), "site/404.html exists");
@@ -142,10 +139,15 @@ ok(/<script defer src="assets\/js\/platform-rules-ui\.js"><\/script>/.test(site(
   "reference wayfinding script deferred");
 ok(/if \(h\.id\) return/.test(read(path.join(ROOT, "assets", "js", "platform-rules-ui.js"))),
   "platform-rules-ui.js preserves build-time ids");
-// calm toggle
-ok(/id="calmToggle"[^>]*aria-pressed="false"/.test(index), "header calm toggle present");
-ok(/localStorage\.getItem\("cge\.calm"\)/.test(index), "calm state applied pre-paint in <head>");
-ok(/data-calm/.test(motifs), "motifs.css kills ambient loops under data-calm");
+// calm toggle: REMOVED by the revision of 2026-10-15, on the user's
+// direct callout (he found the header CALM switch and asked what it even
+// is; a control a first-time visitor cannot understand at a glance is a
+// defect). Motion is gentle by default; the device setting rules alone.
+ok(!index.includes("calmToggle"), "no CALM toggle in the header (removed, revision 2026-10-15)");
+ok(!/cge\.calm/.test(index), "no calm store read anywhere in the home");
+ok(!/data-calm/.test(motifs), "motifs.css carries no data-calm kill rules");
+ok(/prefers-reduced-motion: reduce/.test(read(path.join(ROOT, "assets", "css", "guide.css"))),
+   "reduced motion honored in the guide layer, no toggle needed");
 // signature easings (web-craft round 4)
 var tokens = read(path.join(ROOT, "assets", "css", "tokens.css"));
 ok(/--ease-decelerate:\s*cubic-bezier\(0\.16,\s*1,\s*0\.3,\s*1\)/.test(tokens),

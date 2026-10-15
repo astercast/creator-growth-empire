@@ -127,27 +127,10 @@
     updateMeter();
   }
 
-  // Calm mode, the site-wide sensory-envelope kill switch (wave 30).
-  // Same mechanism the simulator's calm mode uses: data-calm="1" on <html>
-  // + localStorage "cge.calm". The <head> inline script already applied the
-  // attribute pre-paint; here we wire the header toggle and keep the
-  // simulator's own checkbox in sync when both share a page.
-  var calmBtn = document.getElementById("calmToggle");
-  function setCalm(on) {
-    if (on) document.documentElement.setAttribute("data-calm", "1");
-    else document.documentElement.removeAttribute("data-calm");
-    try { localStorage.setItem("cge.calm", on ? "1" : "0"); } catch (e) {}
-    if (calmBtn) calmBtn.setAttribute("aria-pressed", String(on));
-    var sbox = document.getElementById("s-calm");
-    if (sbox) sbox.checked = on;
-  }
-  if (calmBtn) {
-    calmBtn.setAttribute("aria-pressed",
-      String(document.documentElement.getAttribute("data-calm") === "1"));
-    calmBtn.addEventListener("click", function () {
-      setCalm(document.documentElement.getAttribute("data-calm") !== "1");
-    });
-  }
+  // Revision 2026-10-15: the header CALM toggle and all calm-mode
+  // machinery are removed. Motion on this site is gentle by default and
+  // honors the device's reduced-motion setting on its own. No toggles
+  // a first-time visitor cannot understand at a glance.
 
   // Radar section map (wave 30): the dossier nav on long chapter/reference
   // pages. Tracks reading position with aria-current (state, not motion,

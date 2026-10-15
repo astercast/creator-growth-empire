@@ -53,23 +53,14 @@
   var QUALITY_VALUES = ["low", "solid", "excellent"];
 
   /* 4.0: reduced-motion-safe scrolling, smooth scroll only when the user
-   * hasn't asked for reduced motion. Round-2 design: a manual "calm mode"
-   * sensory toggle (TetraLogical-backed 2026 pattern) goes beyond the
-   * prefers-reduced-motion binary, persisted, honored everywhere motion is. */
+   * hasn't asked for reduced motion. Revision 2026-10-15: the old manual
+   * "calm mode" toggle is gone site-wide (a first-time visitor could not
+   * tell what it did). Motion here is gentle by default and the device's
+   * reduced-motion setting is honored on its own, no switch needed. */
   function motionReduced() {
-    if (document.documentElement.getAttribute("data-calm") === "1") return true;
     return typeof matchMedia === "function" &&
       matchMedia("(prefers-reduced-motion: reduce)").matches;
   }
-  (function initCalm() {
-    try {
-      if (localStorage.getItem("cge.calm") === "1") {
-        document.documentElement.setAttribute("data-calm", "1");
-        var box = document.getElementById("s-calm");
-        if (box) box.checked = true;
-      }
-    } catch (e) { /* private mode, calm simply won't persist */ }
-  })();
   function scrollToEl(el) {
     if (!el || !el.scrollIntoView) return;
     if (motionReduced()) el.scrollIntoView({ block: "start" });
@@ -1219,19 +1210,6 @@
       }
     }, 800);
   });
-
-  /* ---------- round-2: calm mode, the sensory-envelope toggle ----------
-   * User-activated stillness: kills animation/transition and smooth scroll
-   * beyond what the OS prefers-reduced-motion binary covers. Persisted. */
-  var calmBox = document.getElementById("s-calm");
-  if (calmBox) {
-    calmBox.addEventListener("change", function () {
-      var on = calmBox.checked;
-      if (on) document.documentElement.setAttribute("data-calm", "1");
-      else document.documentElement.removeAttribute("data-calm");
-      try { localStorage.setItem("cge.calm", on ? "1" : "0"); } catch (e) { /* private mode */ }
-    });
-  }
 
   /* ---------- 4.0: "what would it take?" goal solver ----------
    * Inverts the model: binary-searches base growth (or long-form cadence)

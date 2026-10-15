@@ -1,123 +1,123 @@
 {
  "lessons": [
   {
-   "artifact": "The niche triangle applied to your own three candidate niches, in writing.",
+   "artifact": "Three topics you could build a channel on, written down.",
    "difficulty": "Easy",
    "href": "phase-0-start-from-nothing.html",
    "id": "f-read-phase0",
    "kind": "read",
    "needs": [
-    "Nothing. This is the first lesson in the manual."
+    "Nothing. This is step one."
    ],
    "number": "1.1",
    "stage": "foundation",
    "state": "current",
    "steps": [
-    "Read the chapter end to end.",
-    "Write down your three candidate niches before you move on."
+    "Read the whole chapter, start to end.",
+    "Write down three topics you might make videos about."
    ],
    "time": "10 min read",
    "title": "Read Phase 0: Start From Nothing"
   },
   {
-   "artifact": "Your niche statement, written, with every blank filled.",
+   "artifact": "Your topic sentence, written down, with every blank filled.",
    "difficulty": "Easy",
    "id": "f-drill-statement",
    "kind": "drill",
    "needs": [
-    "Lesson 1.1 finished",
+    "Step 1.1 done",
     "The Niche Picker (Tool 01), if a blank will not fill"
    ],
    "number": "1.2",
    "stage": "foundation",
    "state": "current",
    "steps": [
-    "Run the Niche Picker if you cannot name your format yet.",
-    "Fill every blank: I make [format] about [topic] for [specific person] who wants [transformation].",
-    "Read the sentence aloud. If it could describe any channel, rewrite it."
+    "If you can not name your kind of video yet, run the Niche Picker first.",
+    "Fill in every blank: I make [kind of video] about [topic] for [one kind of person] who wants [change].",
+    "Read it out loud. If it could fit any channel, write it again, sharper."
    ],
    "time": "20 min",
    "title": "Write your niche statement",
    "tool": "quiz"
   },
   {
-   "artifact": "Three niches priced at the same view count, the per-view gap in writing.",
+   "artifact": "Three topics, each priced at the same view count, with the pay-per-view gap written down.",
    "difficulty": "Moderate",
    "id": "f-drill-money",
    "kind": "drill",
    "needs": [
-    "Lesson 1.2 finished",
+    "Step 1.2 done",
     "The Revenue Calculator (Tool 07)"
    ],
    "number": "1.3",
    "stage": "foundation",
    "state": "current",
    "steps": [
-    "Price your first candidate niche at a view count you can defend.",
-    "Price the second and third niches at the same view count.",
-    "Write the per-view gap between the three where you can see it."
+    "Put your first topic into the Revenue Calculator. Use a view count you can defend.",
+    "Do the same for topic two and topic three. Same view count for all three.",
+    "Write down what each topic pays for one view. Keep the note where you can see it."
    ],
    "time": "30 min",
    "title": "Run the money check on three niches",
    "tool": "calculator"
   },
   {
-   "artifact": "A format decision you can sustain for 100 videos, recorded in the Format Fit Finder.",
+   "artifact": "One kind of video you could make 100 times, saved in the Format Fit Finder.",
    "difficulty": "Easy",
    "id": "f-drill-format",
    "kind": "drill",
    "needs": [
-    "Lesson 1.2 finished",
+    "Step 1.2 done",
     "The Format Fit Finder (Tool 06)"
    ],
    "number": "1.4",
    "stage": "foundation",
    "state": "current",
    "steps": [
-    "Run the Format Fit Finder against your niche statement.",
-    "Answer honestly whether you could make 100 of the format it returns.",
-    "If the answer is no, rerun it with the constraint that beat you."
+    "Run the Format Fit Finder on your topic sentence.",
+    "Ask yourself: could I make 100 videos like this? Answer honestly.",
+    "If the answer is no, run it again. Drop the thing that beat you."
    ],
    "time": "15 min",
    "title": "Pick the format you can sustain",
    "tool": "format-fit"
   },
   {
-   "artifact": "A written 90-day target in the Planner: uploads, one growth bet, one money bet.",
+   "artifact": "A 90-day target in the Planner: how many videos, one growth bet, one money bet.",
    "difficulty": "Easy",
    "id": "f-drill-plan",
    "kind": "drill",
    "needs": [
-    "Lessons 1.2 and 1.4 finished",
+    "Steps 1.2 and 1.4 done",
     "The 90-Day Planner (Tool 02)"
    ],
    "number": "1.5",
    "stage": "foundation",
    "state": "current",
    "steps": [
-    "Enter your upload count for the next 90 days.",
-    "Name one growth bet: the thing most likely to grow the channel.",
-    "Name one money bet: the thing most likely to pay first."
+    "Write how many videos you will post in the next 90 days.",
+    "Name one growth bet: the thing most likely to bring new viewers.",
+    "Name one money bet: the thing most likely to pay you first."
    ],
    "time": "30 min",
    "title": "Set the 90-day target",
    "tool": "planner"
   },
   {
-   "artifact": "One idea carried through the engine on paper: pillar, template, batch, calendar slot.",
+   "artifact": "One idea taken all the way through on paper: subject, shape, filming day, calendar slot.",
    "difficulty": "Easy",
    "href": "phase-1-content-engine.html",
    "id": "b-read-phase1",
    "kind": "read",
    "needs": [
-    "Stage 1 complete"
+    "Stage 1 done"
    ],
    "number": "2.1",
    "stage": "build",
    "state": "current",
    "steps": [
-    "Read the chapter end to end.",
-    "Name your pillars: the two or three subjects every upload will come from."
+    "Read the whole chapter, start to end.",
+    "Name your two or three main subjects. Every video you make will come from one of them."
    ],
    "time": "8 min read",
    "title": "Read Phase 1: The Content Engine"
@@ -128,261 +128,261 @@
    "id": "b-drill-bank",
    "kind": "drill",
    "needs": [
-    "Lesson 2.1 finished",
+    "Step 2.1 done",
     "The Idea Bank (Tool 27)"
    ],
    "number": "2.2",
    "stage": "build",
    "state": "current",
    "steps": [
-    "List ideas until you reach twenty. Do not judge them on the way in.",
-    "Score each one against your niche statement.",
-    "Cut anything that scores on neither demand nor edge."
+    "Write ideas until you have twenty. Do not judge them yet.",
+    "Score each idea against your topic sentence.",
+    "Cut any idea that fits neither what people want nor what makes you different."
    ],
    "time": "45 min",
    "title": "Bank twenty ideas",
    "tool": "idea-bank"
   },
   {
-   "artifact": "Five written hooks, one on each of five banked ideas.",
+   "artifact": "Five written hooks, one for each of five ideas.",
    "difficulty": "Moderate",
    "id": "b-drill-hooks",
    "kind": "drill",
    "needs": [
-    "Lesson 2.2 finished",
+    "Step 2.2 done",
     "The Hook Builder (Tool 26)"
    ],
    "number": "2.3",
    "stage": "build",
    "state": "current",
    "steps": [
-    "Take your five strongest banked ideas.",
-    "Write a first-three-seconds hook for each one in the Hook Builder.",
-    "Read each hook aloud. Rewrite any you stumble over."
+    "Pick your five best ideas from the bank.",
+    "Write the first three seconds of each one in the Hook Builder. That first line is the hook.",
+    "Read each hook out loud. If you trip on it, write it again."
    ],
    "time": "40 min",
    "title": "Write five hooks before filming anything",
    "tool": "hook-builder"
   },
   {
-   "artifact": "One shoot day planned: a week's output as a single shot list.",
+   "artifact": "One filming day planned: a whole week of videos as one shot list.",
    "difficulty": "Moderate",
    "id": "b-drill-batch",
    "kind": "drill",
    "needs": [
-    "Lesson 2.3 finished",
+    "Step 2.3 done",
     "The Batching Planner (Tool 29)"
    ],
    "number": "2.4",
    "stage": "build",
    "state": "current",
    "steps": [
-    "Pick the week's five hooked ideas.",
-    "Turn them into one shoot day in the Batching Planner.",
-    "Write the shot list in filming order, not publishing order."
+    "Pick this week's five ideas that have hooks.",
+    "Plan them as one filming day in the Batching Planner.",
+    "Write the shot list in filming order, not posting order."
    ],
    "time": "30 min",
    "title": "Plan one batch day",
    "tool": "batching"
   },
   {
-   "artifact": "Ninety days of publishing slots on the calendar, gaps visible.",
+   "artifact": "Ninety days of posting slots on the calendar, with the gaps left visible.",
    "difficulty": "Easy",
    "id": "b-drill-calendar",
    "kind": "drill",
    "needs": [
-    "Lesson 1.5 finished (your 90-day target)",
+    "Step 1.5 done (your 90-day target)",
     "The 90-Day Content Calendar (Tool 28)"
    ],
    "number": "2.5",
    "stage": "build",
    "state": "current",
    "steps": [
-    "Lay your Stage 1 target over the next ninety days.",
-    "Place batch days first, then the publishing slots they feed.",
-    "Leave the empty slots visible. They are the plan's honest part."
+    "Lay your 90-day target over the next ninety days.",
+    "Put filming days in first. Then put posting days after them.",
+    "Leave the empty days empty. You can see them. That is the honest part of the plan."
    ],
    "time": "25 min",
    "title": "Put ninety days on the calendar",
    "tool": "content-calendar"
   },
   {
-   "artifact": "The algorithm's two questions applied to your last three titles and thumbnails, in writing.",
+   "artifact": "The two questions asked of your last three titles and cover pictures, with the answers written down.",
    "difficulty": "Moderate",
    "href": "phase-2-youtube-mastery.html",
    "id": "p-read-phase2",
    "kind": "read",
    "needs": [
-    "Stage 2 complete"
+    "Stage 2 done"
    ],
    "number": "3.1",
    "stage": "publish",
    "state": "current",
    "steps": [
-    "Read the chapter end to end.",
-    "Score your last three titles and thumbnails against the two questions: does the click happen, does the viewer stay."
+    "Read the whole chapter, start to end.",
+    "Look at your last three titles and cover pictures. Ask two questions of each: would I click this? Would I keep watching?"
    ],
    "time": "10 min read",
    "title": "Read Phase 2: YouTube Mastery"
   },
   {
-   "artifact": "One pillar mapped to five platforms, each adaptation named.",
+   "artifact": "Your main kind of video, matched to five apps, with what changes for each one written down.",
    "difficulty": "Easy",
    "href": "phase-3-everywhere-engine.html",
    "id": "p-read-phase3",
    "kind": "read",
    "needs": [
-    "Lesson 3.1 finished"
+    "Step 3.1 done"
    ],
    "number": "3.2",
    "stage": "publish",
    "state": "current",
    "steps": [
-    "Read the chapter end to end.",
-    "Pick the one pillar you will take everywhere first."
+    "Read the whole chapter, start to end.",
+    "Pick the one kind of video you will take to other apps first."
    ],
    "time": "11 min read",
    "title": "Read Phase 3: The Everywhere Engine"
   },
   {
-   "artifact": "A weekly cadence set in the Cadence Coach and kept two consecutive weeks.",
+   "artifact": "Posting days set in the Cadence Coach, and kept for two weeks in a row.",
    "difficulty": "Moderate",
    "id": "p-drill-cadence",
    "kind": "drill",
    "needs": [
-    "Lesson 2.5 finished (your calendar)",
+    "Step 2.5 done (your calendar)",
     "The Cadence Coach (Tool 05)"
    ],
    "number": "3.3",
    "stage": "publish",
    "state": "current",
    "steps": [
-    "Set a weekly rhythm in the Cadence Coach that your batch day can feed.",
-    "Publish to it for two consecutive weeks.",
-    "If a week breaks, shrink the rhythm instead of skipping the drill."
+    "Set your posting days in the Cadence Coach. Pick days your filming day can feed.",
+    "Post on those days for two weeks in a row.",
+    "If a week breaks, pick fewer days. Do not skip the step."
    ],
    "time": "20 min to set, two weeks to prove",
-   "title": "Lock your cadence",
+   "title": "Pick your posting days",
    "tool": "cadence"
   },
   {
-   "artifact": "One published pillar adapted, not re-uploaded, to a second platform.",
+   "artifact": "One strong video remade for a second app, not just re-sent, with both results written down.",
    "difficulty": "Moderate",
    "id": "p-drill-crosspost",
    "kind": "drill",
    "needs": [
-    "Lesson 3.2 finished",
-    "One published pillar video",
+    "Step 3.2 done",
+    "One video already posted",
     "The Cross-Post Optimizer (Tool 31)"
    ],
    "number": "3.4",
    "stage": "publish",
    "state": "current",
    "steps": [
-    "Choose the published pillar with the strongest first week.",
-    "Adapt it to a second platform in the Cross-Post Optimizer: new hook, native grammar, no watermark.",
-    "Publish the adaptation and log both versions."
+    "Pick the posted video that did best in its first week.",
+    "Change it for a second app in the Cross-Post Optimizer: new first line, made for that app, no watermark.",
+    "Post it there. Write down how both versions did."
    ],
    "time": "60 min",
-   "title": "Take one pillar everywhere",
+   "title": "Take your best video to a second app",
    "tool": "crosspost"
   },
   {
-   "artifact": "A diagnosis of your weakest video, with the fix written into the next video's plan.",
+   "artifact": "A clear answer on why your weakest video failed, and the fix written into the next video's plan.",
    "difficulty": "Moderate",
    "id": "p-drill-doctor",
    "kind": "drill",
    "needs": [
-    "At least five published videos",
+    "At least five videos posted",
     "Diagnose My Video (Tool 30)"
    ],
    "number": "3.5",
    "stage": "publish",
    "state": "current",
    "steps": [
-    "Pick your weakest performer, not your favourite.",
-    "Run it through Diagnose My Video to the exact failure point.",
-    "Write the fix into the next video's plan before you film anything."
+    "Pick the video that did worst. Not your favorite. Your worst.",
+    "Run it through Diagnose My Video. Find the exact place it loses people.",
+    "Write the fix into your next video's plan before you film."
    ],
    "time": "45 min",
    "title": "Diagnose your weakest video",
    "tool": "video-doctor"
   },
   {
-   "artifact": "Your channel measured against the thresholds that will apply to you, with the date attached.",
+   "artifact": "Your channel checked against the rules that will apply to you, with the date written down.",
    "difficulty": "Easy",
    "id": "p-drill-ypp",
    "kind": "drill",
    "needs": [
-    "A YouTube channel, at any size",
+    "A YouTube channel, any size",
     "The YPP 2027 Eligibility Checker (Tool 11)"
    ],
    "number": "3.6",
    "stage": "publish",
    "state": "current",
    "steps": [
-    "Enter your channel's real numbers.",
-    "Read the thresholds that will actually apply to you, with the date attached.",
-    "Note the gap between where you stand and the gate."
+    "Put in your channel's real numbers. YPP is the program YouTube pays creators through.",
+    "Read what YouTube will ask of you before it pays you. The date is on it.",
+    "Write down how far you are from that line."
    ],
    "time": "10 min",
-   "title": "Check the monetization gate",
+   "title": "Check when you can start earning",
    "tool": "ypp-checker"
   },
   {
-   "artifact": "One community ritual chosen and scheduled: the unsexy work, on the calendar.",
+   "artifact": "One weekly ritual for your viewers, picked and put on the calendar.",
    "difficulty": "Easy",
    "href": "phase-4-audience-to-community.html",
    "id": "g-read-phase4",
    "kind": "read",
    "needs": [
-    "Stage 3 complete"
+    "Stage 3 done"
    ],
    "number": "4.1",
    "stage": "growth",
    "state": "current",
    "steps": [
-    "Read the chapter end to end.",
-    "Choose the one community ritual you will run first."
+    "Read the whole chapter, start to end.",
+    "Pick one small thing you will do again and again for the people who watch. That is your ritual."
    ],
    "time": "8 min read",
    "title": "Read Phase 4: Audience to Community"
   },
   {
-   "artifact": "One borrowed format, adapted to your niche on paper, with the research attached.",
+   "artifact": "One video kind borrowed and reshaped for your topic, on paper, with the research kept.",
    "difficulty": "Easy",
    "href": "breakout-format-intel.html",
    "id": "g-read-breakout",
    "kind": "read",
    "needs": [
-    "Lesson 4.1 finished"
+    "Step 4.1 done"
    ],
    "number": "4.2",
    "stage": "growth",
    "state": "current",
    "steps": [
-    "Read the dossiers for the formats nearest your niche.",
-    "Pick one format to borrow. Note what you are changing and why."
+    "Read the files on the video kinds closest to your topic.",
+    "Pick one kind to borrow. Write down what you will change, and why."
    ],
    "time": "33 min read",
    "title": "Read the Breakout Format Intel"
   },
   {
-   "artifact": "Your twelve numbers defined from your own channel's data, no term left as a vibe.",
+   "artifact": "Your twelve numbers, each one explained with your own channel's data. No word left fuzzy.",
    "difficulty": "Moderate",
    "id": "g-drill-metrics",
    "kind": "drill",
    "needs": [
-    "A channel with published videos and analytics",
+    "A channel with videos posted and numbers to look at",
     "The API Explorer (Tool 25)"
    ],
    "number": "4.3",
    "stage": "growth",
    "state": "current",
    "steps": [
-    "Pull your own channel's data in the API Explorer.",
-    "Define each of the twelve numbers from your data, not from memory.",
-    "Write down the one number this month's work has to move."
+    "Pull up your own channel's numbers in the API Explorer.",
+    "For each of the twelve numbers, write what it means using your own channel.",
+    "Pick the one number this month's work must move. Write it down."
    ],
    "time": "60 min",
    "title": "Learn your twelve numbers",
@@ -394,182 +394,182 @@
    "id": "g-drill-outreach",
    "kind": "drill",
    "needs": [
-    "Lesson 4.3 finished",
+    "Step 4.3 done",
     "The Outreach Center (Tool 12)"
    ],
    "number": "4.4",
    "stage": "growth",
    "state": "current",
    "steps": [
-    "Name one creator in your niche whose audience overlaps yours.",
-    "Write the pitch in the Outreach Center: specific, short, easy to refuse.",
-    "Send it, and log it."
+    "Name one creator in your topic whose viewers are like yours.",
+    "Write the pitch in the Outreach Center: short, clear, easy to say no to.",
+    "Send it. Log it."
    ],
    "time": "45 min",
-   "title": "Run one outreach play",
+   "title": "Send one pitch to another creator",
    "tool": "outreach"
   },
   {
-   "artifact": "Your money layers ordered: ads, sponsors, affiliates, products, in the sequence you will build them.",
+   "artifact": "Your money layers in order: ads, brand deals, paid links, products, in the order you will build them.",
    "difficulty": "Moderate",
    "href": "phase-5-monetization-stack.html",
    "id": "c-read-phase5",
    "kind": "read",
    "needs": [
-    "Stage 4 complete"
+    "Stage 4 done"
    ],
    "number": "5.1",
    "stage": "career",
    "state": "current",
    "steps": [
-    "Read the chapter end to end. Then read it again.",
-    "Write your money layers in the order you will build them."
+    "Read the whole chapter, start to end. Then read it one more time.",
+    "Write your money layers in the order you will build them: ads, brand deals, links that pay you, things you sell."
    ],
    "time": "19 min read",
    "title": "Read Phase 5: The Monetization Stack"
   },
   {
-   "artifact": "A written call on merch: yes or no, with your margins in the open.",
+   "artifact": "A written yes or no on merch, with your profit numbers out in the open.",
    "difficulty": "Easy",
    "href": "phase-6-merch-and-brand.html",
    "id": "c-read-phase6",
    "kind": "read",
    "needs": [
-    "Lesson 5.1 finished"
+    "Step 5.1 done"
    ],
    "number": "5.2",
    "stage": "career",
    "state": "current",
    "steps": [
-    "Read the chapter end to end.",
-    "Make the merch call for your channel today: yes or no, and why."
+    "Read the whole chapter, start to end.",
+    "Decide for your channel today: merch, yes or no. Merch means things you sell with your name on them. Write why."
    ],
    "time": "8 min read",
    "title": "Read Phase 6: Merch & Brand"
   },
   {
-   "artifact": "Your business paperwork listed, and the channel's money separated from yours on paper.",
+   "artifact": "Your missing business papers, listed. Your channel's money kept apart from your own money, on paper.",
    "difficulty": "Moderate",
    "href": "phase-7-the-business.html",
    "id": "c-read-phase7",
    "kind": "read",
    "needs": [
-    "Lesson 5.1 finished"
+    "Step 5.1 done"
    ],
    "number": "5.3",
    "stage": "career",
    "state": "current",
    "steps": [
-    "Read the chapter end to end.",
-    "List the paperwork your business is missing. Educational, not advice."
+    "Read the whole chapter, start to end.",
+    "List the business papers your channel is missing. This chapter teaches. It is not legal or tax advice."
    ],
    "time": "9 min read",
    "title": "Read Phase 7: The Business"
   },
   {
-   "artifact": "One system documented so the channel runs a week without your calendar.",
+   "artifact": "One job written down as a system, so the channel can run a week without you.",
    "difficulty": "Easy",
    "href": "phase-8-scale.html",
    "id": "c-read-phase8",
    "kind": "read",
    "needs": [
-    "Lesson 5.3 finished"
+    "Step 5.3 done"
    ],
    "number": "5.4",
    "stage": "career",
    "state": "current",
    "steps": [
-    "Read the chapter end to end.",
-    "Pick the one job only you do that a system could carry for a week."
+    "Read the whole chapter, start to end.",
+    "Pick one job that only you do now. Write how a system or a helper could do it for one week."
    ],
    "time": "8 min read",
    "title": "Read Phase 8: Scale"
   },
   {
-   "artifact": "Your rate evidence assembled: what the market pays your niche and size.",
+   "artifact": "Your proof of what brands pay channels like yours: topic, size, and the range.",
    "difficulty": "Moderate",
    "href": "rate-card.html",
    "id": "c-read-ratecard",
    "kind": "read",
    "needs": [
-    "Lesson 5.1 finished"
+    "Step 5.1 done"
    ],
    "number": "5.5",
    "stage": "career",
    "state": "current",
    "steps": [
-    "Read the file end to end.",
-    "Find your niche and size band. Note the range, not the headline."
+    "Read the whole file, start to end.",
+    "Find your topic and your size. Write down the pay range, not the biggest number."
    ],
    "time": "5 min read",
    "title": "Read the Rate Card intel file"
   },
   {
-   "artifact": "A sponsor shortlist worked like a professional's: found, priced, ready to pitch.",
+   "artifact": "A brand shortlist, worked out like a pro: found, priced, ready to pitch.",
    "difficulty": "Moderate",
    "href": "sponsor-playbook.html",
    "id": "c-read-sponsor",
    "kind": "read",
    "needs": [
-    "Lesson 5.5 finished"
+    "Step 5.5 done"
    ],
    "number": "5.6",
    "stage": "career",
    "state": "current",
    "steps": [
-    "Read the playbook end to end.",
-    "Draft your sponsor shortlist as you read: brands that already buy channels like yours."
+    "Read the whole playbook, start to end.",
+    "As you read, list brands that already pay channels like yours. That list is your shortlist."
    ],
    "time": "30 min read",
    "title": "Read the Sponsor Playbook"
   },
   {
-   "artifact": "The standing rules of every platform you earn on, checked off platform by platform.",
+   "artifact": "The standing rules of every app you earn on, checked off one app at a time.",
    "difficulty": "Easy",
    "href": "platform-rules-bible.html",
    "id": "c-read-rules",
    "kind": "read",
    "needs": [
-    "Lesson 5.1 finished"
+    "Step 5.1 done"
    ],
    "number": "5.7",
    "stage": "career",
    "state": "current",
    "steps": [
-    "Read the sections for every platform you earn on.",
-    "Check your current practices against each platform's standing rules."
+    "Read the parts for every app you earn money on.",
+    "Check what you do now against each app's standing rules."
    ],
    "time": "43 min read",
    "title": "Read the Platform Rules Bible"
   },
   {
-   "artifact": "Your rate card, built and ready to send without a rewrite.",
+   "artifact": "Your rate card, built and ready to send as it is.",
    "difficulty": "Moderate",
    "id": "c-drill-ratecard",
    "kind": "drill",
    "needs": [
-    "Lesson 5.5 finished",
+    "Step 5.5 done",
     "The Rate Card Builder (Tool 15)"
    ],
    "number": "5.8",
    "stage": "career",
    "state": "current",
    "steps": [
-    "Enter your real numbers, not your ambitions.",
-    "Price every format you sell from the evidence in Lesson 5.5.",
-    "Read the finished card as a brand would. Fix anything you would have to explain."
+    "Put in your real numbers, not your hopes.",
+    "Price each kind of post from the proof in step 5.5.",
+    "Read the card the way a brand would. Fix anything you would have to explain."
    ],
    "time": "45 min",
    "title": "Build your rate card",
    "tool": "rate-card-builder"
   },
   {
-   "artifact": "The first inquiry priced from evidence and answered from the Negotiation Kit.",
+   "artifact": "The first price question priced from proof, and answered with the Kit's words.",
    "difficulty": "Difficult",
    "id": "c-drill-firstdeal",
    "kind": "drill",
    "needs": [
-    "Lesson 5.8 finished",
+    "Step 5.8 done",
     "The Deal Analyzer (Tool 08)",
     "The Negotiation Kit (Tool 14)"
    ],
@@ -577,21 +577,21 @@
    "stage": "career",
    "state": "current",
    "steps": [
-    "Take the first brand inquiry, or rehearse with a realistic one.",
-    "Price it in the Deal Analyzer from your rate card.",
-    "Answer from the Negotiation Kit. No number invented in the reply box."
+    "Take the first brand message that asks your price. No message yet? Practice with a made-up one that feels real.",
+    "Price it in the Deal Analyzer, from your rate card.",
+    "Answer with words from the Negotiation Kit. Do not invent a number in the reply."
    ],
    "time": "30 min",
    "title": "Price the first real inquiry",
    "tool": "deal-analyzer"
   },
   {
-   "artifact": "Every live deal on the Pipeline board at its true stage.",
+   "artifact": "Every live deal on the board, each one at its true stage.",
    "difficulty": "Moderate",
    "id": "c-drill-pipeline",
    "kind": "drill",
    "needs": [
-    "Lesson 5.9 finished",
+    "Step 5.9 done",
     "The Deal Pipeline (Tool 17)",
     "The Follow-Through Queue (Tool 18)"
    ],
@@ -599,42 +599,42 @@
    "stage": "career",
    "state": "current",
    "steps": [
-    "Enter every live deal, including the ones living in your inbox.",
-    "Place each at its true stage. No optimism.",
-    "Open the Follow-Through Queue and make it your morning list."
+    "Put every live deal on the board, even the ones sitting in your inbox.",
+    "Place each deal where it truly is. No wishful thinking.",
+    "Open the Follow-Through Queue. Make it the first list you check each morning."
    ],
    "time": "30 min",
-   "title": "Open the pipeline",
+   "title": "Put every deal on one board",
    "tool": "deal-pipeline"
   },
   {
-   "artifact": "One month of books read against the board: landed, owed, and platform risk, in numbers.",
+   "artifact": "One month of books read against the board: what landed, what is owed, what rests on one app.",
    "difficulty": "Moderate",
    "id": "c-drill-books",
    "kind": "drill",
    "needs": [
-    "Lesson 5.10 finished",
+    "Step 5.10 done",
     "The Sponsor Income Ledger (Tool 20), the Receivables Register (Tool 21), the Brand Ledger (Tool 22), the Platform Ledger (Tool 23)"
    ],
    "number": "5.11",
    "stage": "career",
    "state": "current",
    "steps": [
-    "Read the Sponsor Income Ledger against the Pipeline board.",
-    "Read the Receivables Register: what is owed, and since when.",
-    "Read the Brand and Platform Ledgers: what landed, and what rides on one platform."
+    "Read the Sponsor Income Ledger next to your deal board.",
+    "Read the Receivables Register: who owes you, and since when.",
+    "Read the Brand and Platform Ledgers: what money landed, and how much depends on one app."
    ],
    "time": "60 min",
    "title": "Run the books once",
    "tool": "sponsor-income-ledger"
   },
   {
-   "artifact": "The hire decision, either way, written down with its numbers.",
+   "artifact": "The hire choice, written down with its numbers, either way.",
    "difficulty": "Difficult",
    "id": "c-drill-hire",
    "kind": "drill",
    "needs": [
-    "Lesson 5.11 finished",
+    "Step 5.11 done",
     "The Hiring Cost Calculator (Tool 10)",
     "The Empire Simulator (Tool 03)"
    ],
@@ -642,16 +642,16 @@
    "stage": "career",
    "state": "current",
    "steps": [
-    "Price the hire in the Hiring Cost Calculator: full cost, not the wage.",
-    "Price the same hire in the Empire Simulator.",
-    "Write the decision down with its numbers, either way."
+    "Price the helper in the Hiring Cost Calculator. Full cost, not just the wage.",
+    "Price the same helper in the Empire Simulator.",
+    "Write the choice down with its numbers, whichever way you choose."
    ],
    "time": "45 min",
-   "title": "Model the first hire before making it",
+   "title": "Price the first helper before you hire",
    "tool": "hiring-calculator"
   }
  ],
  "note": "The lesson spec table for the Zero-to-Career Path (Creator identity pass, rotation 22). One record per lesson, keyed to the lesson ids in assets/js/career-path.js: number and name (the manual's name formula), kind, time it takes, difficulty from the closed five-grade vocabulary (Very easy, Easy, Moderate, Difficult, Very difficult), what you need, the numbered steps, the conclusion line naming the artifact produced, and the state word from the closed vocabulary (current, superseded). Consumed by scripts/build.py (home contents, chapter spec blocks) and by assets/js/career-path-ui.js (the trail's lesson anatomy). Parity with career-path.js is pinned by tests/creator-r22.test.js.",
- "updated": "2026-10-14",
+ "updated": "2026-10-15",
  "version": "1.0.0"
 }

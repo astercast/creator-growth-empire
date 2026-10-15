@@ -134,8 +134,6 @@
       .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
   }
   function motionReduced() {
-    if (typeof document !== "undefined" &&
-        document.documentElement.getAttribute("data-calm") === "1") return true;
     return typeof matchMedia === "function" &&
       matchMedia("(prefers-reduced-motion: reduce)").matches;
   }

@@ -73,7 +73,7 @@
     var stamp = les.done ? "<span class=\"stamp cp-stamp\">Done</span>" : "<span class=\"cp-stamp-slot\" aria-hidden=\"true\"></span>";
     var head = "<div class=\"cp-lesson-head\"><label><input type=\"checkbox\" data-lesson=\"" + esc(les.id) + "\"" + (les.done ? " checked" : "") + "> " +
       "<span class=\"cp-formula\"><span class=\"cp-num\">" + esc(les.number || "") + "</span> <strong>" + esc(les.title) + "</strong> " +
-      "<span class=\"cp-kind\">" + esc(les.kind) + "</span> <span class=\"cp-state\">" + esc(les.state || "current") + "</span></span></label>" + stamp + "</div>";
+      "<span class=\"cp-kind\">" + esc(les.kind) + "</span>" + (les.state && les.state !== "current" ? " <span class=\"cp-state\">" + esc(les.state) + "</span>" : "") + "</span></label>" + stamp + "</div>";
     if (!les.time && !les.artifact) {
       var note0 = les.kind === "read" ? esc(les.detail || "") : esc(les.doneWhen || "");
       return "<li id=\"lesson-" + esc(les.id) + "\" class=\"cp-lesson" + (les.done ? " cp-done" : "") + "\">" + head +
@@ -87,33 +87,36 @@
       "<div><dt>Kind</dt><dd>" + esc(les.kind === "read" ? "Read" : "Drill") + "</dd></div>" +
       "<div><dt>Time</dt><dd>" + esc(les.time || "Not recorded") + "</dd></div>" +
       "<div><dt>Difficulty</dt><dd>" + esc(les.difficulty || "Not recorded") + "</dd></div>" +
-      "<div><dt>State</dt><dd>" + esc(les.state || "current") + "</dd></div></dl>";
+      (les.state && les.state !== "current" ? "<div><dt>State</dt><dd>" + esc(les.state) + "</dd></div>" : "") + "</dl>";
     var needs = les.needs && les.needs.length
       ? "<div class=\"cp-block\"><h4>What you need</h4><ul>" + les.needs.map(function (n) { return "<li>" + esc(n) + "</li>"; }).join("") + "</ul></div>"
       : "";
     var steps = les.steps && les.steps.length
       ? "<div class=\"cp-block\"><h4>" + (les.kind === "read" ? "The read" : "The drill") + "</h4><ol>" + les.steps.map(function (n) { return "<li>" + esc(n) + "</li>"; }).join("") + "</ol></div>"
       : "";
-    return "<li id=\"lesson-" + esc(les.id) + "\" class=\"cp-lesson" + (les.done ? " cp-done" : "") + "\">" + head + spec +
+    // Revision 2026-10-15: the action (the door into the chapter or the
+    // tool) renders directly under the lesson's name, before the spec
+    // grid. A beginner should meet the doing before the metadata.
+    return "<li id=\"lesson-" + esc(les.id) + "\" class=\"cp-lesson" + (les.done ? " cp-done" : "") + "\">" + head +
+      (action ? "<p class=\"cp-action\">" + action + "</p>" : "") + spec +
       "<p class=\"cp-prov\">" + esc(les.provenanceLabel || "Provenance not recorded") + "</p>" +
       (les.kind === "read" && les.detail ? "<p class=\"cp-detail muted\">" + esc(les.detail) + "</p>" : "") +
       needs + steps +
-      (action ? "<p class=\"cp-action\">" + action + "</p>" : "") +
       (les.kind === "drill" && les.doneWhen ? "<p class=\"cp-donewhen\"><strong>Check it off when:</strong> " + esc(les.doneWhen) + "</p>" : "") +
-      (les.artifact ? "<p class=\"cp-conclusion\"><strong>Conclusion:</strong> " + esc(les.artifact) + "</p>" : "") +
+      (les.artifact ? "<p class=\"cp-conclusion\"><strong>Done looks like:</strong> " + esc(les.artifact) + "</p>" : "") +
       "</li>";
   }
 
   function render() {
     var p = CP.buildPath(load(), DATA.spec);
     readoutEl.textContent = p.complete
-      ? "Path complete, all " + p.totalLessons + " lessons. The career is running; Algorithm Watch keeps it current."
+      ? "Path complete, all " + p.totalLessons + " steps. The career is running; Algorithm Watch keeps it current."
       : "You are here: Stage " + (CP.STAGES.findIndex(function (s) { return s.id === p.currentStageId; }) + 1) +
-        ", " + p.currentStageName + " · " + p.doneCount + " of " + p.totalLessons + " lessons done (" + p.pct + "%)" +
+        ", " + p.currentStageName + " · " + p.doneCount + " of " + p.totalLessons + " steps done (" + p.pct + "%)" +
         (p.staleCount ? " · " + p.staleCount + " stale lesson id(s) counted apart" : "");
     if (p.nextStep) {
       var l = p.nextStep.lesson;
-      nextEl.innerHTML = "<strong>Your next step:</strong> " + esc(l.number || "") + " · " + esc(l.title) + " · " + esc(l.kind) + " · " + esc(l.state || "current") +
+      nextEl.innerHTML = "<strong>Your next step:</strong> " + esc(l.number || "") + " · " + esc(l.title) +
         (l.kind === "read" && l.href ? ", <a href=\"" + esc(l.href) + "\">open the chapter</a>" : "") +
         (l.kind === "drill" && l.tool && toolRecord(l.tool) ? ", <a href=\"" + esc(toolRecord(l.tool).page) + "\">open " + esc(toolRecord(l.tool).title) + "</a>" : "");
     } else {

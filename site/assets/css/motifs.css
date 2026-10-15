@@ -226,7 +226,6 @@ a.kf-msg:hover .kf-text, a.kf-msg:focus-visible .kf-text { color: var(--ink); }
   .hud-head .hud-status-live::before { animation: live-blink 2.6s ease-in-out infinite; }
   @keyframes live-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.25; } }
 }
-html[data-calm="1"] .hud-head .hud-status-live::before { animation: none; }
 @media (max-width: 720px) {
   .kf-msg { grid-template-columns: auto minmax(0, 1fr); }
   /* VP-0035 (rotation 28): the callsign may wrap on phone widths instead of
@@ -318,26 +317,7 @@ html[data-calm="1"] .hud-head .hud-status-live::before { animation: none; }
 .lost-nav { display: flex; gap: 0.9rem; flex-wrap: wrap; justify-content: center; margin: 2rem 0; }
 .lost .fm-readout { margin: 0; }
 
-/* ============ calm mode: the sensory-envelope kill switch ============
-   Web-craft round 4: prefers-reduced-motion is not a listed WCAG 2.2.2
-   technique for pause/stop/hide, every ambient loop gets a real, visible
-   pause control. The header CALM toggle sets data-calm="1" (same key the
-   simulator's calm mode uses: localStorage "cge.calm"), and these rules
-   kill every ambient loop on the site. State feedback (stamps, XP fills,
-   aria-current) is untouched, calm kills motion, never information. */
-.calm-toggle {
-  display: inline-flex; align-items: center; gap: 0.5rem;
-  font-family: var(--font-cond); font-weight: 700; font-size: 0.78rem;
-  letter-spacing: 0.18em; text-transform: uppercase;
-  color: var(--muted); background: var(--bg-2);
-  border: 1px solid var(--line-strong); border-radius: var(--radius-sm);
-  padding: 0.5rem 0.8rem; cursor: pointer; min-height: 44px;
-}
-.calm-toggle:hover { color: var(--ink); border-color: var(--cyan-dim); }
-.calm-toggle .calm-glyph { color: var(--faint); font-size: 0.95rem; }
-.calm-toggle[aria-pressed="true"] { color: var(--cyan-ink); background: var(--cyan); border-color: var(--cyan); }
-.calm-toggle[aria-pressed="true"] .calm-glyph { color: var(--cyan-ink); }
-html[data-calm="1"] .scan-sweep::after { display: none; }
-html[data-calm="1"] .ticker-track { animation: none; }
-html[data-calm="1"] { scroll-behavior: auto; }
+/* Revision 2026-10-15: the calm-mode kill switch is gone. Ambient loops
+   are gentle by default and stop under prefers-reduced-motion, which is
+   honored in the components sheet. No calm-attribute rules remain. */
 

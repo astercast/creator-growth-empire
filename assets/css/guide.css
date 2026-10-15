@@ -1,0 +1,180 @@
+/* Guide layer (revision 2026-10-15).
+ * The layout law: never a wall of text. One idea per block, each step in
+ * its own clearly separated space, the action standing out, generous
+ * spacing everywhere. The copy law lives with the text; this sheet is the
+ * space that makes it readable. Motion is gentle by default and honors
+ * the device's reduced-motion setting on its own: no toggles. */
+
+/* ---------- home: the start of the path ---------- */
+.guide-hero { padding: 3.2rem 0 2.2rem; max-width: 46rem; }
+.guide-kicker {
+  font-family: var(--font-cond); font-weight: 700; letter-spacing: 0.14em;
+  text-transform: uppercase; font-size: 0.85rem; color: var(--gold); margin: 0 0 1rem;
+}
+.guide-hero h1 { font-size: clamp(2.4rem, 7vw, 4rem); line-height: 1.04; margin: 0 0 1.1rem; text-wrap: balance; }
+.guide-lede { font-size: 1.22rem; line-height: 1.55; margin: 0 0 0.9rem; max-width: 36rem; }
+.guide-sub { font-size: 1.02rem; color: var(--muted); margin: 0 0 1.6rem; max-width: 36rem; }
+.guide-progress { font-size: 1.02rem; margin: 0 0 0.7rem; max-width: 36rem; }
+.path-spine {
+  height: 0.6rem; max-width: 36rem; border: 1px solid var(--line-strong);
+  border-radius: 0; background: var(--bg-2); overflow: hidden;
+  /* the track is ruled into its five stages, so it reads as the road
+     even before the first tick fills any of it */
+  background-image: repeating-linear-gradient(to right,
+    transparent 0, transparent calc(20% - 1px),
+    var(--line-strong) calc(20% - 1px), var(--line-strong) 20%);
+}
+.spine-fill { display: block; height: 100%; width: 0; background: var(--gold); }
+@media (prefers-reduced-motion: no-preference) {
+  .spine-fill { transition: width 0.6s var(--ease-decelerate, ease); }
+}
+
+/* ---------- step blocks: one idea, its own space ---------- */
+.step-block {
+  border: 1px solid var(--line-strong); border-radius: var(--radius);
+  background: var(--bg-2); padding: 1.5rem 1.6rem; margin: 1.4rem 0;
+  max-width: 44rem;
+}
+.step-num {
+  font-family: var(--font-mono); font-size: 0.8rem; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); margin: 0 0 0.5rem;
+}
+.step-name { font-size: 1.45rem; line-height: 1.2; margin: 0 0 0.7rem; text-wrap: balance; }
+.step-what { font-size: 1.05rem; line-height: 1.6; margin: 0 0 0.9rem; max-width: 38rem; }
+.step-tool { font-size: 0.95rem; margin: 0 0 0.9rem; }
+.step-act { display: flex; flex-wrap: wrap; gap: 0.7rem 1.4rem; align-items: center; margin: 0 0 1rem; }
+.step-done { display: inline-flex; align-items: center; gap: 0.5rem; cursor: pointer; font-size: 0.98rem; min-height: 44px; }
+.step-done input { width: 1.35rem; height: 1.35rem; flex: none; }
+.step-done-line {
+  border-left: 3px solid var(--gold); padding-left: 0.9rem;
+  margin: 0; font-size: 0.98rem; line-height: 1.55; max-width: 38rem;
+}
+.guide-next { margin: 1.6rem 0 0; }
+
+/* ---------- stage blocks: the road ---------- */
+.stage-block {
+  border: 1px solid var(--line-strong); border-radius: var(--radius);
+  background: var(--bg-2); padding: 1.4rem 1.6rem; margin: 1.2rem 0; max-width: 44rem;
+}
+.stage-num {
+  font-family: var(--font-cond); font-weight: 700; font-size: 0.8rem;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin: 0 0 0.45rem;
+}
+.stage-name { font-size: 1.3rem; margin: 0 0 0.55rem; }
+.stage-what { font-size: 1.02rem; line-height: 1.55; margin: 0 0 0.6rem; max-width: 36rem; }
+.stage-count { font-size: 0.92rem; color: var(--muted); margin: 0 0 0.7rem; }
+.stage-act { margin: 0; }
+.stage-act a { display: inline-flex; align-items: center; min-height: 44px; font-weight: 600; }
+
+/* ---------- how it works: ruled numbered rows, never a card row ----
+   (Blacklist v4 L15 watches for heading + three-card rhythms; the
+   manual's own furniture is the ruled row, so the three facts print as
+   one numbered list, the way the manual numbers everything else.) */
+.how-list { margin-top: 0.6rem; max-width: 44rem; }
+.how-row {
+  display: flex; gap: 1.1rem; align-items: baseline;
+  border-top: 1px solid var(--line-strong); padding: 1.05rem 0.1rem;
+}
+.how-row:last-child { border-bottom: 1px solid var(--line-strong); }
+.how-num {
+  font-family: var(--font-mono); font-weight: 700; font-size: 1.5rem;
+  color: var(--gold); margin: 0; line-height: 1; min-width: 1.6rem;
+}
+.how-row h3 { margin: 0 0 0.4rem; font-size: 1.12rem; }
+.how-row p { margin: 0; line-height: 1.6; font-size: 0.99rem; max-width: 36rem; }
+
+/* guide sections breathe */
+.guide-moves, .guide-stages, .guide-how, .guide-more { margin-top: 3rem; }
+.section-lede { font-size: 1.05rem; line-height: 1.6; max-width: 38rem; margin: 0.4rem 0 1rem; }
+
+/* ---------- the plain-words box on deep reads ---------- */
+.plain-box {
+  border: 1px solid var(--gold); border-left-width: 5px; border-radius: var(--radius);
+  background: var(--bg-2); padding: 1.2rem 1.4rem; margin: 1.4rem 0; max-width: 42rem;
+}
+.plain-box .plain-h {
+  font-family: var(--font-cond); font-size: 0.85rem; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin: 0 0 0.6rem;
+}
+.plain-box p { margin: 0 0 0.55rem; font-size: 1.03rem; line-height: 1.6; max-width: 38rem; }
+.plain-box p:last-child { margin-bottom: 0; }
+
+/* ---------- chapter reading comfort ---------- */
+.chapter p, .chapter li { line-height: 1.68; }
+.chapter h2 { margin-top: 2.8rem; }
+/* a wide table scrolls inside its own box; the page never scrolls
+   sideways (measured: one 319px table was the whole 320px overflow
+   on chapter pages, before and after the revision, until this rule) */
+.chapter table { display: block; overflow-x: auto; max-width: 100%; }
+
+/* ---------- desktop composition: the road in two columns ----------
+   Phone stays one calm column. On wide screens the five stages set as
+   a two-column road (reading order = stage order), with the career
+   stage spanning the full width as the destination. */
+@media (min-width: 1100px) {
+  .stage-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; max-width: 72rem; }
+  .stage-grid .stage-block { margin: 0; max-width: none; }
+  .stage-grid .stage-block:last-child { grid-column: 1 / -1; }
+  .step-block { max-width: 52rem; }
+  .guide-hero { max-width: 52rem; }
+}
+
+/* ---------- the path page: steps as separated spaces ---------- */
+#career-path .cp-stage { padding: 1.6rem 1.5rem; margin-bottom: 2.2rem; }
+#career-path .cp-lesson {
+  border: 1px solid var(--line); border-top: 1px solid var(--line);
+  border-radius: var(--radius-sm); background: var(--bg);
+  padding: 1.15rem 1.15rem 1rem; margin: 1rem 0;
+}
+#career-path .cp-lessons { margin: 1.2rem 0; }
+#career-path .cp-block li, #career-path .cp-block p { line-height: 1.6; }
+#career-path .section { margin-top: 2.6rem; }
+#career-path .section > p { max-width: 38rem; line-height: 1.65; font-size: 1.02rem; }
+
+/* ---------- the technology menu, part 2 (native platform) ----------
+   Used, where it serves the path and nothing else:
+   - View Transitions between pages: already the site's platform layer
+     (components.css, test-pinned); the guide inherits it unchanged.
+   - CSS scroll-driven animations: the gold hairline below is tied to
+     page scroll with no script at all, so a reader always sees how far
+     down the path page they are. Browsers without scroll timelines
+     simply never paint it (it starts scaled to zero).
+   - View-timeline entry motion: step and stage blocks rise a few
+     pixels as they enter, once, guiding the eye downward. Unsupported
+     browsers show the blocks still, which is the correct fallback.
+   Everything is disabled wholesale by the reduced-motion rule at the
+   end of this sheet. Refused for this site, by name, in the landing
+   record: WebGL/shaders/WebGPU, generative fields, Web Audio, WASM,
+   Workers/OffscreenCanvas, kinetic headline type, content-visibility
+   on path lessons (anchor-landing integrity). */
+.scroll-progress {
+  position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 60;
+  background: var(--gold); transform-origin: 0 50%; transform: scaleX(0);
+  pointer-events: none;
+}
+@supports (animation-timeline: scroll()) {
+  .scroll-progress { animation: cge-scroll-fill linear both; animation-timeline: scroll(root block); }
+  @keyframes cge-scroll-fill { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+}
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .step-block, .stage-block, #career-path .cp-stage {
+      animation: cge-rise linear both; animation-timeline: view();
+      animation-range: entry 0% entry 38%;
+    }
+    @keyframes cge-rise {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  }
+}
+
+/* ---------- motion: gentle by default, off when the device says so --- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

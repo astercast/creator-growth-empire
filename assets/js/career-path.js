@@ -34,79 +34,79 @@
   var STAGES = [
     {
       id: "foundation",
-      name: "Foundation",
-      promise: "Choose the right war before you fight it: a niche with an audience and a payer, a format that fits your life, and a 90-day target written down.",
-      doVerdict: "You can state your channel in one sentence, format, topic, person, transformation, and defend the choice with revenue math instead of vibes.",
+      name: "Start From Nothing",
+      promise: "Choose before you build. Pick a topic with viewers and money in it. Pick a kind of video that fits your life. Write down a 90-day target.",
+      doVerdict: "Done when you can say what your channel is in one short line. You can also show plain math for why it can pay.",
       tools: ["quiz", "calculator", "planner", "money-map", "format-fit", "saved-shelf"],
       lessons: [
-        { id: "f-read-phase0", kind: "read", title: "Read Phase 0: Start From Nothing", href: "phase-0-start-from-nothing.html", source: "Phase 0: Start From Nothing (chapter)", detail: "The niche triangle (passion × market × monetization), the 2026 niche landscape, and the two traps that end channels before they start." },
-        { id: "f-drill-statement", kind: "drill", title: "Write your niche statement", tool: "quiz", doneWhen: "You can fill every blank: “I make [format] about [topic] for [specific person] who wants [transformation].” Run the Niche Picker first if a blank won't fill." },
-        { id: "f-drill-money", kind: "drill", title: "Run the money check on three niches", tool: "calculator", doneWhen: "The Revenue Calculator has priced your top three candidate niches at the same view count, and you have seen the per-view gap in writing." },
-        { id: "f-drill-format", kind: "drill", title: "Pick the format you can sustain", tool: "format-fit", doneWhen: "The Format Fit Finder has returned a format, and you have honestly answered whether you could make 100 of them." },
-        { id: "f-drill-plan", kind: "drill", title: "Set the 90-day target", tool: "planner", doneWhen: "The 90-Day Planner holds a written target, uploads, one growth bet, one money bet, that the next stage will execute against." }
+        { id: "f-read-phase0", kind: "read", title: "Read Phase 0: Start From Nothing", href: "phase-0-start-from-nothing.html", source: "Phase 0: Start From Nothing (chapter)", detail: "The three things a good topic needs, the 2026 topic map, and the two traps that end channels early." },
+        { id: "f-drill-statement", kind: "drill", title: "Write your niche statement", tool: "quiz", doneWhen: "You can fill every blank in this line: “I make [kind of video] about [topic] for [one kind of person] who wants [change].” If a blank will not fill, run the Niche Picker first." },
+        { id: "f-drill-money", kind: "drill", title: "Run the money check on three niches", tool: "calculator", doneWhen: "The Revenue Calculator has priced your three topics at the same view count. You have seen, in writing, what each pays for one view." },
+        { id: "f-drill-format", kind: "drill", title: "Pick the format you can sustain", tool: "format-fit", doneWhen: "The Format Fit Finder has named a kind of video, and you have answered honestly: could I make 100 of these?" },
+        { id: "f-drill-plan", kind: "drill", title: "Set the 90-day target", tool: "planner", doneWhen: "The 90-Day Planner holds your target in writing: how many videos, one growth bet, one money bet." }
       ]
     },
     {
       id: "build",
-      name: "Build",
-      promise: "Build the machine before you need the output: an idea bank that never runs dry, hooks written before cameras roll, and a batching rhythm that manufactures consistency.",
-      doVerdict: "You can turn one idea into a week of scheduled output in a single sitting, banked, hooked, batched, and on a calendar, without waiting for inspiration.",
+      name: "Make Your Videos",
+      promise: "Build the system before you need the videos. Keep a bank of ideas that never runs dry. Write your opening lines before you film. Film a week of videos in one day.",
+      doVerdict: "Done when you can turn one idea into a week of planned videos in one sitting. No waiting to feel inspired.",
       tools: ["idea-bank", "hook-builder", "batching", "content-calendar", "repurpose"],
       lessons: [
-        { id: "b-read-phase1", kind: "read", title: "Read Phase 1: The Content Engine", href: "phase-1-content-engine.html", source: "Phase 1: The Content Engine (chapter)", detail: "The system that turns one idea into a week of output: pillars, templates, batching, and why consistency is manufactured, not motivated." },
-        { id: "b-drill-bank", kind: "drill", title: "Bank twenty ideas", tool: "idea-bank", doneWhen: "The Idea Bank holds twenty ideas scored against your niche statement, not two ideas and a feeling." },
-        { id: "b-drill-hooks", kind: "drill", title: "Write five hooks before filming anything", tool: "hook-builder", doneWhen: "Five banked ideas each carry a written first-three-seconds hook from the Hook Builder." },
-        { id: "b-drill-batch", kind: "drill", title: "Plan one batch day", tool: "batching", doneWhen: "The Batching Planner has turned a week's output into one shoot day with a shot list." },
-        { id: "b-drill-calendar", kind: "drill", title: "Put ninety days on the calendar", tool: "content-calendar", doneWhen: "The 90-Day Content Calendar shows the publishing slots your Stage 1 target demands, empty slots are visible, not deniable." }
+        { id: "b-read-phase1", kind: "read", title: "Read Phase 1: The Content Engine", href: "phase-1-content-engine.html", source: "Phase 1: The Content Engine (chapter)", detail: "How one idea becomes a week of videos: main subjects, set shapes, filming days, and why steady beats inspired." },
+        { id: "b-drill-bank", kind: "drill", title: "Bank twenty ideas", tool: "idea-bank", doneWhen: "The Idea Bank holds twenty ideas, each scored against your topic sentence. Not two ideas and a feeling." },
+        { id: "b-drill-hooks", kind: "drill", title: "Write five hooks before filming anything", tool: "hook-builder", doneWhen: "Five of your banked ideas each carry a written hook: the first three seconds, in words." },
+        { id: "b-drill-batch", kind: "drill", title: "Plan one batch day", tool: "batching", doneWhen: "The Batching Planner has turned one week of videos into one filming day, with a shot list." },
+        { id: "b-drill-calendar", kind: "drill", title: "Put ninety days on the calendar", tool: "content-calendar", doneWhen: "The 90-Day Content Calendar shows your posting days for ninety days. Empty days stay visible, not hidden." }
       ]
     },
     {
       id: "publish",
-      name: "Publish Rhythm",
-      promise: "Ship on a cadence and learn the only two questions the algorithm asks: does the click happen, and does the viewer stay. Then take one pillar everywhere without re-uploading it.",
-      doVerdict: "You can publish on a fixed cadence, read a weak video's failure to the exact decision that caused it, and check your monetization gate against the real, current thresholds.",
+      name: "Post and Keep Posting",
+      promise: "Post on set days. Learn the two questions that matter: would I click this, and would I keep watching? Then take your best work to more apps, remade for each one.",
+      doVerdict: "Done when you can post on your set days without fail. You can point to the exact choice that hurt a weak video. You can check when you can start earning.",
       tools: ["cadence", "crosspost", "video-doctor", "ypp-checker"],
       lessons: [
-        { id: "p-read-phase2", kind: "read", title: "Read Phase 2: YouTube Mastery", href: "phase-2-youtube-mastery.html", source: "Phase 2: YouTube Mastery (chapter)", detail: "Packaging, retention, and the algorithm's two questions, the highest-leverage skill on the internet, taught in order." },
-        { id: "p-read-phase3", kind: "read", title: "Read Phase 3: The Everywhere Engine", href: "phase-3-everywhere-engine.html", source: "Phase 3: The Everywhere Engine (chapter)", detail: "One pillar, five platforms: repurposing without re-uploading, and surviving the originality era every platform converged on." },
-        { id: "p-drill-cadence", kind: "drill", title: "Lock your cadence", tool: "cadence", doneWhen: "The Cadence Coach has set a weekly rhythm you have actually kept for two consecutive weeks." },
-        { id: "p-drill-crosspost", kind: "drill", title: "Take one pillar everywhere", tool: "crosspost", doneWhen: "One published pillar has been adapted, not re-uploaded, to a second platform with the Cross-Post Optimizer." },
-        { id: "p-drill-doctor", kind: "drill", title: "Diagnose your weakest video", tool: "video-doctor", doneWhen: "Diagnose My Video has named the failure point of your weakest performer, and the fix is written into the next video's plan." },
-        { id: "p-drill-ypp", kind: "drill", title: "Check the monetization gate", tool: "ypp-checker", doneWhen: "The YPP 2027 Eligibility Checker has measured your channel against the thresholds that will actually apply to you, with the date attached." }
+        { id: "p-read-phase2", kind: "read", title: "Read Phase 2: YouTube Mastery", href: "phase-2-youtube-mastery.html", source: "Phase 2: YouTube Mastery (chapter)", detail: "How titles and cover pictures earn the click, and how the first seconds keep people watching." },
+        { id: "p-read-phase3", kind: "read", title: "Read Phase 3: The Everywhere Engine", href: "phase-3-everywhere-engine.html", source: "Phase 3: The Everywhere Engine (chapter)", detail: "One kind of video, five apps: remake it for each app. Never just re-send the same file." },
+        { id: "p-drill-cadence", kind: "drill", title: "Pick your posting days", tool: "cadence", doneWhen: "The Cadence Coach holds your posting days, and you have kept them two weeks in a row." },
+        { id: "p-drill-crosspost", kind: "drill", title: "Take your best video to a second app", tool: "crosspost", doneWhen: "One strong video has been remade, not re-sent, for a second app with the Cross-Post Optimizer." },
+        { id: "p-drill-doctor", kind: "drill", title: "Diagnose your weakest video", tool: "video-doctor", doneWhen: "Diagnose My Video has named the exact place your weakest video loses people, and the fix is in your next video's plan." },
+        { id: "p-drill-ypp", kind: "drill", title: "Check when you can start earning", tool: "ypp-checker", doneWhen: "The YPP 2027 Eligibility Checker has checked your channel against the rules that will apply to you, with the date on it." }
       ]
     },
     {
       id: "growth",
-      name: "Growth",
-      promise: "Turn viewers into a community that stays, pays, and recruits, and learn to read the numbers well enough to know which lever you just pulled. This is the path's thinnest stage for tools (two) by design: growth is mostly judgment, and the teaching carries it.",
-      doVerdict: "You can read your own analytics without flinching or guessing, name the metric a change moved, and run one deliberate growth play instead of posting and hoping.",
+      name: "Grow Your People",
+      promise: "Turn viewers into people who stay. Learn your numbers well enough to know what each change did. This stage has few tools on purpose. Growth is mostly judgment, and the teaching carries it.",
+      doVerdict: "Done when you can read your own numbers without fear or guessing. You can name what a change moved. You can run one planned growth move, not just post and hope.",
       tools: ["outreach", "api-explorer"],
       lessons: [
-        { id: "g-read-phase4", kind: "read", title: "Read Phase 4: Audience to Community", href: "phase-4-audience-to-community.html", source: "Phase 4: Audience to Community (chapter)", detail: "Viewers watch; communities stay, pay, and recruit. The unsexy work that makes everything else compound." },
-        { id: "g-read-breakout", kind: "read", title: "Read the Breakout Format Intel", href: "breakout-format-intel.html", source: "The 2026 Breakout-Format Intel (intel file)", detail: "The formats punching above their weight right now, with the research attached, formats are borrowed, never copied blind." },
-        { id: "g-drill-metrics", kind: "drill", title: "Learn your twelve numbers", tool: "api-explorer", doneWhen: "You can define every term in the Metrics Glossary from your own channel's data, pulled and read in the API Explorer, no term left as a vibe." },
-        { id: "g-drill-outreach", kind: "drill", title: "Run one outreach play", tool: "outreach", doneWhen: "The Outreach Center has sent one real collaboration or guest pitch to a named creator in your niche, written, sent, and logged." }
+        { id: "g-read-phase4", kind: "read", title: "Read Phase 4: Audience to Community", href: "phase-4-audience-to-community.html", source: "Phase 4: Audience to Community (chapter)", detail: "People who watch come and go. People who belong stay, pay, and bring friends. This chapter is about the second kind." },
+        { id: "g-read-breakout", kind: "read", title: "Read the Breakout Format Intel", href: "breakout-format-intel.html", source: "The 2026 Breakout-Format Intel (intel file)", detail: "The kinds of video growing fastest right now, with the research attached. Borrow the shape. Never copy it blind." },
+        { id: "g-drill-metrics", kind: "drill", title: "Learn your twelve numbers", tool: "api-explorer", doneWhen: "You can say what each of the twelve numbers means, from your own channel's data in the API Explorer. No word left fuzzy." },
+        { id: "g-drill-outreach", kind: "drill", title: "Send one pitch to another creator", tool: "outreach", doneWhen: "The Outreach Center holds one real pitch to a named creator in your topic: written, sent, and logged." }
       ]
     },
     {
       id: "career",
-      name: "Monetization & Career",
-      promise: "Layer the money in the right order, ads, sponsors, products, business, then run it like a company: rate card, pipeline, books, team. This stage's toolkit is the whole money chain, because this is where it is used.",
-      doVerdict: "You can price a deal from your own rate card, negotiate it without bluffing, hold it on a board, chase it, ledger what landed, and say what your business earned last month, per brand and per platform, from records, not memory.",
+      name: "Turn It Into a Career",
+      promise: "Add the money in the right order. Then run it like a real job: price card, deal board, books, first helper. This stage holds the whole money toolkit. This is where you use it.",
+      doVerdict: "Done when you can price a deal from your own card. You can talk it through without bluffing. You can say what your channel earned last month, from records, not memory.",
       tools: ["rate-card-builder", "deal-analyzer", "deal-room", "deal-builder", "negotiation-kit", "negotiation-script-builder", "deal-pipeline", "follow-through", "repeat-sponsor-book", "sponsor-income-ledger", "receivables-register", "brand-ledger", "platform-ledger", "hiring-calculator", "simulator"],
       lessons: [
-        { id: "c-read-phase5", kind: "read", title: "Read Phase 5: The Monetization Stack", href: "phase-5-monetization-stack.html", source: "Phase 5: The Monetization Stack (chapter)", detail: "Ads, sponsors, affiliates, products, layered in the right order. The chapter the Quartermaster says to read twice." },
-        { id: "c-read-phase6", kind: "read", title: "Read Phase 6: Merch & Brand", href: "phase-6-merch-and-brand.html", source: "Phase 6: Merch & Brand (chapter)", detail: "Your name as an asset: when merch makes sense, when it doesn't, and the margins nobody posts about." },
-        { id: "c-read-phase7", kind: "read", title: "Read Phase 7: The Business", href: "phase-7-the-business.html", source: "Phase 7: The Business (chapter)", detail: "LLC, taxes, separating the money, the boring paperwork that keeps the exciting part legal. Educational, not advice." },
-        { id: "c-read-phase8", kind: "read", title: "Read Phase 8: Scale", href: "phase-8-scale.html", source: "Phase 8: Scale (chapter)", detail: "Team, systems, stepping back: how empires stop depending on the founder's calendar." },
-        { id: "c-read-ratecard", kind: "read", title: "Read the Rate Card intel file", href: "rate-card.html", source: "The 2026 Rate Card (intel file)", detail: "What the market actually pays, by niche and size, the evidence your own rate card is built from." },
-        { id: "c-read-sponsor", kind: "read", title: "Read the Sponsor Playbook", href: "sponsor-playbook.html", source: "The 2026 Sponsor Playbook (intel file)", detail: "How deals are found, pitched, priced, and renewed when a professional runs them." },
-        { id: "c-read-rules", kind: "read", title: "Read the Platform Rules Bible", href: "platform-rules-bible.html", source: "The 2026 Platform Rules Bible (intel file)", detail: "The standing rules of every platform you earn on, the durable layer. (What changes week to week lives in Algorithm Watch, not here.)" },
-        { id: "c-drill-ratecard", kind: "drill", title: "Build your rate card", tool: "rate-card-builder", doneWhen: "The Rate Card Builder holds your card, every format priced from your numbers, ready to send without a rewrite." },
-        { id: "c-drill-firstdeal", kind: "drill", title: "Price the first real inquiry", tool: "deal-analyzer", doneWhen: "The first brand inquiry (or a realistic rehearsal) has been priced in the Deal Analyzer and answered from the Negotiation Kit, no number invented in the reply box." },
-        { id: "c-drill-pipeline", kind: "drill", title: "Open the pipeline", tool: "deal-pipeline", doneWhen: "Every live deal sits on the Deal Pipeline board at its true stage; the Follow-Through Queue is your morning list." },
-        { id: "c-drill-books", kind: "drill", title: "Run the books once", tool: "sponsor-income-ledger", doneWhen: "The Sponsor Income Ledger, Receivables Register, Brand Ledger, and Platform Ledger have each been read against the board, you know what landed, what is owed, and what rides on one platform." },
-        { id: "c-drill-hire", kind: "drill", title: "Model the first hire before making it", tool: "hiring-calculator", doneWhen: "The Hiring Cost Calculator and the Empire Simulator have both priced the same hire, and the decision, either way, is written down with its numbers." }
+        { id: "c-read-phase5", kind: "read", title: "Read Phase 5: The Monetization Stack", href: "phase-5-monetization-stack.html", source: "Phase 5: The Monetization Stack (chapter)", detail: "The ways money comes in, in the right order: ads, brand deals, paid links, things you sell. Read this one twice." },
+        { id: "c-read-phase6", kind: "read", title: "Read Phase 6: Merch & Brand", href: "phase-6-merch-and-brand.html", source: "Phase 6: Merch & Brand (chapter)", detail: "Your name as a thing you can sell: when merch makes sense, when it does not, and the profit numbers nobody posts." },
+        { id: "c-read-phase7", kind: "read", title: "Read Phase 7: The Business", href: "phase-7-the-business.html", source: "Phase 7: The Business (chapter)", detail: "Company papers, taxes, and keeping the money apart. The dull papers that keep the fun part legal. Teaching, not advice." },
+        { id: "c-read-phase8", kind: "read", title: "Read Phase 8: Scale", href: "phase-8-scale.html", source: "Phase 8: Scale (chapter)", detail: "Helpers, systems, and stepping back: how a channel stops needing your every day." },
+        { id: "c-read-ratecard", kind: "read", title: "Read the Rate Card intel file", href: "rate-card.html", source: "The 2026 Rate Card (intel file)", detail: "What brands really pay, by topic and size. This is the proof your own rate card stands on." },
+        { id: "c-read-sponsor", kind: "read", title: "Read the Sponsor Playbook", href: "sponsor-playbook.html", source: "The 2026 Sponsor Playbook (intel file)", detail: "How brand deals are found, pitched, priced, and won again when a pro runs them." },
+        { id: "c-read-rules", kind: "read", title: "Read the Platform Rules Bible", href: "platform-rules-bible.html", source: "The 2026 Platform Rules Bible (intel file)", detail: "The standing rules of every app you earn on. (What changes week to week lives in Algorithm Watch, not here.)" },
+        { id: "c-drill-ratecard", kind: "drill", title: "Build your rate card", tool: "rate-card-builder", doneWhen: "The Rate Card Builder holds your card: every kind of post priced from your numbers, ready to send as it is." },
+        { id: "c-drill-firstdeal", kind: "drill", title: "Price the first real inquiry", tool: "deal-analyzer", doneWhen: "The first brand price question, or a practice one, has been priced in the Deal Analyzer and answered from the Negotiation Kit. No number invented in the reply." },
+        { id: "c-drill-pipeline", kind: "drill", title: "Put every deal on one board", tool: "deal-pipeline", doneWhen: "Every live deal sits on the Deal Pipeline board at its true stage. The Follow-Through Queue is your morning list." },
+        { id: "c-drill-books", kind: "drill", title: "Run the books once", tool: "sponsor-income-ledger", doneWhen: "The four money books have each been read against the board. You know what landed, what is owed, and what rests on one app." },
+        { id: "c-drill-hire", kind: "drill", title: "Price the first helper before you hire", tool: "hiring-calculator", doneWhen: "The Hiring Cost Calculator and the Empire Simulator have both priced the same helper. The choice is written down with its numbers." }
       ]
     }
   ];

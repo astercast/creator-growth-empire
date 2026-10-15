@@ -25,6 +25,10 @@
 #                         build.py; every chapter marker present in llms-full.txt
 #   8. Agent workflows ... node tests/agent-workflows.test.js — the AGENT.md
 #                         example workflows executed against the real data/v1 JSON
+#   9. Copy audit ....... scripts/audit_copy.py — the easy-words law on the
+#                         guided layer (revision 2026-10-15): no em dashes,
+#                         no sentence over 24 words, no unglossed jargon in
+#                         the step layer (334 strings at first wiring)
 #
 # Exit code: 0 only if every stage passes. Anything failing is a real issue
 # to fix, not cosmetic churn.
@@ -39,7 +43,7 @@ PASS=0
 FAIL=0
 fail() { echo "  FAIL: $1"; FAIL=$((FAIL+1)); }
 pass() { echo "  ok: $1"; PASS=$((PASS+1)); }
-stage() { echo; echo "[$1/8] $2"; }
+stage() { echo; echo "[$1/9] $2"; }
 
 # ---------------------------------------------------------------- stage 1 ---
 stage 1 "JS syntax (node --check)"
@@ -266,7 +270,7 @@ fi
 # ---------------------------------------------------------------- stage 6 ---
 stage 6 "engine test suites (sim + deal room + content engine + outreach)"
 TEST_FAIL=0
-for T in tests/sim-engine.test.js tests/deal-room.test.js tests/content-engine.test.js tests/money-map.test.js tests/video-doctor.test.js tests/niche-atlas.test.js tests/ypp-checker.test.js tests/outreach.test.js tests/deal-analyzer.test.js tests/cadence.test.js tests/platform-rules-bible.test.js tests/identity-w30.test.js tests/breakout-format-intel.test.js tests/format-fit.test.js tests/deal-builder.test.js tests/sim-launch.test.js tests/negotiation-kit.test.js tests/rate-card-builder.test.js tests/negotiation-script-builder.test.js tests/deal-pipeline.test.js tests/follow-through.test.js tests/repeat-sponsor-book.test.js tests/sponsor-income-ledger.test.js tests/receivables-register.test.js tests/brand-ledger.test.js tests/platform-ledger.test.js tests/saved-shelf.test.js tests/career-path.test.js tests/creator-r22.test.js tests/creator-r23.test.js tests/view-transitions.test.js tests/placement.test.js tests/algorithm-watch.test.js tests/algorithm-watch-cron.test.js; do
+for T in tests/sim-engine.test.js tests/deal-room.test.js tests/content-engine.test.js tests/money-map.test.js tests/video-doctor.test.js tests/niche-atlas.test.js tests/ypp-checker.test.js tests/outreach.test.js tests/deal-analyzer.test.js tests/cadence.test.js tests/platform-rules-bible.test.js tests/identity-w30.test.js tests/breakout-format-intel.test.js tests/format-fit.test.js tests/deal-builder.test.js tests/sim-launch.test.js tests/negotiation-kit.test.js tests/rate-card-builder.test.js tests/negotiation-script-builder.test.js tests/deal-pipeline.test.js tests/follow-through.test.js tests/repeat-sponsor-book.test.js tests/sponsor-income-ledger.test.js tests/receivables-register.test.js tests/brand-ledger.test.js tests/platform-ledger.test.js tests/saved-shelf.test.js tests/career-path.test.js tests/creator-r22.test.js tests/creator-r23.test.js tests/view-transitions.test.js tests/placement.test.js tests/cold-read.test.js tests/algorithm-watch.test.js tests/algorithm-watch-cron.test.js; do
   node "$T" >/tmp/cge_validate_tests.log 2>&1
   if [ $? -eq 0 ]; then
     N=$(grep -c "PASS" /tmp/cge_validate_tests.log)
@@ -358,6 +362,16 @@ if [ $? -eq 0 ]; then
 else
   fail "tests/agent-workflows.test.js failed:"
   grep "FAIL" /tmp/cge_validate_agent.log | head -10 | sed 's/^/    /'
+fi
+
+# ---------------------------------------------------------------- stage 9 ---
+stage 9 "copy audit (the easy-words law, guided layer)"
+python3 scripts/audit_copy.py >/tmp/cge_validate_copy.log 2>&1
+if [ $? -eq 0 ]; then
+  pass "copy audit clean ($(grep -o '^[a-z_]*: [0-9]* strings' /tmp/cge_validate_copy.log | head -1))"
+else
+  fail "scripts/audit_copy.py failed:"
+  cat /tmp/cge_validate_copy.log | head -12 | sed 's/^/    /'
 fi
 
 # ---------------------------------------------------------------- summary ---

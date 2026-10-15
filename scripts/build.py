@@ -19,7 +19,7 @@ SITE = ROOT / "site"
 DATA_V1 = ROOT / "data" / "v1"
 
 SITE_NAME = "Creator Growth Empire"
-TAGLINE = "From $0 to a multi-million-dollar creator company."
+TAGLINE = "Start with nothing. Build a career, one small step at a time."
 # QA-013: fonts are self-hosted (assets/fonts/, assets/css/fonts.css).
 # No remote font call is emitted anywhere; see assets/fonts/FONTS.md.
 
@@ -1302,12 +1302,12 @@ def word_count(md):
 # large for per-tool nav links). The full per-tool list lives in the mobile
 # nav and the footer.
 DESKTOP_NAV_LINKS = [
-    ("career-path.html", "Career Path"),
-    ("tools.html", "Tools"),
-    ("case-files.html", "Case Files"),
-    ("what-changed.html", "Algorithm Watch"),
-    ("glossary.html", "Glossary"),
-]  # R21: 5 items, visitor words, no numbering; wordmark is Home
+    ("career-path.html", "The Path"),
+    ("tools.html", "Toolbox"),
+    ("glossary.html", "Words to Know"),
+]  # Revision 2026-10-15: three items, plain words; the wordmark is Start.
+# Everything else (case files, Algorithm Watch, every tool) is reached
+# from inside the Path, where it is used, never from a directory nav.
 
 MOBILE_NAV_LINKS = [("index.html", "Home")] + DESKTOP_NAV_LINKS
 # R21: mobile carried the same 5 items, no second menu. VP-0045 (rotation 30):
@@ -1561,7 +1561,6 @@ def page_template(title, body, active="", extra_head="", path=""):
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<script>try{{if(localStorage.getItem("cge.calm")==="1")document.documentElement.setAttribute("data-calm","1");}}catch(e){{}}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{esc(full_title)}</title>
 <meta name="description" content="{esc(TAGLINE)}">
@@ -1589,6 +1588,7 @@ def page_template(title, body, active="", extra_head="", path=""):
 <link rel="stylesheet" href="assets/css/layout.css">
 <link rel="stylesheet" href="assets/css/components.css">
 <link rel="stylesheet" href="assets/css/hub.css">
+<link rel="stylesheet" href="assets/css/guide.css">
 {extra_head}
 </head>
 <body>
@@ -1596,7 +1596,6 @@ def page_template(title, body, active="", extra_head="", path=""):
 <header class="site-header">
   <a class="brand" href="index.html"{brand_cur}>{SITE_NAME}</a>
   <nav class="site-nav" aria-label="Primary">{desktop_nav}</nav>
-  <button class="calm-toggle" id="calmToggle" aria-pressed="false" title="Calm mode, stop ambient motion"><span class="calm-glyph" aria-hidden="true">◍</span><span>CALM</span></button>
   <button class="nav-toggle" aria-expanded="false" aria-controls="mobileNav" aria-label="Menu">☰</button>
 </header>
 <nav id="mobileNav" class="mobile-nav" aria-label="Mobile">{mobile_nav}</nav>
@@ -1606,43 +1605,27 @@ def page_template(title, body, active="", extra_head="", path=""):
     <div>
       <div class="foot-brand">{SITE_NAME}</div>
       <p class="muted">{esc(TAGLINE)}</p>
+      <p class="muted">One path, in order. Start at step one and tick each step off as you go.</p>
     </div>
-    <nav aria-label="Phases">
-      <strong class="muted" style="font-size:.78rem;letter-spacing:.12em">PHASES</strong>
-      <a href="phase-0-start-from-nothing.html">Phase 0, Start From Nothing</a>
-      <a href="phase-2-youtube-mastery.html">Phase 2, YouTube Mastery</a>
-      <a href="phase-5-monetization-stack.html">Phase 5, Monetization Stack</a>
-      <a href="phase-7-the-business.html">Phase 7, The Business</a>
+    <nav aria-label="The Path">
+      <strong class="muted" style="font-size:.78rem;letter-spacing:.12em">THE PATH</strong>
+      <a href="career-path.html">All five stages</a>
+      <a href="phase-0-start-from-nothing.html">Stage 1, Start From Nothing</a>
+      <a href="phase-1-content-engine.html">Stage 2, Make Your Videos</a>
+      <a href="phase-2-youtube-mastery.html">Stage 3, Post and Keep Posting</a>
+      <a href="phase-4-audience-to-community.html">Stage 4, Grow Your People</a>
+      <a href="phase-5-monetization-stack.html">Stage 5, Turn It Into a Career</a>
     </nav>
-    <nav aria-label="Tools">
-      <strong class="muted" style="font-size:.78rem;letter-spacing:.12em">TOOLS</strong>
-      <a href="tools.html">All tools →</a>
-      <a href="quiz.html">Niche Picker</a>
-      <a href="calculator.html">Revenue Calculator</a>
-      <a href="planner.html">90-Day Planner</a>
-      <a href="deal-analyzer.html">The Deal Analyzer</a>
-      <a href="hiring-calculator.html">Hiring Cost Calculator</a>
-      <a href="repurpose.html">Repurposing Planner</a>
-      <a href="simulator.html">Empire Simulator</a>
-      <a href="money-map.html">The Money Map</a>
-      <a href="api-explorer.html">API Explorer</a>
-      <a href="what-changed.html">Algorithm Watch</a>
-      <a href="glossary.html">Glossary</a>
-      <a href="agents.html">Agents</a>
-    </nav>
-    <nav aria-label="Case Files">
-      <strong class="muted" style="font-size:.78rem;letter-spacing:.12em">CASE FILES</strong>
-      <a href="case-files.html">All case files →</a>
-      <a href="case-budget-grocery.html">The Budget-Grocery Newsletter</a>
-      <a href="case-bens-bites.html">Ben's Bites</a>
-      <a href="case-sleep-channels.html">The Sleep-Channel Network</a>
-      <a href="case-mavwicks.html">Mavwicks on TikTok Shop</a>
-      <a href="case-ptya.html">The Cohort Course</a>
-      <a href="case-poly-couple.html">The Poly Couple</a>
-      <a href="case-gibi-asmr.html">Gibi ASMR</a>
+    <nav aria-label="More">
+      <strong class="muted" style="font-size:.78rem;letter-spacing:.12em">MORE</strong>
+      <a href="tools.html">Toolbox, every tool on one shelf</a>
+      <a href="glossary.html">Words to Know</a>
+      <a href="case-files.html">Real people who did it</a>
+      <a href="money-map.html">The Money Map, find your stage</a>
+      <a href="what-changed.html">Algorithm Watch, what changed</a>
     </nav>
   </div>
-  <div class="footer-fine"><span>PRIVATE RESEARCH ARCHIVE · PLATFORM FACTS VERIFIED OCT 2026. VERIFY LIVE BEFORE ACTING · NOT FINANCIAL, LEGAL, OR TAX ADVICE · SET IN THE FIELD, PRINTED ON RECYCLED PIXELS</span></div>
+  <div class="footer-fine"><span>Built from research checked in Oct 2026. Prices and rules change, so check live numbers before you act. This site teaches. It is not money, legal, or tax advice.</span></div>
 </footer>
 <script src="assets/js/site.js"></script>
 </body>
@@ -1658,8 +1641,9 @@ def page_template(title, body, active="", extra_head="", path=""):
 # fetches the same file. Parity with assets/js/career-path.js is
 # pinned by tests/creator-r22.test.js.
 LESSON_STAGE_NAMES = {
-    "foundation": "Foundation", "build": "Build", "publish": "Publish Rhythm",
-    "growth": "Growth", "career": "Monetization & Career",
+    "foundation": "Start From Nothing", "build": "Make Your Videos",
+    "publish": "Post and Keep Posting",
+    "growth": "Grow Your People", "career": "Turn It Into a Career",
 }
 LESSON_PAGE_MAP = {
     "phase-0-start-from-nothing": "f-read-phase0",
@@ -1700,15 +1684,21 @@ def _lesson_spec_html(slug):
     needs = "".join(f"<li>{esc(n)}</li>" for n in les.get("needs", []))
     steps = "".join(f"<li>{esc(n)}</li>" for n in les.get("steps", []))
     kind_word = "Read" if les["kind"] == "read" else "Drill"
+    # Revision 2026-10-15: the state word prints only when it says
+    # something. "current" is the normal state and needs no word; a
+    # first-time visitor cannot parse it and it carried no information.
+    state = les["state"]
+    state_bit = "" if state == "current" else f" \u00b7 {esc(state)}"
+    state_row = "" if state == "current" else f'<div><dt>State</dt><dd>{esc(state)}</dd></div>'
     return (
         '<section class="lesson-spec" aria-label="Lesson spec">'
-        f'<p class="ls-formula">{esc(les["number"])} \u00b7 {esc(les["title"])} \u00b7 {esc(les["kind"])} \u00b7 {esc(les["state"])}</p>'
+        f'<p class="ls-formula">{esc(les["number"])} \u00b7 {esc(les["title"])} \u00b7 {esc(les["kind"])}{state_bit}</p>'
         '<dl class="ls-grid">'
         f'<div><dt>Stage</dt><dd>{stage_num} \u00b7 {esc(stage_name)}</dd></div>'
         f'<div><dt>Kind</dt><dd>{kind_word}</dd></div>'
         f'<div><dt>Time</dt><dd>{esc(les["time"])}</dd></div>'
         f'<div><dt>Difficulty</dt><dd>{esc(les["difficulty"])}</dd></div>'
-        f'<div><dt>State</dt><dd>{esc(les["state"])}</dd></div></dl>'
+        f'{state_row}</dl>'
         f'<h3 class="ls-h">What you need</h3><ul class="ls-list">{needs}</ul>'
         f'<h3 class="ls-h">{"The read" if les["kind"] == "read" else "The drill"}</h3><ol class="ls-list">{steps}</ol>'
         '</section>')
@@ -1720,6 +1710,72 @@ def _lesson_conclusion_html(slug):
         return ""
     return (f'<p class="lesson-conclusion"><strong>Conclusion:</strong> '
             f'{esc(les["artifact"])}</p>')
+
+
+# ---------- revision 2026-10-15: plain-words box on every deep read ----
+# The path's steps are written in very easy words. The chapters below them
+# keep their researched text, but each one now opens with this box: what
+# the part is, in easy words, and the one job it asks of the reader. The
+# copy rule for these strings (and every string the revision authors) is
+# enforced by scripts/audit_copy.py.
+PLAIN_SUMMARIES = {
+    "phase-0-start-from-nothing": (
+        "You have no channel yet. That is fine. This part helps you pick one topic you can stick with, and check that the topic can pay.",
+        "Pick your topic, and write it in one line."),
+    "phase-1-content-engine": (
+        "This part shows how one idea turns into a week of videos. You will plan ahead, film a lot in one day, and never sit stuck with nothing to post.",
+        "Build your weekly making system."),
+    "phase-2-youtube-mastery": (
+        "This part is about the click and the watch. A good title and cover picture earn the click. A strong first half minute earns the watch.",
+        "Make each video easy to click and hard to leave."),
+    "phase-3-everywhere-engine": (
+        "One good video can live on more than one app. This part shows how to remake it for each app, not just send the same file again.",
+        "Take your best work to more apps."),
+    "phase-4-audience-to-community": (
+        "Viewers come and go. A community stays. This part shows the small, steady things that turn watchers into people who belong.",
+        "Give your viewers a reason to stay."),
+    "phase-5-monetization-stack": (
+        "This part is about money, and the order to add it in. Ads first, then brand deals, then links that pay you, then things you sell. Read it twice.",
+        "Write your money layers in order."),
+    "phase-6-merch-and-brand": (
+        "Merch means things you sell with your name on them. This part helps you decide if it is time, and shows the real profit numbers.",
+        "Decide on merch: yes or no, with numbers."),
+    "phase-7-the-business": (
+        "This part covers the paper side: company papers, taxes, and keeping your channel's money apart from your own. It teaches. It is not legal or tax advice.",
+        "List the papers your business still needs."),
+    "phase-8-scale": (
+        "One day the channel needs more than you. This part shows how helpers and simple systems let it grow without eating your whole life.",
+        "Write down one job a system could carry."),
+    "rate-card": (
+        "This file shows what brands really pay, by topic and size. Use it as proof when you set your own prices.",
+        "Find your topic and size. Note the pay range."),
+    "niche-atlas": (
+        "A map of topics you could build on, with what each one pays and how hard it is to start. Use it in stage 1, when you pick your topic.",
+        "Compare topics before you choose."),
+    "metrics-glossary": (
+        "Every number your channel shows you, said in plain words. Open it when a word on this site is not clear.",
+        "Learn the twelve numbers in stage 4."),
+    "sponsor-playbook": (
+        "How brand deals are found, priced, and won, the way a pro does it. You will use it in stage 5, when brands start to write to you.",
+        "Build your brand shortlist as you read."),
+    "platform-rules-bible": (
+        "The standing rules of each app, in one place. Rules change week to week, so check the date, and the Watch page too.",
+        "Check your habits against each app's rules."),
+    "breakout-format-intel": (
+        "The kinds of video growing fastest right now, with the research kept. Borrow the shape. Do not copy it blind.",
+        "Pick one kind to borrow in stage 4."),
+}
+
+
+def _plain_box(slug):
+    s = PLAIN_SUMMARIES.get(slug)
+    if not s:
+        return ""
+    return ('<section class="plain-box" aria-label="In easy words">'
+            '<h2 class="plain-h" id="plain-words">In easy words</h2>'
+            f'<p>{esc(s[0])}</p>'
+            f'<p class="plain-job"><strong>Your job in this part:</strong> {esc(s[1])}</p>'
+            '</section>')
 
 
 def build():
@@ -1797,8 +1853,8 @@ def build():
         cnav += "</nav>"
         # money-map ribbon (wave 18): every pillar chapter links to the capstone map
         cnav += ('<div class="map-ribbon" role="note">'
-                 '<strong>⌖ Lost in the climb?</strong>'
-                 '<span>See where this phase fits on <a href="money-map.html">The Money Map</a>, 7 questions, your stage, your next 3 moves.</span>'
+                 '<strong>Not sure where you are?</strong>'
+                 '<span>The <a href="money-map.html">Money Map</a> asks 7 short questions and shows your stage and your next 3 steps.</span>'
                  '<a class="btn btn-ghost" href="money-map.html">Open the map →</a></div>')
         # wave 30: radar section map: anchor ids on every h2 + a dossier nav
         # that tracks reading position (sidebar on desktop, disclosure on mobile)
@@ -1806,7 +1862,7 @@ def build():
         raside, rdetails = _radar_map(map_items)
         page = page_template(f"{phase}: {short}",
                              f'<div class="chapter-with-map">{raside}'
-                             f'<article class="chapter">{hero}{_lesson_spec_html(slug)}{rdetails}{body_html}{_lesson_conclusion_html(slug)}{cnav}</article></div>',
+                             f'<article class="chapter">{hero}{_lesson_spec_html(slug)}{_plain_box(slug)}{rdetails}{body_html}{_lesson_conclusion_html(slug)}{cnav}</article></div>',
                              active="career-path.html", path=f"{slug}.html")
         (SITE / f"{slug}.html").write_text(page, encoding="utf-8")
         chapters_meta.append({
@@ -1857,7 +1913,7 @@ def build():
         raside, rdetails = _radar_map(map_items)
         page = page_template(f"{short}",
                              f'<div class="chapter-with-map">{raside}'
-                             f'<article class="chapter">{hero}{_lesson_spec_html(slug)}{rdetails}{body_html}{mount}{_lesson_conclusion_html(slug)}{cnav}</article></div>',
+                             f'<article class="chapter">{hero}{_lesson_spec_html(slug)}{_plain_box(slug)}{rdetails}{body_html}{mount}{_lesson_conclusion_html(slug)}{cnav}</article></div>',
                              active="glossary.html" if slug == "metrics-glossary" else "career-path.html", extra_head=extra_head, path=f"{slug}.html")
         (SITE / f"{slug}.html").write_text(page, encoding="utf-8")
         reference_meta.append({"id": slug, "badge": badge, "title": short,
@@ -1998,11 +2054,11 @@ def build():
 
     # glossary page
     glossary = json.loads((DATA / "glossary.json").read_text(encoding="utf-8"))
-    gloss_html = "<h1>Glossary</h1><p class='lede'>Plain definitions for the words used across this site.</p><dl class='glossary'>"
+    gloss_html = "<h1>Words to Know</h1><p class='lede'>Every hard word on this site, said in easy words. If a step uses a word you do not know, it will be here.</p><dl class='glossary'>"
     for term in sorted(glossary["terms"], key=lambda t: t["term"].lower()):
         gloss_html += f"<div class='gloss-entry'><dt id='g-{term['term'].lower().replace(' ', '-')}'>{esc(term['term'])}</dt><dd>{inline(term['definition'])}</dd></div>"
     gloss_html += "</dl>"
-    (SITE / "glossary.html").write_text(page_template("Glossary", gloss_html, active="glossary.html", path="glossary.html"), encoding="utf-8")
+    (SITE / "glossary.html").write_text(page_template("Words to Know", gloss_html, active="glossary.html", path="glossary.html"), encoding="utf-8")
 
     # ---- Algorithm Watch feed page (wave B): pre-rendered from data/changes.json,
     #      live-updated from /api/changes when the server is reachable ----
@@ -2039,23 +2095,21 @@ def build():
             f"<p>{esc(group_desc)}</p></div>"
             f'<ul class="spec-rows">{rows}</ul></section>')
     tools_body = (
-        hub_hero("", "Tools",
-                 f"{len(TOOLS)} tools, grouped by the job they do. Pick the one that matches where you are.",
+        hub_hero("", "The Toolbox",
+                 "Every tool in this guide, on one shelf. You do not have to shop here. "
+                 "The path hands you each tool in the step where you use it.",
                  "gold")
-        + '<section class="section"><h2>Tools live inside the Path</h2>'
-        "<p>Every tool below sits at the stage of <a href=\"career-path.html\">The Zero-to-Career Path</a> where a creator actually needs it, "
-        "Foundation, Build, Publish Rhythm, Growth, Monetization &amp; Career. If you are not sure which tool is yours yet, "
-        "don't browse the shelf: start the Path and it will hand you each tool in order.</p></section>"
+        + '<section class="section"><h2>Tools live inside the steps</h2>'
+        "<p>Each tool below sits in a step of <a href=\"career-path.html\">the Path</a>, at the moment you need it. "
+        "Not sure which tool is yours yet? Do not browse the shelf. Start the path, and it will hand you each tool in order.</p></section>"
         + hub_sections
         + '<section class="section"><h2>Your shelf</h2>'
-        "<p>Working the same few tools every day? Save any of them from its own page and they wait for you on the "
-        "<a href=\"saved-shelf.html\">Saved Shelf</a>, in this browser only, nothing sent anywhere, no most-saved ranking invented.</p></section>"
-        + '<section class="section honesty"><h2>Pick by job, not by shine</h2>'
-        "<p>Every tool on this page reads the same 2026 research the rest of the site is built on. "
-        "Start with the Niche Picker if you're undecided, the Revenue Calculator if you have views, "
-        "and The Deal Analyzer the moment a brand emails you. "
-        "Not sure where you stand at all? Take <a href=\"money-map.html\">The Money Map</a>, "
-        "7 questions, your stage, your next 3 moves.</p></section>")
+        "<p>Use the same few tools every day? Save any of them from its own page. They wait for you on your "
+        "<a href=\"saved-shelf.html\">Saved Shelf</a>. The list stays in this browser. Nothing is sent anywhere.</p></section>"
+        + '<section class="section honesty"><h2>Pick by the job, not by the shine</h2>'
+        "<p>Every tool here reads the same checked 2026 research as the rest of the site. "
+        "Not sure where you stand at all? Take <a href=\"money-map.html\">The Money Map</a>: "
+        "7 short questions, your stage, your next 3 steps.</p></section>")
     (SITE / "tools.html").write_text(page_template("All Tools", tools_body, active="tools.html", path="tools.html", extra_head=_tools_json_ld()), encoding="utf-8")
 
     # ---- career path page (rotation 20): the site's center moves from the
@@ -2253,73 +2307,101 @@ def build():
     # they carried now lives in the specimen's annotations, in the
     # closed-vocabulary line at the plate's foot, and on the lesson
     # pages themselves (spec block first, conclusion last).
-    _spec = LESSONS_BY_ID["f-drill-statement"]
-    _spec_stage = LESSON_STAGE_NAMES[_spec["stage"]]
-    _n_lessons = len(LESSONS_BY_ID)
-    _n_drills = sum(1 for _l in LESSONS_BY_ID.values() if _l["kind"] == "drill")
-    _n_reads = _n_lessons - _n_drills
-    _specimen = f"""
-<section class="specimen" aria-label="Start page: the site, and one lesson's name, annotated">
-  <p class="spec-kicker">A field manual for creators \u00b7 start here \u00b7 specimen 01</p>
-  <h1 class="spec-site">{SITE_NAME}</h1>
-  <div class="spec-plate">
-    <div class="spec-row"><span class="spec-coord">Number</span><span class="spec-num">{esc(_spec["number"])}</span></div>
-    <div class="spec-row"><span class="spec-coord">Name</span><p class="spec-name">{esc(_spec["title"])}</p></div>
-    <div class="spec-row"><span class="spec-coord">Kind \u00b7 State</span><span class="spec-kind">{esc(_spec["kind"])} \u00b7 {esc(_spec["state"])}</span></div>
-    <dl class="spec-notes">
-      <div><dt>{esc(_spec["number"])}</dt><dd>Stage 1, {_spec_stage}, second lesson in it. The number is the address: stage, then position.</dd></div>
-      <div><dt>{esc(_spec["kind"])}</dt><dd>A kind word. A drill is done, not read: {esc(_spec["time"])}, {esc(_spec["difficulty"].lower())}. The other kind word is read.</dd></div>
-      <div><dt>{esc(_spec["state"])}</dt><dd>A state word. Still true as filed. A replaced lesson reads superseded, with its replacement named.</dd></div>
-    </dl>
-    <p class="spec-done">Done, for this drill, is an artifact in hand: {esc(_spec["artifact"])}</p>
-    <p class="spec-vocab">Difficulty, five grades only: very easy \u00b7 easy \u00b7 moderate \u00b7 difficult \u00b7 very difficult</p>
+    # ---- revision 2026-10-15: the home IS the start of the path -------
+    # The old home (manual cover + specimen plate + the complete contents
+    # of everything) is gone. A first-time visitor now lands on the first
+    # three steps themselves, the five stages as a plain road, and nothing
+    # else that competes with starting. Copy rule: scripts/audit_copy.py.
+    _stage_order = ["foundation", "build", "publish", "growth", "career"]
+    _lessons_by_stage = {s: [] for s in _stage_order}
+    for _les in LESSONS_BY_ID.values():
+        _lessons_by_stage[_les["stage"]].append(_les)
+    for _s in _stage_order:
+        _lessons_by_stage[_s].sort(key=lambda l: float(l["number"]))
+    _total_steps = len(LESSONS_BY_ID)
+    _tool_titles_all = {slug: title for slug, title, _ in TOOLS}
+    STAGE_BLURBS = {
+        "foundation": "Pick a topic that can pay, and set a 90-day target.",
+        "build": "Turn one idea into a week of videos, on a calendar.",
+        "publish": "Post on set days, and learn why people click and stay.",
+        "growth": "Turn viewers into people who stay, and learn your numbers.",
+        "career": "Add money in the right order, and run it like a job.",
+    }
+
+    def _step_block(les):
+        href = les.get("href") or f"career-path.html#lesson-{les['id']}"
+        kind_word = "Read" if les["kind"] == "read" else "Do"
+        tool = ""
+        if les.get("tool"):
+            tslug = les["tool"]
+            tool = (f'<p class="step-tool">The tool for this step: '
+                    f'<a href="{tslug}.html">{esc(_tool_titles_all[tslug])}</a></p>')
+        return (
+            f'<div class="step-block" data-stage="{les["stage"]}">'
+            f'<p class="step-num">Step {esc(les["number"])} · {kind_word}</p>'
+            f'<h3 class="step-name">{esc(les["title"])}</h3>'
+            f'<p class="step-what">{esc(les["steps"][0])}</p>'
+            f'{tool}'
+            f'<p class="step-act"><a class="btn btn-primary" href="{href}">Do this step →</a> '
+            f'<label class="step-done"><input type="checkbox" data-lesson-toggle="{les["id"]}"> I did this</label></p>'
+            f'<p class="step-done-line"><strong>Done looks like:</strong> {esc(les["artifact"])}</p>'
+            f'</div>')
+
+    _first_three = "".join(_step_block(l) for l in _lessons_by_stage["foundation"][:3])
+    _stage_blocks = ""
+    for _si, _sid in enumerate(_stage_order):
+        _first_id = _lessons_by_stage[_sid][0]["id"]
+        _stage_blocks += (
+            f'<div class="stage-block" data-stage="{_sid}">'
+            f'<p class="stage-num">Stage {_si + 1} of 5</p>'
+            f'<h3 class="stage-name">{esc(LESSON_STAGE_NAMES[_sid])}</h3>'
+            f'<p class="stage-what">{esc(STAGE_BLURBS[_sid])}</p>'
+            f'<p class="stage-count"><span data-stage-count="{_sid}">0 of {len(_lessons_by_stage[_sid])} steps done</span></p>'
+            f'<p class="stage-act"><a href="career-path.html#lesson-{_first_id}">Open stage {_si + 1} →</a></p>'
+            f'</div>')
+    _path_data = json.dumps({
+        "order": [l["id"] for _s in _stage_order for l in _lessons_by_stage[_s]],
+        "stages": {s: [l["id"] for l in _lessons_by_stage[s]] for s in _stage_order},
+    })
+    index_body = f"""
+<div class="scroll-progress" aria-hidden="true"></div>
+<section class="guide-hero">
+  <p class="guide-kicker">A guide for people starting with nothing</p>
+  <h1>Build a career from nothing.</h1>
+  <p class="guide-lede">You make videos. People watch them. In time, it turns into a job, then a career. This guide walks you there, one small step at a time.</p>
+  <p class="guide-sub">{_total_steps} steps. 5 stages. In order. You always know where you are, and what to do next.</p>
+  <p class="guide-progress" id="home-progress">Your first step is below. Tick each step off as you finish it. The path fills in as you go.</p>
+  <div class="path-spine" aria-hidden="true"><span class="spine-fill" id="home-spine-fill"></span></div>
+</section>
+<section class="section guide-moves">
+  <div class="section-head"><h2>Your first three moves</h2></div>
+  <p class="section-lede">Do these three, in this order. Nothing else matters yet.</p>
+  {_first_three}
+  <p class="guide-next"><a class="btn" href="career-path.html">See all {_total_steps} steps on the Path →</a></p>
+</section>
+<section class="section guide-stages">
+  <div class="section-head"><h2>The road, in five stages</h2></div>
+  <p class="section-lede">Each stage builds on the one before it. Finish a stage, and the next one opens with work that now makes sense.</p>
+  <div class="stage-grid">{_stage_blocks}</div>
+</section>
+<section class="section guide-how">
+  <div class="section-head"><h2>How this guide works</h2></div>
+  <div class="how-list">
+    <div class="how-row"><p class="how-num">1</p><div><h3>One step at a time</h3><p>Each step is small. Each step ends with one clear thing to do. Do it, tick it off, move on.</p></div></div>
+    <div class="how-row"><p class="how-num">2</p><div><h3>Tools live inside the steps</h3><p>There are {_total_steps} steps and a shelf of tools. You never have to pick a tool from a list. The step that needs a tool hands it to you.</p></div></div>
+    <div class="how-row"><p class="how-num">3</p><div><h3>Your ticks stay on this device</h3><p>Your progress is saved in this browser only. Nothing is sent anywhere. No account, no sign-up.</p></div></div>
   </div>
-  <p class="spec-claim"><span class="claim-num">{_n_lessons}</span> lessons. <span class="claim-num">{_n_drills}</span> are drills you do, not read.</p>
-  <div class="hero-cta"><a class="btn btn-primary" href="career-path.html">Start the Career Path \u2192</a><a class="spec-open" href="career-path.html#lesson-{_spec["id"]}">Open lesson {_spec["number"]} on the Path \u2192</a></div>
-</section>"""
-    # ---- rotation 23: the Path as a numbered contents composition.
-    # The nine phases are the page's structure: 01 to 09, ruled
-    # plates, each opening its chapter. Counts ride in the heading
-    # prose, not in a stat strip.
-    _path_plates = ""
-    for _pi, _pm in enumerate(chapters_meta):
-        _path_plates += (
-            f'<li><a class="path-plate" href="{_pm["path"]}">'
-            f'<span class="pp-num">{_pi + 1:02d}</span>'
-            f'<span class="pp-main"><span class="pp-phase">{esc(_pm["phase"])}</span>'
-            f'<span class="pp-title">{esc(_pm["title"])}</span>'
-            f'<span class="pp-lede">{esc(PHASE_LEDES[_pi])}</span></span>'
-            f'<span class="pp-meta">{_pm["read_minutes"]} min read</span></a></li>')
-    _path_section = f"""
-<section class="section path-contents"><div class="section-head"><h2>The Path, in nine phases</h2></div>
-<p class="section-lede">Nine phases, in order, from $0 and no content to a working creator business. Open one, or work the Path end to end: it starts at Lesson 1.1, teaches first, and hands you each of the {n_tools} tools where you need it, progress saved on this device. Not sure where you stand? The 2-minute <a href="money-map.html">Money Map</a> finds your stage.</p>
-<ol class="path-plates">{_path_plates}</ol>
-</section>"""
-    index_body = f"""{_specimen}
-{_path_section}
-<section class="section contents"><div class="section-head"><h2>The contents, entire</h2></div>
-<p class="section-lede">Every lesson, every tool, every case file in this manual, named the way the specimen is named. Nothing here is a teaser.</p>
-{_contents_parts}
-<h3 class="ci-part ci-part-tools">The tools, by job</h3>
-{_contents_tools}
-<h3 class="ci-part ci-part-cases">The case files</h3>
-<ul class="ci-list">{_contents_cases}</ul>
 </section>
-<section class="section corrections-note"><h2>Filed wrong? Correct it.</h2>
-<p>Every tool carries the date it was added to this manual and the date it last changed, in its spec line above. Spot an error anywhere? The manual keeps a corrections ledger on the <a href="what-changed.html">Algorithm Watch</a> page: file a correction there and accepted corrections print in the ledger, dated, with what changed.</p>
+<section class="section guide-more">
+  <div class="section-head"><h2>Not sure where you stand?</h2></div>
+  <p class="section-lede">The <a href="money-map.html">Money Map</a> asks 7 short questions and shows your stage and your next 3 steps. Two minutes, no sign-up.</p>
+  <p class="section-lede">Want proof this works? Read the <a href="case-files.html">stories of real people who did it</a>, one small channel at a time.</p>
+  <p class="section-lede">A word on this site you do not know? It is in <a href="glossary.html">Words to Know</a>, in easy words.</p>
 </section>
-{signal_log}
-<section class="section"><div class="curator-note">
-<h2>Read Phase 5 twice</h2>
-<blockquote>If you only read one phase, read Phase 5, twice. Everyone skips to the money chapter and wonders why the math doesn't work. It doesn't work because phases 1 through 4 <em>are</em> the product. The stack is just the cash register on top of an audience that trusts you. I put monetization fifth on purpose.</blockquote>
-<cite>The editor of this manual</cite></div></section>
-<section class="section"><div class="section-head"><h2>What to cover today</h2><a href="what-changed.html" class="section-more">Algorithm Watch \u2192</a></div>
-    <div data-trends-widget data-trends-limit="6"></div>
-    <script src="assets/js/trends-widget.js"></script>
-    <noscript><p class="muted">The live trend feed needs JavaScript. The trend playbooks are in Phase 3.</p></noscript>
-</section>
-<section class="section honesty"><h2>The honesty policy</h2>
-<p>Every platform number on this site was verified against 2026 sources or is flagged <strong>verify live</strong>. Income ranges are illustrative, never promises. The LLC/tax phase is educational, <strong>not legal or tax advice</strong>. Platforms change rules constantly; the most dangerous number on the internet is a stale one.</p></section>
+<section class="section honesty"><h2>The honest part</h2>
+<p>Every number on this site was checked against 2026 sources, or is marked <strong>check live</strong>. Money ranges show what can happen. They are not a promise of what will happen. The business stage teaches. It is not legal or tax advice. App rules change all the time, so the most risky number is an old one.</p></section>
+<script type="application/json" id="home-path-data">{_path_data}</script>
+<script src="assets/js/home-path.js"></script>
 """
     (SITE / "index.html").write_text(page_template(SITE_NAME, index_body, active="index.html", path="index.html", extra_head=_website_json_ld()), encoding="utf-8")
 

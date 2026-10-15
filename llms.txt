@@ -1,6 +1,6 @@
 # Creator Growth Empire
 
-From $0 to a multi-million-dollar creator company.
+Start with nothing. Build a career, one small step at a time.
 
 ## Phases
 - [Phase 0: Start From Nothing](phase-0-start-from-nothing.html), 10 min read
