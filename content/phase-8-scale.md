@@ -88,6 +88,19 @@ The pattern underneath: **attention → trust → owned products → equity.** E
 
 For the full deconstructions, arc, revenue stack, the three decisions that mattered, what to steal, and what *not* to copy, read the Empire Case Files: [The Sleep-Channel Network](case-sleep-channels.html) (Fortune-verified faceless portfolio, ~$700K/yr), [Mavwicks on TikTok Shop](case-mavwicks.html) ($300K → $32M in year one), and [The Cohort Course](case-ptya.html) (Ali Abdaal's $5M email-driven education business).
 
+## Help that takes a cut: managers and agents
+
+Staff work for a wage. Two other kinds of help work for a cut, and at some point both will knock on your door:
+
+- **A manager** looks after the whole business: which deals to take, what to build next, who to hire, what to say no to. The usual price is a cut of everything you earn, commonly about 20% (The Publish Press, on how creator management works).
+- **An agent** sells: they bring brand deals and other paid work to you. The usual price is a cut of only the work they bring, commonly about 10%.
+
+**When it can be worth it.** When paid work is arriving faster than you can answer it, when deals are big enough that one bad term costs more than a year of cuts, or when you are turning down good work for lack of hours. Before that point, the Deal Room, your rate card, and one helper (Phase 7) cover the same ground for far less.
+
+**The terms that keep you safe.** Any cut, a start date, and an end date, in writing. The cut applies to the work they touch, named in the paper, not to everything you will ever make. Your accounts, your channel, and your money stay in your name and under your sign-in, always. You can leave at the end date without paying for work that has not happened yet.
+
+**Walk away when you hear:** a cut of everything, forever, with no end date; they want to hold your accounts or be paid first and pass the rest to you; they cannot name creators like you whom they helped; or the paper is "standard, sign it today." Phase 5's warning stands: a network or helper who takes a big cut for nothing named is a cost, not a team. A real manager names what they do each month. If the month would look the same without them, the cut is too high at any number.
+
 ## Building in public vs. stealth
 
 Two valid strategies:
@@ -122,6 +135,7 @@ Once a year, shut the machine off for a day and ask five questions: (1) Which re
 - Channel one runs 30 days without your daily input (the test)
 - Second channel launched *only* after passing the test
 - Revenue diversified: no single source over 40% of total
+- Any manager or agent deal in writing, with its cut, its scope, and its end date
 - Owned product brand in development or live
 - Quarterly strategy review: what's working, what's next, what dies
 

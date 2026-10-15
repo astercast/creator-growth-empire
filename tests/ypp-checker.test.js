@@ -139,6 +139,11 @@ ok(ac.pass === true, "activity: 5 uploads/90d passes via output leg");
 var ac2 = ypp.activityVerdict(R.y2027, base({ watchHours: 0, shortsViews: 999999, uploads90d: 4 }));
 ok(ac2.pass === false, "activity: all three legs missed → fail");
 ok(ac2.shortsGap === 1, "activity: shorts gap = 1");
+var ac3 = ypp.activityVerdict(R.y2027, base({ watchHours: 0, shortsViews: 0, uploads90d: 2, formatMix: "longform" }));
+ok(ac3.pass === true, "activity: 2 uploads on a long-form channel passes via the longs leg");
+var ac4 = ypp.activityVerdict(R.y2027, base({ watchHours: 0, shortsViews: 0, uploads90d: 1, formatMix: "longform" }));
+ok(ac4.pass === false, "activity: 1 upload on a long-form channel still misses the output leg");
+ok(ac4.uploadsGap === 1, "activity: long-form uploads gap counts to 2");
 
 /* 5: originality warning */
 ok(ypp.check(base({ originality: "reposted", formatMix: "shorts" })).originalityWarning !== null,

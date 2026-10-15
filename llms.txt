@@ -3,15 +3,15 @@
 Start with nothing. Build a career, one small step at a time.
 
 ## Phases
-- [Phase 0: Start From Nothing](phase-0-start-from-nothing.html), 10 min read
-- [Phase 1: The Content Engine](phase-1-content-engine.html), 8 min read
+- [Phase 0: Start From Nothing](phase-0-start-from-nothing.html), 12 min read
+- [Phase 1: The Content Engine](phase-1-content-engine.html), 9 min read
 - [Phase 2: YouTube Mastery](phase-2-youtube-mastery.html), 10 min read
-- [Phase 3: The Everywhere Engine](phase-3-everywhere-engine.html), 11 min read
-- [Phase 4: Audience to Community](phase-4-audience-to-community.html), 8 min read
-- [Phase 5: The Monetization Stack](phase-5-monetization-stack.html), 19 min read
+- [Phase 3: The Everywhere Engine](phase-3-everywhere-engine.html), 13 min read
+- [Phase 4: Audience to Community](phase-4-audience-to-community.html), 9 min read
+- [Phase 5: The Monetization Stack](phase-5-monetization-stack.html), 22 min read
 - [Phase 6: Merch & Brand](phase-6-merch-and-brand.html), 8 min read
 - [Phase 7: The Business](phase-7-the-business.html), 9 min read
-- [Phase 8: Scale](phase-8-scale.html), 8 min read
+- [Phase 8: Scale](phase-8-scale.html), 10 min read
 
 ## Tools
 - [Niche Picker](quiz.html), Answer 6 questions, get ranked niche suggestions with reasoning, or take the 4-question "Pick my 2027 niche" branch, scored against the Niche Atlas 2027 outlook layer.

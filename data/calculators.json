@@ -2,11 +2,9 @@
   "note": "Illustrative ranges compiled from 2026 third-party data (AIR Media-Tech, vidIQ, creatorblade, shorts/saturaai, flowshorts, projectcasting, creatorsjet, elev8or). Platform rates change constantly, verify live before making decisions. These are ranges, not promises.",
   "platform_thresholds": {
     "facebook_content_monetization": {
+      "access": "Invite-only. Meta publishes no follower count and no minutes-viewed threshold; creators register interest in the Professional Dashboard and Meta invites pages. The 10,000 followers / 600,000 minutes in 60 days / 5 videos figures repeated by guides are the retired In-Stream Ads bar (Meta, Facebook for Creators, Oct 2026).",
       "fast_track_mar2026": "$1,000/mo at 100K+ followers or $3,000/mo at 1M+ followers (IG/TikTok/YT count), US/Canada, 3-month cap, 15 original Reels/month across 10+ days (TechCrunch/PetaPixel Mar 2026)",
-      "followers": 10000,
       "min_age": 18,
-      "min_videos": 5,
-      "minutes_viewed_60d": 600000,
       "note_2025": "Meta paid ~$3B to creators in 2025 (+35% YoY, ~60% on Reels); Reels generated ~60% of payouts (socialbee Sep 2026)",
       "rpm_note": "Wide range; Reels often $0.02–$0.20. Instagram has NO standing Reels bonus (Reels Play ended 2023). IG stack is brand deals, affiliates, subscriptions, invite-only bonuses (timetopost.co)",
       "rpm_per_1000_views": [
@@ -16,8 +14,11 @@
       "source": "shortsync, socialbee, techcrunch, petapixel, timetopost.co, Oct 2026"
     },
     "facebook_stars": {
-      "followers": 1000,
-      "per_star_usd": 0.01
+      "followers": 500,
+      "followers_held_days": 30,
+      "per_star_usd": 0.01,
+      "note": "Corrects the earlier 1,000-follower figure. Meta's Stars page requires 500 followers for at least 30 consecutive days, plus Partner Monetization Policies and Community Standards checks (Meta Stars page, checked via dated read Sep 7, 2026). Verify live in the Professional Dashboard.",
+      "source": "Meta Stars page via tweetangels dated read Sep 2026; completeness audit Oct 15, 2026"
     },
     "tiktok_creator_rewards": {
       "eligibility": "10K followers + 100K video views in last 30 days + 18+ + personal account in good standing (kompozy Jul 2026, multilogin Sep 2026)",
@@ -107,6 +108,48 @@
       ],
       "watch_hours_12mo_or": 4000,
       "watch_time_gate_note": "Thresholds are entry fees, not guarantees, watch-time is the real gate, and YouTube's Jan 2026 enforcement wave reportedly stripped tens of millions of subscribers from mass-produced/AI-content channels (medium.com Sep 2026, single source, flag)"
+    },
+    "twitch_affiliate": {
+      "followers": 25,
+      "broadcast_hours_30d": 4,
+      "unique_days_30d": 4,
+      "avg_viewers": 3,
+      "window": "rolling 30 days",
+      "onboarding": "Two-factor authentication required before onboarding; tax interview and payout details follow the invite.",
+      "unlocks": [
+        "Subscriptions",
+        "Bits",
+        "Ad revenue",
+        "Channel Points"
+      ],
+      "note": "Twitch lowered the Affiliate bar in 2025; older guides still print 50 followers, 8 hours, 7 days. Your own Achievements page in the Creator Dashboard is the authority for your channel.",
+      "source": "Twitch Affiliate program page figures, carried in content/platform-rules-bible.md (verified Oct 2026) and re-checked Oct 15, 2026"
+    },
+    "tiktok_live": {
+      "followers": 1000,
+      "min_age_host": 18,
+      "min_age_gifts": 18,
+      "note": "TikTok states the follower number may vary across regions; account must be in good standing. Check the LIVE option in your own app.",
+      "source": "TikTok LIVE help, as quoted in 2026 guides checked Oct 15, 2026"
+    },
+    "youtube_live": {
+      "desktop": "Verified channel, no live-streaming restriction in the last 90 days, live streaming enabled (first enable can take up to 24 hours). No subscriber minimum for computer or encoder streaming.",
+      "mobile_subscribers": 50,
+      "mobile_note": "Mobile live adds: at least 50 subscribers, verified channel, no live restriction in the last 90 days.",
+      "source": "YouTube Help live streaming pages, checked Oct 15, 2026; check your own channel under Studio, Settings, Channel, Feature eligibility"
+    },
+    "instagram_live": {
+      "followers": 1000,
+      "account": "public",
+      "note": "Since August 1, 2025 only public accounts with 1,000 followers or more can create live videos on Instagram.",
+      "source": "Meta in-app notice, confirmed by Meta to TechCrunch Aug 1, 2025 (PetaPixel/TechCrunch), checked Oct 15, 2026"
+    },
+    "instagram_subscriptions": {
+      "followers": 10000,
+      "min_age": 18,
+      "account": "professional",
+      "note": "Must also meet Partner Monetization Policies and stay compliant with Community Standards and Content Monetization Policies. Price range set by the creator, $0.99 to $99.99 per month.",
+      "source": "Meta Business Help, How to Become Eligible for Instagram Subscriptions, read Oct 15, 2026"
     }
   },
   "revenue_splits": {

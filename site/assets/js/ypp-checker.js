@@ -189,17 +189,22 @@
   function activityVerdict(rule, a) {
     var hoursOk = a.watchHours >= rule.activity.watchHours12mo;
     var shortsOk = a.shortsViews >= rule.activity.shortsViews90d;
-    var outputOk = a.uploads90d >= rule.activity.shorts90d;
+    // The output leg is 2 long videos OR 5 Shorts per 90 days. The form
+    // counts uploads of all kinds in one number, so a long-form channel
+    // passes at 2+ uploads (its leg is the longs); any other mix at 5+.
+    var outputNeed = a.formatMix === "longform"
+      ? rule.activity.longs90d : rule.activity.shorts90d;
+    var outputOk = a.uploads90d >= outputNeed;
     return {
       pass: hoursOk || shortsOk || outputOk,
       checks: [
         { label: "Watch hours (12 mo) ≥ 1,000", pass: hoursOk },
         { label: "Shorts views (90 d) ≥ 1M", pass: shortsOk },
-        { label: "Output (5+ uploads/90 d)", pass: outputOk }
+        { label: "Output (2 long videos or 5 Shorts per 90 d)", pass: outputOk }
       ],
       hoursGap: gap(rule.activity.watchHours12mo - a.watchHours),
       shortsGap: gap(rule.activity.shortsViews90d - a.shortsViews),
-      uploadsGap: gap(rule.activity.shorts90d - a.uploads90d)
+      uploadsGap: gap(outputNeed - a.uploads90d)
     };
   }
 

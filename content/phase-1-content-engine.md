@@ -55,6 +55,20 @@ Editing is where average footage becomes unskippable. The principles:
 - **Music**, 10–20% volume under dialogue. It should be felt, not heard. Use licensed libraries (epidemic-style subscriptions), copyright strikes are a business-ending event.
 - **Subtitles**, burned-in captions for short-form (most is watched muted); accurate SRT uploads for long-form (accessibility + SEO).
 
+## Sounds and clips you do not own
+
+The first rights problem hits on video one, not video one hundred. Learn the two words now, because they look alike and cost very differently:
+
+- **A claim** is automatic. The app's system finds a match with a song or clip someone owns, and the owner picks what happens: the video stays up and the owner takes the ad money, or it is tracked, or it is blocked in some places. A claim is not a strike. It costs money and time, not the channel.
+- **A strike** is formal. The owner asks for the video to come down, it comes down, and the strike sits on your channel. Three strikes in 90 days can end the channel for good (YouTube's rule, carried in the Platform Rules Bible).
+
+The working rules, in order:
+
+1. **Start with each app's own free music.** YouTube's Audio Library, TikTok's Commercial Music Library, and Meta's Sound Collection exist so you can post without this fight. A track that is fine inside TikTok is not cleared for YouTube. Rights live with the app you post on.
+2. **A paid library is fine, with the receipt kept.** Licensed libraries (epidemic-style subscriptions) clear you while the license covers the video. Save the invoice or the license page for every track you use. When a claim lands on music you paid for, that proof is how you dispute it and win.
+3. **Buying a song is not the right to post it.** Owning a download, or paying for a track as a fan, gives you listening rights, not posting rights. Same for clips: a short clip is not automatically safe. There is no safe number of seconds.
+4. **Check before you post, not after.** Step 2.4 on the Path puts this check on the batch plan itself: every sound and clip on the shot list gets a yes, it is mine, or yes, I have the right, with the proof kept next to the list.
+
 **Edit in passes:** rough cut (structure) → tightening (kill darlings) → polish (graphics, sound, color). Never polish a section you might cut.
 
 ## Packaging: thumbnails, titles, hooks: the part that decides everything

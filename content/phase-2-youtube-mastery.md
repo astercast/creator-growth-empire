@@ -74,6 +74,8 @@ The algorithm doesn't reward "posting daily." It rewards **predictable satisfact
 - **The 80% rule**, ship at 80% perfect. The last 20% of polish takes 80% of the time and viewers can't tell. Perfectionism is procrastination in a costume.
 - **Rest is a feature**, one full day off per week, scheduled. Burnout doesn't just pause your channel; it makes you resent it. The creators who last 5 years all protect their energy like inventory.
 
+**Plan the long break before you need it.** Once or twice a year, take a full week or two off, on purpose, with the return date written down before you stop. The backlog rule above is what makes this safe: one finished video in the bank covers the gap, or you tell viewers the date you will be back and keep that date. What kills channels is not the break. It is the break with no return date, which quietly becomes quitting. Step 3.3 on the Path puts the rest day and the live day on the same calendar for this reason: the week you can see is the week you can keep.
+
 ## SEO that isn't stuck in 2015
 
 Modern YouTube SEO in one paragraph: put the thing people search for in the title's first half, write a 2–3 sentence description that a human would find useful (the first 2 lines show in search), add 3–5 relevant tags (diminishing returns, but harmless), say the keywords *in the video* (captions/transcripts are indexed), and make a playlist for every pillar. That's 90% of it. The other 10% is making the video worth clicking.

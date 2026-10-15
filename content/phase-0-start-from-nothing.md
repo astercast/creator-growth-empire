@@ -74,6 +74,20 @@ In every niche there are already 100 channels. Viewers subscribe for a *differen
 
 You don't need all six. You need one, executed relentlessly, until your name becomes shorthand for it.
 
+## Pick your home base first
+
+Your topic says what you make. Your home base says what kind of post the whole channel grows from. Pick one home. The others become side doors later, in Phase 3.
+
+| Home base | What you post most | First money it can pay | Who it suits |
+|---|---|---|---|
+| Long videos | 8 to 20 minute videos people search for and sit with | Ad money, then brand deals | Teachers, storytellers, reviewers |
+| Short videos | Fast clips under a minute or so, posted often | Brand deals and paid links; app pay is small | Fast, funny, visual makers |
+| Live rooms | You, on air, talking with people as it happens | Fan pay first: subs, gifts, tips | Talkers, gamers, performers |
+| Spoken shows | Talk shows and story shows people listen to | Sponsors, then fan pay | Talkers who hate filming |
+| Writing | Posts and letters people read in their inbox | Paid letters, then things you sell | Writers, experts with no camera |
+
+None of these is the "right" one. The right one is the kind of post you can make every week for a year. A live-first creator who forces long videos quits. A writer who forces daily clips quits. Step 1.4 on the Path asks you to name your home base in writing, right next to your format.
+
 ## Channel setup: the unsexy foundation
 
 Do this once, do it right, never think about it again:
@@ -84,6 +98,8 @@ Do this once, do it right, never think about it again:
 - **Banner**, your niche statement in 6 words or fewer + upload schedule. It's a billboard, not art.
 - **About section**, who the channel is for, what they get, when you post, and a business email from day one. Sponsors email small channels more often than you'd think.
 - **Channel trailer (optional)**, 60 seconds: who you are, what you make, why subscribe. Pin your best video instead if you'd rather.
+- **2-Step Verification, on, today.** Turn it on for the Google or app account behind every channel you own, and save the backup codes somewhere that is not that account. YouTube's Partner Program asks for it by name before it will pay you (YouTube Help, checked Oct 2026). It is also the lock that keeps a stolen password from becoming a stolen channel.
+- **Know where the strike and appeal pages live.** Every app has a page that shows your channel's standing and a way to appeal a strike or a ban. Find yours now, while nothing is wrong. The worst day to learn the appeal path is the day you need it.
 
 ## Branding basics that actually matter
 
@@ -153,6 +169,8 @@ Still torn between two niches? Make 3 videos in each (unlisted or on separate te
 - Channel name, handle, pfp, banner, about section live
 - Thumbnail style lock decided (fonts, colors, composition)
 - Business email in the about section
+- Home base named, in writing, next to the niche statement
+- 2-Step Verification on for every account, backup codes saved outside the account
 - 10-video commitment signed (to yourself)
 - Niche Picker quiz taken and validated with the niche-validation skill
 

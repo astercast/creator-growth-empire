@@ -76,7 +76,8 @@
    "steps": [
     "Run the Format Fit Finder on your topic sentence.",
     "Ask yourself: could I make 100 videos like this? Answer honestly.",
-    "If the answer is no, run it again. Drop the thing that beat you."
+    "If the answer is no, run it again. Drop the thing that beat you.",
+    "Name your home base too: long videos, short videos, live rooms, spoken shows, or writing."
    ],
    "time": "15 min",
    "title": "Pick the format you can sustain",
@@ -179,7 +180,8 @@
    "steps": [
     "Pick this week's five ideas that have hooks.",
     "Plan them as one filming day in the Batching Planner.",
-    "Write the shot list in filming order, not posting order."
+    "Write the shot list in filming order, not posting order.",
+    "Check each sound and clip: is it yours, or do you have the right to use it? Keep the proof with the shot list."
    ],
    "time": "30 min",
    "title": "Plan one batch day",
@@ -328,6 +330,28 @@
    "time": "10 min",
    "title": "Check when you can start earning",
    "tool": "ypp-checker"
+  },
+  {
+   "artifact": "One live done, one rest day kept, and both days written in the Cadence Coach.",
+   "difficulty": "Moderate",
+   "id": "p-drill-live",
+   "kind": "drill",
+   "needs": [
+    "Step 3.3 done (your posting days)",
+    "The Cadence Coach (Tool 05)"
+   ],
+   "number": "3.7",
+   "stage": "publish",
+   "state": "current",
+   "steps": [
+    "Read the live gates in Phase 3 first. Each app opens live at its own number.",
+    "Pick the app your numbers open first. Set one live day in the Cadence Coach.",
+    "Go live once for at least 20 minutes. Talk to the few people who come.",
+    "Put one full rest day in the same week. A live day is work, not a day off."
+   ],
+   "time": "30 min to set, one live to prove",
+   "title": "Go live once, and plan the rest day",
+   "tool": "cadence"
   },
   {
    "artifact": "One weekly ritual for your viewers, picked and put on the calendar.",
@@ -586,16 +610,37 @@
    "tool": "deal-analyzer"
   },
   {
+   "artifact": "One video made for a brand to post, priced in the Deal Builder and ready to pitch.",
+   "difficulty": "Moderate",
+   "id": "c-drill-ugc",
+   "kind": "drill",
+   "needs": [
+    "Step 5.9 done",
+    "The Deal Builder (Tool 13)"
+   ],
+   "number": "5.10",
+   "stage": "career",
+   "state": "current",
+   "steps": [
+    "Pick one kind of short video you already make well. That is the video you will sell.",
+    "Price it in the Deal Builder as work for a brand, with no post on your page.",
+    "Write one short pitch to a small brand: the video, the price, when they get it."
+   ],
+   "time": "40 min",
+   "title": "Make one video for a brand, no posting",
+   "tool": "deal-builder"
+  },
+  {
    "artifact": "Every live deal on the board, each one at its true stage.",
    "difficulty": "Moderate",
    "id": "c-drill-pipeline",
    "kind": "drill",
    "needs": [
-    "Step 5.9 done",
+    "Step 5.10 done",
     "The Deal Pipeline (Tool 17)",
     "The Follow-Through Queue (Tool 18)"
    ],
-   "number": "5.10",
+   "number": "5.11",
    "stage": "career",
    "state": "current",
    "steps": [
@@ -613,10 +658,10 @@
    "id": "c-drill-books",
    "kind": "drill",
    "needs": [
-    "Step 5.10 done",
+    "Step 5.11 done",
     "The Sponsor Income Ledger (Tool 20), the Receivables Register (Tool 21), the Brand Ledger (Tool 22), the Platform Ledger (Tool 23)"
    ],
-   "number": "5.11",
+   "number": "5.12",
    "stage": "career",
    "state": "current",
    "steps": [
@@ -634,11 +679,11 @@
    "id": "c-drill-hire",
    "kind": "drill",
    "needs": [
-    "Step 5.11 done",
+    "Step 5.12 done",
     "The Hiring Cost Calculator (Tool 10)",
     "The Empire Simulator (Tool 03)"
    ],
-   "number": "5.12",
+   "number": "5.13",
    "stage": "career",
    "state": "current",
    "steps": [
@@ -649,6 +694,27 @@
    "time": "45 min",
    "title": "Price the first helper before you hire",
    "tool": "hiring-calculator"
+  },
+  {
+   "artifact": "One fan pay door turned on, with your perk list written and priced in the Simulator.",
+   "difficulty": "Moderate",
+   "id": "c-drill-fanpay",
+   "kind": "drill",
+   "needs": [
+    "Step 5.1 done",
+    "The Empire Simulator (Tool 03)"
+   ],
+   "number": "5.14",
+   "stage": "career",
+   "state": "current",
+   "steps": [
+    "Check the fan pay gates in Phase 5. Write down the one door your numbers open first.",
+    "Price it in the Empire Simulator: what if 1 in 100 viewers paid each month?",
+    "Write the perks you can keep up each month. Turn the door on. Tell your viewers once, plainly."
+   ],
+   "time": "45 min",
+   "title": "Turn on fan pay",
+   "tool": "simulator"
   }
  ],
  "note": "The lesson spec table for the Zero-to-Career Path (Creator identity pass, rotation 22). One record per lesson, keyed to the lesson ids in assets/js/career-path.js: number and name (the manual's name formula), kind, time it takes, difficulty from the closed five-grade vocabulary (Very easy, Easy, Moderate, Difficult, Very difficult), what you need, the numbered steps, the conclusion line naming the artifact produced, and the state word from the closed vocabulary (current, superseded). Consumed by scripts/build.py (home contents, chapter spec blocks) and by assets/js/career-path-ui.js (the trail's lesson anatomy). Parity with career-path.js is pinned by tests/creator-r22.test.js.",

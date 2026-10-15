@@ -198,7 +198,7 @@
       { id: "holiday-shopping-surge",
         name: "Holiday shopping surge, Q4 affiliate windfall",
         assumedEffect: "The event month and the month after: affiliate revenue ×1.8 (the two-month holiday buying window). Ads, sponsors, subs, and growth untouched. The 1.8 is our labeled assumption, not platform data.",
-        basis: "TikTok Shop's BFCM 2025: $500M over four days (+50% shoppers) and +84% sales growth for brands that livestreamed (TikTok Newsroom); Adobe's 2026 holiday forecast: affiliate/partner share of retail revenue +12%, social media share +17%, creators = 22% of affiliate traffic, see Phase 5 Layer 2 + the Q4 playbook." }
+        basis: "TikTok Shop's BFCM 2025: $500M over four days (+50% shoppers) and +84% sales growth for brands that livestreamed (TikTok Newsroom); Adobe's 2026 holiday forecast: affiliate/partner share of retail revenue +12%, social media share +17%, creators = 22% of affiliate traffic, see Phase 5 Layer 3 + the Q4 playbook." }
     ],
     eventAssumptions: {
       algoReachMult: 0.6,

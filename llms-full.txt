@@ -76,6 +76,20 @@ In every niche there are already 100 channels. Viewers subscribe for a *differen
 
 You don't need all six. You need one, executed relentlessly, until your name becomes shorthand for it.
 
+## Pick your home base first
+
+Your topic says what you make. Your home base says what kind of post the whole channel grows from. Pick one home. The others become side doors later, in Phase 3.
+
+| Home base | What you post most | First money it can pay | Who it suits |
+|---|---|---|---|
+| Long videos | 8 to 20 minute videos people search for and sit with | Ad money, then brand deals | Teachers, storytellers, reviewers |
+| Short videos | Fast clips under a minute or so, posted often | Brand deals and paid links; app pay is small | Fast, funny, visual makers |
+| Live rooms | You, on air, talking with people as it happens | Fan pay first: subs, gifts, tips | Talkers, gamers, performers |
+| Spoken shows | Talk shows and story shows people listen to | Sponsors, then fan pay | Talkers who hate filming |
+| Writing | Posts and letters people read in their inbox | Paid letters, then things you sell | Writers, experts with no camera |
+
+None of these is the "right" one. The right one is the kind of post you can make every week for a year. A live-first creator who forces long videos quits. A writer who forces daily clips quits. Step 1.4 on the Path asks you to name your home base in writing, right next to your format.
+
 ## Channel setup: the unsexy foundation
 
 Do this once, do it right, never think about it again:
@@ -86,6 +100,8 @@ Do this once, do it right, never think about it again:
 - **Banner**, your niche statement in 6 words or fewer + upload schedule. It's a billboard, not art.
 - **About section**, who the channel is for, what they get, when you post, and a business email from day one. Sponsors email small channels more often than you'd think.
 - **Channel trailer (optional)**, 60 seconds: who you are, what you make, why subscribe. Pin your best video instead if you'd rather.
+- **2-Step Verification, on, today.** Turn it on for the Google or app account behind every channel you own, and save the backup codes somewhere that is not that account. YouTube's Partner Program asks for it by name before it will pay you (YouTube Help, checked Oct 2026). It is also the lock that keeps a stolen password from becoming a stolen channel.
+- **Know where the strike and appeal pages live.** Every app has a page that shows your channel's standing and a way to appeal a strike or a ban. Find yours now, while nothing is wrong. The worst day to learn the appeal path is the day you need it.
 
 ## Branding basics that actually matter
 
@@ -155,6 +171,8 @@ Still torn between two niches? Make 3 videos in each (unlisted or on separate te
 - Channel name, handle, pfp, banner, about section live
 - Thumbnail style lock decided (fonts, colors, composition)
 - Business email in the about section
+- Home base named, in writing, next to the niche statement
+- 2-Step Verification on for every account, backup codes saved outside the account
 - 10-video commitment signed (to yourself)
 - Niche Picker quiz taken and validated with the niche-validation skill
 
@@ -225,6 +243,20 @@ Editing is where average footage becomes unskippable. The principles:
 - **Pattern interrupts**, memes, sound effects, graphics, camera moves. Use them to punctuate, not decorate. If you notice the editing, there's too much of it.
 - **Music**, 10–20% volume under dialogue. It should be felt, not heard. Use licensed libraries (epidemic-style subscriptions), copyright strikes are a business-ending event.
 - **Subtitles**, burned-in captions for short-form (most is watched muted); accurate SRT uploads for long-form (accessibility + SEO).
+
+## Sounds and clips you do not own
+
+The first rights problem hits on video one, not video one hundred. Learn the two words now, because they look alike and cost very differently:
+
+- **A claim** is automatic. The app's system finds a match with a song or clip someone owns, and the owner picks what happens: the video stays up and the owner takes the ad money, or it is tracked, or it is blocked in some places. A claim is not a strike. It costs money and time, not the channel.
+- **A strike** is formal. The owner asks for the video to come down, it comes down, and the strike sits on your channel. Three strikes in 90 days can end the channel for good (YouTube's rule, carried in the Platform Rules Bible).
+
+The working rules, in order:
+
+1. **Start with each app's own free music.** YouTube's Audio Library, TikTok's Commercial Music Library, and Meta's Sound Collection exist so you can post without this fight. A track that is fine inside TikTok is not cleared for YouTube. Rights live with the app you post on.
+2. **A paid library is fine, with the receipt kept.** Licensed libraries (epidemic-style subscriptions) clear you while the license covers the video. Save the invoice or the license page for every track you use. When a claim lands on music you paid for, that proof is how you dispute it and win.
+3. **Buying a song is not the right to post it.** Owning a download, or paying for a track as a fan, gives you listening rights, not posting rights. Same for clips: a short clip is not automatically safe. There is no safe number of seconds.
+4. **Check before you post, not after.** Step 2.4 on the Path puts this check on the batch plan itself: every sound and clip on the shot list gets a yes, it is mine, or yes, I have the right, with the proof kept next to the list.
 
 **Edit in passes:** rough cut (structure) → tightening (kill darlings) → polish (graphics, sound, color). Never polish a section you might cut.
 
@@ -390,6 +422,8 @@ The algorithm doesn't reward "posting daily." It rewards **predictable satisfact
 - **The 80% rule**, ship at 80% perfect. The last 20% of polish takes 80% of the time and viewers can't tell. Perfectionism is procrastination in a costume.
 - **Rest is a feature**, one full day off per week, scheduled. Burnout doesn't just pause your channel; it makes you resent it. The creators who last 5 years all protect their energy like inventory.
 
+**Plan the long break before you need it.** Once or twice a year, take a full week or two off, on purpose, with the return date written down before you stop. The backlog rule above is what makes this safe: one finished video in the bank covers the gap, or you tell viewers the date you will be back and keep that date. What kills channels is not the break. It is the break with no return date, which quietly becomes quitting. Step 3.3 on the Path puts the rest day and the live day on the same calendar for this reason: the week you can see is the week you can keep.
+
 ## SEO that isn't stuck in 2015
 
 Modern YouTube SEO in one paragraph: put the thing people search for in the title's first half, write a 2–3 sentence description that a human would find useful (the first 2 lines show in search), add 3–5 relevant tags (diminishing returns, but harmless), say the keywords *in the video* (captions/transcripts are indexed), and make a playlist for every pillar. That's 90% of it. The other 10% is making the video worth clicking.
@@ -475,7 +509,7 @@ The portfolio, in priority order for most creators:
 
 ## TikTok: the discovery rocket
 
-**How it works in 2026:** TikTok's Creator Rewards Program pays roughly $0.40–$1.00 per 1,000 *qualified* views, but only for videos over 1 minute, original, with 1,000+ For You views each. Requirements: 18+, 10,000 followers, 100,000 views in 30 days, eligible country. The real money on TikTok was never the fund, it's **TikTok Shop affiliates** (5–20% commissions, no follower minimum for basic links) and brand deals.
+**How it works in 2026:** TikTok's Creator Rewards Program pays roughly $0.40–$1.00 per 1,000 *qualified* views, but only for videos over 1 minute, original, with 1,000+ For You views each. Requirements: 18+, 10,000 followers, 100,000 views in 30 days, eligible country. The real money on TikTok was never the fund, it's **TikTok Shop affiliates** (5–20% commissions; earning from product links in your videos takes 1,000 followers in the US, less in some countries) and brand deals.
 
 **What wins:** native pacing (hook in under 1 second, captions burned in, trending audio used *strategically*), series formats ("day 12 of X". TikTok's algorithm loves episodic return viewers), and search-value content (TikTok is now a search engine for Gen Z; "how to" content has a long tail here too).
 
@@ -588,6 +622,24 @@ For a creator doing 1 long-form + 3 shorts per week:
 
 Total filming: 1 day. The rest is repurposing, which is why the engine scales.
 
+## Live is a place, not a post
+
+Everything above is a post: you make it, then people watch it later. Live is the other shape. You and your viewers are in the same room at the same time, and the room is where trust and fan pay (Phase 5) actually happen. Live is also gated, and each app gates it differently. These are the gates as checked in October 2026; apps move them, so check the number inside your own app before you plan around it.
+
+| App | What it takes to go live |
+|---|---|
+| YouTube, from a computer | A verified channel, no live ban in the last 90 days. Turning live on the first time can take up to 24 hours. No subscriber count needed. |
+| YouTube, from a phone | All of the above, plus 50 subscribers. Check your own standing in Studio under Settings, Channel, Feature eligibility. |
+| TikTok | 1,000 followers and age 18. TikTok says the follower number may vary by country. Gifts need age 18 too. |
+| Instagram | A public account with 1,000 followers or more (Meta's rule since August 2025). A private account cannot start a live at any size. |
+| Twitch | Anyone can stream from day one. Getting paid there is the separate Affiliate step, below. |
+
+Twitch's paid tier, Affiliate, is the smallest set of numbers in live: 25 followers, 4 hours streamed, 4 different days, and 3 average viewers, all inside a rolling 30 days, then two-factor sign-in to finish joining (Twitch's own figures; older guides print the higher pre-2025 bar, and your Achievements page in Twitch is the one that counts). Affiliate is what turns on Twitch subscriptions, Bits, and ad money.
+
+**Your first live, kept simple.** Pick the app your numbers open first. Set one day and one start time, and tell your viewers in the post before it. Go for 20 to 30 minutes, not two hours. Have one thing to show or do, and talk to the people who come by name. Three people in a live room who feel seen are worth more than a post a thousand people scroll past. When it ends, cut the best minute into a short. The live feeds the posts; the posts feed the next live.
+
+Step 3.7 on the Path makes this a step, not a someday: one live, on a chosen day, with a full rest day in the same week. A live day is a work day. Plan it like one.
+
 ## X / Threads: the idea distribution layer
 
 Short-form video platforms reward *content*. Text platforms reward *thinking*. Post your video's single sharpest insight as a standalone thread: the hook as the first post, 5–7 posts of substance, the video linked at the end. Threads regularly outperform the video itself for reach, and they build a different kind of authority: *this person thinks clearly.* Sponsors and collaborators live on X. Be findable there.
@@ -615,6 +667,7 @@ It will happen, to a format, if not a platform. The survival kit:
 - Facebook Page created, CMP requirements tracked
 - Platform-native adaptations happening (not blind cross-posts)
 - Weekly schedule reflects the sequence: YouTube first, TikTok second, rest as repurposing
+- First live done on the app your numbers open first, with its gate checked in the app
 
 
 ---
@@ -657,6 +710,16 @@ A Discord server (or equivalent) turns an audience into a *place*. But communiti
 
 **The honest math:** a 1,000-person Discord with 100 active members is worth more than 100,000 passive followers. Engagement depth beats audience width for everything that pays.
 
+## Keep your people safe, and keep yourself safe
+
+A community is a room you are responsible for, and a door into your own life. Both need rules, written before the first bad day:
+
+- **Give mods tools, never keys.** A mod gets the right to delete, mute, and ban inside the room. A mod never gets your password, your payout pages, or the email behind the channel. If a mod needs to "log in as you," the answer is no, every time.
+- **Write the removal path down.** Delete, warn once, ban on repeat, the same for everyone, famous fans included. Arguing in public with the person you are removing is how a small problem becomes the week's drama. Remove first, explain once, move on.
+- **Block and report are routine, not drama.** Threats, hate, and spam get blocked and reported to the app the day they happen. No screenshot tour, no farewell post. Boring and fast is the whole method.
+- **Keep your private life private.** Do not post from home in ways that show your street, your family's faces and names (unless they chose that, as adults, on purpose), your daily times and places, or a trip while you are still on it. Post the trip when you are back. Fans are lovely. The internet is everyone.
+- **One adult rule for young fans.** If your viewers include kids, keep chat rules strict, keep private messages with fans closed or public-only, and never move a young fan to a private channel. This protects them and it protects you.
+
 ## Turning viewers into a movement
 
 Movements have three ingredients audiences don't:
@@ -671,7 +734,7 @@ You don't manufacture this. You *notice* it emerging in comments and community p
 
 One hour live does more for trust than ten edited videos. The unedited reality, mistakes, real-time answers, genuine reactions, is something edited content structurally cannot provide.
 
-**Start simple:** monthly Q&A or watch-party. Promote it in the preceding video and community tab. Keep the first ones small and intimate, that's a feature. As it grows: guest collabs (other creators' audiences become yours), live builds/challenges (event content), and eventually ticketed workshops (revenue).
+**Start simple:** monthly Q&A or watch-party. Promote it in the preceding video and community tab. Keep the first ones small and intimate, that's a feature. As it grows: guest collabs (other creators' audiences become yours), live builds/challenges (event content), and eventually ticketed workshops (revenue). Mind the gate before you book the date: each app opens live at its own number (Phase 3 has the table), and a monthly live you cannot legally start is a promise you will break in public.
 
 ## The community flywheel
 
@@ -791,7 +854,22 @@ Most creators monetize backwards: they chase ad revenue (slow, small) and ignore
 
 **Run the numbers:** the [YPP 2027 Eligibility Checker](ypp-checker.html) takes your subs, watch hours, Shorts views, and uploads and returns your verdict under *both* rule sets, per-check pass/fail, the gap math, the Shorts-originality warning if your mix triggers it, and a chapter-grounded plan to close the gap. Rules change; the checker tells you to verify live in YouTube Studio's Earn tab, and so do I.
 
-### Layer 2: Affiliates (the first real money)
+### Layer 2: Fan pay (your viewers pay you)
+
+The layer most stacks skip, because it does not look like "real" money yet. Fan pay is money your own viewers hand you on purpose: a monthly membership, a paid message in a live chat, a tip, a gift. It is small at first and it is the steadiest money you will ever make here, because it does not depend on views, ads, or a brand saying yes.
+
+The doors, with the gates as checked in October 2026. Gates move; check yours inside the app before you plan:
+
+- **YouTube memberships and Supers.** These open at the Partner Program's fan-funding tier: 500 subscribers, 3 public uploads in the last 90 days, and 3,000 watch hours in 12 months or 3 million Shorts views in 90 days (YouTube Help). You keep 70% of what members and Super buyers pay. Perks viewers actually stay for: members-only posts and videos, badges, a monthly live just for members. Perks that burn you out: daily private access to you. Sell belonging, not your whole day.
+- **Instagram Subscriptions.** A professional account, 10,000 followers, age 18 or older (Meta's own help page). You set the monthly price; Meta's range runs $0.99 to $99.99.
+- **Facebook Stars.** 500 followers held for 30 straight days, plus Meta's policy checks. Each Star pays you $0.01. Small per tap, real in a live room that loves you.
+- **Twitch subscriptions and Bits.** These ride on Affiliate (Phase 3 has the numbers): 25 followers and a small, steady streaming month. On Twitch this is not a side door. It is the main one.
+- **TikTok LIVE gifts.** Live opens at 1,000 followers and age 18 (Phase 3). Viewers send gifts in the room; gifts turn into money you can cash out.
+- **Off the apps entirely.** Pages like Patreon or Ko-fi take no follower count at all. You bring your own viewers, you set the price, the page takes its cut (check it live, the cuts change). This is the only fan-pay door open at zero followers, and the one nobody can switch off but you.
+
+**The honest math.** Fan pay converts at roughly 1 in 100 engaged viewers on a good offer, and that is enough: 200 paying fans at $5 a month is $1,000 a month that arrives in slow months too. Price it in the Empire Simulator before you promise perks (Step 5.14 on the Path), and launch with perks you can keep up on your worst week, not your best one.
+
+### Layer 3: Affiliates (the first real money)
 
 Promote products you actually use; earn 5–30% per sale. Why first: zero audience minimum, zero negotiation, starts today.
 
@@ -799,9 +877,9 @@ Promote products you actually use; earn 5–30% per sale. Why first: zero audien
 - Disclosure on every single placement, it's the law (FTC) and it's good business.
 - Track with unique links per video. After 90 days you'll know exactly which content sells, make more of it.
 
-**Live selling is the 2026 affiliate engine:** TikTok live shopping sessions grew **+60% YoY in H1 2026** (live hours +80%), and affiliate links hit **5.2% engagement**, 160% above Instagram. The scale, re-measured Oct 2026: TikTok Shop did **$50.3B in global GMV in H1 2026** (+92% YoY; full-year pace ~$123B, Momentum Works/Tabcut), and the US alone did **$11.8B**, making it the platform's largest market. The US attribution split is telling: the Shop tab drives **51.4%** of purchases, video **40.4%**, live just **8.2%**, discovery happens on video, conversion happens where it's easiest. Live converts at **8–12%** vs 2–4% for traditional ecommerce, and 5,700 US stores crossed $1M GMV in H1 2026 (an 8x increase). The playbook: 7–12 second product-first clips, 1-hour+ lives with flash sales, and seed free samples to micro-creators via TikTok Shop Affiliate. TikTok Shop affiliates take 5–20% commissions with no follower minimum for basic links.
+**Live selling is the 2026 affiliate engine:** TikTok live shopping sessions grew **+60% YoY in H1 2026** (live hours +80%), and affiliate links hit **5.2% engagement**, 160% above Instagram. The scale, re-measured Oct 2026: TikTok Shop did **$50.3B in global GMV in H1 2026** (+92% YoY; full-year pace ~$123B, Momentum Works/Tabcut), and the US alone did **$11.8B**, making it the platform's largest market. The US attribution split is telling: the Shop tab drives **51.4%** of purchases, video **40.4%**, live just **8.2%**, discovery happens on video, conversion happens where it's easiest. Live converts at **8–12%** vs 2–4% for traditional ecommerce, and 5,700 US stores crossed $1M GMV in H1 2026 (an 8x increase). The playbook: 7–12 second product-first clips, 1-hour+ lives with flash sales, and seed free samples to micro-creators via TikTok Shop Affiliate. TikTok Shop affiliates take 5–20% commissions, and the door in is 1,000 followers in the US (the bar differs by country); a link-only account can share links off TikTok with no minimum, but it earns nothing from videos or live.
 
-### Layer 3: Sponsorships (where the money actually is)
+### Layer 4: Sponsorships (where the money actually is)
 
 For most mid-size creators, sponsors are **50–80% of income**. Here's why: an integrated YouTube sponsor slot pays **$20–$35 per 1,000 views** vs ~$2.30 median ad RPM, 9–15x the platform payout. An Instagram sponsored Reel at a **median $22.40 CPM** is often the only income those views produce. Sponsorships don't supplement ad revenue; they dwarf it. The math: a common starting point is $20–$50 per 1,000 expected views for a dedicated integration (finance/tech 2–3x higher, entertainment lower). A channel doing 50k views/video doing 2 sponsors/month at $30 CPM = $3,000/month, from *two* videos.
 
@@ -812,7 +890,7 @@ For most mid-size creators, sponsors are **50–80% of income**. Here's why: an 
 
 **The trust rule:** sponsors rent your credibility. One scammy sponsor can nuke years of trust. Vet every product like your audience will blame *you*, because they will.
 
-### Layer 4: Digital products (the margin monster)
+### Layer 5: Digital products (the margin monster)
 
 Make once, sell forever: templates, presets, guides, courses, tools. 90%+ margins, no inventory, no sponsors.
 
@@ -820,7 +898,7 @@ Make once, sell forever: templates, presets, guides, courses, tools. 90%+ margin
 - Price on transformation, not content: a $29 checklist that saves 10 hours beats a $199 course nobody finishes.
 - Your email list (Phase 4) is the launch channel. Launches to warm audiences convert 10–50x better than cold traffic.
 
-### Layer 5: Services & consulting (the cash accelerator)
+### Layer 6: Services & consulting (the cash accelerator)
 
 Coaching, audits, done-for-you work. Highest dollars-per-hour, lowest leverage, use it for cash flow while building leveraged layers, not as the destination.
 
@@ -846,6 +924,7 @@ The calculator on this site shows *ranges* because ranges are the truth. Two cre
 | Subscribers | Add |
 |---|---|
 | 0–1k | Affiliates (start day one) |
+| At the fan-pay gates | Fan pay: turn on the first door your numbers open (Layer 2) |
 | 1k–10k | Sponsorship outbound, first digital product |
 | 10k–100k | Inbound sponsors, product suite, services |
 | 100k+ | All layers firing; team to run them (Phase 8) |
@@ -864,6 +943,8 @@ Forget the full stack for a moment. Here's the exact sequence with zero audience
 **Days 1–30:** Enable every affiliate program relevant to your niche (Amazon + 2–3 niche programs). Put links in every description from video one. Expected revenue: ~$0. You're building the *habit* and the tracking.
 
 **Days 30–60:** At ~1,000 subs, send your first 20 sponsor emails (small brands in your niche, they answer small creators). Price low ($100–$300 flat) to get *case studies*, not profit. One yes funds your mic upgrade.
+
+**The no-audience route, any day:** brands also pay creators to make videos the *brand* posts, on the brand's own page. You never post it. Your follower count is not the product; the video is. Beginners are reported at $150–$400 per short video, with a typical quoted price of $500 (Sponsor Playbook has the sources). This is the one brand door open at zero followers, and Step 5.10 on the Path prices your first one in the Deal Builder.
 
 **Days 60–90:** Build the $9–$29 product from your most-asked question. Launch to your email list (even 100 people). A 2% conversion on 100 subscribers = 2 sales = proof the machine works.
 
@@ -912,7 +993,7 @@ Q4 is the one season where the calendar does some of your marketing for you. Ado
 
 **Sponsor timing: pitch in August–September.** Q4 brand budgets get committed early, emailing in November means competing for leftovers. Two holiday-specific pricing notes (both re-verified Oct 2026): (1) Black Friday per-post rates can run *lower* than normal, because brands buy in bulk, don't assume a holiday premium; (2) affiliate commission rates are often *cut* during BFCM week because the brand's margin is already thin from the discount itself. Run your outreach from the [Outreach Center](outreach.html): pipeline your holiday pitches in September, set the one 7-day follow-up, and keep usage rights as a separate line item, holiday whitelisting (a brand running your face through December) is worth a premium, never a throw-in.
 
-**The shopping-season stack.** TikTok Shop did **$500M over four days** on BFCM 2025 (+50% shoppers), and brands that livestreamed saw **84% sales growth** (TikTok Newsroom). If your niche sells things: list in TikTok Shop Affiliate (5–20% commissions, no follower minimum for basic links), schedule live sessions around the deal days, and pair every live with a 7–12 second product-first clip. The `live-shopping-playbook` skill owns the full procedure.
+**The shopping-season stack.** TikTok Shop did **$500M over four days** on BFCM 2025 (+50% shoppers), and brands that livestreamed saw **84% sales growth** (TikTok Newsroom). If your niche sells things: list in TikTok Shop Affiliate (5–20% commissions; 1,000 followers to earn from video links in the US), schedule live sessions around the deal days, and pair every live with a 7–12 second product-first clip. The `live-shopping-playbook` skill owns the full procedure.
 
 **What not to do:** don't pause in January expecting December money, don't price holiday deals off your normal rate card without the bulk-discount math, and don't project a full year of income from a Q4 run. All benchmarks above are ranges and forecasts, not promises, and never financial advice.
 
@@ -949,6 +1030,8 @@ Timelines vary wildly by niche and execution. Anyone promising faster is selling
 
 - Ad revenue enabled everywhere eligible ([YPP 2027 Eligibility Checker](ypp-checker.html), verify against both rule sets, then confirm live in YouTube Studio)
 - 3–5 affiliate links live in relevant videos
+- Fan pay turned on at the first door your numbers open, perks written down (Layer 2)
+- One no-posting brand video priced in the [Deal Builder](deal-builder.html)
 - Sponsor pitch sent to 20 brands (or media kit built), manage the pipeline in the [Deal Room](deal-room.html)
 - First digital product scoped from comment demand
 - Revenue calculator run with honest numbers
@@ -1317,6 +1400,19 @@ The pattern underneath: **attention → trust → owned products → equity.** E
 
 For the full deconstructions, arc, revenue stack, the three decisions that mattered, what to steal, and what *not* to copy, read the Empire Case Files: [The Sleep-Channel Network](case-sleep-channels.html) (Fortune-verified faceless portfolio, ~$700K/yr), [Mavwicks on TikTok Shop](case-mavwicks.html) ($300K → $32M in year one), and [The Cohort Course](case-ptya.html) (Ali Abdaal's $5M email-driven education business).
 
+## Help that takes a cut: managers and agents
+
+Staff work for a wage. Two other kinds of help work for a cut, and at some point both will knock on your door:
+
+- **A manager** looks after the whole business: which deals to take, what to build next, who to hire, what to say no to. The usual price is a cut of everything you earn, commonly about 20% (The Publish Press, on how creator management works).
+- **An agent** sells: they bring brand deals and other paid work to you. The usual price is a cut of only the work they bring, commonly about 10%.
+
+**When it can be worth it.** When paid work is arriving faster than you can answer it, when deals are big enough that one bad term costs more than a year of cuts, or when you are turning down good work for lack of hours. Before that point, the Deal Room, your rate card, and one helper (Phase 7) cover the same ground for far less.
+
+**The terms that keep you safe.** Any cut, a start date, and an end date, in writing. The cut applies to the work they touch, named in the paper, not to everything you will ever make. Your accounts, your channel, and your money stay in your name and under your sign-in, always. You can leave at the end date without paying for work that has not happened yet.
+
+**Walk away when you hear:** a cut of everything, forever, with no end date; they want to hold your accounts or be paid first and pass the rest to you; they cannot name creators like you whom they helped; or the paper is "standard, sign it today." Phase 5's warning stands: a network or helper who takes a big cut for nothing named is a cost, not a team. A real manager names what they do each month. If the month would look the same without them, the cut is too high at any number.
+
 ## Building in public vs. stealth
 
 Two valid strategies:
@@ -1351,6 +1447,7 @@ Once a year, shut the machine off for a day and ask five questions: (1) Which re
 - Channel one runs 30 days without your daily input (the test)
 - Second channel launched *only* after passing the test
 - Revenue diversified: no single source over 40% of total
+- Any manager or agent deal in writing, with its cut, its scope, and its end date
 - Owned product brand in development or live
 - Quarterly strategy review: what's working, what's next, what dies
 
@@ -2179,7 +2276,7 @@ Plus Points come from paid subs (higher tiers weighted more). The 70/30 rate cap
 
 **The unit economics (single-source, consistent):** Tier 1 subs at $4.99/month → ~$2.50 to you at 50/50, ~$3.50 at 70/30. Bits pay a flat **$0.01 per bit** cheered. Ad CPMs run **$2–$5** (mid-rolls earn 15–20% more than pre-rolls); the optional Ads Incentive Program lifts your ad share to 55% in exchange for 3 minutes of ads per hour. Donations via third-party tools are 100% yours minus processing.
 
-**The gates (lowered in 2026, verified):** Affiliate now needs 25 followers, 3 average concurrent viewers, 4 broadcast hours and 4 unique days in a rolling 30 days, plus two-factor authentication (automatic invite). Since May 2026 the tools themselves, subscriptions, Bits, emotes, badges, Channel Points, are open to every streamer who finishes setup (Twitch's Monetization for All rollout, verified); what Affiliate still gates is the payout, with earnings held in a spendable balance until then. And since **August 20, 2026**, Affiliates can take brand campaigns through Twitch's own Sponsorship Dashboard after finishing the Creator Sponsorship Certification, sponsorships are no longer a Partner-only door (verified; [Algorithm Watch, Oct 12](what-changed.html)). Partner is an application judged on consistency and viewership, roughly 75 average concurrent viewers, 25+ hours, 12 unique days, and brings priority support, dedicated transcoding priority, and the verified badge.
+**The gates (lowered in 2026, verified):** Affiliate now needs 25 followers, 3 average concurrent viewers, 4 broadcast hours and 4 unique days in a rolling 30 days, plus two-factor authentication (automatic invite). Since May 2026 the tools themselves, subscriptions, Bits, emotes, badges, Channel Points, are open to every streamer who finishes setup (Twitch's Monetization for All rollout, verified); what Affiliate still gates is the payout, with earnings held in a spendable balance until then. And since **August 20, 2026**, Affiliates can take brand campaigns through Twitch's own Sponsorship Dashboard after finishing the Creator Sponsorship Certification, sponsorships are no longer a Partner-only door (verified; [Algorithm Watch, Oct 12](what-changed.html)). Partner is an application judged on consistency and viewership: the Path to Partner achievement now asks for six streams on six unique days, each averaging 75 viewers, in the last 30 days, and the same again in the 30 days before it. Twitch removed the old test (75 average viewers with 25+ hours on 12 unique days) in September 2025. Partner brings priority support, dedicated transcoding priority, and the verified badge. (Verified: Twitch Help Center Achievements page, via passionfru.it, October 2026; the retired bar per Tubefilter.)
 
 **The honest take:** a 20–30 sub Affiliate channel nets low hundreds a month, real money, not a living. Twitch income compounds on *concurrent viewership*, not followers; sponsors pay roughly $10–$100+ per average viewer per hour, which is why 75 average viewers changes everything and 15 changes nothing. If you stream, simulcast the discovery clips everywhere and keep the live room sacred.
 

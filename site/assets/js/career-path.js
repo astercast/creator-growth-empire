@@ -42,7 +42,7 @@
         { id: "f-read-phase0", kind: "read", title: "Read Phase 0: Start From Nothing", href: "phase-0-start-from-nothing.html", source: "Phase 0: Start From Nothing (chapter)", detail: "The three things a good topic needs, the 2026 topic map, and the two traps that end channels early." },
         { id: "f-drill-statement", kind: "drill", title: "Write your niche statement", tool: "quiz", doneWhen: "You can fill every blank in this line: “I make [kind of video] about [topic] for [one kind of person] who wants [change].” If a blank will not fill, run the Niche Picker first." },
         { id: "f-drill-money", kind: "drill", title: "Run the money check on three niches", tool: "calculator", doneWhen: "The Revenue Calculator has priced your three topics at the same view count. You have seen, in writing, what each pays for one view." },
-        { id: "f-drill-format", kind: "drill", title: "Pick the format you can sustain", tool: "format-fit", doneWhen: "The Format Fit Finder has named a kind of video, and you have answered honestly: could I make 100 of these?" },
+        { id: "f-drill-format", kind: "drill", title: "Pick the format you can sustain", tool: "format-fit", doneWhen: "The Format Fit Finder has named a kind of video, and you have answered honestly: could I make 100 of these? You have also named your home base: the one kind of post you will grow first." },
         { id: "f-drill-plan", kind: "drill", title: "Set the 90-day target", tool: "planner", doneWhen: "The 90-Day Planner holds your target in writing: how many videos, one growth bet, one money bet." }
       ]
     },
@@ -56,14 +56,14 @@
         { id: "b-read-phase1", kind: "read", title: "Read Phase 1: The Content Engine", href: "phase-1-content-engine.html", source: "Phase 1: The Content Engine (chapter)", detail: "How one idea becomes a week of videos: main subjects, set shapes, filming days, and why steady beats inspired." },
         { id: "b-drill-bank", kind: "drill", title: "Bank twenty ideas", tool: "idea-bank", doneWhen: "The Idea Bank holds twenty ideas, each scored against your topic sentence. Not two ideas and a feeling." },
         { id: "b-drill-hooks", kind: "drill", title: "Write five hooks before filming anything", tool: "hook-builder", doneWhen: "Five of your banked ideas each carry a written hook: the first three seconds, in words." },
-        { id: "b-drill-batch", kind: "drill", title: "Plan one batch day", tool: "batching", doneWhen: "The Batching Planner has turned one week of videos into one filming day, with a shot list." },
+        { id: "b-drill-batch", kind: "drill", title: "Plan one batch day", tool: "batching", doneWhen: "The Batching Planner has turned one week of videos into one filming day, with a shot list. Every sound and clip on the list has a rights check next to it." },
         { id: "b-drill-calendar", kind: "drill", title: "Put ninety days on the calendar", tool: "content-calendar", doneWhen: "The 90-Day Content Calendar shows your posting days for ninety days. Empty days stay visible, not hidden." }
       ]
     },
     {
       id: "publish",
       name: "Post and Keep Posting",
-      promise: "Post on set days. Learn the two questions that matter: would I click this, and would I keep watching? Then take your best work to more apps, remade for each one.",
+      promise: "Post on set days. Learn the two questions that matter: would I click this, and would I keep watching? Then take your best work to more apps, remade for each one. Then go live once, on a day you chose.",
       doVerdict: "Done when you can post on your set days without fail. You can point to the exact choice that hurt a weak video. You can check when you can start earning.",
       tools: ["cadence", "crosspost", "video-doctor", "ypp-checker"],
       lessons: [
@@ -72,7 +72,8 @@
         { id: "p-drill-cadence", kind: "drill", title: "Pick your posting days", tool: "cadence", doneWhen: "The Cadence Coach holds your posting days, and you have kept them two weeks in a row." },
         { id: "p-drill-crosspost", kind: "drill", title: "Take your best video to a second app", tool: "crosspost", doneWhen: "One strong video has been remade, not re-sent, for a second app with the Cross-Post Optimizer." },
         { id: "p-drill-doctor", kind: "drill", title: "Diagnose your weakest video", tool: "video-doctor", doneWhen: "Diagnose My Video has named the exact place your weakest video loses people, and the fix is in your next video's plan." },
-        { id: "p-drill-ypp", kind: "drill", title: "Check when you can start earning", tool: "ypp-checker", doneWhen: "The YPP 2027 Eligibility Checker has checked your channel against the rules that will apply to you, with the date on it." }
+        { id: "p-drill-ypp", kind: "drill", title: "Check when you can start earning", tool: "ypp-checker", doneWhen: "The YPP 2027 Eligibility Checker has checked your channel against the rules that will apply to you, with the date on it." },
+        { id: "p-drill-live", kind: "drill", title: "Go live once, and plan the rest day", tool: "cadence", doneWhen: "The Cadence Coach holds one live day and one full rest day in the same week. You have gone live once, for at least 20 minutes, on the app your numbers open first." }
       ]
     },
     {
@@ -91,7 +92,7 @@
     {
       id: "career",
       name: "Turn It Into a Career",
-      promise: "Add the money in the right order. Then run it like a real job: price card, deal board, books, first helper. This stage holds the whole money toolkit. This is where you use it.",
+      promise: "Add the money in the right order. Then run it like a real job: price card, deal board, books, fan pay, first helper. This stage holds the whole money toolkit. This is where you use it.",
       doVerdict: "Done when you can price a deal from your own card. You can talk it through without bluffing. You can say what your channel earned last month, from records, not memory.",
       tools: ["rate-card-builder", "deal-analyzer", "deal-room", "deal-builder", "negotiation-kit", "negotiation-script-builder", "deal-pipeline", "follow-through", "repeat-sponsor-book", "sponsor-income-ledger", "receivables-register", "brand-ledger", "platform-ledger", "hiring-calculator", "simulator"],
       lessons: [
@@ -104,9 +105,11 @@
         { id: "c-read-rules", kind: "read", title: "Read the Platform Rules Bible", href: "platform-rules-bible.html", source: "The 2026 Platform Rules Bible (intel file)", detail: "The standing rules of every app you earn on. (What changes week to week lives in Algorithm Watch, not here.)" },
         { id: "c-drill-ratecard", kind: "drill", title: "Build your rate card", tool: "rate-card-builder", doneWhen: "The Rate Card Builder holds your card: every kind of post priced from your numbers, ready to send as it is." },
         { id: "c-drill-firstdeal", kind: "drill", title: "Price the first real inquiry", tool: "deal-analyzer", doneWhen: "The first brand price question, or a practice one, has been priced in the Deal Analyzer and answered from the Negotiation Kit. No number invented in the reply." },
+        { id: "c-drill-ugc", kind: "drill", title: "Make one video for a brand, no posting", tool: "deal-builder", doneWhen: "The Deal Builder holds one priced video made for a brand to post, not for your page. The price came from the work it takes, not from your follower count." },
         { id: "c-drill-pipeline", kind: "drill", title: "Put every deal on one board", tool: "deal-pipeline", doneWhen: "Every live deal sits on the Deal Pipeline board at its true stage. The Follow-Through Queue is your morning list." },
         { id: "c-drill-books", kind: "drill", title: "Run the books once", tool: "sponsor-income-ledger", doneWhen: "The four money books have each been read against the board. You know what landed, what is owed, and what rests on one app." },
-        { id: "c-drill-hire", kind: "drill", title: "Price the first helper before you hire", tool: "hiring-calculator", doneWhen: "The Hiring Cost Calculator and the Empire Simulator have both priced the same helper. The choice is written down with its numbers." }
+        { id: "c-drill-hire", kind: "drill", title: "Price the first helper before you hire", tool: "hiring-calculator", doneWhen: "The Hiring Cost Calculator and the Empire Simulator have both priced the same helper. The choice is written down with its numbers." },
+        { id: "c-drill-fanpay", kind: "drill", title: "Turn on fan pay", tool: "simulator", doneWhen: "One fan pay door is on: the one your numbers open first. The Empire Simulator holds what it pays if 1 in 100 of your viewers joins, priced before you promised any perks." }
       ]
     }
   ];

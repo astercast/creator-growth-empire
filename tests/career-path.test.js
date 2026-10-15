@@ -1,5 +1,5 @@
 /* Career Path engine tests (rotation 20) — the Zero-to-Career system.
- * Pins: 5 stages in order; 32 lessons (13 reads / 19 drills); every one
+ * Pins: 5 stages in order; 35 lessons (13 reads / 22 drills); every one
  * of the 32 catalogue tools mapped to exactly one stage; the Saved
  * Shelf inside Foundation; progress arithmetic (normalize/toggle/stale
  * counted apart); next-step order; stage DO-verdicts present. */
@@ -19,9 +19,9 @@ CP.STAGES.forEach(function (s) {
   ok(typeof s.promise === "string" && s.promise.length > 40, s.id + " carries a promise");
 });
 var lessons = CP.allLessons();
-eq(lessons.length, 32, "32 lessons on the path");
+eq(lessons.length, 35, "35 lessons on the path");
 eq(lessons.filter(function (x) { return x.lesson.kind === "read"; }).length, 13, "13 reads (9 phases + 4 intel files)");
-eq(lessons.filter(function (x) { return x.lesson.kind === "drill"; }).length, 19, "19 authored drills");
+eq(lessons.filter(function (x) { return x.lesson.kind === "drill"; }).length, 22, "22 authored drills");
 lessons.forEach(function (x) {
   if (x.lesson.kind === "read") ok(!!x.lesson.href, x.lesson.id + " read has an href");
   if (x.lesson.kind === "drill") { ok(!!x.lesson.tool, x.lesson.id + " drill names its tool"); ok(!!x.lesson.doneWhen, x.lesson.id + " drill has a done criterion"); }
@@ -34,8 +34,8 @@ lessons.forEach(function (x) {
 // --- provenance labelling (G-1): every lesson labelled from its own data ---
 var builtLessons = [];
 CP.buildPath([]).stages.forEach(function (s) { s.lessons.forEach(function (l) { builtLessons.push(l); }); });
-eq(builtLessons.length, 32, "built path carries all 32 lessons for provenance check");
-eq(builtLessons.filter(function (l) { return l.provenanceLabel === "Creator Academy: original drill"; }).length, 19, "19 drills labelled Creator Academy: original drill");
+eq(builtLessons.length, 35, "built path carries all 35 lessons for provenance check");
+eq(builtLessons.filter(function (l) { return l.provenanceLabel === "Creator Academy: original drill"; }).length, 22, "22 drills labelled Creator Academy: original drill");
 eq(builtLessons.filter(function (l) { return l.provenance === "read" && l.provenanceLabel.indexOf("Read \u00b7 from ") === 0; }).length, 13, "13 reads labelled Read \u00b7 from [their named source]");
 ok(builtLessons.every(function (l) { return typeof l.provenanceLabel === "string" && l.provenanceLabel.length > 0 && l.provenanceLabel !== "Provenance not recorded"; }), "no lesson on the path is left with unknown provenance");
 lessons.forEach(function (x) {
@@ -76,7 +76,7 @@ eq(Object.keys(stageOf).length, 32, "toolStageMap covers 32 tools");
 // --- progress arithmetic ---
 var empty = CP.buildPath([]);
 eq(empty.doneCount, 0, "empty progress: 0 done");
-eq(empty.totalLessons, 32, "empty progress: 32 total");
+eq(empty.totalLessons, 35, "empty progress: 35 total");
 eq(empty.currentStageId, "foundation", "empty progress starts at Foundation");
 eq(empty.nextStep.lesson.id, "f-read-phase0", "first next step is Phase 0 read");
 eq(empty.stages[0].status, "not-started", "stage 1 not-started when empty");

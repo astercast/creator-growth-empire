@@ -34,6 +34,16 @@ A Discord server (or equivalent) turns an audience into a *place*. But communiti
 
 **The honest math:** a 1,000-person Discord with 100 active members is worth more than 100,000 passive followers. Engagement depth beats audience width for everything that pays.
 
+## Keep your people safe, and keep yourself safe
+
+A community is a room you are responsible for, and a door into your own life. Both need rules, written before the first bad day:
+
+- **Give mods tools, never keys.** A mod gets the right to delete, mute, and ban inside the room. A mod never gets your password, your payout pages, or the email behind the channel. If a mod needs to "log in as you," the answer is no, every time.
+- **Write the removal path down.** Delete, warn once, ban on repeat, the same for everyone, famous fans included. Arguing in public with the person you are removing is how a small problem becomes the week's drama. Remove first, explain once, move on.
+- **Block and report are routine, not drama.** Threats, hate, and spam get blocked and reported to the app the day they happen. No screenshot tour, no farewell post. Boring and fast is the whole method.
+- **Keep your private life private.** Do not post from home in ways that show your street, your family's faces and names (unless they chose that, as adults, on purpose), your daily times and places, or a trip while you are still on it. Post the trip when you are back. Fans are lovely. The internet is everyone.
+- **One adult rule for young fans.** If your viewers include kids, keep chat rules strict, keep private messages with fans closed or public-only, and never move a young fan to a private channel. This protects them and it protects you.
+
 ## Turning viewers into a movement
 
 Movements have three ingredients audiences don't:
@@ -48,7 +58,7 @@ You don't manufacture this. You *notice* it emerging in comments and community p
 
 One hour live does more for trust than ten edited videos. The unedited reality, mistakes, real-time answers, genuine reactions, is something edited content structurally cannot provide.
 
-**Start simple:** monthly Q&A or watch-party. Promote it in the preceding video and community tab. Keep the first ones small and intimate, that's a feature. As it grows: guest collabs (other creators' audiences become yours), live builds/challenges (event content), and eventually ticketed workshops (revenue).
+**Start simple:** monthly Q&A or watch-party. Promote it in the preceding video and community tab. Keep the first ones small and intimate, that's a feature. As it grows: guest collabs (other creators' audiences become yours), live builds/challenges (event content), and eventually ticketed workshops (revenue). Mind the gate before you book the date: each app opens live at its own number (Phase 3 has the table), and a monthly live you cannot legally start is a promise you will break in public.
 
 ## The community flywheel
 

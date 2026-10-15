@@ -1629,7 +1629,7 @@ def page_template(title, body, active="", extra_head="", path=""):
 <nav id="mobileNav" class="mobile-nav" aria-label="Mobile">{mobile_nav}</nav>
 <div class="journey-strip" role="region" aria-label="Your place on the Path">
   <span class="js-label">Your journey</span>
-  <span class="js-place" id="js-place">32 steps. 5 stages. From nothing to a career.</span>
+  <span class="js-place" id="js-place">{len(LESSONS_BY_ID) if LESSONS_BY_ID else 35} steps. 5 stages. From nothing to a career.</span>
   <span class="js-track" aria-hidden="true"><span class="js-fill" id="js-fill"></span></span>
   <a class="js-next" id="js-next" href="career-path.html">Start the Path <span aria-hidden="true">→</span></a>
 </div>
@@ -1774,7 +1774,7 @@ def _lesson_conclusion_html(slug):
 # enforced by scripts/audit_copy.py.
 PLAIN_SUMMARIES = {
     "phase-0-start-from-nothing": (
-        "You have no channel yet. That is fine. This part helps you pick one topic you can stick with, and check that the topic can pay.",
+        "You have no channel yet. That is fine. This part helps you pick one topic you can stick with, and check that the topic can pay. You will also pick your home base: the kind of post you will grow first.",
         "Pick your topic, and write it in one line."),
     "phase-1-content-engine": (
         "This part shows how one idea turns into a week of videos. You will plan ahead, film a lot in one day, and never sit stuck with nothing to post.",
@@ -1783,13 +1783,13 @@ PLAIN_SUMMARIES = {
         "This part is about the click and the watch. A good title and cover picture earn the click. A strong first half minute earns the watch.",
         "Make each video easy to click and hard to leave."),
     "phase-3-everywhere-engine": (
-        "One good video can live on more than one app. This part shows how to remake it for each app, not just send the same file again.",
+        "One good video can live on more than one app. This part shows how to remake it for each app, not just send the same file again. It also shows when to go live, and what each app asks first.",
         "Take your best work to more apps."),
     "phase-4-audience-to-community": (
         "Viewers come and go. A community stays. This part shows the small, steady things that turn watchers into people who belong.",
         "Give your viewers a reason to stay."),
     "phase-5-monetization-stack": (
-        "This part is about money, and the order to add it in. Ads first, then brand deals, then links that pay you, then things you sell. Read it twice.",
+        "This part is about money, and the order to add it in. Ads first, then fan pay, then links that pay you, then brand deals, then things you sell. Read it twice.",
         "Write your money layers in order."),
     "phase-6-merch-and-brand": (
         "Merch means things you sell with your name on them. This part helps you decide if it is time, and shows the real profit numbers.",

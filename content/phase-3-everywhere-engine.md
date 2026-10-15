@@ -16,7 +16,7 @@ The portfolio, in priority order for most creators:
 
 ## TikTok: the discovery rocket
 
-**How it works in 2026:** TikTok's Creator Rewards Program pays roughly $0.40–$1.00 per 1,000 *qualified* views, but only for videos over 1 minute, original, with 1,000+ For You views each. Requirements: 18+, 10,000 followers, 100,000 views in 30 days, eligible country. The real money on TikTok was never the fund, it's **TikTok Shop affiliates** (5–20% commissions, no follower minimum for basic links) and brand deals.
+**How it works in 2026:** TikTok's Creator Rewards Program pays roughly $0.40–$1.00 per 1,000 *qualified* views, but only for videos over 1 minute, original, with 1,000+ For You views each. Requirements: 18+, 10,000 followers, 100,000 views in 30 days, eligible country. The real money on TikTok was never the fund, it's **TikTok Shop affiliates** (5–20% commissions; earning from product links in your videos takes 1,000 followers in the US, less in some countries) and brand deals.
 
 **What wins:** native pacing (hook in under 1 second, captions burned in, trending audio used *strategically*), series formats ("day 12 of X". TikTok's algorithm loves episodic return viewers), and search-value content (TikTok is now a search engine for Gen Z; "how to" content has a long tail here too).
 
@@ -41,7 +41,7 @@ Instagram doesn't share ad revenue on Reels the way YouTube does, income here is
 
 ## Facebook: the underestimated giant
 
-Everyone under 25 ignores Facebook. That's the opportunity. Facebook's **Content Monetization Program** (2026) unified Reels bonuses, in-stream ads, and performance bonuses into one program: 10,000 followers, 600,000 minutes viewed in 60 days, 5+ videos. Payouts run roughly $1–$10 per 1,000 views, and the audience skews older with real purchasing power.
+Everyone under 25 ignores Facebook. That's the opportunity. Facebook's **Content Monetization Program** (2026) unified Reels bonuses, in-stream ads, and performance bonuses into one program, and the program is invite-only: Meta publishes no follower or minutes bar, and the numbers guides repeat (10,000 followers, 600,000 minutes viewed in 60 days, 5+ videos) were the old In-Stream Ads bar. You register interest in the Professional Dashboard and Meta invites you. Payouts run roughly $1–$10 per 1,000 views, and the audience skews older with real purchasing power.
 
 **What wins:** Facebook rewards *native* long-ish video and community discussion. Cross-post your YouTube videos natively (not YouTube links, native uploads), run a Facebook Page as your broadcast channel, and take comments seriously: Facebook's algorithm heavily weights meaningful discussion.
 
@@ -129,6 +129,24 @@ For a creator doing 1 long-form + 3 shorts per week:
 
 Total filming: 1 day. The rest is repurposing, which is why the engine scales.
 
+## Live is a place, not a post
+
+Everything above is a post: you make it, then people watch it later. Live is the other shape. You and your viewers are in the same room at the same time, and the room is where trust and fan pay (Phase 5) actually happen. Live is also gated, and each app gates it differently. These are the gates as checked in October 2026; apps move them, so check the number inside your own app before you plan around it.
+
+| App | What it takes to go live |
+|---|---|
+| YouTube, from a computer | A verified channel, no live ban in the last 90 days. Turning live on the first time can take up to 24 hours. No subscriber count needed. |
+| YouTube, from a phone | All of the above, plus 50 subscribers. Check your own standing in Studio under Settings, Channel, Feature eligibility. |
+| TikTok | 1,000 followers and age 18. TikTok says the follower number may vary by country. Gifts need age 18 too. |
+| Instagram | A public account with 1,000 followers or more (Meta's rule since August 2025). A private account cannot start a live at any size. |
+| Twitch | Anyone can stream from day one. Getting paid there is the separate Affiliate step, below. |
+
+Twitch's paid tier, Affiliate, is the smallest set of numbers in live: 25 followers, 4 hours streamed, 4 different days, and 3 average viewers, all inside a rolling 30 days, then two-factor sign-in to finish joining (Twitch's own figures; older guides print the higher pre-2025 bar, and your Achievements page in Twitch is the one that counts). Affiliate is what turns on Twitch subscriptions, Bits, and ad money.
+
+**Your first live, kept simple.** Pick the app your numbers open first. Set one day and one start time, and tell your viewers in the post before it. Go for 20 to 30 minutes, not two hours. Have one thing to show or do, and talk to the people who come by name. Three people in a live room who feel seen are worth more than a post a thousand people scroll past. When it ends, cut the best minute into a short. The live feeds the posts; the posts feed the next live.
+
+Step 3.7 on the Path makes this a step, not a someday: one live, on a chosen day, with a full rest day in the same week. A live day is a work day. Plan it like one.
+
 ## X / Threads: the idea distribution layer
 
 Short-form video platforms reward *content*. Text platforms reward *thinking*. Post your video's single sharpest insight as a standalone thread: the hook as the first post, 5–7 posts of substance, the video linked at the end. Threads regularly outperform the video itself for reach, and they build a different kind of authority: *this person thinks clearly.* Sponsors and collaborators live on X. Be findable there.
@@ -156,3 +174,4 @@ It will happen, to a format, if not a platform. The survival kit:
 - Facebook Page created, CMP requirements tracked
 - Platform-native adaptations happening (not blind cross-posts)
 - Weekly schedule reflects the sequence: YouTube first, TikTok second, rest as repurposing
+- First live done on the app your numbers open first, with its gate checked in the app

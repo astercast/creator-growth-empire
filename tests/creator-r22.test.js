@@ -27,9 +27,9 @@ ok(engine && engine.STAGES && engine.allLessons, 'engine loads');
 const spec = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/v1/lessons.json'), 'utf8'));
 const byId = {};
 spec.lessons.forEach(l => { byId[l.id] = l; });
-eq(spec.lessons.length, 32, 'spec table holds 32 lessons');
+eq(spec.lessons.length, 35, 'spec table holds 35 lessons');
 eq(spec.lessons.filter(l => l.kind === 'read').length, 13, '13 reads');
-eq(spec.lessons.filter(l => l.kind === 'drill').length, 19, '19 drills');
+eq(spec.lessons.filter(l => l.kind === 'drill').length, 22, '22 drills');
 
 const DIFFICULTY = ['Very easy', 'Easy', 'Moderate', 'Difficult', 'Very difficult'];
 const STATE = ['current', 'superseded'];
