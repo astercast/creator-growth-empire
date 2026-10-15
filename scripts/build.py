@@ -1540,6 +1540,16 @@ def page_template(title, body, active="", extra_head="", path=""):
         cls = "nav-link active" if href == active else "nav-link"
         cur = ' aria-current="page"' if href == active else ""
         return f'<a href="{href}" class="{cls}"{cur}>{label}</a>'
+    # VP-0048 (rotation 37): the home page passes SITE_NAME itself as its
+    # title, so the plain "{title}: {SITE_NAME}" form named the site twice.
+    # When the title IS the site name, the descriptor after the separator
+    # is the tagline instead, so the name appears exactly once.
+    if title == SITE_NAME:
+        full_title = f"{SITE_NAME}: {TAGLINE.rstrip('.')}"
+        full_title_comma = f"{SITE_NAME}, {TAGLINE.rstrip('.')}"
+    else:
+        full_title = f"{title}: {SITE_NAME}"
+        full_title_comma = f"{title}, {SITE_NAME}"
     desktop_nav = "".join(_nav_link(h, l) for h, l in DESKTOP_NAV_LINKS)
     mobile_nav = "".join(_nav_link(h, l) for h, l in MOBILE_NAV_LINKS)
     nav = desktop_nav  # historical name kept for the mobile fallback below
@@ -1553,7 +1563,7 @@ def page_template(title, body, active="", extra_head="", path=""):
 <meta charset="utf-8">
 <script>try{{if(localStorage.getItem("cge.calm")==="1")document.documentElement.setAttribute("data-calm","1");}}catch(e){{}}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{esc(title)}: {SITE_NAME}</title>
+<title>{esc(full_title)}</title>
 <meta name="description" content="{esc(TAGLINE)}">
 <meta name="theme-color" content="#0d120d">
 <link rel="icon" href="/favicon.ico" sizes="48x48">
@@ -1562,13 +1572,13 @@ def page_template(title, body, active="", extra_head="", path=""):
 {('<link rel="canonical" href="/' + path + '">') if path else ''}
 <!-- RELATIVE until deploy: absolutize og:image + twitter:image against the live domain at GO_LIVE (mandatory step, GO_LIVE.md) -->
 <meta property="og:type" content="website">
-<meta property="og:title" content="{esc(title)}: {SITE_NAME}">
+<meta property="og:title" content="{esc(full_title)}">
 <meta property="og:description" content="{esc(TAGLINE)}">
 <meta property="og:image" content="assets/og-card.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="{esc(title)}, {SITE_NAME}">
+<meta name="twitter:title" content="{esc(full_title_comma)}">
 <meta name="twitter:description" content="{esc(TAGLINE)}">
 <meta name="twitter:image" content="assets/og-card.png">
 <link rel="preload" href="assets/fonts/archivo-latin-var.woff2" as="font" type="font/woff2" crossorigin>
