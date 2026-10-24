@@ -1592,7 +1592,7 @@ def page_template(title, body, active="", extra_head="", path=""):
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{esc(full_title)}</title>
 <meta name="description" content="{esc(TAGLINE)}">
-<meta name="theme-color" content="#0d120d">
+<meta name="theme-color" content="#F3F0E8">
 <link rel="icon" href="/favicon.ico" sizes="48x48">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -1617,22 +1617,25 @@ def page_template(title, body, active="", extra_head="", path=""):
 <link rel="stylesheet" href="assets/css/components.css">
 <link rel="stylesheet" href="assets/css/hub.css">
 <link rel="stylesheet" href="assets/css/guide.css">
+<link rel="stylesheet" href="assets/css/booklet.css">
 {extra_head}
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
-<header class="site-header">
-  <a class="brand" href="index.html"{brand_cur}>{SITE_NAME}</a>
+<header class="masthead">
+  <a class="mark" href="index.html"{brand_cur}>
+    <span class="mark-code" aria-hidden="true">CGE</span>
+    <span class="mark-name">{SITE_NAME}</span>
+  </a>
   <nav class="site-nav" aria-label="Primary">{desktop_nav}</nav>
-  <button class="nav-toggle" aria-expanded="false" aria-controls="mobileNav" aria-label="Menu">☰</button>
+  <div class="runhead" role="region" aria-label="Your place on the Path">
+    <span class="runhead-place" id="js-place">{len(LESSONS_BY_ID) if LESSONS_BY_ID else 35} steps. 5 stages.</span>
+    <span class="runhead-track" aria-hidden="true"><span class="runhead-fill" id="js-fill"></span></span>
+    <a class="runhead-next" id="js-next" href="career-path.html">Start the Path <span aria-hidden="true">→</span></a>
+  </div>
+  <button class="nav-toggle" aria-expanded="false" aria-controls="mobileNav">Menu</button>
 </header>
 <nav id="mobileNav" class="mobile-nav" aria-label="Mobile">{mobile_nav}</nav>
-<div class="journey-strip" role="region" aria-label="Your place on the Path">
-  <span class="js-label">Your journey</span>
-  <span class="js-place" id="js-place">{len(LESSONS_BY_ID) if LESSONS_BY_ID else 35} steps. 5 stages. From nothing to a career.</span>
-  <span class="js-track" aria-hidden="true"><span class="js-fill" id="js-fill"></span></span>
-  <a class="js-next" id="js-next" href="career-path.html">Start the Path <span aria-hidden="true">→</span></a>
-</div>
 <main id="main">{body}</main>
 <footer class="site-footer">
   <div class="footer-grid">
@@ -2434,44 +2437,115 @@ def build():
     })
     index_body = f"""
 <div class="scroll-progress" aria-hidden="true"></div>
-<section class="guide-hero">
-  <div class="guide-hero-main">
-  <p class="guide-kicker">A guide for people starting with nothing</p>
-  <h1>Build a career from nothing.</h1>
-  <p class="guide-lede">You make videos. People watch them. In time, it turns into a job, then a career. This guide walks you there, one small step at a time.</p>
-  <p class="guide-sub">{_total_steps} steps. 5 stages. In order. You always know where you are, and what to do next.</p>
-  <p class="guide-progress" id="home-progress">Your first step is below. Tick each step off as you finish it. The path fills in as you go.</p>
-  </div>
-  <aside class="route-map" aria-label="The road in five stages">
-    <p class="route-map-h">The road</p>
-    <ol class="route-list">{_route_stops}</ol>
-    <p class="route-place" id="route-place">You start at Stage 1.</p>
-  </aside>
+<section class="cover" aria-labelledby="cover-title">
+  <dl class="cover-spec">
+    <div><dt>Start with</dt><dd>Nothing</dd></div>
+    <div><dt>Steps</dt><dd>35</dd></div>
+    <div><dt>Stages</dt><dd>5</dd></div>
+    <div><dt>Cost</dt><dd>Free. No sign-up.</dd></div>
+  </dl>
+  <h1 class="cover-title" id="cover-title">Build a career <span class="line">from nothing<span class="dot">.</span></span></h1>
+  <p class="cover-lede">You make videos. People watch.<br>In time, it turns into a job.</p>
+  <ol class="buildline" aria-label="The road in five stages">
+    <li class="bl-stage" data-route-stage="foundation" style="--n:5">
+      <span class="bl-track" aria-hidden="true"><span class="bl-fill" data-stage-fill="foundation"></span></span>
+      <span class="bl-num">1</span>
+      <span class="bl-name">Start From Nothing</span>
+      <span class="bl-count" data-stage-count="foundation">0 of 5 steps done</span>
+    </li>
+    <li class="bl-stage" data-route-stage="build" style="--n:5">
+      <span class="bl-track" aria-hidden="true"><span class="bl-fill" data-stage-fill="build"></span></span>
+      <span class="bl-num">2</span>
+      <span class="bl-name">Make Your Videos</span>
+      <span class="bl-count" data-stage-count="build">0 of 5 steps done</span>
+    </li>
+    <li class="bl-stage" data-route-stage="publish" style="--n:7">
+      <span class="bl-track" aria-hidden="true"><span class="bl-fill" data-stage-fill="publish"></span></span>
+      <span class="bl-num">3</span>
+      <span class="bl-name">Post and Keep Posting</span>
+      <span class="bl-count" data-stage-count="publish">0 of 7 steps done</span>
+    </li>
+    <li class="bl-stage" data-route-stage="growth" style="--n:4">
+      <span class="bl-track" aria-hidden="true"><span class="bl-fill" data-stage-fill="growth"></span></span>
+      <span class="bl-num">4</span>
+      <span class="bl-name">Grow Your People</span>
+      <span class="bl-count" data-stage-count="growth">0 of 4 steps done</span>
+    </li>
+    <li class="bl-stage" data-route-stage="career" style="--n:14">
+      <span class="bl-track" aria-hidden="true"><span class="bl-fill" data-stage-fill="career"></span></span>
+      <span class="bl-num">5</span>
+      <span class="bl-name">Turn It Into a Career</span>
+      <span class="bl-count" data-stage-count="career">0 of 14 steps done</span>
+    </li>
+  </ol>
+  <p class="cover-place" id="route-place" aria-live="polite">You start at Stage 1.</p>
 </section>
-<section class="section guide-moves">
-  <div class="section-head"><h2>Your first three moves</h2></div>
-  <p class="section-lede">Do these three, in this order. Nothing else matters yet.</p>
-  <div class="station-list">{_first_three}</div>
-  <p class="guide-next"><a class="btn" href="career-path.html">See all {_total_steps} steps on the Path →</a></p>
-</section>
-<section class="section guide-stages">
-  <div class="section-head"><h2>The road, in five stages</h2></div>
-  <p class="section-lede">Each stage builds on the one before it. Finish a stage, and the next one opens with work that now makes sense.</p>
-  <div class="stage-grid">{_stage_blocks}</div>
-</section>
-<section class="section guide-how">
-  <div class="section-head"><h2>How this guide works</h2></div>
-  <div class="how-list">
-    <div class="how-row"><p class="how-num">1</p><div><h3>One step at a time</h3><p>Each step is small. Each step ends with one clear thing to do. Do it, tick it off, move on.</p></div></div>
-    <div class="how-row"><p class="how-num">2</p><div><h3>Tools live inside the steps</h3><p>There are {_total_steps} steps and a shelf of tools. You never have to pick a tool from a list. The step that needs a tool hands it to you.</p></div></div>
-    <div class="how-row"><p class="how-num">3</p><div><h3>Your ticks stay on this device</h3><p>Your progress is saved in this browser only. Nothing is sent anywhere. No account, no sign-up.</p></div></div>
-  </div>
-</section>
-<section class="section guide-more">
-  <div class="section-head"><h2>Not sure where you stand?</h2></div>
-  <p class="section-lede">The <a href="money-map.html">Money Map</a> asks 7 short questions and shows your stage and your next 3 steps. Two minutes, no sign-up.</p>
-  <p class="section-lede">Want proof this works? Read the <a href="case-files.html">stories of real people who did it</a>, one small channel at a time.</p>
-  <p class="section-lede">A word on this site you do not know? It is in <a href="glossary.html">Words to Know</a>, in easy words.</p>
+<section class="first-steps" aria-labelledby="first-steps-title">
+  <header class="fs-head">
+    <h2 id="first-steps-title">Start here</h2>
+    <p id="home-progress">Tick each step off as you finish it.</p>
+  </header>
+  <article class="step-block" data-stage="foundation">
+    <span class="st-big" aria-hidden="true">1</span>
+    <div class="st-body">
+      <p class="st-kicker">Stage 1 · Read</p>
+      <h3 class="st-name">Read Phase 0: Start From Nothing</h3>
+      <p class="st-what">Read the whole chapter, start to end.</p>
+      <div class="st-act">
+        <a class="btn-do" href="phase-0-start-from-nothing.html">Do this step <span aria-hidden="true">→</span></a>
+        <label class="st-done">
+          <span class="box"><input type="checkbox" data-lesson-toggle="f-read-phase0"><svg class="tick" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 12.5l5 5L19.5 6.5"/></svg></span>
+          I did this
+        </label>
+      </div>
+    </div>
+    <aside class="st-result" aria-label="Done looks like">
+      <p class="st-result-label">Done looks like</p>
+      <p>Three topics you could build a channel on, written down.</p>
+    </aside>
+  </article>
+  <article class="step-block step-block--next" data-stage="foundation">
+    <span class="st-big" aria-hidden="true">2</span>
+    <div class="st-body">
+      <p class="st-kicker">Stage 1 · Do</p>
+      <h3 class="st-name">Write your niche statement</h3>
+      <p class="st-what">Can't name your kind of video yet? Run the Niche Picker first.</p>
+      <p class="st-tool"><span class="st-tool-label">You need</span> <a href="quiz.html">Niche Picker</a></p>
+      <div class="st-act">
+        <a class="btn-do" href="career-path.html#lesson-f-drill-statement">Do this step <span aria-hidden="true">→</span></a>
+        <label class="st-done">
+          <span class="box"><input type="checkbox" data-lesson-toggle="f-drill-statement"><svg class="tick" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 12.5l5 5L19.5 6.5"/></svg></span>
+          I did this
+        </label>
+      </div>
+    </div>
+    <aside class="st-result" aria-label="Done looks like">
+      <p class="st-result-label">Done looks like</p>
+      <p>Your topic sentence, written down, every blank filled.</p>
+    </aside>
+  </article>
+  <article class="step-block step-block--next" data-stage="foundation">
+    <span class="st-big" aria-hidden="true">3</span>
+    <div class="st-body">
+      <p class="st-kicker">Stage 1 · Do</p>
+      <h3 class="st-name">Run the money check on three niches</h3>
+      <p class="st-what">Put your first topic into the Revenue Calculator. Use a view count you can defend.</p>
+      <p class="st-tool"><span class="st-tool-label">You need</span> <a href="calculator.html">Revenue Calculator</a></p>
+      <div class="st-act">
+        <a class="btn-do" href="career-path.html#lesson-f-drill-money">Do this step <span aria-hidden="true">→</span></a>
+        <label class="st-done">
+          <span class="box"><input type="checkbox" data-lesson-toggle="f-drill-money"><svg class="tick" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 12.5l5 5L19.5 6.5"/></svg></span>
+          I did this
+        </label>
+      </div>
+    </div>
+    <aside class="st-result" aria-label="Done looks like">
+      <p class="st-result-label">Done looks like</p>
+      <p>Three topics, priced at the same view count, with the pay gap written down.</p>
+    </aside>
+  </article>
+  <p class="fs-more"><a href="career-path.html">See all 35 steps on the Path <span aria-hidden="true">→</span></a></p>
+<p class="fs-note">Not sure where you stand? The <a href="money-map.html">Money Map</a> asks 7 short questions and shows your stage and your next 3 steps.</p>
 </section>
 <section class="section honesty"><h2>The honest part</h2>
 <p>Every number on this site was checked against 2026 sources, or is marked <strong>check live</strong>. Money ranges show what can happen. They are not a promise of what will happen. The business stage teaches. It is not legal or tax advice. App rules change all the time, so the most risky number is an old one.</p></section>

@@ -27,7 +27,7 @@ var NEEDLES = [
   '<meta property="og:image:height" content="630">',
   '<meta name="twitter:card" content="summary_large_image">',
   '<meta name="twitter:image" content="assets/og-card.png">',
-  '<meta name="theme-color" content="#0d120d">',
+  '<meta name="theme-color" content="#F3F0E8">', // Rotation 135 re-pin: the Build Booklet's paper theme (Aesthetics Round 366 graded extraction) sets the paper theme-color on every page; the R21 dark-ground value retired with that theme.
   '<link rel="icon" href="/favicon.ico" sizes="48x48">',
   '<link rel="icon" href="/favicon.svg" type="image/svg+xml">',
   '<link rel="apple-touch-icon" href="/apple-touch-icon.png">',

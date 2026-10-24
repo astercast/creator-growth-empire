@@ -68,11 +68,16 @@ for (const [p, cfg] of fnEntries) {
 
 // ---------- 3. the home is the start of the path ----------
 const index = rd(path.join(SITE, "index.html"));
-ok(index.includes("<h1>Build a career from nothing.</h1>"), "home h1 speaks to a beginner");
+// Rotation 135 re-pin: the Build Booklet cover carries the same h1 words in its
+// cover-title form (class + line/dot spans, graded extraction verbatim).
+ok(index.includes('<h1 class="cover-title" id="cover-title">Build a career'), "home h1 speaks to a beginner");
 ok((index.match(/<h1[\s>]/g) || []).length === 1, "home carries exactly one h1");
-const i11 = index.indexOf("Step 1.1");
-const i12 = index.indexOf("Step 1.2");
-const i13 = index.indexOf("Step 1.3");
+// Rotation 135 re-pin: the booklet's step panels carry giant numerals and
+// "Stage 1" kickers, not "Step 1.1" labels; the order evidence is the three
+// steps' own lesson toggles in document order (same store home-path.js writes).
+const i11 = index.indexOf('data-lesson-toggle="f-read-phase0"');
+const i12 = index.indexOf('data-lesson-toggle="f-drill-statement"');
+const i13 = index.indexOf('data-lesson-toggle="f-drill-money"');
 ok(i11 > -1 && i12 > i11 && i13 > i12, "the first three steps appear in order (1.1, 1.2, 1.3)");
 ok(index.includes("Read Phase 0: Start From Nothing"), "step 1.1 carries its real title");
 ok(index.includes("Write your niche statement"), "step 1.2 carries its real title");

@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>API Explorer: Creator Growth Empire</title>
 <meta name="description" content="Start with nothing. Build a career, one small step at a time.">
-<meta name="theme-color" content="#0d120d">
+<meta name="theme-color" content="#F3F0E8">
 <link rel="icon" href="/favicon.ico" sizes="48x48">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -30,22 +30,25 @@
 <link rel="stylesheet" href="assets/css/components.css">
 <link rel="stylesheet" href="assets/css/hub.css">
 <link rel="stylesheet" href="assets/css/guide.css">
+<link rel="stylesheet" href="assets/css/booklet.css">
 <script defer src="assets/js/api-explorer.js"></script><script defer src="assets/js/saved-shelf.js"></script><script defer src="assets/js/save-toggle-ui.js"></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
-<header class="site-header">
-  <a class="brand" href="index.html">Creator Growth Empire</a>
+<header class="masthead">
+  <a class="mark" href="index.html">
+    <span class="mark-code" aria-hidden="true">CGE</span>
+    <span class="mark-name">Creator Growth Empire</span>
+  </a>
   <nav class="site-nav" aria-label="Primary"><a href="career-path.html" class="nav-link">The Path</a><a href="tools.html" class="nav-link active" aria-current="page">Toolbox</a><a href="glossary.html" class="nav-link">Words to Know</a></nav>
-  <button class="nav-toggle" aria-expanded="false" aria-controls="mobileNav" aria-label="Menu">☰</button>
+  <div class="runhead" role="region" aria-label="Your place on the Path">
+    <span class="runhead-place" id="js-place">35 steps. 5 stages.</span>
+    <span class="runhead-track" aria-hidden="true"><span class="runhead-fill" id="js-fill"></span></span>
+    <a class="runhead-next" id="js-next" href="career-path.html">Start the Path <span aria-hidden="true">→</span></a>
+  </div>
+  <button class="nav-toggle" aria-expanded="false" aria-controls="mobileNav">Menu</button>
 </header>
 <nav id="mobileNav" class="mobile-nav" aria-label="Mobile"><a href="index.html" class="nav-link">Home</a><a href="career-path.html" class="nav-link">The Path</a><a href="tools.html" class="nav-link active" aria-current="page">Toolbox</a><a href="glossary.html" class="nav-link">Words to Know</a></nav>
-<div class="journey-strip" role="region" aria-label="Your place on the Path">
-  <span class="js-label">Your journey</span>
-  <span class="js-place" id="js-place">35 steps. 5 stages. From nothing to a career.</span>
-  <span class="js-track" aria-hidden="true"><span class="js-fill" id="js-fill"></span></span>
-  <a class="js-next" id="js-next" href="career-path.html">Start the Path <span aria-hidden="true">→</span></a>
-</div>
 <main id="main"><div class="tool-page"><header class="tool-head"><p class="tool-group">Content tools</p><h1>API Explorer</h1><p class="tool-formula">Tool 25 · API Explorer · Content · current</p><p class="tool-spec-line">Stage 4 · Growth · Pricing: Free · Added 2026-10-11 · Updated 2026-10-12</p><p class="save-row"><button type="button" class="btn" data-save-tool="api-explorer" aria-pressed="false">Save to your shelf</button> <a href="saved-shelf.html">Your saved shelf</a></p></header><p class="muted" style="max-width:44rem">Every <code>api/v1</code> endpoint, previewed live in your browser. Responses are static JSON, no key, no server, no auth. Select an endpoint to fetch and inspect it.</p>
 <p class="muted" style="max-width:44rem"><strong>Live server functions</strong> (when this site is deployed with its serverless backend): <code>GET /api/health</code> (status + function roster), <code>GET /api/changes</code> (the Algorithm Watch feed, filters <code>?platform=</code>, <code>?since=</code>, <code>?limit=</code>), <code>GET /api/niches</code>. Each returns the standard <code>{ok, data, meta}</code> envelope. Every feed surface ships pre-rendered from its static <code>data/v1/*.json</code> twin and only swaps in live data when the server answers, see <a href="what-changed.html">What Changed</a> for the pattern in action, and the repo-root <code>API.md</code> for the full contract.</p>
 <div class="explorer" style="display:grid;grid-template-columns:minmax(0,1fr);gap:1.25rem;margin-top:1rem">

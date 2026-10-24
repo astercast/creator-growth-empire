@@ -32,7 +32,10 @@ function visibleText(html) {
 
 const home = visibleText(fs.readFileSync(path.join(SITE, "index.html"), "utf8"));
 const first = home.slice(0, 2500);
-ok(first.includes("Build a career from nothing."), "cold read: the promise is in the first screenful");
+// Rotation 135 re-pin: the Build Booklet cover splits the title's period into its
+// own .dot span, so the stripped text reads "from nothing ." with a space; the
+// promise and its first-screenful position are unchanged.
+ok(first.includes("Build a career from nothing"), "cold read: the promise is in the first screenful");
 const moves = ["Read Phase 0: Start From Nothing", "Write your niche statement", "Run the money check on three niches"];
 let at = -1, ordered = true;
 for (const m of moves) {
@@ -41,7 +44,9 @@ for (const m of moves) {
   at = i;
 }
 ok(ordered, "cold read: the first three actions appear in order in the first 2,500 visible characters");
-ok(first.includes("Your first three moves"), "cold read: the first moves are labeled as such");
+// Rotation 135 re-pin: the booklet labels the first moves "Start here"
+// (the graded extraction's fs-head), replacing "Your first three moves".
+ok(first.includes("Start here"), "cold read: the first moves are labeled as such");
 ok(!/specimen|signal log|contents/i.test(first.slice(0, 1200)), "cold read: no directory machinery in the opening text");
 
 // the absence law: no calm machinery in any shipped file

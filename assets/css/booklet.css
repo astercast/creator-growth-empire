@@ -1,0 +1,227 @@
+/* ============ 1. TOKENS: the Build Booklet ============ */
+:root {
+  color-scheme: light;
+  /* paper and ink */
+  --paper: #F3F0E8;
+  --paper-2: #E9E5DA;
+  --ink: #151412;
+  --pencil: #64615A;
+  --tray: #DCE4E3;
+  --signal: #F04E1A;
+  --on-signal: #151412;
+  --rule: color-mix(in oklab, var(--ink) 18%, var(--paper));
+  --signal-wash: color-mix(in oklab, var(--signal) 16%, var(--paper));
+  /* type */
+  --font-plate: "Archivo", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  --font-read: "Atkinson Hyperlegible Next", "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --wide: 112%;
+  --widest: 125%;
+  --fs-numeral: clamp(7.5rem, 3rem + 20vw, 18rem);
+  --fs-title: clamp(2.75rem, 1.1rem + 6.4vw, 6.25rem);
+  --fs-h2: clamp(1.5rem, 1.1rem + 1.6vw, 2.25rem);
+  --fs-h3: clamp(1.3rem, 1.05rem + 1vw, 1.85rem);
+  --fs-lede: clamp(1.15rem, 1rem + .7vw, 1.5rem);
+  --fs-body: clamp(1.02rem, .97rem + .25vw, 1.14rem);
+  --fs-small: .92rem;
+  --fs-label: .78rem;
+  --lh-plate: .9;
+  --lh-read: 1.55;
+  --measure: 58ch;
+  /* space: 8px unit, steps 1 2 3 5 8 13 */
+  --u: .5rem;
+  --s-1: calc(var(--u) * 1);
+  --s-2: calc(var(--u) * 2);
+  --s-3: calc(var(--u) * 3);
+  --s-4: calc(var(--u) * 5);
+  --s-5: calc(var(--u) * 8);
+  --s-6: calc(var(--u) * 13);
+  --gutter: clamp(1rem, .4rem + 2.6vw, 2.75rem);
+  --page: 86rem;
+  --stroke: 2px;
+  --hair: 1px;
+  /* motion */
+  --dur-tick: 260ms;
+  --dur-fill: 720ms;
+  --ease-print: cubic-bezier(.2, .7, .1, 1);
+  /* legacy names, so the other pages follow the booklet */
+  --bg: var(--paper);
+  --bg-2: var(--paper-2);
+  --bg-3: var(--paper-2);
+  --bg-4: var(--tray);
+  --muted: var(--pencil);
+  --faint: var(--pencil);
+  --line: var(--rule);
+  --line-strong: var(--ink);
+  --gold: var(--signal);
+  --gold-dim: var(--signal);
+  --gold-ink: var(--on-signal);
+  --cyan: var(--signal);
+  --cyan-dim: var(--signal);
+  --cyan-ink: var(--on-signal);
+  --stamp: var(--signal);
+  --stamp-dim: var(--pencil);
+  --stamp-ink: var(--on-signal);
+  --sage: var(--tray);
+  --sage-dim: var(--pencil);
+  --sage-ink: var(--ink);
+  --font-display: var(--font-plate);
+  --font-cond: var(--font-plate);
+  --font-body: var(--font-read);
+  --radius-sm: 0;
+  --radius: 0;
+  --radius-lg: 0;
+  --ghost: var(--paper-2);
+  --track: var(--rule);
+}
+
+/* night print */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --paper: #161512;
+    --paper-2: #1F1D19;
+    --ink: #EEeae0;
+    --pencil: #A39E93;
+    --tray: #26302F;
+    --signal: #FF6A38;
+    --on-signal: #161512;
+  }
+}
+
+/* ============ 2. BASE ============ */
+html { background: var(--paper); color: var(--ink); }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--font-read); font-size: var(--fs-body); line-height: var(--lh-read); font-variant-numeric: tabular-nums; -webkit-font-smoothing: antialiased; }
+:where(h1, h2, h3) { font-family: var(--font-plate); font-stretch: var(--wide); line-height: var(--lh-plate); margin: 0; text-wrap: balance; }
+:where(p, dl, dd) { margin: 0; text-wrap: pretty; }
+a { color: inherit; text-decoration-line: underline; text-decoration-thickness: var(--stroke); text-decoration-color: var(--signal); text-underline-offset: .22em; }
+a:hover { text-decoration-color: currentColor; }
+:focus-visible { outline: 3px solid var(--signal); outline-offset: 3px; }
+.skip-link { position: absolute; left: var(--gutter); top: -4rem; z-index: 20; background: var(--ink); color: var(--paper); padding: var(--s-1) var(--s-2); text-decoration: none; }
+.skip-link:focus { top: var(--s-1); }
+
+/* every small label shares one voice */
+.cover-spec dt, .bl-name, .st-kicker, .st-tool-label, .st-result-label { font-family: var(--font-plate); font-stretch: var(--widest); font-size: var(--fs-label); font-weight: 700; line-height: 1.2; letter-spacing: .08em; text-transform: uppercase; }
+
+/* ============ 3. MASTHEAD: the booklet's running head ============ */
+.masthead { position: sticky; top: 0; z-index: 10; display: grid; grid-template-columns: auto 1fr auto; grid-template-areas: "mark nav run"; align-items: center; column-gap: var(--s-4); padding: var(--s-1) var(--gutter); background: var(--paper); border-bottom: var(--stroke) solid var(--ink); }
+.mark { grid-area: mark; display: inline-flex; align-items: center; gap: .6rem; text-decoration: none; }
+.mark-code { background: var(--ink); color: var(--paper); font: 900 .85rem/1 var(--font-plate); font-stretch: var(--widest); letter-spacing: .04em; padding: .45em .5em .4em; }
+.mark-name { font: 750 1rem/1 var(--font-plate); font-stretch: var(--wide); letter-spacing: -.01em; }
+.masthead .site-nav { grid-area: nav; display: flex; gap: var(--s-3); }
+.masthead .site-nav a { font: 600 var(--fs-small)/1 var(--font-read); text-decoration: none; padding-block: .7em .55em; border-bottom: var(--stroke) solid transparent; }
+.masthead .site-nav a:hover, .masthead .site-nav a[aria-current="page"] { border-bottom-color: var(--signal); }
+.runhead { grid-area: run; display: flex; align-items: center; gap: var(--s-2); min-width: 0; }
+.runhead-place { font-size: var(--fs-small); color: var(--pencil); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 28ch; }
+.runhead-track { position: relative; flex: none; inline-size: 6.5rem; block-size: .5rem; border: var(--hair) solid var(--ink); }
+.runhead-fill { position: absolute; inset: 0 auto 0 0; width: 0; background: var(--ink); }
+.runhead-next { font: 800 var(--fs-small)/1 var(--font-plate); font-stretch: var(--wide); text-decoration: none; white-space: nowrap; }
+.runhead-next span { color: var(--signal); }
+.masthead .nav-toggle { display: none; }
+#mobileNav { display: none; }
+@media (width < 52rem) {
+  .masthead { grid-template-columns: 1fr auto; grid-template-areas: "mark toggle" "run run"; row-gap: var(--s-1); }
+  .masthead .site-nav { display: none; }
+  .masthead .nav-toggle { grid-area: toggle; display: inline-block; font: 700 var(--fs-small)/1 var(--font-plate); font-stretch: var(--wide); color: var(--ink); background: none; border: var(--stroke) solid var(--ink); border-radius: 0; padding: .55em .8em; cursor: pointer; }
+  .runhead-place { flex: 1; max-width: none; }
+  #mobileNav.open { display: grid; background: var(--paper); border-bottom: var(--stroke) solid var(--ink); }
+  #mobileNav a { padding: var(--s-2) var(--gutter); border-top: var(--hair) solid var(--rule); font-weight: 600; text-decoration: none; }
+}
+
+/* ============ 4. COVER: box facts, title, the ruler ============ */
+.cover { container: cover / inline-size; max-inline-size: var(--page); margin-inline: auto; padding: var(--s-5) var(--gutter) var(--s-4); }
+.cover-spec { display: flex; flex-wrap: wrap; margin-block-end: var(--s-5); border-block: var(--hair) solid var(--ink); }
+.cover-spec div { padding: .6rem var(--s-3) .55rem 0; margin-inline-end: var(--s-3); border-inline-end: var(--hair) solid var(--rule); }
+.cover-spec div:last-child { border-inline-end: 0; }
+.cover-spec dt { color: var(--pencil); }
+.cover-spec dd { font: 700 1rem/1.3 var(--font-plate); font-stretch: var(--wide); }
+.cover-title { font-size: var(--fs-title); font-weight: 850; font-stretch: var(--wide); letter-spacing: -.025em; max-inline-size: 14ch; }
+.cover-title .line { display: block; padding-inline-start: 1.1em; }
+.cover-title .dot { color: var(--signal); }
+.cover-lede { margin-block-start: var(--s-3); font-size: var(--fs-lede); line-height: 1.4; max-inline-size: 30ch; }
+
+/* the ruler: one tick per step, grouped by stage */
+.buildline { list-style: none; margin: calc(var(--s-5) + 1.5rem) 0 0; padding: 0; display: flex; gap: .375rem; }
+.bl-stage { flex: var(--n) 1 0; min-inline-size: 0; position: relative; display: grid; align-content: start; gap: .4rem; }
+.bl-track { position: relative; display: block; block-size: 1.5rem; background: linear-gradient(var(--ink), var(--ink)) left bottom / 100% var(--stroke) no-repeat, repeating-linear-gradient(to right, var(--ink) 0 var(--stroke), transparent var(--stroke) calc(100% / var(--n))) left bottom / 100% 55% no-repeat; }
+.bl-fill { position: absolute; inset: 0 auto 0 0; width: 0; background: var(--ink); }
+.bl-num { justify-self: start; font: 900 clamp(1.5rem, 1rem + 1.6vw, 2.5rem)/1 var(--font-plate); font-stretch: var(--widest); padding: .06em .2em 0; margin-inline-start: -.2em; }
+.bl-count { font-size: var(--fs-small); color: var(--pencil); line-height: 1.3; }
+.bl-stage.is-current .bl-track { background-color: var(--signal-wash); }
+.bl-stage.is-current::before { content: "↓ You are here" / ""; position: absolute; left: 0; bottom: calc(100% + .4rem); background: var(--signal); color: var(--on-signal); font: 800 var(--fs-label)/1 var(--font-plate); font-stretch: var(--wide); letter-spacing: .04em; text-transform: uppercase; white-space: nowrap; padding: .4em .5em .35em; }
+.bl-stage.is-done .bl-num { background: var(--ink); color: var(--paper); }
+.cover-place { margin-block-start: var(--s-3); font-size: var(--fs-lede); font-weight: 600; }
+.cover-place::before { content: ""; display: inline-block; inline-size: .55em; block-size: .55em; margin-inline-end: .55em; background: var(--signal); }
+
+/* narrow: the numbers stay on the ruler, the words live in the line below it */
+@container cover (width < 44rem) {
+  .bl-name, .bl-count { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+}
+
+/* ============ 5. STEPS: one action per panel ============ */
+.first-steps { container: steps / inline-size; max-inline-size: var(--page); margin-inline: auto; padding: var(--s-4) var(--gutter) var(--s-6); }
+.fs-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--s-1) var(--s-3); padding-block: var(--s-2); border-top: calc(var(--stroke) * 3) solid var(--ink); }
+.fs-head h2 { font-size: var(--fs-h2); font-weight: 850; }
+.fs-head p { color: var(--pencil); max-inline-size: 52ch; }
+.first-steps .step-block { display: grid; grid-template-areas: "big" "body" "result"; gap: var(--s-2) var(--s-4); padding: var(--s-4) 0 var(--s-5); background: none; border: 0; border-radius: 0; box-shadow: none; border-bottom: var(--stroke) solid var(--ink); }
+.first-steps .step-block--next { --fs-numeral: clamp(4.5rem, 2.5rem + 8vw, 8.5rem); padding-block: var(--s-3) var(--s-4); }
+@container steps (width >= 50rem) {
+  .first-steps .step-block { grid-template-columns: minmax(0, 4fr) minmax(0, 6fr) minmax(0, 3fr); grid-template-areas: "big body result"; align-items: start; }
+  .first-steps .step-block--next { grid-template-columns: minmax(0, 2fr) minmax(0, 8fr) minmax(0, 3fr); }
+}
+.st-big { grid-area: big; font: 900 var(--fs-numeral)/.78 var(--font-plate); font-stretch: var(--widest); letter-spacing: -.05em; }
+.step-block.is-done .st-big { color: transparent; -webkit-text-stroke: var(--stroke) var(--ink); }
+.st-body { grid-area: body; display: grid; gap: var(--s-2); max-inline-size: var(--measure); }
+.st-kicker { color: var(--pencil); }
+.st-name { font-size: var(--fs-h3); font-weight: 800; }
+.st-what { font-size: 1.12em; }
+
+/* the parts box: shown only when a step needs a tool */
+.st-tool { justify-self: start; display: flex; flex-wrap: wrap; align-items: baseline; gap: .3rem var(--s-2); background: var(--tray); border: var(--stroke) solid var(--ink); padding: .55rem var(--s-2); }
+.st-tool a { font-weight: 700; }
+.st-act { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2) var(--s-4); margin-block-start: var(--s-1); }
+.btn-do { display: inline-flex; align-items: center; gap: .6em; padding: .85em 1.15em .8em; background: var(--signal); color: var(--on-signal); border: var(--stroke) solid var(--ink); border-radius: 0; font: 800 1rem/1 var(--font-plate); font-stretch: var(--wide); text-decoration: none; }
+.btn-do:hover { background: var(--ink); color: var(--paper); }
+.st-done { display: inline-flex; align-items: center; gap: .6em; font-weight: 600; cursor: pointer; }
+.box { display: grid; place-items: center; inline-size: 1.6rem; block-size: 1.6rem; }
+.box > * { grid-area: 1 / 1; }
+.box input { appearance: none; margin: 0; inline-size: 100%; block-size: 100%; background: var(--paper); border: var(--stroke) solid var(--ink); border-radius: 0; cursor: pointer; }
+.box input:checked { background: var(--ink); }
+.tick { inline-size: 1.1rem; pointer-events: none; fill: none; stroke: var(--paper); stroke-width: 3; stroke-linecap: square; stroke-dasharray: 24; stroke-dashoffset: 24; }
+.box:has(input:checked) .tick { stroke-dashoffset: 0; }
+
+/* the result picture: sits in the margin */
+.st-result { grid-area: result; align-self: start; display: grid; gap: .4rem; max-inline-size: 34ch; padding-block-start: var(--s-1); border-top: var(--stroke) solid var(--ink); font-size: var(--fs-small); }
+.st-result-label { color: var(--pencil); }
+.fs-more { margin-block-start: var(--s-3); }
+.fs-more a { font: 800 1.05rem/1.2 var(--font-plate); font-stretch: var(--wide); }
+
+/* ============ 6. MOTION: only what means something moves ============ */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+  .masthead { view-transition-name: masthead; }
+  ::view-transition-old(root), ::view-transition-new(root) { animation-duration: 220ms; }
+  /* progress fills from empty to your saved place */
+  .bl-fill, .runhead-fill { transition: width var(--dur-fill) var(--ease-print); }
+  @starting-style { .bl-fill, .runhead-fill { width: 0 !important; } /* beats the inline width the JS sets */ }
+  .bl-stage.is-current::before { animation: nudge 1s var(--ease-print) .5s 2; }
+  .box input { transition: background-color var(--dur-tick) var(--ease-print); }
+  .tick { transition: stroke-dashoffset var(--dur-tick) var(--ease-print) 60ms; }
+  .btn-do span { transition: translate var(--dur-tick) var(--ease-print); }
+  .btn-do:hover span { translate: .25em 0; }
+  @supports (animation-timeline: view()) {
+    .st-big { animation: settle linear both; animation-timeline: view(); animation-range: entry 10% cover 30%; }
+  }
+  @keyframes nudge { 50% { translate: 0 -.3rem; } }
+  @keyframes settle { from { opacity: .12; translate: 0 .08em; } }
+}
+
+/* ============ 7. BUILD FIX (Rotation 135, named on the landing's face) ============
+   journey.js rewrites #js-next with the full next-step label ("Next
+   step: 1.1 · Read Phase 0: Start From Nothing · ..."), which the
+   masthead's nowrap voice cannot hold at phone widths (measured:
+   570px scroll width at a 390px viewport, the link the only wide
+   element). The label may wrap on narrow screens; nothing else in
+   the extracted CSS above this block is changed. */
+@media (width < 52rem) {
+  .runhead-next { white-space: normal; }
+}

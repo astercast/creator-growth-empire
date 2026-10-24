@@ -58,3 +58,24 @@ sets. Measured on the shipped files: upm 1000, x-height 526
 From rotation 23 the preloaded display face is the Archivo latin
 variable file (it replaced the Barlow 700 latin preload at the
 generator source); Barlow remains shipped in full for body text.
+
+## Rotation 135 addition: the Build Booklet voices (Aesthetics Round 366, fix C1)
+
+Downloaded 2026-10-23 from the Google Fonts css2 API (woff2), request
+`family=Archivo:ital,wdth,wght@0,62..125,100..900&family=Atkinson+Hyperlegible+Next:ital,wght@0,200..800&display=swap`
+(Chrome user agent). Only the latin and latin-ext subsets were kept,
+matching this file's standing practice. The extraction's remote css2
+stylesheet link does NOT ship; these faces are declared locally in
+assets/css/fonts.css, so the zero-remote-fonts rule stands.
+
+| file | family | subset | axes (fontTools) | source URL |
+|---|---|---|---|---|
+| archivo-wdth-latin-var.woff2 | Archivo | latin | wdth 62 to 125, wght 100 to 900 | https://fonts.gstatic.com/s/archivo/v25/k3kQo8UDI-1M0wlSfdnoLg.woff2 |
+| archivo-wdth-latin-ext-var.woff2 | Archivo | latin-ext | wdth 62 to 125, wght 100 to 900 | https://fonts.gstatic.com/s/archivo/v25/k3kQo8UDI-1M0wlSfdfoLnnA.woff2 |
+| atkinson-latin-var.woff2 | Atkinson Hyperlegible Next | latin | wght 200 to 800 | https://fonts.gstatic.com/s/atkinsonhyperlegiblenext/v7/NaPNcYPdHfdVxJw0IfIP0lvYFqijb-UxCtm5_wdGseiJn3o.woff2 |
+| atkinson-latin-ext-var.woff2 | Atkinson Hyperlegible Next | latin-ext | wght 200 to 800 | https://fonts.gstatic.com/s/atkinsonhyperlegiblenext/v7/NaPNcYPdHfdVxJw0IfIP0lvYFqijb-UxCtm5_wdGseiHn3qmpQ.woff2 |
+
+Measured on the shipped files: Archivo wdth upm 1000, x-height 526,
+hhea ascent 878, descent 210 (identical metrics to the wght-only
+Archivo, so its fallback numbers carry over). Atkinson upm 1000,
+x-height 496, hhea ascent 984, descent 316.
