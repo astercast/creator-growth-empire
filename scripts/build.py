@@ -1493,6 +1493,7 @@ def _build_what_changed():
         '<p class="aw-actions"><a class="btn btn-primary" href="#aw-feed-list">Read the newest change ↓</a> '
         '<a class="btn btn-ghost" href="deal-room.html#dr-sec-watch">Price a deal against it →</a></p>'
         f'<p class="aw-updated" data-aw-updated>Feed data last published · generated {esc(gen)} UTC</p>'
+        '<p class="watch-age" id="watch-age" role="status"></p>'
         '<p class="aw-status" data-aw-status role="status" hidden></p>'
         + coverage_html +
         '<div class="aw-filters" data-aw-filters role="group" aria-label="Filter by platform">' +
@@ -2142,11 +2143,16 @@ def build():
         members = [slug for slug, _, _ in TOOLS if TOOL_HUB_META[slug][1] == group]
         rows = ""
         for slug in members:
+            # Round 2 (2026-10-24): Stage 5 tools are quieted for
+            # beginners and carry a plain "Later" tag; the path hands
+            # each tool over when its step comes.
+            later = TOOL_STAGE[slug][0] >= 5
             rows += (
-                f'<li class="spec-row"><a class="spec-main" href="{slug}.html">'
+                f'<li class="spec-row{" spec-row--later" if later else ""}"><a class="spec-main" href="{slug}.html">'
                 f'<span class="spec-formula">{_tool_formula(slug, tool_titles[slug])}</span>'
                 f'<span class="spec-contract">{esc(tool_desc[slug])}</span>'
-                f'<span class="spec-line">{_tool_spec_line(slug)}</span></a></li>')
+                f'<span class="spec-line">{_tool_spec_line(slug)}</span>'
+                f'{"<span class=\"spec-later\">Later, at Stage 5</span>" if later else ""}</a></li>')
         group_word = {"PLAN": "Planning", "MONEY": "Money", "CONTENT": "Content"}[group]
         hub_sections += (
             f'<section class="hub-group" aria-label="{group} tools">'
@@ -2848,6 +2854,10 @@ def build():
     }, indent=2), encoding="utf-8")
     shutil.copy(DATA / "glossary.json", DATA_V1 / "glossary.json")
     shutil.copy(DATA / "calculators.json", DATA_V1 / "calculators.json")
+    # Round 2 note (2026-10-24): data/niches.json is the single source.
+    # data/v1/niches.json is this generated API copy (the /api/niches
+    # fallback reads it), and site/data/v1/niches.json is the built
+    # site's copy. Edit only the source; the copies follow the build.
     shutil.copy(DATA / "niches.json", DATA_V1 / "niches.json")
     shutil.copy(DATA / "deal-templates.json", DATA_V1 / "deal-templates.json")
     shutil.copy(DATA / "content-engine.json", DATA_V1 / "content-engine.json")

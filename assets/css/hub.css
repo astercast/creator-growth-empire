@@ -244,3 +244,9 @@ a.brief-card:hover, a.brief-card:focus-visible {
   .path-plate { grid-template-columns: 3.6rem 1fr; }
   .pp-meta { grid-column: 2; }
 }
+
+/* Round 2 (2026-10-24): Stage 5 tools sit quiet on the Toolbox shelf
+   until the path hands them over; the tag says so in plain words. */
+.spec-row--later .spec-main { opacity: .55; }
+.spec-row--later .spec-main:hover, .spec-row--later .spec-main:focus-visible { opacity: 1; }
+.spec-later { display: block; font-size: .8rem; font-weight: 700; color: var(--muted); margin-top: .3rem; }

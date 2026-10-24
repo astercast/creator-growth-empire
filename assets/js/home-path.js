@@ -29,7 +29,6 @@
   }
 
   var boxes = Array.prototype.slice.call(document.querySelectorAll("[data-lesson-toggle]"));
-  var fill = document.getElementById("home-spine-fill");
   var progress = document.getElementById("home-progress");
   var routePlace = document.getElementById("route-place");
   var stageOrder = ["foundation", "build", "publish", "growth", "career"];
@@ -78,7 +77,6 @@
       }
     }
     var total = data.order.length;
-    if (fill) fill.style.width = (total ? Math.round((done.length / total) * 100) : 0) + "%";
     if (progress) {
       if (done.length === 0) {
         progress.textContent = "Your first step is below. Tick each step off as you finish it. The path fills in as you go.";
@@ -97,6 +95,9 @@
       if (b.checked) done.push(id);
       save(done);
       render();
+      /* The journey strip under the header reads the same store;
+         tell it to re-read now instead of waiting for a reload. */
+      if (window.cgeJourneyRefresh) window.cgeJourneyRefresh();
     });
   });
   render();

@@ -225,3 +225,35 @@ a:hover { text-decoration-color: currentColor; }
 @media (width < 52rem) {
   .runhead-next { white-space: normal; }
 }
+
+/* ============ 8. ROUND 2 FIXES (2026-10-24, Claude consultation round 2) ============
+   Adapted from the round 2 paste block against the real markup:
+   the step columns live in the steps container query (section 5),
+   and the footer parts are children of .site-footer, not the same
+   element. The runhead rules from the paste are not repeated: the
+   place line already truncates with an ellipsis and the phone
+   next-step wrap is the section 7 build fix above. */
+/* 1. Checkbox: stop the global input rule (layout.css) from
+   stretching the box, and the global label margin from leaking in */
+.st-done { gap: .75em; margin: 0; }
+.box { flex: none; }
+.box input { padding: 0; box-sizing: border-box; min-block-size: 0; }
+/* 2. Header nav links never wrap mid-word */
+.masthead .site-nav a { white-space: nowrap; }
+/* 3. Same columns for every step, so left edges line up */
+@container steps (width >= 50rem) {
+  .first-steps .step-block, .first-steps .step-block--next { grid-template-columns: minmax(0, 2fr) minmax(0, 8fr) minmax(0, 3fr); }
+}
+/* 4. One column width for the whole page: the honesty panel and the
+   footer sit on the same 1004px column as the cover and the steps */
+.section.honesty, .site-footer .footer-grid, .site-footer .footer-fine { inline-size: min(100% - 2rem, 62.75rem); max-inline-size: none; margin-inline: auto; }
+/* 5. The ruler fills its column; stage names wrap balanced */
+.buildline { inline-size: 100%; }
+.bl-name { text-wrap: balance; }
+/* 6. Counts: plain zero, even numbers */
+.bl-count, .runhead-place, .fs-head p { font-feature-settings: "zero" 0; font-variant-numeric: tabular-nums; }
+/* 7. Fact strip: tidy 2 by 2 on phones */
+@media (max-width: 40rem) {
+  .cover-spec { display: grid; grid-template-columns: 1fr 1fr; }
+  .cover-spec > div { border-inline-end: 0; margin-inline-end: 0; padding-block: .5rem; }
+}

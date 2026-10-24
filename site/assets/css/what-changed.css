@@ -96,3 +96,6 @@
 
 /* Rotation 22, mobile: filter chips get full-size tap targets. */
 .aw-filter { min-height: 44px; padding: 0.55rem 0.9rem; }
+/* Round 2 (2026-10-24): the feed age in plain words, set by changes-feed.js */
+.watch-age { font-size: 0.9rem; color: var(--muted); margin: 0.3rem 0 0; }
+.watch-age:empty { margin: 0; }

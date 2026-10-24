@@ -229,6 +229,15 @@
           updated.innerHTML = gen
             ? "Feed data <strong>" + esc(label) + "</strong> · generated " + esc(String(gen).replace("T", " ").slice(0, 16)) + " UTC"
             : "Feed data <strong>" + esc(label) + "</strong>";
+          /* Round 2 (2026-10-24): the age in plain words, next to the
+             raw timestamp, so a stale watch never reads as fresh. */
+          var age = document.getElementById("watch-age");
+          if (age && gen) {
+            var days = Math.floor((Date.now() - Date.parse(gen)) / 864e5);
+            if (!isNaN(days)) {
+              age.textContent = days <= 1 ? "Checked today." : "Last checked " + days + " days ago.";
+            }
+          }
         }
       });
   }

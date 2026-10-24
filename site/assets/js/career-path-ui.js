@@ -34,6 +34,9 @@
   }
   function save(list) {
     try { window.localStorage.setItem(CP.STORAGE_KEY, JSON.stringify(list)); } catch (e) { /* storage blocked, path still renders */ }
+    /* The journey strip under the header reads the same store;
+       tell it to re-read now instead of waiting for a reload. */
+    if (window.cgeJourneyRefresh) window.cgeJourneyRefresh();
   }
   function esc(s) {
     return String(s == null ? "" : s).replace(/[&<>\"']/g, function (c) {

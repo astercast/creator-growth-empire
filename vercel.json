@@ -66,6 +66,18 @@
     {
       "source": "/api/cron/algorithm-watch",
       "destination": "/api/functions/cron/algorithm-watch"
+    },
+    {
+      "source": "/api/changes",
+      "destination": "/api/functions/changes"
+    },
+    {
+      "source": "/api/niches",
+      "destination": "/api/functions/niches"
+    },
+    {
+      "source": "/api/health",
+      "destination": "/api/functions/health"
     }
   ]
 }
