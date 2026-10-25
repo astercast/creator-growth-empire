@@ -176,7 +176,7 @@ correct `Authorization: Bearer <secret>` header it returns 401
 `UNAUTHORIZED` (fail closed). Idempotent: 60s duplicate-delivery cooldown,
 canonical-JSON compare, commits via `writeJsonIfChanged` only when the feed
 actually changed (no change → no commit → no redeploy). Without
-`GITHUB_REPO_TOKEN` it runs read-only and reports the would-be diff.
+Retired 2026-10-24 (fleet-data migration): no GITHUB_REPO_TOKEN is used anywhere. Live data refreshes through the astercast/fleet-data repo; the fleet watchdog does the checking.
 Returns `{ checked, changed, committed, sources_ok, new_changes[], retained }`
 with per-source `meta.upstream`. Upstream sources (3): Tubefilter's main
 feed, Social Media Today, and — since the 2.3 wave — Tubefilter's Twitch

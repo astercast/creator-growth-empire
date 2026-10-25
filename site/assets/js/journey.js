@@ -66,7 +66,7 @@
     next.setAttribute("href", onPath ? step.a : step.h);
     next.innerHTML = "";
     var label = document.createElement("span");
-    label.textContent = "Next step: " + step.n + " · " + step.t;
+    label.innerHTML = 'Next step: ' + step.n + '<span class="nx-long"> · ' + step.t.replace(/</g, '&lt;') + '</span>';
     var arrow = document.createElement("span");
     arrow.setAttribute("aria-hidden", "true");
     arrow.textContent = " →";

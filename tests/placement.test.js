@@ -1,9 +1,9 @@
 "use strict";
 /* placement.test.js — rotation 13 placement-pass tripwire.
  * Every generated page must carry the generator's placement block:
- * OG/Twitter card meta (relative og:image until GO_LIVE absolutizes it),
+ * OG/Twitter card meta (absolute og:image on the live domain, round 3),
  * theme-color from the site's own --bg token, the HUD-reticle favicon
- * links, and a root-relative canonical (every page except the noindex
+ * links, and an absolute clean-URL canonical (every page except the noindex
  * 404). The OG card, icon files, and robots.txt must exist in site/.
  * If a future template edit drops any of this, this suite fails. */
 var fs = require("fs");
@@ -22,11 +22,11 @@ ok(pages.length >= 58, "generated pages present (" + pages.length + ")");
 
 var NEEDLES = [
   '<meta property="og:type" content="website">',
-  '<meta property="og:image" content="assets/og-card.png">',
+  '<meta property="og:image" content="https://creator-growth-empire-live.vercel.app/assets/og-card.png">',
   '<meta property="og:image:width" content="1200">',
   '<meta property="og:image:height" content="630">',
   '<meta name="twitter:card" content="summary_large_image">',
-  '<meta name="twitter:image" content="assets/og-card.png">',
+  '<meta name="twitter:image" content="https://creator-growth-empire-live.vercel.app/assets/og-card.png">',
   '<meta name="theme-color" content="#F3F0E8">', // Rotation 135 re-pin: the Build Booklet's paper theme (Aesthetics Round 366 graded extraction) sets the paper theme-color on every page; the R21 dark-ground value retired with that theme.
   '<link rel="icon" href="/favicon.ico" sizes="48x48">',
   '<link rel="icon" href="/favicon.svg" type="image/svg+xml">',
@@ -43,7 +43,8 @@ pages.forEach(function (f) {
   if (f === "404.html") {
     ok(!t.includes('rel="canonical"'), "404.html carries no canonical (noindex page)");
   } else {
-    ok(t.includes('<link rel="canonical" href="/' + f + '">'), f + " canonical is root-relative self path");
+    var canon = f === "index.html" ? "https://creator-growth-empire-live.vercel.app/" : "https://creator-growth-empire-live.vercel.app/" + f.replace(/\.html$/, "");
+    ok(t.includes('<link rel="canonical" href="' + canon + '">'), f + " canonical is the absolute clean URL");
   }
 });
 

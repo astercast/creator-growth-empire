@@ -185,7 +185,11 @@
         if (!res || !res.ok) throw new Error("bad status");
         return res.json();
       })
-      .then(function (payload) { return normalizeTrends(payload); })
+      .then(function (payload) {
+        var tr = normalizeTrends(payload);
+        if (tr) tr.generated_at = (payload && (payload.generated_at || payload.generatedAt)) || "";
+        return tr;
+      })
       .then(function (trends) {
         if (timer) clearTimeout(timer);
         return trends;
@@ -205,6 +209,20 @@
     loadTrends(base).then(
       function (trends) {
         if (!trends || !trends.length) { hosts.forEach(hide); return; }
+        /* The age rule (Claude bundle 2026-10-24): the list always
+           says how old it is, and a list more than 12 hours old does
+           not show at all. No date on the feed counts as too old. */
+        var genMs = Date.parse(trends.generated_at || "");
+        var ageH = isFinite(genMs) ? (Date.now() - genMs) / 3600000 : Infinity;
+        if (!(ageH <= 12)) { hosts.forEach(hide); return; }
+        hosts.forEach(function (h) {
+          var ageEl = h.parentNode ? h.parentNode.querySelector("[data-trends-age]") : null;
+          if (ageEl) {
+            ageEl.textContent = ageH < 1
+              ? "This list is less than an hour old."
+              : "This list is about " + Math.round(ageH) + (Math.round(ageH) === 1 ? " hour" : " hours") + " old.";
+          }
+        });
         hosts.forEach(function (h) {
           try {
             var ok = renderTrendsInto(h, trends);

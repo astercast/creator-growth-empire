@@ -28,7 +28,7 @@ tracks what's wired in the live track.
 | var | status |
 |---|---|
 | `CRON_SECRET` | required for cron route; generate ≥16 chars (`openssl rand -hex 32`) |
-| `GITHUB_REPO_TOKEN` | optional; fine-grained PAT — cron commits feed changes. Absent → read-only fallback, static twins stay authoritative |
+Retired 2026-10-24 (fleet-data migration): no GITHUB_REPO_TOKEN is used anywhere. Live data refreshes through the astercast/fleet-data repo; the fleet watchdog does the checking.
 | `GITHUB_REPO` | optional; `owner/repo` the cron writes to |
 | `REPO_STATIC_PREFIX` | optional |
 | `SERVICE_USER_AGENT` | optional |

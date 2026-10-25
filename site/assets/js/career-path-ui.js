@@ -22,7 +22,7 @@
   var nextEl = document.getElementById("cp-next");
   var shelfEl = document.getElementById("cp-shelf-line");
   var exportBox = document.getElementById("cp-export");
-  var DATA = { catalog: null, spec: null, settled: 0 };
+  var DATA = { catalog: null, spec: null, changes: null, settled: 0 };
   var JOB_RANK = { "Planning": 0, "Money": 1, "Content": 2 };
 
   function load() {
@@ -69,6 +69,21 @@
     return (n ? "Tool " + (n < 10 ? "0" + n : n) + " · " : "") + r.title;
   }
 
+  var AW_MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  function changeBanner(les) {
+    if (!DATA.changes) return "";
+    var hits = DATA.changes.filter(function (c) {
+      return c.confidence === "verified" && (c.affects || []).indexOf(les.id) >= 0;
+    });
+    if (!hits.length) return "";
+    hits.sort(function (a, b) { return String(b.announced_at || b.detected_at).localeCompare(String(a.announced_at || a.detected_at)); });
+    var c = hits[0];
+    var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(String(c.announced_at || c.detected_at || ""));
+    var when = m ? AW_MONTHS[Number(m[2]) - 1] + " " + Number(m[3]) + ", " + m[1] : "a new date";
+    return "<aside class=\"change-banner\" role=\"note\">This changed on " + esc(when) +
+      ". Read it before you do this step. <a href=\"what-changed.html#change-" + esc(c.id) + "\">See what changed</a></aside>";
+  }
+
   function lessonHtml(les, s, isCurrent) {
     var action = les.kind === "read" && les.href
       ? "<a href=\"" + esc(les.href) + "\">Read the chapter</a>"
@@ -82,6 +97,7 @@
     if (!les.time && !les.artifact) {
       var note0 = les.kind === "read" ? esc(les.detail || "") : esc(les.doneWhen || "");
       return "<li id=\"lesson-" + esc(les.id) + "\" class=\"" + liClass + "\">" + head +
+        changeBanner(les) +
         "<p class=\"cp-prov\">" + esc(les.provenanceLabel || "Provenance not recorded") + "</p>" +
         "<p class=\"muted\">Spec not recorded for this lesson.</p>" +
         (note0 ? "<p class=\"muted\">" + note0 + "</p>" : "") +
@@ -104,11 +120,12 @@
     // tool) renders directly under the lesson's name, before the meta
     // line. A beginner should meet the doing before the metadata.
     return "<li id=\"lesson-" + esc(les.id) + "\" class=\"" + liClass + "\">" + head +
+      changeBanner(les) +
       (action ? "<p class=\"cp-action\">" + action + "</p>" : "") + spec +
       "<p class=\"cp-prov\">" + esc(les.provenanceLabel || "Provenance not recorded") + "</p>" +
       (les.kind === "read" && les.detail ? "<p class=\"cp-detail muted\">" + esc(les.detail) + "</p>" : "") +
       needs + steps +
-      (les.kind === "drill" && les.doneWhen ? "<p class=\"cp-donewhen\"><strong>Check it off when:</strong> " + esc(les.doneWhen) + "</p>" : "") +
+      (les.kind === "drill" && les.doneWhen && !les.artifact ? "<p class=\"cp-donewhen\"><strong>Check it off when:</strong> " + esc(les.doneWhen) + "</p>" : "") +
       (les.artifact ? "<p class=\"cp-conclusion\"><strong>Done looks like:</strong> " + esc(les.artifact) + "</p>" : "") +
       "</li>";
   }
@@ -159,7 +176,7 @@
       var target = root.querySelector(location.hash);
       if (target) {
         target.scrollIntoView();
-        if (DATA.settled >= 2) render.hashScrolled = true;
+        if (DATA.settled >= 3) render.hashScrolled = true;
       }
     }
     Array.prototype.forEach.call(root.querySelectorAll("[data-lesson]"), function (box) {
@@ -196,4 +213,7 @@
     (doc.lessons || []).forEach(function (les) { map[les.id] = les; });
     DATA.spec = map; DATA.settled++; render();
   }).catch(function () { DATA.settled++; render(); /* spec table unreachable, lessons render with the honest fallback */ });
+  fetch("data/v1/changes.json").then(function (r) { return r.json(); }).then(function (doc) {
+    DATA.changes = doc.changes || []; DATA.settled++; render();
+  }).catch(function () { DATA.settled++; render(); /* watch feed unreachable, no banners, steps still render */ });
 })();

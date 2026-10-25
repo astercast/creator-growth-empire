@@ -48,7 +48,7 @@ state, spinner, or blank widget because the backend was cold or down.
 2. Access to the user's Vercel account (Hobby).
 3. Secrets generated:
    - `CRON_SECRET` — random ≥16 chars (e.g. `openssl rand -hex 32`).
-   - `GITHUB_REPO_TOKEN` — fine-grained PAT, **contents:write on this repo
+Retired 2026-10-24 (fleet-data migration): no GITHUB_REPO_TOKEN is used anywhere. Live data refreshes through the astercast/fleet-data repo; the fleet watchdog does the checking.
      only** — still pending the user's decision (§14.1 of the spec). The
      commit-back path is built but optional: without the token the cron runs
      read-only (it reports the would-be diff and commits nothing).
@@ -64,7 +64,7 @@ state, spinner, or blank widget because the backend was cold or down.
    - Output Directory: `site`
    - Install Command: `echo 'no dependencies'`
 3. Environment Variables (Production): `CRON_SECRET`,
-   `GITHUB_REPO_TOKEN` (when the user approves it), `GITHUB_REPO`,
+Retired 2026-10-24 (fleet-data migration): no GITHUB_REPO_TOKEN is used anywhere. Live data refreshes through the astercast/fleet-data repo; the fleet watchdog does the checking.
    `REPO_STATIC_PREFIX` (see §4).
 4. **Build machine: Standard.** Dashboard → Project → Settings →
    Build & Deployment → Build Machine → **Standard**.
@@ -112,9 +112,9 @@ state, spinner, or blank widget because the backend was cold or down.
 | name | required? | where set | rotation notes |
 |---|---|---|---|
 | `CRON_SECRET` | **yes** (cron 401s fail-closed without it) | Vercel → Project → Settings → Environment Variables (Production). Vercel auto-sends `Authorization: Bearer <secret>` on cron invocations. | Regenerate with `openssl rand -hex 32`; update the Vercel var; no code change needed. ≥16 chars enforced. |
-| `GITHUB_REPO_TOKEN` | no — pending user decision | Same place (Production). Fine-grained PAT, contents:write on this repo only. | Rotate in GitHub → update Vercel var. Without it the cron degrades to read-only. |
-| `GITHUB_REPO` | no | Same place. `owner/repo` — target of the cron's commit-back. | Only meaningful with `GITHUB_REPO_TOKEN` set. |
-| `REPO_STATIC_PREFIX` | no | Same place. Path prefix prepended to the commit-back target file (`data/v1/changes.json`). | Only meaningful with `GITHUB_REPO_TOKEN` set. |
+Retired 2026-10-24 (fleet-data migration): no GITHUB_REPO_TOKEN is used anywhere. Live data refreshes through the astercast/fleet-data repo; the fleet watchdog does the checking.
+Retired 2026-10-24 (fleet-data migration): no GITHUB_REPO_TOKEN is used anywhere. Live data refreshes through the astercast/fleet-data repo; the fleet watchdog does the checking.
+Retired 2026-10-24 (fleet-data migration): no GITHUB_REPO_TOKEN is used anywhere. Live data refreshes through the astercast/fleet-data repo; the fleet watchdog does the checking.
 
 No other secrets exist. Nothing secret is ever committed to the repo.
 

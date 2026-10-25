@@ -103,6 +103,17 @@
       "freshness_note": "Verify platform figures live before acting on them, every entry carries its sources and confidence flag."
     },
     {
+      "id": "path",
+      "kind": "json",
+      "path": "data/v1/path.json",
+      "description": "The Path shape: every step id in order, grouped by stage. Written from the same source as the home page path data. The Spine bar on every page reads this file.",
+      "schema": "data/v1/schema/path.json",
+      "updated": "2026-10-11T00:00:00Z",
+      "records": 35,
+      "deprecated": false,
+      "deprecation_note": null
+    },
+    {
       "id": "skills",
       "kind": "json",
       "path": "data/v1/skills.json",

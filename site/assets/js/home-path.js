@@ -32,6 +32,8 @@
   var progress = document.getElementById("home-progress");
   var routePlace = document.getElementById("route-place");
   var stageOrder = ["foundation", "build", "publish", "growth", "career"];
+  var coverLine = document.querySelector("#cover-title .line");
+  var coverLineHome = coverLine ? coverLine.innerHTML : "";
   var stageNames = {
     foundation: "Start From Nothing", build: "Make Your Videos",
     publish: "Post and Keep Posting", growth: "Grow Your People",
@@ -67,6 +69,20 @@
     if (currentSid) {
       var cur = document.querySelector('[data-route-stage="' + currentSid + '"]');
       if (cur) cur.classList.add("is-current");
+    }
+    /* The headline follows you (Claude bundle 2026-10-24): once you
+       have done one step, the second line of the big title names your
+       stage, in plain words. No steps done, the first words stay. */
+    if (coverLine) {
+      if (done.length >= 1 && currentSid) {
+        coverLine.innerHTML = "";
+        coverLine.appendChild(document.createTextNode(stageNames[currentSid]));
+        var dot = document.createElement("span");
+        dot.className = "dot"; dot.setAttribute("aria-hidden", "true"); dot.textContent = ".";
+        coverLine.appendChild(dot);
+      } else if (done.length === 0) {
+        coverLine.innerHTML = coverLineHome;
+      }
     }
     if (routePlace) {
       if (done.length >= data.order.length) {

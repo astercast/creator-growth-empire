@@ -2,7 +2,11 @@
 
 The most comprehensive creator-growth guide ever made: the $0 → multi-million-dollar creator company arc. YouTube, TikTok, Facebook, merch, brand deals, LLC, taxes, scale — nine phases, thirty-two interactive tools, a versioned JSON API, and twelve agent skills.
 
-**Private repo. GitHub-only. No Vercel.**
+**Public working repo. The live site is a snapshot of this work, pushed only on the owner's word and served on Vercel.**
+
+## The Spine, This Week, and the heartbeat (2026-10-24)
+
+Every page carries the Spine: a 35-tick bar that reads your saved progress in your own browser (`cge.career-path.v1`, nothing sent anywhere), with a one-line wire of verified platform changes under it. `data/v1/path.json` is written by `scripts/build.py` from the same source as the home page path data. Changes in `data/changes.json` carry a hand-set `affects` list of step ids: a dot marks the tick, and a step page opens with the change date when a verified change touches it. `/this-week` shows your next 3 steps, one verified change that touches them, 3 Trend Machine topics, and a week file (.ics) built on your device. Rule checkers name their source page and the date a person last checked it, and turn amber when the heartbeat sees that page's words change. The heartbeat (`.github/workflows/heartbeat.yml`, every 6 hours, `scripts/heartbeat/run.py`) ports the old cron feeds, adds the YouTube and Meta platform feeds, and writes `data/changes.json` plus `data/v1/pulse.json`; `/api/health` reads the pulse from its own bundle and never fetches this site.
 
 ## The nine phases
 

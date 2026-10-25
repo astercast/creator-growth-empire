@@ -1,0 +1,86 @@
+{
+ "order": [
+  "f-read-phase0",
+  "f-drill-statement",
+  "f-drill-money",
+  "f-drill-format",
+  "f-drill-plan",
+  "b-read-phase1",
+  "b-drill-bank",
+  "b-drill-hooks",
+  "b-drill-batch",
+  "b-drill-calendar",
+  "p-read-phase2",
+  "p-read-phase3",
+  "p-drill-cadence",
+  "p-drill-crosspost",
+  "p-drill-doctor",
+  "p-drill-ypp",
+  "p-drill-live",
+  "g-read-phase4",
+  "g-read-breakout",
+  "g-drill-metrics",
+  "g-drill-outreach",
+  "c-read-phase5",
+  "c-drill-ugc",
+  "c-drill-pipeline",
+  "c-drill-books",
+  "c-drill-hire",
+  "c-drill-fanpay",
+  "c-read-phase6",
+  "c-read-phase7",
+  "c-read-phase8",
+  "c-read-ratecard",
+  "c-read-sponsor",
+  "c-read-rules",
+  "c-drill-ratecard",
+  "c-drill-firstdeal"
+ ],
+ "stages": {
+  "foundation": [
+   "f-read-phase0",
+   "f-drill-statement",
+   "f-drill-money",
+   "f-drill-format",
+   "f-drill-plan"
+  ],
+  "build": [
+   "b-read-phase1",
+   "b-drill-bank",
+   "b-drill-hooks",
+   "b-drill-batch",
+   "b-drill-calendar"
+  ],
+  "publish": [
+   "p-read-phase2",
+   "p-read-phase3",
+   "p-drill-cadence",
+   "p-drill-crosspost",
+   "p-drill-doctor",
+   "p-drill-ypp",
+   "p-drill-live"
+  ],
+  "growth": [
+   "g-read-phase4",
+   "g-read-breakout",
+   "g-drill-metrics",
+   "g-drill-outreach"
+  ],
+  "career": [
+   "c-read-phase5",
+   "c-drill-ugc",
+   "c-drill-pipeline",
+   "c-drill-books",
+   "c-drill-hire",
+   "c-drill-fanpay",
+   "c-read-phase6",
+   "c-read-phase7",
+   "c-read-phase8",
+   "c-read-ratecard",
+   "c-read-sponsor",
+   "c-read-rules",
+   "c-drill-ratecard",
+   "c-drill-firstdeal"
+  ]
+ }
+}

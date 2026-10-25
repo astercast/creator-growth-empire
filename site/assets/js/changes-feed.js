@@ -103,8 +103,14 @@
         : "<span>" + name + "</span>";
       return '<li><span class="aw-src-tag" aria-hidden="true">SRC</span>' + link + "</li>";
     }).join("");
+    var aff = Array.isArray(c.affects) ? c.affects : [];
+    var affHtml = aff.length
+      ? '<p class="aw-affects">Steps this touches: ' + aff.map(function (a) {
+          return '<a href="career-path.html#lesson-' + esc(a) + '">' + esc(a) + "</a>";
+        }).join(" ") + "</p>"
+      : "";
     return (
-      '<li class="aw-entry brk" data-platform="' + esc(c.platform || "other") + '">' +
+      '<li class="aw-entry brk" id="change-' + esc(c.id || "") + '" data-platform="' + esc(c.platform || "other") + '">' +
       '<b class="brk-x" aria-hidden="true"></b>' +
       '<div class="aw-entry-head"><h2>' + esc(c.title || "Untitled change") + "</h2>" +
       '<span class="aw-date">' + esc(dateOnly(c.detected_at)) + "</span></div>" +
@@ -115,6 +121,7 @@
       "</div>" +
       '<p class="aw-summary">' + esc(c.summary || "") + "</p>" +
       datesHtml(c) +
+      affHtml +
       (srcItems ? '<ul class="aw-sources" aria-label="Sources">' + srcItems + "</ul>" : "") +
       "</li>"
     );

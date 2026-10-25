@@ -1,0 +1,11 @@
+{
+  "sources": [
+    {
+      "id": "ypp-help",
+      "label": "YouTube Partner Program help page",
+      "url": "https://support.google.com/youtube/answer/72851",
+      "verified_at": "2026-10-12",
+      "tools": ["ypp-checker", "calculator", "money-map"]
+    }
+  ]
+}

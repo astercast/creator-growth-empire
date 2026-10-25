@@ -257,3 +257,23 @@ a:hover { text-decoration-color: currentColor; }
   .cover-spec { display: grid; grid-template-columns: 1fr 1fr; }
   .cover-spec > div { border-inline-end: 0; margin-inline-end: 0; padding-block: .5rem; }
 }
+/* ============ 9. ROUND 3 FIXES (2026-10-24, Claude consultation round 3) ============ */
+/* 1. Toolbox rows were inheriting the old home grid */
+.spec-rows > .spec-row { display: block; padding: 0; }
+.spec-rows .spec-contract { max-inline-size: 60ch; }
+
+/* 2. Big step number never runs into the words beside it */
+@container steps (width >= 50rem) {
+  .first-steps .step-block, .first-steps .step-block--next { grid-template-columns: 9rem minmax(0, 1fr) 14rem; column-gap: var(--s-4); }
+  .first-steps .step-block { --fs-numeral: 5rem; }
+  .first-steps .step-block.step-block--next { --fs-numeral: 8rem; }
+}
+.st-big { white-space: nowrap; }
+
+.cover-act { margin-block-start: var(--s-2); }
+
+/* 3. Phone header: short label */
+@media (width < 52rem) {
+  .runhead-next { font-size: .95rem; line-height: 1.15; }
+  .runhead-next .nx-long { display: none; }
+}

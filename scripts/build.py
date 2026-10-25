@@ -20,6 +20,12 @@ DATA_V1 = ROOT / "data" / "v1"
 
 SITE_NAME = "Creator Growth Empire"
 TAGLINE = "Start with nothing. Build a career, one small step at a time."
+SITE_URL = "https://creator-growth-empire-live.vercel.app"
+# Fixed stamp the heartbeat pulse compares against (assets/js/pulse.js
+# reads <meta name="built">). Fixed, not wall-clock, so a rebuild with
+# no data change stays byte-identical (validate stage 5).
+PULSE_BUILT = "2026-10-24T00:00:00Z"
+TRENDS_BASE = "https://trend-machine-live.vercel.app"
 # QA-013: fonts are self-hosted (assets/fonts/, assets/css/fonts.css).
 # No remote font call is emitted anywhere; see assets/fonts/FONTS.md.
 
@@ -1104,14 +1110,12 @@ for _g, _sub, _desc in TOOL_HUB_GROUPS:
 
 
 def _tool_formula(slug, title):
-    return f"Tool {HUB_NUM[slug]:02d} \u00b7 {title} \u00b7 {TOOL_JOB_WORD[TOOL_HUB_META[slug][1]]} \u00b7 current"
+    return f"{title}"
 
 
 def _tool_spec_line(slug):
     sn, sname = TOOL_STAGE[slug]
-    added, updated = TOOL_FRESH[slug]
-    return (f"Stage {sn} \u00b7 {sname} \u00b7 Pricing: Free \u00b7 "
-            f"Added {added} \u00b7 Updated {updated}")
+    return f"Used in Stage {sn}, {sname}. Free."
 
 
 # Case-files hub (wave 9): headline numbers are sourced from the case pages
@@ -1375,8 +1379,14 @@ def _aw_entry_html(c):
         src_items += f'<li><span class="aw-src-tag" aria-hidden="true">SRC</span>{link}</li>'
     src_html = f'<ul class="aw-sources" aria-label="Sources">{src_items}</ul>' if src_items else ""
     det = str(c.get("detected_at", ""))[:10] or "date unknown"
+    aff = c.get("affects") or []
+    aff_html = ""
+    if aff:
+        links = " ".join(
+            f'<a href="career-path.html#lesson-{esc(a)}">{esc(a)}</a>' for a in aff)
+        aff_html = f'<p class="aw-affects">Steps this touches: {links}</p>'
     return (
-        f'<li class="aw-entry brk" data-platform="{esc(plat)}">'
+        f'<li class="aw-entry brk" id="change-{esc(c.get("id", ""))}" data-platform="{esc(plat)}">'
         '<b class="brk-x" aria-hidden="true"></b>'
         f'<div class="aw-entry-head"><h2>{esc(c.get("title", "Untitled change"))}</h2>'
         f'<span class="aw-date">{esc(det)}</span></div>'
@@ -1387,6 +1397,7 @@ def _aw_entry_html(c):
         "</div>"
         f'<p class="aw-summary">{esc(c.get("summary", ""))}</p>'
         f"{_aw_dates_html(c)}"
+        f"{aff_html}"
         f"{src_html}</li>"
     )
 
@@ -1512,6 +1523,82 @@ def _build_what_changed():
         page_template("What Changed", body, active="what-changed.html", extra_head=extra, path="what-changed.html"), encoding="utf-8")
     return len(rows)
 
+
+def _build_this_week():
+    """Render site/this-week.html (Claude bundle 2026-10-24).
+
+    Your week on one page: the next 3 steps of your stage, one verified
+    change that touches your steps, and 3 hot topics from Trend
+    Machine. The server prints the first-time view (stage 1, the
+    newest verified change); assets/js/this-week.js then reads your
+    saved progress in this browser and swaps in your own next steps
+    and your own change. Nothing is sent anywhere. The week file
+    (.ics) is built on your device when you ask for it."""
+    shape = _path_shape()
+    steps_island = {}
+    for lid in shape["order"]:
+        les = LESSONS_BY_ID[lid]
+        steps_island[lid] = {
+            "t": les["title"],
+            "h": les.get("href") or f"career-path.html#lesson-{lid}",
+            "s": les["stage"],
+        }
+    doc = _changes_doc()
+    verified = [c for c in doc.get("changes", []) if c.get("confidence") == "verified"]
+    verified.sort(key=lambda c: str(c.get("announced_at") or c.get("detected_at") or ""), reverse=True)
+    island = {
+        "order": shape["order"], "stages": shape["stages"],
+        "names": LESSON_STAGE_NAMES, "steps": steps_island,
+        "changes": [{"id": c.get("id"), "title": c.get("title"), "platform": c.get("platform"),
+                     "announced_at": c.get("announced_at"), "detected_at": c.get("detected_at"),
+                     "affects": c.get("affects") or []} for c in verified],
+    }
+    first3 = shape["order"][:3]
+    steps_html = "".join(
+        f'<li><a href="{esc(steps_island[lid]["h"])}">{esc(steps_island[lid]["t"])}</a></li>'
+        for lid in first3)
+    newest = verified[0] if verified else None
+    if newest:
+        when = _aw_date_label(newest.get("announced_at") or newest.get("detected_at")) or ""
+        change_html = (f'<p data-tw-change>One change that touches your steps: '
+                       f'<a href="what-changed.html#change-{esc(newest.get("id", ""))}">'
+                       f'{esc(newest.get("title", ""))}</a> ({esc(when)}). '
+                       f'Read it before you do the step it touches.</p>')
+    else:
+        change_html = '<p data-tw-change>No verified change touches your steps right now.</p>'
+    extra = '<script defer src="assets/js/this-week.js"></script>'
+    body = (
+        '<div class="aw-wrap">'
+        '<p class="chapter-kicker">This Week</p>'
+        '<h1>Your week</h1>'
+        '<p class="lede">Three steps. One change to read. Three topics that are hot now. '
+        'That is the whole week.</p>'
+        '<p data-tw-stage>Your stage: Stage 1, Start From Nothing.</p>'
+        '<h2>Your next 3 steps</h2>'
+        f'<ol class="this-week-list" data-tw-steps>{steps_html}</ol>'
+        '<p><a href="career-path.html">See the whole Path</a></p>'
+        '<h2>One change to read</h2>'
+        + change_html +
+        '<h2>Three hot topics</h2>'
+        '<p>Live from Trend Machine. The list says how old it is. '
+        'If it is more than 12 hours old, it hides.</p>'
+        '<div data-trends-widget data-trends-limit="3"></div>'
+        '<p class="tw-age" data-trends-age role="status"></p>'
+        '<h2>Put this week on your calendar</h2>'
+        '<p>One file with your 3 steps spread across the week. '
+        'It is made on your device. Nothing is sent anywhere.</p>'
+        '<div class="ics-actions">'
+        '<button type="button" class="btn btn-primary" data-tw-ics>Download the week file</button> '
+        '<button type="button" class="btn btn-ghost" data-tw-print>Print this page</button>'
+        '</div>'
+        '<script src="assets/js/trends-widget.js"></script>'
+        f'<script type="application/json" id="this-week-data">{json.dumps(island)}</script>'
+        '</div>'
+    )
+    (SITE / "this-week.html").write_text(
+        page_template("This Week", body, active="", extra_head=extra, path="this-week.html"), encoding="utf-8")
+
+
 # ---------- end wave B ----------
 
 def _website_json_ld():
@@ -1536,6 +1623,24 @@ def _tools_json_ld():
             + json.dumps(data, ensure_ascii=False) + "</script>")
 
 
+def _path_shape():
+    """The Path's one shape: {order, stages} from the lesson table.
+    Every surface that needs the path reads this one source: the home
+    page island (home-path-data), the journey island below, and
+    data/v1/path.json, which the Spine reads on every page (Claude
+    bundle 2026-10-24). One source, so the surfaces can never drift."""
+    order_stage = ["foundation", "build", "publish", "growth", "career"]
+    by_stage = {s: [] for s in order_stage}
+    for les in LESSONS_BY_ID.values():
+        by_stage[les["stage"]].append(les)
+    for s in order_stage:
+        by_stage[s].sort(key=lambda l: float(l["number"]))
+    return {
+        "order": [l["id"] for s in order_stage for l in by_stage[s]],
+        "stages": {s: [l["id"] for l in by_stage[s]] for s in order_stage},
+    }
+
+
 def _journey_island():
     """The Path's shape as one small JSON island, emitted on every page
     (professional rework 2026-10-15): the journey strip under the header
@@ -1543,25 +1648,84 @@ def _journey_island():
     see where they stand. Data only; the strip's words live in the
     template and in journey.js, both under the easy-words law."""
     try:
-        order_stage = ["foundation", "build", "publish", "growth", "career"]
-        by_stage = {s: [] for s in order_stage}
-        for les in LESSONS_BY_ID.values():
-            by_stage[les["stage"]].append(les)
-        for s in order_stage:
-            by_stage[s].sort(key=lambda l: float(l["number"]))
+        shape = _path_shape()
         data = {
-            "order": [l["id"] for s in order_stage for l in by_stage[s]],
-            "stages": {s: [l["id"] for l in by_stage[s]] for s in order_stage},
-            "names": {s: LESSON_STAGE_NAMES[s] for s in order_stage},
-            "steps": {l["id"]: {
-                "n": l["number"], "t": l["title"], "s": l["stage"],
-                "h": l.get("href") or f"career-path.html#lesson-{l['id']}",
-                "a": f"#lesson-{l['id']}",
-            } for s in order_stage for l in by_stage[s]},
+            "order": shape["order"],
+            "stages": shape["stages"],
+            "names": {s: LESSON_STAGE_NAMES[s] for s in shape["stages"]},
+            "steps": {lid: {
+                "n": LESSONS_BY_ID[lid]["number"], "t": LESSONS_BY_ID[lid]["title"],
+                "s": LESSONS_BY_ID[lid]["stage"],
+                "h": LESSONS_BY_ID[lid].get("href") or f"career-path.html#lesson-{lid}",
+                "a": f"#lesson-{lid}",
+            } for lid in shape["order"]},
         }
         return json.dumps(data)
     except Exception:
         return "{}"
+
+
+_CHANGES_CACHE = None
+
+
+def _changes_doc():
+    """data/changes.json, read once per build. The feed the Spine wire,
+    the step banners, and This Week all read this same file."""
+    global _CHANGES_CACHE
+    if _CHANGES_CACHE is None:
+        try:
+            _CHANGES_CACHE = json.loads((DATA / "changes.json").read_text(encoding="utf-8"))
+        except Exception:
+            _CHANGES_CACHE = {"changes": []}
+    return _CHANGES_CACHE
+
+
+def _newest_verified_for(lesson_id):
+    """The newest verified change whose hand-set affects list names
+    this step, or None. Single-source changes never steer a step."""
+    hits = [c for c in _changes_doc().get("changes", [])
+            if c.get("confidence") == "verified" and lesson_id in (c.get("affects") or [])]
+    if not hits:
+        return None
+    hits.sort(key=lambda c: str(c.get("announced_at") or c.get("detected_at") or ""), reverse=True)
+    return hits[0]
+
+
+def _change_banner(slug):
+    """Step pages open with this line when a verified change touches
+    the step (Claude bundle 2026-10-24): the date, in plain words, and
+    the way to the change itself. Pages that are not steps, and steps
+    no verified change touches, print nothing."""
+    les = _lesson_for_page(slug)
+    if not les:
+        return ""
+    c = _newest_verified_for(les["id"])
+    if not c:
+        return ""
+    when = _aw_date_label(c.get("announced_at") or c.get("detected_at")) or "a new date"
+    return ('<aside class="change-banner" role="note">'
+            f'This changed on {esc(when)}. Read it before you do this step. '
+            f'<a href="what-changed.html#change-{esc(c.get("id", ""))}">See what changed</a>'
+            '</aside>')
+
+
+def _rule_source_html(slug):
+    """Rule checkers name their source page and the date a person last
+    checked it (Claude bundle 2026-10-24). The heartbeat watches the
+    same page; when its words change, assets/js/rule-source.js turns
+    this line amber from data/v1/source-checks.json."""
+    try:
+        doc = json.loads((DATA / "rule-sources.json").read_text(encoding="utf-8"))
+    except Exception:
+        return ""
+    for s in doc.get("sources", []):
+        if slug in (s.get("tools") or []):
+            return ('<aside class="rule-source" data-rule-source="' + esc(s.get("id", "")) + '" role="note">'
+                    'Rule source: <a href="' + esc(s.get("url", "")) + '" rel="noopener">'
+                    + esc(s.get("label", "source page")) + '</a>. '
+                    'Last checked by hand on ' + esc(_aw_date_label(s.get("verified_at")) or s.get("verified_at", "")) + '. '
+                    '<span class="rule-source-live"></span></aside>')
+    return ""
 
 
 def page_template(title, body, active="", extra_head="", path=""):
@@ -1597,18 +1761,17 @@ def page_template(title, body, active="", extra_head="", path=""):
 <link rel="icon" href="/favicon.ico" sizes="48x48">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-{('<link rel="canonical" href="/' + path + '">') if path else ''}
-<!-- RELATIVE until deploy: absolutize og:image + twitter:image against the live domain at GO_LIVE (mandatory step, GO_LIVE.md) -->
+{('<link rel="canonical" href="' + SITE_URL + ('/' if path == 'index.html' else '/' + path.replace('.html', '')) + '">') if path else ''}
 <meta property="og:type" content="website">
 <meta property="og:title" content="{esc(full_title)}">
 <meta property="og:description" content="{esc(TAGLINE)}">
-<meta property="og:image" content="assets/og-card.png">
+<meta property="og:image" content="{SITE_URL}/assets/og-card.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{esc(full_title_comma)}">
 <meta name="twitter:description" content="{esc(TAGLINE)}">
-<meta name="twitter:image" content="assets/og-card.png">
+<meta name="twitter:image" content="{SITE_URL}/assets/og-card.png">
 <link rel="preload" href="assets/fonts/archivo-latin-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/fonts.css">
 <link rel="stylesheet" href="assets/css/tokens.css">
@@ -1619,6 +1782,10 @@ def page_template(title, body, active="", extra_head="", path=""):
 <link rel="stylesheet" href="assets/css/hub.css">
 <link rel="stylesheet" href="assets/css/guide.css">
 <link rel="stylesheet" href="assets/css/booklet.css">
+<link rel="stylesheet" href="assets/css/spine.css">
+<link rel="stylesheet" href="assets/css/pulse.css">
+<meta name="built" content="{PULSE_BUILT}">
+<meta name="trends-api-base" content="{TRENDS_BASE}">
 {extra_head}
 </head>
 <body>
@@ -1631,7 +1798,6 @@ def page_template(title, body, active="", extra_head="", path=""):
   <nav class="site-nav" aria-label="Primary">{desktop_nav}</nav>
   <div class="runhead" role="region" aria-label="Your place on the Path">
     <span class="runhead-place" id="js-place">{len(LESSONS_BY_ID) if LESSONS_BY_ID else 35} steps. 5 stages.</span>
-    <span class="runhead-track" aria-hidden="true"><span class="runhead-fill" id="js-fill"></span></span>
     <a class="runhead-next" id="js-next" href="career-path.html">Start the Path <span aria-hidden="true">→</span></a>
   </div>
   <button class="nav-toggle" aria-expanded="false" aria-controls="mobileNav">Menu</button>
@@ -1661,6 +1827,7 @@ def page_template(title, body, active="", extra_head="", path=""):
       <a href="case-files.html">Real people who did it</a>
       <a href="money-map.html">The Money Map, find your stage</a>
       <a href="what-changed.html">Algorithm Watch, what changed</a>
+      <a href="this-week.html">This Week, your next steps</a>
     </nav>
   </div>
   <div class="footer-fine"><span>Built from research checked in Oct 2026. Prices and rules change, so check live numbers before you act. This site teaches. It is not money, legal, or tax advice.</span></div>
@@ -1668,6 +1835,10 @@ def page_template(title, body, active="", extra_head="", path=""):
 <script type="application/json" id="cge-path-data">{_journey_island()}</script>
 <script src="assets/js/site.js"></script>
 <script defer src="assets/js/journey.js"></script>
+<script type="module" src="assets/js/spine.js"></script>
+<script type="module" src="assets/js/pulse.js"></script>
+<script src="assets/js/fleet-live.js"></script>
+<script src="assets/js/fleet-bar.js" data-site="creator-growth-empire"></script>
 </body>
 </html>"""
 
@@ -1922,7 +2093,7 @@ def build():
         raside, rdetails = _radar_map(map_items)
         page = page_template(f"{phase}: {short}",
                              f'<div class="chapter-with-map">{raside}'
-                             f'<article class="chapter">{hero}{_plain_box(slug)}{_lesson_spec_html(slug)}{rdetails}{body_html}{_lesson_conclusion_html(slug)}{cnav}</article></div>',
+                             f'<article class="chapter">{hero}{_change_banner(slug)}{_plain_box(slug)}{_lesson_spec_html(slug)}{rdetails}{body_html}{_lesson_conclusion_html(slug)}{cnav}</article></div>',
                              active="career-path.html", path=f"{slug}.html")
         (SITE / f"{slug}.html").write_text(page, encoding="utf-8")
         chapters_meta.append({
@@ -1975,7 +2146,7 @@ def build():
         raside, rdetails = _radar_map(map_items)
         page = page_template(f"{short}",
                              f'<div class="chapter-with-map">{raside}'
-                             f'<article class="chapter">{hero}{_plain_box(slug)}{_lesson_spec_html(slug)}{rdetails}{body_html}{mount}{_lesson_conclusion_html(slug)}{cnav}</article></div>',
+                             f'<article class="chapter">{hero}{_change_banner(slug)}{_plain_box(slug)}{_lesson_spec_html(slug)}{rdetails}{body_html}{mount}{_lesson_conclusion_html(slug)}{cnav}</article></div>',
                              active="glossary.html" if slug == "metrics-glossary" else "career-path.html", extra_head=extra_head, path=f"{slug}.html")
         (SITE / f"{slug}.html").write_text(page, encoding="utf-8")
         reference_meta.append({"id": slug, "badge": badge, "title": short,
@@ -2103,13 +2274,15 @@ def build():
             save_btn = (f'<p class="save-row"><button type="button" class="btn" '
                         f'data-save-tool="{slug}" aria-pressed="false">Save to your shelf</button> '
                         f'<a href="saved-shelf.html">Your saved shelf</a></p>')
+        if slug in ("ypp-checker", "calculator", "money-map"):
+            extra += '<script defer src="assets/js/rule-source.js"></script>'
         group_word = {"PLAN": "Planning", "MONEY": "Money", "CONTENT": "Content"}[tier_name]
         hud_open = (f'<div class="tool-page"><header class="tool-head">'
                     f'<p class="tool-group">{group_word} tools</p>'
                     f"<h1>{esc(title)}</h1>"
                     f'<p class="tool-formula">{_tool_formula(slug, title)}</p>'
                     f'<p class="tool-spec-line">{_tool_spec_line(slug)}</p>'
-                    f"{save_btn}</header>")
+                    f"{save_btn}{_rule_source_html(slug)}</header>")
         page = page_template(title, f'{hud_open}{tool_body}</div>',
                              active="tools.html", extra_head=extra, path=f"{slug}.html")
         (SITE / f"{slug}.html").write_text(page, encoding="utf-8")
@@ -2125,6 +2298,7 @@ def build():
     # ---- Algorithm Watch feed page (wave B): pre-rendered from data/changes.json,
     #      live-updated from /api/changes when the server is reachable ----
     n_changes = _build_what_changed()
+    _build_this_week()
 
     # ---- hub pages (wave 9): tools hub + case-files hub ----
     def hub_hero(kicker, title_words, lede, accent):
@@ -2437,19 +2611,10 @@ def build():
             f'<span class="route-name">Stage {_si + 1} · {esc(LESSON_STAGE_NAMES[_sid])}</span>'
             f'<span class="route-count" data-stage-count="{_sid}">0 of {_nstage} steps done</span>'
             f'</span></li>')
-    _path_data = json.dumps({
-        "order": [l["id"] for _s in _stage_order for l in _lessons_by_stage[_s]],
-        "stages": {s: [l["id"] for l in _lessons_by_stage[s]] for s in _stage_order},
-    })
+    _path_data = json.dumps(_path_shape())
     index_body = f"""
 <div class="scroll-progress" aria-hidden="true"></div>
 <section class="cover" aria-labelledby="cover-title">
-  <dl class="cover-spec">
-    <div><dt>Start with</dt><dd>Nothing</dd></div>
-    <div><dt>Steps</dt><dd>35</dd></div>
-    <div><dt>Stages</dt><dd>5</dd></div>
-    <div><dt>Cost</dt><dd>Free. No sign-up.</dd></div>
-  </dl>
   <h1 class="cover-title" id="cover-title">Build a career <span class="line">from nothing<span class="dot">.</span></span></h1>
   <p class="cover-lede">You make videos. People watch.<br>In time, it turns into a job.</p>
   <ol class="buildline" aria-label="The road in five stages">
@@ -2485,6 +2650,7 @@ def build():
     </li>
   </ol>
   <p class="cover-place" id="route-place" aria-live="polite">You start at Stage 1.</p>
+  <p class="cover-act"><a class="btn-do" href="phase-0-start-from-nothing.html">Do this step <span aria-hidden="true">→</span></a></p>
 </section>
 <section class="first-steps" aria-labelledby="first-steps-title">
   <header class="fs-head">
@@ -2553,6 +2719,13 @@ def build():
   <p class="fs-more"><a href="career-path.html">See all 35 steps on the Path <span aria-hidden="true">→</span></a></p>
 <p class="fs-note">Not sure where you stand? The <a href="money-map.html">Money Map</a> asks 7 short questions and shows your stage and your next 3 steps.</p>
 </section>
+<section class="section trends-home" aria-labelledby="trends-home-title">
+  <h2 id="trends-home-title">Hot topics to cover</h2>
+  <p>Live from Trend Machine. The list says how old it is. If it is more than 12 hours old, it hides.</p>
+  <div data-trends-widget data-trends-limit="3"></div>
+  <p class="tw-age" data-trends-age role="status"></p>
+</section>
+<script src="assets/js/trends-widget.js"></script>
 <section class="section honesty"><h2>The honest part</h2>
 <p>Every number on this site was checked against 2026 sources, or is marked <strong>check live</strong>. Money ranges show what can happen. They are not a promise of what will happen. The business stage teaches. It is not legal or tax advice. App rules change all the time, so the most risky number is an old one.</p></section>
 <script type="application/json" id="home-path-data">{_path_data}</script>
@@ -2596,6 +2769,31 @@ def build():
                            "description": d.group(1).strip() if d else "",
                            "path": rel})
     (ROOT / "skills" / "index.json").write_text(json.dumps({"skills": skills_idx}, indent=2), encoding="utf-8")
+
+    # ---- the Spine path file + heartbeat pulse (bundle 2026-10-24) ----
+    (DATA_V1 / "path.json").write_text(json.dumps(_path_shape(), indent=1) + "\n", encoding="utf-8")
+    if not (DATA_V1 / "pulse.json").exists():
+        (DATA_V1 / "pulse.json").write_text(json.dumps({
+            "format": "pulse/1", "generated_at": PULSE_BUILT, "healthy": True,
+            "sources_ok": 0, "sources_total": 0, "sources": [], "changes": [],
+        }, indent=1) + "\n", encoding="utf-8")
+    # source-checks.json is the heartbeat's hash log for the rule
+    # checkers; seed the honest empty state so the file (and the
+    # checker script's read of it) resolves before the first run.
+    if not (DATA_V1 / "source-checks.json").exists():
+        (DATA_V1 / "source-checks.json").write_text(json.dumps({
+            "generated_at": PULSE_BUILT, "sources": [],
+        }, indent=1) + "\n", encoding="utf-8")
+    (DATA_V1 / "schema" / "path.json").write_text(json.dumps({
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "title": "Path shape",
+        "type": "object",
+        "required": ["order", "stages"],
+        "properties": {
+            "order": {"type": "array", "items": {"type": "string"}},
+            "stages": {"type": "object", "additionalProperties": {"type": "array", "items": {"type": "string"}}},
+        },
+    }, indent=2), encoding="utf-8")
 
     # ---- data/v1 (static JSON API) ----
     # Wave 12: full self-describing manifest. Every endpoint carries its
@@ -2718,6 +2916,17 @@ def build():
             "deprecated": False,
             "deprecation_note": None,
             "freshness_note": "Verify platform figures live before acting on them, every entry carries its sources and confidence flag.",
+        },
+        {
+            "id": "path",
+            "kind": "json",
+            "path": "data/v1/path.json",
+            "description": "The Path shape: every step id in order, grouped by stage. Written from the same source as the home page path data. The Spine bar on every page reads this file.",
+            "schema": "data/v1/schema/path.json",
+            "updated": BUILD_TS,
+            "records": len(_path_shape()["order"]),
+            "deprecated": False,
+            "deprecation_note": None,
         },
         {
             "id": "skills",
