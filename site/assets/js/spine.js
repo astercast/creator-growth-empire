@@ -50,7 +50,8 @@
     el.innerHTML = "<span>" + d.size + " of " + path.order.length + "</span>" +
       '<ol class="spine-ticks" aria-hidden="true">' + ticks + "</ol>" +
       '<span class="spine-now">' + (cur ? 'Next: <a href="career-path.html#lesson-' + cur + '">' + stage + "</a>" : "Every step done") + "</span>";
-    document.body.prepend(el);
+    var shell = document.querySelector(".spine-shell");
+    if (shell) shell.replaceWith(el); else document.body.prepend(el);
     document.documentElement.classList.add("has-spine");
   }
 
@@ -58,7 +59,7 @@
     var list = (changes || []).filter(function (x) { return x.confidence === "verified"; })
       .sort(function (a, b) { return String(b.announced_at || b.detected_at).localeCompare(String(a.announced_at || a.detected_at)); })
       .slice(0, 8);
-    if (!list.length) return;
+    if (!list.length) { var sh = document.querySelector(".cwire-shell"); if (sh) sh.remove(); return; }
     var el = document.createElement("div");
     el.className = "cwire";
     el.setAttribute("aria-label", "Verified platform changes");
@@ -67,8 +68,9 @@
       var title = String(x.title || "").split(":")[0].replace(/</g, "&lt;");
       return '<a href="what-changed.html#change-' + x.id + '"><b>' + x.platform + " " + when + "</b><span>" + title + "</span></a>";
     }).join("");
-    var spineEl = document.querySelector(".spine");
-    if (spineEl) spineEl.after(el);
+    var wsh = document.querySelector(".cwire-shell");
+    if (wsh) wsh.replaceWith(el);
+    else { var spineEl = document.querySelector(".spine"); if (spineEl) spineEl.after(el); }
   }
 
   Promise.all([

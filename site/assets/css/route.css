@@ -54,7 +54,7 @@
   --page: 86rem;
   --stroke: 2px;
   --hair: 1px;
-  --spine-h: 0px;
+  --spine-h: 2.5rem; /* R301 fix pass item 5: reserved unconditionally, was 0px until JS added .has-spine (the CLS cause) */
 }
 html.has-spine { --spine-h: 2.5rem; }
 
@@ -201,3 +201,73 @@ main:has(> .cover) > :not(.cover):not(.first-steps):not(.scroll-progress) {
 .section.honesty, .site-footer .footer-grid, .site-footer .footer-fine {
   inline-size: min(100% - var(--gutter) * 2, var(--page)); }
 main:has(> .cover) > .section.honesty { padding-inline: 0; }
+
+/* ---------- 6. ROUND-3 REVIEW 1 FIX PASS (R301, 2026-10-27) ----------
+   All 9 items of review-creator-1.md. This file loads last, so these
+   rules govern the booklet, hub and chapter sheets where they conflict. */
+:root { --signal-ink: #A93208; --spine-h: 2.5rem; }
+html.has-spine { --spine-h: 2.5rem; }
+
+/* item 5 shells: build.py emits both shells at fixed heights; spine.js
+   fills them in place, so first paint already holds the final layout. */
+.spine-shell { block-size: var(--spine-h); }
+.cwire-shell { block-size: 2.75rem; border-bottom: var(--hair) solid var(--ink); }
+
+/* item 3: orange TEXT takes --signal-ink (5.9:1 on paper); #F04E1A stays
+   for fills only (stage numbers, ticks, buttons, the You are here plate). */
+.masthead .site-nav a[aria-current="page"], .nav-link.active, .nav-link.active .nav-n { color: var(--signal-ink); }
+.chapter-path-line a { color: var(--signal-ink); }
+.plain-h { color: var(--signal-ink); }
+.runhead-next span { color: var(--signal-ink); }
+.cp-here { color: var(--signal-ink); }
+.cp-action a, .ls-next a, .radar a[aria-current="true"], .radar a[aria-current="true"] .radar-n { color: var(--signal-ink); }
+.cover-title .dot { color: var(--signal-ink); }
+
+/* item 1: Path stage plates become Timetable rows: no box, no fill,
+   left-aligned titles, hairline rows on the page edge. */
+.cp-stage { background: transparent; border: 0; border-top: var(--stroke) solid var(--ink); border-radius: 0; padding: 1.1rem 0 1.2rem; margin-bottom: 0; }
+.cp-stage-head { justify-content: flex-start; text-align: left; }
+.cp-stage-head h2 { text-align: left; }
+.cp-ghost { display: none; }
+
+/* item 1: chapter pages share the masthead left edge (--edge); the
+   section index sticks below the masthead, in sentence case. */
+main:has(> .chapter-with-map) { max-inline-size: none; padding-inline: var(--edge); }
+.chapter-with-map { grid-template-columns: 15.5rem minmax(0, 1fr); }
+.radar { top: calc(var(--spine-h) + 3.5rem + .75rem); border-radius: 0; }
+.radar-kicker { text-transform: none; letter-spacing: 0; }
+.radar a, .radar-mobile a { text-transform: none; letter-spacing: 0; font-family: var(--font-read); }
+
+/* item 2: step pages in the timetable layout. The lesson spec opens
+   with a figure row (number, title, minutes as a figure column,
+   difficulty); it closes with Done looks like beside the checkbox,
+   then the Next line. */
+.ls-row { display: grid; grid-template-columns: var(--numcol) minmax(0, 1fr) auto auto; gap: var(--s-3); align-items: baseline; border-top: var(--stroke) solid var(--ink); border-bottom: var(--hair) solid var(--ink); padding-block: .55rem; margin: 0 0 .8rem; }
+.ls-row-num { font: 900 1.6rem/1 var(--font-plate); }
+.ls-row-title { font: 800 var(--step-0)/1.15 var(--font-plate); }
+.ls-row-mins { font: 700 1rem/1 var(--font-figure); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.ls-row-diff { font-size: var(--step--1); color: var(--pencil); white-space: nowrap; }
+.ls-end { border-top: var(--hair) solid var(--ink); margin-top: 1rem; padding-top: .7rem; display: grid; gap: .45rem; }
+.ls-done { display: flex; gap: .6rem; align-items: flex-start; cursor: pointer; font-size: var(--step-0); }
+.ls-done input { inline-size: 1.3rem; block-size: 1.3rem; flex: none; margin-top: .15rem; }
+.ls-next { margin: 0; font: 700 var(--step-0)/1.3 var(--font-figure); }
+.cp-mins { font: 700 .95rem/1 var(--font-figure); font-variant-numeric: tabular-nums; white-space: nowrap; margin-inline-start: auto; }
+.cp-next-line { margin: .35rem 0 0 1.6rem; font: 700 .95rem/1.3 var(--font-figure); }
+.chapter-checked { font: 600 var(--step--1)/1.3 var(--font-figure); color: var(--pencil); margin: .4rem 0 0; }
+
+/* item 7: one left edge on home. The honesty section, the footer grid
+   and the fine line sit on --edge, like the cover and the masthead. */
+main:has(> .cover) > .section.honesty, .site-footer .footer-grid, .site-footer .footer-fine { inline-size: auto; margin-inline: var(--edge); padding-inline: 0; }
+.site-footer { padding-inline: 0; }
+
+/* item 8: the Updated badge carries a solid background and the page
+   keeps bottom padding, so body text never runs under it. */
+.pulse { background: var(--paper); border-top: 2px solid var(--ink); padding: .45rem .7rem calc(.45rem + 4px); z-index: 60; }
+body { padding-block-end: 4rem; }
+
+/* item 9: tap targets. Wire items and the spine NEXT link reach 44px;
+   nothing interactive in the strips sits under the 24px floor. */
+.cwire { min-block-size: 2.75rem; }
+.cwire a { min-block-size: 44px; }
+.spine a { display: inline-flex; align-items: center; min-block-size: 44px; }
+.radar a, .radar-mobile a { min-height: 44px; }

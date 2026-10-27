@@ -1790,6 +1790,8 @@ def page_template(title, body, active="", extra_head="", path=""):
 {extra_head}
 </head>
 <body>
+<div class="spine-shell" aria-hidden="true"></div>
+<div class="cwire-shell" aria-hidden="true"></div>
 <a class="skip-link" href="#main">Skip to content</a>
 <header class="masthead">
   <a class="mark" href="index.html"{brand_cur}>
@@ -1920,17 +1922,32 @@ def _lesson_spec_html(slug):
     state = les["state"]
     state_bit = "" if state == "current" else f" \u00b7 {esc(state)}"
     state_row = "" if state == "current" else f'<div><dt>State</dt><dd>{esc(state)}</dd></div>'
+    # R301 fix pass item 2: the spec opens as a timetable row (number,
+    # title, minutes as the figure column, difficulty), and closes with
+    # Done looks like beside the checkbox, then the Next line.
+    try:
+        _order = _path_shape()["order"]
+        _idx = _order.index(les["id"])
+        _next = LESSONS_BY_ID.get(_order[_idx + 1]) if _idx + 1 < len(_order) else None
+    except Exception:
+        _next = None
+    _done = (f'<div class="ls-end"><label class="ls-done"><input type="checkbox" data-lesson-check="{esc(les["id"])}">'
+             f'<span><strong>Done looks like:</strong> {esc(les.get("artifact") or les.get("doneWhen") or "")}</span></label>'
+             + (f'<p class="ls-next">Next: <a href="{esc(_next.get("href") or ("career-path.html#lesson-" + _next["id"]))}">{esc(_next["number"])} {esc(_next["title"])}</a></p>' if _next else "")
+             + '</div>') if (les.get("artifact") or les.get("doneWhen")) else ""
     return (
         '<section class="lesson-spec" aria-label="Lesson spec">'
-        f'<p class="ls-formula">{esc(les["number"])} \u00b7 {esc(les["title"])} \u00b7 {esc(les["kind"])}{state_bit}</p>'
+        f'<div class="ls-row"><span class="ls-row-num">{esc(les["number"])}</span>'
+        f'<span class="ls-row-title">{esc(les["title"])}</span>'
+        f'<span class="ls-row-mins">{esc(les["time"])}</span>'
+        f'<span class="ls-row-diff">{esc(les["difficulty"])}</span></div>'
         '<dl class="ls-grid">'
         f'<div><dt>Stage</dt><dd>{stage_num} \u00b7 {esc(stage_name)}</dd></div>'
-        f'<div><dt>Kind</dt><dd>{kind_word}</dd></div>'
-        f'<div><dt>Time</dt><dd>{esc(les["time"])}</dd></div>'
-        f'<div><dt>Difficulty</dt><dd>{esc(les["difficulty"])}</dd></div>'
+        f'<div><dt>Kind</dt><dd>{kind_word}{state_bit}</dd></div>'
         f'{state_row}</dl>'
         f'<h3 class="ls-h">What you need</h3><ul class="ls-list">{needs}</ul>'
         f'<h3 class="ls-h">{"The read" if les["kind"] == "read" else "The drill"}</h3><ol class="ls-list">{steps}</ol>'
+        f'{_done}'
         '</section>')
 
 
@@ -2066,6 +2083,7 @@ def build():
                 + (f'<p class="lede">{briefing}</p>' if briefing else "")
                 + f'<p class="chapter-meta-strip"><span>{read_min} min read</span><span class="sep">·</span>'
                 f'<span>{wc:,} words</span></p>'
+                + '<p class="chapter-checked">Checked in Oct 2026.</p>'
                 + _path_coordinate(slug)
                 + '</header>')
         # chapter end-nav: next-phase mission cards
@@ -2128,6 +2146,7 @@ def build():
                 + (f'<p class="lede">{briefing}</p>' if briefing else "")
                 + f'<p class="chapter-meta-strip"><span>{read_min} min read</span><span class="sep">·</span>'
                 f'<span>{wc:,} words</span></p>'
+                + '<p class="chapter-checked">Checked in Oct 2026.</p>'
                 + _path_coordinate(slug)
                 + '</header>')
         cnav = ('<nav class="chapter-nav" aria-label="Phases">'
@@ -2708,7 +2727,7 @@ def build():
 </section>
 <script src="assets/js/trends-widget.js"></script>
 <section class="section honesty"><h2>The honest part</h2>
-<p>Every number on this site was checked against 2026 sources, or is marked <strong>check live</strong>. Money ranges show what can happen. They are not a promise of what will happen. The business stage teaches. It is not legal or tax advice. App rules change all the time, so the most risky number is an old one.</p></section>
+<p>The numbers on this site come from research checked in Oct 2026, and every chapter carries its checked date at the top. Numbers that change fast are marked <strong>check live</strong>. Money ranges show what can happen. They are not a promise of what will happen. The business stage teaches. It is not legal or tax advice. App rules change all the time, so the most risky number is an old one.</p></section>
 <script type="application/json" id="home-path-data">{_path_data}</script>
 <script src="assets/js/home-path.js"></script>
 """

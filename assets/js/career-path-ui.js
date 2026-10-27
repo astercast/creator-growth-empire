@@ -84,15 +84,16 @@
       ". Read it before you do this step. <a href=\"what-changed.html#change-" + esc(c.id) + "\">See what changed</a></aside>";
   }
 
-  function lessonHtml(les, s, isCurrent) {
+  function lessonHtml(les, s, isCurrent, nextLes) {
     var action = les.kind === "read" && les.href
       ? "<a href=\"" + esc(les.href) + "\">Read the chapter</a>"
       : (les.tool && toolRecord(les.tool) ? "<a href=\"" + esc(toolRecord(les.tool).page) + "\">Open " + esc(toolName(les.tool)) + "</a>" : "");
     var stamp = les.done ? "<span class=\"stamp cp-stamp\">Done</span>" : "<span class=\"cp-stamp-slot\" aria-hidden=\"true\"></span>";
     var here = isCurrent && !les.done ? " <span class=\"cp-here\">You are here</span>" : "";
+    var mins = les.time ? "<span class=\"cp-mins\">" + esc(les.time) + "</span>" : "";
     var head = "<div class=\"cp-lesson-head\"><label><input type=\"checkbox\" data-lesson=\"" + esc(les.id) + "\"" + (les.done ? " checked" : "") + "> " +
       "<span class=\"cp-formula\"><span class=\"cp-num\">" + esc(les.number || "") + "</span> <strong>" + esc(les.title) + "</strong> " +
-      "<span class=\"cp-kind\">" + esc(les.kind) + "</span>" + (les.state && les.state !== "current" ? " <span class=\"cp-state\">" + esc(les.state) + "</span>" : "") + here + "</span></label>" + stamp + "</div>";
+      "<span class=\"cp-kind\">" + esc(les.kind) + "</span>" + (les.state && les.state !== "current" ? " <span class=\"cp-state\">" + esc(les.state) + "</span>" : "") + here + "</span></label>" + mins + stamp + "</div>";
     var liClass = "cp-lesson" + (les.done ? " cp-done" : "") + (isCurrent && !les.done ? " cp-current" : "");
     if (!les.time && !les.artifact) {
       var note0 = les.kind === "read" ? esc(les.detail || "") : esc(les.doneWhen || "");
@@ -108,7 +109,7 @@
      * no form: a station on a route states its coordinates in a line. */
     var spec = "<p class=\"cp-meta\">" +
       (s.number || "") + " · " + esc(s.name) + " · " + esc(les.kind === "read" ? "Read" : "Drill") +
-      " · " + esc(les.time || "Not recorded") + " · " + esc(les.difficulty || "Not recorded") +
+      " · " + esc(les.difficulty || "Not recorded") +
       (les.state && les.state !== "current" ? " · " + esc(les.state) : "") + "</p>";
     var needs = les.needs && les.needs.length
       ? "<div class=\"cp-block\"><h4>What you need</h4><ul>" + les.needs.map(function (n) { return "<li>" + esc(n) + "</li>"; }).join("") + "</ul></div>"
@@ -127,6 +128,7 @@
       needs + steps +
       (les.kind === "drill" && les.doneWhen && !les.artifact ? "<p class=\"cp-donewhen\"><strong>Check it off when:</strong> " + esc(les.doneWhen) + "</p>" : "") +
       (les.artifact ? "<p class=\"cp-conclusion\"><strong>Done looks like:</strong> " + esc(les.artifact) + "</p>" : "") +
+      (nextLes ? "<p class=\"cp-next-line\">Next: " + esc(nextLes.number || "") + " " + esc(nextLes.title) + "</p>" : "") +
       "</li>";
   }
 
@@ -147,7 +149,8 @@
     }
     root.innerHTML = p.stages.map(function (s, i) {
       var nextId = p.nextStep ? p.nextStep.lesson.id : null;
-      var lessons = s.lessons.map(function (les) { return lessonHtml(les, s, les.id === nextId); }).join("");
+      var flat = []; p.stages.forEach(function (st) { st.lessons.forEach(function (l) { flat.push(l); }); });
+      var lessons = s.lessons.map(function (les) { var ix = flat.indexOf(les); return lessonHtml(les, s, les.id === nextId, ix >= 0 && ix + 1 < flat.length ? flat[ix + 1] : null); }).join("");
       var chips = s.tools.map(function (id) {
         var r = toolRecord(id);
         return r ? "<li><a href=\"" + esc(r.page) + "\">" + esc(toolName(id)) + "</a></li>" : "<li>" + esc(id) + "</li>";
