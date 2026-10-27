@@ -150,3 +150,24 @@
    rounded up; re-measure when the lesson count changes. */
 #cp-path { min-block-size: 21300px; }
 @media (width < 56rem) { #cp-path { min-block-size: 35050px; } }
+
+/* ============ R303 FIX PASS (round-3 review 2, items 2 + 4) ============
+   This sheet loads after route.css on the Path page only, so the two
+   Path contrast failures are fixed here, where the winning rules live. */
+/* item 2 (BLOCKING): the read / drill kind labels and the You are here
+   tag carried var(--gold), which the booklet theme aliases to the
+   signal orange (3.17:1 as text). Both take --signal-ink; the tag
+   keeps its orange border and fills elsewhere stay orange. */
+.cp-kind { color: var(--signal-ink); }
+.cp-here { color: var(--signal-ink); }
+/* item 4: reserve the script-filled heights. career-path-ui.js replaces
+   the readout and next-step placeholders after first paint; measured
+   final heights on the built page at R303 (readout 26px at 1440, 52px
+   at 390; next-step box 80px at 1440, 106px at 390) are held from
+   first paint so the swap shifts nothing. */
+.cp-readout { min-block-size: 1.65rem; }
+#career-path .cp-next { box-sizing: border-box; min-block-size: 5rem; }
+@media (max-width: 640px) {
+  .cp-readout { min-block-size: 3.3rem; }
+  #career-path .cp-next { min-block-size: 6.65rem; }
+}

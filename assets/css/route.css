@@ -271,3 +271,45 @@ body { padding-block-end: 4rem; }
 .cwire a { min-block-size: 44px; }
 .spine a { display: inline-flex; align-items: center; min-block-size: 44px; }
 .radar a, .radar-mobile a { min-height: 44px; }
+
+/* ---------- 7. ROUND-3 REVIEW 2 FIX PASS (R303, 2026-10-27) ----------
+   All items of review-creator-2.md. This file loads last on chapter,
+   home and step pages, so these rules govern where they conflict. */
+
+/* item 1 (BLOCKING): chapter pages on phones were squeezed into the
+   15.5rem first track: below 1100px the radar is hidden and the mobile
+   disclosure shows instead (motifs.css), so the layout is one column.
+   The section-6 two-track rule above has no breakpoint and defeated
+   the motifs single-column rule by load order; this restores it. */
+@media (max-width: 1100px) {
+  .chapter-with-map { grid-template-columns: minmax(0, 1fr); }
+}
+/* item 1, hero: components.css pulls .chapter-hero 1rem left of the
+   column under 720px (it started at x=1 on a 390 phone). Keep it on
+   the column edge. */
+@media (max-width: 720px) {
+  .chapter-hero { margin-inline: 0; }
+}
+
+/* item 2 (BLOCKING): the remaining orange text takes --signal-ink.
+   The R301 rules lost on specificity or load order in three places:
+   .plain-box .plain-h (guide.css, 0-2-0), the chapter nav Next label
+   (.chapter-nav .nav-next .nav-dir, layout.css, via --cyan which the
+   booklet theme aliases to --signal), and inline code in chapter
+   prose (base.css code via --cyan). Orange stays for fills. */
+.plain-box .plain-h { color: var(--signal-ink); }
+.chapter-nav .nav-next .nav-dir { color: var(--signal-ink); }
+.chapter code { color: var(--signal-ink); }
+
+/* item 3: the Path page sat on the old centered measure (left edge
+   x=174) while the masthead sits on --edge (x=76). Put the Path main
+   on --edge, like the home and chapter mains above. */
+main:has(> #career-path) { max-inline-size: none; padding-inline: var(--edge); }
+
+/* minor: on step pages under 640px the minutes figure leaves the
+   title row and sits on its own line under the title, so step titles
+   stop wrapping to three lines beside it. */
+@media (max-width: 640px) {
+  .ls-row { grid-template-columns: var(--numcol) minmax(0, 1fr) auto; }
+  .ls-row-mins { grid-column: 2; grid-row: 2; }
+}
