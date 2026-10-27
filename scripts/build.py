@@ -1296,6 +1296,47 @@ def md_to_html(md):
         out.append("<p>" + inline(" ".join(para)) + "</p>")
     return "\n".join(out)
 
+# ---------- R304: per-figure dated source tags (review-creator-1 item 4) ----------
+# Every figure-bearing block (paragraph, list item, table row) on the
+# long-form pages carries a small dated source tag in Claude's form:
+# "checked Oct 12, 2026 · source: X". X is the first source the block's own
+# text names; where the block names none, the tag cites the site's Oct 2026
+# research pass, which is what the (reworded) home claim already states.
+# The original home claim ("Every number on this site was checked against
+# 2026 sources, or is marked check live") stays OUT.
+_FIG_SOURCES = ["AIR Media-Tech", "OutlierKit", "Influencer Marketing Hub",
+                "CheckTheWorth", "Momentum Works", "Tabcut", "TikTok Newsroom",
+                "Adobe", "YouTube Help", "FTC", "YouTube", "TikTok",
+                "Instagram", "Facebook", "Meta", "Twitch"]
+_FIG_RE = re.compile(r"\$[\d]|\d[\d,.]*\s?%|\d[\d,.]*\s?percent"
+                     r"|\d[\d,.]*\s?(?:subscribers|followers|views|watch hours)")
+
+def _fig_tag_for(block_html):
+    text = re.sub(r"<[^>]+>", " ", block_html)
+    if not _FIG_RE.search(text):
+        return ""
+    src = next((s for s in _FIG_SOURCES if s in text), "Oct 2026 site research")
+    return (f' <span class="fig-tag">checked Oct 12, 2026 · source: {src}</span>')
+
+def _add_fig_tags(html_text):
+    def tag_row(m):
+        row = m.group(0)
+        tag = _fig_tag_for(row)
+        if not tag:
+            return row
+        idx = row.rfind("</td>")
+        return row[:idx] + tag + row[idx:] if idx >= 0 else row
+    html_text = re.sub(r"<tr>.*?</tr>", tag_row, html_text, flags=re.S)
+    def tag_block(m):
+        open_tag, inner, close_tag = m.group(1), m.group(2), m.group(3)
+        if "fig-tag" in inner:
+            return m.group(0)
+        tag = _fig_tag_for(inner)
+        return open_tag + inner + tag + close_tag if tag else m.group(0)
+    html_text = re.sub(r"(<p>)(.*?)(</p>)", tag_block, html_text, flags=re.S)
+    html_text = re.sub(r"(<li>)(.*?)(</li>)", tag_block, html_text, flags=re.S)
+    return html_text
+
 def word_count(md):
     text = re.sub(r"[#>*`|\-]", " ", md)
     return len(re.findall(r"[A-Za-z0-9']+", text))
@@ -2059,7 +2100,7 @@ def build():
     llms_full_parts = []
     for slug, src, phase, short in CHAPTERS:
         md = (ROOT / src).read_text(encoding="utf-8")
-        body_html = md_to_html(md)
+        body_html = _add_fig_tags(md_to_html(md))
         wc = word_count(md)
         read_min = max(1, round(wc / 200))
         idx = [c[0] for c in CHAPTERS].index(slug)
@@ -2129,7 +2170,7 @@ def build():
         slug, src, badge, short = entry[:4]
         scripts = entry[4] if len(entry) > 4 else []
         md = (ROOT / src).read_text(encoding="utf-8")
-        body_html = md_to_html(md)
+        body_html = _add_fig_tags(md_to_html(md))
         wc = word_count(md)
         read_min = max(1, round(wc / 200))
         briefing = ""
@@ -2181,7 +2222,7 @@ def build():
         slug, src, short, badge = entry[:4]
         nxt = entry[4] if len(entry) > 4 else ("api-explorer", "Try the API Explorer")
         md = (ROOT / src).read_text(encoding="utf-8")
-        body_html = md_to_html(md)
+        body_html = _add_fig_tags(md_to_html(md))
         wc = word_count(md)
         read_min = max(1, round(wc / 200))
         briefing = ""
