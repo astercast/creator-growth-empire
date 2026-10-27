@@ -12,8 +12,8 @@
   --rule: color-mix(in oklab, var(--ink) 18%, var(--paper));
   --signal-wash: color-mix(in oklab, var(--signal) 16%, var(--paper));
   /* type */
-  --font-plate: "Archivo", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
-  --font-read: "Atkinson Hyperlegible Next", "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-plate: "Archivo", "Archivo Fallback", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  --font-read: "Atkinson Hyperlegible Next", "Atkinson Hyperlegible Next Fallback", "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", sans-serif;
   --wide: 112%;
   --widest: 125%;
   --fs-numeral: clamp(7.5rem, 3rem + 20vw, 18rem);

@@ -171,3 +171,14 @@
   .cp-readout { min-block-size: 3.3rem; }
   #career-path .cp-next { min-block-size: 6.65rem; }
 }
+
+/* Fix pass 3 (review-creator-3, minor): on the Path page under 640px
+   the minutes figure leaves the lesson title row and sits on its own
+   line under the title, mirroring the .ls-row fix on step pages.
+   Fix pass 2 targeted .ls-row-mins, but the Path page's rows are
+   .cp-lesson-head with a .cp-mins figure (route.css), so the rule
+   never reached them and titles still wrapped beside the figure. */
+@media (max-width: 640px) {
+  .cp-lesson-head { flex-wrap: wrap; }
+  .cp-lesson-head .cp-mins { flex-basis: 100%; margin-inline-start: 0; }
+}

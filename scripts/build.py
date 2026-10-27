@@ -1773,6 +1773,8 @@ def page_template(title, body, active="", extra_head="", path=""):
 <meta name="twitter:description" content="{esc(TAGLINE)}">
 <meta name="twitter:image" content="{SITE_URL}/assets/og-card.png">
 <link rel="preload" href="assets/fonts/archivo-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/archivo-wdth-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/atkinson-latin-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/fonts.css">
 <link rel="stylesheet" href="assets/css/tokens.css">
 <link rel="stylesheet" href="assets/css/motifs.css">
