@@ -1784,6 +1784,7 @@ def page_template(title, body, active="", extra_head="", path=""):
 <link rel="stylesheet" href="assets/css/booklet.css">
 <link rel="stylesheet" href="assets/css/spine.css">
 <link rel="stylesheet" href="assets/css/pulse.css">
+<link rel="stylesheet" href="assets/css/route.css">
 <meta name="built" content="{PULSE_BUILT}">
 <meta name="trends-api-base" content="{TRENDS_BASE}">
 {extra_head}
@@ -1792,7 +1793,7 @@ def page_template(title, body, active="", extra_head="", path=""):
 <a class="skip-link" href="#main">Skip to content</a>
 <header class="masthead">
   <a class="mark" href="index.html"{brand_cur}>
-    <span class="mark-code" aria-hidden="true">CGE</span>
+    <svg class="mark-ticks" viewBox="0 0 30 22" aria-hidden="true"><path d="M2 21V15M8 21V11M14 21V7M20 21V3"/><path class="go" d="M26 21V0"/></svg>
     <span class="mark-name">{SITE_NAME}</span>
   </a>
   <nav class="site-nav" aria-label="Primary">{desktop_nav}</nav>
@@ -2611,46 +2612,26 @@ def build():
             f'<span class="route-name">Stage {_si + 1} · {esc(LESSON_STAGE_NAMES[_sid])}</span>'
             f'<span class="route-count" data-stage-count="{_sid}">0 of {_nstage} steps done</span>'
             f'</span></li>')
+    _board = ""
+    for _si, _sid in enumerate(_stage_order):
+        _n = len(_lessons_by_stage[_sid]); _fid = _lessons_by_stage[_sid][0]["id"]
+        _board += (
+            f'<li class="bl-stage" data-route-stage="{_sid}" style="--n:{_n}">'
+            f'<span class="bl-num">{_si + 1}</span>'
+            f'<span class="bl-name"><a href="career-path.html#lesson-{_fid}">{esc(LESSON_STAGE_NAMES[_sid])}</a></span>'
+            f'<span class="bl-out">{esc(STAGE_BLURBS[_sid])}</span>'
+            f'<span class="bl-track" aria-hidden="true"><span class="bl-fill" data-stage-fill="{_sid}"></span></span>'
+            f'<span class="bl-count" data-stage-count="{_sid}">0 of {_n} steps done</span>'
+            f'</li>')
     _path_data = json.dumps(_path_shape())
     index_body = f"""
 <div class="scroll-progress" aria-hidden="true"></div>
 <section class="cover" aria-labelledby="cover-title">
   <h1 class="cover-title" id="cover-title">Build a career <span class="line">from nothing<span class="dot">.</span></span></h1>
   <p class="cover-lede">You make videos. People watch.<br>In time, it turns into a job.</p>
-  <ol class="buildline" aria-label="The road in five stages">
-    <li class="bl-stage" data-route-stage="foundation" style="--n:5">
-      <span class="bl-track" aria-hidden="true"><span class="bl-fill" data-stage-fill="foundation"></span></span>
-      <span class="bl-num">1</span>
-      <span class="bl-name">Start From Nothing</span>
-      <span class="bl-count" data-stage-count="foundation">0 of 5 steps done</span>
-    </li>
-    <li class="bl-stage" data-route-stage="build" style="--n:5">
-      <span class="bl-track" aria-hidden="true"><span class="bl-fill" data-stage-fill="build"></span></span>
-      <span class="bl-num">2</span>
-      <span class="bl-name">Make Your Videos</span>
-      <span class="bl-count" data-stage-count="build">0 of 5 steps done</span>
-    </li>
-    <li class="bl-stage" data-route-stage="publish" style="--n:7">
-      <span class="bl-track" aria-hidden="true"><span class="bl-fill" data-stage-fill="publish"></span></span>
-      <span class="bl-num">3</span>
-      <span class="bl-name">Post and Keep Posting</span>
-      <span class="bl-count" data-stage-count="publish">0 of 7 steps done</span>
-    </li>
-    <li class="bl-stage" data-route-stage="growth" style="--n:4">
-      <span class="bl-track" aria-hidden="true"><span class="bl-fill" data-stage-fill="growth"></span></span>
-      <span class="bl-num">4</span>
-      <span class="bl-name">Grow Your People</span>
-      <span class="bl-count" data-stage-count="growth">0 of 4 steps done</span>
-    </li>
-    <li class="bl-stage" data-route-stage="career" style="--n:14">
-      <span class="bl-track" aria-hidden="true"><span class="bl-fill" data-stage-fill="career"></span></span>
-      <span class="bl-num">5</span>
-      <span class="bl-name">Turn It Into a Career</span>
-      <span class="bl-count" data-stage-count="career">0 of 14 steps done</span>
-    </li>
-  </ol>
+  <ol class="buildline" aria-label="The road in five stages">{_board}</ol>
   <p class="cover-place" id="route-place" aria-live="polite">You start at Stage 1.</p>
-  <p class="cover-act"><a class="btn-do" href="phase-0-start-from-nothing.html">Do this step <span aria-hidden="true">→</span></a></p>
+  <p class="cover-act"><a class="btn-do" id="cover-go" href="phase-0-start-from-nothing.html">Start step 1 <span aria-hidden="true">→</span></a></p>
 </section>
 <section class="first-steps" aria-labelledby="first-steps-title">
   <header class="fs-head">

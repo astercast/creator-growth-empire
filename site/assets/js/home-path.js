@@ -92,6 +92,22 @@
           ", " + stageNames[currentSid] + ".";
       }
     }
+    /* The hero button follows you: step one for a new visitor, your next step after that. */
+    var go = document.getElementById("cover-go");
+    var isl = document.getElementById("cge-path-data");
+    if (go && isl && go.firstChild) {
+      try {
+        var pd = JSON.parse(isl.textContent), nid = null;
+        for (var i = 0; i < pd.order.length; i++) { if (!set[pd.order[i]]) { nid = pd.order[i]; break; } }
+        if (nid) {
+          go.setAttribute("href", pd.steps[nid].h);
+          go.firstChild.nodeValue = (done.length ? "Next step " + pd.steps[nid].n : "Start step 1") + " ";
+        } else {
+          go.setAttribute("href", "what-changed.html");
+          go.firstChild.nodeValue = "See what changed ";
+        }
+      } catch (e) { /* the starting label stays */ }
+    }
     var total = data.order.length;
     if (progress) {
       if (done.length === 0) {
